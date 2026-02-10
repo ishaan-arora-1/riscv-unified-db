@@ -32,7 +32,7 @@ Extensions are defined in `spec/std/isa/ext/` (or `spec/custom/isa/ext/` for cus
 
 [source,yaml]
 ----
-# Copyright (c) Your Name
+# Copyright (c) Your Name or Organization
 # SPDX-License-Identifier: BSD-3-Clause-Clear
 
 # yaml-language-server: $schema=../../../schemas/ext_schema.json
@@ -58,29 +58,6 @@ versions:
 * `unprivileged` - User-mode extensions (e.g., Zba, Zbb)
 * `privileged` - Requires M-mode or S-mode (e.g., Smepmp, Sstvecv)
 
-=== Extension with Requirements
-
-Extensions can specify parameter requirements:
-
-[source,yaml]
-----
-$schema: "ext_schema.json#"
-kind: extension
-name: Sstvecv
-long_name: Vectored exception handling
-description: |
-  Requires stvec.MODE to support vectored interrupts.
-type: privileged
-versions:
-  - version: "1.0.0"
-    state: ratified
-    ratification_date: 2023-03
-requirements:
-  param:
-    name: STVEC_MODE_VECTORED
-    equal: true
-----
-
 == Instruction Definitions
 
 Instructions are defined in `spec/std/isa/inst/<Extension>/`.
@@ -89,7 +66,7 @@ Instructions are defined in `spec/std/isa/inst/<Extension>/`.
 
 [source,yaml]
 ----
-# Copyright (c) Your Name
+# Copyright (c) Your Name or Organization
 # SPDX-License-Identifier: BSD-3-Clause-Clear
 
 # yaml-language-server: $schema=../../../../schemas/inst_schema.json
@@ -178,7 +155,7 @@ CSRs are defined in `spec/std/isa/csr/` or subdirectories by extension.
 
 [source,yaml]
 ----
-# Copyright (c) Your Name
+# Copyright (c) Your Name or Organization
 # SPDX-License-Identifier: BSD-3-Clause-Clear
 
 # yaml-language-server: $schema=../../../schemas/csr_schema.json
@@ -292,7 +269,7 @@ Parameters are defined in `spec/std/isa/param/`.
 
 [source,yaml]
 ----
-# Copyright (c) Your Name
+# Copyright (c) Your Name or Organization
 # SPDX-License-Identifier: BSD-3-Clause-Clear
 
 # yaml-language-server: $schema=../../../schemas/param_schema.json
@@ -354,7 +331,7 @@ To validate manually:
 ./do validate
 
 # Or use pre-commit hooks
-pre-commit run --all-files
+pre-commit run check-jsonschema
 ----
 
 === Common Validation Errors
@@ -377,6 +354,6 @@ pre-commit run --all-files
 For more complete examples, see:
 
 * Extensions: `spec/std/isa/ext/Zicbom.yaml`, `spec/std/isa/ext/Zba.yaml`
-* Instructions: `spec/std/isa/inst/I/addi.yaml`, `spec/std/isa/inst/A/lr.w.yaml`
+* Instructions: `spec/std/isa/inst/I/addi.yaml`, `spec/std/isa/inst/Zalrsc/lr.w.yaml`
 * CSRs: `spec/std/isa/csr/mtvec.yaml`, `spec/std/isa/csr/mstatus.yaml`
 * Parameters: `spec/std/isa/param/CACHE_BLOCK_SIZE.yaml`
