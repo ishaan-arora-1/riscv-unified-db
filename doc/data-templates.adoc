@@ -327,10 +327,6 @@ To validate manually:
 
 [source,bash]
 ----
-# Run all validation
-./do validate
-
-# Or use pre-commit hooks
 pre-commit run check-jsonschema
 ----
 
