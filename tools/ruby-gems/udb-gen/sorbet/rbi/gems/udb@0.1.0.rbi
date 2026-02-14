@@ -2085,85 +2085,12 @@ class Udb::CertNormativeRule
   def id; end
 end
 
-# source://udb//../../udb/lib/udb/cert_test_procedure.rb#11
-class Udb::CertTestProcedure
-  # source://udb//../../udb/lib/udb/cert_test_procedure.rb#33
-  sig do
-    params(
-      data: T::Hash[::String, T.untyped],
-      db_obj: T.any(::Udb::Csr, ::Udb::CsrField, ::Udb::Extension, ::Udb::Instruction)
-    ).void
-  end
-  def initialize(data, db_obj); end
-
-  # @return [Array<CertNormativeRule>]
-  #
-  # source://udb//../../udb/lib/udb/cert_test_procedure.rb#48
-  def cert_normative_rules; end
-
-  # @return [String] String (likely multiline) of certification test procedure steps using Asciidoc lists
-  #
-  # source://udb//../../udb/lib/udb/cert_test_procedure.rb#61
-  def cert_steps; end
-
-  # Description of test procedure (could be multiple lines).
-  #
-  # source://udb//../../udb/lib/udb/cert_test_procedure.rb#20
-  sig { returns(::String) }
-  def description; end
-
-  # source://udb//../../udb/lib/udb/cert_test_procedure.rb#16
-  sig { returns(::String) }
-  def id; end
-
-  # What kind of database object is this?
-  #
-  # source://udb//../../udb/lib/udb/cert_test_procedure.rb#24
-  sig { returns(::String) }
-  def kind; end
-
-  # Name of test file that implements this test procedure. Could be nil.
-  #
-  # source://udb//../../udb/lib/udb/cert_test_procedure.rb#28
-  sig { returns(T.nilable(::String)) }
-  def test_file_name; end
-end
-
 # source://udb//../../udb/lib/udb/obj/certifiable_obj.rb#10
 module Udb::CertifiableObject
-  # @param id [String] Unique ID for the normative rule
-  # @return [CertNormativeRule]
-  # @return [nil] if there is no certification normative ruleed with ID of +id+
-  #
-  # source://udb//../../udb/lib/udb/obj/certifiable_obj.rb#36
-  def cert_coverage_point(id); end
-
-  # @return [Hash<String, CertNormativeRule>] Hash with ID as key of all normative rules defined by database object
-  #
-  # source://udb//../../udb/lib/udb/obj/certifiable_obj.rb#23
-  def cert_coverage_point_hash; end
-
   # @return [Array<CertNormativeRule>]
   #
   # source://udb//../../udb/lib/udb/obj/certifiable_obj.rb#12
   def cert_normative_rules; end
-
-  # @param id [String] Unique ID for test procedure
-  # @return [CertTestProcedure]
-  # @return [nil] if there is no certification test procedure with ID +id+
-  #
-  # source://udb//../../udb/lib/udb/obj/certifiable_obj.rb#65
-  def cert_test_procedure(id); end
-
-  # @return [Hash<String, CertTestProcedure>] Hash of all normative rules defined by database object
-  #
-  # source://udb//../../udb/lib/udb/obj/certifiable_obj.rb#52
-  def cert_test_procedure_hash; end
-
-  # @return [Array<CertTestProcedure>]
-  #
-  # source://udb//../../udb/lib/udb/obj/certifiable_obj.rb#41
-  def cert_test_procedures; end
 end
 
 # source://udb//../../udb/lib/udb/obj/exception_code.rb#13
@@ -8053,11 +7980,10 @@ class Udb::Resolver
       gen_path_override: T.nilable(::Pathname),
       std_path_override: T.nilable(::Pathname),
       custom_path_override: T.nilable(::Pathname),
-      python_path_override: T.nilable(::Pathname),
       quiet: T::Boolean
     ).void
   end
-  def initialize(repo_root = T.unsafe(nil), schemas_path_override: T.unsafe(nil), cfgs_path_override: T.unsafe(nil), gen_path_override: T.unsafe(nil), std_path_override: T.unsafe(nil), custom_path_override: T.unsafe(nil), python_path_override: T.unsafe(nil), quiet: T.unsafe(nil)); end
+  def initialize(repo_root = T.unsafe(nil), schemas_path_override: T.unsafe(nil), cfgs_path_override: T.unsafe(nil), gen_path_override: T.unsafe(nil), std_path_override: T.unsafe(nil), custom_path_override: T.unsafe(nil), quiet: T.unsafe(nil)); end
 
   # returns true if either +target+ does not exist, or if any of +deps+ are newer than +target+
   #
@@ -8102,12 +8028,6 @@ class Udb::Resolver
   # source://udb//../../udb/lib/udb/resolver.rb#105
   sig { params(cfg_path_or_name: T.any(::Pathname, ::String)).returns(::Pathname) }
   def merged_spec_path(cfg_path_or_name); end
-
-  # path to a python binary
-  #
-  # source://udb//../../udb/lib/udb/resolver.rb#117
-  sig { returns(::Pathname) }
-  def python_path; end
 
   # source://udb//../../udb/lib/udb/resolver.rb#248
   sig { params(config_yaml: T::Hash[::String, T.untyped]).void }

@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Get container tag
       run: |
         TAG=$(cat bin/.container-tag)
@@ -33,17 +33,17 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f
     - name: Build and export
-      uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
+      uses: docker/build-push-action@601a80b39c9405e50806ae38af30926f9d957c47
       with:
         push: false
         file: "./.devcontainer/Dockerfile"
         platforms: linux/amd64
-        tags: riscvintl/udb:${{ env.TAG }}
+        tags: ghcr.io/riscv/udb:${{ env.TAG }}
         outputs: type=docker,dest=${{ runner.temp }}/docker_image.tar
         cache-from: type=gha
         cache-to: type=gha,mode=max
     - name: Upload container
-      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: docker_image
         path: "${{ runner.temp }}/docker_image.tar"
@@ -52,7 +52,7 @@ jobs:
     if: 'false'
     steps:
     - name: Use download-artifact
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
   regress-pre-commit:
     runs-on: ubuntu-latest
     steps:
@@ -68,9 +68,9 @@ jobs:
     - build-llvm
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -81,7 +81,7 @@ jobs:
       run: echo "LLVM_SHA=$(git ls-tree HEAD ext/llvm-project | awk '{print $3}')" >> $GITHUB_ENV
     - name: Restore cache RISC-V JSON
       id: cache-riscv
-      uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+      uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306
       with:
         path: ext/llvm-project/riscv.json
         key: "${{ runner.os }}-riscv-json-${{ env.LLVM_SHA }}"
@@ -99,9 +99,9 @@ jobs:
         ruby-version: '3.2'
     - name: Find configuration files
       id: configs
-      run: >
-        ruby -e "puts 'configs=[\"' + Dir.glob('cfgs/*.yaml').map { |f| File.basename(f, '.yaml') }.join('\",
-        \"') + '\"]'" >> "$GITHUB_OUTPUT"
+      run: 'ruby -e "puts ''configs=[\"'' + Dir.glob(''cfgs/*.yaml'').map { |f| File.basename(f, ''.yaml'') }.join(''\", \"'') + ''\"]''" >> "$GITHUB_OUTPUT"
+
+        '
   regress-udb-cov-report:
     runs-on: ubuntu-latest
     needs:
@@ -109,16 +109,16 @@ jobs:
     - regress-udb-unit-test
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
     - name: Load image
       run: docker load --input ${{ runner.temp }}/docker_image.tar
     - name: download coverage
-      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         pattern: udb-*-cov
         path: _cov/udb
@@ -137,7 +137,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository (no submodules, shallow fetch)
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       with:
         submodules: false
         fetch-depth: 1
@@ -146,7 +146,7 @@ jobs:
       run: echo "LLVM_SHA=$(git ls-tree HEAD ext/llvm-project | awk '{print $3}')" >> $GITHUB_ENV
     - name: Cache RISC-V JSON
       id: cache-riscv
-      uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+      uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306
       with:
         path: ext/llvm-project/riscv.json
         key: "${{ runner.os }}-riscv-json-${{ env.LLVM_SHA }}"
@@ -180,7 +180,7 @@ jobs:
     - name: Show riscv.json output
       run: ls -l ext/llvm-project/riscv.json
     - name: Upload RISC-V JSON as Artifact
-      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: riscv-json
         path: ext/llvm-project/riscv.json
@@ -197,7 +197,7 @@ jobs:
     steps:
     - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
     - name: Setup Temurin JDK 21
-      uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9
+      uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654
       with:
         distribution: temurin
         java-version: '21'
@@ -205,12 +205,11 @@ jobs:
     - name: Build & test (whole reactor)
       working-directory: tools/eclipse/dev/org.xtext.udb.parent
       env:
-        MAVEN_OPTS: >-
-          -Djdk.xml.maxGeneralEntitySizeLimit=0 -Djdk.xml.totalEntitySizeLimit=0 -Djdk.xml.entityExpansionLimit=0
+        MAVEN_OPTS: "-Djdk.xml.maxGeneralEntitySizeLimit=0 -Djdk.xml.totalEntitySizeLimit=0 -Djdk.xml.entityExpansionLimit=0"
       run: mvn -B -U -Dheadless=true verify
     - name: Archive surefire reports (always)
       if: always()
-      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: surefire-reports
         path: |
@@ -231,7 +230,7 @@ jobs:
         cache: npm
         cache-dependency-path: tools/eclipse/udb-vscode/package-lock.json
     - name: Setup Temurin JDK 21 (for LS)
-      uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9
+      uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654
       with:
         distribution: temurin
         java-version: '21'
@@ -243,7 +242,7 @@ jobs:
       run: xvfb-run -a npm test
     - name: Archive VS Code test logs (always)
       if: always()
-      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: vscode-test-logs
         path: |
@@ -254,9 +253,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -276,9 +275,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -291,9 +290,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -306,9 +305,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -321,9 +320,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -342,9 +341,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -357,9 +356,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -376,9 +375,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -393,9 +392,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -408,9 +407,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -423,9 +422,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -438,9 +437,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -453,9 +452,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -466,10 +465,9 @@ jobs:
     - name: Update ownership of coverage files
       run: sudo chown -R $USER:$USER tools/ruby-gems/udb/coverage
     - name: Rename coverage file
-      run: >-
-        mv tools/ruby-gems/udb/coverage/.resultset.json tools/ruby-gems/udb/coverage/${{ matrix.test }}.resultset.json
+      run: mv tools/ruby-gems/udb/coverage/.resultset.json tools/ruby-gems/udb/coverage/${{ matrix.test }}.resultset.json
     - name: Save coverage report
-      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: udb-${{ matrix.test }}-cov
         path: tools/ruby-gems/udb/coverage/${{ matrix.test }}.resultset.json
@@ -487,9 +485,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -502,9 +500,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -517,9 +515,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -532,9 +530,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -547,9 +545,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -564,9 +562,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -581,9 +579,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -596,9 +594,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -611,9 +609,9 @@ jobs:
     needs: build-container
     steps:
     - name: Clone Github Repo Action
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
     - name: Download docker image
-      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: docker_image
         path: "${{ runner.temp }}"
@@ -654,6 +652,11 @@ jobs:
     - call-deploy
     - java-tests
     - vscode-tests
+    if: "${{ always() }}"
     steps:
+    - name: exit failure
+      if: "${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}"
+      run: exit 1
     - name: exit success
+      if: "${{ !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}"
       run: exit 0
