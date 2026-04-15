@@ -1,0 +1,54 @@
+{
+  "chunk_id": "chunk_012",
+  "source_file": "f-st-ext.adoc",
+  "start_line": 1,
+  "end_line": 524,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The behavior of floating-point instructions that depend on rounding mode when executed with a reserved rounding mode is _reserved_, including both static reserved rounding modes (101-110) and dynamic reserved rounding modes (101-111).",
+      "line_number": 119,
+      "parameter_name": "TRAP_ON_RESERVED_ROUNDING_MODE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "medium",
+      "reasoning": "The spec says the behavior is 'reserved' when using reserved rounding modes. This means implementations may choose to trap (illegal instruction) or handle it in some other way. The parameter is whether to trap on reserved rounding modes."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The F extension adds 32 floating-point registers, `f0-f31`, each 32 bits wide",
+      "line_number": 12,
+      "reason": "This is a fixed requirement of the F extension - all implementations must provide exactly 32 floating-point registers of 32 bits each. No implementation choice."
+    },
+    {
+      "excerpt": "The floating-point control and status register, `fcsr`, is a RISC-V control and status register (CSR). It is a 32-bit read/write register",
+      "line_number": 75,
+      "reason": "This describes the fixed structure of the fcsr register - it must be 32 bits and read/write. No implementation choice in the basic structure."
+    },
+    {
+      "excerpt": "FADD.S and FMUL.S perform single-precision floating-point addition and multiplication respectively, between _rs1_ and _rs2_",
+      "line_number": 217,
+      "reason": "This describes the fixed behavior of specific instructions. All implementations must perform addition and multiplication as specified - no choice involved."
+    },
+    {
+      "excerpt": "If both inputs are NaNs, the result is the canonical NaN",
+      "line_number": 235,
+      "reason": "This is a fixed requirement for FMIN.S/FMAX.S behavior when both inputs are NaN. All implementations must return the canonical NaN in this case."
+    },
+    {
+      "excerpt": "Except when otherwise stated, if the result of a floating-point operation is NaN, it is the canonical NaN",
+      "line_number": 155,
+      "reason": "This is a fixed requirement - implementations must return the canonical NaN pattern (0x7fc00000) when generating NaN results. The NOTE mentions implementers can provide non-standard NaN propagation as an extension, but the canonical scheme is mandatory."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The behavior of floating-point instructions that depend on rounding mode when executed with a reserved rounding mode is _reserved_, including both static reserved rounding modes (101-110) and dynamic reserved rounding modes (101-111).\",\n      \"line_number\": 119,\n      \"parameter_name\": \"TRAP_ON_RESERVED_ROUNDING_MODE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The spec says the behavior is 'reserved' when using reserved rounding modes. This means implementations may choose to trap (illegal instruction) or handle it in some other way. The parameter is whether to trap on reserved rounding modes.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The F extension adds 32 floating-point registers, `f0-f31`, each 32 bits wide\",\n      \"line_number\": 12,\n      \"reason\": \"This is a fixed requirement of the F extension - all implementations must provide exactly 32 floating-point registers of 32 bits each. No implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The floating-point control and status register, `fcsr`, is a RISC-V control and status register (CSR). It is a 32-bit read/write register\",\n      \"line_number\": 75,\n      \"reason\": \"This describes the fixed structure of the fcsr register - it must be 32 bits and read/write. No implementation choice in the basic structure.\"\n    },\n    {\n      \"excerpt\": \"FADD.S and FMUL.S perform single-precision floating-point addition and multiplication respectively, between _rs1_ and _rs2_\",\n      \"line_number\": 217,\n      \"reason\": \"This describes the fixed behavior of specific instructions. All implementations must perform addition and multiplication as specified - no choice involved.\"\n    },\n    {\n      \"excerpt\": \"If both inputs are NaNs, the result is the canonical NaN\",\n      \"line_number\": 235,\n      \"reason\": \"This is a fixed requirement for FMIN.S/FMAX.S behavior when both inputs are NaN. All implementations must return the canonical NaN in this case.\"\n    },\n    {\n      \"excerpt\": \"Except when otherwise stated, if the result of a floating-point operation is NaN, it is the canonical NaN\",\n      \"line_number\": 155,\n      \"reason\": \"This is a fixed requirement - implementations must return the canonical NaN pattern (0x7fc00000) when generating NaN results. The NOTE mentions implementers can provide non-standard NaN propagation as an extension, but the canonical scheme is mandatory.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 14929,
+  "output_tokens": 683,
+  "latency_ms": 15224,
+  "timestamp": "2026-04-15T15:45:54.715880+00:00",
+  "error": null,
+  "retry_count": 0
+}

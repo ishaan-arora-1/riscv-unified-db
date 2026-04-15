@@ -1,0 +1,94 @@
+{
+  "chunk_id": "chunk_020",
+  "source_file": "machine.adoc",
+  "start_line": 3305,
+  "end_line": 3629,
+  "content_start_line": 3335,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Implementations may implement zero, 16, or 64 PMP entries; the lowest-numbered PMP entries must be implemented first.",
+      "line_number": 3340,
+      "parameter_name": "NUM_PMP_ENTRIES",
+      "existing_udb_name": "NUM_PMP_ENTRIES",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "The number of PMP entries is a direct implementation choice with exactly three allowed values: 0, 16, or 64. This is not controlled by any CSR field."
+    },
+    {
+      "excerpt": "All PMP CSR fields are WARL and may be read-only zero.",
+      "line_number": 3341,
+      "parameter_name": "PMP_CSR_FIELDS_RW",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "bitmask",
+      "confidence": "high",
+      "reasoning": "Whether PMP CSR fields are read-only zero or writable is an implementation choice. This controls the read-write nature of the WARL fields."
+    },
+    {
+      "excerpt": "Not all physical address bits may be implemented, and so the pmpaddr registers are WARL.",
+      "line_number": 3370,
+      "parameter_name": "PMPADDR_WARL_MASK",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "bitmask",
+      "confidence": "high",
+      "reasoning": "The pmpaddr registers are WARL, meaning implementations can choose which physical address bits are implemented. The parameter is the set of legal values for these WARL registers."
+    },
+    {
+      "excerpt": "The R, W, and X fields form a collective WARL field for which the combinations with R=0 and W=1 are reserved.",
+      "line_number": 3384,
+      "parameter_name": "PMP_RWX_WARL_VALUES",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "set",
+      "confidence": "high",
+      "reasoning": "The R/W/X fields form a collective WARL field. While some combinations are reserved, implementations may choose which of the remaining legal combinations are supported."
+    },
+    {
+      "excerpt": "Although the PMP mechanism supports regions as small as four bytes, platforms may specify coarser PMP regions. In general, the PMP grain is 2^G+2^ bytes and must be the same across all PMP regions.",
+      "line_number": 3470,
+      "parameter_name": "PMP_GRANULARITY",
+      "existing_udb_name": "PMP_GRANULARITY",
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "confidence": "high",
+      "reasoning": "The PMP granularity (G parameter) is a platform-specific implementation choice that determines the minimum region size. It must be consistent across all PMP regions but is chosen by the implementer."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Platforms vary widely in demands for physical memory protection, and some platforms may provide other PMP structures in addition to or instead of the scheme described in this section.",
+      "line_number": 3315,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. Do not extract parameters from NOTE blocks."
+    },
+    {
+      "excerpt": "PMP checks are applied to all accesses whose effective privilege mode is S or U",
+      "line_number": 3320,
+      "reason": "This describes fixed behavioral requirements that apply to all implementations, not an implementation choice."
+    },
+    {
+      "excerpt": "When A=0, this PMP entry is disabled and matches no addresses.",
+      "line_number": 3420,
+      "reason": "This describes what happens when a CSR field has a specific value (A=0). The behavior is determined by the field value at runtime, not by an implementation choice."
+    },
+    {
+      "excerpt": "Software may determine the PMP granularity by writing zero to pmp0cfg, then writing all ones to pmpaddr0, then reading back pmpaddr0.",
+      "line_number": 3481,
+      "reason": "Here 'may' means 'is allowed to' (permission for software), not 'might or might not' (implementation optionality). This describes a software technique."
+    },
+    {
+      "excerpt": "PMP entries are statically prioritized. The lowest-numbered PMP entry that matches any byte of a memory operation determines whether that operation succeeds or fails.",
+      "line_number": 3510,
+      "reason": "This describes fixed algorithmic behavior that all implementations must follow, not an implementation choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Implementations may implement zero, 16, or 64 PMP entries; the lowest-numbered PMP entries must be implemented first.\",\n      \"line_number\": 3340,\n      \"parameter_name\": \"NUM_PMP_ENTRIES\",\n      \"existing_udb_name\": \"NUM_PMP_ENTRIES\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of PMP entries is a direct implementation choice with exactly three allowed values: 0, 16, or 64. This is not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"All PMP CSR fields are WARL and may be read-only zero.\",\n      \"line_number\": 3341,\n      \"parameter_name\": \"PMP_CSR_FIELDS_RW\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether PMP CSR fields are read-only zero or writable is an implementation choice. This controls the read-write nature of the WARL fields.\"\n    },\n    {\n      \"excerpt\": \"Not all physical address bits may be implemented, and so the pmpaddr registers are WARL.\",\n      \"line_number\": 3370,\n      \"parameter_name\": \"PMPADDR_WARL_MASK\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"bitmask\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The pmpaddr registers are WARL, meaning implementations can choose which physical address bits are implemented. The parameter is the set of legal values for these WARL registers.\"\n    },\n    {\n      \"excerpt\": \"The R, W, and X fields form a collective WARL field for which the combinations with R=0 and W=1 are reserved.\",\n      \"line_number\": 3384,\n      \"parameter_name\": \"PMP_RWX_WARL_VALUES\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The R/W/X fields form a collective WARL field. While some combinations are reserved, implementations may choose which of the remaining legal combinations are supported.\"\n    },\n    {\n      \"excerpt\": \"Although the PMP mechanism supports regions as small as four bytes, platforms may specify coarser PMP regions. In general, the PMP grain is 2^G+2^ bytes and must be the same across all PMP regions.\",\n      \"line_number\": 3470,\n      \"parameter_name\": \"PMP_GRANULARITY\",\n      \"existing_udb_name\": \"PMP_GRANULARITY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The PMP granularity (G parameter) is a platform-specific implementation choice that determines the minimum region size. It must be consistent across all PMP regions but is chosen by the implementer.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Platforms vary widely in demands for physical memory protection, and some platforms may provide other PMP structures in addition to or instead of the scheme described in this section.\",\n      \"line_number\": 3315,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. Do not extract parameters from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"PMP checks are applied to all accesses whose effective privilege mode is S or U\",\n      \"line_number\": 3320,\n      \"reason\": \"This describes fixed behavioral requirements that apply to all implementations, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"When A=0, this PMP entry is disabled and matches no addresses.\",\n      \"line_number\": 3420,\n      \"reason\": \"This describes what happens when a CSR field has a specific value (A=0). The behavior is determined by the field value at runtime, not by an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"Software may determine the PMP granularity by writing zero to pmp0cfg, then writing all ones to pmpaddr0, then reading back pmpaddr0.\",\n      \"line_number\": 3481,\n      \"reason\": \"Here 'may' means 'is allowed to' (permission for software), not 'might or might not' (implementation optionality). This describes a software technique.\"\n    },\n    {\n      \"excerpt\": \"PMP entries are statically prioritized. The lowest-numbered PMP entry that matches any byte of a memory operation determines whether that operation succeeds or fails.\",\n      \"line_number\": 3510,\n      \"reason\": \"This describes fixed algorithmic behavior that all implementations must follow, not an implementation choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11382,
+  "output_tokens": 1252,
+  "latency_ms": 19611,
+  "timestamp": "2026-04-15T15:55:38.568170+00:00",
+  "error": null,
+  "retry_count": 0
+}

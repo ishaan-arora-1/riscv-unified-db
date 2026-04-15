@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_072",
+  "source_file": "zifencei.adoc",
+  "start_line": 1,
+  "end_line": 129,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "We considered but did not include a \"store instruction word\" instruction as in cite:[majc]. JIT compilers may generate a large trace of instructions before a single FENCE.I, and amortize any instruction cache snooping/invalidation overhead by writing translated instructions to memory regions that are known not to reside in the I-cache.",
+      "line_number": 11,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. It describes design rationale, not an architectural parameter."
+    },
+    {
+      "excerpt": "The FENCE.I instruction was designed to support a wide variety of implementations. A simple implementation can flush the local instruction cache and the instruction pipeline when the FENCE.I is executed.",
+      "line_number": 20,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. It describes possible implementation strategies but does not define any required implementation choices."
+    },
+    {
+      "excerpt": "A FENCE.I instruction orders all explicit memory accesses that precede the FENCE.I in program order before all instruction fetches that follow the FENCE.I in program order.",
+      "line_number": 70,
+      "reason": "This describes the required behavior of FENCE.I that all implementations must provide. It is a fixed requirement ('orders'), not an implementation choice."
+    },
+    {
+      "excerpt": "For forward compatibility, base implementations shall ignore these fields, and standard software shall zero these fields.",
+      "line_number": 103,
+      "reason": "This is a fixed requirement ('shall ignore') that all implementations must follow. There is no implementation choice here."
+    },
+    {
+      "excerpt": "Because FENCE.I only orders stores with a hart's own instruction fetches, application code should only rely upon FENCE.I if the application thread will not be migrated to a different hart.",
+      "line_number": 108,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. It provides guidance to software developers, not architectural parameters."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"We considered but did not include a \\\"store instruction word\\\" instruction as in cite:[majc]. JIT compilers may generate a large trace of instructions before a single FENCE.I, and amortize any instruction cache snooping/invalidation overhead by writing translated instructions to memory regions that are known not to reside in the I-cache.\",\n      \"line_number\": 11,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. It describes design rationale, not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"The FENCE.I instruction was designed to support a wide variety of implementations. A simple implementation can flush the local instruction cache and the instruction pipeline when the FENCE.I is executed.\",\n      \"line_number\": 20,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. It describes possible implementation strategies but does not define any required implementation choices.\"\n    },\n    {\n      \"excerpt\": \"A FENCE.I instruction orders all explicit memory accesses that precede the FENCE.I in program order before all instruction fetches that follow the FENCE.I in program order.\",\n      \"line_number\": 70,\n      \"reason\": \"This describes the required behavior of FENCE.I that all implementations must provide. It is a fixed requirement ('orders'), not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"For forward compatibility, base implementations shall ignore these fields, and standard software shall zero these fields.\",\n      \"line_number\": 103,\n      \"reason\": \"This is a fixed requirement ('shall ignore') that all implementations must follow. There is no implementation choice here.\"\n    },\n    {\n      \"excerpt\": \"Because FENCE.I only orders stores with a hart's own instruction fetches, application code should only rely upon FENCE.I if the application thread will not be migrated to a different hart.\",\n      \"line_number\": 108,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. It provides guidance to software developers, not architectural parameters.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 8900,
+  "output_tokens": 519,
+  "latency_ms": 8876,
+  "timestamp": "2026-04-15T16:35:07.885193+00:00",
+  "error": null,
+  "retry_count": 0
+}

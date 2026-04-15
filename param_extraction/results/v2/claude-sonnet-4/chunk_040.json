@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_040",
+  "source_file": "rv32e.adoc",
+  "start_line": 1,
+  "end_line": 47,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "RV32E was designed to provide an even smaller base core for embedded microcontrollers. There is also interest in RV64E for microcontrollers within large SoC designs, and to reduce context state for highly threaded 64-bit processors.",
+      "line_number": 11,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. It provides background information but does not define any implementation choices."
+    },
+    {
+      "excerpt": "We have found that in the small RV32I core implementations, the upper 16 registers consume around one quarter of the total area of the core excluding memories, thus their removal saves around 25% core area with a corresponding core power reduction.",
+      "line_number": 25,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. It provides implementation rationale but does not define any architectural parameters."
+    },
+    {
+      "excerpt": "RV32E and RV64E use the same instruction-set encoding as RV32I and RV64I respectively, except that only registers `x0-x15` are provided.",
+      "line_number": 34,
+      "reason": "This is a fixed requirement that defines RV32E/RV64E - all implementations must provide exactly 16 registers (x0-x15). There is no implementation choice here."
+    },
+    {
+      "excerpt": "All encodings specifying the other registers `x16-x31` are reserved.",
+      "line_number": 35,
+      "reason": "This is a fixed requirement - all implementations must treat x16-x31 encodings as reserved. There is no implementation choice about this behavior."
+    },
+    {
+      "excerpt": "The previous draft of this chapter made all encodings using the `x16-x31` registers available as custom. This version takes a more conservative approach, making these reserved so that they can be allocated between custom space or new standard encodings at a later date.",
+      "line_number": 39,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. It explains the rationale for the current approach but does not define any implementation parameters."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"RV32E was designed to provide an even smaller base core for embedded microcontrollers. There is also interest in RV64E for microcontrollers within large SoC designs, and to reduce context state for highly threaded 64-bit processors.\",\n      \"line_number\": 11,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. It provides background information but does not define any implementation choices.\"\n    },\n    {\n      \"excerpt\": \"We have found that in the small RV32I core implementations, the upper 16 registers consume around one quarter of the total area of the core excluding memories, thus their removal saves around 25% core area with a corresponding core power reduction.\",\n      \"line_number\": 25,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. It provides implementation rationale but does not define any architectural parameters.\"\n    },\n    {\n      \"excerpt\": \"RV32E and RV64E use the same instruction-set encoding as RV32I and RV64I respectively, except that only registers `x0-x15` are provided.\",\n      \"line_number\": 34,\n      \"reason\": \"This is a fixed requirement that defines RV32E/RV64E - all implementations must provide exactly 16 registers (x0-x15). There is no implementation choice here.\"\n    },\n    {\n      \"excerpt\": \"All encodings specifying the other registers `x16-x31` are reserved.\",\n      \"line_number\": 35,\n      \"reason\": \"This is a fixed requirement - all implementations must treat x16-x31 encodings as reserved. There is no implementation choice about this behavior.\"\n    },\n    {\n      \"excerpt\": \"The previous draft of this chapter made all encodings using the `x16-x31` registers available as custom. This version takes a more conservative approach, making these reserved so that they can be allocated between custom space or new standard encodings at a later date.\",\n      \"line_number\": 39,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. It explains the rationale for the current approach but does not define any implementation parameters.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 7984,
+  "output_tokens": 555,
+  "latency_ms": 7828,
+  "timestamp": "2026-04-15T16:03:38.429298+00:00",
+  "error": null,
+  "retry_count": 0
+}

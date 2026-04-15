@@ -1,0 +1,329 @@
+{
+  "chunk_id": "chunk_043",
+  "source_file": "scalar-crypto.adoc",
+  "start_line": 1,
+  "end_line": 3448,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1006,
+      "parameter_name": "AES32DSI_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1044,
+      "parameter_name": "AES32DSMI_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1081,
+      "parameter_name": "AES32ESI_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1119,
+      "parameter_name": "AES32ESMI_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1157,
+      "parameter_name": "AES64DS_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1197,
+      "parameter_name": "AES64DSM_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1237,
+      "parameter_name": "AES64ES_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1277,
+      "parameter_name": "AES64ESM_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1320,
+      "parameter_name": "AES64IM_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1361,
+      "parameter_name": "AES64KS1I_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1407,
+      "parameter_name": "AES64KS2_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1936,
+      "parameter_name": "SHA256SIG0_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 1982,
+      "parameter_name": "SHA256SIG1_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2028,
+      "parameter_name": "SHA256SUM0_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2074,
+      "parameter_name": "SHA256SUM1_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2119,
+      "parameter_name": "SHA512SIG0H_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2169,
+      "parameter_name": "SHA512SIG0L_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2219,
+      "parameter_name": "SHA512SIG1H_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2269,
+      "parameter_name": "SHA512SIG1L_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2318,
+      "parameter_name": "SHA512SUM0R_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2367,
+      "parameter_name": "SHA512SUM1R_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2410,
+      "parameter_name": "SHA512SIG0_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2450,
+      "parameter_name": "SHA512SIG1_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2490,
+      "parameter_name": "SHA512SUM0_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2530,
+      "parameter_name": "SHA512SUM1_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2574,
+      "parameter_name": "SM3P0_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2618,
+      "parameter_name": "SM3P1_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2667,
+      "parameter_name": "SM4ED_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 2717,
+      "parameter_name": "SM4KS_CONSTANT_TIME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Detection of individual cryptography extensions uses the unified software-based RISC-V discovery method.",
+      "line_number": 179,
+      "reason": "This describes a software discovery mechanism, not an implementation-defined architectural parameter."
+    },
+    {
+      "excerpt": "When MODE=Direct, all traps into machine mode cause the `pc` to be set to the address in the BASE field.",
+      "line_number": 1254,
+      "reason": "This describes behavioral consequences of a CSR field value at runtime, not an implementation choice about which values are supported."
+    },
+    {
+      "excerpt": "The extension will be designed to support _existing_ standardised cryptographic constructs well.",
+      "line_number": 135,
+      "reason": "This is a design policy statement, not an implementation-defined parameter that varies between implementations."
+    },
+    {
+      "excerpt": "A core which implements `Zkn` must implement all of the above extensions.",
+      "line_number": 349,
+      "reason": "This is a fixed requirement that all implementations of Zkn must satisfy - there is no implementation choice here."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1006,\n      \"parameter_name\": \"AES32DSI_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1044,\n      \"parameter_name\": \"AES32DSMI_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1081,\n      \"parameter_name\": \"AES32ESI_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1119,\n      \"parameter_name\": \"AES32ESMI_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1157,\n      \"parameter_name\": \"AES64DS_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1197,\n      \"parameter_name\": \"AES64DSM_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1237,\n      \"parameter_name\": \"AES64ES_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1277,\n      \"parameter_name\": \"AES64ESM_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1320,\n      \"parameter_name\": \"AES64IM_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1361,\n      \"parameter_name\": \"AES64KS1I_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1407,\n      \"parameter_name\": \"AES64KS2_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1936,\n      \"parameter_name\": \"SHA256SIG0_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 1982,\n      \"parameter_name\": \"SHA256SIG1_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2028,\n      \"parameter_name\": \"SHA256SUM0_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2074,\n      \"parameter_name\": \"SHA256SUM1_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2119,\n      \"parameter_name\": \"SHA512SIG0H_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2169,\n      \"parameter_name\": \"SHA512SIG0L_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2219,\n      \"parameter_name\": \"SHA512SIG1H_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2269,\n      \"parameter_name\": \"SHA512SIG1L_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2318,\n      \"parameter_name\": \"SHA512SUM0R_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2367,\n      \"parameter_name\": \"SHA512SUM1R_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2410,\n      \"parameter_name\": \"SHA512SIG0_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2450,\n      \"parameter_name\": \"SHA512SIG1_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2490,\n      \"parameter_name\": \"SHA512SUM0_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2530,\n      \"parameter_name\": \"SHA512SUM1_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2574,\n      \"parameter_name\": \"SM3P0_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2618,\n      \"parameter_name\": \"SM3P1_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2667,\n      \"parameter_name\": \"SM4ED_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 2717,\n      \"parameter_name\": \"SM4KS_CONSTANT_TIME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation must choose whether to guarantee constant-time execution for this instruction. This is a design-time choice about timing behavior, not controlled by any CSR field.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Detection of individual cryptography extensions uses the unified software-based RISC-V discovery method.\",\n      \"line_number\": 179,\n      \"reason\": \"This describes a software discovery mechanism, not an implementation-defined architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"When MODE=Direct, all traps into machine mode cause the `pc` to be set to the address in the BASE field.\",\n      \"line_number\": 1254,\n      \"reason\": \"This describes behavioral consequences of a CSR field value at runtime, not an implementation choice about which values are supported.\"\n    },\n    {\n      \"excerpt\": \"The extension will be designed to support _existing_ standardised cryptographic constructs well.\",\n      \"line_number\": 135,\n      \"reason\": \"This is a design policy statement, not an implementation-defined parameter that varies between implementations.\"\n    },\n    {\n      \"excerpt\": \"A core which implements `Zkn` must implement all of the above extensions.\",\n      \"line_number\": 349,\n      \"reason\": \"This is a fixed requirement that all implementations of Zkn must satisfy - there is no implementation choice here.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 36897,
+  "output_tokens": 4603,
+  "latency_ms": 45106,
+  "timestamp": "2026-04-15T16:07:04.830668+00:00",
+  "error": null,
+  "retry_count": 0
+}

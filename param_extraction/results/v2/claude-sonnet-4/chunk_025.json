@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_025",
+  "source_file": "naming.adoc",
+  "start_line": 1,
+  "end_line": 222,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The RISC-V ISA is designed to support a wide variety of implementations with various experimental instruction-set extensions. We have found that an organized naming scheme simplifies software tools and documentation.",
+      "line_number": 9,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. It provides background information but does not define any implementation choices."
+    },
+    {
+      "excerpt": "The ISA naming strings are case insensitive.",
+      "line_number": 16,
+      "reason": "This is a fixed requirement that applies to all implementations. There is no implementation choice here - all implementations must treat ISA naming strings as case insensitive."
+    },
+    {
+      "excerpt": "RISC-V ISA strings begin with either RV32I, RV32E, RV64I, or RV64E, indicating the supported address space size in bits for the base integer ISA.",
+      "line_number": 20,
+      "reason": "This describes the format of ISA naming strings, not an implementation parameter. The choice of which base ISA to implement (RV32I vs RV64I etc.) is covered by other parameters like MXLEN."
+    },
+    {
+      "excerpt": "Standard ISA extensions are given a name consisting of a single letter.",
+      "line_number": 25,
+      "reason": "This describes the naming convention for extensions, not an implementation choice. It's a specification rule about how extensions are named, not a parameter that implementers choose."
+    },
+    {
+      "excerpt": "Some ISA extensions depend on the presence of other extensions, e.g., \"D\" depends on \"F\" and \"F\" depends on \"Zicsr\".",
+      "line_number": 40,
+      "reason": "This describes dependency relationships between extensions, which are fixed requirements. If an implementation supports D, it must support F - there is no choice here."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The RISC-V ISA is designed to support a wide variety of implementations with various experimental instruction-set extensions. We have found that an organized naming scheme simplifies software tools and documentation.\",\n      \"line_number\": 9,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. It provides background information but does not define any implementation choices.\"\n    },\n    {\n      \"excerpt\": \"The ISA naming strings are case insensitive.\",\n      \"line_number\": 16,\n      \"reason\": \"This is a fixed requirement that applies to all implementations. There is no implementation choice here - all implementations must treat ISA naming strings as case insensitive.\"\n    },\n    {\n      \"excerpt\": \"RISC-V ISA strings begin with either RV32I, RV32E, RV64I, or RV64E, indicating the supported address space size in bits for the base integer ISA.\",\n      \"line_number\": 20,\n      \"reason\": \"This describes the format of ISA naming strings, not an implementation parameter. The choice of which base ISA to implement (RV32I vs RV64I etc.) is covered by other parameters like MXLEN.\"\n    },\n    {\n      \"excerpt\": \"Standard ISA extensions are given a name consisting of a single letter.\",\n      \"line_number\": 25,\n      \"reason\": \"This describes the naming convention for extensions, not an implementation choice. It's a specification rule about how extensions are named, not a parameter that implementers choose.\"\n    },\n    {\n      \"excerpt\": \"Some ISA extensions depend on the presence of other extensions, e.g., \\\"D\\\" depends on \\\"F\\\" and \\\"F\\\" depends on \\\"Zicsr\\\".\",\n      \"line_number\": 40,\n      \"reason\": \"This describes dependency relationships between extensions, which are fixed requirements. If an implementation supports D, it must support F - there is no choice here.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 9709,
+  "output_tokens": 489,
+  "latency_ms": 9546,
+  "timestamp": "2026-04-15T15:55:50.137034+00:00",
+  "error": null,
+  "retry_count": 0
+}

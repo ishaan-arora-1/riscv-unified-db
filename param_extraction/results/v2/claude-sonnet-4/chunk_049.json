@@ -1,0 +1,38 @@
+{
+  "chunk_id": "chunk_049",
+  "source_file": "smepmp.adoc",
+  "start_line": 1,
+  "end_line": 77,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Terms: * *PMP Entry*: A pair of ``pmpcfg[i]`` / ``pmpaddr[i]`` registers.",
+      "line_number": 16,
+      "reason": "This is inside a [NOTE] block, which is non-normative. NOTE blocks contain informative content, not architectural requirements."
+    },
+    {
+      "excerpt": "The physical memory protection rules when `mseccfg.MML` is set to 1 are summarized in the truth table below.",
+      "line_number": 46,
+      "reason": "This describes the behavior when mseccfg.MML has a specific value (1). The behavior is determined by the CSR field value at runtime, not by an implementation choice."
+    },
+    {
+      "excerpt": "It is expected that BootROM will set ``mseccfg.MMWP`` and/or ``mseccfg.MML`` during early boot",
+      "line_number": 75,
+      "reason": "This describes expected software behavior ('BootROM will set'), not an implementation-defined architectural parameter. It's a recommendation about how software should use the extension."
+    },
+    {
+      "excerpt": "implementations are allowed where a hart only has Machine and User modes available",
+      "line_number": 35,
+      "reason": "This refers to the existing architectural parameter of which privilege modes are implemented, but doesn't define a new parameter. The text is describing a consequence of that existing choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Terms: * *PMP Entry*: A pair of ``pmpcfg[i]`` / ``pmpaddr[i]`` registers.\",\n      \"line_number\": 16,\n      \"reason\": \"This is inside a [NOTE] block, which is non-normative. NOTE blocks contain informative content, not architectural requirements.\"\n    },\n    {\n      \"excerpt\": \"The physical memory protection rules when `mseccfg.MML` is set to 1 are summarized in the truth table below.\",\n      \"line_number\": 46,\n      \"reason\": \"This describes the behavior when mseccfg.MML has a specific value (1). The behavior is determined by the CSR field value at runtime, not by an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"It is expected that BootROM will set ``mseccfg.MMWP`` and/or ``mseccfg.MML`` during early boot\",\n      \"line_number\": 75,\n      \"reason\": \"This describes expected software behavior ('BootROM will set'), not an implementation-defined architectural parameter. It's a recommendation about how software should use the extension.\"\n    },\n    {\n      \"excerpt\": \"implementations are allowed where a hart only has Machine and User modes available\",\n      \"line_number\": 35,\n      \"reason\": \"This refers to the existing architectural parameter of which privilege modes are implemented, but doesn't define a new parameter. The text is describing a consequence of that existing choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 9150,
+  "output_tokens": 387,
+  "latency_ms": 8712,
+  "timestamp": "2026-04-15T16:13:01.234115+00:00",
+  "error": null,
+  "retry_count": 0
+}

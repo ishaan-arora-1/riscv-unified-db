@@ -1,0 +1,84 @@
+{
+  "chunk_id": "chunk_017",
+  "source_file": "intro.adoc",
+  "start_line": 1,
+  "end_line": 696,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "We use the term XLEN to refer to the width of an integer register in bits (either 32 or 64).",
+      "line_number": 244,
+      "parameter_name": "XLEN",
+      "existing_udb_name": "MXLEN",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "XLEN is a fundamental architectural parameter that determines the width of integer registers and address space. The implementation chooses between 32 or 64 bits."
+    },
+    {
+      "excerpt": "We use the term IALIGN (measured in bits) to refer to the instruction-address alignment constraint the implementation enforces. IALIGN is 32 bits in the base ISA, but some ISA extensions, including the compressed ISA extension, relax IALIGN to 16 bits. IALIGN may not take on any value other than 16 or 32.",
+      "line_number": 485,
+      "parameter_name": "IALIGN",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "IALIGN is an implementation choice for instruction alignment constraints. The spec explicitly states it may be either 16 or 32 bits, depending on which extensions are supported."
+    },
+    {
+      "excerpt": "We use the term ILEN (measured in bits) to refer to the maximum instruction length supported by an implementation, and which is always a multiple of IALIGN. For implementations supporting only a base instruction set, ILEN is 32 bits. Implementations supporting longer instructions have larger values of ILEN.",
+      "line_number": 490,
+      "parameter_name": "ILEN",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "range",
+      "confidence": "high",
+      "reasoning": "ILEN is the maximum instruction length an implementation supports. While constrained to be a multiple of IALIGN and at least 32 bits, the specific value is chosen by the implementer based on supported extensions."
+    },
+    {
+      "excerpt": "RISC-V base ISAs have either little-endian or big-endian memory systems, with the privileged architecture further defining bi-endian operation.",
+      "line_number": 540,
+      "parameter_name": "MEMORY_ENDIANNESS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "The memory system endianness is an implementation choice. The spec states base ISAs 'have either' little-endian or big-endian, indicating this is a parameter the implementer selects."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Commentary on our design decisions is formatted as in this paragraph. This non-normative text can be skipped if the reader is only interested in the specification itself.",
+      "line_number": 35,
+      "reason": "This is inside a [NOTE] block, which is non-normative commentary, not an architectural requirement."
+    },
+    {
+      "excerpt": "The base integer instruction sets use a two's-complement representation for signed integer values.",
+      "line_number": 250,
+      "reason": "This is a fixed requirement that all implementations must follow - there is no choice for the implementer."
+    },
+    {
+      "excerpt": "A word of memory is defined as 32 bits (4 bytes).",
+      "line_number": 364,
+      "reason": "This is a fixed definition in the architecture, not an implementation choice."
+    },
+    {
+      "excerpt": "All the 32-bit instructions in the base ISA have their lowest two bits set to 11.",
+      "line_number": 496,
+      "reason": "This describes a fixed encoding requirement that all implementations must follow, not a parameter."
+    },
+    {
+      "excerpt": "Instructions are stored in memory as a sequence of 16-bit little-endian parcels, regardless of memory system endianness.",
+      "line_number": 542,
+      "reason": "This is a fixed requirement for instruction encoding that applies to all implementations, independent of the memory system endianness parameter."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"We use the term XLEN to refer to the width of an integer register in bits (either 32 or 64).\",\n      \"line_number\": 244,\n      \"parameter_name\": \"XLEN\",\n      \"existing_udb_name\": \"MXLEN\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"XLEN is a fundamental architectural parameter that determines the width of integer registers and address space. The implementation chooses between 32 or 64 bits.\"\n    },\n    {\n      \"excerpt\": \"We use the term IALIGN (measured in bits) to refer to the instruction-address alignment constraint the implementation enforces. IALIGN is 32 bits in the base ISA, but some ISA extensions, including the compressed ISA extension, relax IALIGN to 16 bits. IALIGN may not take on any value other than 16 or 32.\",\n      \"line_number\": 485,\n      \"parameter_name\": \"IALIGN\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"IALIGN is an implementation choice for instruction alignment constraints. The spec explicitly states it may be either 16 or 32 bits, depending on which extensions are supported.\"\n    },\n    {\n      \"excerpt\": \"We use the term ILEN (measured in bits) to refer to the maximum instruction length supported by an implementation, and which is always a multiple of IALIGN. For implementations supporting only a base instruction set, ILEN is 32 bits. Implementations supporting longer instructions have larger values of ILEN.\",\n      \"line_number\": 490,\n      \"parameter_name\": \"ILEN\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"ILEN is the maximum instruction length an implementation supports. While constrained to be a multiple of IALIGN and at least 32 bits, the specific value is chosen by the implementer based on supported extensions.\"\n    },\n    {\n      \"excerpt\": \"RISC-V base ISAs have either little-endian or big-endian memory systems, with the privileged architecture further defining bi-endian operation.\",\n      \"line_number\": 540,\n      \"parameter_name\": \"MEMORY_ENDIANNESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The memory system endianness is an implementation choice. The spec states base ISAs 'have either' little-endian or big-endian, indicating this is a parameter the implementer selects.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Commentary on our design decisions is formatted as in this paragraph. This non-normative text can be skipped if the reader is only interested in the specification itself.\",\n      \"line_number\": 35,\n      \"reason\": \"This is inside a [NOTE] block, which is non-normative commentary, not an architectural requirement.\"\n    },\n    {\n      \"excerpt\": \"The base integer instruction sets use a two's-complement representation for signed integer values.\",\n      \"line_number\": 250,\n      \"reason\": \"This is a fixed requirement that all implementations must follow - there is no choice for the implementer.\"\n    },\n    {\n      \"excerpt\": \"A word of memory is defined as 32 bits (4 bytes).\",\n      \"line_number\": 364,\n      \"reason\": \"This is a fixed definition in the architecture, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"All the 32-bit instructions in the base ISA have their lowest two bits set to 11.\",\n      \"line_number\": 496,\n      \"reason\": \"This describes a fixed encoding requirement that all implementations must follow, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"Instructions are stored in memory as a sequence of 16-bit little-endian parcels, regardless of memory system endianness.\",\n      \"line_number\": 542,\n      \"reason\": \"This is a fixed requirement for instruction encoding that applies to all implementations, independent of the memory system endianness parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 16034,
+  "output_tokens": 1099,
+  "latency_ms": 18391,
+  "timestamp": "2026-04-15T15:50:49.548995+00:00",
+  "error": null,
+  "retry_count": 0
+}

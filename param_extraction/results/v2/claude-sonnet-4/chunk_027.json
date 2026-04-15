@@ -1,0 +1,104 @@
+{
+  "chunk_id": "chunk_027",
+  "source_file": "priv-csrs.adoc",
+  "start_line": 1,
+  "end_line": 1272,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The top two bits (csr[11:10]) indicate whether the register is read/write (`00`,`01`, or `10`) or read-only (`11`).",
+      "line_number": 29,
+      "parameter_name": "CSR_READ_WRITE_ENCODING",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "This describes the architectural convention for encoding CSR read/write permissions in the address space. Implementations must follow this encoding scheme."
+    },
+    {
+      "excerpt": "The next two bits (csr[9:8]) encode the lowest privilege level that can access the CSR.",
+      "line_number": 30,
+      "parameter_name": "CSR_PRIVILEGE_ENCODING",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "This describes the architectural convention for encoding privilege level access in CSR addresses. The encoding is fixed by the ISA specification."
+    },
+    {
+      "excerpt": "Implementations should raise illegal-instruction exceptions on machine-mode access to the latter set of registers.",
+      "line_number": 60,
+      "parameter_name": "DEBUG_CSR_ACCESS_EXCEPTION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "medium",
+      "reasoning": "The spec says 'should' rather than 'must', indicating this is an implementation choice. The implementation decides whether to raise exceptions on machine-mode access to debug-mode-only CSRs."
+    },
+    {
+      "excerpt": "For forward compatibility, implementations that do not furnish these fields must make them read-only zero.",
+      "line_number": 1095,
+      "parameter_name": "WPRI_FIELD_IMPLEMENTATION",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "Implementations choose whether to implement WPRI fields as functional or read-only-zero. This controls the read-write nature of reserved fields."
+    },
+    {
+      "excerpt": "Implementations are permitted but not required to raise an illegal-instruction exception if an instruction attempts to write a non-supported value to a *WLRL* field.",
+      "line_number": 1125,
+      "parameter_name": "TRAP_ON_ILLEGAL_WLRL",
+      "existing_udb_name": "TRAP_ON_ILLEGAL_WLRL",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "Whether to trap on writes of illegal values to WLRL fields is explicitly stated as permitted but not required - a clear implementation choice."
+    },
+    {
+      "excerpt": "Implementations will not raise an exception on writes of unsupported values to a *WARL* field.",
+      "line_number": 1142,
+      "parameter_name": "WARL_NO_EXCEPTION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "This is a fixed requirement that all implementations must follow - WARL fields never cause exceptions on unsupported writes. Not a parameter."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The standard RISC-V ISA sets aside a 12-bit encoding space (csr[11:0]) for up to 4,096 CSRs.",
+      "line_number": 26,
+      "reason": "This is a fixed architectural requirement - all implementations must use 12-bit CSR addresses. No implementation choice involved."
+    },
+    {
+      "excerpt": "Instructions that access a non-existent CSR are reserved.",
+      "line_number": 45,
+      "reason": "This describes what happens when accessing non-existent CSRs - it's a behavioral requirement, not an implementation parameter."
+    },
+    {
+      "excerpt": "Attempts to access a CSR without appropriate privilege level raise illegal-instruction exceptions or, as described in <<sec:hcauses>>, virtual-instruction exceptions.",
+      "line_number": 46,
+      "reason": "This describes required behavior for privilege violations - all implementations must follow this rule. The choice of exception type depends on virtualization context, not implementation choice."
+    },
+    {
+      "excerpt": "Software should ignore the values read from these fields, and should preserve the values held in these fields when writing values to other fields of the same register.",
+      "line_number": 1092,
+      "reason": "This describes software requirements ('should'), not implementation choices. It's guidance for software behavior with WPRI fields."
+    },
+    {
+      "excerpt": "Unless otherwise specified, the value returned by an implicit read of a CSR is the same value that would have been returned by an explicit read of the CSR",
+      "line_number": 1175,
+      "reason": "This is a fixed requirement for implicit CSR reads - they must return the same value as explicit reads. No implementation choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The top two bits (csr[11:10]) indicate whether the register is read/write (`00`,`01`, or `10`) or read-only (`11`).\",\n      \"line_number\": 29,\n      \"parameter_name\": \"CSR_READ_WRITE_ENCODING\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This describes the architectural convention for encoding CSR read/write permissions in the address space. Implementations must follow this encoding scheme.\"\n    },\n    {\n      \"excerpt\": \"The next two bits (csr[9:8]) encode the lowest privilege level that can access the CSR.\",\n      \"line_number\": 30,\n      \"parameter_name\": \"CSR_PRIVILEGE_ENCODING\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This describes the architectural convention for encoding privilege level access in CSR addresses. The encoding is fixed by the ISA specification.\"\n    },\n    {\n      \"excerpt\": \"Implementations should raise illegal-instruction exceptions on machine-mode access to the latter set of registers.\",\n      \"line_number\": 60,\n      \"parameter_name\": \"DEBUG_CSR_ACCESS_EXCEPTION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The spec says 'should' rather than 'must', indicating this is an implementation choice. The implementation decides whether to raise exceptions on machine-mode access to debug-mode-only CSRs.\"\n    },\n    {\n      \"excerpt\": \"For forward compatibility, implementations that do not furnish these fields must make them read-only zero.\",\n      \"line_number\": 1095,\n      \"parameter_name\": \"WPRI_FIELD_IMPLEMENTATION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Implementations choose whether to implement WPRI fields as functional or read-only-zero. This controls the read-write nature of reserved fields.\"\n    },\n    {\n      \"excerpt\": \"Implementations are permitted but not required to raise an illegal-instruction exception if an instruction attempts to write a non-supported value to a *WLRL* field.\",\n      \"line_number\": 1125,\n      \"parameter_name\": \"TRAP_ON_ILLEGAL_WLRL\",\n      \"existing_udb_name\": \"TRAP_ON_ILLEGAL_WLRL\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether to trap on writes of illegal values to WLRL fields is explicitly stated as permitted but not required - a clear implementation choice.\"\n    },\n    {\n      \"excerpt\": \"Implementations will not raise an exception on writes of unsupported values to a *WARL* field.\",\n      \"line_number\": 1142,\n      \"parameter_name\": \"WARL_NO_EXCEPTION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This is a fixed requirement that all implementations must follow - WARL fields never cause exceptions on unsupported writes. Not a parameter.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The standard RISC-V ISA sets aside a 12-bit encoding space (csr[11:0]) for up to 4,096 CSRs.\",\n      \"line_number\": 26,\n      \"reason\": \"This is a fixed architectural requirement - all implementations must use 12-bit CSR addresses. No implementation choice involved.\"\n    },\n    {\n      \"excerpt\": \"Instructions that access a non-existent CSR are reserved.\",\n      \"line_number\": 45,\n      \"reason\": \"This describes what happens when accessing non-existent CSRs - it's a behavioral requirement, not an implementation parameter.\"\n    },\n    {\n      \"excerpt\": \"Attempts to access a CSR without appropriate privilege level raise illegal-instruction exceptions or, as described in <<sec:hcauses>>, virtual-instruction exceptions.\",\n      \"line_number\": 46,\n      \"reason\": \"This describes required behavior for privilege violations - all implementations must follow this rule. The choice of exception type depends on virtualization context, not implementation choice.\"\n    },\n    {\n      \"excerpt\": \"Software should ignore the values read from these fields, and should preserve the values held in these fields when writing values to other fields of the same register.\",\n      \"line_number\": 1092,\n      \"reason\": \"This describes software requirements ('should'), not implementation choices. It's guidance for software behavior with WPRI fields.\"\n    },\n    {\n      \"excerpt\": \"Unless otherwise specified, the value returned by an implicit read of a CSR is the same value that would have been returned by an explicit read of the CSR\",\n      \"line_number\": 1175,\n      \"reason\": \"This is a fixed requirement for implicit CSR reads - they must return the same value as explicit reads. No implementation choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 20456,
+  "output_tokens": 1339,
+  "latency_ms": 23725,
+  "timestamp": "2026-04-15T15:58:31.838229+00:00",
+  "error": null,
+  "retry_count": 0
+}

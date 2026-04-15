@@ -1,0 +1,84 @@
+{
+  "chunk_id": "chunk_058",
+  "source_file": "v-st-ext.adoc",
+  "start_line": 3386,
+  "end_line": 5396,
+  "content_start_line": 3394,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Vector instructions with EGS > VLMAX are reserved.",
+      "line_number": 5166,
+      "parameter_name": "VLMAX",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "confidence": "high",
+      "reasoning": "VLMAX is an implementation-defined parameter that determines the maximum vector length. The constraint that EGS > VLMAX instructions are reserved depends on this implementation choice."
+    },
+    {
+      "excerpt": "When an operand is a vector of element groups, the `vl` setting must correspond to an integer multiple of the element group size, with other values of `vl` reserved.",
+      "line_number": 5180,
+      "parameter_name": "EGS_VL_CONSTRAINT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "This is a normative constraint on vl setting for element group instructions. The implementation must enforce this constraint, making it a direct architectural parameter."
+    },
+    {
+      "excerpt": "When AVL > VLMAX, the value of `vl` must be set to either VLMAX or a positive integer multiple of EGSMAX.",
+      "line_number": 5186,
+      "parameter_name": "EGSMAX_VL_CONSTRAINT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "This defines an additional constraint on vl setting when element group instructions are present. EGSMAX is the largest EGS supported by the implementation, making this an implementation choice."
+    },
+    {
+      "excerpt": "Any of these extensions can be added to base ISAs with XLEN=32 or XLEN=64.",
+      "line_number": 4962,
+      "parameter_name": "ZVE_XLEN_SUPPORT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "set",
+      "confidence": "high",
+      "reasoning": "The Zve* extensions support both XLEN=32 and XLEN=64. This is an implementation choice of which XLEN values to support with vector extensions."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "All four varieties of fused multiply-add are provided, and in two destructive forms that overwrite one of the operands, either the addend or the first multiplicand.",
+      "line_number": 3395,
+      "reason": "This describes the instruction variants provided, not an implementation choice. All implementations must provide these forms."
+    },
+    {
+      "excerpt": "The widening floating-point fused multiply-add instructions all overwrite the wide addend with the result.",
+      "line_number": 3436,
+      "reason": "This describes the fixed behavior of widening FMA instructions, not an implementation-defined parameter."
+    },
+    {
+      "excerpt": "This is a unary vector-vector instruction that returns an estimate of 1/sqrt(x) accurate to 7 bits.",
+      "line_number": 3470,
+      "reason": "This describes the fixed functionality of the vfrsqrt7 instruction - 7-bit accuracy is specified, not implementation-defined."
+    },
+    {
+      "excerpt": "The instruction is only defined for SEW=16b and above, so the result will always fit in the destination elements.",
+      "line_number": 3750,
+      "reason": "This is a fixed requirement that vfclass is only defined for SEW>=16, not an implementation choice."
+    },
+    {
+      "excerpt": "All Zve* extensions have precise traps.",
+      "line_number": 4970,
+      "reason": "This is a fixed requirement for all Zve* extensions, not an implementation choice. All must provide precise traps."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Vector instructions with EGS > VLMAX are reserved.\",\n      \"line_number\": 5166,\n      \"parameter_name\": \"VLMAX\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"VLMAX is an implementation-defined parameter that determines the maximum vector length. The constraint that EGS > VLMAX instructions are reserved depends on this implementation choice.\"\n    },\n    {\n      \"excerpt\": \"When an operand is a vector of element groups, the `vl` setting must correspond to an integer multiple of the element group size, with other values of `vl` reserved.\",\n      \"line_number\": 5180,\n      \"parameter_name\": \"EGS_VL_CONSTRAINT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This is a normative constraint on vl setting for element group instructions. The implementation must enforce this constraint, making it a direct architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"When AVL > VLMAX, the value of `vl` must be set to either VLMAX or a positive integer multiple of EGSMAX.\",\n      \"line_number\": 5186,\n      \"parameter_name\": \"EGSMAX_VL_CONSTRAINT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This defines an additional constraint on vl setting when element group instructions are present. EGSMAX is the largest EGS supported by the implementation, making this an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"Any of these extensions can be added to base ISAs with XLEN=32 or XLEN=64.\",\n      \"line_number\": 4962,\n      \"parameter_name\": \"ZVE_XLEN_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"set\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The Zve* extensions support both XLEN=32 and XLEN=64. This is an implementation choice of which XLEN values to support with vector extensions.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"All four varieties of fused multiply-add are provided, and in two destructive forms that overwrite one of the operands, either the addend or the first multiplicand.\",\n      \"line_number\": 3395,\n      \"reason\": \"This describes the instruction variants provided, not an implementation choice. All implementations must provide these forms.\"\n    },\n    {\n      \"excerpt\": \"The widening floating-point fused multiply-add instructions all overwrite the wide addend with the result.\",\n      \"line_number\": 3436,\n      \"reason\": \"This describes the fixed behavior of widening FMA instructions, not an implementation-defined parameter.\"\n    },\n    {\n      \"excerpt\": \"This is a unary vector-vector instruction that returns an estimate of 1/sqrt(x) accurate to 7 bits.\",\n      \"line_number\": 3470,\n      \"reason\": \"This describes the fixed functionality of the vfrsqrt7 instruction - 7-bit accuracy is specified, not implementation-defined.\"\n    },\n    {\n      \"excerpt\": \"The instruction is only defined for SEW=16b and above, so the result will always fit in the destination elements.\",\n      \"line_number\": 3750,\n      \"reason\": \"This is a fixed requirement that vfclass is only defined for SEW>=16, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"All Zve* extensions have precise traps.\",\n      \"line_number\": 4970,\n      \"reason\": \"This is a fixed requirement for all Zve* extensions, not an implementation choice. All must provide precise traps.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 36146,
+  "output_tokens": 1020,
+  "latency_ms": 18964,
+  "timestamp": "2026-04-15T16:24:15.631072+00:00",
+  "error": null,
+  "retry_count": 0
+}

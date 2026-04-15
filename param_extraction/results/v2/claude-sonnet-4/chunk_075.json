@@ -1,0 +1,74 @@
+{
+  "chunk_id": "chunk_075",
+  "source_file": "zilsd.adoc",
+  "start_line": 1,
+  "end_line": 315,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Even if naturally aligned, the memory access might not be performed atomically.",
+      "line_number": 35,
+      "parameter_name": "ZILSD_8BYTE_ATOMIC",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether 8-byte aligned LD/SD accesses are performed atomically. The spec says they 'might not be' atomic, indicating this is an implementation choice."
+    },
+    {
+      "excerpt": "If the effective address is a multiple of 4, then each word access is required to be performed atomically.",
+      "line_number": 36,
+      "parameter_name": "ZILSD_4BYTE_WORD_ATOMIC",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "medium",
+      "reasoning": "While the spec says word accesses are 'required' to be atomic for 4-byte alignment, the implementation must choose how to achieve this atomicity constraint, making it a design parameter."
+    },
+    {
+      "excerpt": "an LD or SD instruction whose effective address is a multiple of 4 gives rise to two 4-byte memory operations.",
+      "line_number": 89,
+      "parameter_name": "ZILSD_4BYTE_DECOMPOSITION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "medium",
+      "reasoning": "The implementation may choose whether to decompose 4-byte aligned LD/SD into two 4-byte operations or perform as a single access. The spec permits either approach but constrains the 4-byte case."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Operands containing `src` for store instructions and `dest` for load instructions are held in aligned `x`-register pairs, i.e., register numbers must be even.",
+      "line_number": 6,
+      "reason": "This is a fixed architectural requirement that all implementations must follow - register pairs must be even-numbered. No implementation choice is involved."
+    },
+    {
+      "excerpt": "Regardless of endianness, the lower-numbered register holds the low-order bits, and the higher-numbered register holds the high-order bits",
+      "line_number": 8,
+      "reason": "This defines the fixed bit ordering within register pairs. All implementations must follow this rule - there is no choice involved."
+    },
+    {
+      "excerpt": "As the access size is 64-bit, accesses are only considered naturally aligned for effective addresses that are a multiple of 8. In this case, these instructions are guaranteed to not raise an address-misaligned exception.",
+      "line_number": 33,
+      "reason": "This defines what constitutes natural alignment (8-byte) and the guaranteed behavior (no misaligned exception). This is a fixed requirement, not an implementation choice."
+    },
+    {
+      "excerpt": "To ensure resumable trap handling is possible for the load instructions, the base register must have its original value if a trap is taken.",
+      "line_number": 49,
+      "reason": "This is a fixed requirement for trap handling - the base register must retain its original value. All implementations must satisfy this constraint."
+    },
+    {
+      "excerpt": "For C.LDSP, usage of `x0` as the destination is reserved.",
+      "line_number": 78,
+      "reason": "This is a fixed encoding constraint - using x0 as destination for C.LDSP is reserved. This is not an implementation choice but a specification rule."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Even if naturally aligned, the memory access might not be performed atomically.\",\n      \"line_number\": 35,\n      \"parameter_name\": \"ZILSD_8BYTE_ATOMIC\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether 8-byte aligned LD/SD accesses are performed atomically. The spec says they 'might not be' atomic, indicating this is an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"If the effective address is a multiple of 4, then each word access is required to be performed atomically.\",\n      \"line_number\": 36,\n      \"parameter_name\": \"ZILSD_4BYTE_WORD_ATOMIC\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"While the spec says word accesses are 'required' to be atomic for 4-byte alignment, the implementation must choose how to achieve this atomicity constraint, making it a design parameter.\"\n    },\n    {\n      \"excerpt\": \"an LD or SD instruction whose effective address is a multiple of 4 gives rise to two 4-byte memory operations.\",\n      \"line_number\": 89,\n      \"parameter_name\": \"ZILSD_4BYTE_DECOMPOSITION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The implementation may choose whether to decompose 4-byte aligned LD/SD into two 4-byte operations or perform as a single access. The spec permits either approach but constrains the 4-byte case.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Operands containing `src` for store instructions and `dest` for load instructions are held in aligned `x`-register pairs, i.e., register numbers must be even.\",\n      \"line_number\": 6,\n      \"reason\": \"This is a fixed architectural requirement that all implementations must follow - register pairs must be even-numbered. No implementation choice is involved.\"\n    },\n    {\n      \"excerpt\": \"Regardless of endianness, the lower-numbered register holds the low-order bits, and the higher-numbered register holds the high-order bits\",\n      \"line_number\": 8,\n      \"reason\": \"This defines the fixed bit ordering within register pairs. All implementations must follow this rule - there is no choice involved.\"\n    },\n    {\n      \"excerpt\": \"As the access size is 64-bit, accesses are only considered naturally aligned for effective addresses that are a multiple of 8. In this case, these instructions are guaranteed to not raise an address-misaligned exception.\",\n      \"line_number\": 33,\n      \"reason\": \"This defines what constitutes natural alignment (8-byte) and the guaranteed behavior (no misaligned exception). This is a fixed requirement, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"To ensure resumable trap handling is possible for the load instructions, the base register must have its original value if a trap is taken.\",\n      \"line_number\": 49,\n      \"reason\": \"This is a fixed requirement for trap handling - the base register must retain its original value. All implementations must satisfy this constraint.\"\n    },\n    {\n      \"excerpt\": \"For C.LDSP, usage of `x0` as the destination is reserved.\",\n      \"line_number\": 78,\n      \"reason\": \"This is a fixed encoding constraint - using x0 as destination for C.LDSP is reserved. This is not an implementation choice but a specification rule.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11037,
+  "output_tokens": 940,
+  "latency_ms": 17343,
+  "timestamp": "2026-04-15T16:37:28.643115+00:00",
+  "error": null,
+  "retry_count": 0
+}

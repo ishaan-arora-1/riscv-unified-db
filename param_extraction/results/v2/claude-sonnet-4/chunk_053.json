@@ -1,0 +1,38 @@
+{
+  "chunk_id": "chunk_053",
+  "source_file": "sstc.adoc",
+  "start_line": 1,
+  "end_line": 24,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The current Privileged arch specification only defines a hardware mechanism for generating machine-mode timer interrupts",
+      "line_number": 4,
+      "reason": "This describes the current state of the specification, not an implementation choice"
+    },
+    {
+      "excerpt": "This extension serves to provide supervisor mode with its own CSR-based timer interrupt facility",
+      "line_number": 13,
+      "reason": "This describes what the extension provides, not an implementation-defined parameter"
+    },
+    {
+      "excerpt": "This extension adds the S-level `stimecmp` CSR and the VS-level `vstimecmp` CSR",
+      "line_number": 21,
+      "reason": "This states what CSRs are added by the extension, which is a fixed requirement, not an implementation choice"
+    },
+    {
+      "excerpt": "This extension adds the `STCE` bit to the `menvcfg` and `henvcfg` CSRs",
+      "line_number": 22,
+      "reason": "This describes a fixed addition to existing CSRs, not an implementation-defined parameter"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The current Privileged arch specification only defines a hardware mechanism for generating machine-mode timer interrupts\",\n      \"line_number\": 4,\n      \"reason\": \"This describes the current state of the specification, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"This extension serves to provide supervisor mode with its own CSR-based timer interrupt facility\",\n      \"line_number\": 13,\n      \"reason\": \"This describes what the extension provides, not an implementation-defined parameter\"\n    },\n    {\n      \"excerpt\": \"This extension adds the S-level `stimecmp` CSR and the VS-level `vstimecmp` CSR\",\n      \"line_number\": 21,\n      \"reason\": \"This states what CSRs are added by the extension, which is a fixed requirement, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"This extension adds the `STCE` bit to the `menvcfg` and `henvcfg` CSRs\",\n      \"line_number\": 22,\n      \"reason\": \"This describes a fixed addition to existing CSRs, not an implementation-defined parameter\"\n    }\n  ]\n}\n```",
+  "input_tokens": 7842,
+  "output_tokens": 308,
+  "latency_ms": 5658,
+  "timestamp": "2026-04-15T16:16:02.143079+00:00",
+  "error": null,
+  "retry_count": 0
+}

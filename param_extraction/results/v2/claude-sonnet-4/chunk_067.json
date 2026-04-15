@@ -1,0 +1,54 @@
+{
+  "chunk_id": "chunk_067",
+  "source_file": "zfa.adoc",
+  "start_line": 1,
+  "end_line": 261,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Other _rm_ values are _reserved_.",
+      "line_number": 179,
+      "parameter_name": "FCVTMOD_RM_RESERVED_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "medium",
+      "reasoning": "When FCVTMOD.W.D is executed with reserved rm values (not RTZ), the implementation must choose what behavior to exhibit. The spec doesn't specify the exact behavior, leaving it implementation-defined."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The preferred assembly syntax for entries 1, 30, and 31 is `min`, `inf`, and `nan`, respectively.",
+      "line_number": 56,
+      "reason": "This is inside a [NOTE] block, which is non-normative. Assembly syntax preferences are not architectural parameters."
+    },
+    {
+      "excerpt": "The FLI.S instruction loads one of 32 single-precision floating-point constants, encoded in the _rs1_ field, into floating-point register _rd_.",
+      "line_number": 14,
+      "reason": "This describes the fixed behavior of the FLI.S instruction. The 32 constants and their encodings are fixed by the specification, not implementation-defined."
+    },
+    {
+      "excerpt": "Zero and infinite inputs are copied to _rd_ unmodified.",
+      "line_number": 119,
+      "reason": "This describes the required behavior of FROUND.S for specific input types. All implementations must behave this way - it's not a parameter."
+    },
+    {
+      "excerpt": "If the D extension is implemented, FLI.D performs the analogous operation",
+      "line_number": 68,
+      "reason": "This describes conditional behavior based on which extensions are implemented, but the behavior itself is fixed. Whether the D extension is implemented is determined by MISA, not a Zfa-specific parameter."
+    },
+    {
+      "excerpt": "The FLEQ.S and FLTQ.S instructions are defined like the FLE.S and FLT.S instructions, except that quiet NaN inputs do not cause the invalid operation exception flag to be set.",
+      "line_number": 218,
+      "reason": "This describes the fixed, required behavior of these instructions. All implementations must behave this way when these instructions are executed."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Other _rm_ values are _reserved_.\",\n      \"line_number\": 179,\n      \"parameter_name\": \"FCVTMOD_RM_RESERVED_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When FCVTMOD.W.D is executed with reserved rm values (not RTZ), the implementation must choose what behavior to exhibit. The spec doesn't specify the exact behavior, leaving it implementation-defined.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The preferred assembly syntax for entries 1, 30, and 31 is `min`, `inf`, and `nan`, respectively.\",\n      \"line_number\": 56,\n      \"reason\": \"This is inside a [NOTE] block, which is non-normative. Assembly syntax preferences are not architectural parameters.\"\n    },\n    {\n      \"excerpt\": \"The FLI.S instruction loads one of 32 single-precision floating-point constants, encoded in the _rs1_ field, into floating-point register _rd_.\",\n      \"line_number\": 14,\n      \"reason\": \"This describes the fixed behavior of the FLI.S instruction. The 32 constants and their encodings are fixed by the specification, not implementation-defined.\"\n    },\n    {\n      \"excerpt\": \"Zero and infinite inputs are copied to _rd_ unmodified.\",\n      \"line_number\": 119,\n      \"reason\": \"This describes the required behavior of FROUND.S for specific input types. All implementations must behave this way - it's not a parameter.\"\n    },\n    {\n      \"excerpt\": \"If the D extension is implemented, FLI.D performs the analogous operation\",\n      \"line_number\": 68,\n      \"reason\": \"This describes conditional behavior based on which extensions are implemented, but the behavior itself is fixed. Whether the D extension is implemented is determined by MISA, not a Zfa-specific parameter.\"\n    },\n    {\n      \"excerpt\": \"The FLEQ.S and FLTQ.S instructions are defined like the FLE.S and FLT.S instructions, except that quiet NaN inputs do not cause the invalid operation exception flag to be set.\",\n      \"line_number\": 218,\n      \"reason\": \"This describes the fixed, required behavior of these instructions. All implementations must behave this way when these instructions are executed.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11339,
+  "output_tokens": 622,
+  "latency_ms": 11818,
+  "timestamp": "2026-04-15T16:32:25.160086+00:00",
+  "error": null,
+  "retry_count": 0
+}
