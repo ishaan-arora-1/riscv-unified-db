@@ -1,0 +1,54 @@
+{
+  "chunk_id": "chunk_067",
+  "source_file": "zfa.adoc",
+  "start_line": 1,
+  "end_line": 261,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Other _rm_ values are _reserved_.",
+      "line_number": 179,
+      "parameter_name": "FCVTMOD_RM_RESERVED_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "medium",
+      "reasoning": "The behavior when reserved rm values are used in FCVTMOD.W.D is implementation-defined. The spec states they are reserved but doesn't specify what happens when they are used."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The set of 32 constants was chosen by examining floating-point libraries, including the C standard math library, and to optimize fixed-point to floating-point conversion.",
+      "line_number": 60,
+      "reason": "This is inside a [NOTE] block, which is non-normative. It explains the rationale for the constant selection but doesn't define an implementation parameter."
+    },
+    {
+      "excerpt": "The FLI._fmt_ instructions never set any floating-point exception flags.",
+      "line_number": 95,
+      "reason": "This is a fixed requirement that applies to all implementations. There is no implementation choice - all implementations must behave this way."
+    },
+    {
+      "excerpt": "Zero and infinite inputs are copied to _rd_ unmodified.",
+      "line_number": 118,
+      "reason": "This describes the required behavior for specific input values. It's a fixed specification requirement, not an implementation choice."
+    },
+    {
+      "excerpt": "For RV32 only, if the D extension is implemented, the FMVH.X.D instruction moves bits 63:32 of floating-point register _rs1_ into integer register _rd_.",
+      "line_number": 186,
+      "reason": "This describes the fixed operation of an instruction. The behavior is completely specified and not implementation-defined."
+    },
+    {
+      "excerpt": "These instructions are encoded like their FLE and FLT counterparts, but with instruction bit 14 set to 1.",
+      "line_number": 245,
+      "reason": "This specifies the fixed encoding format for instructions. All implementations must use this encoding - there is no choice involved."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Other _rm_ values are _reserved_.\",\n      \"line_number\": 179,\n      \"parameter_name\": \"FCVTMOD_RM_RESERVED_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The behavior when reserved rm values are used in FCVTMOD.W.D is implementation-defined. The spec states they are reserved but doesn't specify what happens when they are used.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The set of 32 constants was chosen by examining floating-point libraries, including the C standard math library, and to optimize fixed-point to floating-point conversion.\",\n      \"line_number\": 60,\n      \"reason\": \"This is inside a [NOTE] block, which is non-normative. It explains the rationale for the constant selection but doesn't define an implementation parameter.\"\n    },\n    {\n      \"excerpt\": \"The FLI._fmt_ instructions never set any floating-point exception flags.\",\n      \"line_number\": 95,\n      \"reason\": \"This is a fixed requirement that applies to all implementations. There is no implementation choice - all implementations must behave this way.\"\n    },\n    {\n      \"excerpt\": \"Zero and infinite inputs are copied to _rd_ unmodified.\",\n      \"line_number\": 118,\n      \"reason\": \"This describes the required behavior for specific input values. It's a fixed specification requirement, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"For RV32 only, if the D extension is implemented, the FMVH.X.D instruction moves bits 63:32 of floating-point register _rs1_ into integer register _rd_.\",\n      \"line_number\": 186,\n      \"reason\": \"This describes the fixed operation of an instruction. The behavior is completely specified and not implementation-defined.\"\n    },\n    {\n      \"excerpt\": \"These instructions are encoded like their FLE and FLT counterparts, but with instruction bit 14 set to 1.\",\n      \"line_number\": 245,\n      \"reason\": \"This specifies the fixed encoding format for instructions. All implementations must use this encoding - there is no choice involved.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 9480,
+  "output_tokens": 581,
+  "latency_ms": 11620,
+  "timestamp": "2026-04-15T15:06:37.114752+00:00",
+  "error": null,
+  "retry_count": 0
+}

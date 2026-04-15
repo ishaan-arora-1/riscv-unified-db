@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_049",
+  "source_file": "smepmp.adoc",
+  "start_line": 1,
+  "end_line": 77,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Terms: * *PMP Entry*: A pair of ``pmpcfg[i]`` / ``pmpaddr[i]`` registers. * *PMP Rule*: The contents of a pmpcfg register and its associated pmpaddr register(s), that encode a valid protected physical memory region...",
+      "line_number": 14,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. It provides definitions and explanations but does not define architectural parameters."
+    },
+    {
+      "excerpt": "Without the Smepmp extension, it is not possible for a PMP rule to be *enforced* only on non-Machine modes and *denied* on Machine mode",
+      "line_number": 30,
+      "reason": "This describes the behavior without the extension, explaining the motivation for the extension rather than defining implementation choices."
+    },
+    {
+      "excerpt": "The physical memory protection rules when `mseccfg.MML` is set to 1 are summarized in the truth table below.",
+      "line_number": 42,
+      "reason": "This describes the behavior when a CSR field has a specific value (MML=1). The behavior is determined by the CSR field value at runtime, not by an implementation choice."
+    },
+    {
+      "excerpt": "Since all fields defined in ``mseccfg`` as part of this extension are locked when set (``MMWP``/``MML``) or locked when cleared (``RLB``), software can't poll them for determining the presence of Smepmp.",
+      "line_number": 69,
+      "reason": "This describes the behavior of the CSR fields and software discovery mechanisms, but does not define any implementation-defined choices or parameters."
+    },
+    {
+      "excerpt": "It is expected that BootROM will set ``mseccfg.MMWP`` and/or ``mseccfg.MML`` during early boot, before jumping to the firmware",
+      "line_number": 69,
+      "reason": "This describes expected software behavior and boot sequence, not an architectural parameter that implementers choose."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Terms: * *PMP Entry*: A pair of ``pmpcfg[i]`` / ``pmpaddr[i]`` registers. * *PMP Rule*: The contents of a pmpcfg register and its associated pmpaddr register(s), that encode a valid protected physical memory region...\",\n      \"line_number\": 14,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. It provides definitions and explanations but does not define architectural parameters.\"\n    },\n    {\n      \"excerpt\": \"Without the Smepmp extension, it is not possible for a PMP rule to be *enforced* only on non-Machine modes and *denied* on Machine mode\",\n      \"line_number\": 30,\n      \"reason\": \"This describes the behavior without the extension, explaining the motivation for the extension rather than defining implementation choices.\"\n    },\n    {\n      \"excerpt\": \"The physical memory protection rules when `mseccfg.MML` is set to 1 are summarized in the truth table below.\",\n      \"line_number\": 42,\n      \"reason\": \"This describes the behavior when a CSR field has a specific value (MML=1). The behavior is determined by the CSR field value at runtime, not by an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"Since all fields defined in ``mseccfg`` as part of this extension are locked when set (``MMWP``/``MML``) or locked when cleared (``RLB``), software can't poll them for determining the presence of Smepmp.\",\n      \"line_number\": 69,\n      \"reason\": \"This describes the behavior of the CSR fields and software discovery mechanisms, but does not define any implementation-defined choices or parameters.\"\n    },\n    {\n      \"excerpt\": \"It is expected that BootROM will set ``mseccfg.MMWP`` and/or ``mseccfg.MML`` during early boot, before jumping to the firmware\",\n      \"line_number\": 69,\n      \"reason\": \"This describes expected software behavior and boot sequence, not an architectural parameter that implementers choose.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 7291,
+  "output_tokens": 540,
+  "latency_ms": 9735,
+  "timestamp": "2026-04-15T14:43:25.400747+00:00",
+  "error": null,
+  "retry_count": 0
+}

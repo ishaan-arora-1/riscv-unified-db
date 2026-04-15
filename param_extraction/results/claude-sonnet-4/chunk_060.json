@@ -1,0 +1,104 @@
+{
+  "chunk_id": "chunk_060",
+  "source_file": "vector-crypto.adoc",
+  "start_line": 3311,
+  "end_line": 4966,
+  "content_start_line": 3341,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "`zvknha`: `SEW` is any value other than 32",
+      "line_number": 3348,
+      "parameter_name": "ZVKNHA_SEW_SUPPORT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "The zvknha extension only supports SEW=32 for vsha2ms.vv, making this a direct implementation choice about which SEW values are supported."
+    },
+    {
+      "excerpt": "`zvknhb`: `SEW` is any value other than 32 or 64",
+      "line_number": 3349,
+      "parameter_name": "ZVKNHB_SEW_SUPPORT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "The zvknhb extension supports SEW=32 and SEW=64 for vsha2ms.vv, making this a direct implementation choice about which SEW values are supported."
+    },
+    {
+      "excerpt": "`SEW` is any value other than 32",
+      "line_number": 3421,
+      "parameter_name": "VSM3C_SEW_SUPPORT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "The vsm3c.vi instruction only supports SEW=32, making this a direct implementation choice about which SEW values are supported."
+    },
+    {
+      "excerpt": "`SEW` is any value other than 32",
+      "line_number": 3540,
+      "parameter_name": "VSM3ME_SEW_SUPPORT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "The vsm3me.vv instruction only supports SEW=32, making this a direct implementation choice about which SEW values are supported."
+    },
+    {
+      "excerpt": "`SEW` is any value other than 32",
+      "line_number": 3680,
+      "parameter_name": "VSM4K_SEW_SUPPORT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "The vsm4k.vi instruction only supports SEW=32, making this a direct implementation choice about which SEW values are supported."
+    },
+    {
+      "excerpt": "`SEW` is any value other than 32",
+      "line_number": 3825,
+      "parameter_name": "VSM4R_SEW_SUPPORT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "The vsm4r instructions only support SEW=32, making this a direct implementation choice about which SEW values are supported."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Four rounds of SHA-256 message schedule expansion are performed (`zvknha` and `zvknhb`)",
+      "line_number": 3365,
+      "reason": "This describes the behavior when SEW=32, not an implementation choice. The parameter is which SEW values are supported, not what happens when a specific SEW is used."
+    },
+    {
+      "excerpt": "Four rounds of SHA-512 message schedule expansion are performed (`zvkhnb`)",
+      "line_number": 3366,
+      "reason": "This describes the behavior when SEW=64, not an implementation choice. The parameter is which SEW values are supported, not what happens when a specific SEW is used."
+    },
+    {
+      "excerpt": "The round number is provided by the 5-bit `rnds` unsigned immediate. Legal values are 0 - 31",
+      "line_number": 3456,
+      "reason": "This is a fixed requirement that all implementations must support - the legal range of the immediate field is not implementation-defined."
+    },
+    {
+      "excerpt": "The Round group number (`rnd`) comes from `uimm[2:0]`; the bits in `uimm[4:3]` are ignored.",
+      "line_number": 3698,
+      "reason": "This describes the fixed encoding format, not an implementation choice. All implementations must decode the immediate field the same way."
+    },
+    {
+      "excerpt": "Only the low log2(2*`SEW`) bits of the shift-amount value are used, all other bits are ignored.",
+      "line_number": 3970,
+      "reason": "This is a fixed requirement for how shift amounts are processed, not an implementation choice. All implementations must behave this way."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"`zvknha`: `SEW` is any value other than 32\",\n      \"line_number\": 3348,\n      \"parameter_name\": \"ZVKNHA_SEW_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The zvknha extension only supports SEW=32 for vsha2ms.vv, making this a direct implementation choice about which SEW values are supported.\"\n    },\n    {\n      \"excerpt\": \"`zvknhb`: `SEW` is any value other than 32 or 64\",\n      \"line_number\": 3349,\n      \"parameter_name\": \"ZVKNHB_SEW_SUPPORT\", \n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The zvknhb extension supports SEW=32 and SEW=64 for vsha2ms.vv, making this a direct implementation choice about which SEW values are supported.\"\n    },\n    {\n      \"excerpt\": \"`SEW` is any value other than 32\",\n      \"line_number\": 3421,\n      \"parameter_name\": \"VSM3C_SEW_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\", \n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The vsm3c.vi instruction only supports SEW=32, making this a direct implementation choice about which SEW values are supported.\"\n    },\n    {\n      \"excerpt\": \"`SEW` is any value other than 32\",\n      \"line_number\": 3540,\n      \"parameter_name\": \"VSM3ME_SEW_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\", \n      \"confidence\": \"high\",\n      \"reasoning\": \"The vsm3me.vv instruction only supports SEW=32, making this a direct implementation choice about which SEW values are supported.\"\n    },\n    {\n      \"excerpt\": \"`SEW` is any value other than 32\",\n      \"line_number\": 3680,\n      \"parameter_name\": \"VSM4K_SEW_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\", \n      \"reasoning\": \"The vsm4k.vi instruction only supports SEW=32, making this a direct implementation choice about which SEW values are supported.\"\n    },\n    {\n      \"excerpt\": \"`SEW` is any value other than 32\",\n      \"line_number\": 3825,\n      \"parameter_name\": \"VSM4R_SEW_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The vsm4r instructions only support SEW=32, making this a direct implementation choice about which SEW values are supported.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Four rounds of SHA-256 message schedule expansion are performed (`zvknha` and `zvknhb`)\",\n      \"line_number\": 3365,\n      \"reason\": \"This describes the behavior when SEW=32, not an implementation choice. The parameter is which SEW values are supported, not what happens when a specific SEW is used.\"\n    },\n    {\n      \"excerpt\": \"Four rounds of SHA-512 message schedule expansion are performed (`zvkhnb`)\",\n      \"line_number\": 3366,\n      \"reason\": \"This describes the behavior when SEW=64, not an implementation choice. The parameter is which SEW values are supported, not what happens when a specific SEW is used.\"\n    },\n    {\n      \"excerpt\": \"The round number is provided by the 5-bit `rnds` unsigned immediate. Legal values are 0 - 31\",\n      \"line_number\": 3456,\n      \"reason\": \"This is a fixed requirement that all implementations must support - the legal range of the immediate field is not implementation-defined.\"\n    },\n    {\n      \"excerpt\": \"The Round group number (`rnd`) comes from `uimm[2:0]`; the bits in `uimm[4:3]` are ignored.\",\n      \"line_number\": 3698,\n      \"reason\": \"This describes the fixed encoding format, not an implementation choice. All implementations must decode the immediate field the same way.\"\n    },\n    {\n      \"excerpt\": \"Only the low log2(2*`SEW`) bits of the shift-amount value are used, all other bits are ignored.\",\n      \"line_number\": 3970,\n      \"reason\": \"This is a fixed requirement for how shift amounts are processed, not an implementation choice. All implementations must behave this way.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 32351,
+  "output_tokens": 1284,
+  "latency_ms": 101320,
+  "timestamp": "2026-04-15T14:53:05.872947+00:00",
+  "error": null,
+  "retry_count": 1
+}

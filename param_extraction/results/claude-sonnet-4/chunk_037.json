@@ -1,0 +1,74 @@
+{
+  "chunk_id": "chunk_037",
+  "source_file": "rnmi.adoc",
+  "start_line": 1,
+  "end_line": 166,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The RNMI interrupt trap handler address is implementation-defined.",
+      "line_number": 23,
+      "parameter_name": "RNMI_INTERRUPT_HANDLER_ADDRESS",
+      "existing_udb_name": null,
+      "class": "NON_ISA",
+      "value_type": "value",
+      "confidence": "high",
+      "reasoning": "This is a platform-level address choice outside the ISA scope, similar to reset vector or NMI addresses in the NON_ISA class."
+    },
+    {
+      "excerpt": "RNMI also has an associated exception trap handler address, which is implementation defined.",
+      "line_number": 25,
+      "parameter_name": "RNMI_EXCEPTION_HANDLER_ADDRESS",
+      "existing_udb_name": null,
+      "class": "NON_ISA",
+      "value_type": "value",
+      "confidence": "high",
+      "reasoning": "This is another platform-level address choice outside the ISA scope, similar to the interrupt handler address."
+    },
+    {
+      "excerpt": "`mnepc` is a *WARL* register that must be able to hold all valid virtual addresses. It need not be capable of holding all possible invalid addresses. Prior to writing `mnepc`, implementations may convert an invalid address into some other invalid address that `mnepc` is capable of holding.",
+      "line_number": 58,
+      "parameter_name": "MNEPC_WARL_VALUES",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "set",
+      "confidence": "high",
+      "reasoning": "This defines the WARL behavior of mnepc - the set of legal values it can hold varies by implementation. The parameter is which invalid addresses can be held."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "For example, some implementations might use the address specified in `mtvec` as the RNMI exception trap handler.",
+      "line_number": 27,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. It's an example suggestion, not an architectural requirement."
+    },
+    {
+      "excerpt": "RNMIs are masked out of reset to give software the opportunity to initialize data structures and devices for subsequent RNMI handling.",
+      "line_number": 95,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. It explains rationale but doesn't define a parameter."
+    },
+    {
+      "excerpt": "Upon reset, NMIE contains the value 0.",
+      "line_number": 93,
+      "reason": "This is a fixed requirement that applies to all implementations - the reset value is always 0, not implementation-defined."
+    },
+    {
+      "excerpt": "When an RNMI interrupt is detected, the interrupted PC is written to the `mnepc` CSR",
+      "line_number": 135,
+      "reason": "This describes the required behavior when an RNMI occurs. It's a fixed specification requirement, not an implementation choice."
+    },
+    {
+      "excerpt": "Software can set NMIE to 1, but attempts to clear NMIE have no effect.",
+      "line_number": 97,
+      "reason": "This describes the required behavior of the NMIE bit - it's a fixed specification requirement that applies to all implementations, not a parameter."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The RNMI interrupt trap handler address is implementation-defined.\",\n      \"line_number\": 23,\n      \"parameter_name\": \"RNMI_INTERRUPT_HANDLER_ADDRESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This is a platform-level address choice outside the ISA scope, similar to reset vector or NMI addresses in the NON_ISA class.\"\n    },\n    {\n      \"excerpt\": \"RNMI also has an associated exception trap handler address, which is implementation defined.\",\n      \"line_number\": 25,\n      \"parameter_name\": \"RNMI_EXCEPTION_HANDLER_ADDRESS\", \n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This is another platform-level address choice outside the ISA scope, similar to the interrupt handler address.\"\n    },\n    {\n      \"excerpt\": \"`mnepc` is a *WARL* register that must be able to hold all valid virtual addresses. It need not be capable of holding all possible invalid addresses. Prior to writing `mnepc`, implementations may convert an invalid address into some other invalid address that `mnepc` is capable of holding.\",\n      \"line_number\": 58,\n      \"parameter_name\": \"MNEPC_WARL_VALUES\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This defines the WARL behavior of mnepc - the set of legal values it can hold varies by implementation. The parameter is which invalid addresses can be held.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"For example, some implementations might use the address specified in `mtvec` as the RNMI exception trap handler.\",\n      \"line_number\": 27,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. It's an example suggestion, not an architectural requirement.\"\n    },\n    {\n      \"excerpt\": \"RNMIs are masked out of reset to give software the opportunity to initialize data structures and devices for subsequent RNMI handling.\",\n      \"line_number\": 95,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. It explains rationale but doesn't define a parameter.\"\n    },\n    {\n      \"excerpt\": \"Upon reset, NMIE contains the value 0.\",\n      \"line_number\": 93,\n      \"reason\": \"This is a fixed requirement that applies to all implementations - the reset value is always 0, not implementation-defined.\"\n    },\n    {\n      \"excerpt\": \"When an RNMI interrupt is detected, the interrupted PC is written to the `mnepc` CSR\",\n      \"line_number\": 135,\n      \"reason\": \"This describes the required behavior when an RNMI occurs. It's a fixed specification requirement, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"Software can set NMIE to 1, but attempts to clear NMIE have no effect.\",\n      \"line_number\": 97,\n      \"reason\": \"This describes the required behavior of the NMIE bit - it's a fixed specification requirement that applies to all implementations, not a parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 7656,
+  "output_tokens": 880,
+  "latency_ms": 14351,
+  "timestamp": "2026-04-15T14:37:33.299230+00:00",
+  "error": null,
+  "retry_count": 0
+}

@@ -1,0 +1,134 @@
+{
+  "chunk_id": "chunk_059",
+  "source_file": "vector-crypto.adoc",
+  "start_line": 1,
+  "end_line": 3340,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The Zvknhb and Zvbc Vector Crypto Extensions --and accordingly the composite extensions Zvkn, Zvknc, Zvkng, and Zvksc-- depend on Zve64x.",
+      "line_number": 372,
+      "parameter_name": "ZVE64X_DEPENDENCY",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "This is a normative requirement that certain extensions depend on Zve64x. The implementation chooses whether to support these extensions, which inherently requires supporting Zve64x."
+    },
+    {
+      "excerpt": "All of the other Vector Crypto Extensions depend on `Zve32x`.",
+      "line_number": 374,
+      "parameter_name": "ZVE32X_DEPENDENCY",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "This is a normative requirement that other vector crypto extensions depend on Zve32x. The implementation chooses whether to support these extensions."
+    },
+    {
+      "excerpt": "These instructions are only defined for `SEW`=64.",
+      "line_number": 421,
+      "parameter_name": "ZVBC_SEW_CONSTRAINT",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "set",
+      "confidence": "high",
+      "reasoning": "The Zvbc instructions have a constraint that SEW must be 64. This defines the legal values for SEW when these instructions are executed."
+    },
+    {
+      "excerpt": "All of these instructions work on 128-bit element groups comprised of four 32-bit elements.",
+      "line_number": 481,
+      "parameter_name": "ZVKG_ELEMENT_GROUP_SIZE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "confidence": "high",
+      "reasoning": "This defines the fixed element group structure for Zvkg instructions - 128-bit groups with four 32-bit elements. This is an architectural parameter of the instruction format."
+    },
+    {
+      "excerpt": "All of these instructions work on 128-bit element groups comprised of four 32-bit elements.",
+      "line_number": 520,
+      "parameter_name": "ZVKNED_ELEMENT_GROUP_SIZE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "confidence": "high",
+      "reasoning": "This defines the fixed element group structure for Zvkned (AES) instructions - 128-bit groups with four 32-bit elements."
+    },
+    {
+      "excerpt": "SHA-256: these instructions work on 128-bit element groups comprised of four 32-bit elements.",
+      "line_number": 560,
+      "parameter_name": "ZVKNHA_ZVKNHB_SHA256_ELEMENT_GROUP_SIZE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "confidence": "high",
+      "reasoning": "This defines the element group structure for SHA-256 instructions in Zvknh[ab] extensions."
+    },
+    {
+      "excerpt": "SHA-512: these instructions work on 256-bit element groups comprised of four 64-bit elements.",
+      "line_number": 561,
+      "parameter_name": "ZVKNHB_SHA512_ELEMENT_GROUP_SIZE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "confidence": "high",
+      "reasoning": "This defines the element group structure for SHA-512 instructions in Zvknhb extension."
+    },
+    {
+      "excerpt": "All of these instructions work on 128-bit element groups comprised of four 32-bit elements.",
+      "line_number": 625,
+      "parameter_name": "ZVKSED_ELEMENT_GROUP_SIZE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "confidence": "high",
+      "reasoning": "This defines the fixed element group structure for Zvksed (SM4) instructions - 128-bit groups with four 32-bit elements."
+    },
+    {
+      "excerpt": "All of these instructions work on 256-bit element groups comprised of eight 32-bit elements.",
+      "line_number": 665,
+      "parameter_name": "ZVKSH_ELEMENT_GROUP_SIZE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "confidence": "high",
+      "reasoning": "This defines the fixed element group structure for Zvksh (SM3) instructions - 256-bit groups with eight 32-bit elements."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Where variables are concatenated, the order shown is how they would appear in a vector register from left to right.",
+      "line_number": 85,
+      "reason": "This is inside a [NOTE] block, which is non-normative informational content."
+    },
+    {
+      "excerpt": "For all of the vector crypto instructions in this specification, `EEW`=`SEW`.",
+      "line_number": 179,
+      "reason": "This is a fixed requirement that applies to ALL implementations - not a parameter choice."
+    },
+    {
+      "excerpt": "Instructions that violate the `vl` or `vstart` requirements are _reserved_.",
+      "line_number": 201,
+      "reason": "This describes what happens when constraints are violated - it's a behavioral rule, not an implementation choice."
+    },
+    {
+      "excerpt": "To help avoid side-channel timing attacks, these instructions shall be implemented with data-independent timing.",
+      "line_number": 489,
+      "reason": "This is a fixed security requirement that all implementations must satisfy - not a parameter."
+    },
+    {
+      "excerpt": "The number of element groups to be processed is `vl`/`EGS`.",
+      "line_number": 491,
+      "reason": "This describes runtime behavior controlled by the vl CSR value, not an implementation-defined parameter."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The Zvknhb and Zvbc Vector Crypto Extensions --and accordingly the composite extensions Zvkn, Zvknc, Zvkng, and Zvksc-- depend on Zve64x.\",\n      \"line_number\": 372,\n      \"parameter_name\": \"ZVE64X_DEPENDENCY\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This is a normative requirement that certain extensions depend on Zve64x. The implementation chooses whether to support these extensions, which inherently requires supporting Zve64x.\"\n    },\n    {\n      \"excerpt\": \"All of the other Vector Crypto Extensions depend on `Zve32x`.\",\n      \"line_number\": 374,\n      \"parameter_name\": \"ZVE32X_DEPENDENCY\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This is a normative requirement that other vector crypto extensions depend on Zve32x. The implementation chooses whether to support these extensions.\"\n    },\n    {\n      \"excerpt\": \"These instructions are only defined for `SEW`=64.\",\n      \"line_number\": 421,\n      \"parameter_name\": \"ZVBC_SEW_CONSTRAINT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The Zvbc instructions have a constraint that SEW must be 64. This defines the legal values for SEW when these instructions are executed.\"\n    },\n    {\n      \"excerpt\": \"All of these instructions work on 128-bit element groups comprised of four 32-bit elements.\",\n      \"line_number\": 481,\n      \"parameter_name\": \"ZVKG_ELEMENT_GROUP_SIZE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This defines the fixed element group structure for Zvkg instructions - 128-bit groups with four 32-bit elements. This is an architectural parameter of the instruction format.\"\n    },\n    {\n      \"excerpt\": \"All of these instructions work on 128-bit element groups comprised of four 32-bit elements.\",\n      \"line_number\": 520,\n      \"parameter_name\": \"ZVKNED_ELEMENT_GROUP_SIZE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This defines the fixed element group structure for Zvkned (AES) instructions - 128-bit groups with four 32-bit elements.\"\n    },\n    {\n      \"excerpt\": \"SHA-256: these instructions work on 128-bit element groups comprised of four 32-bit elements.\",\n      \"line_number\": 560,\n      \"parameter_name\": \"ZVKNHA_ZVKNHB_SHA256_ELEMENT_GROUP_SIZE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This defines the element group structure for SHA-256 instructions in Zvknh[ab] extensions.\"\n    },\n    {\n      \"excerpt\": \"SHA-512: these instructions work on 256-bit element groups comprised of four 64-bit elements.\",\n      \"line_number\": 561,\n      \"parameter_name\": \"ZVKNHB_SHA512_ELEMENT_GROUP_SIZE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This defines the element group structure for SHA-512 instructions in Zvknhb extension.\"\n    },\n    {\n      \"excerpt\": \"All of these instructions work on 128-bit element groups comprised of four 32-bit elements.\",\n      \"line_number\": 625,\n      \"parameter_name\": \"ZVKSED_ELEMENT_GROUP_SIZE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This defines the fixed element group structure for Zvksed (SM4) instructions - 128-bit groups with four 32-bit elements.\"\n    },\n    {\n      \"excerpt\": \"All of these instructions work on 256-bit element groups comprised of eight 32-bit elements.\",\n      \"line_number\": 665,\n      \"parameter_name\": \"ZVKSH_ELEMENT_GROUP_SIZE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This defines the fixed element group structure for Zvksh (SM3) instructions - 256-bit groups with eight 32-bit elements.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Where variables are concatenated, the order shown is how they would appear in a vector register from left to right.\",\n      \"line_number\": 85,\n      \"reason\": \"This is inside a [NOTE] block, which is non-normative informational content.\"\n    },\n    {\n      \"excerpt\": \"For all of the vector crypto instructions in this specification, `EEW`=`SEW`.\",\n      \"line_number\": 179,\n      \"reason\": \"This is a fixed requirement that applies to ALL implementations - not a parameter choice.\"\n    },\n    {\n      \"excerpt\": \"Instructions that violate the `vl` or `vstart` requirements are _reserved_.\",\n      \"line_number\": 201,\n      \"reason\": \"This describes what happens when constraints are violated - it's a behavioral rule, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"To help avoid side-channel timing attacks, these instructions shall be implemented with data-independent timing.\",\n      \"line_number\": 489,\n      \"reason\": \"This is a fixed security requirement that all implementations must satisfy - not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The number of element groups to be processed is `vl`/`EGS`.\",\n      \"line_number\": 491,\n      \"reason\": \"This describes runtime behavior controlled by the vl CSR value, not an implementation-defined parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 39472,
+  "output_tokens": 1666,
+  "latency_ms": 106872,
+  "timestamp": "2026-04-15T14:50:28.153385+00:00",
+  "error": null,
+  "retry_count": 0
+}

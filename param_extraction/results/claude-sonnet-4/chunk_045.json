@@ -1,0 +1,54 @@
+{
+  "chunk_id": "chunk_045",
+  "source_file": "smcdeleg.adoc",
+  "start_line": 1,
+  "end_line": 147,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "It is optional whether the LCOFI bit (bit 13) in each of `mideleg` and `hideleg`, which allows all LCOFIs to be delegated to S-mode and VS-mode, respectively, is implemented and writable.",
+      "line_number": 145,
+      "parameter_name": "LCOFI_DELEGATION_SUPPORT",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether the LCOFI bits in mideleg and hideleg are implemented and writable. This is a binary choice about the mutability of specific CSR fields."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "NOTE: _The memory-mapped `mtime` register is not a performance monitoring counter to be managed by supervisor software, hence the special treatment of `siselect` value 0x41 described above._",
+      "line_number": 85,
+      "reason": "This is inside a [NOTE] block and is therefore non-normative explanatory text, not a parameter definition."
+    },
+    {
+      "excerpt": "When `menvcfg`.CDE=0, attempts to access `scountinhibit` raise an illegal-instruction exception.",
+      "line_number": 108,
+      "reason": "This describes behavior when a CSR field has a specific value (CDE=0). The behavior is determined by the field value at runtime, not by an implementation choice."
+    },
+    {
+      "excerpt": "For a RISC-V hardware platform, Smcdeleg and Ssccfg must always be implemented in tandem.",
+      "line_number": 28,
+      "reason": "This is a fixed requirement ('must always') that applies to all implementations supporting these extensions. There is no implementation choice here."
+    },
+    {
+      "excerpt": "illegal-instruction exceptions are raised for the following cases",
+      "line_number": 70,
+      "reason": "This describes mandatory exception behavior that all implementations must follow. The conditions are fixed requirements, not implementation choices."
+    },
+    {
+      "excerpt": "The `siselect` (and `vsiselect`) index range 0x40-0x5F is reserved for delegated counter access.",
+      "line_number": 35,
+      "reason": "This defines a fixed architectural mapping/reservation that all implementations must follow. It is not an implementation choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"It is optional whether the LCOFI bit (bit 13) in each of `mideleg` and `hideleg`, which allows all LCOFIs to be delegated to S-mode and VS-mode, respectively, is implemented and writable.\",\n      \"line_number\": 145,\n      \"parameter_name\": \"LCOFI_DELEGATION_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether the LCOFI bits in mideleg and hideleg are implemented and writable. This is a binary choice about the mutability of specific CSR fields.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"NOTE: _The memory-mapped `mtime` register is not a performance monitoring counter to be managed by supervisor software, hence the special treatment of `siselect` value 0x41 described above._\",\n      \"line_number\": 85,\n      \"reason\": \"This is inside a [NOTE] block and is therefore non-normative explanatory text, not a parameter definition.\"\n    },\n    {\n      \"excerpt\": \"When `menvcfg`.CDE=0, attempts to access `scountinhibit` raise an illegal-instruction exception.\",\n      \"line_number\": 108,\n      \"reason\": \"This describes behavior when a CSR field has a specific value (CDE=0). The behavior is determined by the field value at runtime, not by an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"For a RISC-V hardware platform, Smcdeleg and Ssccfg must always be implemented in tandem.\",\n      \"line_number\": 28,\n      \"reason\": \"This is a fixed requirement ('must always') that applies to all implementations supporting these extensions. There is no implementation choice here.\"\n    },\n    {\n      \"excerpt\": \"illegal-instruction exceptions are raised for the following cases\",\n      \"line_number\": 70,\n      \"reason\": \"This describes mandatory exception behavior that all implementations must follow. The conditions are fixed requirements, not implementation choices.\"\n    },\n    {\n      \"excerpt\": \"The `siselect` (and `vsiselect`) index range 0x40-0x5F is reserved for delegated counter access.\",\n      \"line_number\": 35,\n      \"reason\": \"This defines a fixed architectural mapping/reservation that all implementations must follow. It is not an implementation choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 8004,
+  "output_tokens": 635,
+  "latency_ms": 69171,
+  "timestamp": "2026-04-15T14:41:27.212626+00:00",
+  "error": null,
+  "retry_count": 0
+}

@@ -1,0 +1,54 @@
+{
+  "chunk_id": "chunk_012",
+  "source_file": "f-st-ext.adoc",
+  "start_line": 1,
+  "end_line": 524,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The behavior of floating-point instructions that depend on rounding mode when executed with a reserved rounding mode is _reserved_, including both static reserved rounding modes (101-110) and dynamic reserved rounding modes (101-111).",
+      "line_number": 130,
+      "parameter_name": "TRAP_ON_RESERVED_ROUNDING_MODE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "medium",
+      "reasoning": "The behavior when encountering reserved rounding modes is implementation-defined ('reserved'). Implementations may trap or handle it differently, making this a direct implementation choice."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "We considered a unified register file for both integer and floating-point values as this simplifies software register allocation and calling conventions, and reduces total user state.",
+      "line_number": 24,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. It describes design considerations, not architectural requirements."
+    },
+    {
+      "excerpt": "The F extension adds 32 floating-point registers, `f0-f31`, each 32 bits wide",
+      "line_number": 11,
+      "reason": "This is a fixed requirement of the F extension - all implementations must provide exactly 32 floating-point registers of 32 bits each. There is no implementation choice here."
+    },
+    {
+      "excerpt": "FADD.S and FMUL.S perform single-precision floating-point addition and multiplication respectively, between _rs1_ and _rs2_",
+      "line_number": 244,
+      "reason": "This describes the fixed behavior of specific instructions. The operation performed is defined by the instruction encoding, not by implementation choice."
+    },
+    {
+      "excerpt": "FLW and FSW are only guaranteed to execute atomically if the effective address is naturally aligned.",
+      "line_number": 218,
+      "reason": "This is a fixed requirement about when atomicity is guaranteed. All implementations must follow this rule - there is no implementation choice."
+    },
+    {
+      "excerpt": "As described in <<ldst>>, the execution environment defines whether misaligned floating-point loads and stores are handled invisibly or raise a contained or fatal trap.",
+      "line_number": 224,
+      "reason": "This refers to execution environment behavior, which is outside the ISA scope. The ISA itself doesn't define this choice - it's a platform-level decision."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The behavior of floating-point instructions that depend on rounding mode when executed with a reserved rounding mode is _reserved_, including both static reserved rounding modes (101-110) and dynamic reserved rounding modes (101-111).\",\n      \"line_number\": 130,\n      \"parameter_name\": \"TRAP_ON_RESERVED_ROUNDING_MODE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The behavior when encountering reserved rounding modes is implementation-defined ('reserved'). Implementations may trap or handle it differently, making this a direct implementation choice.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"We considered a unified register file for both integer and floating-point values as this simplifies software register allocation and calling conventions, and reduces total user state.\",\n      \"line_number\": 24,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. It describes design considerations, not architectural requirements.\"\n    },\n    {\n      \"excerpt\": \"The F extension adds 32 floating-point registers, `f0-f31`, each 32 bits wide\",\n      \"line_number\": 11,\n      \"reason\": \"This is a fixed requirement of the F extension - all implementations must provide exactly 32 floating-point registers of 32 bits each. There is no implementation choice here.\"\n    },\n    {\n      \"excerpt\": \"FADD.S and FMUL.S perform single-precision floating-point addition and multiplication respectively, between _rs1_ and _rs2_\",\n      \"line_number\": 244,\n      \"reason\": \"This describes the fixed behavior of specific instructions. The operation performed is defined by the instruction encoding, not by implementation choice.\"\n    },\n    {\n      \"excerpt\": \"FLW and FSW are only guaranteed to execute atomically if the effective address is naturally aligned.\",\n      \"line_number\": 218,\n      \"reason\": \"This is a fixed requirement about when atomicity is guaranteed. All implementations must follow this rule - there is no implementation choice.\"\n    },\n    {\n      \"excerpt\": \"As described in <<ldst>>, the execution environment defines whether misaligned floating-point loads and stores are handled invisibly or raise a contained or fatal trap.\",\n      \"line_number\": 224,\n      \"reason\": \"This refers to execution environment behavior, which is outside the ISA scope. The ISA itself doesn't define this choice - it's a platform-level decision.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13070,
+  "output_tokens": 639,
+  "latency_ms": 15811,
+  "timestamp": "2026-04-15T14:27:24.342301+00:00",
+  "error": null,
+  "retry_count": 0
+}

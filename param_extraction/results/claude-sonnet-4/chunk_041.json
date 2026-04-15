@@ -1,0 +1,54 @@
+{
+  "chunk_id": "chunk_041",
+  "source_file": "rv64.adoc",
+  "start_line": 1,
+  "end_line": 260,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "RV64I widens the integer registers and supported user address space to 64 bits (XLEN=64 in <<gprs>>).",
+      "line_number": 10,
+      "parameter_name": "XLEN",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "confidence": "high",
+      "reasoning": "XLEN is a fundamental architectural parameter that defines the width of integer registers. In RV64I, it is fixed at 64 bits, but this represents an implementation choice between different ISA variants (RV32I vs RV64I)."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "These \"*W\" instructions ignore the upper 32 bits of their inputs and always produce 32-bit signed values, sign-extending them to 64 bits, i.e. bits XLEN-1 through 31 are equal.",
+      "line_number": 16,
+      "reason": "This describes the fixed behavior of W-suffix instructions in RV64I. It is a normative requirement that applies to all RV64I implementations, not an implementation choice."
+    },
+    {
+      "excerpt": "ADDIW is an RV64I instruction that adds the sign-extended 12-bit immediate to register _rs1_ and produces the proper sign extension of a 32-bit result in _rd_.",
+      "line_number": 42,
+      "reason": "This describes the fixed operation of the ADDIW instruction. The behavior is defined by the ISA specification, not left to implementation choice."
+    },
+    {
+      "excerpt": "SLLIW, SRLIW, and SRAIW encodings with _imm[5] {ne} 0_ are reserved.",
+      "line_number": 66,
+      "reason": "This states that certain encodings are reserved, which is a fixed specification requirement. Reserved encodings are not implementation-defined parameters."
+    },
+    {
+      "excerpt": "The execution environment will define what portions of the address space are legal to access.",
+      "line_number": 130,
+      "reason": "This refers to execution environment choices, which are platform-level decisions outside the ISA scope. The ISA itself does not define which address ranges are legal."
+    },
+    {
+      "excerpt": "91% of the HINT space is reserved for standard HINTs. The remainder of the HINT space is designated for custom HINTs; no standard HINTs will ever be defined in this subspace.",
+      "line_number": 150,
+      "reason": "This describes the allocation of HINT encoding space, which is a fixed specification decision. The percentages and designations are not implementation choices but specification design decisions."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"RV64I widens the integer registers and supported user address space to 64 bits (XLEN=64 in <<gprs>>).\",\n      \"line_number\": 10,\n      \"parameter_name\": \"XLEN\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"XLEN is a fundamental architectural parameter that defines the width of integer registers. In RV64I, it is fixed at 64 bits, but this represents an implementation choice between different ISA variants (RV32I vs RV64I).\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"These \\\"*W\\\" instructions ignore the upper 32 bits of their inputs and always produce 32-bit signed values, sign-extending them to 64 bits, i.e. bits XLEN-1 through 31 are equal.\",\n      \"line_number\": 16,\n      \"reason\": \"This describes the fixed behavior of W-suffix instructions in RV64I. It is a normative requirement that applies to all RV64I implementations, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"ADDIW is an RV64I instruction that adds the sign-extended 12-bit immediate to register _rs1_ and produces the proper sign extension of a 32-bit result in _rd_.\",\n      \"line_number\": 42,\n      \"reason\": \"This describes the fixed operation of the ADDIW instruction. The behavior is defined by the ISA specification, not left to implementation choice.\"\n    },\n    {\n      \"excerpt\": \"SLLIW, SRLIW, and SRAIW encodings with _imm[5] {ne} 0_ are reserved.\",\n      \"line_number\": 66,\n      \"reason\": \"This states that certain encodings are reserved, which is a fixed specification requirement. Reserved encodings are not implementation-defined parameters.\"\n    },\n    {\n      \"excerpt\": \"The execution environment will define what portions of the address space are legal to access.\",\n      \"line_number\": 130,\n      \"reason\": \"This refers to execution environment choices, which are platform-level decisions outside the ISA scope. The ISA itself does not define which address ranges are legal.\"\n    },\n    {\n      \"excerpt\": \"91% of the HINT space is reserved for standard HINTs. The remainder of the HINT space is designated for custom HINTs; no standard HINTs will ever be defined in this subspace.\",\n      \"line_number\": 150,\n      \"reason\": \"This describes the allocation of HINT encoding space, which is a fixed specification decision. The percentages and designations are not implementation choices but specification design decisions.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 9275,
+  "output_tokens": 692,
+  "latency_ms": 12580,
+  "timestamp": "2026-04-15T14:38:31.362837+00:00",
+  "error": null,
+  "retry_count": 0
+}

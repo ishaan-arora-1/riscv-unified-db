@@ -1,0 +1,38 @@
+{
+  "chunk_id": "chunk_013",
+  "source_file": "fraclmul.adoc",
+  "start_line": 1,
+  "end_line": 175,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "This appendix presents a non-normative example to help explain where compilers can make good use of the fractional LMUL feature.",
+      "line_number": 3,
+      "reason": "This is a non-normative example section that explains compiler usage patterns, not an architectural parameter definition."
+    },
+    {
+      "excerpt": "Without fractional LMUL, the compiler would be forced to use LMUL=1 for the 8-bit computation and LMUL=8 for the 64-bit computation(s)",
+      "line_number": 26,
+      "reason": "This describes compiler behavior and usage patterns, not an implementation-defined architectural parameter."
+    },
+    {
+      "excerpt": "If instead of using LMUL=1 for the 8-bit computation, the compiler is allowed to use a fractional LMUL=1/2",
+      "line_number": 103,
+      "reason": "This describes a compiler optimization strategy using existing architectural features, not a parameter that implementations choose."
+    },
+    {
+      "excerpt": "vsetvli s1, zero, e8,mf2,ta,mu // LMUL=1/2 !",
+      "line_number": 110,
+      "reason": "This is assembly code showing usage of fractional LMUL values, which are runtime software choices, not implementation-defined parameters."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"This appendix presents a non-normative example to help explain where compilers can make good use of the fractional LMUL feature.\",\n      \"line_number\": 3,\n      \"reason\": \"This is a non-normative example section that explains compiler usage patterns, not an architectural parameter definition.\"\n    },\n    {\n      \"excerpt\": \"Without fractional LMUL, the compiler would be forced to use LMUL=1 for the 8-bit computation and LMUL=8 for the 64-bit computation(s)\",\n      \"line_number\": 26,\n      \"reason\": \"This describes compiler behavior and usage patterns, not an implementation-defined architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"If instead of using LMUL=1 for the 8-bit computation, the compiler is allowed to use a fractional LMUL=1/2\",\n      \"line_number\": 103,\n      \"reason\": \"This describes a compiler optimization strategy using existing architectural features, not a parameter that implementations choose.\"\n    },\n    {\n      \"excerpt\": \"vsetvli s1, zero, e8,mf2,ta,mu // LMUL=1/2 !\",\n      \"line_number\": 110,\n      \"reason\": \"This is assembly code showing usage of fractional LMUL values, which are runtime software choices, not implementation-defined parameters.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 8146,
+  "output_tokens": 370,
+  "latency_ms": 7094,
+  "timestamp": "2026-04-15T14:30:26.354359+00:00",
+  "error": null,
+  "retry_count": 0
+}

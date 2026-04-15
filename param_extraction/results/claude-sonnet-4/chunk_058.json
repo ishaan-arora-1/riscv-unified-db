@@ -1,0 +1,74 @@
+{
+  "chunk_id": "chunk_058",
+  "source_file": "v-st-ext.adoc",
+  "start_line": 3386,
+  "end_line": 5396,
+  "content_start_line": 3394,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Vector instructions with EGS > VLMAX are reserved.",
+      "line_number": 5251,
+      "parameter_name": "EGS_VLMAX_CONSTRAINT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "This is a direct implementation constraint on which element group sizes are supported. The implementation chooses whether to support EGS values that exceed VLMAX."
+    },
+    {
+      "excerpt": "When an operand is a vector of element groups, the `vl` setting must correspond to an integer multiple of the element group size, with other values of `vl` reserved.",
+      "line_number": 5270,
+      "parameter_name": "EGS_VL_MULTIPLE_CONSTRAINT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "confidence": "high",
+      "reasoning": "This defines a constraint on vl setting for element group instructions. The implementation must enforce this constraint, making it a direct architectural choice."
+    },
+    {
+      "excerpt": "When AVL > VLMAX, the value of `vl` must be set to either VLMAX or a positive integer multiple of EGSMAX.",
+      "line_number": 5276,
+      "parameter_name": "EGSMAX_VL_SETTING",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "When AVL > VLMAX, the implementation has a choice between setting vl to VLMAX or to a multiple of EGSMAX. This is a direct implementation choice for vl setting behavior."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "NOTE: The 7 bit accuracy was chosen as it requires 0,1,2,3 Newton-Raphson iterations to converge to close to bfloat16, FP16, FP32, FP64 accuracy respectively.",
+      "line_number": 3580,
+      "reason": "This is inside a NOTE block, which is non-normative. It explains a design rationale but does not define an implementation parameter."
+    },
+    {
+      "excerpt": "The `vmfeq` and `vmfne` raise the invalid operation exception only on signaling NaN inputs.",
+      "line_number": 3750,
+      "reason": "This describes fixed behavioral requirements that all implementations must follow. It is not an implementation choice."
+    },
+    {
+      "excerpt": "The instruction copies a single SEW-wide element from index 0 of the source vector register to a destination integer register.",
+      "line_number": 4450,
+      "reason": "This describes the fixed behavior of the vmv.x.s instruction. It is not an implementation-defined parameter."
+    },
+    {
+      "excerpt": "Traps on vector reduction instructions are always reported with a `vstart` of 0.",
+      "line_number": 4050,
+      "reason": "This is a fixed requirement ('always reported') that applies to all implementations. It is not a parameter."
+    },
+    {
+      "excerpt": "All Zve* extensions have precise traps.",
+      "line_number": 5390,
+      "reason": "This is a fixed requirement for all Zve* extensions. There is no implementation choice here."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Vector instructions with EGS > VLMAX are reserved.\",\n      \"line_number\": 5251,\n      \"parameter_name\": \"EGS_VLMAX_CONSTRAINT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This is a direct implementation constraint on which element group sizes are supported. The implementation chooses whether to support EGS values that exceed VLMAX.\"\n    },\n    {\n      \"excerpt\": \"When an operand is a vector of element groups, the `vl` setting must correspond to an integer multiple of the element group size, with other values of `vl` reserved.\",\n      \"line_number\": 5270,\n      \"parameter_name\": \"EGS_VL_MULTIPLE_CONSTRAINT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This defines a constraint on vl setting for element group instructions. The implementation must enforce this constraint, making it a direct architectural choice.\"\n    },\n    {\n      \"excerpt\": \"When AVL > VLMAX, the value of `vl` must be set to either VLMAX or a positive integer multiple of EGSMAX.\",\n      \"line_number\": 5276,\n      \"parameter_name\": \"EGSMAX_VL_SETTING\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"When AVL > VLMAX, the implementation has a choice between setting vl to VLMAX or to a multiple of EGSMAX. This is a direct implementation choice for vl setting behavior.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"NOTE: The 7 bit accuracy was chosen as it requires 0,1,2,3 Newton-Raphson iterations to converge to close to bfloat16, FP16, FP32, FP64 accuracy respectively.\",\n      \"line_number\": 3580,\n      \"reason\": \"This is inside a NOTE block, which is non-normative. It explains a design rationale but does not define an implementation parameter.\"\n    },\n    {\n      \"excerpt\": \"The `vmfeq` and `vmfne` raise the invalid operation exception only on signaling NaN inputs.\",\n      \"line_number\": 3750,\n      \"reason\": \"This describes fixed behavioral requirements that all implementations must follow. It is not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The instruction copies a single SEW-wide element from index 0 of the source vector register to a destination integer register.\",\n      \"line_number\": 4450,\n      \"reason\": \"This describes the fixed behavior of the vmv.x.s instruction. It is not an implementation-defined parameter.\"\n    },\n    {\n      \"excerpt\": \"Traps on vector reduction instructions are always reported with a `vstart` of 0.\",\n      \"line_number\": 4050,\n      \"reason\": \"This is a fixed requirement ('always reported') that applies to all implementations. It is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"All Zve* extensions have precise traps.\",\n      \"line_number\": 5390,\n      \"reason\": \"This is a fixed requirement for all Zve* extensions. There is no implementation choice here.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 34287,
+  "output_tokens": 886,
+  "latency_ms": 38178,
+  "timestamp": "2026-04-15T14:48:38.239723+00:00",
+  "error": null,
+  "retry_count": 1
+}
