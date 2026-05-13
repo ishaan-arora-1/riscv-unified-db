@@ -1,0 +1,79 @@
+Phase 8 — Parameter Tag Insertion Report
+============================================================
+
+Mode             : verify
+Spec directory   : /Users/ashish/riscv-unified-db-1/ext/riscv-isa-manual/src
+Spreadsheet      : /Users/ashish/riscv-unified-db-1/param_extraction/data/parameters.csv
+Min confidence   : medium
+
+Requests         : 330
+Tags inserted    : 321
+  inline wraps   : 0
+  bare anchors   : 321
+Overlaps w/ norm : 321
+Unmatched rows   : 9
+
+Per-file breakdown:
+  ext/riscv-isa-manual/src/supervisor.adoc                      req= 38  ins= 38  bare=38  unmatched= 0
+  ext/riscv-isa-manual/src/machine.adoc                         req= 39  ins= 36  bare=36  unmatched= 3
+  ext/riscv-isa-manual/src/scalar-crypto.adoc                   req= 34  ins= 34  bare=34  unmatched= 0
+  ext/riscv-isa-manual/src/unpriv-cfi.adoc                      req= 24  ins= 24  bare=24  unmatched= 0
+  ext/riscv-isa-manual/src/v-st-ext.adoc                        req= 22  ins= 22  bare=22  unmatched= 0
+  ext/riscv-isa-manual/src/smstateen.adoc                       req= 21  ins= 21  bare=21  unmatched= 0
+  ext/riscv-isa-manual/src/hypervisor.adoc                      req= 17  ins= 17  bare=17  unmatched= 0
+  ext/riscv-isa-manual/src/cmo.adoc                             req= 13  ins= 13  bare=13  unmatched= 0
+  ext/riscv-isa-manual/src/vector-crypto.adoc                   req= 13  ins= 11  bare=11  unmatched= 2
+  ext/riscv-isa-manual/src/smctr.adoc                           req= 11  ins=  9  bare= 9  unmatched= 2
+  ext/riscv-isa-manual/src/indirect-csr.adoc                    req=  8  ins=  8  bare= 8  unmatched= 0
+  ext/riscv-isa-manual/src/rv32.adoc                            req=  7  ins=  7  bare= 7  unmatched= 0
+  ext/riscv-isa-manual/src/a-st-ext.adoc                        req=  6  ins=  5  bare= 5  unmatched= 1
+  ext/riscv-isa-manual/src/c-st-ext.adoc                        req=  5  ins=  5  bare= 5  unmatched= 0
+  ext/riscv-isa-manual/src/priv-cfi.adoc                        req=  5  ins=  5  bare= 5  unmatched= 0
+  ext/riscv-isa-manual/src/priv-csrs.adoc                       req=  6  ins=  5  bare= 5  unmatched= 1
+  ext/riscv-isa-manual/src/zc.adoc                              req=  5  ins=  5  bare= 5  unmatched= 0
+  ext/riscv-isa-manual/src/bfloat16.adoc                        req=  4  ins=  4  bare= 4  unmatched= 0
+  ext/riscv-isa-manual/src/zawrs.adoc                           req=  4  ins=  4  bare= 4  unmatched= 0
+  ext/riscv-isa-manual/src/zpm.adoc                             req=  4  ins=  4  bare= 4  unmatched= 0
+  ext/riscv-isa-manual/src/counters.adoc                        req=  3  ins=  3  bare= 3  unmatched= 0
+  ext/riscv-isa-manual/src/intro.adoc                           req=  3  ins=  3  bare= 3  unmatched= 0
+  ext/riscv-isa-manual/src/rnmi.adoc                            req=  3  ins=  3  bare= 3  unmatched= 0
+  ext/riscv-isa-manual/src/smcdeleg.adoc                        req=  3  ins=  3  bare= 3  unmatched= 0
+  ext/riscv-isa-manual/src/zfinx.adoc                           req=  3  ins=  3  bare= 3  unmatched= 0
+  ext/riscv-isa-manual/src/zilsd.adoc                           req=  3  ins=  3  bare= 3  unmatched= 0
+  ext/riscv-isa-manual/src/zimop.adoc                           req=  3  ins=  3  bare= 3  unmatched= 0
+  ext/riscv-isa-manual/src/d-st-ext.adoc                        req=  2  ins=  2  bare= 2  unmatched= 0
+  ext/riscv-isa-manual/src/priv-intro.adoc                      req=  2  ins=  2  bare= 2  unmatched= 0
+  ext/riscv-isa-manual/src/rv64.adoc                            req=  2  ins=  2  bare= 2  unmatched= 0
+  ext/riscv-isa-manual/src/rvwmo.adoc                           req=  2  ins=  2  bare= 2  unmatched= 0
+  ext/riscv-isa-manual/src/smcntrpmf.adoc                       req=  2  ins=  2  bare= 2  unmatched= 0
+  ext/riscv-isa-manual/src/ssdbltrp.adoc                        req=  2  ins=  2  bare= 2  unmatched= 0
+  ext/riscv-isa-manual/src/zacas.adoc                           req=  2  ins=  2  bare= 2  unmatched= 0
+  ext/riscv-isa-manual/src/f-st-ext.adoc                        req=  1  ins=  1  bare= 1  unmatched= 0
+  ext/riscv-isa-manual/src/smdbltrp.adoc                        req=  1  ins=  1  bare= 1  unmatched= 0
+  ext/riscv-isa-manual/src/sscofpmf.adoc                        req=  1  ins=  1  bare= 1  unmatched= 0
+  ext/riscv-isa-manual/src/zalasr.adoc                          req=  1  ins=  1  bare= 1  unmatched= 0
+  ext/riscv-isa-manual/src/zfa.adoc                             req=  1  ins=  1  bare= 1  unmatched= 0
+  ext/riscv-isa-manual/src/zicsr.adoc                           req=  1  ins=  1  bare= 1  unmatched= 0
+  ext/riscv-isa-manual/src/zihintntl.adoc                       req=  1  ins=  1  bare= 1  unmatched= 0
+  ext/riscv-isa-manual/src/zihintpause.adoc                     req=  1  ins=  1  bare= 1  unmatched= 0
+  ext/riscv-isa-manual/src/ztso-st-ext.adoc                     req=  1  ins=  1  bare= 1  unmatched= 0
+
+Failures:
+  [ext/riscv-isa-manual/src/a-st-ext.adoc]
+  ✗ LRSC_FAIL_ON_NON_EXACT_LRSC: excerpt not found
+  [ext/riscv-isa-manual/src/machine.adoc]
+  ✗ MTVEC_ACCESS: excerpt not found
+  [ext/riscv-isa-manual/src/machine.adoc]
+  ✗ CONFIG_PTR_ADDRESS: excerpt not found
+  [ext/riscv-isa-manual/src/machine.adoc]
+  ✗ PMPADDR_WARL_MASK: excerpt not found
+  [ext/riscv-isa-manual/src/priv-csrs.adoc]
+  ✗ CSR_PRIVILEGE_ENCODING: excerpt not found
+  [ext/riscv-isa-manual/src/smctr.adoc]
+  ✗ CTR_EXTERNAL_TRAP_SUPPORT: excerpt not found
+  [ext/riscv-isa-manual/src/smctr.adoc]
+  ✗ CTR_RASEMU_SUPPORT: excerpt not found
+  [ext/riscv-isa-manual/src/vector-crypto.adoc]
+  ✗ VECCRYPTO_VL_VSTART_EGS_CONSTRAINT: excerpt not found
+  [ext/riscv-isa-manual/src/vector-crypto.adoc]
+  ✗ ZVKNHB_ZVBC_ZVKN_ZVKNC_ZVKNG_ZVKSC_DEPENDENCY: excerpt not found
