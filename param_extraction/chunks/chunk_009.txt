@@ -1,473 +1,1111 @@
 # Chunk: chunk_009
-# Source: colophon.adoc
-# Lines: 1-465 (of 465)
+# Source: cmo.adoc
+# Lines: 1-1094 (of 1094)
 # Content starts: line 1
-# Line count: 465
-# Sections: 1
-#   == Preface
+# Line count: 1094
+# Sections: 10
+#   == "CMO" Extensions for Base Cache Management Operation ISA, Version 1.0.0
+#   === Pseudocode for instruction semantics
+#   === Introduction
+#   === Background
+#   ==== Memory and Caches
+#   ==== Cache-Block Operations
+#   === Coherent Agents and Caches
+#   ==== Memory Ordering
+#   ===== Preserved Program Order
+#   ===== Load Values
 #
-[colophon]
-== Preface
-// Had to make the above a level 1 heading (two equals signs) to avoid error when building
-// the ISA manual as a book with other "parts". This is opposite to what the adoc says to do
-// but otherwise asciidoctor creates the error message:
-//
-// asciidoctor: ERROR: ext/riscv-isa-manual/src/colophon.adoc: line 2: invalid part, must have at least one section (e.g., chapter, appendix, etc.)
-//
-// See asciidoctor doc which seems wrong: https://docs.asciidoctor.org/asciidoc/latest/sections/colophon/
-[.big]*_Preface to Document Version 20250508_*
+[[cmo]]
+== "CMO" Extensions for Base Cache Management Operation ISA, Version 1.0.0
 
-This document describes the RISC-V unprivileged architecture.
+=== Pseudocode for instruction semantics
 
-The ISA modules marked *Ratified* have been ratified at this time. The
-modules marked _Frozen_ are not expected to change significantly before
-being put up for ratification. The modules marked _Draft_ are expected
-to change before ratification.
+The semantics of each instruction in the <<#insns>> chapter is expressed in a
+SAIL-like syntax.
 
-The document contains the following versions of the RISC-V ISA modules:
+[#intro-cmo,reftext="Introduction"]
+=== Introduction
 
-[%autowidth,float="center",align="center",cols="^,<,^",options="header"]
+_Cache-management operation_ (or _CMO_) instructions perform operations on
+copies of data in the memory hierarchy. In general, CMO instructions operate on
+cached copies of data, but in some cases, a CMO instruction may operate on
+memory locations directly. Furthermore, CMO instructions are grouped by
+operation into the following classes:
+
+* A _management_ instruction manipulates cached copies of data with respect to a
+  set of agents that can access the data
+* A _zero_ instruction zeros out a range of memory locations, potentially
+  allocating cached copies of data in one or more caches
+* A _prefetch_ instruction indicates to hardware that data at a given memory
+  location may be accessed in the near future, potentially allocating cached
+  copies of data in one or more caches
+
+This document introduces a base set of CMO ISA extensions that operate
+specifically on cache blocks or the memory locations corresponding to a cache
+block; these are known as _cache-block operation_ (or _CBO_) instructions. Each
+of the above classes of instructions represents an extension in this
+specification:
+
+* The _Zicbom_ extension defines a set of cache-block management instructions:
+  `CBO.INVAL`, `CBO.CLEAN`,  and `CBO.FLUSH`
+* The _Zicboz_ extension defines a cache-block zero instruction: `CBO.ZERO`
+* The _Zicbop_ extension defines a set of cache-block prefetch instructions:
+  `PREFETCH.R`, `PREFETCH.W`, and `PREFETCH.I`
+
+The execution behavior of the above instructions is also modified by CSR state
+added by this specification.
+
+The remainder of this document provides general background information on CMO
+instructions and describes each of the above ISA extensions.
+
+[NOTE]
+====
+_The term CMO encompasses all operations on caches or resources related to
+caches. The term CBO represents a subset of CMOs that operate only on cache
+blocks. The first CMO extensions only define CBOs._
+====
+
+[#background,reftext="Background"]
+=== Background
+
+This chapter provides information common to all CMO extensions.
+
+[#memory-caches,reftext="Memory and Caches"]
+==== Memory and Caches
+
+A _memory location_ is a physical resource in a system uniquely identified by a
+_physical address_. An _agent_ is a logic block, such as a RISC-V hart,
+accelerator, I/O device, etc., that can access a given memory location.
+
+[NOTE]
+====
+_A given agent may not be able to access all memory locations in a system, and
+two different agents may or may not be able to access the same set of memory
+locations._
+====
+
+A _load operation_ (or _store operation_) is performed by an agent to consume
+(or modify) the data at a given memory location. Load and store operations are
+performed as a result of explicit memory accesses to that memory location.
+Additionally, a _read transfer_ from memory fetches the data at the memory
+location, while a _write transfer_ to memory updates the data at the memory
+location.
+
+A _cache_ is a structure that buffers copies of data to reduce average memory
+latency. Any number of caches may be interspersed between an agent and a memory
+location, and load and store operations from an agent may be satisfied by a
+cache instead of the memory location.
+
+[NOTE]
+====
+_Load and store operations are decoupled from read and write transfers by
+caches. For example, a load operation may be satisfied by a cache without
+performing a read transfer from memory, or a store operation may be satisfied by
+a cache that first performs a read transfer from memory._
+====
+
+Caches organize copies of data into _cache blocks_, each of which represents a
+contiguous, naturally aligned power-of-two (or _NAPOT_) range of memory
+locations. A cache block is identified by any of the physical addresses corresponding to
+the underlying memory locations. The capacity and organization of a cache and
+the size of a cache block are both _implementation-specific_, and the execution
+environment provides software a means to discover information about the caches
+and cache blocks in a system. In the initial set of CMO extensions, the size of
+a cache block shall be uniform throughout the system.
+
+[NOTE]
+====
+_In future CMO extensions, the requirement for a uniform cache block size may be
+relaxed._
+====
+
+Implementation techniques such as speculative execution or hardware prefetching
+may cause a given cache to allocate or deallocate a copy of a cache block at any
+time, provided the corresponding physical addresses are accessible according to
+the supported access type PMA and are cacheable according to the cacheability
+PMA. Allocating a copy of a cache block results in a read transfer from another
+cache or from memory, while deallocating a copy of a cache block may result in a
+write transfer to another cache or to memory depending on whether the data in
+the copy were modified by a store operation. Additional details are discussed in
+<<#coherent-agents-caches>>.
+
+==== Cache-Block Operations
+
+A CBO instruction causes one or more operations to be performed on the cache
+blocks identified by the instruction. In general, a CBO instruction may identify
+one or more cache blocks; however, in the initial set of CMO extensions, CBO
+instructions identify a single cache block only.
+
+A cache-block management instruction performs one of the following operations,
+relative to the copy of a given cache block allocated in a given cache:
+
+* An _invalidate operation_ deallocates the copy of the cache block
+
+* A _clean operation_ performs a write transfer to another cache or to memory if
+  the data in the copy of the cache block have been modified by a store
+  operation
+
+* A _flush operation_ atomically performs a clean operation followed by an
+  invalidate operation
+
+Additional details, including the actual operation performed by a given
+cache-block management instruction, are described in <<#Zicbom>>.
+
+A cache-block zero instruction performs a set of store operations that write
+zeros to the set of bytes corresponding to a cache block. Unless specified
+otherwise, the store operations generated by a cache-block zero instruction have
+the same general properties and behaviors that other store instructions in the
+architecture have. An implementation may or may not update the entire set of
+bytes atomically with a single store operation. Additional details are described
+in <<#Zicboz>>.
+
+A cache-block prefetch instruction is a HINT to the hardware that software
+expects to perform a particular type of memory access in the near future.
+Additional details are described in <<#Zicbop>>.
+
+[#coherent-agents-caches,reftext="Coherent Agents and Caches"]
+=== Coherent Agents and Caches
+
+For a given memory location, a _set of coherent agents_ consists of the agents
+for which all of the following hold:
+
+* Store operations from all agents in the set appear to be serialized with
+  respect to each other
+* Store operations from all agents in the set eventually appear to all other
+  agents in the set
+* A load operation from an agent in the set returns data from a store operation
+  from an agent in the set (or from the initial data in memory)
+
+The coherent agents within such a set shall access a given memory location with
+the same physical address and the same physical memory attributes; however, if
+the coherence PMA for a given agent indicates a given memory location is not
+coherent, that agent shall not be a member of a set of coherent agents with any
+other agent for that memory location and shall be the sole member of a set of
+coherent agents consisting of itself.
+
+An agent who is a member of a set of coherent agents is said to be _coherent_
+with respect to the other agents in the set. On the other hand, an agent who is
+_not_ a member is said to be _non-coherent_ with respect to the agents in the
+set.
+
+Caches introduce the possibility that multiple copies of a given cache block may
+be present in a system at the same time. An _implementation-specific_ mechanism
+keeps these copies coherent with respect to the load and store operations from
+the agents in the set of coherent agents. Additionally, if a coherent agent in
+the set executes a CBO instruction that specifies the cache block, the resulting
+operation shall apply to any and all of the copies in the caches that can be
+accessed by the load and store operations from the coherent agents.
+
+[NOTE]
+====
+_An operation from a CBO instruction is defined to operate only on the copies of
+a cache block that are cached in the caches accessible by the explicit memory
+accesses performed by the set of coherent agents. This includes copies of a
+cache block in caches that are accessed only indirectly by load and store
+operations, e.g. coherent instruction caches._
+====
+
+The set of caches subject to the above mechanism form a _set of coherent
+caches_, and each coherent cache has the following behaviors, assuming all
+operations are performed by the agents in a set of coherent agents:
+
+* A coherent cache is permitted to allocate and deallocate copies of a cache
+  block and perform read and write transfers as described in <<#memory-caches>>
+
+* A coherent cache is permitted to perform a write transfer to memory provided
+  that a store operation has modified the data in the cache block since the most
+  recent invalidate, clean, or flush operation on the cache block
+
+* At least one coherent cache is responsible for performing a write transfer to
+  memory once a store operation has modified the data in the cache block until
+  the next invalidate, clean, or flush operation on the cache block, after which
+  no coherent cache is responsible (or permitted) to perform a write transfer to
+  memory until the next store operation has modified the data in the cache block
+
+* A coherent cache is required to perform a write transfer to memory if a store
+  operation has modified the data in the cache block since the most recent
+  invalidate, clean, or flush operation on the cache block and if the next clean
+  or flush operation requires a write transfer to memory
+
+[NOTE]
+====
+_The above restrictions ensure that a "clean" copy of a cache block, fetched by
+a read transfer from memory and unmodified by a store operation, cannot later
+overwrite the copy of the cache block in memory updated by a write transfer to
+memory from a non-coherent agent._
+====
+
+A non-coherent agent may initiate a cache-block operation that operates on the
+set of coherent caches accessed by a set of coherent agents. The mechanism to
+perform such an operation is _implementation-specific_.
+
+==== Memory Ordering
+
+===== Preserved Program Order
+
+The preserved program order (abbreviated _PPO_) rules are defined by the RVWMO
+memory ordering model. How the operations resulting from CMO instructions fit
+into these rules is described below.
+
+For cache-block management instructions, the resulting invalidate, clean, and
+flush operations behave as stores in the PPO rules subject to one additional
+overlapping address rule. Specifically, [#norm:PPO_overlap_1]#if _a_ precedes _b_ in program order,
+then _a_ will precede _b_ in the global memory order if:#
+
+* [#norm:PPO_overlap_2]#_a_ is an invalidate, clean, or flush, _b_ is a load, and _a_ and _b_ access
+  overlapping memory addresses#
+
+[NOTE]
+====
+_The above rule ensures that a subsequent load in program order never appears
+in the global memory order before a preceding invalidate, clean, or flush
+operation to an overlapping address._
+====
+
+Additionally, invalidate, clean, and flush operations are classified as W or O
+(depending on the physical memory attributes for the corresponding physical
+addresses) for the purposes of predecessor and successor sets in `FENCE`
+instructions. These operations are _not_ ordered by other instructions that
+order stores, e.g. `FENCE.I` and `SFENCE.VMA`.
+
+For cache-block zero instructions, the resulting store operations behave as
+stores in the PPO rules and are ordered by other instructions that order stores.
+
+Finally, for cache-block prefetch instructions, the resulting operations are
+_not_ ordered by the PPO rules nor are they ordered by any other ordering
+instructions.
+
+===== Load Values
+
+An invalidate operation may change the set of values that can be returned by a
+load. In particular, an additional condition is added to the Load Value Axiom:
+
+* If an invalidate operation _i_ precedes a load _r_ and operates on a byte _x_
+  returned by _r_, and no store to _x_ appears between _i_ and _r_ in program
+  order or in the global memory order, then _r_ returns any of the following
+  values for _x_:
+
+. [#norm:invalidate_load_val1]#If no clean or flush operations on _x_ precede _i_ in the global memory order,
+  either the initial value of _x_ or the value of any store to _x_ that precedes
+  _i_#
+
+. [#norm:invalidate_load_val2]#If no store to _x_ precedes a clean or flush operation on _x_ in the global
+  memory order and if the clean or flush operation on _x_ precedes _i_ in the
+  global memory order, either the initial value of _x_ or the value of any store
+  to _x_ that precedes _i_#
+
+. [#norm:invalidate_load_val3]#If a store to _x_ precedes a clean or flush operation on _x_ in the global
+  memory order and if the clean or flush operation on _x_ precedes _i_ in the
+  global memory order, either the value of the latest store to _x_ that precedes
+  the latest clean or flush operation on _x_ or the value of any store to _x_
+  that both precedes _i_ and succeeds the latest clean or flush operation on _x_
+  that precedes _i_#
+
+. [#norm:invalidate_load_val4]#The value of any store to _x_ by a non-coherent agent regardless of the above
+  conditions#
+
+[NOTE]
+====
+_The first three bullets describe the possible load values at different points
+in the global memory order relative to clean or flush operations. The final
+bullet implies that the load value may be produced by a non-coherent agent at
+any time._
+====
+
+==== Traps
+
+Execution of certain CMO instructions may result in traps due to CSR state,
+described in the <<#csr_state>> section, or due to the address translation and
+protection mechanisms. The trapping behavior of CMO instructions is described in
+the following sections.
+
+===== Illegal-Instruction and Virtual-Instruction Exceptions
+
+Cache-block management instructions and cache-block zero instructions may raise
+illegal-instruction exceptions or virtual-instruction exceptions depending on
+the current privilege mode and the state of the CMO control registers described
+in the <<#csr_state>> section.
+
+Cache-block prefetch instructions raise neither illegal-instruction exceptions
+nor virtual-instruction exceptions.
+
+===== Page-Fault, Guest-Page-Fault, and Access-Fault Exceptions
+
+Similar to load and store instructions, CMO instructions are explicit memory
+access instructions that compute an effective address. The effective address is
+ultimately translated into a physical address based on the privilege mode and
+the enabled translation mechanisms, and the CMO extensions impose the following
+constraints on the physical addresses in a given cache block:
+
+* [#norm:PMP_same]#The PMP access control bits shall be the same for _all_ physical addresses in
+  the cache block, and if write permission is granted by the PMP access control
+  bits, read permission shall also be granted#
+
+* [#norm:PMA_same]#The PMAs shall be the same for _all_ physical addresses in the cache block,
+  and if write permission is granted by the supported access type PMAs, read
+  permission shall also be granted#
+
+[#norm:cbo_rsv]#If the above constraints are not met, the behavior of a CBO instruction is
+UNSPECIFIED.#
+
+[NOTE]
+====
+_This specification assumes that the above constraints will typically be met for
+main memory regions and may be met for certain I/O regions._
+====
+
+[NOTE]
+====
+The access size for CMO instructions is equal to the size of the cache
+block, however in some cases that access can be decomposed into multiple
+memory operations. PMP checks are applied to each memory operation
+independently. For example a 64-byte *cbo.zero* that spans two 32-byte PMP
+regions would succeed if it was decomposed into two 32-byte memory operations
+(and the PMP access control bits are the same in both regions), but if
+performed as a single 64-byte memory operation it would cause an access fault.
+====
+
+The Zicboz extension introduces an additional supported access type PMA for
+cache-block zero instructions. Main memory regions are required to support
+accesses by cache-block zero instructions; however, I/O regions may specify
+whether accesses by cache-block zero instructions are supported.
+
+[#norm:cbm_access]#A cache-block management instruction is permitted to access the specified cache
+block whenever a load instruction or store instruction is permitted to access
+the corresponding physical addresses.# If neither a load instruction nor store
+instruction is permitted to access the physical addresses, but an instruction
+fetch is permitted to access the physical addresses, whether a cache-block
+management instruction is permitted to access the cache block is UNSPECIFIED. [#norm:cbm_unperm_fault]#If
+access to the cache block is not permitted, a cache-block management instruction
+raises a store page-fault or store guest-page-fault exception if address
+translation does not permit any access or raises a store access-fault exception
+otherwise.# [#norm:cbm_unperm_translate]#During address translation, the instruction also checks the accessed
+bit and may either raise an exception or set the bit as required.#
+
+[NOTE]
+====
+_The interaction between cache-block management instructions and instruction
+fetches will be specified in a future extension._
+
+_As implied by omission, a cache-block management instruction does not check the
+dirty bit and neither raises an exception nor sets the bit._
+====
+
+[#norm:cbz_access]#A cache-block zero instruction is permitted to access the specified cache block
+whenever a store instruction is permitted to access the corresponding physical
+addresses and when the PMAs indicate that cache-block zero instructions are a
+supported access type.# [#norm:cbz_unperm_fault]#If access to the cache block is not permitted, a
+cache-block zero instruction raises a store page-fault or store guest-page-fault
+exception if address translation does not permit write access or raises a store
+access-fault exception otherwise.# [#norm:cbz_unperm_translate]#During address translation, the instruction
+also checks the accessed and dirty bits and may either raise an exception or set
+the bits as required.#
+
+[#norm:cbp_access]#A cache-block prefetch instruction is permitted to access the specified cache
+block whenever a load instruction, store instruction, or instruction fetch is
+permitted to access the corresponding physical addresses.# [#norm:cbp_unperm_noexcep]#If access to the cache
+block is not permitted, a cache-block prefetch instruction does not raise any
+exceptions and shall not access any caches or memory.# [#norm:cbp_unperm_translate]#During address
+translation, the instruction does _not_ check the accessed and dirty bits and
+neither raises an exception nor sets the bits.#
+
+[#norm:fault_excep_csr]#When a page-fault, guest-page-fault, or access-fault exception is taken, the
+relevant *tval CSR is written with the faulting effective address (i.e. the
+value of _rs1_).#
+
+[NOTE]
+====
+_Like a load or store instruction, a CMO instruction may or may not be permitted
+to access a cache block based on the states of the `MPRV`, `MPV`, and `MPP` bits
+in `mstatus` and the `SUM` and `MXR` bits in `mstatus`, `sstatus`, and
+`vsstatus`._
+
+_This specification expects that implementations will process cache-block
+management instructions like store/AMO instructions, so store/AMO exceptions are
+appropriate for these instructions, regardless of the permissions required._
+====
+
+===== Address-Misaligned Exceptions
+
+[[norm:no_addr_misaligned_excep]]
+CMO instructions do _not_ generate address-misaligned exceptions.
+
+===== Breakpoint Exceptions and Debug Mode Entry
+
+Unless otherwise defined by the debug architecture specification, the behavior
+of trigger modules with respect to CMO instructions is UNSPECIFIED.
+
+[NOTE]
+====
+_For the Zicbom, Zicboz, and Zicbop extensions, this specification recommends
+the following common trigger module behaviors:_
+
+* Type 6 address match triggers, i.e. `tdata1.type=6` and `mcontrol6.select=0`,
+  should be supported
+
+* Type 2 address/data match triggers, i.e. `tdata1.type=2`, should be
+  unsupported
+
+* The size of a memory access equals the size of the cache block accessed, and
+  the compare values follow from the addresses of the NAPOT memory region
+  corresponding to the cache block containing the effective address
+
+* Unless an encoding for a cache block is added to the `mcontrol6.size` field,
+  an address trigger should only match a memory access from a CBO instruction if
+  `mcontrol6.size=0`
+
+_If the Zicbom extension is implemented, this specification recommends the
+following additional trigger module behaviors:_
+
+* Implementing address match triggers should be optional
+
+* Type 6 data match triggers, i.e. `tdata1.type=6` and `mcontrol6.select=1`,
+  should be unsupported
+
+* Memory accesses are considered to be stores, i.e. an address trigger matches
+  only if `mcontrol6.store=1`
+
+_If the Zicboz extension is implemented, this specification recommends the
+following additional trigger module behaviors:_
+
+* Implementing address match triggers should be mandatory
+
+* Type 6 data match triggers, i.e. `tdata1.type=6` and `mcontrol6.select=1`,
+  should be supported, and implementing these triggers should be optional
+
+* Memory accesses are considered to be stores, i.e. an address trigger matches
+  only if `mcontrol6.store=1`
+
+_If the Zicbop extension is implemented, this specification recommends the
+following additional trigger module behaviors:_
+
+* Implementing address match triggers should be optional
+
+* Type 6 data match triggers, i.e. `tdata1.type=6` and `mcontrol6.select=1`,
+  should be unsupported
+
+* Memory accesses may be considered to be loads or stores depending on the
+  implementation, i.e. whether an address trigger matches on these instructions
+  when `mcontrol6.load=1` or `mcontrol6.store=1` is _implementation-specific_
+
+_This specification also recommends that the behavior of trigger modules with
+respect to the Zicboz extension should be defined in version 1.0 of the debug
+architecture specification. The behavior of trigger modules with respect to the
+Zicbom and Zicbop extensions is expected to be defined in future extensions._
+====
+
+===== Hypervisor Extension
+
+[[norm:h_trans_cache]]
+For the purposes of writing the `mtinst` or `htinst` register on a trap, the
+following standard transformation is defined for cache-block management
+instructions and cache-block zero instructions:
+
+[wavedrom, , svg]
+....
+{reg:[
+ { bits: 7,  name: 'opcode'},
+ { bits: 5,  name: 0x0 },
+ { bits: 3,  name: 'funct3'},
+ { bits: 5,  name: 0x0},
+ { bits: 12, name: 'operation'},
+]}
+....
+
+The `operation` field corresponds to the 12 most significant bits of the
+trapping instruction.
+
+[NOTE]
+====
+_As described in the hypervisor extension, a zero may be written into `mtinst`
+or `htinst` instead of the standard transformation defined above._
+====
+
+==== Effects on Constrained LR/SC Loops
+
+The following event is added to the list of events that satisfy the eventuality
+guarantee provided by constrained LR/SC loops, as defined in the A extension:
+
+* Some other hart executes a cache-block management instruction or a cache-block
+  zero instruction to the reservation set of the LR instruction in _H_'s
+  constrained LR/SC loop.
+
+[NOTE]
+====
+_The above event has been added to accommodate cache coherence protocols that
+cannot distinguish between invalidations for stores and invalidations for
+cache-block management operations._
+
+_Aside from the above event, CMO instructions neither change the properties of
+constrained LR/SC loops nor modify the eventuality guarantee provided by them.
+For example, executing a CMO instruction may cause a constrained LR/SC loop on
+any hart to fail periodically or may cause a unconstrained LR/SC sequence on the
+same hart to fail always. Additionally, executing a cache-block prefetch
+instruction does not impact the eventuality guarantee provided by constrained
+LR/SC loops executed on any hart._
+====
+
+==== Software Discovery
+
+The initial set of CMO extensions requires the following information to be
+discovered by software:
+
+* The size of the cache block for management and prefetch instructions
+* The size of the cache block for zero instructions
+* CBIE support at each privilege level
+
+Other general cache characteristics may also be specified in the discovery
+mechanism.
+
+[#csr_state,reftext="Control and Status Register State"]
+=== CSR controls for CMO instructions
+
+The x{csrname} registers control CBO instruction execution based on the current
+privilege mode and the state of the appropriate CSRs, as detailed below.
+
+[[norm:cbo-inval]]
+A `CBO.INVAL` instruction executes or raises either an illegal-instruction
+exception or a virtual-instruction exception based on the state of the
+`x{csrname}.CBIE` fields:
+
+[source,sail,subs="attributes+"]
+--
+
+// illegal-instruction exceptions
+if (((priv_mode != M) && (m{csrname}.CBIE == 00)) ||
+    ((priv_mode == U) && (s{csrname}.CBIE == 00)))
+{
+  <raise illegal-instruction exception>
+}
+// virtual-instruction exceptions
+else if (((priv_mode == VS) && (h{csrname}.CBIE == 00)) ||
+         ((priv_mode == VU) && ((h{csrname}.CBIE == 00) || (s{csrname}.CBIE == 00))))
+{
+  <raise virtual-instruction exception>
+}
+// execute instruction
+else
+{
+  if (((priv_mode != M) && (m{csrname}.CBIE == 01)) ||
+      ((priv_mode == U) && (s{csrname}.CBIE == 01)) ||
+      ((priv_mode == VS) && (h{csrname}.CBIE == 01)) ||
+      ((priv_mode == VU) && ((h{csrname}.CBIE == 01) || (s{csrname}.CBIE == 01))))
+  {
+    <execute CBO.INVAL and perform flush operation>
+  }
+  else
+  {
+    <execute CBO.INVAL and perform invalidate operation>
+  }
+}
+
+
+--
+
+[NOTE]
+====
+_Until a modified cache block has updated memory, a `CBO.INVAL` instruction may
+expose stale data values in memory if the CSRs are programmed to perform an
+invalidate operation. This behavior may result in a security hole if lower
+privileged level software performs an invalidate operation and accesses
+sensitive information in memory._
+
+_To avoid such holes, higher privileged level software must perform either a
+clean or flush operation on the cache block before permitting lower privileged
+level software to perform an invalidate operation on the block. Alternatively,
+higher privileged level software may program the CSRs so that `CBO.INVAL`
+either traps or performs a flush operation in a lower privileged level._
+====
+
+[[norm:cbo-clean_cbo-flush]]
+A `CBO.CLEAN` or `CBO.FLUSH` instruction executes or raises an illegal-instruction
+or virtual-instruction exception based on the state of the
+`x{csrname}.CBCFE` bits:
+
+[source,sail,subs="attributes+"]
+--
+
+// illegal-instruction exceptions
+if (((priv_mode != M) && !m{csrname}.CBCFE) ||
+    ((priv_mode == U) && !s{csrname}.CBCFE))
+{
+  <raise illegal-instruction exception>
+}
+// virtual-instruction exceptions
+else if (((priv_mode == VS) && !h{csrname}.CBCFE) ||
+         ((priv_mode == VU) && !(h{csrname}.CBCFE && s{csrname}.CBCFE)))
+{
+  <raise virtual-instruction exception>
+}
+// execute instruction
+else
+{
+  <execute CBO.CLEAN or CBO.FLUSH>
+}
+
+--
+
+[[norm:cbo-zero_basedon_xenvcfg-CBZE]]
+Finally, a `CBO.ZERO` instruction executes or raises an illegal-instruction or
+virtual-instruction exception based on the state of the `x{csrname}.CBZE` bits:
+
+[source,sail,subs="attributes+"]
+--
+
+// illegal-instruction exceptions
+if (((priv_mode != M) && !m{csrname}.CBZE) ||
+    ((priv_mode == U) && !s{csrname}.CBZE))
+{
+  <raise illegal-instruction exception>
+}
+// virtual-instruction exceptions
+else if (((priv_mode == VS) && !h{csrname}.CBZE) ||
+         ((priv_mode == VU) && !(h{csrname}.CBZE && s{csrname}.CBZE)))
+{
+  <raise virtual-instruction exception>
+}
+// execute instruction
+else
+{
+  <execute CBO.ZERO>
+}
+
+--
+
+[[norm:cbxe_unaffected]]
+The CBIE/CBCFE/CBZE fields in each `x{csrname}` register do not affect the
+read and write behavior of the same fields in the other `x{csrname}` registers.
+
+Each `x{csrname}` register is WARL; however, software should determine the legal
+values from the execution environment discovery mechanism.
+
+[#extensions,reftext="Extensions"]
+=== Extensions
+
+CMO instructions are defined in the following extensions:
+
+* <<#Zicbom>>
+* <<#Zicboz>>
+* <<#Zicbop>>
+
+[#Zicbom,reftext="Cache-Block Management Instructions"]
+==== Cache-Block Management Instructions
+
+Cache-block management instructions enable software running on a set of coherent
+agents to communicate with a set of non-coherent agents by performing one of the
+following operations:
+
+* An invalidate operation makes data from store operations performed by a set of
+  non-coherent agents visible to the set of coherent agents at a point common to
+  both sets by deallocating all copies of a cache block from the set of coherent
+  caches up to that point
+
+* A clean operation makes data from store operations performed by the set of
+  coherent agents visible to a set of non-coherent agents at a point common to
+  both sets by performing a write transfer of a copy of a cache block to that
+  point provided a coherent agent performed a store operation that modified the
+  data in the cache block since the previous invalidate, clean, or flush
+  operation on the cache block
+
+* A flush operation atomically performs a clean operation followed by an
+  invalidate operation
+
+In the Zicbom extension, the instructions operate to a point common to _all_
+agents in the system. In other words, an invalidate operation ensures that store
+operations from all non-coherent agents visible to agents in the set of coherent
+agents, and a clean operation ensures that store operations from coherent agents
+visible to all non-coherent agents.
+
+[NOTE]
+====
+_The Zicbom extension does not prohibit agents that fall outside of the above
+architectural definition; however, software cannot rely on the defined cache
+operations to have the desired effects with respect to those agents._
+
+_Future extensions may define different sets of agents for the purposes of
+performance optimization._
+====
+
+These instructions operate on the cache block whose effective address is
+specified in _rs1_. The effective address is translated into a corresponding
+physical address by the appropriate translation mechanisms.
+
+The following instructions comprise the Zicbom extension:
+
+[%header,cols="^1,^1,4,8"]
 |===
-|Base |Version |Status
-|*RV32I* |*2.1* |*Ratified*
-|*RV32E* |*2.0* |*Ratified*
-|*RV64E* |*2.0* |*Ratified*
-|*RV64I* |*2.1* |*Ratified*
+|RV32
+|RV64
+|Mnemonic
+|Instruction
 
-h|Extension h|Version h|Status
+|{check}
+|{check}
+|cbo.clean _base_
+|<<#insns-cbo_clean>>
 
-|*Zifencei* |*2.0* |*Ratified*
-|*Zicsr* |*2.0* |*Ratified*
-|*Zicntr* |*2.0* |*Ratified*
-|*Zihintntl* |*1.0* |*Ratified*
-|*Zihintpause* |*2.0* |*Ratified*
-|*Zimop* | *1.0* | *Ratified*
-|*Zicond* | *1.0* |*Ratified*
-|*Zilsd* | *1.0* |*Ratified*
-|*M* |*2.0* |*Ratified*
-|*Zmmul* |*1.0* |*Ratified*
-|*A* |*2.1* |*Ratified*
-|*Zawrs* |*1.01* |*Ratified*
-|*Zacas* |*1.0* |*Ratified*
-|*Zabha* |*1.0* |*Ratified*
-|*Zalasr* |*1.0* |*Ratified*
-|*RVWMO* |*2.0* |*Ratified*
-|*Ztso* |*1.0* |*Ratified*
-|*CMO* |*1.0* |*Ratified*
-|*F* |*2.2* |*Ratified*
-|*D* |*2.2* |*Ratified*
-|*Q* |*2.2* |*Ratified*
-|*Zfh* |*1.0* |*Ratified*
-|*Zfhmin* |*1.0* |*Ratified*
-|*BF16* |*1.0* |*Ratified*
-|*Zfa* |*1.0* |*Ratified*
-|*Zfinx* |*1.0* |*Ratified*
-|*Zdinx* |*1.0* |*Ratified*
-|*Zhinx* |*1.0* |*Ratified*
-|*Zhinxmin* |*1.0* |*Ratified*
-|*C* |*2.0* |*Ratified*
-|*Zce* |*1.0* |*Ratified*
-|*Zclsd* |*1.0* |*Ratified*
-|*B* |*1.0* |*Ratified*
-|*V* |*1.0* |*Ratified*
-|*Zbkb* |*1.0* |*Ratified*
-|*Zbkc* |*1.0* |*Ratified*
-|*Zbkx* |*1.0* |*Ratified*
-|*Zk* |*1.0* |*Ratified*
-|*Zks* |*1.0* |*Ratified*
-|*Zvbb* |*1.0* |*Ratified*
-|*Zvbc* |*1.0* |*Ratified*
-|*Zvkg* |*1.0* |*Ratified*
-|*Zvkned* |*1.0* |*Ratified*
-|*Zvknhb* |*1.0* |*Ratified*
-|*Zvksed* |*1.0* |*Ratified*
-|*Zvksh* |*1.0* |*Ratified*
-|*Zvkt* |*1.0* |*Ratified*
-|*Zicfiss* |*1.0* |*Ratified*
-|*Zicfilp* |*1.0* |*Ratified*
+|{check}
+|{check}
+|cbo.flush _base_
+|<<#insns-cbo_flush>>
+
+|{check}
+|{check}
+|cbo.inval _base_
+|<<#insns-cbo_inval>>
+
 |===
 
-The changes in this version of the document include:
+[NOTE]
+====
+_Cache-block management instructions ignore cacheability attributes and operate
+on the cache block irrespective of the PMA cacheable attribute and any Page-Based
+Memory Type (PBMT) downgrade from cacheable to non-cacheable._
+====
 
-* The inclusion of all ratified extensions through May 2025.
-* Removal of all unratified material.
-* Addition of the BFloat16-precision Floating Point extension.
-* Addition of the Zabha extension for Byte and Halfword Atomic Memory Operations.
+[#Zicboz,reftext="Cache-Block Zero Instructions"]
+==== Cache-Block Zero Instructions
 
+Cache-block zero instructions store zeros to the set of bytes corresponding to a
+cache block. An implementation may update the bytes in any order and with any
+granularity and atomicity, including individual bytes.
 
-[.big]*_Preface to Document Version 20240411_*
+[NOTE]
+====
+_Cache-block zero instructions store zeros independently of whether data from
+the underlying memory locations are cacheable. In addition, this specification
+does not constrain how the bytes are written._
+====
 
-This document describes the RISC-V unprivileged architecture.
-It contains the following versions of the RISC-V ISA modules:
+[#norm:cbo-zero_specified_block]#These instructions operate on the cache block, or the memory locations
+corresponding to the cache block, whose effective address is specified in _rs1_.#
+The effective address is translated into a corresponding physical address by the
+appropriate translation mechanisms.
 
-[%autowidth,float="center",align="center",cols="^,<,^",options="header"]
+The following instructions comprise the Zicboz extension:
+
+[%header,cols="^1,^1,4,8"]
 |===
-|Base |Version |Status
-|*RV32I* |*2.1* |*Ratified*
-|*RV32E* |*2.0* |*Ratified*
-|*RV64E* |*2.0* |*Ratified*
-|*RV64I* |*2.1* |*Ratified*
+|RV32
+|RV64
+|Mnemonic
+|Instruction
 
-h|Extension h|Version h|Status
+|{check}
+|{check}
+|cbo.zero _base_
+|<<#insns-cbo_zero>>
 
-|*Zifencei* |*2.0* |*Ratified*
-|*Zicsr* |*2.0* |*Ratified*
-|*Zicntr* |*2.0* |*Ratified*
-|*Zihintntl* |*1.0* |*Ratified*
-|*Zihintpause* |*2.0* |*Ratified*
-|*Zimop* | *1.0* | *Ratified*
-|*Zicond* | *1.0* |*Ratified*
-|*Zilsd* | *1.0* |*Ratified*
-|*M* |*2.0* |*Ratified*
-|*Zmmul* |*1.0* |*Ratified*
-|*A* |*2.1* |*Ratified*
-|*Zawrs* |*1.01* |*Ratified*
-|*Zacas* |*1.0* |*Ratified*
-|*Zabha* |*1.0* |*Ratified*
-|*RVWMO* |*2.0* |*Ratified*
-|*Ztso* |*1.0* |*Ratified*
-|*CMO* |*1.0* |*Ratified*
-|*F* |*2.2* |*Ratified*
-|*D* |*2.2* |*Ratified*
-|*Q* |*2.2* |*Ratified*
-|*Zfh* |*1.0* |*Ratified*
-|*Zfhmin* |*1.0* |*Ratified*
-|*Zfa* |*1.0* |*Ratified*
-|*Zfinx* |*1.0* |*Ratified*
-|*Zdinx* |*1.0* |*Ratified*
-|*Zhinx* |*1.0* |*Ratified*
-|*Zhinxmin* |*1.0* |*Ratified*
-|*C* |*2.0* |*Ratified*
-|*Zce* |*1.0* |*Ratified*
-|*Zclsd* |*1.0* |*Ratified*
-|*B* |*1.0* |*Ratified*
-|*V* |*1.0* |*Ratified*
-|*Zbkb* |*1.0* |*Ratified*
-|*Zbkc* |*1.0* |*Ratified*
-|*Zbkx* |*1.0* |*Ratified*
-|*Zk* |*1.0* |*Ratified*
-|*Zks* |*1.0* |*Ratified*
-|*Zvbb* |*1.0* |*Ratified*
-|*Zvbc* |*1.0* |*Ratified*
-|*Zvkg* |*1.0* |*Ratified*
-|*Zvkned* |*1.0* |*Ratified*
-|*Zvknhb* |*1.0* |*Ratified*
-|*Zvksed* |*1.0* |*Ratified*
-|*Zvksh* |*1.0* |*Ratified*
-|*Zvkt* |*1.0* |*Ratified*
-|*Zicfiss* |*1.0* |*Ratified*
-|*Zicfilp* |*1.0* |*Ratified*
 |===
 
-The changes in this version of the document include:
+[#Zicbop,reftext="Cache-Block Prefetch Instructions"]
+==== Cache-Block Prefetch Instructions
 
-* The inclusion of all ratified extensions through February 2025.
-* The draft Zam extension has been removed, in favor of the definition of a misaligned atomicity granule PMA.
-* The concept of vacant memory regions has been superseded by inaccessible memory or I/O regions.
-* The removal of unratified content, including the sketch of the RV128I base ISA.
+Cache-block prefetch instructions are HINTs to the hardware to indicate that
+software intends to perform a particular type of memory access in the near
+future. The types of memory accesses are instruction fetch, data read (i.e.
+load), and data write (i.e. store).
 
-[.big]*_Preface to Document Version 20191213-Base-Ratified_*
+[#norm:prefetch_operating_block]#These instructions operate on the cache block whose effective address is the sum
+of the base address specified in _rs1_ and the sign-extended offset encoded in
+_imm[11:0]_, where _imm[4:0]_ shall equal `0b00000`.# The effective address is
+translated into a corresponding physical address by the appropriate translation
+mechanisms.
 
-This document describes the RISC-V unprivileged architecture.
+[NOTE]
+====
+_Cache-block prefetch instructions are encoded as ORI instructions with rd equal
+to `0b00000`; however, for the purposes of effective address calculation, this
+field is also interpreted as imm[4:0] like a store instruction._
+====
 
-The ISA modules marked *Ratified* have been ratified at this time. The
-modules marked _Frozen_ are not expected to change significantly before
-being put up for ratification. The modules marked _Draft_ are expected
-to change before ratification.
+The following instructions comprise the Zicbop extension:
 
-The document contains the following versions of the RISC-V ISA modules:
-
-[%autowidth,float="center",align="center",cols="^,<,^",options="header",]
+[%header,cols="^1,^1,4,8"]
 |===
-|Base |Version |Status
-|RVWMO |2.0 |*Ratified*
-|*RV32I* |*2.1* |*Ratified*
-|*RV64I* |*2.1* |*Ratified*
-|_RV32E_ |_1.9_ |_Draft_
-|_RV128I_ |_1.7_ |_Draft_
-h|Extension h|Version h|Status
-|*M* |*2.0* |*Ratified*
-|*A* |*2.1* |*Ratified*
-|*F* |*2.2* |*Ratified*
-|*D* |*2.2* |*Ratified*
-|*Q* |*2.2* |*Ratified*
-|*C* |*2.0* |*Ratified*
-|_Counters_ |_2.0_ |_Draft_
-|_L_ |_0.0_ |_Draft_
-|_B_ |_0.0_ |_Draft_
-|_J_ |_0.0_ |_Draft_
-|_T_ |_0.0_ |_Draft_
-|_P_ |_0.2_ |_Draft_
-|_V_ |_0.7_ |_Draft_
-|*Zicsr* |*2.0* |*Ratified*
-|*Zifencei* |*2.0* |*Ratified*
-|_Zam_ |_0.1_ |_Draft_
-|_Ztso_ |_0.1_ |_Frozen_
-|===
+|RV32
+|RV64
+|Mnemonic
+|Instruction
 
-The changes in this version of the document include:
+|{check}
+|{check}
+|prefetch.i _offset_(_base_)
+|<<#insns-prefetch_i>>
 
-* The A extension, now version 2.1, was ratified by the board in
-December 2019.
-* Defined big-endian ISA variant.
-* Moved N extension for user-mode interrupts into Volume II.
-* Defined PAUSE hint instruction.
+|{check}
+|{check}
+|prefetch.r _offset_(_base_)
+|<<#insns-prefetch_r>>
 
-[.big]*_Preface to Document Version 20190608-Base-Ratified_*
+|{check}
+|{check}
+|prefetch.w _offset_(_base_)
+|<<#insns-prefetch_w>>
 
-This document describes the RISC-V unprivileged architecture.
-
-The RVWMO memory model has been ratified at this time. The ISA modules
-marked *Ratified*, have been ratified at this time. The modules marked
-_Frozen_ are not expected to change significantly before being put up
-for ratification. The modules marked _Draft_ are expected to change
-before ratification.
-
-The document contains the following versions of the RISC-V ISA modules:
-
-[%autowidth,float="center",align="center",cols="^,<,^",options="header",]
-|===
-|Base |Version |Status
-|RVWMO |2.0 |*Ratified*
-|*RV32I* |*2.1* |*Ratified*
-|*RV64I* |*2.1* |*Ratified*
-|_RV32E_ |_1.9_ |_Draft_
-|_RV128I_ |_1.7_ |_Draft_
-h|Extension h|Version h|Status
-|*Zifencei* |*2.0* |*Ratified*
-|*Zicsr* |*2.0* |*Ratified*
-|*M* |*2.0* |*Ratified*
-|_A_ |_2.0_ |Frozen
-|*F* |*2.2* |*Ratified*
-|*D* |*2.2* |*Ratified*
-|*Q* |*2.2* |*Ratified*
-|*C* |*2.0* |*Ratified*
-|_Ztso_ |_0.1_ |_Frozen_
-|_Counters_ |_2.0_ |_Draft_
-|_L_ |_0.0_ |_Draft_
-|_B_ |_0.0_ |_Draft_
-|_J_ |_0.0_ |_Draft_
-|_T_ |_0.0_ |_Draft_
-|_P_ |_0.2_ |_Draft_
-|_V_ |_0.7_ |_Draft_
-|_Zam_ |_0.1_ |_Draft_
 |===
 
-The changes in this version of the document include:
+[#insns,reftext="Instructions"]
+=== Instructions
 
-* Moved description to *Ratified* for the ISA modules ratified by the
-board in early 2019.
-* Removed the A extension from ratification.
-* Changed document version scheme to avoid confusion with versions of
-the ISA modules.
-* Incremented the version numbers of the base integer ISA to 2.1,
-reflecting the presence of the ratified RVWMO memory model and exclusion
-of FENCE.I, counters, and CSR instructions that were in previous base
-ISA.
-* Incremented the version numbers of the F and D extensions to 2.2,
-reflecting that version 2.1 changed the canonical NaN, and version 2.2
-defined the NaN-boxing scheme and changed the definition of the FMIN and
-FMAX instructions.
-* Changed name of document to refer to "unprivileged" instructions as
-part of move to separate ISA specifications from platform profile
-mandates.
-* Added clearer and more precise definitions of execution environments,
-harts, traps, and memory accesses.
-* Defined instruction-set categories: _standard_, _reserved_, _custom_,
-_non-standard_, and _non-conforming_.
-* Removed text implying operation under alternate endianness, as
-alternate-endianness operation has not yet been defined for RISC-V.
-* Changed description of misaligned load and store behavior. The
-specification now allows visible misaligned address traps in execution
-environment interfaces, rather than just mandating invisible handling of
-misaligned loads and stores in user mode. Also, now allows access-fault
-exceptions to be reported for misaligned accesses (including atomics)
-that should not be emulated.
-* Moved FENCE.I out of the mandatory base and into a separate extension,
-with Zifencei ISA name. FENCE.I was removed from the Linux user ABI and
-is problematic in implementations with large incoherent instruction and
-data caches. However, it remains the only standard instruction-fetch
-coherence mechanism.
-* Removed prohibitions on using RV32E with other extensions.
-* Removed platform-specific mandates that certain encodings produce
-illegal-instruction exceptions in RV32E and RV64I chapters.
-* Counter/timer instructions are now not considered part of the
-mandatory base ISA, and so CSR instructions were moved into separate
-chapter and marked as version 2.0, with the unprivileged counters moved
-into another separate chapter. The counters are not ready for
-ratification as there are outstanding issues, including counter
-inaccuracies.
-* A CSR-access ordering model has been added.
-* Explicitly defined the 16-bit half-precision floating-point format for
-floating-point instructions in the 2-bit _fmt field._
-* Defined the signed-zero behavior of FMIN._fmt_ and FMAX._fmt_, and
-changed their behavior on signaling-NaN inputs to conform to the
-`minimumNumber` and `maximumNumber` operations in the proposed IEEE 754-201x
-specification.
-* The memory consistency model, RVWMO, has been defined.
-* The "Zam" extension, which permits misaligned AMOs and specifies
-their semantics, has been defined.
-* The "Ztso" extension, which enforces a stricter memory consistency
-model than RVWMO, has been defined.
-* Improvements to the description and commentary.
-* Defined the term `IALIGN` as shorthand to describe the
-instruction-address alignment constraint.
-* Removed text of `P` extension chapter as now superseded by active task
-group documents.
-* Removed text of `V` extension chapter as now superseded by separate
-vector extension draft document.
+[#insns-cbo_clean,reftext="Cache Block Clean"]
+==== cbo.clean
 
-[.big]*_Preface to Document Version 2.2_*
+Synopsis::
+Perform a clean operation on a cache block
 
-This is version 2.2 of the document describing the RISC-V user-level
-architecture. The document contains the following versions of the RISC-V
-ISA modules:
+Mnemonic::
+cbo.clean _offset_(_base_)
 
-[%autowidth,float="center",align="center",cols="^,<,^",options="header",]
-|===
-h|Base h|_Version_ h|_Draft Frozen?_
-|RV32I |2.0 |Y
-|RV32E |1.9 |N
-|RV64I |2.0 |Y
-|RV128I |1.7 |N
-h|Extension h|Version h|Frozen?
-|M |2.0 |Y
-|A |2.0 |Y
-|F |2.0 |Y
-|D |2.0 |Y
-|Q |2.0 |Y
-|L |0.0 |N
-|C |2.0 |Y
-|B |0.0 |N
-|J |0.0 |N
-|T |0.0 |N
-|P |0.1 |N
-|V |0.7 |N
-|N |1.1 |N
-|===
+Encoding::
+[wavedrom, , svg]
+....
+{reg:[
+ { bits: 7,  name: 0xF,   attr: ['MISC-MEM'] },
+ { bits: 5,  name: 0x0 },
+ { bits: 3,  name: 0x2,   attr: ['CBO'] },
+ { bits: 5,  name: 'rs1', attr: ['base'] },
+ { bits: 12, name: 0x001, attr: ['CBO.CLEAN'] },
+]}
+....
 
-To date, no parts of the standard have been officially ratified by the
-RISC-V Foundation, but the components labeled "frozen" above are not
-expected to change during the ratification process beyond resolving
-ambiguities and holes in the specification.
+Description::
 
-The major changes in this version of the document include:
+[#norm:cbo-clean_op]#A *cbo.clean* instruction performs a clean operation on the cache block whose
+effective address is the base address specified in _rs1_.# [#norm:cbo-clean_offset]#The offset operand may
+be omitted; otherwise, any expression that computes the offset shall evaluate to
+zero.# The instruction operates on the set of coherent caches accessed by the
+agent executing the instruction.
 
-* The previous version of this document was released under a Creative
-Commons Attribution 4.0 International License by the original authors,
-and this and future versions of this document will be released under the
-same license.
-* Rearranged chapters to put all extensions first in canonical order.
-* Improvements to the description and commentary.
-* Modified implicit hinting suggestion on `JALR` to support more efficient
-macro-op fusion of `LUI/JALR` and `AUIPC/JALR` pairs.
-* Clarification of constraints on load-reserved/store-conditional
-sequences.
-* A new table of control and status register (CSR) mappings.
-* Clarified purpose and behavior of high-order bits of `fcsr`.
-* Corrected the description of the `FNMADD`._fmt_ and `FNMSUB`._fmt_
-instructions, which had suggested the incorrect sign of a zero result.
-* Instructions `FMV.S.X` and `FMV.X.S` were renamed to `FMV.W.X` and `FMV.X.W`
-respectively to be more consistent with their semantics, which did not
-change. The old names will continue to be supported in the tools.
-* Specified behavior of narrower (<FLEN) floating-point
-values held in wider `f` registers using NaN-boxing model.
-* Defined the exception behavior of FMA({inf}, 0, qNaN).
-* Added note indicating that the `P` extension might be reworked into an
-integer packed-SIMD proposal for fixed-point operations using the
-integer registers.
-* A draft proposal of the V vector instruction-set extension.
-* An early draft proposal of the N user-level traps extension.
-* An expanded pseudoinstruction listing.
-* Removal of the calling convention chapter, which has been superseded
-by the RISC-V ELF psABI Specification cite:[riscv-elf-psabi].
-* The C extension has been frozen and renumbered version 2.0.
+[NOTE]
+====
+_When executing a *cbo.clean* instruction, an implementation may instead perform
+a flush operation, since the result of that operation is indistinguishable from
+the sequence of performing a clean operation just before deallocating all cached
+copies in the set of coherent caches._
+====
 
-[.big]*_Preface to Document Version 2.1_*
+[#insns-cbo_flush,reftext="Cache Block Flush"]
+==== cbo.flush
 
-This is version 2.1 of the document describing the RISC-V user-level
-architecture. Note the frozen user-level ISA base and extensions `IMAFDQ`
-version 2.0 have not changed from the previous version of this
-document cite:[riscvtr2], but some specification holes have been fixed and the
-documentation has been improved. Some changes have been made to the
-software conventions.
+Synopsis::
+Perform a flush operation on a cache block
 
-* Numerous additions and improvements to the commentary sections.
-* Separate version numbers for each chapter.
-* Modification to long instruction encodings >64 bits to
-avoid moving the _rd_ specifier in very long instruction formats.
-* CSR instructions are now described in the base integer format where
-the counter registers are introduced, as opposed to only being
-introduced later in the floating-point section (and the companion
-privileged architecture manual).
-* The SCALL and SBREAK instructions have been renamed to `ECALL` and
-`EBREAK`, respectively. Their encoding and functionality are unchanged.
-* Clarification of floating-point NaN handling, and a new canonical NaN
-value.
-* Clarification of values returned by floating-point to integer
-conversions that overflow.
-* Clarification of `LR/SC` allowed successes and required failures,
-including use of compressed instructions in the sequence.
-* A new `RV32E` base ISA proposal for reduced integer register counts,
-supports `MAC` extensions.
-* A revised calling convention.
-* Relaxed stack alignment for soft-float calling convention, and
-description of the RV32E calling convention.
-* A revised proposal for the `C` compressed extension, version 1.9 .
+Mnemonic::
+cbo.flush _offset_(_base_)
 
-[.big]*_Preface to Version 2.0_*
+Encoding::
+[wavedrom, , svg]
+....
+{reg:[
+ { bits: 7,  name: 0xF,   attr: ['MISC-MEM'] },
+ { bits: 5,  name: 0x0 },
+ { bits: 3,  name: 0x2,   attr: ['CBO'] },
+ { bits: 5,  name: 'rs1', attr: ['base'] },
+ { bits: 12, name: 0x002, attr: ['CBO.FLUSH'] },
+]}
+....
 
-This is the second release of the user ISA specification, and we intend
-the specification of the base user ISA plus general extensions (i.e.,
-IMAFD) to remain fixed for future development. The following changes
-have been made since Version 1.0 cite:[riscvtr] of this ISA specification.
+Description::
 
-* The ISA has been divided into an integer base with several standard
-extensions.
-* The instruction formats have been rearranged to make immediate
-encoding more efficient.
-* The base ISA has been defined to have a little-endian memory system,
-with big-endian or bi-endian as non-standard variants.
-* Load-Reserved/Store-Conditional (`LR/SC`) instructions have been added
-in the atomic instruction extension.
-* `AMOs` and `LR/SC` can support the release consistency model.
-* The `FENCE` instruction provides finer-grain memory and I/O orderings.
-* An `AMO` for fetch-and-`XOR` (`AMOXOR`) has been added, and the encoding for
-`AMOSWAP` has been changed to make room.
-* The `AUIPC` instruction, which adds a 20-bit upper immediate to the `PC`,
-replaces the `RDNPC` instruction, which only read the current `PC` value.
-This results in significant savings for position-independent code.
-* The `JAL` instruction has now moved to the `U-Type` format with an
-explicit destination register, and the `J` instruction has been dropped
-being replaced by `JAL` with _rd_=`x0`. This removes the only instruction
-with an implicit destination register and removes the `J-Type` instruction
-format from the base ISA. There is an accompanying reduction in `JAL`
-reach, but a significant reduction in base ISA complexity.
-* The static hints on the `JALR` instruction have been dropped. The hints
-are redundant with the _rd_ and _rs1_ register specifiers for code
-compliant with the standard calling convention.
-* The `JALR` instruction now clears the lowest bit of the calculated
-target address, to simplify hardware and to allow auxiliary information
-to be stored in function pointers.
-* The `MFTX.S` and `MFTX.D` instructions have been renamed to `FMV.X.S` and
-`FMV.X.D`, respectively. Similarly, `MXTF.S` and `MXTF.D` instructions have
-been renamed to `FMV.S.X` and `FMV.D.X`, respectively.
-* The `MFFSR` and `MTFSR` instructions have been renamed to `FRCSR` and `FSCSR`,
-respectively. `FRRM`, `FSRM`, `FRFLAGS`, and `FSFLAGS` instructions have been
-added to individually access the rounding mode and exception flags
-subfields of the `fcsr`.
-* The `FMV.X.S` and `FMV.X.D` instructions now source their operands from
-_rs1_, instead of _rs2_. This change simplifies datapath design.
-* `FCLASS.S` and `FCLASS.D` floating-point classify instructions have been
-added.
-* A simpler NaN generation and propagation scheme has been adopted.
-* For `RV32I`, the system performance counters have been extended to
-64-bits wide, with separate read access to the upper and lower 32 bits.
-* Canonical `NOP` and `MV` encodings have been defined.
-* Standard instruction-length encodings have been defined for 48-bit,
-64-bit, and >64-bit instructions.
-* Description of a 128-bit address space variant, `RV128`, has been added.
-* Major opcodes in the 32-bit base instruction format have been
-allocated for user-defined custom extensions.
-* A typographical error that suggested that stores source their data
-from _rd_ has been corrected to refer to _rs2_.
+[#norm:cbo-flush_op]#A *cbo.flush* instruction performs a flush operation on the cache block whose
+that contains the address specified in _rs1_.# [#norm:cbo-flush_unaligned]#It is not required that _rs1_ is
+aligned to the size of a cache block.# On faults, the faulting virtual address
+is considered to be the value in rs1, rather than the base address of the cache
+block. The instruction operates on the set of coherent caches accessed by the
+agent executing the instruction.
+
+The assembly _offset_ operand may be omitted. If it isn't then any expression
+that computes the offset shall evaluate to zero.
+
+[#insns-cbo_inval,reftext="Cache Block Invalidate"]
+==== cbo.inval
+
+Synopsis::
+Perform an invalidate operation on a cache block
+
+Mnemonic::
+cbo.inval _offset_(_base_)
+
+Encoding::
+[wavedrom, , svg]
+....
+{reg:[
+ { bits: 7,  name: 0xF,   attr: ['MISC-MEM'] },
+ { bits: 5,  name: 0x0 },
+ { bits: 3,  name: 0x2,   attr: ['CBO'] },
+ { bits: 5,  name: 'rs1', attr: ['base'] },
+ { bits: 12, name: 0x000, attr: ['CBO.INVAL'] },
+]}
+....
+
+Description::
+
+[#norm:cbo-inval_op]#A *cbo.inval* instruction performs an invalidate operation on the cache block
+that contains the address specified in _rs1_.# [#norm:cbo-inval_unaligned]#It is not required that _rs1_ is
+aligned to the size of a cache block.# On faults, the faulting virtual address
+is considered to be the value in rs1, rather than the base address of the cache
+block. The instruction operates on the set of coherent caches accessed by the
+agent executing the instruction.
+
+Depending on CSR programming, the instruction may perform a flush operation
+instead of an invalidate operation.
+
+The assembly _offset_ operand may be omitted. If it isn't then any expression
+that computes the offset shall evaluate to zero.
+
+[NOTE]
+====
+_When executing a *cbo.inval* instruction, an implementation may instead perform
+a flush operation, since the result of that operation is indistinguishable from
+the sequence of performing a write transfer to memory just before performing an
+invalidate operation._
+====
+
+[#insns-cbo_zero,reftext="Cache Block Zero"]
+==== cbo.zero
+
+Synopsis::
+Store zeros to the full set of bytes corresponding to a cache block
+
+Mnemonic::
+cbo.zero _offset_(_base_)
+
+Encoding::
+[wavedrom, , svg]
+....
+{reg:[
+ { bits: 7,  name: 0xF,   attr: ['MISC-MEM'] },
+ { bits: 5,  name: 0x0 },
+ { bits: 3,  name: 0x2,   attr: ['CBO'] },
+ { bits: 5,  name: 'rs1', attr: ['base'] },
+ { bits: 12, name: 0x004, attr: ['CBO.ZERO'] },
+]}
+....
+
+Description::
+
+[#norm:cbo-zero_op]#A *cbo.zero* instruction performs stores of zeros to the full set of bytes
+corresponding to the cache block that contains the address specified in _rs1_.#
+[#norm:cbo-zero_unaligned]#It is not required that _rs1_ is aligned to the size of a cache block.# On
+faults, the faulting virtual address is considered to be the value in rs1,
+rather than the base address of the cache block. An implementation may or
+may not update the entire set of bytes atomically.
+
+[[norm:cbo-zero_offset]]
+The assembly _offset_ operand may be omitted. If it isn't then any expression
+that computes the offset shall evaluate to zero.
+
+[#insns-prefetch_i,reftext="Cache Block Prefetch for Instruction Fetch"]
+==== prefetch.i
+
+Synopsis::
+Provide a HINT to hardware that a cache block is likely to be accessed by an
+instruction fetch in the near future
+
+Mnemonic::
+prefetch.i _offset_(_base_)
+
+Encoding::
+[wavedrom, , svg]
+....
+{reg:[
+ { bits: 7,  name: 0x13,        attr: ['OP-IMM'] },
+ { bits: 5,  name: 0x0,         attr: ['offset[4:0]'] },
+ { bits: 3,  name: 0x6,         attr: ['ORI'] },
+ { bits: 5,  name: 'rs1',       attr: ['base'] },
+ { bits: 5,  name: 0x0,         attr: ['PREFETCH.I'] },
+ { bits: 7, name: 'imm[11:5]',  attr: ['offset[11:5]'] },
+]}
+....
+
+Description::
+
+[[norm:prefetch-i_op]]
+A *prefetch.i* instruction indicates to hardware that the cache block whose
+effective address is the sum of the base address specified in _rs1_ and the
+sign-extended offset encoded in _imm[11:0]_, where _imm[4:0]_ equals `0b00000`,
+is likely to be accessed by an instruction fetch in the near future.
+
+[NOTE]
+====
+_An implementation may opt to cache a copy of the cache block in a cache
+accessed by an instruction fetch in order to improve memory access latency, but
+this behavior is not required._
+====
+
+[#insns-prefetch_r,reftext="Cache Block Prefetch for Data Read"]
+==== prefetch.r
+
+Synopsis::
+Provide a HINT to hardware that a cache block is likely to be accessed by a data
+read in the near future
+
+Mnemonic::
+prefetch.r _offset_(_base_)
+
+Encoding::
+[wavedrom, , svg]
+....
+{reg:[
+ { bits: 7,  name: 0x13,        attr: ['OP-IMM'] },
+ { bits: 5,  name: 0x0,         attr: ['offset[4:0]'] },
+ { bits: 3,  name: 0x6,         attr: ['ORI'] },
+ { bits: 5,  name: 'rs1',       attr: ['base'] },
+ { bits: 5,  name: 0x1,         attr: ['PREFETCH.R'] },
+ { bits: 7, name: 'imm[11:5]',  attr: ['offset[11:5]'] },
+]}
+....
+
+Description::
+
+[[norm:prefetch-r_op]]
+A *prefetch.r* instruction indicates to hardware that the cache block whose
+effective address is the sum of the base address specified in _rs1_ and the
+sign-extended offset encoded in _imm[11:0]_, where _imm[4:0]_ equals `0b00000`,
+is likely to be accessed by a data read (i.e. load) in the near future.
+
+[NOTE]
+====
+_An implementation may opt to cache a copy of the cache block in a cache
+accessed by a data read in order to improve memory access latency, but this
+behavior is not required._
+====
+
+[#insns-prefetch_w,reftext="Cache Block Prefetch for Data Write"]
+==== prefetch.w
+
+Synopsis::
+Provide a HINT to hardware that a cache block is likely to be accessed by a data
+write in the near future
+
+Mnemonic::
+prefetch.w _offset_(_base_)
+
+Encoding::
+[wavedrom, , svg]
+....
+{reg:[
+ { bits: 7,  name: 0x13,        attr: ['OP-IMM'] },
+ { bits: 5,  name: 0x0,         attr: ['offset[4:0]'] },
+ { bits: 3,  name: 0x6,         attr: ['ORI'] },
+ { bits: 5,  name: 'rs1',       attr: ['base'] },
+ { bits: 5,  name: 0x3,         attr: ['PREFETCH.W'] },
+ { bits: 7, name: 'imm[11:5]',  attr: ['offset[11:5]'] },
+]}
+....
+
+Description::
+
+[[norm:prefetch-w_op]]
+A *prefetch.w* instruction indicates to hardware that the cache block whose
+effective address is the sum of the base address specified in _rs1_ and the
+sign-extended offset encoded in _imm[11:0]_, where _imm[4:0]_ equals `0b00000`,
+is likely to be accessed by a data write (i.e. store) in the near future.
+
+[NOTE]
+====
+_An implementation may opt to cache a copy of the cache block in a cache
+accessed by a data write in order to improve memory access latency, but this
+behavior is not required._
+====

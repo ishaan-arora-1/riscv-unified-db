@@ -1,254 +1,246 @@
 # Chunk: chunk_011
-# Source: d-st-ext.adoc
-# Lines: 1-239 (of 239)
+# Source: counters.adoc
+# Lines: 1-236 (of 236)
 # Content starts: line 1
-# Line count: 239
-# Sections: 8
-#   == "D" Extension for Double-Precision Floating-Point, Version 2.2
-#   === D Register State
-#   === NaN Boxing of Narrower Values
-#   === Double-Precision Load and Store Instructions
-#   === Double-Precision Floating-Point Computational Instructions
-#   === Double-Precision Floating-Point Conversion and Move Instructions
-#   === Double-Precision Floating-Point Compare Instructions
-#   === Double-Precision Floating-Point Classify Instruction
+# Line count: 236
+# Sections: 3
+#   == "Zicntr" and "Zihpm" Extensions for Counters, Version 2.0
+#   === "Zicntr" Extension for Base Counters and Timers
+#   === "Zihpm" Extension for Hardware Performance Counters
 #
-== "D" Extension for Double-Precision Floating-Point, Version 2.2
+[[counters]]
+== "Zicntr" and "Zihpm" Extensions for Counters, Version 2.0
 
-This chapter describes the standard double-precision floating-point
-instruction-set extension, which is named "D" and adds
-double-precision floating-point computational instructions compliant
-with the IEEE 754-2008 arithmetic standard. The D extension depends on
-the base single-precision instruction subset F.
-(((double-precision, floating point)))
-(((floating point, double precision)))
+[#norm:zihpm_op_sz_mode_acc_count]#RISC-V ISAs provide a set of up to thirty-two 64-bit performance
+counters and timers# that are [#norm:zihpm_op_sz_mode_acc_priv]#accessible via unprivileged XLEN-bit
+read-only CSR registers `0xC00`–`0xC1F`# ([#norm:zihpm_op_sz_mode_acc_xlen32]#when XLEN=32, the upper 32 bits
+are accessed via CSR registers `0xC80`–`0xC9F`#). [#norm:zihpm_op_sz_mode_acc_partition]#These counters are
+divided between the "Zicntr" and "Zihpm" extensions.#
 
-=== D Register State
+=== "Zicntr" Extension for Base Counters and Timers
 
-[#norm:D_flen_64]#The D extension widens the 32 floating-point registers, `f0-f31`, to
-64 bits (FLEN=64 in <<fprs>>#. The `f` registers can
-now hold either 32-bit or 64-bit floating-point values as described
-below in <<nanboxing>>.
-
-[NOTE]
-====
-FLEN can be 32, 64, or 128 depending on which of the F, D, and Q
-extensions are supported. There can be up to four different
-floating-point precisions supported, including H, F, D, and Q.
-====
-(((floating-point, supported precisions)))
-
-[[nanboxing]]
-=== NaN Boxing of Narrower Values
-[[norm:fp_nan-boxing]]
-When multiple floating-point precisions are supported, then valid values
-of narrower _n_-bit types, _n_<FLEN, are represented in the lower _n_ bits of an FLEN-bit NaN value, in a process termed NaN-boxing. The upper bits of a valid NaN-boxed value must be all 1s. Valid NaN-boxed _n_-bit values
-therefore appear as negative quiet NaNs (qNaNs) when viewed as any wider
-_m_-bit value, _n_ < _m_ {le} FLEN. Any operation that writes a narrower result to an 'f' register must write all 1s to the uppermost FLEN-_n_ bits to yield a legal NaN-boxedvalue.
-(((floating-point, requirements)))
+The Zicntr standard extension comprises the first three of these
+counters (CYCLE, TIME, and INSTRET), which have dedicated functions
+(cycle count, real-time clock, and instructions retired, respectively).
+The Zicntr extension depends on the Zicsr extension.
 
 [NOTE]
 ====
-Software might not know the current type of data stored in a
-floating-point register but has to be able to save and restore the
-register values, hence the result of using wider operations to transfer
-narrower values has to be defined. A common case is for callee-saved
-registers, but a standard convention is also desirable for features
-including variadic functions, user-level threading libraries, virtual machine
-migration, and debugging.
+We recommend provision of these basic counters in implementations as
+they are essential for basic performance analysis, adaptive and dynamic
+optimization, and to allow an application to work with real-time
+streams. Additional counters in the separate Zihpm extension can help
+diagnose performance problems and these should be made accessible from
+user-level application code with low overhead.
+
+Some execution environments might prohibit access to counters, for
+example, to impede timing side-channel attacks.
 ====
 
-Floating-point _n_-bit transfer operations move external
-values held in IEEE standard formats into and out of the `f` registers,
-and comprise floating-point loads and stores (FL__n__/FS__n__) and floating-point move instructions (FMV._n_.X/FMV.X._n_). [#norm:FP_transfer_instrs_narrow_transfer_in]#A narrower _n_-bit transfer, _n_<FLEN, into the `f` registers will create a valid NaN-boxed value#. [#norm:FP_transfer_instrs_narrow_transfer_out]#A narrower
-_n_-bit transfer out of the floating-point registers will
-transfer the lower _n_ bits of the register ignoring the
-upper FLEN-_n_ bits#.
+include::images/wavedrom/counters-diag.edn[]
 
-[[norm:FP_nontransfer_instrs_improper_nan-boxed_input]]
-Apart from transfer operations described in the previous paragraph, all
-other floating-point operations on narrower __n__-bit
-operations, _n_<FLEN, check if the input operands are
-correctly NaN-boxed, i.e., all upper FLEN-_n_ bits are 1. If
-so, the _n_ least-significant bits of the input are used as
-the input value, otherwise the input value is treated as an
-_n_-bit canonical NaN.
+For base ISAs with XLEN{ge}64, CSR instructions can access
+the full 64-bit CSRs directly. In particular, the RDCYCLE, RDTIME, and
+RDINSTRET pseudoinstructions read the full 64 bits of the `cycle`,
+`time`, and `instret` counters.
 
 [NOTE]
 ====
-Earlier versions of this document did not define the behavior of feeding
-the results of narrower or wider operands into an operation, except to
-require that wider saves and restores would preserve the value of a
-narrower operand. The new definition removes this
-implementation-specific behavior, while still accommodating both
-non-recoded and recoded implementations of the floating-point unit. The
-new definition also helps catch software errors by propagating NaNs if
-values are used incorrectly.
-
-Non-recoded implementations unpack and pack the operands to IEEE
-standard format on the input and output of every floating-point
-operation. The NaN-boxing cost to a non-recoded implementation is
-primarily in checking if the upper bits of a narrower operation
-represent a legal NaN-boxed value, and in writing all 1s to the upper
-bits of a result.
-
-Recoded implementations use a more convenient internal format to
-represent floating-point values, with an added exponent bit to allow all
-values to be held normalized. The cost to the recoded implementation is
-primarily the extra tagging needed to track the internal types and sign
-bits, but this can be done without adding new state bits by recoding
-NaNs internally in the exponent field. Small modifications are needed to
-the pipelines used to transfer values in and out of the recoded format,
-but the datapath and latency costs are minimal. The recoding process has
-to handle shifting of input subnormal values for wide operands in any
-case, and extracting the NaN-boxed value is a similar process to
-normalization except for skipping over leading-1 bits instead of
-skipping over leading-0 bits, allowing the datapath multiplexing to be shared.
+The counter pseudoinstructions are mapped to the read-only
+`csrrs rd, counter, x0` canonical form, but the other read-only CSR
+instruction forms (based on CSRRC/CSRRSI/CSRRCI) are also legal ways to
+read these CSRs.
 ====
-
-[[fld_fsd]]
-=== Double-Precision Load and Store Instructions
-
-[#norm:fld_op]#The FLD instruction loads a double-precision floating-point value from
-memory into floating-point register _rd_#. [#norm:fsd_op]#FSD stores a double-precision
-value from the floating-point registers to memory#.
-(((floating point, load and store)))
-
+For base ISAs with XLEN=32, the Zicntr extension enables the three
+64-bit read-only counters to be accessed in 32-bit pieces. The RDCYCLE,
+RDTIME, and RDINSTRET pseudoinstructions provide the lower 32 bits, and
+the RDCYCLEH, RDTIMEH, and RDINSTRETH pseudoinstructions provide the
+upper 32 bits of the respective counters.
 [NOTE]
 ====
-The double-precision value may be a NaN-boxed single-precision value.
+We required the counters be 64 bits wide, even when XLEN=32, as
+otherwise it is very difficult for software to determine if values have
+overflowed.
+The sample code
+given below shows how the full 64-bit width value can be safely read
+using the individual 32-bit width pseudoinstructions.
 ====
 
-include::images/wavedrom/double-ls.edn[]
-[[double-ls]]
-//.Double-precision load and store
-
-[[norm:fld_fsd_atomic_align]]
-FLD and FSD are only guaranteed to execute atomically if the effective
-address is naturally aligned and XLEN{ge}64.
-
-[[norm:fld_fsd_bits_maintained]]
-FLD and FSD do not modify the bits being transferred; in particular, the
-payloads of non-canonical NaNs are preserved.
-
-=== Double-Precision Floating-Point Computational Instructions
-
-[[norm:D_computational_instrs]]
-The double-precision floating-point computational instructions are
-defined analogously to their single-precision counterparts, but operate
-on double-precision operands and produce double-precision results.
-
-include::images/wavedrom/double-fl-compute.edn[]
-[[fl-compute]]
-//.Double-precision float computational
-
-=== Double-Precision Floating-Point Conversion and Move Instructions
-
-Floating-point-to-integer and integer-to-floating-point conversion
-instructions are encoded in the OP-FP major opcode space. [#norm:fcvt-w-d_fcvt-l-d_op]#FCVT.W.D or
-FCVT.L.D converts a double-precision floating-point number in
-floating-point register _rs1_ to a signed 32-bit or 64-bit integer,
-respectively, in integer register _rd_#. [#norm:fcvt-d-w_fcvt-d-l_op]#FCVT.D.W or FCVT.D.L converts a
-32-bit or 64-bit signed integer, respectively, in integer register _rs1_
-into a double-precision floating-point number in floating-point register
-_rd_#. [#norm:fcvt-wu-d_fcvt-lu-d_fcvt-d-wu_fcvt-d-lu_op]#FCVT.WU.D, FCVT.LU.D, FCVT.D.WU, and FCVT.D.LU variants convert to
-or from unsigned integer values#. [#norm:fcvt-w-d_fcvt-wu-d_sign_ext]#For RV64, FCVT.W[U].D sign-extends the
-32-bit result#. [#norm:fcvt_long_double_rv64_only]#FCVT.L[U].D and FCVT.D.L[U] are RV64-only instructions.#
-[#norm:fcvt_int_double_valid_input]#The range of valid inputs for FCVT._int_.D and the behavior for invalid
-inputs are the same as for FCVT._int_.S#.
-(((floating point, convert and move)))
-
-All floating-point to integer and integer to floating-point conversion
-instructions round according to the _rm_ field. Note FCVT.D.W[U] always
-produces an exact result and is unaffected by rounding mode.
-
-include::images/wavedrom/double-fl-convert-mv.edn[]
-[[fl-convert-mv]]
-//.Double-precision float convert and move
-
-[#norm:fcvt-s-d_fcvt-d-s_op]#The double-precision to single-precision and single-precision to
-double-precision conversion instructions, FCVT.S.D and FCVT.D.S, are
-encoded in the OP-FP major opcode space and both the source and
-destination are floating-point registers. The _rs2_ field encodes the
-datatype of the source, and the _fmt_ field encodes the datatype of the
-destination#. [#norm:fcvt_float_rounding]#FCVT.S.D rounds according to the RM field; FCVT.D.S will
-never round#.
-(((double-precision, to single-precision)))
-(((single-precision, to double-precision )))
-
-include::images/wavedrom/fcvt-sd-ds.edn[]
-[[fcvt-sd-ds]]
-//.Double-precision FCVT.S.D and FCVT.D.S
-
-[[norm:fsgnj-d_fsgnjn-d_fsgnjx-d_op]]
-Floating-point to floating-point sign-injection instructions, FSGNJ.D,
-FSGNJN.D, and FSGNJX.D are defined analogously to the single-precision
-sign-injection instruction.
-//FSGNJ.D, FSGNJN.D, and FSGNJX.D
-
-include::images/wavedrom/fsjgnjnx-d.edn[]
-//.Double-precision sign-injection
-
-For XLEN{ge}64 only, instructions are provided to move bit
-patterns between the floating-point and integer registers.
-[#norm:fmv-x-d_op]#FMV.X.D moves
-the double-precision value in floating-point register _rs1_ to a
-representation in IEEE 754-2008 standard encoding in integer register
-_rd_#. [#norm:fmv-d-x_op]#FMV.D.X moves the double-precision value encoded in IEEE 754-2008
-standard encoding from the integer register _rs1_ to the floating-point
-register _rd_#.
-
-[[norm:fmv_bits_preserved]]
-FMV.X.D and FMV.D.X do not modify the bits being transferred; in
-particular, the payloads of non-canonical NaNs are preserved.
-
-include::images/wavedrom/d-xwwx.edn[]
-[[fmvxddx]]
-//.Double-precision float move to _rd_
-
+[#norm:zicntr_rdcycle_op]#The RDCYCLE pseudoinstruction reads the low XLEN bits of the `cycle`
+CSR which holds a count of the number of clock cycles executed by the
+processor core on which the hart is running from an arbitrary start time
+in the past.# [#norm:zicntr_rdcycleh_op]#RDCYCLEH is only present when XLEN=32 and reads bits 63-32
+of the same cycle counter.# The underlying 64-bit counter should never
+overflow in practice. The rate at which the cycle counter advances will
+depend on the implementation and operating environment. The execution
+environment should provide a means to determine the current rate
+(cycles/second) at which the cycle counter is incrementing.
 [NOTE]
 ====
-Early versions of the RISC-V ISA had additional instructions to allow
-RV32 systems to transfer between the upper and lower portions of a
-64-bit floating-point register and an integer register. However, these
-would be the only instructions with partial register writes and would
-add complexity in implementations with recoded floating-point or
-register renaming, requiring a pipeline read-modify-write sequence.
-Scaling up to handling quad-precision for RV32 and RV64 would also
-require additional instructions if they were to follow this pattern. The
-ISA was defined to reduce the number of explicit int-float register
-moves, by having conversions and comparisons write results to the
-appropriate register file, so we expect the benefit of these
-instructions to be lower than for other ISAs.
+RDCYCLE is intended to return the number of cycles executed by the
+processor core, not the hart. Precisely defining what is a "core" is
+difficult given some implementation choices (e.g., AMD Bulldozer).
+Precisely defining what is a "clock cycle" is also difficult given the
+range of implementations (including software emulations), but the intent
+is that RDCYCLE is used for performance monitoring along with the other
+performance counters. In particular, where there is one hart/core, one
+would expect cycle-count/instructions-retired to measure CPI for a hart.
 
-We note that for systems that implement a 64-bit floating-point unit
-including fused multiply-add support and 64-bit floating-point loads and
-stores, the marginal hardware cost of moving from a 32-bit to a 64-bit
-integer datapath is low, and a software ABI supporting 32-bit wide
-address-space and pointers can be used to avoid growth of static data
-and dynamic memory traffic.
+Cores don't have to be exposed to software at all, and an implementer
+might choose to pretend multiple harts on one physical core are running
+on separate cores with one hart/core, and provide separate cycle
+counters for each hart. This might make sense in a simple barrel
+processor (e.g., CDC 6600 peripheral processors) where inter-hart timing
+interactions are non-existent or minimal.
+
+Where there is more than one hart/core and dynamic multithreading, it is
+not generally possible to separate out cycles per hart (especially with
+SMT). It might be possible to define a separate performance counter that
+tried to capture the number of cycles a particular hart was running, but
+this definition would have to be very fuzzy to cover all the possible
+threading implementations. For example, should we only count cycles for
+which any instruction was issued to execution for this hart, and/or
+cycles any instruction retired, or include cycles this hart was
+occupying machine resources but couldn't execute due to stalls while
+other harts went into execution? Likely, "all of the above" would be
+needed to have understandable performance stats. This complexity of
+defining a per-hart cycle count, and also the need in any case for a
+total per-core cycle count when tuning multithreaded code led to just
+standardizing the per-core cycle counter, which also happens to work
+well for the common single hart/core case.
+
+Standardizing what happens during "sleep" is not practical given that
+what "sleep" means is not standardized across execution environments,
+but if the entire core is paused (entirely clock-gated or powered-down
+in deep sleep), then it is not executing clock cycles, and the cycle
+count shouldn't be increasing per the spec. There are many details,
+e.g., whether clock cycles required to reset a processor after waking up
+from a power-down event should be counted, and these are considered
+execution-environment-specific details.
+
+Even though there is no precise definition that works for all platforms,
+this is still a useful facility for most platforms, and an imprecise,
+common, "usually correct" standard here is better than no standard.
+The intent of RDCYCLE was primarily performance monitoring/tuning, and
+the specification was written with that goal in mind.
+====
+[#norm:zicntr_rdtime_op]#The RDTIME pseudoinstruction reads the low XLEN bits of the "time" CSR,
+which counts wall-clock real time that has passed from an arbitrary
+start time in the past.# [#norm:zicntr_rdtimeh_op]#RDTIMEH is only present when XLEN=32 and reads
+bits 63-32 of the same real-time counter.# The underlying 64-bit counter
+increments by one with each tick of the real-time clock, and, for
+realistic real-time clock frequencies, should never overflow in
+practice. The execution environment should provide a means of
+determining the period of a counter tick (seconds/tick). The period
+should be constant within a small error bound. The environment should
+provide a means to determine the accuracy of the clock (i.e., the
+maximum relative error between the nominal and actual real-time clock
+periods).
+[NOTE]
+====
+On some simple platforms, cycle count might represent a valid
+implementation of RDTIME, in which case RDTIME and RDCYCLE may return
+the same result.
+
+It is difficult to provide a strict mandate on clock period given the
+wide variety of possible implementation platforms. The maximum error
+bound should be set based on the requirements of the platform.
 ====
 
-=== Double-Precision Floating-Point Compare Instructions
+[#norm:zicntr_time_hart_sync]#The real-time clocks of all harts must be synchronized to within one
+tick of the real-time clock.#
+[NOTE]
+====
+As with other architectural mandates, it suffices to appear "as if"
+harts are synchronized to within one tick of the real-time clock, i.e.,
+software is unable to observe that there is a greater delta between the
+real-time clock values observed on two harts.
 
-[[norm:D_compare_instrs]]
-The double-precision floating-point compare instructions are defined
-analogously to their single-precision counterparts, but operate on
-double-precision operands.
-(((floating-point, compare)))
+If, for example, the real-time clock increments at a frequency of 1 GHz, then
+all harts must appear to be synchronized to within 1 nsec.
+But it is also acceptable for this example implementation to only update the
+real-time clock at, say, a frequency of 100 MHz with increments of 10 ticks.
+As long as software cannot observe this seeming violation of the above
+synchronization requirement, and software always observes time across harts to
+be monotonically nondecreasing, then this implementation is compliant.
 
-include::images/wavedrom/double-fl-compare.edn[]
-[[fl-compare]]
-//.Double-precision float compare
+A platform spec may then, for example, specify an apparent real-time clock
+tick frequency (e.g. 1 GHz) and also a minimum update frequency (e.g. 100 MHz)
+at which updated time values are guaranteed to be observable by software.
+Software may read time more frequently, but it should only observe
+monotonically nondecreasing values and it should observe a new value at least
+once every 10 ns (corresponding to the 100 MHz update frequency in this
+example).
+====
+[#norm:zicntr_rdinstret_op]#The RDINSTRET pseudoinstruction reads the low XLEN bits of the
+`instret` CSR, which counts the number of instructions retired by this
+hart from some arbitrary start point in the past.# [#norm:zicntr_rdinstreth_op]#RDINSTRETH is only
+present when XLEN=32 and reads bits 63-32 of the same instruction
+counter.# The underlying 64-bit counter should never overflow in
+practice.
+[NOTE]
+====
+Instructions that cause synchronous exceptions, including ECALL and
+EBREAK, are not considered to retire and hence do not increment the
+`instret` CSR.
+====
+The following code sequence will read a valid 64-bit cycle counter value
+into `x3:x2`, even if the counter overflows its lower half between
+reading its upper and lower halves.
 
-=== Double-Precision Floating-Point Classify Instruction
+[source,asm.]
+.Sample code for reading the 64-bit cycle counter when XLEN=32.
+    again:
+        rdcycleh     x3
+        rdcycle      x2
+        rdcycleh     x4
+        bne          x3, x4, again
 
-[[norm:fclass-d_op]]
-The double-precision floating-point classify instruction, FCLASS.D, is
-defined analogously to its single-precision counterpart, but operates on
-double-precision operands.
-(((floating-point, classify)))
 
-include::images/wavedrom/double-fl-class.edn[]
-[[fl-class]]
-//.Double-precision float classify
+=== "Zihpm" Extension for Hardware Performance Counters
+
+[#norm:hpmcounter_op_sz_mode]#The Zihpm extension comprises up to 29 additional unprivileged 64-bit
+hardware performance counters, `hpmcounter3-hpmcounter31`.# [#norm:hpm_counter_op_sz_mode_xlen32]#When
+XLEN=32, the upper 32 bits of these performance counters are accessible
+via additional CSRs `hpmcounter3h- hpmcounter31h`.# [#norm:hpm_counter_op_sz_mode_dependency]#The Zihpm extension
+depends on the Zicsr extension.#
+[NOTE]
+====
+In some applications, it is important to be able to read multiple
+counters at the same instant in time. When run under a multitasking
+environment, a user thread can suffer a context switch while attempting
+to read the counters. One solution is for the user thread to read the
+real-time counter before and after reading the other counters to
+determine if a context switch occurred in the middle of the sequence, in
+which case the reads can be retried. We considered adding output latches
+to allow a user thread to snapshot the counter values atomically, but
+this would increase the size of the user context, especially for
+implementations with a richer set of counters.
+====
+
+[#norm:hpm_platform_specific_impl]#The implemented number and width of these additional counters, and the
+set of events they count, are platform-specific.# [#norm:hpm_unimplemented_counter_access]#Accessing an
+unimplemented counter may cause an illegal-instruction exception or may
+return a constant value.# [#norm:hpm_misconfigured_event_behavior]#If the configuration used to select the events
+counted by a counter is misconfigured, the counter may return a constant
+value.#
+
+The execution environment should provide a means to determine the number
+and width of the implemented counters, and an interface to configure the
+events to be counted by each counter.
+[NOTE]
+====
+For execution environments implemented on RISC-V privileged platforms,
+the privileged architecture manual describes privileged CSRs controlling
+access by lower privileged modes to these counters, and to set the
+events to be counted.
+
+Alternative execution environments (e.g., user-level-only software
+performance models) may provide alternative mechanisms to configure the
+events counted by the performance counters.
+
+It would be useful to eventually standardize event settings to count
+ISA-level metrics, such as the number of floating-point instructions
+executed for example, and possibly a few common microarchitectural
+metrics, such as "L1 instruction cache misses".
+====

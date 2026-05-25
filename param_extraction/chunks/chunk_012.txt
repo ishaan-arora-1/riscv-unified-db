@@ -1,541 +1,254 @@
 # Chunk: chunk_012
-# Source: f-st-ext.adoc
-# Lines: 1-524 (of 524)
+# Source: d-st-ext.adoc
+# Lines: 1-239 (of 239)
 # Content starts: line 1
-# Line count: 524
-# Sections: 10
-#   == "F" Extension for Single-Precision Floating-Point, Version 2.2
-#   === F Register State
-#   === Floating-Point Control and Status Register
-#   === NaN Generation and Propagation
-#   === Subnormal Arithmetic
-#   === Single-Precision Load and Store Instructions
-#   === Single-Precision Floating-Point Computational Instructions
-#   === Single-Precision Floating-Point Conversion and Move Instructions
-#   === Single-Precision Floating-Point Compare Instructions
-#   === Single-Precision Floating-Point Classify Instruction
+# Line count: 239
+# Sections: 8
+#   == "D" Extension for Double-Precision Floating-Point, Version 2.2
+#   === D Register State
+#   === NaN Boxing of Narrower Values
+#   === Double-Precision Load and Store Instructions
+#   === Double-Precision Floating-Point Computational Instructions
+#   === Double-Precision Floating-Point Conversion and Move Instructions
+#   === Double-Precision Floating-Point Compare Instructions
+#   === Double-Precision Floating-Point Classify Instruction
 #
-:stem: latexmath
+== "D" Extension for Double-Precision Floating-Point, Version 2.2
 
+This chapter describes the standard double-precision floating-point
+instruction-set extension, which is named "D" and adds
+double-precision floating-point computational instructions compliant
+with the IEEE 754-2008 arithmetic standard. The D extension depends on
+the base single-precision instruction subset F.
+(((double-precision, floating point)))
+(((floating point, double precision)))
 
-[[single-float]]
-== "F" Extension for Single-Precision Floating-Point, Version 2.2
+=== D Register State
 
-This chapter describes the standard instruction-set extension for
-single-precision floating-point, which is named "F" and adds
-single-precision floating-point computational instructions compliant
-with the IEEE 754-2008 arithmetic standard cite:[ieee754-2008]. The F extension depends on the "Zicsr" extension for control and status register access.
-
-=== F Register State
-
-[#norm:flen_param]#The F extension adds 32 floating-point registers, `f0-f31`, each 32
-bits wide#, and a floating-point control and status register `fcsr`,
-which contains the operating mode and exception status of the
-floating-point unit. This additional state is shown in
-<<fprs>>. We use the term FLEN to describe the width of
-the floating-point registers in the RISC-V ISA, and FLEN=32 for the F
-single-precision floating-point extension. Most floating-point
-instructions operate on values in the floating-point register file.
-Floating-point load and store instructions transfer floating-point
-values between registers and memory. Instructions to transfer values to and from the integer register file are also provided.
+[#norm:D_flen_64]#The D extension widens the 32 floating-point registers, `f0-f31`, to
+64 bits (FLEN=64 in <<fprs>>#. The `f` registers can
+now hold either 32-bit or 64-bit floating-point values as described
+below in <<nanboxing>>.
 
 [NOTE]
 ====
-We considered a unified register file for both integer and
-floating-point values as this simplifies software register allocation
-and calling conventions, and reduces total user state. However, a split
-organization increases the total number of registers accessible with a
-given instruction width, simplifies provision of enough register file ports
-for wide superscalar issue, supports decoupled floating-point-unit
-architectures, and simplifies use of internal floating-point encoding
-techniques. Compiler support and calling conventions for split register
-file architectures are well understood, and using dirty bits on
-floating-point register file state can reduce context-switch overhead.
+FLEN can be 32, 64, or 128 depending on which of the F, D, and Q
+extensions are supported. There can be up to four different
+floating-point precisions supported, including H, F, D, and Q.
 ====
+(((floating-point, supported precisions)))
 
-[[fprs]]
-.RISC-V standard F extension single-precision floating-point state
-[cols="<,^,>",options="header",width="50%",align="center",grid="rows"]
-|===
-| [.small]#FLEN-1#| >| [.small]#0#
-3+^| [.small]#f0#
-3+^| [.small]#f1#
-3+^| [.small]#f2#
-3+^| [.small]#f3#
-3+^| [.small]#f4#
-3+^| [.small]#f5#
-3+^| [.small]#f6#
-3+^| [.small]#f7#
-3+^| [.small]#f8#
-3+^| [.small]#f9#
-3+^| [.small]#f10#
-3+^| [.small]#f11#
-3+^| [.small]#f12#
-3+^| [.small]#f13#
-3+^| [.small]#f14#
-3+^| [.small]#f15#
-3+^| [.small]#f16#
-3+^| [.small]#f17#
-3+^| [.small]#f18#
-3+^| [.small]#f19#
-3+^| [.small]#f20#
-3+^| [.small]#f21#
-3+^| [.small]#f22#
-3+^| [.small]#f23#
-3+^| [.small]#f24#
-3+^| [.small]#f25#
-3+^| [.small]#f26#
-3+^| [.small]#f27#
-3+^| [.small]#f28#
-3+^| [.small]#f29#
-3+^| [.small]#f30#
-3+^| [.small]#f31#
-3+^| [.small]#FLEN#
-| [.small]#31#| >| [.small]#0#
-3+^|  [.small]#fcsr#
-3+^| [.small]#32#
-|===
-
-=== Floating-Point Control and Status Register
-
-[[norm:fcsr_op_sz_acc]]
-The floating-point control and status register, `fcsr`, is a RISC-V
-control and status register (CSR). It is a 32-bit read/write register
-that selects the dynamic rounding mode for floating-point arithmetic
-operations and holds the accrued exception flags, as shown in <<fcsr>>.
-
-[[fcsr, Floating-Point Control and Status Register]]
-.Floating-point control and status register
-include::images/wavedrom/float-csr.edn[]
-
-The `fcsr` register can be read and written with the FRCSR and FSCSR
-instructions, which are assembler pseudoinstructions built on the
-underlying CSR access instructions. FRCSR reads `fcsr` by copying it
-into integer register _rd_. FSCSR swaps the value in `fcsr` by copying
-the original value into integer register _rd_, and then writing a new
-value obtained from integer register _rs1_ into `fcsr`.
-
-[[norm:fflags_frm_op_sz_acc]]
-The fields within the `fcsr` can also be accessed individually through
-different CSR addresses, and separate assembler pseudoinstructions are defined
-for these accesses. The FRRM instruction reads the Rounding Mode field `frm`
-(`fcsr` bits 7--5) and copies it into the least-significant three bits of
-integer register _rd_, with zero in all other bits. FSRM swaps the value in
-`frm` by copying the original value into integer register _rd_, and then
-writing a new value obtained from the three least-significant bits of integer
-register _rs1_ into `frm`. FRFLAGS and FSFLAGS are defined analogously for the
-Accrued Exception Flags field `fflags` (`fcsr` bits 4--0).
-
-[[norm:fcsr_rsv]]
-Bits 31--8 of the `fcsr` are reserved for other standard extensions. If
-these extensions are not present, implementations shall ignore writes to
-these bits and supply a zero value when read. Standard software should
-preserve the contents of these bits.
-
-
-[#norm:roundingmode_dynamic]#Floating-point operations use either a static rounding mode encoded in
-the instruction, or a dynamic rounding mode held in `frm`. Rounding
-modes are encoded as shown in <<norm:dyn_round_enc>>. A value of 111 in the
-instruction's _rm_ field selects the dynamic rounding mode held in
-`frm`#. [#norm:roundingmode_rsv]#The behavior of floating-point instructions that depend on
-rounding mode when executed with a reserved rounding mode is _reserved_, including both static reserved rounding modes (101-110) and dynamic reserved rounding modes (101-111). Some instructions, including widening conversions, have the _rm_ field but are nevertheless mathematically unaffected by the rounding mode; software should set their _rm_ field to
-RNE (000) but implementations must treat the _rm_ field as usual (in
-particular, with regard to decoding legal vs. reserved encodings).#
-
-[[norm:dyn_round_enc]]
-.Rounding mode encoding.
-[%autowidth,float="center",align="center",cols="^,^,<",options="header"]
-|===
-|Rounding Mode |Mnemonic |Meaning
-|000 |RNE |Round to Nearest, ties to Even
-|001 |RTZ |Round towards Zero
-|010 |RDN |Round Down (towards −{inf})
-|011 |RUP |Round Up (towards +{inf})
-|100 |RMM |Round to Nearest, ties to Max Magnitude
-|101 | |_Reserved for future use._
-|110 | |_Reserved for future use._
-|111 |DYN |In instruction's _rm_ field, selects dynamic rounding mode; In Rounding Mode register, _reserved_.
-|===
+[[nanboxing]]
+=== NaN Boxing of Narrower Values
+[[norm:fp_nan-boxing]]
+When multiple floating-point precisions are supported, then valid values
+of narrower _n_-bit types, _n_<FLEN, are represented in the lower _n_ bits of an FLEN-bit NaN value, in a process termed NaN-boxing. The upper bits of a valid NaN-boxed value must be all 1s. Valid NaN-boxed _n_-bit values
+therefore appear as negative quiet NaNs (qNaNs) when viewed as any wider
+_m_-bit value, _n_ < _m_ {le} FLEN. Any operation that writes a narrower result to an 'f' register must write all 1s to the uppermost FLEN-_n_ bits to yield a legal NaN-boxedvalue.
+(((floating-point, requirements)))
 
 [NOTE]
 ====
-The C99 language standard effectively mandates the provision of a
-dynamic rounding mode register. In typical implementations, writes to
-the dynamic rounding mode CSR state will serialize the pipeline. Static
-rounding modes are used to implement specialized arithmetic operations
-that often have to switch frequently between different rounding modes.
-
-The ratified version of the F spec mandated that an illegal-instruction
-exception was raised when an instruction was executed with a reserved
-dynamic rounding mode. This has been weakened to reserved, which matches
-the behavior of static rounding-mode instructions. Raising an
-illegal-instruction exception is still valid behavior when encountering a
-reserved encoding, so implementations compatible with the ratified spec
-are compatible with the weakened spec.
+Software might not know the current type of data stored in a
+floating-point register but has to be able to save and restore the
+register values, hence the result of using wider operations to transfer
+narrower values has to be defined. A common case is for callee-saved
+registers, but a standard convention is also desirable for features
+including variadic functions, user-level threading libraries, virtual machine
+migration, and debugging.
 ====
 
-[#norm:fcsr-fflags_op]#The accrued exception flags indicate the exception conditions that have
-arisen on any floating-point arithmetic instruction since the field was
-last reset by software, as shown in <<bitdef>>#. The base
-RISC-V ISA does not support generating a trap on the setting of a
-floating-point exception flag.
-(((floating-point, exception flag)))
+Floating-point _n_-bit transfer operations move external
+values held in IEEE standard formats into and out of the `f` registers,
+and comprise floating-point loads and stores (FL__n__/FS__n__) and floating-point move instructions (FMV._n_.X/FMV.X._n_). [#norm:FP_transfer_instrs_narrow_transfer_in]#A narrower _n_-bit transfer, _n_<FLEN, into the `f` registers will create a valid NaN-boxed value#. [#norm:FP_transfer_instrs_narrow_transfer_out]#A narrower
+_n_-bit transfer out of the floating-point registers will
+transfer the lower _n_ bits of the register ignoring the
+upper FLEN-_n_ bits#.
 
-[[bitdef]]
-.Accrued exception flag encoding.
-[%autowidth,float="center",align="center",cols="^,<",options="header",]
-|===
-|Flag Mnemonic |Flag Meaning
-|NV |Invalid Operation
-|DZ |Divide by Zero
-|OF |Overflow
-|UF |Underflow
-|NX |Inexact
-|===
+[[norm:FP_nontransfer_instrs_improper_nan-boxed_input]]
+Apart from transfer operations described in the previous paragraph, all
+other floating-point operations on narrower __n__-bit
+operations, _n_<FLEN, check if the input operands are
+correctly NaN-boxed, i.e., all upper FLEN-_n_ bits are 1. If
+so, the _n_ least-significant bits of the input are used as
+the input value, otherwise the input value is treated as an
+_n_-bit canonical NaN.
 
 [NOTE]
 ====
-As allowed by the standard, we do not support traps on floating-point
-exceptions in the F extension, but instead require explicit checks of
-the flags in software. We considered adding branches controlled directly
-by the contents of the floating-point accrued exception flags, but
-ultimately chose to omit these instructions to keep the ISA simple.
+Earlier versions of this document did not define the behavior of feeding
+the results of narrower or wider operands into an operation, except to
+require that wider saves and restores would preserve the value of a
+narrower operand. The new definition removes this
+implementation-specific behavior, while still accommodating both
+non-recoded and recoded implementations of the floating-point unit. The
+new definition also helps catch software errors by propagating NaNs if
+values are used incorrectly.
+
+Non-recoded implementations unpack and pack the operands to IEEE
+standard format on the input and output of every floating-point
+operation. The NaN-boxing cost to a non-recoded implementation is
+primarily in checking if the upper bits of a narrower operation
+represent a legal NaN-boxed value, and in writing all 1s to the upper
+bits of a result.
+
+Recoded implementations use a more convenient internal format to
+represent floating-point values, with an added exponent bit to allow all
+values to be held normalized. The cost to the recoded implementation is
+primarily the extra tagging needed to track the internal types and sign
+bits, but this can be done without adding new state bits by recoding
+NaNs internally in the exponent field. Small modifications are needed to
+the pipelines used to transfer values in and out of the recoded format,
+but the datapath and latency costs are minimal. The recoding process has
+to handle shifting of input subnormal values for wide operands in any
+case, and extracting the NaN-boxed value is a similar process to
+normalization except for skipping over leading-1 bits instead of
+skipping over leading-0 bits, allowing the datapath multiplexing to be shared.
 ====
 
-=== NaN Generation and Propagation
+[[fld_fsd]]
+=== Double-Precision Load and Store Instructions
 
-[[norm:F_canonical_NaN]]
-Except when otherwise stated, if the result of a floating-point
-operation is NaN, it is the canonical NaN. The canonical NaN has a
-positive sign and all significand bits clear except the MSB, a.k.a. the
-quiet bit. For single-precision floating-point, this corresponds to the pattern `0x7fc00000`.
-(((NaN, generation)))
-(((NaN, propagation)))
+[#norm:fld_op]#The FLD instruction loads a double-precision floating-point value from
+memory into floating-point register _rd_#. [#norm:fsd_op]#FSD stores a double-precision
+value from the floating-point registers to memory#.
+(((floating point, load and store)))
 
 [NOTE]
 ====
-We considered propagating NaN payloads, as is recommended by the
-standard, but this decision would have increased hardware cost.
-Moreover, since this feature is optional in the standard, it cannot be
-used in portable code.
-
-Implementers are free to provide a NaN payload propagation scheme as a
-nonstandard extension enabled by a nonstandard operating mode. However, the canonical NaN scheme described above must always be supported and should be the default mode.
-====
-'''
-[NOTE]
-====
-We require implementations to return the standard-mandated default
-values in the case of exceptional conditions, without any further
-intervention on the part of user-level software (unlike the Alpha ISA
-floating-point trap barriers). We believe full hardware handling of
-exceptional cases will become more common, and so wish to avoid
-complicating the user-level ISA to optimize other approaches.
-Implementations can always trap to machine-mode software handlers to
-provide exceptional default values.
+The double-precision value may be a NaN-boxed single-precision value.
 ====
 
-=== Subnormal Arithmetic
+include::images/wavedrom/double-ls.edn[]
+[[double-ls]]
+//.Double-precision load and store
 
-[[norm:ieee_std_subnormal]]
-Operations on subnormal numbers are handled in accordance with the IEEE 754-2008 standard.
-(((operations, subnormal)))
+[[norm:fld_fsd_atomic_align]]
+FLD and FSD are only guaranteed to execute atomically if the effective
+address is naturally aligned and XLEN{ge}64.
 
-[[norm:ieee_std_tininess]]
-In the parlance of the IEEE standard, tininess is detected after
-rounding.
-(((tininess, handling)))
+[[norm:fld_fsd_bits_maintained]]
+FLD and FSD do not modify the bits being transferred; in particular, the
+payloads of non-canonical NaNs are preserved.
 
-[NOTE]
-====
-Detecting tininess after rounding results in fewer spurious underflow
-signals.
-====
+=== Double-Precision Floating-Point Computational Instructions
 
-=== Single-Precision Load and Store Instructions
+[[norm:D_computational_instrs]]
+The double-precision floating-point computational instructions are
+defined analogously to their single-precision counterparts, but operate
+on double-precision operands and produce double-precision results.
 
-[[norm:fsw_flw_op]]
-Floating-point loads and stores use the same base+offset addressing mode as the integer base ISAs, with a base address in register _rs1_ and a 12-bit signed byte offset. The FLW instruction loads a single-precision floating-point value from memory into floating-point register _rd_. FSW stores a single-precision value from floating-point register _rs2_ to memory.
+include::images/wavedrom/double-fl-compute.edn[]
+[[fl-compute]]
+//.Double-precision float computational
 
-include::images/wavedrom/sp-load-store-2.edn[]
-[[sp-ldst]]
-//.SP load and store
-
-[[norm:fsw_flw_atomic_align]]
-FLW and FSW are only guaranteed to execute atomically if the effective
-address is naturally aligned.
-
-[[norm:fsw_flw_bits_maintained]]
-FLW and FSW do not modify the bits being transferred; in particular, the payloads of non-canonical NaNs are preserved.
-
-[[norm:fp_misaligned]]
-As described in <<ldst>>, the execution environment defines whether misaligned floating-point loads and stores are handled invisibly or raise a contained or fatal trap.
-
-[[single-float-compute]]
-=== Single-Precision Floating-Point Computational Instructions
-
-Floating-point arithmetic instructions with one or two source operands
-use the R-type format with the OP-FP major opcode. [#norm:fadd-s_fmul-s_op]#FADD.S and FMUL.S
-perform single-precision floating-point addition and multiplication
-respectively, between _rs1_ and _rs2_#. [#norm:fsub-s_op]#FSUB.S performs the
-single-precision floating-point subtraction of _rs2_ from _rs1_#. [#norm:fdiv-s_op]#FDIV.S performs the single-precision floating-point division of _rs1_ by _rs2_#. [#norm:fsqrt-s_op]#FSQRT.S computes the square root of _rs1_#. [#norm:fp_rd]#In each case, the result is written to _rd_.#
-
-[[norm:F_fmt_single]]
-The 2-bit floating-point format field _fmt_ is encoded as shown in
-<<fmt>>. It is set to _S_ (00) for all instructions in the F extension.
-
-[[fmt]]
-.Format field encoding
-[%autowidth,float="center",align="center",cols="^,^,<",options="header",]
-|===
-|_fmt_ field |Mnemonic |Meaning
-|00 |S |32-bit single-precision
-|01 |D |64-bit double-precision
-|10 |H |16-bit half-precision
-|11 |Q |128-bit quad-precision
-|===
-
-[[norm:F_rm_field]]
-All floating-point operations that perform rounding can select the
-rounding mode using the _rm_ field with the encoding shown in
-<<norm:dyn_round_enc>>.
-
-[#norm:fmin-s_fmax-s_op]#Floating-point minimum-number and maximum-number instructions FMIN.S and FMAX.S write, respectively, the smaller or larger of _rs1_ and _rs2_ to _rd_#.
-[#norm:fmin-s_fmax-s_zero_compare]#For the purposes of these instructions only, the value −0.0 is considered to be less than the value +0.0#.
-[#norm:fmin-s_fmax-s_both_nan_input]#If both inputs are NaNs, the result is the canonical NaN#.
-[#norm:fmin-s_fmax-s_one_nan_input]#If only one operand is a NaN, the result is the non-NaN operand#.
-[#norm:fmin-s_fmax-s_signaling_nan_nv]#Signaling NaN inputs set the invalid operation exception flag, even when the result is not NaN#.
-
-[NOTE]
-====
-Note that in version 2.2 of the F extension, the FMIN.S and FMAX.S
-instructions were amended to implement the proposed IEEE 754-201x
-`minimumNumber` and `maximumNumber` operations, rather than the IEEE
-754-2008 minNum and maxNum operations. These operations differ in their
-handling of signaling NaNs.
-====
-
-include::images/wavedrom/spfloat.edn[]
-[[spfloat]]
-//.Single-Precision Floating-Point Computational Instructions
-(((floating point, fused multiply-add)))
-
-[[norm:fma_rs3]]
-Floating-point fused multiply-add instructions require a new standard
-instruction format. R4-type instructions specify three source registers (_rs1_, _rs2_, and _rs3_) and a destination register (_rd_). This format is only used by the floating-point fused multiply-add instructions.
-
-[[norm:fmadd-s_op]]
-FMADD.S multiplies the values in _rs1_ and _rs2_, adds the value in
-_rs3_, and writes the final result to _rd_. FMADD.S computes
-_(rs1×rs2)+rs3_.
-
-[[norm:fmsub-s_op]]
-FMSUB.S multiplies the values in _rs1_ and _rs2_, subtracts the value in _rs3_, and writes the final result to _rd_. FMSUB.S computes
-_(rs1×rs2)−rs3_.
-
-[[norm:fnmsub-s_op]]
-FNMSUB.S multiplies the values in _rs1_ and _rs2_, negates the product, adds the value in _rs3_, and writes the final result to _rd_. FNMSUB.S computes _−(rs1×rs2)+rs3_.
-
-[[norm:fnmadd-s_op]]
-FNMADD.S multiplies the values in _rs1_ and _rs2_, negates the product, subtracts the value in _rs3_, and writes the final result to _rd_. FNMADD.S computes _−(rs1×rs2)−rs3_.
-
-[NOTE]
-====
-The FNMSUB and FNMADD instructions are counterintuitively named, owing
-to the naming of the corresponding instructions in MIPS-IV. The MIPS
-instructions were defined to negate the sum, rather than negating the
-product as the RISC-V instructions do, so the naming scheme was more
-rational at the time. The two definitions differ with respect to
-signed-zero results. The RISC-V definition matches the behavior of the
-x86 and ARM fused multiply-add instructions, but unfortunately the
-RISC-V FNMSUB and FNMADD instruction names are swapped as compared to x86,
-whereas the RISC-V FMSUB and FNMSUB instruction names are swapped as
-compared to ARM.
-====
-
-include::images/wavedrom/spfloat2.edn[]
-[[fnmaddsub]]
-//.F[N]MADD/F[N]MSUB instructions
-
-[NOTE]
-====
-The fused multiply-add (FMA) instructions consume a large part of the
-32-bit instruction encoding space. Some alternatives considered were to
-restrict FMA to only use dynamic rounding modes, but static rounding
-modes are useful in code that exploits the lack of product rounding.
-Another alternative would have been to use rd to provide rs3, but this
-would require additional move instructions in some common sequences. The current design still leaves a large portion of the 32-bit encoding space open while avoiding having FMA be non-orthogonal.
-====
-
-[[norm:fma_nv_flag]]
-The fused multiply-add instructions must set the invalid operation
-exception flag when the multiplicands are {inf} and zero, even when the addend is a quiet NaN.
-
-[NOTE]
-====
-The IEEE 754-2008 standard permits, but does not require, raising the
-invalid exception for the operation {inf}×0 + qNaN.
-====
-
-=== Single-Precision Floating-Point Conversion and Move Instructions
+=== Double-Precision Floating-Point Conversion and Move Instructions
 
 Floating-point-to-integer and integer-to-floating-point conversion
-instructions are encoded in the OP-FP major opcode space. [#norm:fcvt-l-s_fcvt-w-s_op]#FCVT.W.S or
-FCVT.L.S converts a floating-point number in floating-point register
-_rs1_ to a signed 32-bit or 64-bit integer, respectively, in integer
-register _rd_#. [#norm:fcvt-s-w_fcvt-s-l_op]#FCVT.S.W or FCVT.S.L converts a 32-bit or 64-bit signed
-integer, respectively, in integer register _rs1_ into a floating-point
-number in floating-point register _rd_#. [#norm:fcvt-wu-s_fcvt-lu-s_fcvt-s-wu_fcvt-s-lu_op]#FCVT.WU.S, FCVT.LU.S, FCVT.S.WU,
-and FCVT.S.LU variants convert to or from unsigned integer values. For
-XLEN>32, FCVT.W[U].S sign-extends the 32-bit result to the destination register width#.
-[#norm:fcvt_long_float_rv64_only]#FCVT.L[U].S and FCVT.S.L[U] are RV64-only instructions#.
-[#norm:fcvt_unrepresentable_nv]#If the rounded result is not representable in the
-destination format, it is clipped to the nearest value and the invalid
-flag is set#. [#norm:fcvt_int_float_valid_input]#<<int_conv>> gives the range of valid inputs
-for FCVT._int_.S and the behavior for invalid inputs#.
-(((floating-point, conversion)))
+instructions are encoded in the OP-FP major opcode space. [#norm:fcvt-w-d_fcvt-l-d_op]#FCVT.W.D or
+FCVT.L.D converts a double-precision floating-point number in
+floating-point register _rs1_ to a signed 32-bit or 64-bit integer,
+respectively, in integer register _rd_#. [#norm:fcvt-d-w_fcvt-d-l_op]#FCVT.D.W or FCVT.D.L converts a
+32-bit or 64-bit signed integer, respectively, in integer register _rs1_
+into a double-precision floating-point number in floating-point register
+_rd_#. [#norm:fcvt-wu-d_fcvt-lu-d_fcvt-d-wu_fcvt-d-lu_op]#FCVT.WU.D, FCVT.LU.D, FCVT.D.WU, and FCVT.D.LU variants convert to
+or from unsigned integer values#. [#norm:fcvt-w-d_fcvt-wu-d_sign_ext]#For RV64, FCVT.W[U].D sign-extends the
+32-bit result#. [#norm:fcvt_long_double_rv64_only]#FCVT.L[U].D and FCVT.D.L[U] are RV64-only instructions.#
+[#norm:fcvt_int_double_valid_input]#The range of valid inputs for FCVT._int_.D and the behavior for invalid
+inputs are the same as for FCVT._int_.S#.
+(((floating point, convert and move)))
 
-[[norm:fcvt_round]]
 All floating-point to integer and integer to floating-point conversion
-instructions round according to the _rm_ field. A floating-point
-register can be initialized to floating-point positive zero using
-FCVT.S.W _rd_, `x0`, which will never set any exception flags.
+instructions round according to the _rm_ field. Note FCVT.D.W[U] always
+produces an exact result and is unaffected by rounding mode.
 
-[[int_conv]]
-.Domains of float-to-integer conversions and behavior for invalid inputs
-[%autowidth,float="center",align="center",cols="<,>,>,>,>",options="header",]
-|===
-| |FCVT.W.S |FCVT.WU.S |FCVT.L.S |FCVT.LU.S
-|Minimum valid input (after rounding) |−2^31^ |0
-|−2^63^ |0
+include::images/wavedrom/double-fl-convert-mv.edn[]
+[[fl-convert-mv]]
+//.Double-precision float convert and move
 
-|Maximum valid input (after rounding) |2^31^−1
-|2^32^−1 |2^63^−1 |2^64^−1
+[#norm:fcvt-s-d_fcvt-d-s_op]#The double-precision to single-precision and single-precision to
+double-precision conversion instructions, FCVT.S.D and FCVT.D.S, are
+encoded in the OP-FP major opcode space and both the source and
+destination are floating-point registers. The _rs2_ field encodes the
+datatype of the source, and the _fmt_ field encodes the datatype of the
+destination#. [#norm:fcvt_float_rounding]#FCVT.S.D rounds according to the RM field; FCVT.D.S will
+never round#.
+(((double-precision, to single-precision)))
+(((single-precision, to double-precision )))
 
-|Output for out-of-range negative input |−2^31^ |0
-|−2^63^ |0
+include::images/wavedrom/fcvt-sd-ds.edn[]
+[[fcvt-sd-ds]]
+//.Double-precision FCVT.S.D and FCVT.D.S
 
-|Output for -{inf} |−2^31^ |0
-|−2^63^ |0
+[[norm:fsgnj-d_fsgnjn-d_fsgnjx-d_op]]
+Floating-point to floating-point sign-injection instructions, FSGNJ.D,
+FSGNJN.D, and FSGNJX.D are defined analogously to the single-precision
+sign-injection instruction.
+//FSGNJ.D, FSGNJN.D, and FSGNJX.D
 
-|Output for out-of-range positive input |2^31^−1
-|2^32^−1 |2^63^−1 |2^64^−1
+include::images/wavedrom/fsjgnjnx-d.edn[]
+//.Double-precision sign-injection
 
-|Output for +{inf} or NaN |2^31^−1
-|2^32^−1 |2^63^−1 |2^64^−1
-|===
+For XLEN{ge}64 only, instructions are provided to move bit
+patterns between the floating-point and integer registers.
+[#norm:fmv-x-d_op]#FMV.X.D moves
+the double-precision value in floating-point register _rs1_ to a
+representation in IEEE 754-2008 standard encoding in integer register
+_rd_#. [#norm:fmv-d-x_op]#FMV.D.X moves the double-precision value encoded in IEEE 754-2008
+standard encoding from the integer register _rs1_ to the floating-point
+register _rd_#.
 
-[[norm:fcvt_nx]]
-All floating-point conversion instructions set the Inexact exception
-flag if the rounded result differs from the operand value and the
-Invalid exception flag is not set.
+[[norm:fmv_bits_preserved]]
+FMV.X.D and FMV.D.X do not modify the bits being transferred; in
+particular, the payloads of non-canonical NaNs are preserved.
 
-include::images/wavedrom/spfloat-cn-cmp.edn[]
-[[fcvt]]
-//.SP float convert and move
-
-[#norm:fsgnj-s_fsgnjn-s_fsgnjx-s_op]#Floating-point to floating-point sign-injection instructions, FSGNJ.S,
-FSGNJN.S, and FSGNJX.S, produce a result that takes all bits except the
-sign bit from _rs1_. For FSGNJ, the result's sign bit is _rs2_'s sign
-bit; for FSGNJN, the result's sign bit is the opposite of _rs2_'s sign
-bit; and for FSGNJX, the sign bit is the XOR of the sign bits of _rs1_
-and _rs2_. Sign-injection instructions do not set floating-point
-exception flags, nor do they canonicalize NaNs#. Note, FSGNJ.S _rx, ry,
-ry_ moves _ry_ to _rx_ (assembler pseudoinstruction FMV.S _rx, ry_);
-FSGNJN.S _rx, ry, ry_ moves the negation of _ry_ to _rx_ (assembler
-pseudoinstruction FNEG.S _rx, ry_); and FSGNJX.S _rx, ry, ry_ moves the absolute value of _ry_ to _rx_ (assembler pseudoinstruction FABS.S _rx,
-ry_).
-
-include::images/wavedrom/spfloat-sign-inj.edn[]
-[[inj]]
+include::images/wavedrom/d-xwwx.edn[]
+[[fmvxddx]]
+//.Double-precision float move to _rd_
 
 [NOTE]
 ====
-The sign-injection instructions provide floating-point MV, ABS, and NEG, as well as supporting a few other operations, including the IEEE
-`copySign` operation and sign manipulation in transcendental math function libraries. Although MV, ABS, and NEG only need a single register operand, whereas FSGNJ instructions need two, it is unlikely most microarchitectures would add optimizations to benefit from the reduced number of register reads for these relatively infrequent instructions. Even in this case, a microarchitecture can simply detect when both source registers are the same for FSGNJ instructions and only read a single copy.
+Early versions of the RISC-V ISA had additional instructions to allow
+RV32 systems to transfer between the upper and lower portions of a
+64-bit floating-point register and an integer register. However, these
+would be the only instructions with partial register writes and would
+add complexity in implementations with recoded floating-point or
+register renaming, requiring a pipeline read-modify-write sequence.
+Scaling up to handling quad-precision for RV32 and RV64 would also
+require additional instructions if they were to follow this pattern. The
+ISA was defined to reduce the number of explicit int-float register
+moves, by having conversions and comparisons write results to the
+appropriate register file, so we expect the benefit of these
+instructions to be lower than for other ISAs.
+
+We note that for systems that implement a 64-bit floating-point unit
+including fused multiply-add support and 64-bit floating-point loads and
+stores, the marginal hardware cost of moving from a 32-bit to a 64-bit
+integer datapath is low, and a software ABI supporting 32-bit wide
+address-space and pointers can be used to avoid growth of static data
+and dynamic memory traffic.
 ====
 
-Instructions are provided to move bit patterns between the
-floating-point and integer registers. [#norm:fmv-x-w_op]#FMV.X.W moves the single-precision value in floating-point register _rs1_ represented in IEEE 754-2008 encoding to the lower 32 bits of integer register _rd_. The bits are not modified in the transfer, and in particular, the payloads of non-canonical NaNs are preserved. For RV64, the higher 32 bits of the destination register are filled with copies of the floating-point number's sign bit#.
+=== Double-Precision Floating-Point Compare Instructions
 
-[[norm:fmv-w-x_op]]
-FMV.W.X moves the single-precision value encoded in IEEE 754-2008
-standard encoding from the lower 32 bits of integer register _rs1_ to
-the floating-point register _rd_. The bits are not modified in the
-transfer, and in particular, the payloads of non-canonical NaNs are
-preserved.
+[[norm:D_compare_instrs]]
+The double-precision floating-point compare instructions are defined
+analogously to their single-precision counterparts, but operate on
+double-precision operands.
+(((floating-point, compare)))
 
-[NOTE]
-====
-The FMV.W.X and FMV.X.W instructions were previously called FMV.S.X and FMV.X.S. The use of W is more consistent with their semantics as an instruction that moves 32 bits without interpreting them. This became clearer after defining NaN-boxing. To avoid disturbing existing code, both the W and S versions will be supported by tools.
-====
+include::images/wavedrom/double-fl-compare.edn[]
+[[fl-compare]]
+//.Double-precision float compare
 
-include::images/wavedrom/spfloat-mv.edn[]
-[[spfloat-mv]]
-//.SP floating point move
+=== Double-Precision Floating-Point Classify Instruction
 
-[NOTE]
-====
-The base floating-point ISA was defined so as to allow implementations
-to employ an internal recoding of the floating-point format in registers to simplify handling of subnormal values and possibly to reduce functional unit latency. To this end, the F extension avoids
-representing integer values in the floating-point registers by defining conversion and comparison operations that read and write the integer register file directly. This also removes many of the common cases where explicit moves between integer and floating-point registers are required, reducing instruction count and critical paths for common mixed-format code sequences.
-====
+[[norm:fclass-d_op]]
+The double-precision floating-point classify instruction, FCLASS.D, is
+defined analogously to its single-precision counterpart, but operates on
+double-precision operands.
+(((floating-point, classify)))
 
-=== Single-Precision Floating-Point Compare Instructions
-[[norm:feq-s_flt-s_fle-s_op]]
-Floating-point compare instructions (FEQ.S, FLT.S, FLE.S) perform the
-specified comparison between floating-point registers
-(_rs1_ = _rs2_, _rs1_ < _rs2_,
-_rs1_ {le} _rs2_) writing 1 to the integer register _rd_ if the
-condition holds, and 0 otherwise.
-
-[#norm:flt-s_fle-s_signaling]#FLT.S and FLE.S perform what the IEEE 754-2008 standard refers to as
-_signaling_ comparisons: that is, they set the invalid operation
-exception flag if either input is NaN#. [#norm:feq-s_quiet]#FEQ.S performs a _quiet_
-comparison: it only sets the invalid operation exception flag if either input is a signaling NaN#. [#norm:feq-s_flt-s_fle-s_NaN_input]#For all three instructions, the result is 0 if either operand is NaN#.
-
-include::images/wavedrom/spfloat-comp.edn[]
-[[spfloat-comp]]
-//.SP floating point compare
-
-[NOTE]
-====
-The F extension provides a {le} comparison, whereas the
-base ISAs provide a {ge} branch comparison. Because
-{le} can be synthesized from {ge} and
-vice-versa, there is no performance implication to this inconsistency,
-but it is nevertheless an unfortunate incongruity in the ISA.
-====
-
-=== Single-Precision Floating-Point Classify Instruction
-
-[[norm:fclass-s_op]]
-The FCLASS.S instruction examines the value in floating-point register
-_rs1_ and writes to integer register _rd_ a 10-bit mask that indicates
-the class of the floating-point number. The format of the mask is
-described in <<fclass>>. The corresponding bit in _rd_ will
-be set if the property is true and clear otherwise. All other bits in
-_rd_ are cleared. Note that exactly one bit in _rd_ will be set.
-FCLASS.S does not set the floating-point exception flags.
-(((floating-point, classification)))
-
-include::images/wavedrom/spfloat-classify.edn[]
-[[spfloat-classify]]
-//.SP floating point classify
-
-[[fclass]]
-.Format of result of FCLASS instruction.
-[%autowidth,float="center",align="center",cols="^,<",options="header",]
-|===
-|_rd_ bit |Meaning
-|0 |_rs1_ is −{inf}.
-|1 |_rs1_ is a negative normal number.
-|2 |_rs1_ is a negative subnormal number.
-|3 |_rs1_ is −0.
-|4 |_rs1_ is +0.
-|5 |_rs1_ is a positive subnormal number.
-|6 |_rs1_ is a positive normal number.
-|7 |_rs1_ is +{inf}.
-|8 |_rs1_ is a signaling NaN.
-|9 |_rs1_ is a quiet NaN.
-|===
+include::images/wavedrom/double-fl-class.edn[]
+[[fl-class]]
+//.Double-precision float classify

@@ -1,179 +1,213 @@
 # Chunk: chunk_037
-# Source: rnmi.adoc
-# Lines: 1-166 (of 166)
+# Source: riscv-unprivileged.adoc
+# Lines: 1-206 (of 206)
 # Content starts: line 1
-# Line count: 166
-# Sections: 6
-#   == "Smrnmi" Extension for Resumable Non-Maskable Interrupts, Version 1.0
-#   === RNMI Interrupt Signals
-#   === RNMI Handler Addresses
-#   === RNMI CSRs
-#   === MNRET Instruction
-#   === RNMI Operation
+# Line count: 206
+# Sections: 0
 #
-[[rnmi]]
-== "Smrnmi" Extension for Resumable Non-Maskable Interrupts, Version 1.0
+[[manual:unpriv,RISC-V ISA Manual, Volume I: Unprivileged Architecture]]
+= The RISC-V Instruction Set Manual, Volume I: Unprivileged Architecture
+include::../docs-resources/global-config.adoc[]
+:description: Unprivileged Architecture
+:colophon:
+:preface-title: Preamble
+:appendix-caption: Appendix
+:imagesdir: ../docs-resources/images
+:title-logo-image: image:risc-v_logo.png["RISC-V International Logo",pdfwidth=3.25in,align=center]
+ifdef::draft-watermark[]
+:page-background-image: image:draft.png[opacity=20%]
+endif::[]
+//:title-page-background-image: none
+//:back-cover-image: image:backpage.png[opacity=25%]
+:back-cover-image: image:riscv-horizontal-color.svg[opacity=25%]
+// Settings:
+:experimental:
+:reproducible:
+:imagesoutdir: {docdir}/../build/images-out
+:bibtex-file: src/resources/riscv-spec.bib
+:bibtex-order: alphabetical
+:bibtex-style: apa
+:bibtex-format: asciidoc
+:bibtex-throw: false
+:icons: font
+:lang: en
+:example-caption: Example
+:listing-caption: Listing
+:sectnums:
+:sectnumlevels: 5
+:sectlinks:
+:toc: left
+:toclevels: 5
+:source-highlighter: rouge
+:table-caption: Table
+:figure-caption: Figure
+:xrefstyle: short
+:chapter-refsig: Chapter
+:section-refsig: Section
+:appendix-refsig: Appendix
+// Uncomment :data-uri: if your eBook reader is not capable of rendering
+// embedded images. One known affected device is PocketBook InkPad 3.
+:data-uri:
+:hide-uri-scheme:
+:stem: latexmath
+:footnote:
+:csrname: envcfg
+:imagesdir: images
 
-The base machine-level architecture supports only unresumable
-non-maskable interrupts (UNMIs), where the NMI jumps to a handler in
-machine mode, overwriting the current `mepc` and `mcause` register
-values. If the hart had been executing machine-mode code in a trap
-handler, the previous values in `mepc` and `mcause` would not be
-recoverable and so execution is not generally resumable.
+include::symbols.adoc[]
 
-The Smrnmi extension adds support for resumable non-maskable interrupts
-(RNMIs) to RISC-V. The extension adds four new CSRs (`mnepc`, `mncause`,
-`mnstatus`, and `mnscratch`) to hold the interrupted state, and one new
-instruction, MNRET, to resume from the RNMI handler.
+_Contributors to all versions of the spec in alphabetical order (please contact editors to suggest corrections):
+Arvind,
+Krste Asanović,
+Derek Atkins,
+Rimas Avižienis,
+Jacob Bachmeyer,
+Christopher F. Batten,
+Allen J. Baum,
+Scott Beamer,
+Abel Bernabeu,
+Hans Boehm,
+Alex Bradbury,
+Preston Briggs,
+Christopher Celio,
+Chuanhua Chang,
+David Chisnall,
+Paul Clayton,
+Palmer Dabbelt,
+L Peter Deutsch,
+Ken Dockser,
+Paul Donahue,
+Aaron Durbin,
+Roger Espasa,
+Greg Favor,
+Shaked Flur,
+Stefan Freudenberger,
+Marc Gauthier,
+Andy Glew,
+Jan Gray,
+Gianluca Guida,
+Michael Hamburg,
+John Hauser,
+Christian Herber,
+David Horner,
+Bruce Hoult,
+Bill Huffman,
+John Ingalls,
+Alexandre Joannou,
+Olof Johansson,
+Ben Keller,
+David Kruckemyer,
+Tariq Kurd,
+Yunsup Lee,
+Paul Loewenstein,
+Daniel Lustig,
+Yatin Manerkar,
+Luc Maranget,
+Ben Marshall,
+Margaret Martonosi,
+Phil McCoy,
+Nathan Menhorn,
+Christoph Müllner,
+Joseph Myers,
+Vijayanand Nagarajan,
+Torbjørn Viem Ness,
+Rishiyur Nikhil,
+Jonas Oberhauser,
+Stefan O'Rear,
+Markku-Juhani O. Saarinen,
+Albert Ou,
+John Ousterhout,
+Daniel Page,
+David Patterson,
+Christopher Pulte,
+Jose Renau,
+Susmit Sarkar,
+Josh Scheid,
+Colin Schmidt,
+Peter Sewell,
+Ved Shanbhogue,
+Brent Spinney,
+Brendan Sweeney,
+Michael Taylor,
+Wesley Terpstra,
+Matt Thomas,
+Tommy Thorn,
+Philipp Tomsich,
+Caroline Trippel,
+Ray VanDeWalker,
+Muralidaran Vijayaraghavan,
+Megan Wachs,
+Paul Wamsley,
+Andrew Waterman,
+Robert Watson,
+David Weaver,
+Derek Williams,
+Claire Wolf,
+Andrew Wright,
+Reinoud Zandijk,
+and Sizhuo Zhang._
 
-=== RNMI Interrupt Signals
+_This document is released under a Creative Commons Attribution 4.0 International License._
 
-The `rnmi` interrupt signals are inputs to the hart. These interrupts
-have higher priority than any other interrupt or exception on the hart
-and cannot be disabled by software. Specifically, they are not disabled
-by clearing the `mstatus`.MIE register.
+_This document is a derivative of “The RISC-V Instruction Set Manual, Volume I: User-Level ISA
+Version 2.1” released under the following license: ©2010-2017 Andrew Waterman, Yunsup Lee,
+David Patterson, Krste Asanović. Creative Commons Attribution 4.0 International License.
+Please cite as: “The RISC-V Instruction Set Manual, Volume I: User-Level ISA, Document
+Version 20191214-draft”, Editors Andrew Waterman and Krste Asanović, RISC-V Foundation,
+December 2019._
 
-=== RNMI Handler Addresses
+//the colophon allows for a section after the preamble that is part of the frontmatter and therefore not assigned a page number.
+include::colophon.adoc[]
 
-The RNMI interrupt trap handler address is implementation-defined.
+include::intro.adoc[]
+include::rv32.adoc[]
+include::rv32e.adoc[]
+include::rv64.adoc[]
+include::zifencei.adoc[]
+include::zicsr.adoc[]
+include::counters.adoc[]
+include::zihintntl.adoc[]
+include::zihintpause.adoc[]
+include::zimop.adoc[]
+include::zicond.adoc[]
+include::m-st-ext.adoc[]
+include::a-st-ext.adoc[]
+include::zawrs.adoc[]
+include::zacas.adoc[]
+include::zabha.adoc[]
+include::zalasr.adoc[]
+include::rvwmo.adoc[]
+include::ztso-st-ext.adoc[]
+include::cmo.adoc[]
+include::f-st-ext.adoc[]
+include::d-st-ext.adoc[]
+include::q-st-ext.adoc[]
+include::zfh.adoc[]
+include::bfloat16.adoc[]
+include::zfa.adoc[]
+include::zfinx.adoc[]
+include::c-st-ext.adoc[]
+include::zc.adoc[]
+include::b-st-ext.adoc[]
+include::v-st-ext.adoc[]
+include::scalar-crypto.adoc[]
+include::vector-crypto.adoc[]
+include::unpriv-cfi.adoc[]
+include::zilsd.adoc[]
+include::rv-32-64g.adoc[]
+include::naming.adoc[]
+include::mm-eplan.adoc[]
+include::mm-formal.adoc[]
 
-RNMI also has an associated exception trap handler address, which is
-implementation defined.
+//Appendices for Vector
+include::vector-examples.adoc[]
+include::calling-convention.adoc[]
+//End of Vector appendices
+include::bitmanip-examples.adoc[]
+include::rationale.adoc[]
+//include::fraclmul.adoc[]
 
-NOTE: For example, some implementations might use the address specified
-in `mtvec` as the RNMI exception trap handler.
-
-=== RNMI CSRs
-
-This extension adds additional M-mode CSRs to enable a resumable
-non-maskable interrupt (RNMI).
-
-.Resumable NMI scratch register `mnscratch`
-include::images/bytefield/mnscratch.edn[]
-
-The `mnscratch` CSR holds an MXLEN-bit read-write register which enables
-the RNMI trap handler to save and restore the context that was
-interrupted.
-
-.Resumable NMI program counter `mnepc`.
-include::images/bytefield/mnepc.edn[]
-
-The `mnepc` CSR is an MXLEN-bit read-write register which on entry to
-the RNMI trap handler holds the PC of the instruction that took the
-interrupt.
-
-The low bit of `mnepc` (`mnepc[0]`) is always zero. On implementations
-that support only IALIGN=32, the two low bits (`mnepc[1:0]`) are always
-zero.
-
-If an implementation allows IALIGN to be either 16 or 32 (by changing
-CSR `misa`, for example), then, whenever IALIGN=32, bit `mnepc[1]` is
-masked on reads so that it appears to be 0. This masking occurs also for
-the implicit read by the MNRET instruction. Though masked, `mnepc[1]`
-remains writable when IALIGN=32.
-
-`mnepc` is a *WARL* register that must be able to hold all valid virtual
-addresses. It need not be capable of holding all possible invalid
-addresses. Prior to writing `mnepc`, implementations may convert an
-invalid address into some other invalid address that `mnepc` is capable
-of holding.
-
-.Resumable NMI cause `mncause`.
-include::images/bytefield/mncause.edn[]
-
-The `mncause` CSR holds the reason for the RNMI.
-If the reason is an interrupt, bit MXLEN-1 is set to 1, and the RNMI
-cause is encoded in the least-significant bits.
-If the reason is an interrupt and RNMI causes are not supported, bit MXLEN-1 is
-set to 1, and zero is written to the least-significant bits.
-If the reason is an exception within M-mode that results in a double trap as
-specified in the Smdbltrp extension, bit MXLEN-1 is set to 0 and the
-least-significant bits are set to the cause code corresponding to the
-exception that precipitated the double trap.
-
-.Resumable NMI status register `mnstatus`.
-include::images/bytefield/mnstatus.edn[]
-
-The `mnstatus` CSR holds a two-bit field, MNPP, which on entry to the
-RNMI trap handler holds the privilege mode of the interrupted context,
-encoded in the same manner as `mstatus`.MPP. It also holds a one-bit
-field, MNPV, which on entry to the RNMI trap handler holds the virtualization
-mode of the interrupted context, encoded in the same manner as
-`mstatus`.MPV.
-
-If the Zicfilp extension is implemented, `mnstatus` also holds the MNPELP
-field, which on entry to the RNMI trap handler holds the previous `ELP` state.
-When an RNMI trap is taken, MNPELP is set to `ELP` and `ELP` is set to 0.
-
-`mnstatus` also holds the NMIE bit. When NMIE=1, non-maskable interrupts
-are enabled. When NMIE=0, _all_ interrupts are disabled.
-
-When NMIE=0, the hart behaves as though `mstatus`.MPRV were clear,
-regardless of the current setting of `mstatus`.MPRV.
-
-Upon reset, NMIE contains the value 0.
-
-[NOTE]
-====
-RNMIs are masked out of reset to give software the opportunity to
-initialize data structures and devices for subsequent RNMI handling.
-====
-
-Software can set NMIE to 1, but attempts to clear NMIE have no effect.
-
-[NOTE]
-====
-Normally, only reset sequences will explicitly set the NMIE bit.
-
-***
-
-That the NMIE bit is settable does not suffice to support the nesting of
-RNMIs. To support this feature in a direct manner would have required
-allowing software to clear the NMIE bit—a design choice that would have
-contravened the concept of non-maskability.
-
-Software that wishes to minimize the latency until the next RNMI is
-taken can follow the top-half/bottom-half model, where the RNMI handler
-itself only enqueues a task to a task queue then returns. The bulk of
-the interrupt servicing is performed later, with RNMIs enabled.
-====
-
-For the purposes of the WFI instruction, NMIE is a global interrupt
-enable, meaning that the setting of NMIE does not affect the operation
-of the WFI instruction.
-
-The other bits in `mnstatus` are _reserved_; software should write zeros
-and hardware implementations should return zeros.
-
-=== MNRET Instruction
-
-MNRET is an M-mode-only instruction that uses the values in `mnepc` and
-`mnstatus` to return to the program counter, privilege mode, and
-virtualization mode of the interrupted context. This instruction also
-sets `mnstatus`.NMIE.  If MNRET changes the privilege mode to a mode less privileged than M, it also sets `mstatus`.MPRV to 0.
-If the Zicfilp extension is implemented, then if the new privileged mode
-is __y__, MNRET sets `ELP` to the logical AND of __y__LPE (see <<FCFIACT>>) and `mnstatus`.MNPELP.
-
-=== RNMI Operation
-
-When an RNMI interrupt is detected, the interrupted PC is written to the
-`mnepc` CSR, the type of RNMI to the `mncause` CSR, and the privilege
-mode of the interrupted context to the `mnstatus` CSR. The
-`mnstatus`.NMIE bit is cleared, masking all interrupts.
-
-The hart then enters machine-mode and jumps to the RNMI trap handler
-address.
-
-The RNMI handler can resume original execution using the new MNRET
-instruction, which restores the PC from `mnepc`, the privilege mode from
-`mnstatus`, and also sets `mnstatus`.NMIE, which re-enables interrupts.
-
-If the hart encounters an exception while executing in M-mode with the `mnstatus`.NMIE bit clear, the actions taken are the same as if the exception had occurred while `mnstatus`.NMIE were set, except that the program counter is set to the RNMI exception trap handler address.
-
-[NOTE]
-====
-The Smrnmi extension does not change the behavior of the MRET and SRET
-instructions. In particular, MRET and SRET are unaffected by the
-`mnstatus`.NMIE bit, and their execution does not alter the
-`mnstatus`.NMIE bit.
-====
+include::index.adoc[]
+// this is generated generated from index markers.
+include::bibliography.adoc[]
+// this references the riscv-spec.bi file that has been copied into the resources directory
