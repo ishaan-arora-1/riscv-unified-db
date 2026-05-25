@@ -1,388 +1,239 @@
 # Chunk: chunk_026
-# Source: priv-cfi.adoc
-# Lines: 1-373 (of 373)
+# Source: naming.adoc
+# Lines: 1-222 (of 222)
 # Content starts: line 1
-# Line count: 373
-# Sections: 8
-#   == Control-flow Integrity (CFI)
-#   === Landing Pad (Zicfilp)
-#   ==== Landing-Pad-Enabled (LPE) State
-#   ==== Preserving Expected Landing Pad State on Traps
-#   === Shadow Stack (Zicfiss)
-#   ==== Shadow Stack Pointer (`ssp`) CSR access control
-#   ==== Shadow-Stack-Enabled (SSE) State
-#   ==== Shadow Stack Memory Protection
+# Line count: 222
+# Sections: 10
+#   == ISA Extension Naming Conventions
+#   === Case Sensitivity
+#   === Base Integer ISA
+#   === Instruction-Set Extension Names
+#   === Underscores
+#   === Additional Standard Unprivileged Extension Names
+#   === Supervisor-level Instruction-Set Extension Names
+#   === Hypervisor-level Instruction-Set Extension Names
+#   === Machine-level Instruction-Set Extension Names
+#   === Non-Standard Extension Names
 #
-[[priv-cfi]]
-== Control-flow Integrity (CFI)
+[[naming]]
+== ISA Extension Naming Conventions
 
-Control-flow Integrity (CFI) capabilities help defend against Return-Oriented
-Programming (ROP) and Call/Jump-Oriented Programming (COP/JOP) style
-control-flow subversion attacks. The Zicfiss and Zicfilp extensions provide
-backward-edge and forward-edge control flow integrity respectively. Please see
-the Control-flow Integrity chapter of the Unprivileged ISA specification for further
-details on these CFI capabilities and the associated Unprivileged ISA.
+This chapter describes the RISC-V ISA extension naming scheme that is
+used to concisely describe the set of instructions present in a hardware
+implementation, or the set of instructions used by an application binary
+interface (ABI).
+[NOTE]
+====
+The RISC-V ISA is designed to support a wide variety of implementations
+with various experimental instruction-set extensions. We have found that
+an organized naming scheme simplifies software tools and documentation.
+====
+=== Case Sensitivity
 
-[[priv-forward]]
-=== Landing Pad (Zicfilp)
+The ISA naming strings are case insensitive.
 
-This section specifies the Privileged ISA for the Zicfilp extension.
+=== Base Integer ISA
 
-[[FCFIACT]]
-==== Landing-Pad-Enabled (LPE) State
+RISC-V ISA strings begin with either RV32I, RV32E, RV64I, or RV64E,
+indicating the supported address space size in bits for the base integer
+ISA.
 
-The term `xLPE` is used to determine if forward-edge CFI using landing pads
-provided by the Zicfilp extension is enabled at a privilege mode.
+=== Instruction-Set Extension Names
 
-When S-mode is implemented, it is determined as follows:
+Standard ISA extensions are given a name consisting of a single letter.
+For example, the first four standard extensions to the integer bases
+are: "M" for integer multiplication and division, "A" for atomic
+memory instructions, "F" for single-precision floating-point
+instructions, and "D" for double-precision floating-point
+instructions. Any RISC-V instruction-set variant can be succinctly
+described by concatenating the base integer prefix with the names of the
+included extensions, e.g., "RV64IMAFD".
 
-.`xLPE` determination when S-mode is implemented
-[width=100%]
-[%header, cols="^4,^12"]
+We have also defined an abbreviation "G" to represent the
+"IMAFDZicsr_Zifencei" base and extensions, as this is intended to
+represent our standard general-purpose ISA.
+
+Standard extensions to the RISC-V ISA are given other reserved letters,
+e.g., "Q" for quad-precision floating-point, or "C" for the 16-bit
+compressed instruction format.
+
+Some ISA extensions depend on the presence of other extensions, e.g.,
+"D" depends on "F" and "F" depends on "Zicsr". These dependencies
+may be implicit in the ISA name: for example, RV32IF is equivalent to
+RV32IFZicsr, and RV32ID is equivalent to RV32IFD and RV32IFDZicsr.
+
+=== Underscores
+
+Underscores "_" may be used to separate ISA extensions to improve
+readability and to provide disambiguation, e.g., "RV32I2_M2_A2".
+
+=== Additional Standard Unprivileged Extension Names
+
+Standard unprivileged extensions can also be named by using a single "Z" followed by an
+alphanumeric name. The name must end with an alphabetical character.
+The second letter from the end cannot be numeric if the
+last letter is "p". For example, "Zifencei" names the instruction-fetch fence extension
+described in <<zifencei>>.
+
+The first letter following the "Z" conventionally indicates the most
+closely related alphabetical extension category, IMAFDQLCBKJTPVH. For the
+"Zfa" extension for additional floating-point instructions, for example, the letter "f"
+indicates the extension is related to the "F" standard extension. If
+multiple "Z" extensions are named, they should be ordered first by
+category, then alphabetically within a category—for example,
+"Zicsr_Zifencei_Ztso".
+
+All multi-letter extensions, including those with the "Z" prefix, must be
+separated from other multi-letter extensions by an underscore, e.g.,
+"RV32IMACZicsr_Zifencei".
+
+=== Supervisor-level Instruction-Set Extension Names
+
+Standard extensions that extend the supervisor-level virtual-memory
+architecture are prefixed with the letters "Sv", followed by an alphanumeric
+name. Other standard extensions that extend the supervisor-level architecture are
+prefixed with the letters "Ss", followed by an alphanumeric name. The name
+must end with an alphabetical character. The second letter from the end cannot
+be numeric if the last letter is "p". These extensions are further defined in
+Volume II.
+
+The extensions "sv32", "sv39", "sv48", and "sv59" were defined before the rule
+against extension names ending in numbers was established.
+
+Standard supervisor-level extensions should be listed after standard
+unprivileged extensions, and like other multi-letter extensions, must be
+separated from other multi-letter extensions by an underscore. If multiple
+supervisor-level extensions are listed, they should be ordered alphabetically.
+
+=== Hypervisor-level Instruction-Set Extension Names
+
+Standard extensions that extend the hypervisor-level architecture are prefixed
+with the letters "Sh".
+If multiple hypervisor-level extensions are listed, they should be ordered
+alphabetically.
+
+NOTE: Many augmentations to the hypervisor-level architecture are more
+naturally defined as supervisor-level extensions, following the scheme
+described in the previous section.
+The "Sh" prefix is used by the few hypervisor-level extensions that have no
+supervisor-visible effects.
+
+=== Machine-level Instruction-Set Extension Names
+
+Standard machine-level instruction-set extensions are prefixed with the
+letters "Sm".
+
+Standard machine-level extensions should be listed after standard
+lesser-privileged extensions, and like other multi-letter extensions, must be
+separated from other multi-letter extensions by an underscore. If multiple
+machine-level extensions are listed, they should be ordered alphabetically.
+
+=== Non-Standard Extension Names
+
+Non-standard extensions are named by using a single "X" followed by the alphanumeric
+name. The name must end with an alphabetic character. The
+second letter from the end cannot be numeric if the last letter is
+"p". For example, "Xhwacha" names the Hwacha vector-fetch ISA
+extension.
+
+Non-standard extensions must be listed after all standard extensions, and,
+like other multi-letter extensions, must be separated from other multi-letter
+extensions by an underscore.
+For example, an ISA with non-standard extensions Argle and
+Bargle may be named "RV64IZifencei_Xargle_Xbargle".
+
+If multiple non-standard extensions are listed, they should be ordered
+alphabetically. Like other multi-letter extensions, they should be
+separated from other multi-letter extensions by an underscore.
+
+=== Version Numbers
+
+Recognizing that instruction sets may expand or alter over time, we
+encode extension version numbers following the extension name. Version
+numbers are divided into major and minor version numbers, separated by a
+"p". If the minor version is "0", then "p0" can be omitted from
+the version string. To avoid ambiguity, no extension name may end with a number
+or a "p" preceded by a number.
+
+Because the "P" extension for Packed SIMD can be confused for the
+decimal point in a version number, it must be preceded by an underscore
+if it follows another extension with a version number. For example, "rv32i2p2"
+means version 2.2 of RV32I, whereas "rv32i2_p2" means version 2.0 of RV32I with
+version 2.0 of the P extension.
+
+Changes in major version numbers imply a loss of
+backwards compatibility, whereas changes in only the minor version
+number must be backwards-compatible. For example, the original 64-bit
+standard ISA defined in release 1.0 of this manual can be written in
+full as "RV64I1p0M1p0A1p0F1p0D1p0", more concisely as
+"RV64I1M1A1F1D1".
+
+We introduced the version numbering scheme with the second release.
+Hence, we define the default version of a standard extension to be the
+version present at that time, e.g., "RV32I" is equivalent to
+"RV32I2".
+
+=== Subset Naming Convention
+
+<<isanametable>> summarizes the standardized extension
+names. The table also defines the canonical
+order in which extension names must appear in the name string, with
+top-to-bottom in table indicating first-to-last in the name string,
+e.g., RV32IMACV is legal, whereas RV32IMAVC is not.
+
+[[isanametable]]
+.Standard ISA extension names.
+[%autowidth,float="center",align="center",cols="<,^,^",options="header",]
 |===
-|Privilege Mode| xLPE
-|  M           | `mseccfg.MLPE`
-|  S or HS     | `menvcfg.LPE`
-|  VS          | `henvcfg.LPE`
-|  U or VU     | `senvcfg.LPE`
+|Subset |Name |Implies
+
+|Base ISA | |
+
+|Integer |I |
+
+|Reduced Integer |E |
+
+3+|*Standard Unprivileged Extensions*
+
+|Integer Multiplication and Division |M |Zmmul
+
+|Atomics |A |
+
+|Single-Precision Floating-Point |F |Zicsr
+
+|Double-Precision Floating-Point |D |F
+
+|General |G |IMAFDZicsr_Zifencei
+
+|Quad-Precision Floating-Point |Q |D
+
+|16-bit Compressed Instructions |C |
+
+|B Extension |B |
+
+|Packed-SIMD Extensions |P |
+
+|Vector Extension |V |D
+
+|Hypervisor Extension |H |
+
+3+|*Additional Standard Unprivileged Extensions*
+
+|Additional Standard unprivileged extensions "abc" |Zabc |
+
+3+|*Standard Supervisor-Level Extensions*
+
+|Supervisor-level extension "def" |Ssdef |
+
+3+|*Standard Hypervisor-Level Extensions*
+
+|Hypervisor-level extension "ghi" |Shghi |
+
+3+|*Standard Machine-Level Extensions*
+
+|Machine-level extension "jkl" |Smjkl |
+
+3+|*Non-Standard Extensions*
+
+|Non-standard extension "mno" |Xmno |
 |===
-
-When S-mode is not implemented, it is determined as follows:
-
-.`xLPE` determination when S-mode is not implemented
-[width=100%]
-[%header, cols="^4,^12"]
-|===
-|Privilege Mode| xLPE
-|  M           | `mseccfg.MLPE`
-|  U           | `menvcfg.LPE`
-|===
-
-[NOTE]
-====
-The Zicfilp must be explicitly enabled for use at each privilege mode.
-
-Programs compiled with the `LPAD` instruction continue to function correctly,
-but without forward-edge CFI protection, when the Zicfilp extension is not
-implemented or is not enabled.
-====
-
-<<<
-
-[[ZICFILP_FORWARD_TRAPS]]
-==== Preserving Expected Landing Pad State on Traps
-
-[#norm:zicflip_forward_traps]#A trap may need to be delivered to the same or to a higher privilege mode upon
-completion of `JALR`/`C.JALR`/`C.JR`, but before the instruction at the target
-of indirect call/jump was decoded#, due to:
-
-* [#norm:zicflip_forward_trap_async_interrupt]#Asynchronous interrupts.#
-* [#norm:zicflip_forward_trap_async_exception]#Synchronous exceptions with priority higher than that of a software-check
-  exception with `__x__tval` set to "landing pad fault (code=2)" (See
-  <<norm:exc_priority>> of Privileged Specification).#
-
-[[norm:zicflip_exception_priority]]
-The software-check exception caused by Zicfilp has higher priority than an
-illegal-instruction exception but lower priority than instruction access-fault.
-
-[[norm:lpad_sw_exception]]
-The software-check exception due to the instruction not being an `LPAD`
-instruction when `ELP` is `LP_EXPECTED` or a software-check exception caused by
-the `LPAD` instruction itself leads to a trap being delivered
-to the same or to a higher privilege mode.
-
-In such cases, the `ELP` prior to the trap, the previous `ELP`, must be
-preserved by the trap delivery such that it can be restored on a return from the
-trap. [#norm:mstatus-mpelp_op]#To store the previous `ELP` state on trap delivery to M-mode, an `MPELP`
-bit is provided in the `mstatus` CSR.# [#norm:mstatus-spelp_op]#To store the previous `ELP` state on trap
-delivery to S/HS-mode, an `SPELP` bit is provided in the `mstatus` CSR.# [#norm:sstatus-spelp_op]#The
-`SPELP` bit in `mstatus` can be accessed through the `sstatus` CSR.# [#norm:vsstatus-spelp_op2]#To store
-the previous `ELP` state on traps to VS-mode, a `SPELP` bit is defined in the
-`vsstatus` (VS-modes version of `sstatus`).# [#norm:dcsr-pelp_op]#To store the previous `ELP` state on
-transition to Debug Mode, a `pelp` bit is defined in the `dcsr` register.#
-
-[[norm:zicflip_pelp_trap]]
-When a trap is taken into privilege mode `x`, the `__x__PELP` is set to `ELP`
-and `ELP` is set to `NO_LP_EXPECTED`.
-
-[[norm:zicflip_pelp_trap_return]]
-An `MRET` or `SRET` instruction is used to return from a trap in M-mode or
-S-mode, respectively.  When executing an `__x__RET` instruction, if the new
-privilege mode is `y`, then `ELP` is set to the value of `__x__PELP` if
-`__y__LPE` (see <<FCFIACT>>) is 1; otherwise, it is set to `NO_LP_EXPECTED`;
-`__x__PELP` is set to `NO_LP_EXPECTED`.
-
-[[norm:zicflip_pelp_debug_mode]]
-Upon entry into Debug Mode, the `pelp` bit in `dcsr` is updated with the `ELP`
-at the privilege level the hart was previously in, and the `ELP` is set to
-`NO_LP_EXPECTED`. When a hart resumes from Debug Mode, if the new privilege mode
-is `y`, then `ELP` is set to the value of `pelp` if `__y__LPE` (see <<FCFIACT>>)
-is 1; otherwise, it is set to `NO_LP_EXPECTED`.
-
-See also <<rnmi>> for semantics added to the RNMI trap and the MNRET instruction
-when this extension is implemented.
-
-[NOTE]
-====
-The trap handler in privilege mode `x` must save the `__x__PELP` bit and the
-`x7` register before performing an indirect call/jump if `xLPE=1`. If the
-privilege mode `x` can respond to interrupts and `xLPE=1`, then the trap handler
-should also save these values before enabling interrupts.
-
-The trap handler in privilege mode `x` must restore the saved `__x__PELP` bit
-and the `x7` register before executing the `__x__RET` instruction to return from
-a trap.
-====
-
-<<<
-
-[[priv-backward]]
-=== Shadow Stack (Zicfiss)
-
-This section specifies the Privileged ISA for the Zicfiss extension.
-
-==== Shadow Stack Pointer (`ssp`) CSR access control
-
-[[norm:zicfiss_ssp_csr]]
-Attempts to access the `ssp` CSR may result in either an illegal-instruction
-exception or a virtual-instruction  exception, contingent upon the state of the
-*__x__*`envcfg.SSE` fields. The conditions are specified as follows:
-
-* [#norm:zicfiss_m_menvcfg-sse]#If the privilege mode is less than M and `menvcfg.SSE` is 0, an
-  illegal-instruction exception is raised.#
-* [#norm:zicfiss_u_senvcfg-sse]#Otherwise, if in U-mode and `senvcfg.SSE` is 0, an illegal-instruction
-  exception is raised.#
-* [#norm:zicfiss_vs_henvcfg-sse]#Otherwise, if in VS-mode and `henvcfg.SSE` is 0, a virtual-instruction
-  exception is raised.#
-* [#norm:zicfiss_vu_henvcfg_senvcfg-sse]#Otherwise, if in VU-mode and either `henvcfg.SSE` or `senvcfg.SSE` is 0,
-  a virtual-instruction  exception is raised.#
-* [#norm:zicfiss_sse_access]#Otherwise, the access is allowed.#
-
-==== Shadow-Stack-Enabled (SSE) State
-
-The term `xSSE` is used to determine if backward-edge CFI using shadow stacks
-provided by the Zicfiss extension is enabled at a privilege mode.
-
-When S-mode is implemented, it is determined as follows:
-
-.`xSSE` determination when S-mode is implemented
-[width=100%]
-[%header, cols="^4,^12"]
-|===
-|Privilege Mode| `xSSE`
-|  M           | `0`
-|  S or HS     | `menvcfg.SSE`
-|  VS          | `henvcfg.SSE`
-|  U or VU     | `senvcfg.SSE`
-|===
-
-[[norm:zicfiss_smode-xsse]]
-When S-mode is not implemented, then `xSSE` is 0 at both M and U privilege modes.
-
-[NOTE]
-====
-Activating Zicfiss in U-mode must be done explicitly per process. Not activating
-Zicfiss at U-mode for a process when that application is not compiled with
-Zicfiss allows it to invoke shared libraries that may contain Zicfiss
-instructions. The Zicfiss instructions in the shared library revert to their
-Zimop/Zcmop-defined behavior in this case.
-
-When Zicfiss is enabled in S-mode it is benign to use an operating system that is
-not compiled with Zicfiss instructions. Such an operating system that does
-not use backward-edge CFI for S-mode execution may still activate Zicfiss for
-U-mode applications.
-
-When programs that use Zicfiss instructions are installed on a processor that
-supports the Zicfiss extension but the extension is not enabled at the privilege
-mode where the program executes, the program continues to function correctly but
-without backward-edge CFI protection as the Zicfiss instructions will revert to
-their Zimop/Zcmop-defined behavior.
-
-When programs that use Zicfiss instructions are installed on a processor that
-does not support the Zicfiss extension but supports the Zimop and Zcmop
-extensions, the programs continues to function correctly but without
-backward-edge CFI protection as the Zicfiss instructions will revert to their
-Zimop/Zcmop-defined behavior.
-
-On processors that do not support Zimop/Zcmop extensions, all Zimop/Zcmop code
-points including those used for Zicfiss instructions may cause an
-illegal-instruction exception. Execution of programs that use these instructions
-on such machines is not supported.
-
-Activating Zicfiss in M-mode is currently not supported. Additionally, when
-S-mode is not implemented, activation in U-mode is also not supported. These
-functionalities may be introduced in a future standard extension.
-====
-
-NOTE: Changes to `xSSE` take effect immediately; address-translation caches
-need not be synchronized with SFENCE.VMA, HFENCE.GVMA, or HFENCE.VVMA
-instructions.
-
-
-[[SSMP]]
-==== Shadow Stack Memory Protection
-
-To protect shadow stack memory, the memory is associated with a new page type –
-the Shadow Stack (SS) page – in the single-stage and VS-stage page tables. [#norm:ss_page_enc]#The
-encoding `R=0`, `W=1`, and `X=0`, is defined to represent an SS page.# [#norm:ssmp_menvcfg-sse]#When
-`menvcfg.SSE=0`, this encoding remains reserved.# [#norm:ssmp_henvcfg-sse]#Similarly, when `V=1` and
-`henvcfg.SSE=0`, this encoding remains reserved at `VS` and `VU` levels.#
-
-[#norm:satp-mode_bare]#If `satp.MODE` (or `vsatp.MODE` when `V=1`) is set to `Bare` and the effective
-privilege mode is less than M, shadow stack instructions raise a store/AMO access-fault exception.#
-[#norm:ssmp_ssamoswap]#When the effective privilege mode is M, memory access
-by an `SSAMOSWAP.W/D` instruction results in a store/AMO access-fault exception.#
-
-[#norm:ssmp_ss_page_access_fault]#Memory mapped as an SS page cannot be written to by instructions other than
-`SSAMOSWAP.W/D`, `SSPUSH`, and `C.SSPUSH`. Attempts will raise a store/AMO
-access-fault exception.# [#norm:ssmp_ss_cache_block_access_fault]#Access to a SS page using _cache-block operation_
-(`CBO.*`) instructions is not permitted. Such accesses will raise a store/AMO
-access-fault exception.# [#norm:ssmp_ss_implicit_access_fault]#Implicit accesses, including instruction fetches to an
-SS page, are not permitted. Such accesses will raise an access-fault exception
-appropriate to the access type.# [#norm:ssmp_ss_load]#However, the shadow stack is readable by all
-instructions that only load from memory.#
-
-[NOTE]
-====
-Stores to shadow stack pages by instructions other than `SSAMOSWAP`, `SSPUSH`,
-and `C.SSPUSH` will trigger a store/AMO access-fault exception, not a store/AMO
-page-fault exception, signaling a fatal error. A store/AMO page-fault suggests
-that the operating system could address and rectify the fault, which is not
-feasible in this scenario. Hence, the page-fault handler must decode the opcode
-of the faulting instruction to discern whether the fault was caused by a
-non-shadow-stack instruction writing to an SS page (a fatal condition) or by a
-shadow stack instruction to a non-resident page (a recoverable condition). The
-performance-critical nature of operating system page fault handlers necessitates
-triggering an access fault instead of a page fault, allowing for a
-straightforward distinction between fatal conditions and recoverable faults.
-
-Operating systems must ensure that no writable, non-shadow-stack alias virtual
-address mappings exist for the physical memory backing the shadow stack.
-Furthermore, in systems where an address-misaligned exception supersedes the
-access-fault exception, handlers emulating misaligned stores must be designed to
-cause an access-fault exception when the store is directed to a shadow stack
-page.
-
-All instructions that perform load operations are allowed to read from the
-shadow stack. This feature facilitates debugging and performance profiling by
-allowing examination of the link register values backed up in the shadow stack.
-====
-
-[NOTE]
-====
-As of the drafting of this specification, instruction fetches are the sole type
-of implicit access subjected to single- or VS-stage address translation.
-====
-
-[#norm:ss_fault_exception_code]#If a shadow stack (SS) instruction raises an access-fault, page-fault, or
-guest-page-fault exception that is supposed to indicate the original instruction
-type (load or store/AMO), then the reported exception cause is respectively a
-store/AMO access fault (code 7), a store/AMO page fault (code 15), or a
-store/AMO guest-page fault (code 23).# For shadow stack instructions, the
-reported instruction type is always as though it were a store or AMO, even for
-instructions `SSPOPCHK` and `C.SSPOPCHK` that only read from memory and do not
-write to it.
-
-[NOTE]
-====
-When Zicfiss is implemented, the existing "store/AMO" exceptions can be thought
-of as "store/AMO/SS" exceptions, indicating that the trapping instruction is
-either a store, an AMO, or a shadow stack instruction.
-====
-
-Shadow stack instructions are restricted to accessing shadow stack
-(`pte.xwr=010b`) pages. [#norm:ssmp_ss_page_illegeal_access]#Should a shadow stack instruction access a page that is
-not designated as a shadow stack page and is not marked as read-only
-(`pte.xwr=001`), a store/AMO access-fault exception will be invoked.# [#norm:ssmp_ss_read_only_page]#Conversely,
-if the page being accessed by a shadow stack instruction is a read-only page, a
-store/AMO page-fault exception will be triggered.#
-
-
-[NOTE]
-====
-Shadow stack loads and stores will trigger a store/AMO page-fault if the
-accessed page is read-only, to support copy-on-write (COW) of a shadow stack
-page. If the page has been marked read-only for COW tracking, the page-fault
-handler responds by creating a copy of the page and updates the `pte.xwr` to
-`010b`, thereby designating each copy as a shadow stack page. Conversely, if
-the access targets a genuinely read-only page, the fault being reported as a
-store/AMO page-fault signals to the operating system that the fault is fatal
-and non-recoverable. Reporting the fault as a store/AMO page-fault, even for
-`SSPOPCHK` initiated memory access, aids in the determination of fatality; if
-these were reported as load page-faults, access to a truly read-only page
-might be mistakenly treated as a recoverable fault, leading to the faulting
-instruction being retried indefinitely. The PTE does not provide a read-only
-shadow stack encoding.
-
-Attempts by shadow stack instructions to access pages marked as read-write,
-read-write-execute, read-execute, or execute-only result in a store/AMO
-access-fault exception, similarly indicating a fatal condition.
-
-Shadow stacks should be bounded at each end by guard pages to prevent accidental
-underflows or overflows from one shadow stack into another. Conventionally, a
-guard page for a stack is a page that is not accessible by the process that owns
-the stack.
-====
-
-<<<
-
-[[norm:ssp_xlen_aligned]]
-If the virtual address in `ssp` is not `XLEN` aligned, then the `SSPUSH`/
-`C.SSPUSH`/`SSPOPCHK`/`C.SSPOPCHK` instructions cause a store/AMO access-fault
-exception.
-
-[NOTE]
-====
-Misaligned accesses to shadow stack are not required and enforcing alignment is
-more secure to detect errors in the program. An access-fault exception is raised
-instead of address-misaligned exception in such cases to indicate fatality and
-that the instruction must not be emulated by a trap handler.
-====
-
-Correct execution of shadow stack instructions that access memory requires the
-the accessed memory to be idempotent. [#norm:ssmp_ss_idempotent_memory]#If the memory referenced by
-`SSPUSH`/`C.SSPUSH`/`SSPOPCHK`/`C.SSPOPCHK`/`SSAMOSWAP.W/D` instructions is not
-idempotent, then the instructions cause a store/AMO access-fault exception.#
-
-[NOTE]
-====
-The `SSPOPCHK` instruction performs a load followed by a check of the loaded
-data value with the link register as source. If the check against the link
-register faults, and the instruction is restarted by the trap handler, then the
-instruction will perform a load again. If the memory from which the load is
-performed is non-idempotent, then the second load may cause unexpected side
-effects. Shadow stack instructions that access the shadow stack require the
-memory referenced by `ssp` to be idempotent to avoid such concerns. Locating
-shadow stacks in non-idempotent memory, such as non-idempotent device memory,
-is not an expected usage, and requiring memory referenced to be idempotent
-does not pose a significant restriction.
-====
-
-The `U` and `SUM` bit enforcement is performed normally for shadow stack
-instruction initiated memory accesses. The state of the `MXR` bit does not
-affect read access to a shadow stack page as the shadow stack page is always
-readable by all instructions that load from memory.
-
-The G-stage address translation and protections remain unaffected by the Zicfiss
-extension. The `xwr == 010b` encoding in the G-stage PTE remains reserved.
-[#norm:active_g_stage_pte]#When G-stage page tables are active, the shadow stack instructions that access memory
-require the G-stage page table to have read-write permission for the accessed
-memory; else a store/AMO guest-page-fault exception is raised.#
-
-[NOTE]
-====
-A future extension may define a shadow stack encoding in the G-stage page table
-to support use cases such as a hypervisor enforcing shadow stack protections for
-its guests.
-====
-
-Svpbmt and Svnapot extensions are supported for shadow stack pages.
-
-The PMA checks are extended to require memory referenced by shadow stack
-instructions to be idempotent. The PMP checks are extended to require read-write
-permission for memory accessed by shadow stack instructions. If the PMP does not
-provide read-write permissions or if the accessed memory is not idempotent then
-a store/AMO access-fault exception is raised.
-
-The `SSAMOSWAP.W/D` instructions require the PMA of the accessed memory range to
-provide AMOSwap level support.

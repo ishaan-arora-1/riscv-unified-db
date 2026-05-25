@@ -1,239 +1,163 @@
 # Chunk: chunk_025
-# Source: naming.adoc
-# Lines: 1-222 (of 222)
+# Source: mm-herd.adoc
+# Lines: 1-155 (of 155)
 # Content starts: line 1
-# Line count: 222
-# Sections: 10
-#   == ISA Extension Naming Conventions
-#   === Case Sensitivity
-#   === Base Integer ISA
-#   === Instruction-Set Extension Names
-#   === Underscores
-#   === Additional Standard Unprivileged Extension Names
-#   === Supervisor-level Instruction-Set Extension Names
-#   === Hypervisor-level Instruction-Set Extension Names
-#   === Machine-level Instruction-Set Extension Names
-#   === Non-Standard Extension Names
+# Line count: 155
+# Sections: 1
+#   == Formal Axiomatic Specification in Herd
 #
-[[naming]]
-== ISA Extension Naming Conventions
+[[sec:herd]]
+== Formal Axiomatic Specification in Herd
 
-This chapter describes the RISC-V ISA extension naming scheme that is
-used to concisely describe the set of instructions present in a hardware
-implementation, or the set of instructions used by an application binary
-interface (ABI).
-[NOTE]
-====
-The RISC-V ISA is designed to support a wide variety of implementations
-with various experimental instruction-set extensions. We have found that
-an organized naming scheme simplifies software tools and documentation.
-====
-=== Case Sensitivity
+The tool [.sans-serif]#herd# takes a memory model and a litmus test as
+input and simulates the execution of the test on top of the memory
+model. Memory models are written in the domain specific language Cat.
+This section provides two Cat memory model of RVWMO. The first model,
+Figure #fig:herd2[[fig:herd2]], follows the _global memory order_,
+Chapter #ch:memorymodel[[ch:memorymodel]], definition of RVWMO, as much
+as is possible for a Cat model. The second model,
+Figure #fig:herd3[[fig:herd3]], is an equivalent, more efficient,
+partial order based RVWMO model.
 
-The ISA naming strings are case insensitive.
+The simulator [.sans-serif]#herd# is part of the [.sans-serif]#diy# tool
+suite — see http://diy.inria.fr for software and documentation. The
+models and more are available online
+at http://diy.inria.fr/cats7/riscv/.
 
-=== Base Integer ISA
+`  `
 
-RISC-V ISA strings begin with either RV32I, RV32E, RV64I, or RV64E,
-indicating the supported address space size in bits for the base integer
-ISA.
+....
+(*************)
+(* Utilities *)
+(*************)
 
-=== Instruction-Set Extension Names
+(* All fence relations *)
+let fence.r.r = [R];fencerel(Fence.r.r);[R]
+let fence.r.w = [R];fencerel(Fence.r.w);[W]
+let fence.r.rw = [R];fencerel(Fence.r.rw);[M]
+let fence.w.r = [W];fencerel(Fence.w.r);[R]
+let fence.w.w = [W];fencerel(Fence.w.w);[W]
+let fence.w.rw = [W];fencerel(Fence.w.rw);[M]
+let fence.rw.r = [M];fencerel(Fence.rw.r);[R]
+let fence.rw.w = [M];fencerel(Fence.rw.w);[W]
+let fence.rw.rw = [M];fencerel(Fence.rw.rw);[M]
+let fence.tso =
+  let f = fencerel(Fence.tso) in
+  ([W];f;[W]) | ([R];f;[M])
 
-Standard ISA extensions are given a name consisting of a single letter.
-For example, the first four standard extensions to the integer bases
-are: "M" for integer multiplication and division, "A" for atomic
-memory instructions, "F" for single-precision floating-point
-instructions, and "D" for double-precision floating-point
-instructions. Any RISC-V instruction-set variant can be succinctly
-described by concatenating the base integer prefix with the names of the
-included extensions, e.g., "RV64IMAFD".
+let fence =
+  fence.r.r | fence.r.w | fence.r.rw |
+  fence.w.r | fence.w.w | fence.w.rw |
+  fence.rw.r | fence.rw.w | fence.rw.rw |
+  fence.tso
 
-We have also defined an abbreviation "G" to represent the
-"IMAFDZicsr_Zifencei" base and extensions, as this is intended to
-represent our standard general-purpose ISA.
+(* Same address, no W to the same address in-between *)
+let po-loc-no-w = po-loc \ (po-loc?;[W];po-loc)
+(* Read same write *)
+let rsw = rf^-1;rf
+(* Acquire, or stronger  *)
+let AQ = Acq|AcqRel
+(* Release or stronger *)
+let RL = Rel|AcqRel
+(* All RCsc *)
+let RCsc = Acq|Rel|AcqRel
+(* Amo events are both R and W, relation rmw relates paired lr/sc *)
+let AMO = R & W
+let StCond = range(rmw)
 
-Standard extensions to the RISC-V ISA are given other reserved letters,
-e.g., "Q" for quad-precision floating-point, or "C" for the 16-bit
-compressed instruction format.
+(*************)
+(* ppo rules *)
+(*************)
 
-Some ISA extensions depend on the presence of other extensions, e.g.,
-"D" depends on "F" and "F" depends on "Zicsr". These dependencies
-may be implicit in the ISA name: for example, RV32IF is equivalent to
-RV32IFZicsr, and RV32ID is equivalent to RV32IFD and RV32IFDZicsr.
+(* Overlapping-Address Orderings *)
+let r1 = [M];po-loc;[W]
+and r2 = ([R];po-loc-no-w;[R]) \ rsw
+and r3 = [AMO|StCond];rfi;[R]
+(* Explicit Synchronization *)
+and r4 = fence
+and r5 = [AQ];po;[M]
+and r6 = [M];po;[RL]
+and r7 = [RCsc];po;[RCsc]
+and r8 = rmw
+(* Syntactic Dependencies *)
+and r9 = [M];addr;[M]
+and r10 = [M];data;[W]
+and r11 = [M];ctrl;[W]
+(* Pipeline Dependencies *)
+and r12 = [R];(addr|data);[W];rfi;[R]
+and r13 = [R];addr;[M];po;[W]
 
-=== Underscores
+let ppo = r1 | r2 | r3 | r4 | r5 | r6 | r7 | r8 | r9 | r10 | r11 | r12 | r13
+....
 
-Underscores "_" may be used to separate ISA extensions to improve
-readability and to provide disambiguation, e.g., "RV32I2_M2_A2".
+`  `
 
-=== Additional Standard Unprivileged Extension Names
+....
+Total
 
-Standard unprivileged extensions can also be named by using a single "Z" followed by an
-alphanumeric name. The name must end with an alphabetical character.
-The second letter from the end cannot be numeric if the
-last letter is "p". For example, "Zifencei" names the instruction-fetch fence extension
-described in <<zifencei>>.
+(* Notice that herd has defined its own rf relation *)
 
-The first letter following the "Z" conventionally indicates the most
-closely related alphabetical extension category, IMAFDQLCBKJTPVH. For the
-"Zfa" extension for additional floating-point instructions, for example, the letter "f"
-indicates the extension is related to the "F" standard extension. If
-multiple "Z" extensions are named, they should be ordered first by
-category, then alphabetically within a category—for example,
-"Zicsr_Zifencei_Ztso".
+(* Define ppo *)
+include "riscv-defs.cat"
 
-All multi-letter extensions, including those with the "Z" prefix, must be
-separated from other multi-letter extensions by an underscore, e.g.,
-"RV32IMACZicsr_Zifencei".
+(********************************)
+(* Generate global memory order *)
+(********************************)
 
-=== Supervisor-level Instruction-Set Extension Names
+let gmo0 = (* precursor: ie build gmo as an total order that include gmo0 *)
+  loc & (W\FW) * FW | # Final write after any write to the same location
+  ppo |               # ppo compatible
+  rfe                 # includes herd external rf (optimization)
 
-Standard extensions that extend the supervisor-level virtual-memory
-architecture are prefixed with the letters "Sv", followed by an alphanumeric
-name. Other standard extensions that extend the supervisor-level architecture are
-prefixed with the letters "Ss", followed by an alphanumeric name. The name
-must end with an alphabetical character. The second letter from the end cannot
-be numeric if the last letter is "p". These extensions are further defined in
-Volume II.
+(* Walk over all linear extensions of gmo0 *)
+with  gmo from linearizations(M\IW,gmo0)
 
-The extensions "sv32", "sv39", "sv48", and "sv59" were defined before the rule
-against extension names ending in numbers was established.
+(* Add initial writes upfront -- convenient for computing rfGMO *)
+let gmo = gmo | loc & IW * (M\IW)
 
-Standard supervisor-level extensions should be listed after standard
-unprivileged extensions, and like other multi-letter extensions, must be
-separated from other multi-letter extensions by an underscore. If multiple
-supervisor-level extensions are listed, they should be ordered alphabetically.
+(**********)
+(* Axioms *)
+(**********)
 
-=== Hypervisor-level Instruction-Set Extension Names
+(* Compute rf according to the load value axiom, aka rfGMO *)
+let WR = loc & ([W];(gmo|po);[R])
+let rfGMO = WR \ (loc&([W];gmo);WR)
 
-Standard extensions that extend the hypervisor-level architecture are prefixed
-with the letters "Sh".
-If multiple hypervisor-level extensions are listed, they should be ordered
-alphabetically.
+(* Check equality of herd rf and of rfGMO *)
+empty (rf\rfGMO)|(rfGMO\rf) as RfCons
 
-NOTE: Many augmentations to the hypervisor-level architecture are more
-naturally defined as supervisor-level extensions, following the scheme
-described in the previous section.
-The "Sh" prefix is used by the few hypervisor-level extensions that have no
-supervisor-visible effects.
+(* Atomicity axiom *)
+let infloc = (gmo & loc)^-1
+let inflocext = infloc & ext
+let winside  = (infloc;rmw;inflocext) & (infloc;rf;rmw;inflocext) & [W]
+empty winside as Atomic
+....
 
-=== Machine-level Instruction-Set Extension Names
+`  `
 
-Standard machine-level instruction-set extensions are prefixed with the
-letters "Sm".
+....
+Partial
 
-Standard machine-level extensions should be listed after standard
-lesser-privileged extensions, and like other multi-letter extensions, must be
-separated from other multi-letter extensions by an underscore. If multiple
-machine-level extensions are listed, they should be ordered alphabetically.
+(***************)
+(* Definitions *)
+(***************)
 
-=== Non-Standard Extension Names
+(* Define ppo *)
+include "riscv-defs.cat"
 
-Non-standard extensions are named by using a single "X" followed by the alphanumeric
-name. The name must end with an alphabetic character. The
-second letter from the end cannot be numeric if the last letter is
-"p". For example, "Xhwacha" names the Hwacha vector-fetch ISA
-extension.
+(* Compute coherence relation *)
+include "cos-opt.cat"
 
-Non-standard extensions must be listed after all standard extensions, and,
-like other multi-letter extensions, must be separated from other multi-letter
-extensions by an underscore.
-For example, an ISA with non-standard extensions Argle and
-Bargle may be named "RV64IZifencei_Xargle_Xbargle".
+(**********)
+(* Axioms *)
+(**********)
 
-If multiple non-standard extensions are listed, they should be ordered
-alphabetically. Like other multi-letter extensions, they should be
-separated from other multi-letter extensions by an underscore.
+(* Sc per location *)
+acyclic co|rf|fr|po-loc as Coherence
 
-=== Version Numbers
+(* Main model axiom *)
+acyclic co|rfe|fr|ppo as Model
 
-Recognizing that instruction sets may expand or alter over time, we
-encode extension version numbers following the extension name. Version
-numbers are divided into major and minor version numbers, separated by a
-"p". If the minor version is "0", then "p0" can be omitted from
-the version string. To avoid ambiguity, no extension name may end with a number
-or a "p" preceded by a number.
-
-Because the "P" extension for Packed SIMD can be confused for the
-decimal point in a version number, it must be preceded by an underscore
-if it follows another extension with a version number. For example, "rv32i2p2"
-means version 2.2 of RV32I, whereas "rv32i2_p2" means version 2.0 of RV32I with
-version 2.0 of the P extension.
-
-Changes in major version numbers imply a loss of
-backwards compatibility, whereas changes in only the minor version
-number must be backwards-compatible. For example, the original 64-bit
-standard ISA defined in release 1.0 of this manual can be written in
-full as "RV64I1p0M1p0A1p0F1p0D1p0", more concisely as
-"RV64I1M1A1F1D1".
-
-We introduced the version numbering scheme with the second release.
-Hence, we define the default version of a standard extension to be the
-version present at that time, e.g., "RV32I" is equivalent to
-"RV32I2".
-
-=== Subset Naming Convention
-
-<<isanametable>> summarizes the standardized extension
-names. The table also defines the canonical
-order in which extension names must appear in the name string, with
-top-to-bottom in table indicating first-to-last in the name string,
-e.g., RV32IMACV is legal, whereas RV32IMAVC is not.
-
-[[isanametable]]
-.Standard ISA extension names.
-[%autowidth,float="center",align="center",cols="<,^,^",options="header",]
-|===
-|Subset |Name |Implies
-
-|Base ISA | |
-
-|Integer |I |
-
-|Reduced Integer |E |
-
-3+|*Standard Unprivileged Extensions*
-
-|Integer Multiplication and Division |M |Zmmul
-
-|Atomics |A |
-
-|Single-Precision Floating-Point |F |Zicsr
-
-|Double-Precision Floating-Point |D |F
-
-|General |G |IMAFDZicsr_Zifencei
-
-|Quad-Precision Floating-Point |Q |D
-
-|16-bit Compressed Instructions |C |
-
-|B Extension |B |
-
-|Packed-SIMD Extensions |P |
-
-|Vector Extension |V |D
-
-|Hypervisor Extension |H |
-
-3+|*Additional Standard Unprivileged Extensions*
-
-|Additional Standard unprivileged extensions "abc" |Zabc |
-
-3+|*Standard Supervisor-Level Extensions*
-
-|Supervisor-level extension "def" |Ssdef |
-
-3+|*Standard Hypervisor-Level Extensions*
-
-|Hypervisor-level extension "ghi" |Shghi |
-
-3+|*Standard Machine-Level Extensions*
-
-|Machine-level extension "jkl" |Smjkl |
-
-3+|*Non-Standard Extensions*
-
-|Non-standard extension "mno" |Xmno |
-|===
+(* Atomicity axiom *)
+empty rmw & (fre;coe) as Atomic
+....
