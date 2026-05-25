@@ -228,17 +228,31 @@ def merge_tiny_blocks(blocks: list[Section], min_size: int = 5) -> list[Section]
     if len(blocks) <= 1:
         return blocks
 
-    merged: list[Section] = [blocks[0]]
-    for b in blocks[1:]:
-        if b.size < min_size and merged:
+    merged: list[Section] = []
+    for block in blocks:
+        if not merged:
+            merged.append(block)
+            continue
+
+        if merged[-1].size < min_size:
+            prev = merged.pop()
+            merged.append(
+                Section(
+                    line_start=prev.line_start,
+                    line_end=block.line_end,
+                    level=prev.level,
+                    title=prev.title,
+                )
+            )
+        elif block.size < min_size:
             merged[-1] = Section(
                 line_start=merged[-1].line_start,
-                line_end=b.line_end,
+                line_end=block.line_end,
                 level=merged[-1].level,
                 title=merged[-1].title,
             )
         else:
-            merged.append(b)
+            merged.append(block)
     return merged
 
 
