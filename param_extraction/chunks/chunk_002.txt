@@ -1,8 +1,8 @@
 # Chunk: chunk_002
 # Source: b-st-ext.adoc
-# Lines: 1-3375 (of 3375)
+# Lines: 1-3426 (of 3485)
 # Content starts: line 1
-# Line count: 3375
+# Line count: 3426
 # Sections: 20
 #   == Bit Manipulation Extensions
 #   === "B" Extension for Bit Manipulation, Version 1.0.0
@@ -36,13 +36,13 @@ Each bitmanip extension includes a group of several bitmanip instructions that h
 The instructions have mnemonics and encodings that are independent of the extensions in which they appear.
 Thus, when implementing extensions with overlapping instructions, there is no redundancy in logic or encoding.
 
-The bitmanip extensions are defined for RV32 and RV64.
+[#norm:bitmanip_rv32_rv64]#The bitmanip extensions are defined for RV32 and RV64.#
 
-The bitmanip extension follows the convention in RV64 that _w_-suffixed instructions (without a dot before the _w_) ignore the upper 32 bits of their inputs, operate on the least-significant 32 bits as signed values, and produce a 32-bit signed result that is sign-extended to XLEN.
+[#norm:bitmanip_w_suffix_semantics]#The bitmanip extension follows the convention in RV64 that _w_-suffixed instructions (without a dot before the _w_) ignore the upper 32 bits of their inputs, operate on the least-significant 32 bits as signed values, and produce a 32-bit signed result that is sign-extended to XLEN.#
 
-Bitmanip instructions with the suffix _.uw_ have one operand that is an unsigned 32-bit value that is extracted from the least-significant 32 bits of the specified register.  Other than that, these perform full-XLEN operations.
+[#norm:bitmanip_uw_suffix_semantics]#Bitmanip instructions with the suffix _.uw_ have one operand that is an unsigned 32-bit value that is extracted from the least-significant 32 bits of the specified register.  Other than that, these perform full-XLEN operations.#
 
-Bitmanip instructions with the suffixes _.b_, _.h_, and _.w_ only look at the least-significant 8 bits, 16 bits, and 32 bits of the input (respectively) and produce an XLEN-wide result that is sign-extended or zero-extended, based on the specific instruction.
+[#norm:bitmanip_bhw_suffix_semantics]#Bitmanip instructions with the suffixes _.b_, _.h_, and _.w_ only look at the least-significant 8 bits, 16 bits, and 32 bits of the input (respectively) and produce an XLEN-wide result that is sign-extended or zero-extended, based on the specific instruction.#
 
 The bit-manipulation instructions comprise the following extensions:
 
@@ -117,8 +117,8 @@ along with their specific mapping:
 |====
 
 === "B" Extension for Bit Manipulation, Version 1.0.0
-The B standard extension comprises instructions provided by the Zba, Zbb, and
-Zbs extensions.
+[#norm:b_extension_composition]#The B standard extension comprises instructions provided by the Zba, Zbb, and
+Zbs extensions.#
 
 [#zba,reftext=Address generation instructions]
 === Zba: Extension for Address generation, Version 1.0.0
@@ -127,7 +127,7 @@ The Zba instructions can be used to accelerate the generation of addresses that 
 
 The shift and add instructions do a left shift of 1, 2, or 3 because these are commonly found in real-world code and because they can be implemented with a minimal amount of additional hardware beyond that of the simple adder. This avoids lengthening the critical path in implementations.
 
-While the shift and add instructions are limited to a maximum left shift of 3, the slli instruction (from the base ISA) can be used to perform similar shifts for indexing into arrays of wider elements. The slli.uw -- added in this extension -- can be used when the index is to be interpreted as an unsigned word.
+[#norm:zba_slli_uw_function]#While the shift and add instructions are limited to a maximum left shift of 3, the slli instruction (from the base ISA) can be used to perform similar shifts for indexing into arrays of wider elements. The slli.uw -- added in this extension -- can be used when the index is to be interpreted as an unsigned word.#
 
 The following instructions comprise the Zba extension:
 
@@ -303,7 +303,7 @@ instructions that return the smaller/larger of two operands.
 
 ==== Sign extension and zero extension
 
-These instructions perform the sign extension or zero extension of the least-significant 8 bits or 16 bits of the source register.
+[#norm:zbb_sign_zero_extension_function]#These instructions perform the sign extension or zero extension of the least-significant 8 bits or 16 bits of the source register.#
 
 These instructions replace the generalized idioms `slli rd,rs,(XLEN-<size>) + srai` (for sign extension of 8-bit and 16-bit quantities) and `slli + srli` (for zero extension of 16-bit quantities).
 
@@ -332,8 +332,8 @@ These instructions replace the generalized idioms `slli rd,rs,(XLEN-<size>) + sr
 
 ==== Bitwise rotation
 
-Bitwise rotation instructions are similar to the shift-logical operations from the base spec. However, where the shift-logical
-instructions shift in zeros, the rotate instructions shift in the bits that were shifted out of the other side of the value.
+Bitwise rotation instructions are similar to the shift-logical operations from the base spec. However, [#norm:zbb_rotate_semantics]#where the shift-logical
+instructions shift in zeros, the rotate instructions shift in the bits that were shifted out of the other side of the value.#
 Such operations are also referred to as ‘circular shifts’.
 
 
@@ -385,7 +385,7 @@ four-instruction sequence to achieve the same effect (neg; sll/srl; srl/sll; or)
 
 ==== OR Combine
 
-*orc.b* sets the bits of each byte in the result _rd_ to all zeros if no bit within the respective byte of _rs_ is set, or to all ones if any bit within the respective byte of _rs_ is set.
+[#norm:zbb_orc_b_semantics]#*orc.b* sets the bits of each byte in the result _rd_ to all zeros if no bit within the respective byte of _rs_ is set, or to all ones if any bit within the respective byte of _rs_ is set.#
 
 One use-case is string-processing functions, such as *strlen* and *strcpy*, which can use *orc.b* to test for the terminating zero byte by counting the set bits in leading non-zero bytes in a word.
 
@@ -425,9 +425,9 @@ One use-case is string-processing functions, such as *strlen* and *strcpy*, whic
 
 Carry-less multiplication is the multiplication in the polynomial ring over GF(2).
 
-*clmul* produces the lower half of the carry-less product and *clmulh* produces the upper half of the 2{times}XLEN carry-less product.
+[#norm:zbc_clmul_clmulh_results]#*clmul* produces the lower half of the carry-less product and *clmulh* produces the upper half of the 2{times}XLEN carry-less product.#
 
-*clmulr* produces bits 2{times}XLEN−2:XLEN-1 of the 2{times}XLEN carry-less product.
+[#norm:zbc_clmulr_results]#*clmulr* produces bits 2{times}XLEN−2:XLEN-1 of the 2{times}XLEN carry-less product.#
 
 [%header,cols="^1,^1,4,8"]
 |===
@@ -456,8 +456,8 @@ Carry-less multiplication is the multiplication in the polynomial ring over GF(2
 [#zbs,reftext="Single-bit instructions"]
 === Zbs: Extension for Single-bit instructions, Version 1.0.0
 
-The single-bit instructions provide a mechanism to set, clear, invert, or extract
-a single bit in a register. The bit is specified by its index.
+[#norm:zbs_single_bit_functionality]#The single-bit instructions provide a mechanism to set, clear, invert, or extract
+a single bit in a register. The bit is specified by its index.#
 
 [%header,cols="^1,^1,4,8"]
 |===
@@ -635,12 +635,12 @@ efficiently implement the GHASH operation, which is part of this workload.
 [[zbkx,Crossbar permutations]]
 === Zbkx: Extension for Crossbar permutations, Version 1.0.0
 
-These instructions implement a "lookup table" for 4 and 8 bit elements
-inside the general purpose registers.
+[#norm:zbkx_lookup_table_model]#These instructions implement a "lookup table" for 4 and 8 bit elements
+inside the general purpose registers.#
 _rs1_ is used as a vector of N-bit words, and _rs2_ as a vector of N-bit
 indices into _rs1_.
-Elements in _rs1_ are replaced by the indexed element in _rs2_, or zero
-if the index into _rs2_ is out of bounds.
+[#norm:zbkx_indexing_behavior]#Elements in _rs1_ are replaced by the indexed element in _rs2_, or zero
+if the index into _rs2_ is out of bounds.#
 
 These instructions are useful for expressing N-bit to N-bit boolean
 operations, and implementing cryptographic code with secret
@@ -686,6 +686,7 @@ add.uw _rd_, _rs1_, _rs2_
 Pseudoinstructions::
 zext.w _rd_, _rs1_ {rightarrow} add.uw _rd_, _rs1_, zero
 
+[[norm:add_uw_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -702,6 +703,7 @@ Encoding::
 Description::
 This instruction performs an XLEN-wide addition between _rs2_ and the zero-extended least-significant word of _rs1_.
 
+[[norm:add_uw_op]]
 Operation::
 [source,sail]
 --
@@ -733,6 +735,7 @@ AND with inverted operand
 Mnemonic::
 andn _rd_, _rs1_, _rs2_
 
+[[norm:andn_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -749,6 +752,7 @@ Encoding::
 Description::
 This instruction performs the bitwise logical AND operation between _rs1_ and the bitwise inversion of _rs2_.
 
+[[norm:andn_op]]
 Operation::
 [source,sail]
 --
@@ -781,6 +785,7 @@ Single-Bit Clear (Register)
 Mnemonic::
 bclr _rd_, _rs1_, _rs2_
 
+[[norm:bclr_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -798,6 +803,7 @@ Description::
 This instruction returns _rs1_ with a single bit cleared at the index specified in _rs2_.
 The index is read from the lower log2(XLEN) bits of _rs2_.
 
+[[norm:bclr_op]]
 Operation::
 [source,sail]
 --
@@ -827,6 +833,7 @@ Single-Bit Clear (Immediate)
 Mnemonic::
 bclri _rd_, _rs1_, _shamt_
 
+[[norm:bclri_rv32_enc]]
 Encoding (RV32)::
 [wavedrom, , svg]
 ....
@@ -840,6 +847,7 @@ Encoding (RV32)::
 ]}
 ....
 
+[[norm:bclri_rv64_enc]]
 Encoding (RV64)::
 [wavedrom, , svg]
 ....
@@ -856,8 +864,9 @@ Encoding (RV64)::
 Description::
 This instruction returns _rs1_ with a single bit cleared at the index specified in _shamt_.
 The index is read from the lower log2(XLEN) bits of _shamt_.
-For RV32, the encodings corresponding to shamt[5]=1 are reserved.
+[#norm:bclri_shamt_rsv_rv32]#For RV32, the encodings corresponding to shamt[5]=1 are reserved.#
 
+[[norm:bclri_op]]
 Operation::
 [source,sail]
 --
@@ -888,6 +897,7 @@ Single-Bit Extract (Register)
 Mnemonic::
 bext _rd_, _rs1_, _rs2_
 
+[[norm:bext_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -905,6 +915,7 @@ Description::
 This instruction returns a single bit extracted from _rs1_ at the index specified in _rs2_.
 The index is read from the lower log2(XLEN) bits of _rs2_.
 
+[[norm:bext_op]]
 Operation::
 [source,sail]
 --
@@ -934,6 +945,7 @@ Single-Bit Extract (Immediate)
 Mnemonic::
 bexti _rd_, _rs1_, _shamt_
 
+[[norm:bexti_rv32_enc]]
 Encoding (RV32)::
 [wavedrom, , svg]
 ....
@@ -947,6 +959,7 @@ Encoding (RV32)::
 ]}
 ....
 
+[[norm:bexti_rv64_enc]]
 Encoding (RV64)::
 [wavedrom, , svg]
 ....
@@ -963,8 +976,9 @@ Encoding (RV64)::
 Description::
 This instruction returns a single bit extracted from _rs1_ at the index specified in _shamt_.
 The index is read from the lower log2(XLEN) bits of _shamt_.
-For RV32, the encodings corresponding to shamt[5]=1 are reserved.
+[#norm:bexti_shamt_rsv_rv32]#For RV32, the encodings corresponding to shamt[5]=1 are reserved.#
 
+[[norm:bexti_op]]
 Operation::
 [source,sail]
 --
@@ -994,6 +1008,7 @@ Single-Bit Invert (Register)
 Mnemonic::
 binv _rd_, _rs1_, _rs2_
 
+[[norm:binv_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1011,6 +1026,7 @@ Description::
 This instruction returns _rs1_ with a single bit inverted at the index specified in _rs2_.
 The index is read from the lower log2(XLEN) bits of _rs2_.
 
+[[norm:binv_op]]
 Operation::
 [source,sail]
 --
@@ -1040,6 +1056,7 @@ Single-Bit Invert (Immediate)
 Mnemonic::
 binvi _rd_, _rs1_, _shamt_
 
+[[norm:binvi_rv32_enc]]
 Encoding (RV32)::
 [wavedrom, , svg]
 ....
@@ -1053,6 +1070,7 @@ Encoding (RV32)::
 ]}
 ....
 
+[[norm:binvi_rv64_enc]]
 Encoding (RV64)::
 [wavedrom, , svg]
 ....
@@ -1069,8 +1087,9 @@ Encoding (RV64)::
 Description::
 This instruction returns _rs1_ with a single bit inverted at the index specified in _shamt_.
 The index is read from the lower log2(XLEN) bits of _shamt_.
-For RV32, the encodings corresponding to shamt[5]=1 are reserved.
+[#norm:binvi_shamt_rsv_rv32]#For RV32, the encodings corresponding to shamt[5]=1 are reserved.#
 
+[[norm:binvi_op]]
 Operation::
 [source,sail]
 --
@@ -1100,6 +1119,7 @@ Single-Bit Set (Register)
 Mnemonic::
 bset _rd_, _rs1_,_rs2_
 
+[[norm:bset_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1117,6 +1137,7 @@ Description::
 This instruction returns _rs1_ with a single bit set at the index specified in _rs2_.
 The index is read from the lower log2(XLEN) bits of _rs2_.
 
+[[norm:bset_op]]
 Operation::
 [source,sail]
 --
@@ -1146,6 +1167,7 @@ Single-Bit Set (Immediate)
 Mnemonic::
 bseti _rd_, _rs1_,_shamt_
 
+[[norm:bseti_rv32_enc]]
 Encoding (RV32)::
 [wavedrom, , svg]
 ....
@@ -1159,6 +1181,7 @@ Encoding (RV32)::
 ]}
 ....
 
+[[norm:bseti_rv64_enc]]
 Encoding (RV64)::
 [wavedrom, , svg]
 ....
@@ -1175,8 +1198,9 @@ Encoding (RV64)::
 Description::
 This instruction returns _rs1_ with a single bit set at the index specified in _shamt_.
 The index is read from the lower log2(XLEN) bits of _shamt_.
-For RV32, the encodings corresponding to shamt[5]=1 are reserved.
+[#norm:bseti_shamt_rsv_rv32]#For RV32, the encodings corresponding to shamt[5]=1 are reserved.#
 
+[[norm:bseti_op]]
 Operation::
 [source,sail]
 --
@@ -1206,6 +1230,7 @@ Carry-less multiply (low-part)
 Mnemonic::
 clmul _rd_, _rs1_, _rs2_
 
+[[norm:clmul_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1222,6 +1247,7 @@ Encoding::
 Description::
 clmul produces the lower half of the 2·XLEN carry-less product.
 
+[[norm:clmul_op]]
 Operation::
 [source,sail]
 --
@@ -1264,6 +1290,7 @@ Carry-less multiply (high-part)
 Mnemonic::
 clmulh _rd_, _rs1_, _rs2_
 
+[[norm:clmulh_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1280,6 +1307,7 @@ Encoding::
 Description::
 clmulh produces the upper half of the 2·XLEN carry-less product.
 
+[[norm:clmulh_op]]
 Operation::
 [source,sail]
 --
@@ -1323,6 +1351,7 @@ Carry-less multiply (reversed)
 Mnemonic::
 clmulr _rd_, _rs1_, _rs2_
 
+[[norm:clmulr_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1340,6 +1369,7 @@ Description::
 *clmulr* produces bits 2·XLEN−2:XLEN-1 of the 2·XLEN carry-less
 product.
 
+[[norm:clmulr_op]]
 Operation::
 [source,sail]
 --
@@ -1387,6 +1417,7 @@ Count leading zero bits
 Mnemonic::
 clz _rd_, _rs_
 
+[[norm:clz_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1403,6 +1434,7 @@ Encoding::
 Description::
 This instruction counts the number of 0's before the first 1, starting at the most-significant bit (i.e., XLEN-1) and progressing to bit 0. Accordingly, if the input is 0, the output is XLEN, and if the most-significant bit of the input is a 1, the output is 0.
 
+[[norm:clz_op]]
 Operation::
 [source,sail]
 --
@@ -1440,6 +1472,7 @@ Count leading zero bits in word
 Mnemonic::
 clzw _rd_, _rs_
 
+[[norm:clzw_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1457,6 +1490,7 @@ Description::
 This instruction counts the number of 0's before the first 1 starting at bit 31 and progressing to bit 0.
 Accordingly, if the least-significant word is 0, the output is 32, and if the most-significant bit of the word (i.e., bit 31) is a 1, the output is 0.
 
+[[norm:clzw_op]]
 Operation::
 [source,sail]
 --
@@ -1494,6 +1528,7 @@ Count set bits
 Mnemonic::
 cpop _rd_, _rs_
 
+[[norm:cpop_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1509,6 +1544,7 @@ Encoding::
 Description::
 This instructions counts the number of 1's (i.e., set bits) in the source register.
 
+[[norm:cpop_op]]
 Operation::
 [source,sail]
 --
@@ -1524,7 +1560,7 @@ X[rd] = bitcount
 .Software Hint
 [NOTE, caption="SH" ]
 ===============================================================
-This operations is known as population count, popcount, sideways sum, bit summation, or Hamming weight.
+This operation is known as population count, popcount, sideways sum, bit summation, or Hamming weight.
 
 The GCC builtin function `+__builtin_popcount (unsigned int x)+` is implemented by cpop on RV32 and by *cpopw* on RV64.
 The GCC builtin function `+__builtin_popcountl (unsigned long x)+` for LP64 is implemented by *cpop* on RV64.
@@ -1552,6 +1588,7 @@ Count set bits in word
 Mnemonic::
 cpopw _rd_, _rs_
 
+[[norm:cpopw_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1567,6 +1604,7 @@ Encoding::
 Description::
 This instructions counts the number of 1's (i.e., set bits) in the least-significant word of the source register.
 
+[[norm:cpopw_op]]
 Operation::
 [source,sail]
 --
@@ -1601,6 +1639,7 @@ Count trailing zeros
 Mnemonic::
 ctz _rd_, _rs_
 
+[[norm:ctz_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1618,6 +1657,7 @@ Description::
 This instruction counts the number of 0's before the first 1, starting at the least-significant bit (i.e., 0) and progressing to the most-significant bit (i.e., XLEN-1).
 Accordingly, if the input is 0, the output is XLEN, and if the least-significant bit of the input is a 1, the output is 0.
 
+[[norm:ctz_op]]
 Operation::
 [source,sail]
 --
@@ -1655,6 +1695,7 @@ Count trailing zero bits in word
 Mnemonic::
 ctzw _rd_, _rs_
 
+[[norm:ctzw_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1671,6 +1712,7 @@ Encoding::
 Description::
 This instruction counts the number of 0's before the first 1, starting at the least-significant bit (i.e., 0) and progressing to the most-significant bit of the least-significant word (i.e., 31). Accordingly, if the least-significant word is 0, the output is 32, and if the least-significant bit of the input is a 1, the output is 0.
 
+[[norm:ctzw_op]]
 Operation::
 [source,sail]
 --
@@ -1708,6 +1750,7 @@ Maximum
 Mnemonic::
 max _rd_, _rs1_, _rs2_
 
+[[norm:max_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1724,6 +1767,7 @@ Encoding::
 Description::
 This instruction returns the larger of two signed integers.
 
+[[norm:max_op]]
 Operation::
 [source,sail]
 --
@@ -1769,6 +1813,7 @@ Unsigned maximum
 Mnemonic::
 maxu _rd_, _rs1_, _rs2_
 
+[[norm:maxu_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1785,6 +1830,7 @@ Encoding::
 Description::
 This instruction returns the larger of two unsigned integers.
 
+[[norm:maxu_op]]
 Operation::
 [source,sail]
 --
@@ -1820,6 +1866,7 @@ Minimum
 Mnemonic::
 min _rd_, _rs1_, _rs2_
 
+[[norm:min_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1836,6 +1883,7 @@ Encoding::
 Description::
 This instruction returns the smaller of two signed integers.
 
+[[norm:min_op]]
 Operation::
 [source,sail]
 --
@@ -1871,6 +1919,7 @@ Unsigned minimum
 Mnemonic::
 minu _rd_, _rs1_, _rs2_
 
+[[norm:minu_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1887,6 +1936,7 @@ Encoding::
 Description::
 This instruction returns the smaller of two unsigned integers.
 
+[[norm:minu_op]]
 Operation::
 [source,sail]
 --
@@ -1922,6 +1972,7 @@ Bitwise OR-Combine, byte granule
 Mnemonic::
 orc.b _rd_, _rs_
 
+[[norm:orc_b_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1938,6 +1989,7 @@ Description::
 Combines the bits within each byte using bitwise logical OR.
 This sets the bits of each byte in the result _rd_ to all zeros if no bit within the respective byte of _rs_ is set, or to all ones if any bit within the respective byte of _rs_ is set.
 
+[[norm:orc_b_op]]
 Operation::
 [source,sail]
 --
@@ -1975,6 +2027,7 @@ OR with inverted operand
 Mnemonic::
 orn _rd_, _rs1_, _rs2_
 
+[[norm:orn_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -1991,6 +2044,7 @@ Encoding::
 Description::
 This instruction performs the bitwise logical OR operation between _rs1_ and the bitwise inversion of _rs2_.
 
+[[norm:orn_op]]
 Operation::
 [source,sail]
 --
@@ -2023,6 +2077,7 @@ Pack the low halves of _rs1_ and _rs2_ into _rd_.
 Mnemonic::
 pack _rd_, _rs1_, _rs2_
 
+[[norm:pack_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2040,6 +2095,7 @@ Description::
 The pack instruction packs the XLEN/2-bit lower halves of _rs1_ and _rs2_ into
 _rd_, with _rs1_ in the lower half and _rs2_ in the upper half.
 
+[[norm:pack_op]]
 Operation::
 [source,sail]
 --
@@ -2077,6 +2133,7 @@ Pack the low bytes of _rs1_ and _rs2_ into _rd_.
 Mnemonic::
 packh _rd_, _rs1_, _rs2_
 
+[[norm:packh_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2095,6 +2152,7 @@ The packh instruction packs the least-significant bytes of
 _rs1_ and _rs2_ into the 16 least-significant bits of _rd_,
 zero extending the rest of _rd_.
 
+[[norm:packh_op]]
 Operation::
 [source,sail]
 --
@@ -2125,6 +2183,7 @@ Pack the low 16-bits of _rs1_ and _rs2_ into _rd_ on RV64.
 Mnemonic::
 packw _rd_, _rs1_, _rs2_
 
+[[norm:packw_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2144,6 +2203,7 @@ _rs1_ and _rs2_ into the 32 least-significant bits of _rd_,
 sign extending the 32-bit result to the rest of _rd_.
 This instruction only exists on RV64 based systems.
 
+[[norm:packw_op]]
 Operation::
 [source,sail]
 --
@@ -2181,6 +2241,7 @@ Byte-reverse register
 Mnemonic::
 rev8 _rd_, _rs_
 
+[[norm:rev8_rv32_enc]]
 Encoding (RV32)::
 [wavedrom, , svg]
 ....
@@ -2193,6 +2254,7 @@ Encoding (RV32)::
 ]}
 ....
 
+[[norm:rev8_rv64_enc]]
 Encoding (RV64)::
 [wavedrom, , svg]
 ....
@@ -2208,6 +2270,7 @@ Encoding (RV64)::
 Description::
 This instruction reverses the order of the bytes in _rs_.
 
+[[norm:rev8_op]]
 Operation::
 [source,sail]
 --
@@ -2264,6 +2327,7 @@ Reverse the bits in each byte of a source register.
 Mnemonic::
 brev8 _rd_, _rs_
 
+[[norm:brev8_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2279,6 +2343,7 @@ Encoding::
 Description::
 This instruction reverses the order of the bits in every byte of a register.
 
+[[norm:brev8_op]]
 Operation::
 [source,sail]
 --
@@ -2311,6 +2376,7 @@ Rotate Left (Register)
 Mnemonic::
 rol _rd_, _rs1_, _rs2_
 
+[[norm:rol_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2327,6 +2393,7 @@ Encoding::
 Description::
 This instruction performs a rotate left of _rs1_ by the amount in least-significant log2(XLEN) bits of _rs2_.
 
+[[norm:rol_op]]
 Operation::
 [source,sail]
 --
@@ -2364,6 +2431,7 @@ Rotate Left Word (Register)
 Mnemonic::
 rolw _rd_, _rs1_, _rs2_
 
+[[norm:rolw_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2381,6 +2449,7 @@ Description::
 This instruction performs a rotate left on the least-significant word of  _rs1_ by the amount in least-significant 5 bits of _rs2_.
 The resulting word value is sign-extended by copying bit 31 to all of the more-significant bits.
 
+[[norm:rolw_op]]
 Operation::
 [source,sail]
 --
@@ -2416,6 +2485,7 @@ Rotate Right
 Mnemonic::
 ror _rd_, _rs1_, _rs2_
 
+[[norm:ror_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2432,6 +2502,7 @@ Encoding::
 Description::
 This instruction performs a rotate right of _rs1_ by the amount in least-significant log2(XLEN) bits of _rs2_.
 
+[[norm:ror_op]]
 Operation::
 [source,sail]
 --
@@ -2469,6 +2540,7 @@ Rotate Right (Immediate)
 Mnemonic::
 rori _rd_, _rs1_, _shamt_
 
+[[norm:rori_rv32_enc]]
 Encoding (RV32)::
 [wavedrom, , svg]
 ....
@@ -2482,6 +2554,7 @@ Encoding (RV32)::
 ]}
 ....
 
+[[norm:rori_rv64_enc]]
 Encoding (RV64)::
 [wavedrom, , svg]
 ....
@@ -2499,6 +2572,7 @@ Description::
 This instruction performs a rotate right of _rs1_ by the amount in the least-significant log2(XLEN) bits of _shamt_.
 For RV32, the encodings corresponding to shamt[5]=1 are reserved.
 
+[[norm:rori_op]]
 Operation::
 [source,sail]
 --
@@ -2536,6 +2610,7 @@ Rotate Right Word by Immediate
 Mnemonic::
 roriw _rd_, _rs1_, _shamt_
 
+[[norm:roriw_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2557,6 +2632,7 @@ The resulting word value is sign-extended by copying bit 31 to all of
 the more-significant bits.
 
 
+[[norm:roriw_op]]
 Operation::
 [source,sail]
 --
@@ -2591,6 +2667,7 @@ Rotate Right Word (Register)
 Mnemonic::
 rorw _rd_, _rs1_, _rs2_
 
+[[norm:rorw_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2608,6 +2685,7 @@ Description::
 This instruction performs a rotate right on the least-significant word of  _rs1_ by the amount in least-significant 5 bits of _rs2_.
 The resultant word is sign-extended by copying bit 31 to all of the more-significant bits.
 
+[[norm:rorw_op]]
 Operation::
 [source,sail]
 --
@@ -2643,6 +2721,7 @@ Sign-extend byte
 Mnemonic::
 sext.b _rd_, _rs_
 
+[[norm:sext_b_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2659,6 +2738,7 @@ Encoding::
 Description::
 This instruction sign-extends the least-significant byte in the source to XLEN by copying the most-significant bit in the byte (i.e., bit 7) to all of the more-significant bits.
 
+[[norm:sext_b_op]]
 Operation::
 [source,sail]
 --
@@ -2687,6 +2767,7 @@ Sign-extend halfword
 Mnemonic::
 sext.h _rd_, _rs_
 
+[[norm:sext_h_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2703,6 +2784,7 @@ Encoding::
 Description::
 This instruction sign-extends the least-significant halfword in _rs_ to XLEN by copying the most-significant bit in the halfword (i.e., bit 15) to all of the more-significant bits.
 
+[[norm:sext_h_op]]
 Operation::
 [source,sail]
 --
@@ -2732,6 +2814,7 @@ Shift left by 1 and add
 Mnemonic::
 sh1add _rd_, _rs1_, _rs2_
 
+[[norm:sh1add_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2748,6 +2831,7 @@ Encoding::
 Description::
 This instruction shifts _rs1_ to the left by 1 bit and adds it to _rs2_.
 
+[[norm:sh1add_op]]
 Operation::
 [source,sail]
 --
@@ -2778,6 +2862,8 @@ Shift unsigned word left by 1 and add
 
 Mnemonic::
 sh1add.uw _rd_, _rs1_, _rs2_
+
+[[norm:sh1add_uw_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2795,6 +2881,7 @@ Description::
 This instruction performs an XLEN-wide addition of two addends.
 The first addend is _rs2_. The second addend is the unsigned value formed by extracting the least-significant word of _rs1_ and shifting it left by 1 place.
 
+[[norm:sh1add_uw_op]]
 Operation::
 [source,sail]
 --
@@ -2826,6 +2913,7 @@ Shift left by 2 and add
 Mnemonic::
 sh2add _rd_, _rs1_, _rs2_
 
+[[norm:sh2add_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2842,6 +2930,7 @@ Encoding::
 Description::
 This instruction shifts _rs1_ to the left by 2 places and adds it to _rs2_.
 
+[[norm:sh2add_op]]
 Operation::
 [source,sail]
 --
@@ -2870,6 +2959,7 @@ Shift unsigned word left by 2 and add
 Mnemonic::
 sh2add.uw _rd_, _rs1_, _rs2_
 
+[[norm:sh2add_uw_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2888,6 +2978,7 @@ This instruction performs an XLEN-wide addition of two addends.
 The first addend is _rs2_.
 The second addend is the unsigned value formed by extracting the least-significant word of _rs1_ and shifting it left by 2 places.
 
+[[norm:sh2add_uw_op]]
 Operation::
 [source,sail]
 --
@@ -2919,6 +3010,7 @@ Shift left by 3 and add
 Mnemonic::
 sh3add _rd_, _rs1_, _rs2_
 
+[[norm:sh3add_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2935,6 +3027,7 @@ Encoding::
 Description::
 This instruction shifts _rs1_ to the left by 3 places and adds it to _rs2_.
 
+[[norm:sh3add_op]]
 Operation::
 [source,sail]
 --
@@ -2963,6 +3056,7 @@ Shift unsigned word left by 3 and add
 Mnemonic::
 sh3add.uw _rd_, _rs1_, _rs2_
 
+[[norm:sh3add_uw_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -2979,6 +3073,7 @@ Encoding::
 Description::
 This instruction performs an XLEN-wide addition of two addends. The first addend is _rs2_. The second addend is the unsigned value formed by extracting the least-significant word of _rs1_ and shifting it left by 3 places.
 
+[[norm:sh3add_uw_op]]
 Operation::
 [source,sail]
 --
@@ -3010,6 +3105,7 @@ Shift-left unsigned word (Immediate)
 Mnemonic::
 slli.uw _rd_, _rs1_, _shamt_
 
+[[norm:slli_uw_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -3026,6 +3122,7 @@ Encoding::
 Description::
 This instruction takes the least-significant word of _rs1_, zero-extends it, and shifts it left by the immediate.
 
+[[norm:slli_uw_op]]
 Operation::
 [source,sail]
 --
@@ -3061,6 +3158,7 @@ the destination register, respectively.
 Mnemonic::
 unzip _rd_, _rs_
 
+[[norm:unzip_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -3080,6 +3178,7 @@ the high and low halves of a destination word.
 It is the inverse of the <<insns-zip-sc,zip>> instruction.
 This instruction is available only on RV32.
 
+[[norm:unzip_op]]
 Operation::
 [source,sail]
 --
@@ -3120,6 +3219,7 @@ Exclusive NOR
 Mnemonic::
 xnor _rd_, _rs1_, _rs2_
 
+[[norm:xnor_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -3136,6 +3236,7 @@ Encoding::
 Description::
 This instruction performs the bit-wise exclusive-NOR operation on _rs1_ and _rs2_.
 
+[[norm:xnor_op]]
 Operation::
 [source,sail]
 --
@@ -3168,6 +3269,7 @@ Byte-wise lookup of indices into a vector in registers.
 Mnemonic::
 xperm8 _rd_, _rs1_, _rs2_
 
+[[norm:xperm8_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -3188,6 +3290,7 @@ The _rs2_ register contains a vector of XLEN/8 8-bit indexes.
 The result is each element in _rs2_ replaced by the indexed element in _rs1_,
 or zero if the index into _rs2_ is out of bounds.
 
+[[norm:xperm8_op]]
 Operation::
 [source,sail]
 --
@@ -3228,6 +3331,7 @@ Nibble-wise lookup of indices into a vector.
 Mnemonic::
 xperm4 _rd_, _rs1_, _rs2_
 
+[[norm:xperm4_enc]]
 Encoding::
 [wavedrom, , svg]
 ....
@@ -3248,6 +3352,7 @@ The _rs2_ register contains a vector of XLEN/4 4-bit indexes.
 The result is each element in _rs2_ replaced by the indexed element in _rs1_,
 or zero if the index into _rs2_ is out of bounds.
 
+[[norm:xperm4_op]]
 Operation::
 [source,sail]
 --
@@ -3288,6 +3393,7 @@ Zero-extend halfword
 Mnemonic::
 zext.h _rd_, _rs_
 
+[[norm:zext_h_rv32_enc]]
 Encoding (RV32)::
 [wavedrom, , svg]
 ....
@@ -3301,6 +3407,7 @@ Encoding (RV32)::
 ]}
 ....
 
+[[norm:zext_h_rv64_enc]]
 Encoding (RV64)::
 [wavedrom, , svg]
 ....
@@ -3317,6 +3424,7 @@ Encoding (RV64)::
 Description::
 This instruction zero-extends the least-significant halfword of the source to XLEN by inserting 0's into all of the bits more significant than 15.
 
+[[norm:zext_h_op]]
 Operation::
 [source,sail]
 --
@@ -3343,60 +3451,3 @@ Included in::
 
 <<<
 [#insns-zip,reftext="Bit interleave"]
-==== zip
-
-Synopsis::
-Interleave upper and lower halves of the source register into odd and even
-bits of the destination register, respectively.
-
-Mnemonic::
-zip _rd_, _rs_
-
-Encoding::
-[wavedrom, , svg]
-....
-{reg:[
-{bits: 7, name: 0x13, attr: ['OP-IMM']},
-{bits: 5, name: 'rd'},
-{bits: 3, name: 0x1},
-{bits: 5, name: 'rs1'},
-{bits: 5, name: 0xf},
-{bits: 7, name: 0x4},
-]}
-....
-
-Description::
-This instruction gathers bits from the high and low halves of the source
-word into odd/even bit positions in the destination word.
-It is the inverse of the <<insns-unzip-sc,unzip>> instruction.
-This instruction is available only on RV32.
-
-Operation::
-[source,sail]
---
-foreach (i from 0 to xlen/2-1) {
-  X(rd)[2*i] = X(rs1)[i]
-  X(rd)[2*i+1] = X(rs1)[i+xlen/2]
-}
---
-
-.Software Hint
-[NOTE, caption="SH" ]
-===============================================================
-This instruction is useful for implementing the SHA3 cryptographic
-hash function on a 32-bit architecture, as it implements the
-bit-interleaving operation used to speed up the 64-bit rotations
-directly.
-===============================================================
-
-Included in::
-[%header,cols="4,2,2"]
-|===
-|Extension
-|Minimum version
-|Lifecycle state
-
-|Zbkb (<<#zbkb>>) (RV32)
-|v1.0
-|Ratified
-|===
