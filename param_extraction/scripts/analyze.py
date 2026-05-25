@@ -288,24 +288,24 @@ def align_to_udb(
                 best_score = score
                 best_llm_name = pname
 
-        if best_llm_name and best_score >= 0.4:
-            for member in group_members:
-                udb_info = udb_by_name[member]
-                alignments.append(
-                    AlignmentEntry(
-                        llm_name=best_llm_name,
-                        udb_name=member,
-                        match_type="concept_group",
-                        match_score=round(best_score, 3),
-                        llm_class=llm_by_name.get(best_llm_name, {}).get("class", ""),
-                        udb_class=udb_info.get("classification"),
-                        class_match=None,
-                    )
+        if best_llm_name and best_score >= 0.4 and len(group_members) == 1:
+            member = group_members[0]
+            udb_info = udb_by_name[member]
+            alignments.append(
+                AlignmentEntry(
+                    llm_name=best_llm_name,
+                    udb_name=member,
+                    match_type="concept_group",
+                    match_score=round(best_score, 3),
+                    llm_class=llm_by_name.get(best_llm_name, {}).get("class", ""),
+                    udb_class=udb_info.get("classification"),
+                    class_match=None,
                 )
-                matched_udb.add(member)
+            )
+            matched_udb.add(member)
 
     # Pass 4: Fuzzy name matching for remaining unmatched
-    already_aligned_llm = {a.llm_name for a in alignments if a.match_type in ("exact",)}
+    already_aligned_llm = {a.llm_name for a in alignments if a.match_type != "none"}
     unmatched_udb = udb_names - matched_udb
     unmatched_llm = [p for p in deduped if p["parameter_name"] not in already_aligned_llm]
 
