@@ -7,7 +7,17 @@
   "model": "claude-sonnet-4",
   "parameters": [
     {
-      "excerpt": "An SC may succeed only if no store from another hart to the reservation set can be observed to have occurred between the LR and the SC, and if there is no other SC between the LR and the SC in program order.",
+      "excerpt": "An implementation can register an arbitrarily large reservation set on each LR, provided the reservation set includes all bytes of the addressed data word or doubleword.",
+      "line_number": 113,
+      "parameter_name": "LRSC_RESERVATION_STRATEGY",
+      "existing_udb_name": "LRSC_RESERVATION_STRATEGY",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "confidence": "high",
+      "reasoning": "The implementation chooses the size and strategy for the reservation set. This is a direct implementation choice not controlled by any CSR field."
+    },
+    {
+      "excerpt": "An SC may succeed only if no store from another hart to the reservation set can be observed to have occurred between the LR and the SC, and if there is no other SC between the LR and itself in program order.",
       "line_number": 115,
       "parameter_name": "LRSC_FAIL_ON_NON_EXACT_LRSC",
       "existing_udb_name": "LRSC_FAIL_ON_NON_EXACT_LRSC",
@@ -24,81 +34,71 @@
       "class": "NORM_DIRECT",
       "value_type": "binary",
       "confidence": "high",
-      "reasoning": "The implementation chooses whether SC fails when using a different virtual address that maps to the same physical location as the LR. The spec explicitly states both success and failure are allowed."
+      "reasoning": "The implementation chooses whether SC fails when using a different virtual address that maps to the same physical location as the LR. The spec explicitly says it is 'allowed to succeed' or 'allowed to fail'."
     },
     {
-      "excerpt": "If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated. The access-fault exception can be generated for a memory access that would otherwise be able to complete except for the misalignment, if the misaligned access should not be emulated.",
-      "line_number": 100,
+      "excerpt": "For LR and SC, the Zalrsc extension requires that the address held in rs1 be naturally aligned to the size of the operand (i.e., eight-byte aligned for doublewords and four-byte aligned for words). If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated.",
+      "line_number": 98,
       "parameter_name": "LRSC_MISALIGNED_BEHAVIOR",
       "existing_udb_name": "LRSC_MISALIGNED_BEHAVIOR",
       "class": "NORM_DIRECT",
-      "value_type": "enum",
+      "value_type": "binary",
       "confidence": "high",
-      "reasoning": "The implementation chooses whether to generate an address-misaligned exception or an access-fault exception for misaligned LR/SC instructions. This is a direct implementation choice between two exception types."
+      "reasoning": "The implementation chooses whether to generate an address-misaligned exception or an access-fault exception for misaligned LR/SC operations."
     },
     {
-      "excerpt": "An implementation can register an arbitrarily large reservation set on each LR, provided the reservation set includes all bytes of the addressed data word or doubleword.",
-      "line_number": 109,
-      "parameter_name": "LRSC_RESERVATION_STRATEGY",
-      "existing_udb_name": "LRSC_RESERVATION_STRATEGY",
-      "class": "NORM_DIRECT",
-      "value_type": "range",
-      "confidence": "high",
-      "reasoning": "The size and shape of the reservation set is an implementation choice. The spec only requires it includes the addressed bytes but allows arbitrary additional coverage."
-    },
-    {
-      "excerpt": "If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated. The access-fault exception can be generated for a memory access that would otherwise be able to complete except for the misalignment, if the misaligned access should not be emulated.",
+      "excerpt": "For AMOs, the Zaamo extension requires that the address held in rs1 be naturally aligned to the size of the operand (i.e., eight-byte aligned for doublewords and four-byte aligned for words). If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated.",
       "line_number": 378,
       "parameter_name": "MISALIGNED_AMO",
       "existing_udb_name": "MISALIGNED_AMO",
       "class": "NORM_DIRECT",
-      "value_type": "enum",
+      "value_type": "binary",
       "confidence": "high",
-      "reasoning": "For AMO instructions, the implementation chooses whether to generate an address-misaligned exception or an access-fault exception for misaligned accesses. This is a direct implementation choice between exception types."
+      "reasoning": "The implementation chooses whether to generate an address-misaligned exception or an access-fault exception for misaligned AMO operations."
     },
     {
       "excerpt": "The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement. If present, the misaligned atomicity granule PMA specifies the size of a misaligned atomicity granule, a power-of-two number of bytes.",
-      "line_number": 383,
+      "line_number": 384,
       "parameter_name": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
       "existing_udb_name": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
       "class": "NORM_DIRECT",
       "value_type": "value",
       "confidence": "high",
-      "reasoning": "The size of the misaligned atomicity granule is an implementation parameter. It must be a power-of-two number of bytes, but the specific value is chosen by the implementer."
+      "reasoning": "The implementation chooses the size of the misaligned atomicity granule, which must be a power of 2. This is an optional PMA that relaxes alignment requirements."
     }
   ],
   "skipped_non_parameters": [
     {
       "excerpt": "After much debate, the language community and architecture community appear to have finally settled on release consistency as the standard memory consistency model and so the RISC-V atomic support is built around this model.",
       "line_number": 13,
-      "reason": "This text is inside a [NOTE] block and is therefore non-normative. Do not extract parameters from NOTE blocks."
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. It provides background information but does not define any implementation choices."
     },
     {
-      "excerpt": "When MODE=Direct, all traps into machine mode cause the `pc` to be set to the address in the BASE field.",
-      "line_number": 35,
-      "reason": "This describes behavioral consequences of specific bit values, not an implementation choice. The behavior is determined by the aq/rl bit values at runtime."
+      "excerpt": "LR.W loads a word from the address in rs1, places the sign-extended value in rd, and registers a reservation set\u2014a set of bytes that subsumes the bytes in the addressed word.",
+      "line_number": 60,
+      "reason": "This describes the fixed behavior of the LR.W instruction. All implementations must behave this way - there is no implementation choice here."
     },
     {
-      "excerpt": "LR.W loads a word from the address in _rs1_, places the sign-extended value in _rd_, and registers a _reservation set_\u2014a set of bytes that subsumes the bytes in the addressed word.",
-      "line_number": 58,
-      "reason": "This describes the required behavior of the LR.W instruction. All implementations must behave this way - it is not a parameter."
+      "excerpt": "If both bits are clear, no additional ordering constraints are imposed on the atomic memory operation.",
+      "line_number": 36,
+      "reason": "This describes what happens when specific bit values are set in the instruction encoding. The behavior is determined by the instruction bits at runtime, not by an implementation choice."
     },
     {
       "excerpt": "The failure code with value 1 encodes an unspecified failure. Other failure codes are reserved at this time.",
-      "line_number": 89,
-      "reason": "This defines a fixed encoding (failure code 1 = unspecified failure) that all implementations must follow. It is not an implementation choice."
+      "line_number": 85,
+      "reason": "This defines the encoding of failure codes but does not give implementations a choice. The value 1 is specified for unspecified failures, and other codes are reserved."
     },
     {
-      "excerpt": "Software should not set the _rl_ bit on an LR instruction unless the _aq_ bit is also set, nor should software set the _aq_ bit on an SC instruction unless the _rl_ bit is also set.",
-      "line_number": 200,
-      "reason": "This is a software guideline ('should not'), not an architectural parameter. It describes recommended software behavior, not implementation choices."
+      "excerpt": "Software should not set the rl bit on an LR instruction unless the aq bit is also set, nor should software set the aq bit on an SC instruction unless the rl bit is also set.",
+      "line_number": 207,
+      "reason": "This is a software guideline ('should not'), not an implementation parameter. It describes recommended software behavior, not implementation choices."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"An SC may succeed only if no store from another hart to the reservation set can be observed to have occurred between the LR and the SC, and if there is no other SC between the LR and the SC in program order.\",\n      \"line_number\": 115,\n      \"parameter_name\": \"LRSC_FAIL_ON_NON_EXACT_LRSC\",\n      \"existing_udb_name\": \"LRSC_FAIL_ON_NON_EXACT_LRSC\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Whether SC fails when the address does not exactly match the LR is implementation-defined. The spec says SC 'may succeed' under certain conditions, implying the implementation chooses the exact failure policy.\"\n    },\n    {\n      \"excerpt\": \"Following this model, in systems with memory translation, an SC is allowed to succeed if the earlier LR reserved the same location using an alias with a different virtual address, but is also allowed to fail if the virtual address is different.\",\n      \"line_number\": 125,\n      \"parameter_name\": \"LRSC_FAIL_ON_VA_SYNONYM\",\n      \"existing_udb_name\": \"LRSC_FAIL_ON_VA_SYNONYM\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether SC fails when using a different virtual address that maps to the same physical location as the LR. The spec explicitly states both success and failure are allowed.\"\n    },\n    {\n      \"excerpt\": \"If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated. The access-fault exception can be generated for a memory access that would otherwise be able to complete except for the misalignment, if the misaligned access should not be emulated.\",\n      \"line_number\": 100,\n      \"parameter_name\": \"LRSC_MISALIGNED_BEHAVIOR\",\n      \"existing_udb_name\": \"LRSC_MISALIGNED_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to generate an address-misaligned exception or an access-fault exception for misaligned LR/SC instructions. This is a direct implementation choice between two exception types.\"\n    },\n    {\n      \"excerpt\": \"An implementation can register an arbitrarily large reservation set on each LR, provided the reservation set includes all bytes of the addressed data word or doubleword.\",\n      \"line_number\": 109,\n      \"parameter_name\": \"LRSC_RESERVATION_STRATEGY\",\n      \"existing_udb_name\": \"LRSC_RESERVATION_STRATEGY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The size and shape of the reservation set is an implementation choice. The spec only requires it includes the addressed bytes but allows arbitrary additional coverage.\"\n    },\n    {\n      \"excerpt\": \"If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated. The access-fault exception can be generated for a memory access that would otherwise be able to complete except for the misalignment, if the misaligned access should not be emulated.\",\n      \"line_number\": 378,\n      \"parameter_name\": \"MISALIGNED_AMO\",\n      \"existing_udb_name\": \"MISALIGNED_AMO\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"For AMO instructions, the implementation chooses whether to generate an address-misaligned exception or an access-fault exception for misaligned accesses. This is a direct implementation choice between exception types.\"\n    },\n    {\n      \"excerpt\": \"The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement. If present, the misaligned atomicity granule PMA specifies the size of a misaligned atomicity granule, a power-of-two number of bytes.\",\n      \"line_number\": 383,\n      \"parameter_name\": \"MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE\",\n      \"existing_udb_name\": \"MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The size of the misaligned atomicity granule is an implementation parameter. It must be a power-of-two number of bytes, but the specific value is chosen by the implementer.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"After much debate, the language community and architecture community appear to have finally settled on release consistency as the standard memory consistency model and so the RISC-V atomic support is built around this model.\",\n      \"line_number\": 13,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. Do not extract parameters from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"When MODE=Direct, all traps into machine mode cause the `pc` to be set to the address in the BASE field.\",\n      \"line_number\": 35,\n      \"reason\": \"This describes behavioral consequences of specific bit values, not an implementation choice. The behavior is determined by the aq/rl bit values at runtime.\"\n    },\n    {\n      \"excerpt\": \"LR.W loads a word from the address in _rs1_, places the sign-extended value in _rd_, and registers a _reservation set_\u2014a set of bytes that subsumes the bytes in the addressed word.\",\n      \"line_number\": 58,\n      \"reason\": \"This describes the required behavior of the LR.W instruction. All implementations must behave this way - it is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The failure code with value 1 encodes an unspecified failure. Other failure codes are reserved at this time.\",\n      \"line_number\": 89,\n      \"reason\": \"This defines a fixed encoding (failure code 1 = unspecified failure) that all implementations must follow. It is not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"Software should not set the _rl_ bit on an LR instruction unless the _aq_ bit is also set, nor should software set the _aq_ bit on an SC instruction unless the _rl_ bit is also set.\",\n      \"line_number\": 200,\n      \"reason\": \"This is a software guideline ('should not'), not an architectural parameter. It describes recommended software behavior, not implementation choices.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 13284,
-  "output_tokens": 1679,
-  "latency_ms": 29032,
-  "timestamp": "2026-04-15T15:37:32.354483+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"An implementation can register an arbitrarily large reservation set on each LR, provided the reservation set includes all bytes of the addressed data word or doubleword.\",\n      \"line_number\": 113,\n      \"parameter_name\": \"LRSC_RESERVATION_STRATEGY\",\n      \"existing_udb_name\": \"LRSC_RESERVATION_STRATEGY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses the size and strategy for the reservation set. This is a direct implementation choice not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"An SC may succeed only if no store from another hart to the reservation set can be observed to have occurred between the LR and the SC, and if there is no other SC between the LR and itself in program order.\",\n      \"line_number\": 115,\n      \"parameter_name\": \"LRSC_FAIL_ON_NON_EXACT_LRSC\",\n      \"existing_udb_name\": \"LRSC_FAIL_ON_NON_EXACT_LRSC\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Whether SC fails when the address does not exactly match the LR is implementation-defined. The spec says SC 'may succeed' under certain conditions, implying the implementation chooses the exact failure policy.\"\n    },\n    {\n      \"excerpt\": \"Following this model, in systems with memory translation, an SC is allowed to succeed if the earlier LR reserved the same location using an alias with a different virtual address, but is also allowed to fail if the virtual address is different.\",\n      \"line_number\": 125,\n      \"parameter_name\": \"LRSC_FAIL_ON_VA_SYNONYM\",\n      \"existing_udb_name\": \"LRSC_FAIL_ON_VA_SYNONYM\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether SC fails when using a different virtual address that maps to the same physical location as the LR. The spec explicitly says it is 'allowed to succeed' or 'allowed to fail'.\"\n    },\n    {\n      \"excerpt\": \"For LR and SC, the Zalrsc extension requires that the address held in rs1 be naturally aligned to the size of the operand (i.e., eight-byte aligned for doublewords and four-byte aligned for words). If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated.\",\n      \"line_number\": 98,\n      \"parameter_name\": \"LRSC_MISALIGNED_BEHAVIOR\",\n      \"existing_udb_name\": \"LRSC_MISALIGNED_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to generate an address-misaligned exception or an access-fault exception for misaligned LR/SC operations.\"\n    },\n    {\n      \"excerpt\": \"For AMOs, the Zaamo extension requires that the address held in rs1 be naturally aligned to the size of the operand (i.e., eight-byte aligned for doublewords and four-byte aligned for words). If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated.\",\n      \"line_number\": 378,\n      \"parameter_name\": \"MISALIGNED_AMO\",\n      \"existing_udb_name\": \"MISALIGNED_AMO\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to generate an address-misaligned exception or an access-fault exception for misaligned AMO operations.\"\n    },\n    {\n      \"excerpt\": \"The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement. If present, the misaligned atomicity granule PMA specifies the size of a misaligned atomicity granule, a power-of-two number of bytes.\",\n      \"line_number\": 384,\n      \"parameter_name\": \"MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE\",\n      \"existing_udb_name\": \"MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses the size of the misaligned atomicity granule, which must be a power of 2. This is an optional PMA that relaxes alignment requirements.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"After much debate, the language community and architecture community appear to have finally settled on release consistency as the standard memory consistency model and so the RISC-V atomic support is built around this model.\",\n      \"line_number\": 13,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. It provides background information but does not define any implementation choices.\"\n    },\n    {\n      \"excerpt\": \"LR.W loads a word from the address in rs1, places the sign-extended value in rd, and registers a reservation set\u2014a set of bytes that subsumes the bytes in the addressed word.\",\n      \"line_number\": 60,\n      \"reason\": \"This describes the fixed behavior of the LR.W instruction. All implementations must behave this way - there is no implementation choice here.\"\n    },\n    {\n      \"excerpt\": \"If both bits are clear, no additional ordering constraints are imposed on the atomic memory operation.\",\n      \"line_number\": 36,\n      \"reason\": \"This describes what happens when specific bit values are set in the instruction encoding. The behavior is determined by the instruction bits at runtime, not by an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The failure code with value 1 encodes an unspecified failure. Other failure codes are reserved at this time.\",\n      \"line_number\": 85,\n      \"reason\": \"This defines the encoding of failure codes but does not give implementations a choice. The value 1 is specified for unspecified failures, and other codes are reserved.\"\n    },\n    {\n      \"excerpt\": \"Software should not set the rl bit on an LR instruction unless the aq bit is also set, nor should software set the aq bit on an SC instruction unless the rl bit is also set.\",\n      \"line_number\": 207,\n      \"reason\": \"This is a software guideline ('should not'), not an implementation parameter. It describes recommended software behavior, not implementation choices.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13892,
+  "output_tokens": 1673,
+  "latency_ms": 32415,
+  "timestamp": "2026-05-25T21:00:22.403790+00:00",
   "error": null,
   "retry_count": 0
 }
