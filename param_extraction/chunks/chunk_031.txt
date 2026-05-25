@@ -1,606 +1,228 @@
 # Chunk: chunk_031
-# Source: priv-preface.adoc
-# Lines: 1-598 (of 598)
+# Source: priv-intro.adoc
+# Lines: 1-217 (of 217)
 # Content starts: line 1
-# Line count: 598
-# Sections: 1
-#   == Preface
+# Line count: 217
+# Sections: 4
+#   == Introduction
+#   === RISC-V Privileged Software Stack Terminology
+#   === Privilege Levels
+#   === Debug Mode
 #
-[colophon]
-== Preface
+[[priv-intro]]
 
-This document describes the RISC-V privileged architecture.
-It contains the following versions of the RISC-V ISA modules,
-all of which have been ratified:
+== Introduction
 
-[%autowidth,float="center",align="center",cols="^,<",options="header",]
+This document describes the RISC-V privileged architecture, which covers
+all aspects of RISC-V systems beyond the unprivileged ISA, including
+privileged instructions as well as additional functionality required for
+running operating systems and attaching external devices.
+
+[NOTE]
+====
+Commentary on our design decisions is formatted as in this paragraph,
+and can be skipped if the reader is only interested in the specification
+itself.
+
+***
+We briefly note that the entire privileged-level design described in
+this document could be replaced with an entirely different
+privileged-level design without changing the unprivileged ISA, and
+possibly without even changing the ABI. In particular, this privileged
+specification was designed to run existing popular operating systems,
+and so embodies the conventional level-based protection model. Alternate
+privileged specifications could embody other more flexible
+protection-domain models. For simplicity of expression, the text is
+written as if this was the only possible privileged architecture.
+====
+
+=== RISC-V Privileged Software Stack Terminology
+
+This section describes the terminology we use to describe components of
+the wide range of possible privileged software stacks for RISC-V.
+
+<<privimps>> shows some of the possible software stacks
+that can be supported by the RISC-V architecture. The left-hand side
+shows a simple system that supports only a single application running on
+an application execution environment (AEE). The application is coded to
+run with a particular application binary interface (ABI). The ABI
+includes the supported user-level ISA plus a set of ABI calls to
+interact with the AEE. The ABI hides details of the AEE from the
+application to allow greater flexibility in implementing the AEE. The
+same ABI could be implemented natively on multiple different host OSs,
+or could be supported by a user-mode emulation environment running on a
+machine with a different native ISA.
+
+[NOTE]
+====
+Our graphical convention represents abstract interfaces using black
+boxes with white text, to separate them from concrete instances of
+components implementing the interfaces.
+====
+[[privimps]]
+.Different implementation stacks supporting various forms of privileged execution.
+image::png/privimps.png[]
+
+The middle configuration shows a conventional operating system (OS) that
+can support multiprogrammed execution of multiple applications. Each
+application communicates over an ABI with the OS, which provides the
+AEE. Just as applications interface with an AEE via an ABI, RISC-V
+operating systems interface with a supervisor execution environment
+(SEE) via a supervisor binary interface (SBI). An SBI comprises the
+user-level and supervisor-level ISA together with a set of SBI function
+calls. Using a single SBI across all SEE implementations allows a single
+OS binary image to run on any SEE. The SEE can be a simple boot loader
+and BIOS-style IO system in a low-end hardware platform, or a
+hypervisor-provided virtual machine in a high-end server, or a thin
+translation layer over a host operating system in an architecture
+simulation environment.
+
+[NOTE]
+====
+Most supervisor-level ISA definitions do not separate the SBI from the
+execution environment and/or the hardware platform, complicating
+virtualization and bring-up of new hardware platforms.
+====
+The rightmost configuration shows a virtual machine monitor
+configuration where multiple multiprogrammed OSs are supported by a
+single hypervisor. Each OS communicates via an SBI with the hypervisor,
+which provides the SEE. The hypervisor communicates with the hypervisor
+execution environment (HEE) using a hypervisor binary interface (HBI),
+to isolate the hypervisor from details of the hardware platform.
+
+[NOTE]
+====
+The ABI, SBI, and HBI are still a work-in-progress, but we are now
+prioritizing support for Type-2 hypervisors where the SBI is provided
+recursively by an S-mode OS.
+====
+
+Hardware implementations of the RISC-V ISA will generally require
+additional features beyond the privileged ISA to support the various
+execution environments (AEE, SEE, or HEE).
+
+=== Privilege Levels
+
+[#norm:always-priv-level]#At any time, a RISC-V hardware thread (_hart_) is running at some
+privilege level encoded as a mode in one or more CSRs (control and
+status registers).#
+[#norm:priv-levels-txt]#Three RISC-V privilege levels are currently defined#
+as shown in <<norm:priv-levels-tbl>>.
+
+[[norm:priv-levels-tbl]]
+.RISC-V privilege levels.
+[%autowidth,float="center",align="center",cols="^,^,^,^",options="header"]
 |===
-|Module |Version
-|*Machine ISA* +
-*Smstateen Extension* +
-*Smcsrind/Sscsrind Extension* +
-*Smepmp Extension* +
-*Smcntrpmf Extension* +
-*Smrnmi Extension* +
-*Smcdeleg Extension* +
-*Smdbltrp Extension* +
-*Smctr Extension* +
-*Supervisor ISA* +
-*Svade Extension* +
-*Svnapot Extension* +
-*Svpbmt Extension* +
-*Svinval Extension* +
-*Svadu Extension* +
-*Svvptc Extension* +
-*Ssqosid Extension* +
-*Sstc Extension* +
-*Sscofpmf Extension* +
-*Ssdbltrp Extension* +
-*Ssqosid Extension* +
-*Hypervisor ISA* +
-*Shlcofideleg Extension* +
-*Svvptc Extension* +
-*Pointer-Masking Extensions* +
-*Svrsw60t59b Extension*
-
-|*1.13* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.13* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0*
-|===
-
-The following changes have been made since version 20250508:
-
-* Addition of the Svrsw60t59b extension for additional PTE reserved-for-software bits.
-
-// Had to make the above a level 1 heading (two equals signs) to avoid error when building
-// the ISA manual as a book with other "parts". This is opposite to what the adoc says to do
-// but otherwise asciidoctor creates the error message:
-//
-// asciidoctor: ERROR: ext/riscv-isa-manual/src/priv-preface.adoc: line 2: invalid part, must have at least one section (e.g., chapter, appendix, etc.)
-//
-// See asciidoctor doc which seems wrong: https://docs.asciidoctor.org/asciidoc/latest/sections/colophon/
-[.big]*_Preface to Version 20250508_*
-
-This document describes the RISC-V privileged architecture.
-
-The ISA modules marked *Ratified* have been ratified at this time. The
-modules marked _Frozen_ are not expected to change significantly before
-being put up for ratification. The modules marked _Draft_ are expected
-to change before ratification.
-
-The document contains the following versions of the RISC-V ISA modules:
-
-[%autowidth,float="center",align="center",cols="^,<,^",options="header",]
-|===
-|Module |Version |Status
-|*Machine ISA* +
-*Smstateen Extension* +
-*Smcsrind/Sscsrind Extension* +
-*Smepmp Extension* +
-*Smcntrpmf Extension* +
-*Smrnmi Extension* +
-*Smcdeleg Extension* +
-*Smdbltrp Extension* +
-*Smctr Extension* +
-*Supervisor ISA* +
-*Svade Extension* +
-*Svnapot Extension* +
-*Svpbmt Extension* +
-*Svinval Extension* +
-*Svadu Extension* +
-*Svvptc Extension* +
-*Ssqosid Extension* +
-*Sstc Extension* +
-*Sscofpmf Extension* +
-*Ssdbltrp Extension* +
-*Ssqosid Extension* +
-*Hypervisor ISA* +
-*Shlcofideleg Extension* +
-*Svvptc Extension* +
-*Pointer-Masking Extensions*
-
-|*1.13* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.13* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0*
-
-|*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified*
+|Level |Encoding |Name |Abbreviation
+|0 +
+1 +
+2 +
+3
+|`00` +
+`01` +
+`10` +
+`11`
+|User/Application +
+Supervisor +
+_Reserved_ +
+Machine
+|U +
+S +
+{nbsp} +
+M
 |===
 
-The following changes have been made since version 20241101:
+Privilege levels are used to provide protection between different
+components of the software stack, and [#norm:non-priv-exc]#attempts to perform operations not
+permitted by the current privilege mode will cause an exception to be
+raised.# These exceptions will normally cause traps into an underlying
+execution environment.
 
-* Addition of the Smctr Control Transfer Records extension.
-* Addition of the Svvptc Extension for Obviating Memory-Management Instructions after Marking PTEs Valid.
-* Addition of the Ssqosid Extension for Quality-of-Service Identifiers.
-* Addition of the Pointer-Masking Extensions.
+[NOTE]
+====
+In the description, we try to separate the privilege level for which
+code is written, from the privilege mode in which it runs, although the
+two are often tied. For example, a supervisor-level operating system can
+run in supervisor-mode on a system with three privilege modes, but can
+also run in user-mode under a classic virtual machine monitor on systems
+with two or more privilege modes. In both cases, the same
+supervisor-level operating system binary code can be used, coded to a
+supervisor-level SBI and hence expecting to be able to use
+supervisor-level privileged instructions and CSRs. When running a guest
+OS in user mode, all supervisor-level actions will be trapped and
+emulated by the SEE running in the higher-privilege level.
+====
+[#norm:m-level-high-priv-only-mandatory]#The machine level has the highest privileges and
+is the only mandatory privilege level for a RISC-V hardware platform.# Code run in machine-mode
+(M-mode) is usually inherently trusted, as it has low-level access to
+the machine implementation. M-mode can be used to manage secure
+execution environments on RISC-V. User-mode (U-mode) and supervisor-mode
+(S-mode) are intended for conventional application and operating system
+usage respectively.
 
-[.big]*_Preface to Version 20241101_*
+Each privilege level has a core set of privileged ISA extensions with
+optional extensions and variants. For example, machine-mode supports an
+optional standard extension for memory protection. Also, supervisor mode
+can be extended to support Type-2 hypervisor execution as described in
+<<hypervisor>>.
 
-This document describes the RISC-V privileged architecture.
+[#norm:priv-combs-txt]#Implementations might provide anywhere from 1 to 3 privilege modes#
+trading off reduced isolation for lower implementation cost, as shown in
+<<norm:priv-combs-tbl>>.
 
-The ISA modules marked *Ratified* have been ratified at this time. The
-modules marked _Frozen_ are not expected to change significantly before
-being put up for ratification. The modules marked _Draft_ are expected
-to change before ratification.
-
-The document contains the following versions of the RISC-V ISA modules:
-
-[%autowidth,float="center",align="center",cols="^,<,^",options="header",]
+[[norm:priv-combs-tbl]]
+.Supported combination of privilege modes.
+[%autowidth,float="center",align="center",cols="^,<,<",options="header"]
 |===
-|Module |Version |Status
-|*Machine ISA* +
-*Smstateen Extension* +
-*Smcsrind/Sscsrind Extension* +
-*Smepmp Extension* +
-*Smcntrpmf Extension* +
-*Smrnmi Extension* +
-*Smcdeleg Extension* +
-*Smdbltrp Extension* +
-*Supervisor ISA* +
-*Svade Extension* +
-*Svnapot Extension* +
-*Svpbmt Extension* +
-*Svinval Extension* +
-*Svadu Extension* +
-*Sstc Extension* +
-*Sscofpmf Extension* +
-*Ssdbltrp Extension* +
-*Ssqosid Extension* +
-*Hypervisor ISA* +
-*Shlcofideleg Extension* +
-*Svvptc Extension*
-
-|*1.13* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.13* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0*
-
-|*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified*
+|Number of levels |Supported Modes |Intended Usage
+|1 +
+2 +
+3
+|M +
+M, U +
+M, S, U
+|Simple embedded systems +
+Secure embedded systems +
+Systems running Unix-like operating systems
 |===
 
-[.big]*_Preface to Version 20241017_*
+[#norm:m-mode-mandatory]#All hardware implementations must provide M-mode#, as this is the only
+mode that has unfettered access to the whole machine. The simplest
+RISC-V implementations may provide only M-mode, though this will provide
+no protection against incorrect or malicious application code.
 
-This document describes the RISC-V privileged architecture. This
-release, version 20241017, contains the following versions of the RISC-V ISA
-modules:
+[NOTE]
+====
+The lock feature of the optional PMP facility can provide some limited
+protection even with only M-mode implemented.
+====
+Many RISC-V implementations will also support at least user mode
+(U-mode) to protect the rest of the system from application code.
+Supervisor mode (S-mode) can be added to provide isolation between a
+supervisor-level operating system and the SEE.
 
-[%autowidth,float="center",align="center",cols="^,<,^",options="header",]
-|===
-|Module |Version |Status
-|*Machine ISA* +
-*Smstateen Extension* +
-*Smcsrind/Sscsrind Extension* +
-*Smepmp* +
-*Smcntrpmf* +
-*Smrnmi Extension* +
-*Smcdeleg* +
-*Smdbltrp* +
-*Supervisor ISA* +
-*Svade Extension* +
-*Svnapot Extension* +
-*Svpbmt Extension* +
-*Svinval Extension* +
-*Svadu Extension* +
-*Sstc* +
-*Sscofpmf* +
-*Ssdbltrp* +
-*Hypervisor ISA* +
-*Shlcofideleg* +
-*Svvptc*
+A hart normally runs application code in U-mode until some trap (e.g., a
+supervisor call or a timer interrupt) forces a switch to a trap handler,
+which usually runs in a more privileged mode. The hart will then execute
+the trap handler, which will eventually resume execution at or after the
+original trapped instruction in U-mode. Traps that increase privilege
+level are termed _vertical_ traps, while traps that remain at the same
+privilege level are termed _horizontal_ traps. The RISC-V privileged
+architecture provides flexible routing of traps to different privilege
+layers.
 
-|*1.13* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.13* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0*
+[NOTE]
+====
+Horizontal traps can be implemented as vertical traps that return
+control to a horizontal trap handler in the less-privileged mode.
+====
 
-|*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified*
-|===
+=== Debug Mode
 
-The following changes have been made since version 1.12 of the Machine and
-Supervisor ISAs, which, while not strictly backwards compatible, are not
-anticipated to cause software portability problems in practice:
-
-* Redefined `misa`.MXL to be read-only, making MXLEN a constant.
-* Added the constraint that SXLEN{ge}UXLEN.
-
-Additionally, the following compatible changes have been
-made to the Machine and Supervisor ISAs since version 1.12:
-
-* Defined the `misa`.B field to reflect that the B extension has been
-implemented.
-* Defined the `misa`.V field to reflect that the V extension has been
-implemented.
-* Defined the RV32-only `medelegh` and `hedelegh` CSRs.
-* Defined the misaligned atomicity granule PMA, superseding the proposed Zam
-  extension.
-* Allocated interrupt 13 for Sscofpmf LCOFI interrupt.
-* Defined hardware-error and software-check exception codes.
-* Specified synchronization requirements when changing the PBMTE and ADUE fields
-in `menvcfg` and `henvcfg`.
-* Exposed count-overflow interrupts to VS-mode via the Shlcofideleg extension.
-* Relaxed behavior of some HINTs when MXLEN > XLEN.
-* Defined the format of the memory-mapped `msip` registers.
-
-Finally, the following clarifications and document improvements have been made
-since the last document release:
-
-* Transliterated the document from LaTeX into AsciiDoc.
-* Included all ratified extensions through March 2024.
-* Clarified that "platform- or custom-use" interrupts are actually
-"platform-use interrupts", where the platform can choose to make some custom.
-* Clarified semantics of explicit accesses to CSRs wider than XLEN bits.
-* Clarified that MXLEN{ge}SXLEN.
-* Clarified that WFI is not a HINT instruction.
-* Clarified that VS-stage page-table accesses set G-stage A/D bits.
-* Clarified ordering rules when PBMT=IO is used on main-memory regions.
-* Clarified ordering rules for hardware A/D bit updates.
-* Clarified that, for a given exception cause, `__x__tval` might sometimes
-be set to a nonzero value but sometimes not.
-* Clarified exception behavior of unimplemented or inaccessible CSRs.
-* Clarified that Svpbmt allows implementations to override additional PMAs.
-* Replaced the concept of vacant memory regions with inaccessible memory or I/O regions.
-* Clarified that timer and count-overflow interrupts' arrival in
-  interrupt-pending registers is not immediate.
-* Clarified that MXR affects only explicit memory accesses.
-
-[.big]*_Preface to Version 20211203_*
-
-This document describes the RISC-V privileged architecture. This
-release, version 20211203, contains the following versions of the RISC-V
-ISA modules:
-
-[%autowidth,float="center",align="center",cols="^,<,^",options="header",]
-|===
-|Module |Version |Status
-|*Machine ISA* +
-*Supervisor ISA* +
-*Svnapot Extension* +
-*Svpbmt Extension* +
-*Svinval Extension* +
-*Hypervisor ISA* +
-|*1.12* +
-*1.12* +
-*1.0* +
-*1.0* +
-*1.0* +
-*1.0* +
-|*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified* +
-*Ratified*
-|===
-
-The following changes have been made since version 1.11, which, while
-not strictly backwards compatible, are not anticipated to cause software
-portability problems in practice:
-
-* Changed MRET and SRET to clear `mstatus`.MPRV when leaving M-mode.
-* Reserved additional `satp` patterns for future use.
-* Stated that the `scause` Exception Code field must implement bits 4–0
-at minimum.
-* Relaxed I/O regions have been specified to follow RVWMO. The previous
-specification implied that PPO rules other than fences and
-acquire/release annotations did not apply.
-* Constrained the LR/SC reservation set size and shape when using
-page-based virtual memory.
-* PMP changes require an SFENCE.VMA on any hart that implements
-page-based virtual memory, even if VM is not currently enabled.
-* Allowed for speculative updates of page table entry A bits.
-* Clarify that if the address-translation algorithm non-speculatively
-reaches a PTE in which a bit reserved for future standard use is set, a
-page-fault exception must be raised.
-
-Additionally, the following compatible changes have been made since
-version 1.11:
-
-* Removed the N extension.
-* Defined the mandatory RV32-only CSR `mstatush`, which contains most of
-the same fields as the upper 32 bits of RV64’s `mstatus`.
-* Defined the mandatory CSR `mconfigptr`, which if nonzero contains the
-address of a configuration data structure.
-* Defined `mseccfg` and `mseccfgh` CSRs, which control the
-machine’s security configuration.
-* Defined `menvcfg`, `henvcfg`, and `senvcfg` CSRs (and RV32-only
-`menvcfgh` and `henvcfgh` CSRs), which control various characteristics
-of the execution environment.
-* Designated part of SYSTEM major opcode for custom use.
-* Permitted the unconditional delegation of less-privileged interrupts.
-* Added optional big-endian and bi-endian support.
-* Made priority of load/store/AMO address-misaligned exceptions
-implementation-defined relative to load/store/AMO page-fault and
-access-fault exceptions.
-* PMP reset values are now platform-defined.
-* An additional 48 optional PMP registers have been defined.
-* Slightly relaxed the atomicity requirement for A and D bit updates
-performed by the implementation.
-* Clarify the architectural behavior of address-translation caches
-* Added Sv57 and Sv57x4 address translation modes.
-* Software breakpoint exceptions are permitted to write either 0 or the
-`pc` to `__x__tval`.
-* Clarified that bare S-mode need not support the SFENCE.VMA
-instruction.
-* Specified relaxed constraints for implicit reads of non-idempotent
-regions.
-* Added the Svnapot Standard Extension, along with the N bit in Sv39,
-Sv48, and Sv57 PTEs.
-* Added the Svpbmt Standard Extension, along with the PBMT bits in Sv39,
-Sv48, and Sv57 PTEs.
-* Added the Svinval Standard Extension and associated instructions.
-
-Finally, the hypervisor architecture proposal has been extensively
-revised.
-
-[.big]*_Preface to Version 1.11_*
-
-This is version 1.11 of the RISC-V privileged architecture. The document
-contains the following versions of the RISC-V ISA modules:
-
-[%autowidth,float="center",align="center",cols="^,<,^",options="header",]
-|===
-|Module |Version |Status
-|*Machine ISA* +
-*Supervisor ISA* +
-_Hypervisor ISA_
-|*1.11* +
-*1.11* +
-_0.3_
-|*Ratified* +
-*Ratified* +
-_Draft_
-|===
-
-Changes from version 1.10 include:
-
-* Moved Machine and Supervisor spec to *Ratified* status.
-* Improvements to the description and commentary.
-* Added a draft proposal for a hypervisor extension.
-* Specified which interrupt sources are reserved for standard use.
-* Allocated some synchronous exception causes for custom use.
-* Specified the priority ordering of synchronous exceptions.
-* Added specification that xRET instructions may, but are not required
-to, clear LR reservations if A extension present.
-* The virtual-memory system no longer permits supervisor mode to execute
-instructions from user pages, regardless of the SUM setting.
-* Clarified that ASIDs are private to a hart, and added commentary about
-the possibility of a future global-ASID extension.
-* SFENCE.VMA semantics have been clarified.
-* Made the `mstatus`.MPP field *WARL*, rather than *WLRL*.
-* Made the unused `__x__ip` fields *WPRI*, rather than *WIRI*.
-* Made the unused `misa` fields *WARL*, rather than *WIRI*.
-* Made the unused `pmpaddr` and `pmpcfg` fields *WARL*, rather than *WIRI*.
-* Required all harts in a system to employ the same PTE-update scheme as
-each other.
-* Rectified an editing error that misdescribed the mechanism by which
-`mstatus.__x__IE` is written upon an exception.
-* Described scheme for emulating misaligned AMOs.
-* Specified the behavior of the `misa` and `__x__epc` registers in systems
-with variable IALIGN.
-* Specified the behavior of writing self-contradictory values to the
-`misa` register.
-* Defined the `mcountinhibit` CSR, which stops performance counters from
-incrementing to reduce energy consumption.
-* Specified semantics for PMP regions coarser than four bytes.
-* Specified contents of CSRs across XLEN modification.
-* Moved PLIC chapter into its own document.
-
-[.big]*_Preface to Version 1.10_*
-
-This is version 1.10 of the RISC-V privileged architecture proposal.
-Changes from version 1.9.1 include:
-
-* The previous version of this document was released under a Creative
-Commons Attribution 4.0 International License by the original authors,
-and this and future versions of this document will be released under the
-same license.
-* The explicit convention on shadow CSR addresses has been removed to
-reclaim CSR space. Shadow CSRs can still be added as needed.
-* The `mvendorid` register now contains the JEDEC code of the core
-provider as opposed to a code supplied by the Foundation. This avoids
-redundancy and offloads work from the Foundation.
-* The interrupt-enable stack discipline has been simplified.
-* An optional mechanism to change the base ISA used by supervisor and
-user modes has been added to the `mstatus` CSR, and the field previously
-called Base in `misa` has been renamed to `MXL` for consistency.
-* Clarified expected use of XS to summarize additional extension state
-status fields in `mstatus`.
-* Optional vectored interrupt support has been added to the `mtvec` and
-`stvec` CSRs.
-* The SEIP and UEIP bits in the `mip` CSR have been redefined to support
-software injection of external interrupts.
-* The `mbadaddr` register has been subsumed by a more general `mtval`
-register that can now capture bad instruction bits on an illegal-instruction
-fault to speed instruction emulation.
-* The machine-mode base-and-bounds translation and protection schemes
-have been removed from the specification as part of moving the virtual
-memory configuration to `sptbr` (now `satp`). Some of the motivation for
-the base and bound schemes are now covered by the PMP registers, but
-space remains available in `mstatus` to add these back at a later date
-if deemed useful.
-* In systems with only M-mode, or with both M-mode and U-mode but
-without U-mode trap support, the `medeleg` and `mideleg` registers now
-do not exist, whereas previously they returned zero.
-* Virtual-memory page faults now have `mcause` values distinct from
-physical-memory access faults. Page-fault exceptions can now be
-delegated to S-mode without delegating exceptions generated by PMA and
-PMP checks.
-* An optional physical-memory protection (PMP) scheme has been proposed.
-* The supervisor virtual memory configuration has been moved from the
-`mstatus` register to the `sptbr` register. Accordingly, the `sptbr`
-register has been renamed to `satp` (Supervisor Address Translation and
-Protection) to reflect its broadened role.
-* The SFENCE.VM instruction has been removed in favor of the improved
-SFENCE.VMA instruction.
-* The `mstatus` bit MXR has been exposed to S-mode via `sstatus`.
-* The polarity of the PUM bit in `sstatus` has been inverted to shorten
-code sequences involving MXR. The bit has been renamed to SUM.
-* Hardware management of page-table entry Accessed and Dirty bits has
-been made optional; simpler implementations may trap to software to set
-them.
-* The counter-enable scheme has changed, so that S-mode can control
-availability of counters to U-mode.
-* H-mode has been removed, as we are focusing on recursive
-virtualization support in S-mode. The encoding space has been reserved
-and may be repurposed at a later date.
-* A mechanism to improve virtualization performance by trapping S-mode
-virtual-memory management operations has been added.
-* The Supervisor Binary Interface (SBI) chapter has been removed, so
-that it can be maintained as a separate specification.
-
-[.big]*_Preface to Version 1.9.1_*
-
-This is version 1.9.1 of the RISC-V privileged architecture proposal.
-Changes from version 1.9 include:
-
-* Numerous additions and improvements to the commentary sections.
-* Change configuration string proposal to be use a search process that
-supports various formats including Device Tree String and flattened
-Device Tree.
-* Made `misa` optionally writable to support modifying base and
-supported ISA extensions. CSR address of `misa` changed.
-* Added description of debug mode and debug CSRs.
-* Added a hardware performance monitoring scheme. Simplified the
-handling of existing hardware counters, removing privileged versions of
-the counters and the corresponding delta registers.
-* Fixed description of SPIE in presence of user-level interrupts.
+Implementations may also include a debug mode to support off-chip
+debugging and/or manufacturing test. Debug mode (D-mode) can be
+considered an additional privilege mode, with even more access than
+M-mode. The separate debug specification describes operation of
+a RISC-V hart in debug mode. Debug mode reserves a few CSR addresses
+that are only accessible in D-mode, and may also reserve some portions
+of the physical address space on a platform.
