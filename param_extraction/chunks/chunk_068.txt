@@ -1,200 +1,275 @@
 # Chunk: chunk_068
-# Source: zfh.adoc
-# Lines: 1-186 (of 186)
+# Source: zfa.adoc
+# Lines: 1-261 (of 261)
 # Content starts: line 1
-# Line count: 186
+# Line count: 261
 # Sections: 7
-#   == "Zfh" and "Zfhmin" Extensions for Half-Precision Floating-Point, Version 1.0
-#   === Half-Precision Load and Store Instructions
-#   === Half-Precision Computational Instructions
-#   === Half-Precision Conversion and Move Instructions
-#   === Half-Precision Floating-Point Compare Instructions
-#   === Half-Precision Floating-Point Classify Instruction
-#   === "Zfhmin" Standard Extension for Minimal Half-Precision Floating-Point
+#   == "Zfa" Extension for Additional Floating-Point Instructions, Version 1.0
+#   === Load-Immediate Instructions
+#   === Minimum and Maximum Instructions
+#   === Round-to-Integer Instructions
+#   === Modular Convert-to-Integer Instruction
+#   === Move Instructions
+#   === Comparison Instructions
 #
-[[chap:zfh]]
-== "Zfh" and "Zfhmin" Extensions for Half-Precision Floating-Point, Version 1.0
+[[zfa]]
+== "Zfa" Extension for Additional Floating-Point Instructions, Version 1.0
 
-This chapter describes the Zfh standard extension for 16-bit
-half-precision binary floating-point instructions compliant with the
-IEEE 754-2008 arithmetic standard. The Zfh extension depends on the
-single-precision floating-point extension, F. The NaN-boxing scheme
-described in <<nanboxing>> is extended to allow a
-half-precision value to be NaN-boxed inside a single-precision value
-(which may be recursively NaN-boxed inside a double- or quad-precision
-value when the D or Q extension is present).
+This chapter describes the Zfa standard extension, which adds
+instructions for immediate loads, IEEE 754-2019 minimum and maximum
+operations, round-to-integer operations, and quiet floating-point
+comparisons. For RV32D, the Zfa extension also adds instructions to
+transfer double-precision floating-point values to and from integer
+registers, and for RV64Q, it adds analogous instructions for
+quad-precision floating-point values. The Zfa extension depends on the F
+extension.
+
+=== Load-Immediate Instructions
+
+[[norm:fli-s_op]]
+The FLI.S instruction loads one of 32 single-precision floating-point
+constants, encoded in the _rs1_ field, into floating-point register
+_rd_. The correspondence of _rs1_ field values and single-precision
+floating-point values is shown in <<tab:flis>>. FLI.S is encoded
+like FMV.W.X, but with _rs2_=1.
+
+[[tab:flis]]
+.Immediate values loaded by the FLI.S instruction.
+[%autowidth,float="center",align="center",cols=">,>,^,^,^",options="header",]
+|===
+|_rs1_ |Value |Sign |Exponent |Significand
+|0 |−1.0 |`1` |`01111111` |`000...000`
+|1 |_Minimum positive normal_ |`0` |`00000001` |`000...000`
+|2 |1.0 × 2^−16^ |`0` |`01101111` |`000...000`
+|3 |1.0 × 2^−15^ |`0` |`01110000` |`000...000`
+|4 |1.0 × 2^−8^ |`0` |`01110111` |`000...000`
+|5 |1.0 × 2^−7^ |`0` |`01111000` |`000...000`
+|6 |0.0625 (2^−4^) |`0` |`01111011` |`000...000`
+|7 |0.125 (2^−3^) |`0` |`01111100` |`000...000`
+|8 |0.25 |`0` |`01111101` |`000...000`
+|9 |0.3125 |`0` |`01111101` |`010...000`
+|10 |0.375 |`0` |`01111101` |`100...000`
+|11 |0.4375 |`0` |`01111101` |`110...000`
+|12 |0.5 |`0` |`01111110` |`000...000`
+|13 |0.625 |`0` |`01111110` |`010...000`
+|14 |0.75 |`0` |`01111110` |`100...000`
+|15 |0.875 |`0` |`01111110` |`110...000`
+|16 |1.0 |`0` |`01111111` |`000...000`
+|17 |1.25 |`0` |`01111111` |`010...000`
+|18 |1.5 |`0` |`01111111` |`100...000`
+|19 |1.75 |`0` |`01111111` |`110...000`
+|20 |2.0 |`0` |`10000000` |`000...000`
+|21 |2.5 |`0` |`10000000` |`010...000`
+|22 |3 |`0` |`10000000` |`100...000`
+|23 |4 |`0` |`10000001` |`000...000`
+|24 |8 |`0` |`10000010` |`000...000`
+|25 |16 |`0` |`10000011` |`000...000`
+|26 |128 (2^7^) |`0` |`10000110` |`000...000`
+|27 |256 (2^8^) |`0` |`10000111` |`000...000`
+|28 |2^15^ |`0` |`10001110` |`000...000`
+|29 |2^16^ |`0` |`10001111` |`000...000`
+|30 |+{inf} |`0` |`11111111` |`000...000`
+|31 |_Canonical NaN_ |`0` |`11111111` |`100...000`
+|===
 
 [NOTE]
 ====
-This extension primarily provides instructions that consume
-half-precision operands and produce half-precision results. However, it
-is also common to compute on half-precision data using higher
-intermediate precision. Although this extension provides explicit
-conversion instructions that suffice to implement that pattern, future
-extensions might further accelerate such computation with additional
-instructions that implicitly widen their operands—e.g.,
-half{times}half+single->single—or
-implicitly narrow their results—e.g.,
-half+single->half.
+The preferred assembly syntax for entries 1, 30, and 31 is `min`, `inf`,
+and `nan`, respectively. For entries 0 through 29 (including entry 1),
+the assembler will accept decimal constants in C-like syntax.
 ====
-=== Half-Precision Load and Store Instructions
-
-[[norm:fsh_flh_op]]
-New 16-bit variants of LOAD-FP and STORE-FP instructions are added,
-encoded with a new value for the funct3 width field.
-
-include::images/wavedrom/sp-load-store.edn[]
-[[sp-load-store]]
-//.Half-precision load and store instructions
-
-[[norm:fsh_flh_atomic_align]]
-FLH and FSH are only guaranteed to execute atomically if the effective
-address is naturally aligned.
-
-[[norm:fsh_flh_bits_maintained]]
-FLH and FSH do not modify the bits being transferred; in particular, the
-payloads of non-canonical NaNs are preserved. FLH NaN-boxes the result
-written to _rd_, whereas FSH ignores all but the lower 16 bits in _rs2_.
-
-=== Half-Precision Computational Instructions
-
-A new supported format is added to the format field of most
-instructions, as shown in <<tab:fpextfmth>>.
-
-[[tab:fpextfmth]]
-.Format field encoding.
-[%autowidth,float="center",align="center",cols="^,^,<",options="header",]
-|===
-|_fmt_ field |Mnemonic |Meaning
-|00 |S |32-bit single-precision
-|01 |D |64-bit double-precision
-|10 |H |16-bit half-precision
-|11 |Q |128-bit quad-precision
-|===
-
-[[norm:Zfh_computational_instrs]]
-The half-precision floating-point computational instructions are defined
-analogously to their single-precision counterparts, but operate on
-half-precision operands and produce half-precision results.
-
-include::images/wavedrom/spfloat-zfh.edn[]
-
-include::images/wavedrom/spfloat2-zfh.edn[]
-
-=== Half-Precision Conversion and Move Instructions
-
-New floating-point-to-integer and integer-to-floating-point conversion
-instructions are added. These instructions are defined analogously to
-the single-precision-to-integer and integer-to-single-precision
-conversion instructions. [#norm:fcvt-w-h_fcvt-l-h_op]#FCVT.W.H or FCVT.L.H converts a half-precision
-floating-point number to a signed 32-bit or 64-bit integer,
-respectively#. [#norm:fcvt-h-w_fcvt-h-l_op]#FCVT.H.W or FCVT.H.L converts a 32-bit or 64-bit signed
-integer, respectively, into a half-precision floating-point number#.
-[#norm:fcvt-wu-h_fcvt-lu-h_fcvt-h-wu_fcvt-h-lu_op]#FCVT.WU.H, FCVT.LU.H, FCVT.H.WU, and FCVT.H.LU variants convert to or
-from unsigned integer values#. [#norm:fcvt_long_half_rv64_only]#FCVT.L[U].H and FCVT.H.L[U] are RV64-only
-instructions.#
-
-include::images/wavedrom/half-prec-conv-and-mv.edn[]
-[[half-prec-conv-and-mv]]
-
-New floating-point-to-floating-point conversion instructions are added.
-These instructions are defined analogously to the double-precision
-floating-point-to-floating-point conversion instructions. [#norm:fcvt-s-h_fcvt-h-s_op]#FCVT.S.H or
-FCVT.H.S converts a half-precision floating-point number to a
-single-precision floating-point number, or vice-versa, respectively#. [#norm:fcvt-d-h_fcvt-h-d_op]#If
-the D extension is present, FCVT.D.H or FCVT.H.D converts a
-half-precision floating-point number to a double-precision
-floating-point number, or vice-versa, respectively#. [#norm:fcvt-q-h_fcvt-h-q_op]#If the Q extension
-is present, FCVT.Q.H or FCVT.H.Q converts a half-precision
-floating-point number to a quad-precision floating-point number, or
-vice-versa, respectively#.
-
-include::images/wavedrom/half-prec-flpt-to-flpt-conv.edn[]
-[[half-prec-flpt-to-flpt-conv]]
-
-[[norm:fsgnj-h_fsgnjn-h_fsgnjx-h_op]]
-Floating-point to floating-point sign-injection instructions, FSGNJ.H,
-FSGNJN.H, and FSGNJX.H are defined analogously to the single-precision
-sign-injection instruction.
-
-include::images/wavedrom/flt-to-flt-sgn-inj-instr.edn[]
-[[flt-to-flt-sgn-inj-instr]]
-
-Instructions are provided to move bit patterns between the
-floating-point and integer registers. [#norm:fmv-x-h_op]#FMV.X.H moves the half-precision
-value in floating-point register _rs1_ to a representation in IEEE
-754-2008 standard encoding in integer register _rd_, filling the upper
-XLEN-16 bits with copies of the floating-point number's sign bit#.
-
-[[norm:fmv-h-x_op]]
-FMV.H.X moves the half-precision value encoded in IEEE 754-2008 standard
-encoding from the lower 16 bits of integer register _rs1_ to the
-floating-point register _rd_, NaN-boxing the result.
-
-[[norm:fmv_half_bits_preverved]]
-FMV.X.H and FMV.H.X do not modify the bits being transferred; in
-particular, the payloads of non-canonical NaNs are preserved.
-
-include::images/wavedrom/flt-pt-to-int-move.edn[]
-[[flt-pt-to-int-move]]
-
-=== Half-Precision Floating-Point Compare Instructions
-
-[[norm:Zfh_compare_instrs]]
-The half-precision floating-point compare instructions are defined
-analogously to their single-precision counterparts, but operate on
-half-precision operands.
-
-include::images/wavedrom/half-pr-flt-pt-compare.edn[]
-[[half-pr-flt-pt-compare]]
-
-=== Half-Precision Floating-Point Classify Instruction
-
-[[norm:fclass-h_op]]
-The half-precision floating-point classify instruction, FCLASS.H, is
-defined analogously to its single-precision counterpart, but operates on
-half-precision operands.
-
-include::images/wavedrom/half-pr-flt-pt-class.edn[]
-[[half-pr-flt-class]]
-
-=== "Zfhmin" Standard Extension for Minimal Half-Precision Floating-Point
-
-This section describes the Zfhmin standard extension, which provides
-minimal support for 16-bit half-precision binary floating-point
-instructions. The Zfhmin extension is a subset of the Zfh extension,
-consisting only of data transfer and conversion instructions. Like Zfh,
-the Zfhmin extension depends on the single-precision floating-point
-extension, F. The expectation is that Zfhmin software primarily uses the
-half-precision format for storage, performing most computation in higher
-precision.
-
-[[norm:zfhmin]]
-The Zfhmin extension includes the following instructions from the Zfh
-extension: FLH, FSH, FMV.X.H, FMV.H.X, FCVT.S.H, and FCVT.H.S. If the D
-extension is present, the FCVT.D.H and FCVT.H.D instructions are also
-included. If the Q extension is present, the FCVT.Q.H and FCVT.H.Q
-instructions are additionally included.
-
 [NOTE]
 ====
-Zfhmin does not include the FSGNJ.H instruction, because it suffices to
-instead use the FSGNJ.S instruction to move half-precision values
-between floating-point registers.
+The set of 32 constants was chosen by examining floating-point
+libraries, including the C standard math library, and to optimize
+fixed-point to floating-point conversion.
 
-Half-precision addition, subtraction, multiplication, division, and
-square-root operations can be faithfully emulated by converting the
-half-precision operands to single-precision, performing the operation
-using single-precision arithmetic, then converting back to
-half-precision. cite:[roux:hal-01091186] Performing half-precision fused multiply-addition using
-this method incurs a 1-ulp error on some inputs for the RNE and RMM
-rounding modes.
+Entries 8-22 follow a regular encoding pattern. No entry sets mantissa
+bits other than the two most significant ones.
+====
 
-Conversion from 8- or 16-bit integers to half-precision can be emulated
-by first converting to single-precision, then converting to
-half-precision. Conversion from 32-bit integer can be emulated by first
-converting to double-precision. If the D extension is not present and a
-1-ulp error under RNE or RMM is tolerable, 32-bit integers can be first
-converted to single-precision instead. The same remark applies to
-conversions from 64-bit integers without the Q extension.
+[[norm:fli-d_op]]
+If the D extension is implemented, FLI.D performs the analogous
+operation, but loads a double-precision value into floating-point
+register _rd_. Note that entry 1 (corresponding to the minimum positive
+normal value) has a numerically different value for double-precision
+than for single-precision. FLI.D is encoded like FLI.S, but with
+_fmt_=D.
+
+[[norm:fli-q_op]]
+If the Q extension is implemented, FLI.Q performs the analogous
+operation, but loads a quad-precision value into floating-point register
+_rd_. Note that entry 1 (corresponding to the minimum positive normal
+value) has a numerically different value for quad-precision. FLI.Q is
+encoded like FLI.S, but with _fmt_=Q.
+
+[[norm:fli-h_op]]
+If the Zfh or Zvfh extension is implemented, FLI.H performs the
+analogous operation, but loads a half-precision floating-point value
+into register _rd_. Note that entry 1 (corresponding to the minimum
+positive normal value) has a numerically different value for
+half-precision. Furthermore, since 2^16^ is not
+representable in half-precision floating-point, entry 29 in the table
+instead loads positive infinity—i.e., it is redundant with entry 30.
+FLI.H is encoded like FLI.S, but with _fmt_=H.
+[NOTE]
+====
+Additionally, since 2^−16^ and 2^−15^ are subnormal in half-precision, entry 1 is numerically greater than entries 2 and 3 for FLI.H.
+====
+The FLI._fmt_ instructions never set any floating-point exception flags.
+
+=== Minimum and Maximum Instructions
+
+[[norm:fmaxm-s_fminm-s_op]]
+The FMINM.S and FMAXM.S instructions are defined like the FMIN.S and
+FMAX.S instructions, except that if either input is NaN, the result is
+the canonical NaN.
+
+[[norm:fmaxm-d_fminm-d_op]]
+If the D extension is implemented, FMINM.D and FMAXM.D instructions are
+analogously defined to operate on double-precision numbers.
+
+[[norm:fmaxm-h_fminm-h_op]]
+If the Zfh extension is implemented, FMINM.H and FMAXM.H instructions
+are analogously defined to operate on half-precision numbers.
+
+[[norm:fmaxm-q_fminm-q_op]]
+If the Q extension is implemented, FMINM.Q and FMAXM.Q instructions are
+analogously defined to operate on quad-precision numbers.
+
+These instructions are encoded like their FMIN and FMAX counterparts,
+but with instruction bit 13 set to 1.
+[NOTE]
+====
+These instructions implement the IEEE 754-2019 minimum and maximum
+operations.
+====
+=== Round-to-Integer Instructions
+
+[#norm:fround-s_op]#The FROUND.S instruction rounds the single-precision floating-point
+number in floating-point register _rs1_ to an integer, according to the
+rounding mode specified in the instruction's _rm_ field. It then writes
+that integer, represented as a single-precision floating-point number,
+to floating-point register _rd_#. [#norm:fround-s_zero_inf]#Zero and infinite inputs are copied to
+_rd_ unmodified#. [#norm:fround-s_nan_nv]#Signaling NaN inputs cause the invalid operation
+exception flag to be set; no other exception flags are set#. FROUND.S is
+encoded like FCVT.S.D, but with _rs2_=4.
+
+[[norm:froundnx-s_op]]
+The FROUNDNX.S instruction is defined similarly, but it also sets the
+inexact exception flag if the input differs from the rounded result and
+is not NaN. FROUNDNX.S is encoded like FCVT.S.D, but with _rs2_=5.
+
+[[norm:fround-d_froundnx-d_op]]
+If the D extension is implemented, FROUND.D and FROUNDNX.D instructions
+are analogously defined to operate on double-precision numbers. They are
+encoded like FCVT.D.S, but with _rs2_=4 and 5, respectively,
+
+[[norm:fround-h_froundnx-h_op]]
+If the Zfh extension is implemented, FROUND.H and FROUNDNX.H
+instructions are analogously defined to operate on half-precision
+numbers. They are encoded like FCVT.H.S, but with _rs2_=4 and 5,
+respectively,
+
+[[norm:fround-q_froundnx-q_op]]
+If the Q extension is implemented, FROUND.Q and FROUNDNX.Q instructions
+are analogously defined to operate on quad-precision numbers. They are
+encoded like FCVT.Q.S, but with _rs2_=4 and 5, respectively,
+[NOTE]
+====
+The FROUNDNX._fmt_ instructions implement the IEEE 754-2019
+roundToIntegralExact operation, and the FROUND._fmt_ instructions
+implement the other operations in the roundToIntegral family.
+====
+=== Modular Convert-to-Integer Instruction
+
+[[norm:fcvtmod-w-d_op]]
+The FCVTMOD.W.D instruction is defined similarly to the FCVT.W.D
+instruction, with the following differences. FCVTMOD.W.D always rounds
+towards zero. Bits 31:0 are taken from the rounded, unbounded two's
+complement result, then sign-extended to XLEN bits and written to
+integer register _rd_. ±{inf} and NaN are converted to
+zero.
+
+[[norm:fcvtmod-w-d_flags]]
+Floating-point exception flags are raised the same as they would be for
+FCVT.W.D with the same input operand.
+
+This instruction is only provided if the D extension is implemented. [#norm:fcvtmod-w-d_rsw]#It
+is encoded like FCVT.W.D, but with the rs2 field set to 8 and the _rm_
+field set to 1 (RTZ). Other _rm_ values are _reserved_.#
+[NOTE]
+====
+The assembly syntax requires the RTZ rounding mode to be explicitly
+specified, i.e., `fcvtmod.w.d rd, rs1, rtz`.
+
+The FCVTMOD.W.D instruction was added principally to accelerate the
+processing of JavaScript Numbers. Numbers are double-precision
+values, but some operators implicitly truncate them to signed integers
+mod 2^32^.
+====
+=== Move Instructions
+
+[[norm:fmvh-x-d_op]]
+For RV32 only, if the D extension is implemented, the FMVH.X.D
+instruction moves bits 63:32 of floating-point register _rs1_ into
+integer register _rd_. It is encoded in the OP-FP major opcode with
+_funct3_=0, _rs2_=1, and _funct7_=1110001.
+[NOTE]
+====
+FMVH.X.D is used in conjunction with the existing FMV.X.W instruction to
+move a double-precision floating-point number to a pair of x-registers.
+====
+[[norm:fmvp-d-x_op]]
+For RV32 only, if the D extension is implemented, the FMVP.D.X
+instruction moves a double-precision number from a pair of integer
+registers into a floating-point register. Integer registers _rs1_ and
+_rs2_ supply bits 31:0 and 63:32, respectively; the result is written to
+floating-point register _rd_. FMVP.D.X is encoded in the OP-FP major
+opcode with _funct3_=0 and _funct7_=1011001.
+
+[[norm:fmvh-x-q_op]]
+For RV64 only, if the Q extension is implemented, the FMVH.X.Q
+instruction moves bits 127:64 of floating-point register _rs1_ into
+integer register _rd_. It is encoded in the OP-FP major opcode with
+_funct3_=0, _rs2_=1, and _funct7_=1110011.
+[NOTE]
+====
+FMVH.X.Q is used in conjunction with the existing FMV.X.D instruction to
+move a quad-precision floating-point number to a pair of x-registers.
+====
+[[norm:fmvp-q-x_op]]
+For RV64 only, if the Q extension is implemented, the FMVP.Q.X
+instruction moves a double-precision number from a pair of integer
+registers into a floating-point register. Integer registers _rs1_ and
+_rs2_ supply bits 63:0 and 127:64, respectively; the result is written
+to floating-point register _rd_. FMVP.Q.X is encoded in the OP-FP major
+opcode with _funct3_=0 and _funct7_=1011011.
+
+=== Comparison Instructions
+
+[[norm:fleq-s_fltq-s_op]]
+The FLEQ.S and FLTQ.S instructions are defined like the FLE.S and FLT.S
+instructions, except that quiet NaN inputs do not cause the invalid
+operation exception flag to be set.
+
+[[norm:fleq-d_fltq-d_op]]
+If the D extension is implemented, FLEQ.D and FLTQ.D instructions are
+analogously defined to operate on double-precision numbers.
+
+[[norm:fleq-h_fltq-h_op]]
+If the Zfh extension is implemented, FLEQ.H and FLTQ.H instructions are
+analogously defined to operate on half-precision numbers.
+
+[[norm:fleq-q_fltq-q_op]]
+If the Q extension is implemented, FLEQ.Q and FLTQ.Q instructions are
+analogously defined to operate on quad-precision numbers.
+
+These instructions are encoded like their FLE and FLT counterparts, but
+with instruction bit 14 set to 1.
+[NOTE]
+====
+We do not expect analogous comparison instructions will be added to the
+vector ISA, since they can be reasonably efficiently emulated using
+masking.
 ====
