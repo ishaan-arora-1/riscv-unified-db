@@ -1,119 +1,133 @@
 # Chunk: chunk_034
-# Source: rationale.adoc
-# Lines: 1-107 (of 107)
+# Source: q-st-ext.adoc
+# Lines: 1-120 (of 120)
 # Content starts: line 1
-# Line count: 107
-# Sections: 5
-#   == Historical Rationale for Extensions
-#   === "Zihintpause" Extension for Pause Hint
-#   === "Zicond" Extension for Integer Conditional Operations
-#   === "Zacas" Extension for Atomic Compare-and-Swap (CAS) Instructions
-#   === "Zabha" Extension for Byte and Halfword Atomic Memory Operations, Version 1.0
+# Line count: 120
+# Sections: 6
+#   == "Q" Extension for Quad-Precision Floating-Point, Version 2.2
+#   === Quad-Precision Load and Store Instructions
+#   === Quad-Precision Computational Instructions
+#   === Quad-Precision Convert and Move Instructions
+#   === Quad-Precision Floating-Point Compare Instructions
+#   === Quad-Precision Floating-Point Classify Instruction
 #
-[appendix]
-== Historical Rationale for Extensions
-[[chap:rationale]]
+== "Q" Extension for Quad-Precision Floating-Point, Version 2.2
 
-This appendix contains the rationale for RISC-V ISA extensions at the time they
-were ratified.
-Unlike the ISA specification, this appendix is ordered chronologically, so as
-to convey the motivation and architectural reasoning underpinning each
-extension at the time of ratification.
-For extensions ratified prior to the conception of this appendix (ca. 2025),
-the rationale will be added over time.
-In cases where the rationale was not recorded, the authors and editors will
-synthesize it from the historical record.
+This chapter describes the Q standard extension for 128-bit
+quad-precision binary floating-point instructions compliant with the
+IEEE 754-2008 arithmetic standard. The quad-precision binary
+floating-point instruction-set extension is named "Q"; it depends on
+the double-precision floating-point extension D. [#norm:Q_flen_128]#The floating-point
+registers are now extended to hold either a single, double, or
+quad-precision floating-point value (FLEN=128).# The NaN-boxing scheme
+described in <<nanboxing>> is now extended
+recursively to allow a single-precision value to be NaN-boxed inside a
+double-precision value which is itself NaN-boxed inside a quad-precision
+value.
 
-=== "Zihintpause" Extension for Pause Hint
+=== Quad-Precision Load and Store Instructions
 
-The PAUSE instruction hints to a hart that it should temporarily reduce its
-rate of execution.
-It is normally used to save energy and execution resources while polling, e.g.
-while waiting for a spinlock to become free.
+[[norm:fsq_flq_op]]
+New 128-bit variants of LOAD-FP and STORE-FP instructions are added,
+encoded with a new value for the funct3 width field.
 
-Much of the debate surrounding this extension centered on whether a facility
-similar to x86's MONITOR/MWAIT should instead be provided.
-We concluded that, even if such a facility were to be defined for RISC-V,
-it would not supplant PAUSE.
-PAUSE is more appropriate when polling for non-memory events, when polling for
-multiple events, or when software does not know precisely what events it is
-polling for.
-(Perhaps surprisingly, the latter case is ubiquitous, in part because it is
-the mechanism expected by the Linux kernel's `cpu_relax` API.)
+include::images/wavedrom/quad-ls.edn[]
+[[quad-ls]]
+//.Quad-precision load and store
 
-=== "Zicond" Extension for Integer Conditional Operations
+[[norm:fsq_flq_atomic_align]]
+FLQ and FSQ are only guaranteed to execute atomically if the effective
+address is naturally aligned and XLEN=128.
 
-Replacing unpredictable branches with conditional-select or conditional-move
-instructions can mitigate a class of costly branch mispredictions.
-Unfortunately, conditional-select instructions require three source operands.
-These instructions are a logical addition to ISAs that include three-source
-integer instructions for other reasons, but are too costly otherwise.
+[[norm:fsq_flq_bits_maintained]]
+FLQ and FSQ do not modify the bits being transferred; in particular, the
+payloads of non-canonical NaNs are preserved.
 
-Some ISAs have instead furnished conditional-move instructions, which consume
-less encoding space and avoid the extra register read in simple
-microarchitectures.
-Unfortunately, in register-renamed microarchitectures, these instructions incur
-costs simlar to conditional select, or require additional microarchitectural
-structures and micro-op-issue constraints.
+=== Quad-Precision Computational Instructions
 
-The Zicond extension was defined to solve the same problem as conditional
-select and conditional move, but with very little incremental cost for complex
-microarchitectures.
-It provides conditional-zero instructions, which read two source operands and,
-based upon the zeroness of the second operand, produce either the first operand
-or zero.
-These instructions can be used as part of a three-instruction sequence to
-synthesize conditional select.
-Several common conditional-execution idioms require only two instructions,
-as would be the case with conditional select or move, including
-conditional addition, subtraction, and bitwise AND, OR, and XOR.
+A new supported format is added to the format field of most
+instructions, as shown in <<fpextfmt>>
 
-Two conditional-zero instructions are included: one that writes zero if the
-comparand is zero, and one that does so if the comparand is nonzero.
-Variants that perform magnitude comparisons with zero were considered but
-ultimately excluded for insufficient quantitative justification.
+[[fpextfmt]]
+.Format field encoding.
+[%autowidth,float="center",align="center",cols="^,^,<",options="header",]
+|===
+|_fmt_ field |Mnemonic |Meaning
+|00 |S |32-bit single-precision
+|01 |D |64-bit double-precision
+|10 |H |16-bit half-precision
+|11 |Q |128-bit quad-precision
+|===
 
-=== "Zacas" Extension for Atomic Compare-and-Swap (CAS) Instructions
+[[norm:Q_computational_instrs]]
+The quad-precision floating-point computational instructions are defined
+analogously to their double-precision counterparts, but operate on
+quad-precision operands and produce quad-precision results.
 
-While compare-and-swap for XLEN wide data may be accomplished using LR/SC, the
-CAS atomic instructions scale better to highly parallel systems than LR/SC.
-Many lock-free algorithms, such as a lock-free queue, require manipulation of
-pointer variables. A simple CAS operation may not be sufficient to guard against
-what is commonly referred to as the ABA problem in such algorithms that
-manipulate pointer variables. To avoid the ABA problem, the algorithms associate
-a reference counter with the pointer variable and perform updates using a
-quadword compare and swap (of both the pointer and the counter). The double and
-quadword CAS instructions support implementation of algorithms for ABA problem
-avoidance.
+include::images/wavedrom/quad-compute.edn[]
+[[quad-compute]]
+//.Quad-precision computational
 
-The CAS instruction supports the C++11 atomic compare and exchange
-operation.
+=== Quad-Precision Convert and Move Instructions
 
-=== "Zabha" Extension for Byte and Halfword Atomic Memory Operations, Version 1.0
+New floating-point-to-integer and integer-to-floating-point conversion
+instructions are added. These instructions are defined analogously to
+the double-precision-to-integer and integer-to-double-precision
+conversion instructions. [#norm:fcvt-w-q_fcvt-l-q_op]#FCVT.W.Q or FCVT.L.Q converts a quad-precision
+floating-point number to a signed 32-bit or 64-bit integer,
+respectively#. [#norm:fcvt-q-w_fcvt-q-l_op]#FCVT.Q.W or FCVT.Q.L converts a 32-bit or 64-bit signed
+integer, respectively, into a quad-precision floating-point number#.
+[#norm:fcvt-wu-q_fcvt-lu-q_fcvt-q-wu_fcvt-q-lu_op]#FCVT.WU.Q, FCVT.LU.Q, FCVT.Q.WU, and FCVT.Q.LU variants convert to or
+from unsigned integer values#. [#norm:fcvt_long_quad_rv64_only]#FCVT.L[U].Q and FCVT.Q.L[U] are RV64-only
+instructions#. Note FCVT.Q.L[U] always produces an exact result and is unaffected by rounding mode.
 
-The A-extension offers atomic memory operation (AMO) instructions for _words_,
-_doublewords_, and _quadwords_ (only for `AMOCAS`). The absence of atomic
-operations for subword data types necessitates emulation strategies. For bitwise
-operations, this emulation can be performed via word-sized bitwise AMO*
-instructions. For non-bitwise operations, emulation is achievable using
-word-sized `LR`/`SC` instructions.
+include::images/wavedrom/quad-cnvrt-mv.edn[]
+[[quad-cnvrt-mv]]
+//.Quad-precision convert and move
 
-Several limitations arise from this emulation approach:
+New floating-point-to-floating-point conversion instructions are added.
+These instructions are defined analogously to the double-precision
+floating-point-to-floating-point conversion instructions. [#norm:fcvt-s-q_fcvt-q-s_op]#FCVT.S.Q or
+FCVT.Q.S converts a quad-precision floating-point number to a
+single-precision floating-point number, or vice-versa, respectively#.
+[#norm:fcvt-d-q_fcvt-q-d_op]#FCVT.D.Q or FCVT.Q.D converts a quad-precision floating-point number to
+a double-precision floating-point number, or vice-versa, respectively#.
 
-. In systems with large-scale or Non-Uniform Memory Access (NUMA)
-  configurations, emulation based on `LR`/`SC` introduces issues related to
-  scalability and fairness, particularly under conditions of high contention.
+include::images/wavedrom/quad-cnvt-interchange.edn[]
+[[quad-convert-interchange]]
+//.Quad-precision convert and move interchangeably
 
-. Emulation of narrower AMOs through wider AMO* instructions on non-idempotent
-  IO memory regions may result in unintended side effects.
+[[norm:fsgnj-q_fsgnjn-q_fsgnjx-q_op]]
+Floating-point to floating-point sign-injection instructions, FSGNJ.Q,
+FSGNJN.Q, and FSGNJX.Q are defined analogously to the double-precision
+sign-injection instruction.
 
-. Utilizing wider AMO* instructions for emulating narrower AMOs risks activating
-  extraneous breakpoints or watchpoints.
+include::images/wavedrom/quad-cnvrt-intch-xqqx.edn[]
+[[quad-cnvrt-intch-xqqx]]
+//.Quad-precision convert and move interchangeably XQ-QX
 
-. In the absence of native support for subword atomics, compilers often resort
-  to inlining code sequences to provide the required emulation. This practice
-  contributes to an increase in code size, with consequent impacts on system
-  performance and memory utilization.
+FMV.X.Q and FMV.Q.X instructions are not provided in RV32 or RV64, so
+quad-precision bit patterns must be moved to the integer registers via
+memory.
 
-The Zabha extension addresses these limitations by adding support for _byte_ and
-_halfword_ atomic memory operations to the RISC-V Unprivileged ISA.
+=== Quad-Precision Floating-Point Compare Instructions
+
+[[norm:Q_compare_instrs]]
+The quad-precision floating-point compare instructions are defined
+analogously to their double-precision counterparts, but operate on
+quad-precision operands.
+
+include::images/wavedrom/quad-float-compare.edn[]
+[[quad-float-compare]]
+//.Quad-precision floatinf-point compare
+
+=== Quad-Precision Floating-Point Classify Instruction
+
+[[norm:fclass-q_op]]
+The quad-precision floating-point classify instruction, FCLASS.Q, is
+defined analogously to its double-precision counterpart, but operates on
+quad-precision operands.
+
+include::images/wavedrom/quad-float-clssfy.edn[]
+[[quad-float-clssfy]]
+//.Quad-precision floating point classify

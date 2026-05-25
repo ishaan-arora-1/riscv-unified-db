@@ -1,20 +1,31 @@
 # Chunk: chunk_029
-# Source: priv-insns.adoc
-# Lines: 1-12 (of 12)
+# Source: priv-history.adoc
+# Lines: 1-22 (of 22)
 # Content starts: line 1
-# Line count: 12
-# Sections: 1
-#   == RISC-V Privileged Instruction Set Listings
+# Line count: 22
+# Sections: 2
+#   == History
+#   === Research Funding at UC Berkeley
 #
+== History
 
-== RISC-V Privileged Instruction Set Listings
+=== Research Funding at UC Berkeley
 
-This chapter presents instruction-set listings for all instructions
-defined in the RISC-V Privileged Architecture.
+Development of the RISC-V architecture and implementations has been
+partially funded by the following sponsors.
 
-The instruction-set listings for unprivileged instructions, including
-the ECALL and EBREAK instructions, are provided in Volume I of this
-manual.
+* *Par Lab:* Research supported by Microsoft (Award #024263) and Intel
+(Award #024894) funding and by matching funding by U.C. Discovery (Award
+#DIG07-10227). Additional support came from Par Lab affiliates Nokia,
+NVIDIA, Oracle, and Samsung.
+* *Project Isis:* DoE Award DE-SC0003624.
+* *ASPIRE Lab*: DARPA PERFECT program, Award HR0011-12-2-0016. DARPA
+POEM program Award HR0011-11-C-0100. The Center for Future Architectures
+Research (C-FAR), a STARnet center funded by the Semiconductor Research
+Corporation. Additional support from ASPIRE industrial sponsor, Intel,
+and ASPIRE affiliates, Google, Huawei, Nokia, NVIDIA, Oracle, and
+Samsung.
 
-.RISC-V Privileged Instructions
-include::images/bytefield/priv-instr-set.edn[]
+The content of this paper does not necessarily reflect the position or
+the policy of the US government and no official endorsement should be
+inferred.

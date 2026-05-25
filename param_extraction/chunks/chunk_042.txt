@@ -1,834 +1,274 @@
 # Chunk: chunk_042
-# Source: rvwmo.adoc
-# Lines: 1-817 (of 817)
+# Source: rv64.adoc
+# Lines: 1-260 (of 260)
 # Content starts: line 1
-# Line count: 817
-# Sections: 10
-#   == RVWMO Memory Consistency Model, Version 2.0
-#   === Definition of the RVWMO Memory Model
-#   ==== Memory Model Primitives
-#   ==== Syntactic Dependencies
-#   ==== Preserved Program Order
-#   ==== Memory Model Axioms
-#   ===== Load Value Axiom
-#   ===== Atomicity Axiom
-#   ===== Progress Axiom
-#   === CSR Dependency Tracking Granularity
+# Line count: 260
+# Sections: 7
+#   == RV64I Base Integer Instruction Set, Version 2.1
+#   === Register State
+#   === Integer Computational Instructions
+#   ==== Integer Register-Immediate Instructions
+#   ==== Integer Register-Register Operations
+#   === Load and Store Instructions
+#   === HINT Instructions
 #
-[[memorymodel]]
-== RVWMO Memory Consistency Model, Version 2.0
+[[rv64]]
+== RV64I Base Integer Instruction Set, Version 2.1
 
-This chapter defines the RISC-V memory consistency model. A memory
-consistency model is a set of rules specifying the values that can be
-returned by loads of memory. RISC-V uses a memory model called "RVWMO"
-(RISC-V Weak Memory Ordering) which is designed to provide flexibility
-for architects to build high-performance scalable designs while
-simultaneously supporting a tractable programming model.
-(((design, high performance)))
-(((design, scalable)))
+This chapter describes the RV64I base integer instruction set, which
+builds upon the RV32I variant described in <<rv32>>.
+This chapter presents only the differences with RV32I, so should be read
+in conjunction with the earlier chapter.
 
-Under RVWMO, code running on a single hart appears to execute in order
-from the perspective of other memory instructions in the same hart, but
-memory instructions from another hart may observe the memory
-instructions from the first hart being executed in a different order.
-Therefore, multithreaded code may require explicit synchronization to
-guarantee ordering between memory instructions from different harts. The
-base RISC-V ISA provides a FENCE instruction for this purpose, described
-in <<fence>>, while the atomics extension "A" additionally defines load-reserved/store-conditional and atomic read-modify-write instructions.
-(((atomics, misaligned)))
+=== Register State
 
-The standard ISA extension for total store ordering "Ztso" (<<ztso>>) augments
-RVWMO with additional rules specific to those extensions.
+[#norm:rv64i_xreg_sz]#RV64I widens the integer registers and supported user address space to
+64 bits (XLEN=64 in <<gprs>>).#
 
-The appendices to this specification provide both axiomatic and
-operational formalizations of the memory consistency model as well as
-additional explanatory material.
-(((FENCE)))
-(((SFENCE)))
+=== Integer Computational Instructions
+
+Most integer computational instructions operate on XLEN-bit values.
+Additional instruction variants are provided to manipulate 32-bit values
+in RV64I, indicated by a 'W' suffix to the opcode. [#norm:rv64_w_sex]#These "*W"
+instructions ignore the upper 32 bits of their inputs and always produce
+32-bit signed values, sign-extending them to 64 bits, i.e. bits XLEN-1
+through 31 are equal.#
 
 [NOTE]
 ====
-This chapter defines the memory model for regular main memory
-operations. The interaction of the memory model with I/O memory,
-instruction fetches, FENCE.I, page-table walks, and SFENCE.VMA is not
-(yet) formalized. Some or all of the above may be formalized in a future
-revision of this specification. Future ISA
-extensions such as the V vector and J JIT extensions will need
-to be incorporated into a future revision as well.
-
-Memory consistency models supporting overlapping memory accesses of
-different widths simultaneously remain an active area of academic
-research and are not yet fully understood. The specifics of how memory
-accesses of different sizes interact under RVWMO are specified to the
-best of our current abilities, but they are subject to revision should
-new issues be uncovered.
+The compiler and calling convention maintain an invariant that all
+32-bit values are held in a sign-extended format in 64-bit registers.
+Even 32-bit unsigned integers extend bit 31 into bits 63 through 32.
+Consequently, conversion between unsigned and signed 32-bit integers is
+a no-op, as is conversion from a signed 32-bit integer to a signed
+64-bit integer. Existing 64-bit wide SLTU and unsigned branch compares
+still operate correctly on unsigned 32-bit integers under this
+invariant. Similarly, existing 64-bit wide logical operations on 32-bit
+sign-extended integers preserve the sign-extension property. A few new
+instructions (ADD[I]W/SUBW/SxxW) are required for addition and shifts to
+ensure reasonable performance for 32-bit values.
 ====
+(((RV64I, shifts)))
+(((RV64I, compares)))
 
-[[rvwmo]]
-=== Definition of the RVWMO Memory Model
+==== Integer Register-Immediate Instructions
 
-The RVWMO memory model is defined in terms of the _global memory order_,
-a total ordering of the memory operations produced by all harts. In
-general, a multithreaded program has many different possible executions,
-with each execution having its own corresponding global memory order.
-(((RVWMO)))
+include::images/wavedrom/rv64i-base-int.edn[]
+[[rv64i-base-int]]
+//.RV64I register-immediate instructions
 
-The global memory order is defined over the primitive load and store
-operations generated by memory instructions. It is then subject to the
-constraints defined in the rest of this chapter. Any execution
-satisfying all of the memory model constraints is a legal execution (as
-far as the memory model is concerned).
+[#norm:addiw_op]#ADDIW is an RV64I instruction that adds the sign-extended 12-bit
+immediate to register _rs1_ and produces the proper sign extension of a
+32-bit result in _rd_.# [#norm:addiw_overflow]#Overflows are ignored and the result is the low
+32 bits of the result sign-extended to 64 bits.# Note, ADDIW _rd, rs1, 0_
+writes the sign extension of the lower 32 bits of register _rs1_ into
+register _rd_ (assembler pseudoinstruction SEXT.W).
 
-[[rvwmo-primitives]]
-==== Memory Model Primitives
+include::images/wavedrom/rv64i-slli.edn[]
+[[rv64i-slli]]
+//.RV64I register-immediate (descr ADDIW) instructions
 
-The _program order_ over memory operations reflects the order in which
-the instructions that generate each load and store are logically laid
-out in that hart's dynamic instruction stream; i.e., the order in which
-a simple in-order processor would execute the instructions of that hart.
+Shifts by a constant are encoded as a specialization of the I-type
+format using the same instruction opcode as RV32I. The operand to be
+shifted is in _rs1_, and the shift amount is encoded in the lower 6 bits
+of the I-immediate field for RV64I. The right-shift type is encoded in
+bit 30. SLLI is a logical left shift (zeros are shifted into the lower
+bits); SRLI is a logical right shift (zeros are shifted into the upper
+bits); and SRAI is an arithmetic right shift (the original sign bit is
+copied into the vacated upper bits).
+(((RV64I, SLLI)))
+(((RV64I, SRAIW)))
+(((RV64I, SRLIW)))
+(((RV64I, RV64I-only)))
 
-Memory-accessing instructions give rise to _memory operations_. A memory
-operation can be either a _load operation_, a _store operation_, or both
-simultaneously. All memory operations are single-copy atomic: they can
-never be observed in a partially complete state.
-(((operations, memory)))
+include::images/wavedrom/rv64i-slliw.edn[]
+[[rv64i-slliw]]
 
-Each aligned memory instruction that accesses XLEN or fewer bits gives rise
-to exactly one memory operation, unless specified otherwise. An aligned AMO
-gives rise to a single memory operation that is both a load operation and a
-store operation simultaneously.
+[#norm:slliw_srliw_sraiw_op]#SLLIW, SRLIW, and SRAIW are RV64I-only instructions that are analogously
+defined but operate on 32-bit values and sign-extend their 32-bit
+results to 64 bits.# [#norm:slliw_srliw_sraiw_imm5_rsv]#SLLIW, SRLIW, and SRAIW encodings with
+_imm[5] {ne} 0_ are reserved.#
 
 [NOTE]
 ====
-Among instructions in RV32GC and RV64GC, the following are exceptions to the
-rule that an aligned memory instruction gives rise to exactly one memory
-operation:
-
-* An unsuccessful SC instruction does not give rise to any memory operations.
-* Floating-point load and store instructions that access more than XLEN bits
-  (e.g., FLD/FSD in RV32) may each give rise to multiple memory operations.
-
-ISA extensions such as *V* (Vector) and the upcoming *P* (SIMD) may give rise
-to multiple memory operations. However, the memory model for these extensions
-has not yet been formalized.
+Previously, SLLIW, SRLIW, and SRAIW with _imm[5] {ne} 0_
+were defined to cause illegal-instruction exceptions, whereas now they
+are marked as reserved. This is a backwards-compatible change.
 ====
 
-A misaligned load or store instruction may be decomposed into a set of
-component memory operations of any granularity.
-A floating-point load or store of more than XLEN bits may also be decomposed
-into a set of component memory operations of any granularity.
-The memory
-operations generated by such instructions are not ordered with respect
-to each other in program order, but they are ordered normally with
-respect to the memory operations generated by preceding and subsequent
-instructions in program order.
-The atomics extension "A" does not require execution environments to support
-misaligned atomic instructions at all.
-However, if misaligned atomics are supported via the misaligned atomicity
-granule PMA, then AMOs within an atomicity granule are not decomposed, nor are
-loads and stores defined in the base ISAs, nor are loads and stores of no more
-than XLEN bits defined in the F, D, and Q extensions.
-(((decomposition)))
+include::images/wavedrom/rv64-lui-auipc.edn[]
+[[rv64_lui-auipc]]
+//.RV64I register-immediate (descr) instructions
+
+LUI (load upper immediate) uses the same opcode as RV32I.
+[#norm:lui_op_rv64i]#LUI places the
+32-bit U-immediate into register _rd_, filling in the lowest 12 bits
+with zeros. The 32-bit result is sign-extended to 64 bits.#
+(((RV64I, LUI)))
+
+AUIPC (add upper immediate to `pc`) uses the same opcode as RV32I. AUIPC
+is used to build `pc`-relative addresses and uses the U-type format.
+[#norm:auipc_op_rv64i]#AUIPC forms a 32-bit offset from the U-immediate, filling in the lowest
+12 bits with zeros, sign-extends the result to 64 bits, adds it to the
+address of the AUIPC instruction, then places the result in register _rd_.#
 
 [NOTE]
 ====
-The decomposition of misaligned memory operations down to byte
-granularity facilitates emulation on implementations that do not
-natively support misaligned accesses. Such implementations might, for
-example, simply iterate over the bytes of a misaligned access one by
-one.
+Note that the set of address offsets that can be formed by pairing LUI
+with LD, AUIPC with JALR, etc. in RV64I is
+[−2^31^−2^11^, 2^31^−2^11^−1].
 ====
 
-An LR instruction and an SC instruction are said to be _paired_ if the
-LR precedes the SC in program order and if there are no other LR or SC
-instructions in between; the corresponding memory operations are said to
-be paired as well (except in case of a failed SC, where no store
-operation is generated). The complete list of conditions determining
-whether an SC must succeed, may succeed, or must fail is defined in
-<<sec:lrsc>>.
+==== Integer Register-Register Operations
 
-Load and store operations may also carry one or more ordering
-annotations from the following set: "acquire-RCpc", "acquire-RCsc",
-"release-RCpc", and "release-RCsc". An AMO or LR instruction with
-_aq_ set has an "acquire-RCsc" annotation. An AMO or SC instruction
-with _rl_ set has a "release-RCsc" annotation. An AMO, LR, or SC
-instruction with both _aq_ and _rl_ set has both "acquire-RCsc" and
-"release-RCsc" annotations.
+//this diagramdoesn't match the tex specification
+include::images/wavedrom/rv64i-int-reg-reg.edn[]
+[[int_reg-reg]]
+//.RV64I integer register-register instructions
 
-For convenience, we use the term "acquire annotation" to refer to an
-acquire-RCpc annotation or an acquire-RCsc annotation. Likewise, a
-"release annotation" refers to a release-RCpc annotation or a
-release-RCsc annotation. An "RCpc annotation" refers to an
-acquire-RCpc annotation or a release-RCpc annotation. An _RCsc
-annotation_ refers to an acquire-RCsc annotation or a release-RCsc
-annotation.
+[#norm:addw_subw_op]#ADDW and SUBW are RV64I-only instructions that are defined analogously
+to ADD and SUB but operate on 32-bit values and produce signed 32-bit results.#
+[#norm:addw_subw_overflow]#Overflows are ignored, and the low 32-bits of the result is
+sign-extended to 64-bits and written to the destination register.#
+(((RV64I-only, ADDW)))
+(((RV64I-only, SUBW)))
 
-[NOTE]
-====
-In the memory model literature, the term "RCpc" stands for release
-consistency with processor-consistent synchronization operations, and
-the term "RCsc" stands for release consistency with sequentially
-consistent synchronization operations.
+SLL, SRL, and SRA perform logical left, logical right, and arithmetic
+right shifts on the value in register _rs1_ by the shift amount held in
+register _rs2_. [#norm:sll_srl_sra_sh_amt_rv64i]#In RV64I, only the low 6 bits of _rs2_ are considered
+for the shift amount.#
 
-While there are many different definitions for acquire and release
-annotations in the literature, in the context of RVWMO these terms are
-concisely and completely defined by <<ppo, Preserved Program Order>> rules 5-7.
+[#norm:sllw_srlw_sraw_op]#SLLW, SRLW, and SRAW are RV64I-only instructions that are analogously
+defined but operate on 32-bit values and sign-extend their 32-bit
+results to 64 bits. The shift amount is given by _rs2[4:0]_.#
+(((RV64I-only, SLLW)))
+(((RV64I-only, SRLW)))
+(((RV64I-only, SRAW)))
 
-"RCpc" annotations are currently only used when implicitly assigned to
-every memory access per the standard extension "Ztso"
-(<<ztso>>). Furthermore, although the ISA does not
-currently contain native load-acquire or store-release instructions, nor
-RCpc variants thereof, the RVWMO model itself is designed to be
-forwards-compatible with the potential addition of any or all of the
-above into the ISA in a future extension.
-====
+=== Load and Store Instructions
 
-[[mem-dependencies]]
-==== Syntactic Dependencies
+RV64I extends the address space to 64 bits. The execution environment
+will define what portions of the address space are legal to access.
 
-The definition of the RVWMO memory model depends in part on the notion
-of a syntactic dependency, defined as follows.
+include::images/wavedrom/load-store.edn[]
+[[load_store]]
+//.Load and store instructions
 
-In the context of defining dependencies, a _register_ refers either to
-an entire general-purpose register, some portion of a CSR, or an entire
-CSR. The granularity at which dependencies are tracked through CSRs is
-specific to each CSR and is defined in
-<<csr-granularity>>.
+[#norm:ld_op_rv64i]#The LD instruction loads a 64-bit value from memory into register _rd_
+for RV64I.#
+(((RV64I, LD)))
 
-Syntactic dependencies are defined in terms of instructions' _source
-registers_, instructions' _destination registers_, and the way
-instructions _carry a dependency_ from their source registers to their
-destination registers. This section provides a general definition of all
-of these terms; however, <<source-dest-regs>> provides a
-complete listing of the specifics for each instruction.
+[#norm:lw_op_rv64i]#The LW instruction loads a 32-bit value from memory and sign-extends
+this to 64 bits before storing it in register _rd_ for RV64I.#
+[#norm:lwu_op]#The LWU instruction, on the other hand, zero-extends the 32-bit value from
+memory for RV64I.# [#norm:lh_lhu_lb_lbu_op_rv64i]#LH and LHU are defined analogously for 16-bit values,
+as are LB and LBU for 8-bit values.# [#norm:sd_sw_sh_sb_op_rv64i]#The SD, SW, SH, and SB instructions
+store 64-bit, 32-bit, 16-bit, and 8-bit values from the low bits of
+register _rs2_ to memory respectively.#
 
-In general, a register _r_ other than `x0` is a _source
-register_ for an instruction _i_ if any of the following
-hold:
+[[rv64i-hints]]
+=== HINT Instructions
 
-* In the opcode of _i_, _rs1_, _rs2_, or _rs3_ is set to
-_r_
-* _i_ is a CSR instruction, and in the opcode of
-_i_, _csr_ is set to _r_, unless _i_
-is CSRRW or CSRRWI and _rd_ is set to `x0`
-* _r_ is a CSR and an implicit source register for
-_i_, as defined in <<source-dest-regs>>
-* _r_ is a CSR that aliases with another source register for
-_i_
+All instructions that are microarchitectural HINTs in RV32I (see
+<<rv32>>) are also HINTs in RV64I.#
+The additional computational instructions in RV64I expand both the
+standard and custom HINT encoding spaces.
+(((RV64I, HINT)))
 
-Memory instructions also further specify which source registers are
-_address source registers_ and which are _data source registers_.
+<<rv64i-h>> lists all RV64I HINT code points. 91% of the
+HINT space is reserved for standard HINTs. The remainder of the HINT
+space is designated for custom HINTs; no standard HINTs will ever be
+defined in this subspace.
 
-In general, a register _r_ other than `x0` is a _destination
-register_ for an instruction _i_ if any of the following
-hold:
-
-* In the opcode of _i_, _rd_ is set to _r_
-* _i_ is a CSR instruction, and in the opcode of
-_i_, _csr_ is set to _r_, unless _i_
-is CSRRS or CSRRC and _rs1_ is set to `x0` or _i_ is CSRRSI
-or CSRRCI and uimm[4:0] is set to zero.
-* _r_ is a CSR and an implicit destination register for
-_i_, as defined in <<source-dest-regs>>
-* _r_ is a CSR that aliases with another destination
-register for _i_
-
-Most non-memory instructions _carry a dependency_ from each of their
-source registers to each of their destination registers. However, there
-are exceptions to this rule; see <<source-dest-regs>>.
-
-Instruction _j_ has a _syntactic dependency_ on instruction
-_i_ via destination register _s_ of
-_i_ and source register _r_ of _j_
-if either of the following hold:
-
-* _s_ is the same as _r_, and no instruction
-program-ordered between _i_ and _j_ has
-_r_ as a destination register
-* There is an instruction _m_ program-ordered between
-_i_ and _j_ such that all of the following hold:
-. _j_ has a syntactic dependency on _m_ via
-destination register _q_ and source register _r_
-. _m_ has a syntactic dependency on _i_ via
-destination register _s_ and source register _p_
-. _m_ carries a dependency from _p_ to
-_q_
-
-Finally, in the definitions that follow, let _a_ and
-_b_ be two memory operations, and let _i_ and
-_j_ be the instructions that generate _a_ and
-_b_, respectively.
-
-_b_ has a _syntactic address dependency_ on _a_
-if _r_ is an address source register for _j_ and
-_j_ has a syntactic dependency on _i_ via source
-register _r_
-
-_b_ has a _syntactic data dependency_ on _a_ if
-_b_ is a store operation, _r_ is a data source
-register for _j_, and _j_ has a syntactic
-dependency on _i_ via source register _r_
-
-_b_ has a _syntactic control dependency_ on _a_
-if there is an instruction _m_ program-ordered between
-_i_ and _j_ such that _m_ is a
-branch or indirect jump and _m_ has a syntactic dependency
-on _i_.
-
-[NOTE]
-====
-Generally speaking, non-AMO load instructions do not have data source
-registers, and unconditional non-AMO store instructions do not have
-destination registers. However, a successful SC instruction is
-considered to have the register specified in _rd_ as a destination
-register, and hence it is possible for an instruction to have a
-syntactic dependency on a successful SC instruction that precedes it in
-program order.
-====
-
-==== Preserved Program Order
-[[ppo]]
-The global memory order for any given execution of a program respects
-some but not all of each hart’s program order. The subset of program
-order that must be respected by the global memory order is known as
-_preserved program order_.
-
-The complete definition of preserved program order is as follows (and
-note that AMOs are simultaneously both loads and stores): memory
-operation _a_ precedes memory operation _b_ in
-preserved program order (and hence also in the global memory order) if
-_a_ precedes _b_ in program order,
-_a_ and _b_ both access regular main memory
-(rather than I/O regions), and any of the following hold:
-
-[[overlapping-ordering]]
-* Overlapping-Address Orderings:
-. _b_ is a store, and
-_a_ and _b_ access overlapping memory addresses
-. _a_ and _b_ are loads,
-_x_ is a byte read by both _a_ and
-_b_, there is no store to _x_ between
-_a_ and _b_ in program order, and
-_a_ and _b_ return values for _x_
-written by different memory operations
-. _a_ is
-generated by an AMO or SC instruction, _b_ is a load, and
-_b_ returns a value written by _a_
-* Explicit Synchronization
-[start=4]
-. There is a FENCE instruction that
-orders _a_ before _b_
-. _a_ has an acquire
-annotation
-. _b_ has a release annotation
-. _a_ and _b_ both have
-RCsc annotations
-. _a_ is paired with
-_b_
-* Syntactic Dependencies
-[start=9]
-. _b_ has a syntactic address
-dependency on _a_
-. _b_ has a syntactic data
-dependency on _a_
-. _b_ is a store, and
-_b_ has a syntactic control dependency on _a_
-* Pipeline Dependencies
-[start=12]
-. _b_ is a
-load, and there exists some store _m_ between
-_a_ and _b_ in program order such that
-_m_ has an address or data dependency on _a_,
-and _b_ returns a value written by _m_
-. _b_ is a store, and
-there exists some instruction _m_ between _a_
-and _b_ in program order such that _m_ has an
-address dependency on _a_
-
-==== Memory Model Axioms
-
-An execution of a RISC-V program obeys the RVWMO memory consistency
-model only if there exists a global memory order conforming to preserved
-program order and satisfying the _load value axiom_, the _atomicity
-axiom_, and the _progress axiom_.
-
-[[ax-load]]
-===== Load Value Axiom
-
-Each byte of each load _i_ returns the value written to that
-byte by the store that is the latest in global memory order among the
-following stores:
-
-. Stores that write that byte and that precede _i_ in the
-global memory order
-. Stores that write that byte and that precede _i_ in
-program order
-
-[[ax-atom]]
-===== Atomicity Axiom
-
-If _r_ and _w_ are paired load and store
-operations generated by aligned LR and SC instructions in a hart
-_h_, _s_ is a store to byte _x_, and
-_r_ returns a value written by _s_, then
-_s_ must precede _w_ in the global memory order,
-and there can be no store from a hart other than _h_ to byte
-_x_ following _s_ and preceding _w_
-in the global memory order.
-[NOTE]
-====
-The <<ax-atom, Atomicity Axiom>> theoretically supports LR/SC pairs of different widths and to
-mismatched addresses, since implementations are permitted to allow SC
-operations to succeed in such cases. However, in practice, we expect
-such patterns to be rare, and their use is discouraged.
-====
-
-[[ax-prog]]
-===== Progress Axiom
-
-No memory operation may be preceded in the global memory order by an
-infinite sequence of other memory operations.
-
-[[csr-granularity]]
-=== CSR Dependency Tracking Granularity
-
-.Granularities at which syntactic dependencies are tracked through CSRs
-[%autowidth,float="center",align="center",cols="<,<,<",options="header",]
+[[rv64i-h]]
+.RV64I HINT instructions.
+[float="center",align="center",cols="<,<,^,<", options="header", grid="all"]
 |===
-|Name |Portions Tracked as Independent Units |Aliases
-|_fflags_ |Bits 4, 3, 2, 1, 0 |_fcsr_
-|_frm_ |entire CSR |_fcsr_
-|_fcsr_ |Bits 7-5, 4, 3, 2, 1, 0 |_fflags_, _frm_
+|Instruction |Constraints |Code Points |Purpose
+|LUI |_rd_=`x0` |2^20^ .9+.^|_Designated for future standard use_
+
+|AUIPC |_rd_=`x0` |2^20^
+
+|ADDI |_rd_=`x0`, and either _rs1_{ne}`x0` or _imm_{ne}0  |2^17^−1
+
+|ANDI |_rd_=`x0` |2^17^
+
+|ORI |_rd_=`x0` |2^17^
+
+|XORI |_rd_=`x0` |2^17^
+
+|ADDIW |_rd_=`x0` |2^17^
+
+|ADD |_rd_=`x0`, _rs1_{ne}`x0` |2^10^−32
+
+|ADD |_rd_=`x0`, _rs1_=`x0`, _rs2_{ne}_x2_-_x5_ | 28
+
+|ADD |_rd_=`x0`, _rs1_=`x0`, _rs2_=_x2_-_x5_| 4 | (_rs2_=_x2_) NTL.P1 +
+ (_rs2_=_x3_) NTL.PALL +
+ (_rs2_=_x4_) NTL.S1 +
+ (_rs2_=_x5_) NTL.ALL
+
+|SLLI |_rd_=`x0`, _rs1_=`x0`, _shamt_=31 |1|Semihosting entry marker
+
+|SRAI |_rd_=`x0`, _rs1_=`x0`, _shamt_=7 |1|Semihosting exit marker
+
+|SUB |_rd_=`x0` |2^10^ .16+.^| _Designated for future standard use_
+
+|AND |_rd_=`x0` |2^10^
+
+|OR |_rd_=`x0` |2^10^
+
+|XOR |_rd_=`x0` |2^10^
+
+|SLL |_rd_=`x0` |2^10^
+
+|SRL |_rd_=`x0` |2^10^
+
+|SRA |_rd_=`x0` |2^10^
+
+|ADDW |_rd_=`x0` |2^10^
+
+|SUBW |_rd_=`x0` |2^10^
+
+|SLLW |_rd_=`x0` |2^10^
+
+|SRLW |_rd_=`x0` |2^10^
+
+|SRAW |_rd_=`x0` |2^10^
+
+|FENCE |_rd_=`x0`, _rs1_{ne}``x0``, _fm_=0, and either _pred_=0 or _succ_=0| 2^10^−63
+
+|FENCE |_rd_{ne}``x0``, _rs1_=`x0`, _fm_=0, and either _pred_=0 or _succ_=0| 2^10^−63
+
+|FENCE |_rd_=_rs1_=`x0`, _fm_=0, _pred_=0, _succ_{ne}0 |15
+
+|FENCE |_rd_=_rs1_=`x0`, _fm_=0, _pred_{ne}W, _succ_=0 |15
+
+|FENCE |_rd_=_rs1_=`x0`, _fm_=0, _pred_=W, _succ_=0 |1 |PAUSE
+
+|SLTI |_rd_=`x0` |2^17^ .10+.^|_Designated for custom use_
+
+|SLTIU |_rd_=`x0` |2^17^
+
+|SLLI |_rd_=`x0`, and either _rs1_{ne}``x0`` or _shamt_{ne}31 |2^11^−1
+
+|SRLI |_rd_=`x0` |2^11^
+
+|SRAI |_rd_=`x0`, and either _rs1_{ne}``x0`` or _shamt_{ne}7 |2^11^−1
+
+|SLLIW |_rd_=`x0` |2^10^
+
+|SRLIW |_rd_=`x0` |2^10^
+
+|SRAIW |_rd_=`x0` |2^10^
+
+|SLT |_rd_=`x0` |2^10^
+
+|SLTU |_rd_=`x0` |2^10^
 |===
 
-Note: read-only CSRs are not listed, as they do not participate in the
-definition of syntactic dependencies.
-
-[[source-dest-regs]]
-=== Source and Destination Register Listings
-
-This section provides a concrete listing of the source and destination
-registers for each instruction. These listings are used in the
-definition of syntactic dependencies in
-<<mem-dependencies>>.
-
-The term "accumulating CSR" is used to describe a CSR that is both a
-source and a destination register, but which carries a dependency only
-from itself to itself.
-
-Instructions carry a dependency from each source register in the
-"Source Registers" column to each destination register in the
-"Destination Registers" column, from each source register in the
-"Source Registers" column to each CSR in the "Accumulating CSRs"
-column, and from each CSR in the "Accumulating CSRs" column to itself,
-except where annotated otherwise.
-
-Key:
-
-- ^A^Address source register
-
-- ^D^Data source register
-
-- † The instruction does not carry a dependency from
-any source register to any destination register
-
-- ‡ The instruction carries dependencies from source
-register(s) to destination register(s) as specified
-
-.RV32I Base Integer Instruction Set
-[%autowidth,float="center",align="center",cols="<,<,<,<,<",options="header"]
-|===
-||Source Registers |Destination  Registers|Accumulating CSRs|
-
-|LUI | |_rd_ | |
-
-|AUIPC | |_rd_ ||
-
-|JAL | |_rd_ ||
-
-|JALR† |_rs1_ |_rd_ ||
-
-|BEQ |_rs1_, _rs2_ | ||
-
-|BNE |_rs1_, _rs2_ | ||
-
-|BLT |_rs1_, _rs2_ | ||
-
-|BGE |_rs1_, _rs2_ | ||
-
-|BLTU |_rs1_, _rs2_ | ||
-
-|BGEU |_rs1_, _rs2_ | ||
-
-|LB † | _rs1_  ^A^ | _rd_ ||
-
-|LH † | _rs1_  ^A^ | _rd_ ||
-
-|LW † | _rs1_  ^A^ | _rd_ ||
-
-|LBU † | _rs1_  ^A^ | _rd_ ||
-
-|LHU † | _rs1_  ^A^ | _rd_ ||
-
-|SB |_rs1_  ^A^, _rs2_ ^D^ | ||
-
-|SH |_rs1_  ^A^, _rs2_ ^D^ | ||
-
-|SW |_rs1_  ^A^, _rs2_ ^D^ | ||
-
-|ADDI |_rs1_ |_rd_ ||
-
-|SLTI |_rs1_ |_rd_ ||
-
-|SLTIU |_rs1_ |_rd_ ||
-
-|XORI |_rs1_ |_rd_ ||
-
-|ORI |_rs1_ |_rd_ ||
-
-|ANDI |_rs1_ |_rd_ ||
-
-|SLLI |_rs1_ |_rd_ ||
-
-|SRLI |_rs1_ |_rd_ ||
-
-|SRAI |_rs1_ |_rd_ ||
-
-|ADD |_rs1_, _rs2_ |_rd_ ||
-
-|SUB |_rs1_, _rs2_ |_rd_ ||
-
-|SLL |_rs1_, _rs2_ |_rd_ ||
-
-|SLT |_rs1_, _rs2_ |_rd_ ||
-
-|SLTU |_rs1_, _rs2_ |_rd_ ||
-
-|XOR |_rs1_, _rs2_ |_rd_ ||
-
-|SRL |_rs1_, _rs2_ |_rd_ ||
-
-|SRA |_rs1_, _rs2_ |_rd_ ||
-
-|OR |_rs1_, _rs2_ |_rd_ ||
-
-|AND |_rs1_, _rs2_ |_rd_ ||
-
-|FENCE | | ||
-
-|FENCE.I | | ||
-
-|ECALL | | ||
-
-|EBREAK | | ||
-
-|CSRRW‡ |_rs1_, _csr_^*^ | _rd_, _csr_ | |^*^unless _rd_=`x0`
-
-5+| ‡ carries a dependency from _rs1_ to _csr_ and from _csr_ to _rd_
-
-|CSRRS‡ |_rs1_, _csr_ |_rd_, _csr_^*^ | |^*^unless _rs1_=`x0`
-
-|CSRRC‡ |_rs1_, _csr_  |_rd_, _csr_^*^ | |^*^unless _rs1_=`x0`
-
-5+| ‡ carries a dependency from _csr_ and _rs1_ to _csr_ and from _csr_ to _rd_
-
-|CSRRWI ‡ |_csr_ ^*^ |_rd_, _csr_  | |^*^unless _rd_=_x0_
-
-5+| ‡ carries a dependency from _csr_ to _rd_
-
-|CSRRSI ‡ |_csr_ |_rd_, _csr_^*^  | |^*^unless uimm[4:0]=0
-
-|CSRRCI ‡ |_csr_ |_rd_, _csr_^*^  | |^*^unless uimm[4:0]=0
-
-5+| ‡ carries a dependency from _csr_ to _rd_ and _csr_
-|===
-
-.RV64I Base Integer Instruction Set
-[%autowidth.stretch,float="center",align="center",cols="<,<,<,<,<",options="header"]
-|===
-| |Source Registers |Destination Registers |Accumulating CSRs|
-
-|_LWU_ † |_rs1_  ^A^ |_rd_ | |
-
-|_LD_ † |_rs1_  ^A^ |_rd_ | |
-
-|SD |_rs1_  ^A^, _rs2_ ^D^ | | |
-
-|SLLI | _rs1_ | _rd_ | |
-
-|SRLI | _rs1_ | _rd_ | |
-
-|SRAI | _rs1_ | _rd_ | |
-
-|ADDIW | _rs1_ | _rd_ | |
-
-|SLLIW | _rs1_ | _rd_ | |
-
-|SRLIW | _rs1_ | _rd_ | |
-
-|SRAIW | _rs1_ | _rd_ | |
-
-|ADDW | _rs1_, _rs2_ |_rd_ ||
-
-|SUBW | _rs1_, _rs2_ |_rd_ ||
-
-|SLLW | _rs1_, _rs2_ |_rd_ ||
-
-|SRLW | _rs1_, _rs2_ |_rd_ ||
-
-|SRAW | _rs1_, _rs2_ |_rd_ ||
-|===
-
-.RV32M Standard Extension
-[%autowidth.stretch,float="center",align="center",cols="<,<,<,<,<",options="header"]
-|===
-| |Source Registers |Destination Registers |Accumulating CSRs|
-
-|MUL | _rs1_, _rs2_ |_rd_ ||
-
-|MULH | _rs1_, _rs2_ |_rd_ ||
-
-|MULHSU |_rs1_, _rs2_ |_rd_ ||
-
-|MULHU |_rs1_, _rs2_ |_rd_ ||
-
-|DIV |_rs1_, _rs2_ |_rd_ ||
-
-|DIVU |_rs1_, _rs2_ |_rd_ ||
-
-|REM |_rs1_, _rs2_ |_rd_ ||
-
-|REMU |_rs1_, _rs2_ |_rd_ ||
-|===
-
-.RV64M Standard Extension
-[%autowidth.stretch,float="center",align="center",cols="<,<,<,<,<",options="header"]
-|===
-||Source Registers |Destination Registers |Accumulating CSRs|
-
-|MULW |_rs1_, _rs2_ |_rd_ ||
-
-|DIVW |_rs1_, _rs2_ |_rd_ ||
-
-|DIVUW |_rs1_, _rs2_ |_rd_ ||
-
-|REMW |_rs1_, _rs2_ |_rd_ ||
-
-|REMUW |_rs1_, _rs2_ |_rd_ ||
-|===
-
-.RV32A Standard Extension
-[%autowidth.stretch,float="center",align="center",cols="<,<,<,<,<",options="header"]
-|===
-||Source Registers |Destination Registers |Accumulating CSRs|
-
-|LR.W† | _rs1_  ^A^ | _rd_ | |
-
-|SC.W† | _rs1_  ^A^, _rs2_ ^D^ | _rd_ ^*^ | | ^*^ if successful
-
-|AMOSWAP.W† |_rs1_ ^A^, _rs2_ ^D^ |_rd_ | |
-
-|AMOADD.W† |_rs1_ ^A^, _rs2_ ^D^ |_rd_ | |
-
-|AMOXOR.W† |_rs1_ ^A^, _rs2_ ^D^ |_rd_ | |
-
-|AMOAND.W† |_rs1_ ^A^, _rs2_ ^D^ |_rd_ | |
-
-|AMOOR.W† |_rs1_ ^A^, _rs2_^D^ |_rd_ | |
-
-|AMOMIN.W† |_rs1_ ^A^, _rs2_ ^D^ |_rd_ | |
-
-|AMOMAX.W† |_rs1_ ^A^, _rs2_ ^D^ |_rd_ | |
-
-|AMOMINU.W† |_rs1_ ^A^, _rs2_ ^D^ |_rd_ | |
-
-|AMOMAXU.W† |_rs1_ ^A^, _rs2_ ^D^ |_rd_ | |
-
-|===
-
-.RV64A Standard Extension
-[%autowidth.stretch,float="center",align="center",cols="<,<,<,<,<",options="header"]
-|===
-
-| |Source Registers |Destination Registers |Accumulating CSRs|
-
-|LR.D† |_rs1_  ^A^ |_rd_ | |
-
-|SC.D† |_rs1_ ^A^, _rs2_ ^D^ |_rd_ ^*^ | |^*^if successful
-
-|AMOSWAP.D† |_rs1_  ^A^, _rs2_ ^D^ |_rd_ | |
-
-|AMOADD.D† |_rs1_  ^A^, _rs2_ ^D^ |_rd_ | |
-
-|AMOXOR.D† |_rs1_  ^A^, _rs2_ ^D^ |_rd_ | |
-
-|AMOAND.D† |_rs1_  ^A^, _rs2_^D^ |_rd_ | |
-
-|AMOOR.D† |_rs1_ ^A^, _rs2_^D^ |_rd_ | |
-
-|AMOMIN.D† |_rs1_ ^A^, _rs2_^D^ |_rd_ | |
-
-|AMOMAX.D† |_rs1_ ^A^, _rs2_^D^ |_rd_ | |
-
-|AMOMINU.D† |_rs1_ ^A^, _rs2_^D^ |_rd_ | |
-
-|AMOMAXU.D† |_rs1_ ^A^, _rs2_^D^ |_rd_ | |
-
-|===
-
-.RV32F Standard Extension
-[%autowidth.stretch,float="center",align="center",cols="<,<,<,<,<",options="header"]
-|===
-
-| |Source Registers |Destination Registers |Accumulating CSRs |
-
-
-|FLW† |_rs1_ ^A^ |_rd_ | |
-
-|FSW |_rs1_ ^A^, _rs2_^D^ | | |
-
-|FMADD.S |_rs1_, _rs2_, _rs3_, frm^*^ |_rd_ |NV, OF, UF, NX |^*^if rm=111
-
-|FMSUB.S |_rs1_, _rs2_, _rs3_, frm^*^ |_rd_ |NV, OF, UF, NX |^*^if rm=111
-
-|FNMSUB.S |_rs1_, _rs2_, _rs3_, frm^*^ |_rd_ |NV, OF, UF, NX |^*^if rm=111
-
-|FNMADD.S |_rs1_, _rs2_, _rs3_, frm^*^ |_rd_ |NV, OF, UF, NX |^*^if rm=111
-
-|FADD.S |_rs1_, _rs2_, frm^*^ |_rd_ |NV, OF, NX |^*^if rm=111
-
-|FSUB.S |_rs1_, _rs2_, frm^*^ |_rd_ |NV, OF, NX |^*^if rm=111
-
-|FMUL.S |_rs1_, _rs2_, frm^*^ |_rd_ |NV, OF, UF, NX |^*^if rm=111
-
-|FDIV.S |_rs1_, _rs2_, frm^*^ |_rd_ |NV, DZ, OF, UF, NX |^*^if rm=111
-
-|FSQRT.S |_rs1_, frm^*^ |_rd_ |NV, NX |^*^if rm=111
-
-|FSGNJ.S |_rs1_, _rs2_ |_rd_ | |
-
-|FSGNJN.S |_rs1_, _rs2_ |_rd_ | |
-
-|FSGNJX.S |_rs1_, _rs2_ |_rd_ | |
-
-|FMIN.S |_rs1_, _rs2_ |_rd_ |NV |
-
-|FMAX.S |_rs1_, _rs2_ |_rd_ |NV |
-
-|FCVT.W.S |_rs1_, frm^*^ |_rd_ |NV, NX |^*^if rm=111
-
-|FCVT.WU.S |_rs1_, frm^*^ |_rd_ |NV, NX |^*^if rm=111
-
-|FMV.X.W |_rs1_ |_rd_ | |
-
-|FEQ.S |_rs1_, _rs2_ |_rd_ |NV |
-
-|FLT.S |_rs1_, _rs2_ |_rd_ |NV |
-
-|FLE.S |_rs1_, _rs2_ |_rd_ |NV |
-
-|FCLASS.S |_rs1_ |_rd_ | |
-
-|FCVT.S.W |_rs1_, frm^*^ |_rd_ |NX |^*^if rm=111
-
-|FCVT.S.WU |_rs1_, frm^*^ |_rd_ |NX |^*^if rm=111
-
-|FMV.W.X |_rs1_ |_rd_ | |
-
-|===
-
-.RV64F Standard Extension
-[%autowidth.stretch,float="center",align="center",cols="<,<,<,<,<",options="header"]
-|===
-| |Source Registers |Destination Registers |Accumulating CSRs|
-
-|FCVT.L.S |_rs1_, frm^*^ |_rd_ |NV, NX |^*^if rm=111
-
-|FCVT.LU.S |_rs1_, frm^*^ |_rd_ |NV, NX |^*^if rm=111
-
-|FCVT.S.L |_rs1_, frm^*^ |_rd_ |NX |^*^if rm=111
-
-|FCVT.S.LU |_rs1_, frm^*^ |_rd_ |NX |^*^if rm=111
-
-|===
-
-.RV32D Standard Extension
-[%autowidth.stretch,float="center",align="center",cols="<,<,<,<,<",options="header"]
-|===
-
-| |Source Registers|Destination Registers |Accumulating CSRs |
-
-
-|FLD† |_rs1_ ^A^ |_rd_ | |
-
-|FSD |_rs1_ ^A^, _rs2_^D^ | | |
-
-|FMADD.D |_rs1_, _rs2_, _rs3_, frm^*^ |_rd_ |NV, OF, UF, NX |^*^if rm=111
-
-|FMSUB.D |_rs1_, _rs2_, _rs3_, frm^*^ |_rd_ |NV, OF, UF, NX |^*^if rm=111
-
-|FNMSUB.D |_rs1_, _rs2_, _rs3_, frm^*^ |_rd_ |NV, OF, UF, NX |^*^if rm=111
-
-|FNMADD.D |_rs1_, _rs2_, _rs3_, frm^*^ |_rd_ |NV, OF, UF, NX |^*^if rm=111
-
-|FADD.D |_rs1_, _rs2_, frm^*^ |_rd_ |NV, OF, NX |^*^if rm=111
-
-|FSUB.D |_rs1_, _rs2_, frm^*^ |_rd_ |NV, OF, NX |^*^if rm=111
-
-|FMUL.D |_rs1_, _rs2_, frm^*^ |_rd_ |NV, OF, UF, NX |^*^if rm=111
-
-|FDIV.D |_rs1_, _rs2_, frm^*^ |_rd_ |NV, DZ, OF, UF, NX |^*^if rm=111
-
-|FSQRT.D |_rs1_, frm^*^ |_rd_ |NV, NX |^*^if rm=111
-
-|FSGNJ.D |_rs1_, _rs2_ |_rd_ | |
-
-|FSGNJN.D |_rs1_, _rs2_ |_rd_ | |
-
-|FSGNJX.D |_rs1_, _rs2_ |_rd_ | |
-
-|FMIN.D |_rs1_, _rs2_ |_rd_ |NV |
-
-|FMAX.D |_rs1_, _rs2_ |_rd_ |NV |
-
-|FCVT.S.D |_rs1_, frm^*^ |_rd_ |NV, OF, UF, NX |^*^if rm=111
-
-|FCVT.D.S |_rs1_ |_rd_ |NV |
-
-|FEQ.D |_rs1_, _rs2_ |_rd_ |NV |
-
-|FLT.D |_rs1_, _rs2_ |_rd_ |NV |
-
-|FLE.D |_rs1_, _rs2_ |_rd_ |NV |
-
-|FCLASS.D |_rs1_ |_rd_ | |
-
-|FCVT.W.D |_rs1_, frm^*^ |_rd_ |NV, NX |^*^if rm=111
-
-|FCVT.WU.D |_rs1_, frm^*^ |_rd_ |NV, NX |^*^if rm=111
-
-|FCVT.D.W |_rs1_ |_rd_ | |
-
-|FCVT.D.WU |_rs1_ |_rd_ | |
-
-|===
-
-.RV64D Standard Extension
-[%autowidth.stretch,float="center",align="center",cols="<,<,<,<,<",options="header"]
-|===
-
-| |Source Registers |Destination Registers |Accumulating CSRs |
-
-|FCVT.L.D |_rs1_, frm^*^ |_rd_ |NV, NX |^*^if rm=111
-
-|FCVT.LU.D |_rs1_, frm^*^ |_rd_ |NV, NX |^*^if rm=111
-
-|FMV.X.D |_rs1_ |_rd_ | |
-
-|FCVT.D.L |_rs1_, frm^*^ |_rd_ |NX |^*^if rm=111
-
-|FCVT.D.LU |_rs1_, frm^*^ |_rd_ |NX |^*^if rm=111
-
-|FMV.D.X |_rs1_ |_rd_ | |
-
-|===
+NOTE: `slli x0, x0, 0x1f` and `srai x0, x0, 7` were previously designated as
+custom HINTs, but they have been appropriated for use in semihosting calls, as
+described in <<ecall-ebreak>>.
+To reflect their usage in practice, the base ISA spec has been changed to
+designate them as standard HINTs.
