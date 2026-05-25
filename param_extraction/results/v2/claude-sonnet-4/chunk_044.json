@@ -1,89 +1,54 @@
 {
   "chunk_id": "chunk_044",
   "source_file": "scalar-crypto.adoc",
-  "start_line": 3419,
-  "end_line": 5590,
-  "content_start_line": 3449,
+  "start_line": 1,
+  "end_line": 3452,
+  "content_start_line": 1,
   "model": "claude-sonnet-4",
   "parameters": [
     {
-      "excerpt": "The `seed` CSR is also access controlled by execution mode, and attempted read or write access will raise an illegal-instruction exception outside M mode unless access is explicitly granted.",
-      "line_number": 3549,
-      "parameter_name": "SEED_CSR_ACCESS_CONTROL",
+      "excerpt": "The entropy source extension defines the `seed` CSR at address `0x015`.",
+      "line_number": 372,
+      "parameter_name": "SEED_CSR_ADDRESS",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
-      "value_type": "binary",
+      "value_type": "value",
       "confidence": "high",
-      "reasoning": "The implementation chooses whether to grant access to the seed CSR from lower privilege modes. This is a design-time choice about access control policy."
-    },
-    {
-      "excerpt": "Implementations may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`.",
-      "line_number": 3779,
-      "parameter_name": "MSECCFG_SEED_BITS_IMPLEMENTED",
-      "existing_udb_name": null,
-      "class": "NORM_CSR_RW",
-      "value_type": "binary",
-      "confidence": "high",
-      "reasoning": "The implementation chooses whether the [s,u]seed bits in mseccfg are read-only zero or read-write. This controls the mutability of these CSR fields."
-    },
-    {
-      "excerpt": "An implementation of the entropy source should meet at least one of the following requirements sets in order to be considered a secure and safe design",
-      "line_number": 3635,
-      "parameter_name": "ENTROPY_SOURCE_STANDARD_COMPLIANCE",
-      "existing_udb_name": null,
-      "class": "NORM_DIRECT",
-      "value_type": "enum",
-      "confidence": "medium",
-      "reasoning": "The implementation chooses which entropy source standard to comply with (NIST SP 800-90B, AIS-31 PTG.2, or virtual source requirements). This is a design-time architectural choice."
-    },
-    {
-      "excerpt": "A virtual source is not an ISA compliance requirement. It is defined for the benefit of the RISC-V security ecosystem so that virtual systems may have a consistent level of security.",
-      "line_number": 3707,
-      "parameter_name": "VIRTUAL_ENTROPY_SOURCE_IMPLEMENTED",
-      "existing_udb_name": null,
-      "class": "NORM_DIRECT",
-      "value_type": "binary",
-      "confidence": "high",
-      "reasoning": "The implementation may choose to implement a virtual entropy source instead of a physical one. This is an optional architectural choice."
-    },
-    {
-      "excerpt": "Vendors do not have to implement all of the list's instructions to be Zkt compliant; however, if they claim to have Zkt and implement any of the listed instructions, it must have data-independent latency.",
-      "line_number": 3825,
-      "parameter_name": "ZKT_INSTRUCTION_SUBSET",
-      "existing_udb_name": null,
-      "class": "NORM_DIRECT",
-      "value_type": "set",
-      "confidence": "high",
-      "reasoning": "The implementation chooses which subset of the Zkt instruction list to implement. Any implemented instructions must have data-independent latency, but not all need to be implemented."
+      "reasoning": "The CSR address 0x015 for the seed CSR is a fixed architectural choice. While the text says 'defines', this is specifying where implementers must place this CSR if they implement the Zkr extension."
     }
   ],
   "skipped_non_parameters": [
     {
-      "excerpt": "This instruction gathers bits from the high and low halves of the source word into odd/even bit positions in the destination word.",
-      "line_number": 3463,
-      "reason": "This describes the behavioral operation of the zip instruction, not an implementation choice."
+      "excerpt": "A core which implements `Zkn` must implement all of the above extensions.",
+      "line_number": 395,
+      "reason": "This is a fixed requirement ('must implement') that applies to all implementations of Zkn. There is no implementation choice here."
     },
     {
-      "excerpt": "The interface was designed to be simple so that a vendor- and device-independent driver component (e.g., in Linux kernel, embedded firmware, or a cryptographic library) may use `seed` to generate truly random bits.",
-      "line_number": 4000,
-      "reason": "This is design rationale explaining why the interface was designed a certain way, not a parameter that implementers can choose."
+      "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
+      "line_number": 456,
+      "reason": "This is a fixed requirement ('must always') for constant-time execution. All implementations must satisfy this - it's not a parameter."
     },
     {
-      "excerpt": "All currently defined cryptographic instructions (Zk* and Zbk* extensions) are on this list, together with a set of relevant supporting instructions from I, M, C, and B extensions.",
-      "line_number": 3787,
-      "reason": "This describes which instructions are included in the Zkt list, but the list itself is fixed by the specification, not an implementation choice."
+      "excerpt": "For RV32, the encodings corresponding to shamt[5]=1 are reserved.",
+      "line_number": 1944,
+      "reason": "This describes a fixed encoding constraint, not an implementation choice. The reservation is mandatory for all RV32 implementations."
     },
     {
-      "excerpt": "The `seed` CSR provides an interface to a NIST SP 800-90B cite:[TuBaKe:18] or BSI AIS-31 cite:[KiSc11] compliant physical Entropy Source (ES).",
-      "line_number": 3495,
-      "reason": "This describes what the seed CSR provides, but doesn't indicate an implementation choice - it's a fixed requirement."
+      "excerpt": "Note that `rnum` must be in the range `0x0..0xA`. The values `0xB..0xF` are reserved.",
+      "line_number": 1006,
+      "reason": "This describes fixed encoding constraints and reserved values, not implementation choices. All implementations must enforce these ranges."
+    },
+    {
+      "excerpt": "This instruction is available only on RV32.",
+      "line_number": 2816,
+      "reason": "This describes which base architectures support the instruction, which is a fixed specification requirement, not an implementation parameter."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The `seed` CSR is also access controlled by execution mode, and attempted read or write access will raise an illegal-instruction exception outside M mode unless access is explicitly granted.\",\n      \"line_number\": 3549,\n      \"parameter_name\": \"SEED_CSR_ACCESS_CONTROL\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to grant access to the seed CSR from lower privilege modes. This is a design-time choice about access control policy.\"\n    },\n    {\n      \"excerpt\": \"Implementations may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`.\",\n      \"line_number\": 3779,\n      \"parameter_name\": \"MSECCFG_SEED_BITS_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether the [s,u]seed bits in mseccfg are read-only zero or read-write. This controls the mutability of these CSR fields.\"\n    },\n    {\n      \"excerpt\": \"An implementation of the entropy source should meet at least one of the following requirements sets in order to be considered a secure and safe design\",\n      \"line_number\": 3635,\n      \"parameter_name\": \"ENTROPY_SOURCE_STANDARD_COMPLIANCE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The implementation chooses which entropy source standard to comply with (NIST SP 800-90B, AIS-31 PTG.2, or virtual source requirements). This is a design-time architectural choice.\"\n    },\n    {\n      \"excerpt\": \"A virtual source is not an ISA compliance requirement. It is defined for the benefit of the RISC-V security ecosystem so that virtual systems may have a consistent level of security.\",\n      \"line_number\": 3707,\n      \"parameter_name\": \"VIRTUAL_ENTROPY_SOURCE_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may choose to implement a virtual entropy source instead of a physical one. This is an optional architectural choice.\"\n    },\n    {\n      \"excerpt\": \"Vendors do not have to implement all of the list's instructions to be Zkt compliant; however, if they claim to have Zkt and implement any of the listed instructions, it must have data-independent latency.\",\n      \"line_number\": 3825,\n      \"parameter_name\": \"ZKT_INSTRUCTION_SUBSET\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"set\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses which subset of the Zkt instruction list to implement. Any implemented instructions must have data-independent latency, but not all need to be implemented.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"This instruction gathers bits from the high and low halves of the source word into odd/even bit positions in the destination word.\",\n      \"line_number\": 3463,\n      \"reason\": \"This describes the behavioral operation of the zip instruction, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The interface was designed to be simple so that a vendor- and device-independent driver component (e.g., in Linux kernel, embedded firmware, or a cryptographic library) may use `seed` to generate truly random bits.\",\n      \"line_number\": 4000,\n      \"reason\": \"This is design rationale explaining why the interface was designed a certain way, not a parameter that implementers can choose.\"\n    },\n    {\n      \"excerpt\": \"All currently defined cryptographic instructions (Zk* and Zbk* extensions) are on this list, together with a set of relevant supporting instructions from I, M, C, and B extensions.\",\n      \"line_number\": 3787,\n      \"reason\": \"This describes which instructions are included in the Zkt list, but the list itself is fixed by the specification, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The `seed` CSR provides an interface to a NIST SP 800-90B cite:[TuBaKe:18] or BSI AIS-31 cite:[KiSc11] compliant physical Entropy Source (ES).\",\n      \"line_number\": 3495,\n      \"reason\": \"This describes what the seed CSR provides, but doesn't indicate an implementation choice - it's a fixed requirement.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 38621,
-  "output_tokens": 1222,
-  "latency_ms": 28393,
-  "timestamp": "2026-04-15T16:08:34.261881+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The entropy source extension defines the `seed` CSR at address `0x015`.\",\n      \"line_number\": 372,\n      \"parameter_name\": \"SEED_CSR_ADDRESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The CSR address 0x015 for the seed CSR is a fixed architectural choice. While the text says 'defines', this is specifying where implementers must place this CSR if they implement the Zkr extension.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"A core which implements `Zkn` must implement all of the above extensions.\",\n      \"line_number\": 395,\n      \"reason\": \"This is a fixed requirement ('must implement') that applies to all implementations of Zkn. There is no implementation choice here.\"\n    },\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 456,\n      \"reason\": \"This is a fixed requirement ('must always') for constant-time execution. All implementations must satisfy this - it's not a parameter.\"\n    },\n    {\n      \"excerpt\": \"For RV32, the encodings corresponding to shamt[5]=1 are reserved.\",\n      \"line_number\": 1944,\n      \"reason\": \"This describes a fixed encoding constraint, not an implementation choice. The reservation is mandatory for all RV32 implementations.\"\n    },\n    {\n      \"excerpt\": \"Note that `rnum` must be in the range `0x0..0xA`. The values `0xB..0xF` are reserved.\",\n      \"line_number\": 1006,\n      \"reason\": \"This describes fixed encoding constraints and reserved values, not implementation choices. All implementations must enforce these ranges.\"\n    },\n    {\n      \"excerpt\": \"This instruction is available only on RV32.\",\n      \"line_number\": 2816,\n      \"reason\": \"This describes which base architectures support the instruction, which is a fixed specification requirement, not an implementation parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 36972,
+  "output_tokens": 555,
+  "latency_ms": 15664,
+  "timestamp": "2026-05-25T21:13:10.792133+00:00",
   "error": null,
   "retry_count": 0
 }
