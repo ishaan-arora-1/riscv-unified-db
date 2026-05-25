@@ -136,6 +136,7 @@ def format_chunk_section(chunk_text: str, meta: ChunkMeta) -> str:
         f"(chunk {meta['chunk_index']}/{meta['total_chunks']})",
         "",
         "Analyze the following specification text and extract all architectural parameters.",
+        "Use overlap text only as context; avoid re-extracting a parameter when its defining sentence appears entirely in a previous chunk.",
         "Include line numbers relative to the original file (starting from "
         f"line {meta['start_line']}).",
         "",
