@@ -1,54 +1,43 @@
 {
   "chunk_id": "chunk_003",
-  "source_file": "bfloat16.adoc",
-  "start_line": 1,
-  "end_line": 790,
-  "content_start_line": 1,
+  "source_file": "b-st-ext.adoc",
+  "start_line": 3397,
+  "end_line": 3485,
+  "content_start_line": 3427,
   "model": "claude-sonnet-4",
-  "parameters": [
-    {
-      "excerpt": "All of the BF16 instructions in the extensions defined in this specification (i.e., Zfbfmin, Zvfbfmin, and Zvfbfwma) fully support subnormal numbers. That is, instructions are able to accept subnormal values as inputs and they can produce subnormal results.",
-      "line_number": 149,
-      "parameter_name": "BF16_SUBNORMAL_SUPPORT",
-      "existing_udb_name": null,
-      "class": "NORM_DIRECT",
-      "value_type": "binary",
-      "confidence": "high",
-      "reasoning": "The specification explicitly states that BF16 instructions fully support subnormal numbers, but the NOTE indicates future extensions may choose not to support them, making this an implementation choice."
-    }
-  ],
+  "parameters": [],
   "skipped_non_parameters": [
     {
-      "excerpt": "Future floating-point extensions, including those that operate on BF16 values, may chose not to support subnormal numbers.",
-      "line_number": 154,
-      "reason": "This is inside a [NOTE] block, which is non-normative. NOTE blocks are informative only and do not define architectural parameters."
+      "excerpt": "The *zext.h* mnemonic corresponds to different instruction encodings in RV32 and RV64.",
+      "line_number": 3410,
+      "reason": "This text is inside a [NOTE] block and is therefore non-normative. Do not extract parameters from NOTE, TIP, WARNING, or IMPORTANT blocks."
     },
     {
-      "excerpt": "For BF16, the RISC-V canonical NaN corresponds to the pattern of _0x7fc0_ which is the most significant 16 bits of the RISC-V single-precision canonical NaN.",
-      "line_number": 185,
-      "reason": "This defines a fixed constant value (0x7fc0) that all implementations must use for the canonical NaN. It is not a parameter but a fixed requirement."
+      "excerpt": "This instruction is available only on RV32.",
+      "line_number": 3450,
+      "reason": "This is a fixed requirement that specifies the instruction is only available on RV32. There is no implementation choice - it's a constraint on when the instruction exists."
     },
     {
-      "excerpt": "In RISC-V, tininess is detected after rounding.",
-      "line_number": 244,
-      "reason": "This is a fixed requirement that applies to all RISC-V implementations. There is no implementation choice here - all must detect tininess after rounding."
+      "excerpt": "This instruction is useful for implementing the SHA3 cryptographic hash function on a 32-bit architecture, as it implements the bit-interleaving operation used to speed up the 64-bit rotations directly.",
+      "line_number": 3465,
+      "reason": "This text is inside a [NOTE] block labeled 'Software Hint' and is therefore non-normative. It describes a use case, not an architectural parameter."
     },
     {
-      "excerpt": "This extension depends upon the single-precision floating-point extension `F`.",
-      "line_number": 284,
-      "reason": "This describes a dependency requirement, not an implementation choice. All implementations of this extension must include the F extension."
+      "excerpt": "This instruction zero-extends the least-significant halfword of the source to XLEN by inserting 0's into all of the bits more significant than 15.",
+      "line_number": 3398,
+      "reason": "This describes the fixed behavior of the zext.h instruction. The operation is deterministic and not implementation-defined."
     },
     {
-      "excerpt": "SEW is any value other than 16",
-      "line_number": 520,
-      "reason": "This describes a reserved encoding constraint, not an implementation parameter. It specifies what values are illegal, not what choices implementers have."
+      "excerpt": "This instruction gathers bits from the high and low halves of the source word into odd/even bit positions in the destination word.",
+      "line_number": 3447,
+      "reason": "This describes the fixed behavior of the zip instruction. The operation is deterministic and not implementation-defined."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"All of the BF16 instructions in the extensions defined in this specification (i.e., Zfbfmin, Zvfbfmin, and Zvfbfwma) fully support subnormal numbers. That is, instructions are able to accept subnormal values as inputs and they can produce subnormal results.\",\n      \"line_number\": 149,\n      \"parameter_name\": \"BF16_SUBNORMAL_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The specification explicitly states that BF16 instructions fully support subnormal numbers, but the NOTE indicates future extensions may choose not to support them, making this an implementation choice.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Future floating-point extensions, including those that operate on BF16 values, may chose not to support subnormal numbers.\",\n      \"line_number\": 154,\n      \"reason\": \"This is inside a [NOTE] block, which is non-normative. NOTE blocks are informative only and do not define architectural parameters.\"\n    },\n    {\n      \"excerpt\": \"For BF16, the RISC-V canonical NaN corresponds to the pattern of _0x7fc0_ which is the most significant 16 bits of the RISC-V single-precision canonical NaN.\",\n      \"line_number\": 185,\n      \"reason\": \"This defines a fixed constant value (0x7fc0) that all implementations must use for the canonical NaN. It is not a parameter but a fixed requirement.\"\n    },\n    {\n      \"excerpt\": \"In RISC-V, tininess is detected after rounding.\",\n      \"line_number\": 244,\n      \"reason\": \"This is a fixed requirement that applies to all RISC-V implementations. There is no implementation choice here - all must detect tininess after rounding.\"\n    },\n    {\n      \"excerpt\": \"This extension depends upon the single-precision floating-point extension `F`.\",\n      \"line_number\": 284,\n      \"reason\": \"This describes a dependency requirement, not an implementation choice. All implementations of this extension must include the F extension.\"\n    },\n    {\n      \"excerpt\": \"SEW is any value other than 16\",\n      \"line_number\": 520,\n      \"reason\": \"This describes a reserved encoding constraint, not an implementation parameter. It specifies what values are illegal, not what choices implementers have.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 13920,
-  "output_tokens": 634,
-  "latency_ms": 15362,
-  "timestamp": "2026-04-15T14:25:36.457672+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The *zext.h* mnemonic corresponds to different instruction encodings in RV32 and RV64.\",\n      \"line_number\": 3410,\n      \"reason\": \"This text is inside a [NOTE] block and is therefore non-normative. Do not extract parameters from NOTE, TIP, WARNING, or IMPORTANT blocks.\"\n    },\n    {\n      \"excerpt\": \"This instruction is available only on RV32.\",\n      \"line_number\": 3450,\n      \"reason\": \"This is a fixed requirement that specifies the instruction is only available on RV32. There is no implementation choice - it's a constraint on when the instruction exists.\"\n    },\n    {\n      \"excerpt\": \"This instruction is useful for implementing the SHA3 cryptographic hash function on a 32-bit architecture, as it implements the bit-interleaving operation used to speed up the 64-bit rotations directly.\",\n      \"line_number\": 3465,\n      \"reason\": \"This text is inside a [NOTE] block labeled 'Software Hint' and is therefore non-normative. It describes a use case, not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"This instruction zero-extends the least-significant halfword of the source to XLEN by inserting 0's into all of the bits more significant than 15.\",\n      \"line_number\": 3398,\n      \"reason\": \"This describes the fixed behavior of the zext.h instruction. The operation is deterministic and not implementation-defined.\"\n    },\n    {\n      \"excerpt\": \"This instruction gathers bits from the high and low halves of the source word into odd/even bit positions in the destination word.\",\n      \"line_number\": 3447,\n      \"reason\": \"This describes the fixed behavior of the zip instruction. The operation is deterministic and not implementation-defined.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 6264,
+  "output_tokens": 467,
+  "latency_ms": 8223,
+  "timestamp": "2026-05-25T20:39:50.718466+00:00",
   "error": null,
   "retry_count": 0
 }
