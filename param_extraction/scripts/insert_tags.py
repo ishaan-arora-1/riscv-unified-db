@@ -545,13 +545,8 @@ def main(argv: list[str] | None = None) -> int:
         stats, _new, results = tag_file(path, file_requests, apply=apply)
         all_stats.append(stats)
         all_unmatched.extend(r for r in results if not r.matched)
-        if apply and stats.inserted > 0:
+        if stats.inserted > 0 and (apply or args.mode == "verify"):
             touched_files.append(path)
-        elif args.mode == "verify" and stats.inserted > 0:
-            # In verify mode, validate any file we *would* have written to —
-            # i.e. files that already contain on-disk param tags.
-            if "[#param:" in path.read_text(encoding="utf-8"):
-                touched_files.append(path)
 
     # Write report
     args.report.parent.mkdir(parents=True, exist_ok=True)
