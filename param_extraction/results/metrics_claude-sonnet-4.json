@@ -1,30 +1,31 @@
 {
   "total_udb_params": 185,
   "debug_spec_params": 8,
-  "total_llm_params_deduped": 202,
-  "raw_recall": 0.5622,
-  "adjusted_recall": 0.5876,
-  "adjusted_recall_pct": "58.8%",
-  "matched_udb_count": 104,
-  "matched_non_debug_count": 104,
-  "classification_accuracy": 0.7778,
-  "classification_accuracy_pct": "77.8%",
-  "exact_matches_evaluated": 54,
-  "class_correct": 42,
+  "total_llm_params_deduped": 215,
+  "raw_recall": 0.3676,
+  "adjusted_recall": 0.3842,
+  "adjusted_recall_pct": "38.4%",
+  "matched_udb_count": 68,
+  "matched_non_debug_count": 68,
+  "classification_accuracy": 0.6792,
+  "classification_accuracy_pct": "67.9%",
+  "exact_matches_evaluated": 53,
+  "class_correct": 36,
   "confusion_matrix": {
     "NORM_DIRECT": {
-      "NORM_DIRECT": 19,
+      "NORM_DIRECT": 13,
       "NORM_CSR_RW": 3,
-      "NORM_CSR_WARL": 1
+      "NORM_CSR_WARL": 1,
+      "DOC_RULE": 3
     },
     "NORM_CSR_RW": {
+      "NORM_CSR_WARL": 6,
       "NORM_DIRECT": 1,
-      "NORM_CSR_RW": 16,
-      "NORM_CSR_WARL": 4
+      "NORM_CSR_RW": 17
     },
     "NORM_CSR_WARL": {
       "NORM_DIRECT": 2,
-      "NORM_CSR_WARL": 5,
+      "NORM_CSR_WARL": 4,
       "NORM_CSR_RW": 1
     },
     "SW_RULE": {
@@ -32,17 +33,17 @@
     }
   },
   "per_class_recall": {
-    "NORM_DIRECT": {
-      "found": 65,
-      "total": 100
+    "NORM_CSR_WARL": {
+      "found": 7,
+      "total": 24
     },
     "NORM_CSR_RW": {
-      "found": 28,
+      "found": 31,
       "total": 51
     },
-    "NORM_CSR_WARL": {
-      "found": 9,
-      "total": 24
+    "NORM_DIRECT": {
+      "found": 28,
+      "total": 100
     },
     "SW_RULE": {
       "found": 2,
@@ -50,15 +51,15 @@
     }
   },
   "confidence_distribution": {
-    "high": 163,
-    "medium": 39
+    "high": 177,
+    "medium": 38
   },
   "new_params_by_class": {
-    "NORM_DIRECT": 91,
-    "NORM_CSR_RW": 20,
-    "NON_ISA": 8,
-    "SW_RULE": 2,
+    "NORM_DIRECT": 104,
+    "NORM_CSR_RW": 22,
+    "NON_ISA": 9,
+    "SW_RULE": 3,
     "NORM_CSR_WARL": 19
   },
-  "new_params_total": 140
+  "new_params_total": 157
 }
