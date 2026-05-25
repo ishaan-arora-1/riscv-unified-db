@@ -24,7 +24,7 @@ import re
 import sys
 import time
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -50,7 +50,7 @@ logger = logging.getLogger("extract")
 
 # Rate limit: 30K input tokens per minute for this API tier.
 # We track token expenditure and sleep as needed.
-RATE_LIMIT_TOKENS_PER_MIN = 30_000
+RATE_LIMIT_TOKENS_PER_MIN = int(os.environ.get("RATE_LIMIT_TPM", "30000"))
 
 
 class RateLimiter:
@@ -257,7 +257,7 @@ def call_anthropic(system_prompt: str, user_message: str, model_id: str) -> dict
             t0 = time.monotonic()
             response = client.messages.create(
                 model=model_id,
-                max_tokens=8192,
+                max_tokens=int(os.environ.get("MAX_OUTPUT_TOKENS","8192")),
                 temperature=0,
                 system=system_prompt,
                 messages=[{"role": "user", "content": user_message}],
@@ -298,7 +298,7 @@ def call_openai(system_prompt: str, user_message: str, model_id: str) -> dict:
     response = client.chat.completions.create(
         model=model_id,
         temperature=0,
-        max_tokens=8192,
+        max_tokens=int(os.environ.get("MAX_OUTPUT_TOKENS","8192")),
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_message},
@@ -505,7 +505,7 @@ def process_chunk(
                     input_tokens=api_result["input_tokens"],
                     output_tokens=api_result["output_tokens"],
                     latency_ms=api_result["latency_ms"],
-                    timestamp=datetime.now(datetime.UTC).isoformat(),
+                    timestamp=datetime.now(UTC).isoformat(),
                     error="JSON parse failed",
                     retry_count=attempt,
                 )
@@ -536,7 +536,7 @@ def process_chunk(
                 input_tokens=api_result["input_tokens"],
                 output_tokens=api_result["output_tokens"],
                 latency_ms=api_result["latency_ms"],
-                timestamp=datetime.now(datetime.UTC).isoformat(),
+                timestamp=datetime.now(UTC).isoformat(),
                 retry_count=attempt,
             )
 
@@ -559,7 +559,7 @@ def process_chunk(
         input_tokens=0,
         output_tokens=0,
         latency_ms=0,
-        timestamp=datetime.now(datetime.UTC).isoformat(),
+        timestamp=datetime.now(UTC).isoformat(),
         error=last_error or "Unknown error",
         retry_count=max_retries,
     )
