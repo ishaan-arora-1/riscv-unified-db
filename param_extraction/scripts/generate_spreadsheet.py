@@ -99,47 +99,44 @@ def normalize_name(name: str) -> str:
 # ── Alignment lookup ───────────────────────────────────────────────────────
 
 
-def build_alignment_lookup(alignment: dict) -> dict[str, dict]:
-    """Map llm_name -> alignment entry (covers exact / one_to_many / concept_group / fuzzy)."""
-    lookup: dict[str, dict] = {}
+def build_alignment_lookup(alignment: dict) -> dict[str, list[dict]]:
+    """Map llm_name -> all alignment entries for that LLM finding."""
+    lookup: dict[str, list[dict]] = {}
     for a in alignment.get("alignments", []):
         llm = a.get("llm_name")
         if llm:
-            lookup[llm] = a
+            lookup.setdefault(llm, []).append(a)
     return lookup
 
 
 def resolved_name_and_named(
     llm_name: str,
-    alignment_lookup: dict[str, dict],
+    alignment_lookup: dict[str, list[dict]],
     udb_names: set[str],
 ) -> tuple[str, str, str]:
-    """Return (final_name, named_flag, notes_hint).
-
-    - final_name: UDB name when the LLM aligned to one; otherwise the
-      normalized LLM-proposed name.
-    - named_flag: 'yes' / 'no' — does this parameter already exist in UDB?
-    - notes_hint: short tag describing the resolution path; used to seed `notes`.
-    """
+    """Return (final_name, named_flag, notes_hint)."""
     raw_llm = (llm_name or "").strip()
     normalized = normalize_name(raw_llm)
 
-    # 1. Direct UDB hit (LLM produced the UDB name verbatim).
     if normalized in udb_names:
         return normalized, "yes", ""
 
-    # 2. Aligned via Phase 5/6 (exact / fuzzy / one_to_many / concept_group).
-    align = alignment_lookup.get(raw_llm) or alignment_lookup.get(normalized)
-    if align and align.get("udb_name") and align.get("match_type") != "none":
+    aligns = alignment_lookup.get(raw_llm) or alignment_lookup.get(normalized) or []
+    non_none_aligns = [a for a in aligns if a.get("udb_name") and a.get("match_type") != "none"]
+
+    if len(non_none_aligns) == 1:
+        align = non_none_aligns[0]
         match_type = align["match_type"]
         udb = align["udb_name"]
         if match_type == "exact":
             return udb, "yes", ""
-        # Non-exact alignments deserve a reviewer hint.
         hint = f"aligned via {match_type} to UDB {udb}"
         return udb, "yes", hint
 
-    # 3. Genuinely new parameter — emit a normalized UDB-style name.
+    if len(non_none_aligns) > 1:
+        names = ", ".join(sorted({a["udb_name"] for a in non_none_aligns}))
+        return normalized, "no", f"needs review: multiple UDB matches ({names})"
+
     return normalized, "no", "newly discovered"
 
 
