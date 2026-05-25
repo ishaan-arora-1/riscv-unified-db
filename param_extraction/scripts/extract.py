@@ -229,6 +229,7 @@ def _format_chunk(chunk_text: str, meta: dict) -> str:
         f"Lines: {meta['start_line']}-{meta['end_line']}",
         "",
         "Analyze the following specification text and extract all architectural parameters.",
+        f"Treat lines before {meta['content_start_line']} as overlap context only; avoid re-extracting a parameter when its defining sentence appears entirely in that overlap region.",
         f"Include line numbers relative to the original file (starting from line {meta['start_line']}).",
         "",
         "```",
