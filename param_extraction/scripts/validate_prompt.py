@@ -100,6 +100,10 @@ def validate_examples() -> None:
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
 
+    check(isinstance(data, dict), "examples.json top-level is an object")
+    if not isinstance(data, dict):
+        return
+
     pos = data.get("positive_examples", [])
     neg = data.get("negative_examples", [])
 
