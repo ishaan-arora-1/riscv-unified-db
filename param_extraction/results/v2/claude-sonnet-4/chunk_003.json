@@ -1,84 +1,38 @@
 {
   "chunk_id": "chunk_003",
-  "source_file": "bfloat16.adoc",
-  "start_line": 1,
-  "end_line": 790,
-  "content_start_line": 1,
+  "source_file": "b-st-ext.adoc",
+  "start_line": 3397,
+  "end_line": 3485,
+  "content_start_line": 3427,
   "model": "claude-sonnet-4",
-  "parameters": [
-    {
-      "excerpt": "All of the BF16 instructions in the extensions defined in this specification (i.e., Zfbfmin, Zvfbfmin, and Zvfbfwma) fully support subnormal numbers. That is, instructions are able to accept subnormal values as inputs and they can produce subnormal results.",
-      "line_number": 149,
-      "parameter_name": "BF16_SUBNORMAL_SUPPORT",
-      "existing_udb_name": null,
-      "class": "NORM_DIRECT",
-      "value_type": "binary",
-      "confidence": "high",
-      "reasoning": "The specification states that BF16 instructions fully support subnormal numbers, but the NOTE immediately following indicates that future extensions may choose not to support them. This implies implementations have a choice about subnormal support in future BF16 extensions."
-    },
-    {
-      "excerpt": "SEW is any value other than 16",
-      "line_number": 569,
-      "parameter_name": "VFNCVTBF16_SEW_SUPPORT",
-      "existing_udb_name": null,
-      "class": "NORM_CSR_WARL",
-      "value_type": "set",
-      "confidence": "high",
-      "reasoning": "This is a reserved encoding constraint for the vfncvtbf16.f.f.w instruction. The SEW field in vector instructions is WARL, and this parameter defines which SEW values are legal (only 16 is supported)."
-    },
-    {
-      "excerpt": "SEW is any value other than 16",
-      "line_number": 625,
-      "parameter_name": "VFWCVTBF16_SEW_SUPPORT",
-      "existing_udb_name": null,
-      "class": "NORM_CSR_WARL",
-      "value_type": "set",
-      "confidence": "high",
-      "reasoning": "This is a reserved encoding constraint for the vfwcvtbf16.f.f.v instruction. The SEW field in vector instructions is WARL, and this parameter defines which SEW values are legal (only 16 is supported)."
-    },
-    {
-      "excerpt": "SEW is any value other than 16",
-      "line_number": 707,
-      "parameter_name": "VFWMACCBF16_SEW_SUPPORT",
-      "existing_udb_name": null,
-      "class": "NORM_CSR_WARL",
-      "value_type": "set",
-      "confidence": "high",
-      "reasoning": "This is a reserved encoding constraint for the vfwmaccbf16 instruction. The SEW field in vector instructions is WARL, and this parameter defines which SEW values are legal (only 16 is supported)."
-    }
-  ],
+  "parameters": [],
   "skipped_non_parameters": [
     {
-      "excerpt": "Future floating-point extensions, including those that operate on BF16 values, may chose not to support subnormal numbers.",
-      "line_number": 154,
-      "reason": "This text is inside a [NOTE] block, which is non-normative. Parameters should not be extracted from NOTE blocks."
+      "excerpt": "The *zext.h* mnemonic corresponds to different instruction encodings in RV32 and RV64.",
+      "line_number": 3410,
+      "reason": "This is inside a [NOTE] block, which is non-normative. Do not extract parameters from NOTE blocks."
     },
     {
-      "excerpt": "When MODE=Direct, all traps into machine mode cause the pc to be set to the address in the BASE field.",
-      "line_number": 0,
-      "reason": "This example text describes behavior when a CSR field has a specific value, not an implementation choice about which values are supported."
+      "excerpt": "This instruction is available only on RV32.",
+      "line_number": 3450,
+      "reason": "This is a fixed requirement that applies to all implementations - the zip instruction is only defined for RV32. There is no implementation choice here."
     },
     {
-      "excerpt": "BF16 addition, subtraction, multiplication, division, and square-root operations can be faithfully emulated by converting the BF16 operands to single-precision",
-      "line_number": 378,
-      "reason": "This text is inside a [NOTE] block describing emulation techniques, which is informative rather than a normative implementation requirement."
+      "excerpt": "This instruction gathers bits from the high and low halves of the source word into odd/even bit positions in the destination word.",
+      "line_number": 3447,
+      "reason": "This describes the fixed behavior of the zip instruction. The operation is deterministic and not implementation-defined."
     },
     {
-      "excerpt": "The BF16 extensions defined in this specification (i.e., Zfbfmin, Zvfbfmin, and Zvfbfwma) depend on the single-precision floating-point extension F",
-      "line_number": 268,
-      "reason": "This describes fixed dependencies that all implementations must satisfy, not optional implementation choices."
-    },
-    {
-      "excerpt": "Narrowing convert FP32 value to a BF16 value. Round according to the RM field.",
-      "line_number": 463,
-      "reason": "This describes the operation performed by an instruction, not an implementation-defined parameter. The rounding behavior is determined by the RM field value at runtime."
+      "excerpt": "This instruction is useful for implementing the SHA3 cryptographic hash function on a 32-bit architecture",
+      "line_number": 3461,
+      "reason": "This is inside a [NOTE] block labeled 'Software Hint', which is non-normative guidance. Do not extract parameters from NOTE blocks."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"All of the BF16 instructions in the extensions defined in this specification (i.e., Zfbfmin, Zvfbfmin, and Zvfbfwma) fully support subnormal numbers. That is, instructions are able to accept subnormal values as inputs and they can produce subnormal results.\",\n      \"line_number\": 149,\n      \"parameter_name\": \"BF16_SUBNORMAL_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The specification states that BF16 instructions fully support subnormal numbers, but the NOTE immediately following indicates that future extensions may choose not to support them. This implies implementations have a choice about subnormal support in future BF16 extensions.\"\n    },\n    {\n      \"excerpt\": \"SEW is any value other than 16\",\n      \"line_number\": 569,\n      \"parameter_name\": \"VFNCVTBF16_SEW_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This is a reserved encoding constraint for the vfncvtbf16.f.f.w instruction. The SEW field in vector instructions is WARL, and this parameter defines which SEW values are legal (only 16 is supported).\"\n    },\n    {\n      \"excerpt\": \"SEW is any value other than 16\",\n      \"line_number\": 625,\n      \"parameter_name\": \"VFWCVTBF16_SEW_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This is a reserved encoding constraint for the vfwcvtbf16.f.f.v instruction. The SEW field in vector instructions is WARL, and this parameter defines which SEW values are legal (only 16 is supported).\"\n    },\n    {\n      \"excerpt\": \"SEW is any value other than 16\",\n      \"line_number\": 707,\n      \"parameter_name\": \"VFWMACCBF16_SEW_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This is a reserved encoding constraint for the vfwmaccbf16 instruction. The SEW field in vector instructions is WARL, and this parameter defines which SEW values are legal (only 16 is supported).\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Future floating-point extensions, including those that operate on BF16 values, may chose not to support subnormal numbers.\",\n      \"line_number\": 154,\n      \"reason\": \"This text is inside a [NOTE] block, which is non-normative. Parameters should not be extracted from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"When MODE=Direct, all traps into machine mode cause the pc to be set to the address in the BASE field.\",\n      \"line_number\": 0,\n      \"reason\": \"This example text describes behavior when a CSR field has a specific value, not an implementation choice about which values are supported.\"\n    },\n    {\n      \"excerpt\": \"BF16 addition, subtraction, multiplication, division, and square-root operations can be faithfully emulated by converting the BF16 operands to single-precision\",\n      \"line_number\": 378,\n      \"reason\": \"This text is inside a [NOTE] block describing emulation techniques, which is informative rather than a normative implementation requirement.\"\n    },\n    {\n      \"excerpt\": \"The BF16 extensions defined in this specification (i.e., Zfbfmin, Zvfbfmin, and Zvfbfwma) depend on the single-precision floating-point extension F\",\n      \"line_number\": 268,\n      \"reason\": \"This describes fixed dependencies that all implementations must satisfy, not optional implementation choices.\"\n    },\n    {\n      \"excerpt\": \"Narrowing convert FP32 value to a BF16 value. Round according to the RM field.\",\n      \"line_number\": 463,\n      \"reason\": \"This describes the operation performed by an instruction, not an implementation-defined parameter. The rounding behavior is determined by the RM field value at runtime.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 15779,
-  "output_tokens": 1162,
-  "latency_ms": 19769,
-  "timestamp": "2026-04-15T15:40:05.151409+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The *zext.h* mnemonic corresponds to different instruction encodings in RV32 and RV64.\",\n      \"line_number\": 3410,\n      \"reason\": \"This is inside a [NOTE] block, which is non-normative. Do not extract parameters from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"This instruction is available only on RV32.\",\n      \"line_number\": 3450,\n      \"reason\": \"This is a fixed requirement that applies to all implementations - the zip instruction is only defined for RV32. There is no implementation choice here.\"\n    },\n    {\n      \"excerpt\": \"This instruction gathers bits from the high and low halves of the source word into odd/even bit positions in the destination word.\",\n      \"line_number\": 3447,\n      \"reason\": \"This describes the fixed behavior of the zip instruction. The operation is deterministic and not implementation-defined.\"\n    },\n    {\n      \"excerpt\": \"This instruction is useful for implementing the SHA3 cryptographic hash function on a 32-bit architecture\",\n      \"line_number\": 3461,\n      \"reason\": \"This is inside a [NOTE] block labeled 'Software Hint', which is non-normative guidance. Do not extract parameters from NOTE blocks.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 8123,
+  "output_tokens": 337,
+  "latency_ms": 7177,
+  "timestamp": "2026-05-25T21:00:50.820950+00:00",
   "error": null,
   "retry_count": 0
 }
