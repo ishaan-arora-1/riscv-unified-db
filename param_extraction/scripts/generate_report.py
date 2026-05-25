@@ -34,7 +34,7 @@ def main():
     # Generate flat name list (for LLM prompts)
     names = sorted(p["name"] for p in params)
     names_path = DATA_DIR / "udb_param_names.txt"
-    with open(names_path, "w") as f:
+    with open(names_path, "w", encoding="utf-8") as f:
         for name in names:
             f.write(name + "\n")
     print(f"Written {len(names)} parameter names to {names_path}")
@@ -81,6 +81,9 @@ def generate_csv(params, mappings, out_path):
             "spec_text": best.get("line_text", "")[:200],
             "description": p["description"][:300],
         })
+
+    if not rows:
+        return
 
     with open(out_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
