@@ -2,11 +2,11 @@
   "total_udb_params": 185,
   "debug_spec_params": 8,
   "total_llm_params_deduped": 215,
-  "raw_recall": 0.3676,
-  "adjusted_recall": 0.3842,
-  "adjusted_recall_pct": "38.4%",
-  "matched_udb_count": 68,
-  "matched_non_debug_count": 68,
+  "raw_recall": 0.6,
+  "adjusted_recall": 0.6271,
+  "adjusted_recall_pct": "62.7%",
+  "matched_udb_count": 111,
+  "matched_non_debug_count": 111,
   "classification_accuracy": 0.6792,
   "classification_accuracy_pct": "67.9%",
   "exact_matches_evaluated": 53,
@@ -33,17 +33,17 @@
     }
   },
   "per_class_recall": {
+    "NORM_DIRECT": {
+      "found": 70,
+      "total": 100
+    },
+    "NORM_CSR_RW": {
+      "found": 32,
+      "total": 51
+    },
     "NORM_CSR_WARL": {
       "found": 7,
       "total": 24
-    },
-    "NORM_CSR_RW": {
-      "found": 31,
-      "total": 51
-    },
-    "NORM_DIRECT": {
-      "found": 28,
-      "total": 100
     },
     "SW_RULE": {
       "found": 2,
@@ -55,11 +55,11 @@
     "medium": 38
   },
   "new_params_by_class": {
-    "NORM_DIRECT": 104,
+    "NORM_DIRECT": 103,
     "NORM_CSR_RW": 22,
-    "NON_ISA": 9,
+    "NON_ISA": 7,
     "SW_RULE": 3,
-    "NORM_CSR_WARL": 19
+    "NORM_CSR_WARL": 18
   },
-  "new_params_total": 157
+  "new_params_total": 153
 }

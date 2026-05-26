@@ -3,8 +3,8 @@ Phase 7 — Final Parameter Spreadsheet — Statistics
 
 Total rows               : 346
 UDB ground-truth params  : 185
-Already named in UDB     : 88
-New (unnamed) discoveries: 258
+Already named in UDB     : 87
+New (unnamed) discoveries: 259
 Spec files touched       : 48
 
 Classification breakdown:

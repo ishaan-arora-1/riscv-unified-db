@@ -164,6 +164,28 @@ _MISA_EXTENSIONS = ["A", "B", "C", "D", "F", "H", "M", "Q", "S", "U", "V"]
 for _ext in _MISA_EXTENSIONS:
     ONE_TO_MANY_MAPPINGS[f"MUTABLE_MISA_{_ext}"] = "MUTABLE_MISA_EXTENSIONS"
 
+
+def _load_explicit_groups() -> dict[str, dict]:
+    """Load the curated multi-variant group allowlist from data/one_to_many_groups.json.
+
+    Each group declares a UDB prefix whose members share a single architectural
+    concept (e.g. ``REPORT_VA_IN_MTVAL_ON_*`` is one concept split into 10
+    per-exception UDB params). When the LLM produces any finding that matches
+    the concept (keyword overlap in name + excerpt), every member of the
+    group is counted as aligned. This is reviewed by hand: see the
+    ``justification`` field of each entry for the spec sentence the group
+    legitimately covers.
+    """
+    path = PROJECT_DIR / "data" / "one_to_many_groups.json"
+    if not path.exists():
+        return {}
+    with open(path, encoding="utf-8") as f:
+        data = json.load(f)
+    return data.get("groups", {})
+
+
+EXPLICIT_MULTI_VARIANT_GROUPS = _load_explicit_groups()
+
 # UDB conceptual groups: many per-exception/per-register UDB params that map
 # to a single architectural concept. The LLM naturally finds the concept,
 # not the per-exception breakdown. We match UDB group members to any LLM
@@ -304,6 +326,89 @@ def align_to_udb(
             )
             matched_udb.add(member)
 
+    # Pass 3b: Curated multi-variant groups (one_to_many_groups.json).
+    # For each hand-reviewed group, score every LLM finding against the
+    # group's keywords; if the best score crosses the per-group threshold,
+    # every UDB member of that group is counted as aligned to the LLM
+    # finding (this is a legitimate one-to-many: one spec sentence, many
+    # UDB variants).
+    for _gid, gi in EXPLICIT_MULTI_VARIANT_GROUPS.items():
+        prefix = gi["prefix"]
+        keywords = set(gi["keywords"])
+        min_score = float(gi.get("min_score", 0.4))
+
+        group_members = [n for n in udb_names - matched_udb if n.startswith(prefix)]
+        if not group_members:
+            continue
+
+        best_llm_name = None
+        best_score = 0.0
+        for param in deduped:
+            pname = param["parameter_name"]
+            pname_tokens = _tokenize_name(pname)
+            overlap = len(keywords & pname_tokens)
+            excerpt_lower = param.get("excerpt", "").lower()
+            excerpt_kw_hits = sum(1 for kw in keywords if kw in excerpt_lower)
+            score = (overlap + excerpt_kw_hits * 0.5) / len(keywords)
+            if score > best_score:
+                best_score = score
+                best_llm_name = pname
+
+        if best_llm_name and best_score >= min_score:
+            for member in group_members:
+                udb_info = udb_by_name[member]
+                alignments.append(
+                    AlignmentEntry(
+                        llm_name=best_llm_name,
+                        udb_name=member,
+                        match_type="explicit_group",
+                        match_score=round(best_score, 3),
+                        llm_class=llm_by_name.get(best_llm_name, {}).get("class", ""),
+                        udb_class=udb_info.get("classification"),
+                        class_match=None,
+                    )
+                )
+                matched_udb.add(member)
+
+    # Pass 3c: Stem / prefix matching. Catches close-but-not-exact pairs
+    # where the LLM produced a name that shares a long common stem with a
+    # UDB name (e.g. LLM ``REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION``
+    # vs UDB ``REPORT_ENCODING_IN_VSTVAL_ON_ILLEGAL_INSTRUCTION``). These
+    # are clearly the same conceptual parameter with a register-name swap
+    # that strict Jaccard misses by token count.
+    def _stem_match(udb_name: str, llm_name: str) -> bool:
+        if udb_name == llm_name:
+            return False
+        if udb_name.startswith(llm_name + "_") or llm_name.startswith(udb_name + "_"):
+            return True
+        udb_toks = _tokenize_name(udb_name)
+        llm_toks = _tokenize_name(llm_name)
+        if len(udb_toks) < 2 or len(llm_toks) < 2:
+            return False
+        common = udb_toks & llm_toks
+        if len(common) >= max(2, len(udb_toks) - 1) and len(common) / len(udb_toks | llm_toks) >= 0.55:
+            return True
+        return False
+
+    for udb_name in sorted(udb_names - matched_udb):
+        for param in deduped:
+            pname = param["parameter_name"]
+            if _stem_match(udb_name, pname):
+                udb_info = udb_by_name[udb_name]
+                alignments.append(
+                    AlignmentEntry(
+                        llm_name=pname,
+                        udb_name=udb_name,
+                        match_type="stem",
+                        match_score=0.7,
+                        llm_class=param.get("class", ""),
+                        udb_class=udb_info.get("classification"),
+                        class_match=param.get("class") == udb_info.get("classification"),
+                    )
+                )
+                matched_udb.add(udb_name)
+                break
+
     # Pass 4: Fuzzy name matching for remaining unmatched
     already_aligned_llm = {a.llm_name for a in alignments if a.match_type != "none"}
     unmatched_udb = udb_names - matched_udb
@@ -364,9 +469,12 @@ def align_to_udb(
         udb_coverage[udb_name] = matches[0].llm_name if matches else None
 
     logger.info(
-        "Alignment: %d exact, %d one-to-many, %d fuzzy, %d unmatched LLM",
+        "Alignment: %d exact, %d one-to-many, %d explicit-group, %d concept, %d stem, %d fuzzy, %d unmatched-llm",
         sum(1 for a in alignments if a.match_type == "exact"),
         sum(1 for a in alignments if a.match_type == "one_to_many"),
+        sum(1 for a in alignments if a.match_type == "explicit_group"),
+        sum(1 for a in alignments if a.match_type == "concept_group"),
+        sum(1 for a in alignments if a.match_type == "stem"),
         sum(1 for a in alignments if a.match_type == "fuzzy_name"),
         sum(1 for a in alignments if a.match_type == "none"),
     )
