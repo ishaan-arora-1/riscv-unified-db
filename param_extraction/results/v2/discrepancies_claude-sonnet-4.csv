@@ -1,5 +1,4 @@
 type,llm_name,udb_name,match_score,llm_class,udb_class,source_file,notes
-NAMING_MISMATCH,MISELECT_LEGAL_VALUES,MSTATUS_VS_LEGAL_VALUES,0.4,NORM_CSR_WARL,NORM_CSR_WARL,indirect-csr.adoc,
 NAMING_MISMATCH,TRAP_ON_RESERVED_ROUNDING_MODE,TRAP_ON_RESERVED_INSTRUCTION,0.5,NORM_DIRECT,NORM_DIRECT,f-st-ext.adoc,
 NAMING_MISMATCH,TRAP_ON_UNIMPLEMENTED_HPM_COUNTER,TRAP_ON_UNIMPLEMENTED_CSR,0.5,NORM_DIRECT,NORM_DIRECT,counters.adoc,
 NAMING_MISMATCH,TRAP_ON_UNIMPLEMENTED_HPM_COUNTER,TRAP_ON_UNIMPLEMENTED_INSTRUCTION,0.5,NORM_DIRECT,NORM_DIRECT,counters.adoc,
@@ -67,98 +66,6 @@ UDB_RECALL_MISS,,PRECISE_SYNCHRONOUS_EXCEPTIONS,0.0,,NORM_DIRECT,,"If false, any
 will cause execution"
 UDB_RECALL_MISS,,RCID_WIDTH,0.0,,NORM_CSR_WARL,,"Number of bits used for the Resource Control ID field (RCID).
 Default is 12."
-UDB_RECALL_MISS,,REPORT_ENCODING_IN_VSTVAL_ON_ILLEGAL_INSTRUCTION,0.0,,NORM_DIRECT,,"When true, `vstval` is written with the encoding of an instruction that causes an
-`IllegalInstructio"
-UDB_RECALL_MISS,,REPORT_ENCODING_IN_VSTVAL_ON_VIRTUAL_INSTRUCTION,0.0,,NORM_DIRECT,,"When true, `vstval` is written with the encoding of an instruction that causes an
-`VirualInstruction"
-UDB_RECALL_MISS,,REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT,0.0,,NORM_DIRECT,,"When true, `htval` is written with the Guest Physical Address, shifted right by 2, that
-caused a `Gu"
-UDB_RECALL_MISS,,REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT,0.0,,NORM_DIRECT,,"Whether or not GPA >> 2 is written into htval/mtval2 when an instruction guest page fault occurs.
-
-I"
-UDB_RECALL_MISS,,REPORT_GPA_IN_TVAL_ON_INTERMEDIATE_GUEST_PAGE_FAULT,0.0,,NORM_DIRECT,,"Whether or not GPA >> 2 is written into htval/mtval2 when a guest page fault occurs while
-walking a "
-UDB_RECALL_MISS,,REPORT_GPA_IN_TVAL_ON_LOAD_GUEST_PAGE_FAULT,0.0,,NORM_DIRECT,,"Whether or not GPA >> 2 is written into htval/mtval2 when a load guest page fault occurs.
-
-If false,"
-UDB_RECALL_MISS,,REPORT_GPA_IN_TVAL_ON_STORE_AMO_GUEST_PAGE_FAULT,0.0,,NORM_DIRECT,,"Whether or not GPA >> 2 is written into htval/mtval2 when a store/amo guest page fault occurs.
-
-If f"
-UDB_RECALL_MISS,,REPORT_VA_IN_MTVAL_ON_BREAKPOINT,0.0,,NORM_DIRECT,,"Options:
-
-  * true:  `mtval` is written with the virtual PC of an EBREAK instruction (same informati"
-UDB_RECALL_MISS,,REPORT_VA_IN_MTVAL_ON_INSTRUCTION_ACCESS_FAULT,0.0,,NORM_DIRECT,,"Options:
-
-  * true:  `mtval` is written with the virtual address of a fetch causing the access fault"
-UDB_RECALL_MISS,,REPORT_VA_IN_MTVAL_ON_INSTRUCTION_MISALIGNED,0.0,,NORM_DIRECT,,"Options:
-
-  * true:  `mtval` is written with the virtual address of a trapping misaligned fetch
-  * "
-UDB_RECALL_MISS,,REPORT_VA_IN_MTVAL_ON_INSTRUCTION_PAGE_FAULT,0.0,,NORM_DIRECT,,"When true, `mtval` is written with the virtual PC of an instructino when fetch causes an
-`Instructio"
-UDB_RECALL_MISS,,REPORT_VA_IN_MTVAL_ON_LOAD_ACCESS_FAULT,0.0,,NORM_DIRECT,,"Options:
-
-  * true:  `mtval` is written with the virtual address of a load causing the access fault
-"
-UDB_RECALL_MISS,,REPORT_VA_IN_MTVAL_ON_LOAD_MISALIGNED,0.0,,NORM_DIRECT,,"Options:
-
-  * true:  `mtval` is written with the virtual address of a trapping misaligned load.
-  * "
-UDB_RECALL_MISS,,REPORT_VA_IN_MTVAL_ON_LOAD_PAGE_FAULT,0.0,,NORM_DIRECT,,"When true, `mtval` is written with the virtual address of a load when it causes a
-`LoadPageFault`.
-
-"
-UDB_RECALL_MISS,,REPORT_VA_IN_MTVAL_ON_STORE_AMO_ACCESS_FAULT,0.0,,NORM_DIRECT,,"Options:
-
-  * true:  `mtval` is written with the virtual address of a store or AMO causing the acces"
-UDB_RECALL_MISS,,REPORT_VA_IN_MTVAL_ON_STORE_AMO_MISALIGNED,0.0,,NORM_DIRECT,,"Options:
-
-  * true:  `mtval` is written with the virtual address of a trapping misaligned store or A"
-UDB_RECALL_MISS,,REPORT_VA_IN_MTVAL_ON_STORE_AMO_PAGE_FAULT,0.0,,NORM_DIRECT,,"When true, `mtval` is written with the virtual address of a store when it causes a
-`StoreAmoPageFaul"
-UDB_RECALL_MISS,,REPORT_VA_IN_STVAL_ON_BREAKPOINT,0.0,,NORM_DIRECT,,"When true, `stval` is written with the virtual PC of the EBREAK instruction (same information as `me"
-UDB_RECALL_MISS,,REPORT_VA_IN_STVAL_ON_INSTRUCTION_ACCESS_FAULT,0.0,,NORM_DIRECT,,"When true, `stval` is written with the virtual PC of an instructino when fetch causes an
-`Instructio"
-UDB_RECALL_MISS,,REPORT_VA_IN_STVAL_ON_INSTRUCTION_MISALIGNED,0.0,,NORM_DIRECT,,"When true, `stval` is written with the virtual PC when an instruction fetch is misaligned.
-
-When fal"
-UDB_RECALL_MISS,,REPORT_VA_IN_STVAL_ON_INSTRUCTION_PAGE_FAULT,0.0,,NORM_DIRECT,,"When true, `stval` is written with the virtual PC of an instructino when fetch causes an
-`Instructio"
-UDB_RECALL_MISS,,REPORT_VA_IN_STVAL_ON_LOAD_ACCESS_FAULT,0.0,,NORM_DIRECT,,"When true, `stval` is written with the virtual address of a load when it causes a
-`LoadAccessFault`."
-UDB_RECALL_MISS,,REPORT_VA_IN_STVAL_ON_LOAD_MISALIGNED,0.0,,NORM_DIRECT,,"When true, `stval` is written with the virtual address of a load instruction when the
-address is mis"
-UDB_RECALL_MISS,,REPORT_VA_IN_STVAL_ON_LOAD_PAGE_FAULT,0.0,,NORM_DIRECT,,"When true, `stval` is written with the virtual address of a load when it causes a
-`LoadPageFault`.
-
-"
-UDB_RECALL_MISS,,REPORT_VA_IN_STVAL_ON_STORE_AMO_ACCESS_FAULT,0.0,,NORM_DIRECT,,"When true, `stval` is written with the virtual address of a store when it causes a
-`StoreAmoAccessFa"
-UDB_RECALL_MISS,,REPORT_VA_IN_STVAL_ON_STORE_AMO_MISALIGNED,0.0,,NORM_DIRECT,,"When true, `stval` is written with the virtual address of a store instruction when the
-address is mi"
-UDB_RECALL_MISS,,REPORT_VA_IN_STVAL_ON_STORE_AMO_PAGE_FAULT,0.0,,NORM_DIRECT,,"When true, `stval` is written with the virtual address of a store when it causes a
-`StoreAmoPageFaul"
-UDB_RECALL_MISS,,REPORT_VA_IN_VSTVAL_ON_BREAKPOINT,0.0,,NORM_DIRECT,,"When true, `vstval` is written with the virtual PC of the EBREAK instruction (same information as `m"
-UDB_RECALL_MISS,,REPORT_VA_IN_VSTVAL_ON_INSTRUCTION_ACCESS_FAULT,0.0,,NORM_DIRECT,,"When true, `vstval` is written with the virtual PC of an instructino when fetch causes an
-`Instructi"
-UDB_RECALL_MISS,,REPORT_VA_IN_VSTVAL_ON_INSTRUCTION_MISALIGNED,0.0,,NORM_DIRECT,,"When true, `vstval` is written with the virtual PC when an instruction fetch is misaligned.
-
-When fa"
-UDB_RECALL_MISS,,REPORT_VA_IN_VSTVAL_ON_INSTRUCTION_PAGE_FAULT,0.0,,NORM_DIRECT,,"When true, `vstval` is written with the virtual PC of an instructino when fetch causes an
-`Instructi"
-UDB_RECALL_MISS,,REPORT_VA_IN_VSTVAL_ON_LOAD_ACCESS_FAULT,0.0,,NORM_DIRECT,,"When true, `vstval` is written with the virtual address of a load when it causes a
-`LoadAccessFault`"
-UDB_RECALL_MISS,,REPORT_VA_IN_VSTVAL_ON_LOAD_MISALIGNED,0.0,,NORM_DIRECT,,"When true, `vstval` is written with the virtual address of a load instruction when the
-address is mi"
-UDB_RECALL_MISS,,REPORT_VA_IN_VSTVAL_ON_LOAD_PAGE_FAULT,0.0,,NORM_DIRECT,,"When true, `vstval` is written with the virtual address of a load when it causes a
-`LoadPageFault`.
-"
-UDB_RECALL_MISS,,REPORT_VA_IN_VSTVAL_ON_STORE_AMO_ACCESS_FAULT,0.0,,NORM_DIRECT,,"When true, `vstval` is written with the virtual address of a store when it causes a
-`StoreAmoAccessF"
-UDB_RECALL_MISS,,REPORT_VA_IN_VSTVAL_ON_STORE_AMO_MISALIGNED,0.0,,NORM_DIRECT,,"When true, `vstval` is written with the virtual address of a store instruction when the
-address is m"
-UDB_RECALL_MISS,,REPORT_VA_IN_VSTVAL_ON_STORE_AMO_PAGE_FAULT,0.0,,NORM_DIRECT,,"When true, `vstval` is written with the virtual address of a store when it causes a
-`StoreAmoPageFau"
 UDB_RECALL_MISS,,RVV_VL_WHEN_AVL_LT_DOUBLE_VLMAX,0.0,,NORM_DIRECT,,The value assigned to VL when AVL < 2*VLMAX.
 UDB_RECALL_MISS,,SCOUNTENABLE_EN,0.0,,NORM_CSR_RW,,"Indicates which counters can delegated via `scounteren`
 
@@ -238,30 +145,11 @@ Possible values:
   * ""alway"
 UDB_RECALL_MISS,,TRAP_ON_EBREAK,0.0,,NORM_DIRECT,,"The spec states that implementations may handle EBREAKs transparently
 without raising a trap, in whi"
-UDB_RECALL_MISS,,TRAP_ON_ECALL_FROM_M,0.0,,NORM_DIRECT,,"The spec states that implementations may handle ECALLs transparently
-without raising a trap, in whic"
-UDB_RECALL_MISS,,TRAP_ON_ECALL_FROM_S,0.0,,NORM_DIRECT,,"Whether or not an ECALL-from-S-mode causes a synchronous exception.
-
-The spec states that implementa"
-UDB_RECALL_MISS,,TRAP_ON_ECALL_FROM_U,0.0,,NORM_DIRECT,,"Whether or not an ECALL-from-U-mode causes a synchronous exception.
-
-The spec states that implementa"
-UDB_RECALL_MISS,,TRAP_ON_ECALL_FROM_VS,0.0,,NORM_DIRECT,,"Whether or not an ECALL-from-VS-mode causes a synchronous exception.
-
-The spec states that implement"
 UDB_RECALL_MISS,,VSSTAGE_MODE_BARE,0.0,,NORM_DIRECT,,Whether or not writing mode=Bare is supported in the `vsatp` register.
 UDB_RECALL_MISS,,VSTVEC_MODE_DIRECT,0.0,,NORM_CSR_WARL,,Whether or not `vstvec.MODE` supports Direct (0).
 UDB_RECALL_MISS,,VSTVEC_MODE_VECTORED,0.0,,NORM_CSR_WARL,,Whether or not `stvec.MODE` supports Vectored (1).
-UDB_RECALL_MISS,,VS_MODE_ENDIANNESS,0.0,,NORM_CSR_RW,,"Endianness of data in VS-mode. Can be one of:
-
- * little:  VS-mode data is always little endian
- * b"
 UDB_RECALL_MISS,,VUXLEN,0.0,,NORM_DIRECT,,"Set of XLENs supported in VU-mode. When both 32 and 64 are supported, VUXLEN can be changed
 via `vss"
-UDB_RECALL_MISS,,VU_MODE_ENDIANNESS,0.0,,NORM_CSR_RW,,"Endianness of data in VU-mode. Can be one of:
-
- * little:  VU-mode data is always little endian
- * b"
 LLM_NEW_HIGH_CONF,BASE_INTEGER_VARIANT,,0.0,NORM_DIRECT,,intro.adoc,"There are two primary base integer variants, RV32I and RV64I, described in <<rv32>> and <<rv64>>, wh"
 LLM_NEW_HIGH_CONF,BCLRI_SHAMT_RSV_RV32,,0.0,NORM_DIRECT,,b-st-ext.adoc,"For RV32, the encodings corresponding to shamt[5]=1 are reserved."
 LLM_NEW_HIGH_CONF,BEXTI_SHAMT_RSV_RV32,,0.0,NORM_DIRECT,,b-st-ext.adoc,"For RV32, the encodings corresponding to shamt[5]=1 are reserved."
@@ -302,7 +190,6 @@ LLM_NEW_HIGH_CONF,HGATP_MODES_SUPPORTED,,0.0,NORM_CSR_WARL,,hypervisor.adoc,Impl
 LLM_NEW_HIGH_CONF,HGATP_VMID_LSBS,,0.0,NORM_CSR_RW,,hypervisor.adoc,"The least-significant bits of VMID are implemented first: that is, if VMIDLEN > 0, VMID[VMIDLEN-1:0]"
 LLM_NEW_HIGH_CONF,HINT_SXLEN_PARAM,,0.0,NORM_DIRECT,,supervisor.adoc,When such a HINT is executed with XLEN < SXLEN and bits SXLEN..XLEN of the destination register not 
 LLM_NEW_MEDIUM_CONF,HPM_MISCONFIGURED_BEHAVIOR,,0.0,NORM_DIRECT,,counters.adoc,"If the configuration used to select the events counted by a counter is misconfigured, the counter ma"
-LLM_NEW_HIGH_CONF,HTVAL_TRAPVAL_PARAM,,0.0,NORM_DIRECT,,hypervisor.adoc,The `htval` register can optionally also be used to return the faulting guest physical address that 
 LLM_NEW_HIGH_CONF,HVIEN_LCOFI_IMPLEMENTED,,0.0,NORM_CSR_RW,,smcdeleg.adoc,the LCOFI bit (bit 13) in each of `hvip` and `hvien` is implemented and writable.
 LLM_NEW_HIGH_CONF,HVIP_LCOFI_IMPLEMENTED,,0.0,NORM_CSR_RW,,smcdeleg.adoc,the LCOFI bit (bit 13) in each of `hvip` and `hvien` is implemented and writable.
 LLM_NEW_HIGH_CONF,HYPERVISOR_EXTENSION,,0.0,NORM_DIRECT,,ssdbltrp.adoc,"If the hypervisor extension is additionally implemented, then the extension adds the `henvcfg`.DTE ("
@@ -340,6 +227,7 @@ LLM_NEW_HIGH_CONF,MISALIGNED_LDST_HW_OR_INVISIBLE_TRAP_FUNC_OF_ADDR,,0.0,NORM_DI
 LLM_NEW_HIGH_CONF,MISALIGNED_LDST_INVISIBLE_TRAP,,0.0,NORM_DIRECT,,rv32.adoc,via an invisible trap into the execution environment implementation
 LLM_NEW_HIGH_CONF,MISA_V_OP,,0.0,NORM_DIRECT,,v-st-ext.adoc,The `misa.v` bit is set for implementations providing `misa` and supporting V.
 LLM_NEW_HIGH_CONF,MISELECT_ACCESS,,0.0,NORM_CSR_RW,,indirect-csr.adoc,The miselect register may be read-only zero if there are no extensions implemented that utilize it.
+LLM_NEW_HIGH_CONF,MISELECT_LEGAL_VALUES,,0.0,NORM_CSR_WARL,,indirect-csr.adoc,miselect is a WARL register.
 LLM_NEW_HIGH_CONF,MISELECT_WIDTH,,0.0,NORM_DIRECT,,indirect-csr.adoc,The miselect register implements at least enough bits to support all implemented miselect values (co
 LLM_NEW_HIGH_CONF,MNEPC_INVALID_ADDRESS_CONVERSION,,0.0,NORM_DIRECT,,rnmi.adoc,"Prior to writing `mnepc`, implementations may convert an invalid address into some other invalid add"
 LLM_NEW_MEDIUM_CONF,MNOISE_CSR_IDLE_VALUE,,0.0,NORM_DIRECT,,scalar-crypto.adoc,"When available, but `NOISE_TEST = 0`, `mnoise` can return a nonzero constant (e.g. `0x00000001`) but"
@@ -374,7 +262,6 @@ LLM_NEW_HIGH_CONF,PUSHPOP_BUS_FAULT_HANDLING,,0.0,NORM_DIRECT,,zc.adoc,It is pla
 LLM_NEW_HIGH_CONF,RASEMU_SUPPORT,,0.0,NORM_CSR_RW,,smctr.adoc,"When the optional `__x__ctrctl`.RASEMU bit is implemented and set to 1, transfer recording behavior "
 LLM_NEW_HIGH_CONF,RESERVED_VILL_SET,,0.0,NORM_DIRECT,,v-st-ext.adoc,Implementations may set `vill` in either case.
 LLM_NEW_HIGH_CONF,RNMI_CAUSE_CODES_SUPPORTED,,0.0,NORM_DIRECT,,rnmi.adoc,"If the reason is an interrupt and RNMI causes are not supported, bit MXLEN-1 is set to 1, and zero i"
-LLM_NEW_HIGH_CONF,RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS,,0.0,NON_ISA,,rnmi.adoc,"RNMI also has an associated exception trap handler address, which is implementation defined."
 LLM_NEW_HIGH_CONF,RNMI_TRAP_HANDLER_ADDRESS,,0.0,NON_ISA,,rnmi.adoc,The RNMI interrupt trap handler address is implementation-defined.
 LLM_NEW_HIGH_CONF,RV32C_SLLI_SHAMT5_RESTRICTION,,0.0,NORM_DIRECT,,c-st-ext.adoc,"For RV32C, _shamt[5]_ must be zero; the code points with _shamt[5]_=1 are designated for custom exte"
 LLM_NEW_HIGH_CONF,RV32C_SRLI_SHAMT5_RESTRICTION,,0.0,NORM_DIRECT,,c-st-ext.adoc,"For RV32C, _shamt[5]_ must be zero; the code points with _shamt[5]_=1 are designated for custom exte"

@@ -414,7 +414,7 @@ index 5d4d609..491e492 100644
  
  [[norm:vsatp_v0]]
 diff --git a/src/indirect-csr.adoc b/src/indirect-csr.adoc
-index 4f88295..6d4b015 100644
+index 4f88295..0692e54 100644
 --- a/src/indirect-csr.adoc
 +++ b/src/indirect-csr.adoc
 @@ -21,7 +21,7 @@ without requiring a switch statement with a case for each register.
@@ -440,7 +440,7 @@ index 4f88295..6d4b015 100644
  CSRs (`mireg*`).# [#norm:miselect_value_range]#`miselect` value ranges are allocated to dependent
  extensions, which specify the register state accessible via each
 -`mireg__i__` register, for each `miselect` value.# [#norm:miselect_WARL]#`miselect` is a WARL
-+`mireg__i__` register, for each `miselect` value.# [#param:MSTATUS_VS_LEGAL_VALUES]##[#norm:miselect_WARL]#`miselect` is a WARL
++`mireg__i__` register, for each `miselect` value.# [#param:MISELECT_LEGAL_VALUES]##[#norm:miselect_WARL]#`miselect` is a WARL
  register.#
  
  [#norm:miselect_min_sz]#The `miselect` register implements at least enough bits to support all
