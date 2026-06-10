@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "total_parameters": 185,
+    "total_parameters": 223,
     "source": "spec/std/isa/param",
     "csr_source": "spec/std/isa/csr"
   },
@@ -8,41 +8,40 @@
     "by_classification": {
       "NORM_CSR_RW": 55,
       "NORM_CSR_WARL": 26,
-      "NORM_DIRECT": 102,
+      "NORM_DIRECT": 140,
       "SW_RULE": 2
     },
     "by_value_type": {
-      "binary": 111,
+      "binary": 144,
       "bitmask": 5,
-      "conditional": 10,
-      "enum": 36,
-      "range": 12,
+      "enum": 43,
+      "range": 17,
       "set": 8,
-      "value": 3
+      "value": 6
     },
     "by_confidence": {
-      "high": 150,
-      "low": 16,
-      "medium": 19
+      "high": 167,
+      "low": 35,
+      "medium": 21
     },
-    "params_with_csr_references": 94,
-    "params_with_requirements": 40,
+    "params_with_csr_references": 111,
+    "params_with_requirements": 47,
     "top_defining_extensions": {
       "H": 61,
-      "Sm": 38,
+      "Sm": 57,
       "S": 29,
+      "Zvl32b": 27,
+      "Smctr": 17,
       "Sdtrig": 10,
-      "V": 7,
       "Ssstateen": 7,
       "Zcmt": 6,
       "Smstateen": 6,
-      "U": 5,
       "Ssaia": 4,
       "Zalrsc": 4,
+      "U": 4,
       "F": 3,
       "Zicfilp": 3,
-      "Zicfiss": 3,
-      "Zicbom": 2
+      "Zicfiss": 3
     }
   },
   "parameters": [
@@ -81,32 +80,13 @@
         "summary": "ext:Sm AND param:MARCHID_IMPLEMENTED(equal=True)"
       },
       "value_type": {
-        "type": "conditional",
+        "type": "value",
         "details": {
-          "branches": [
-            {
-              "condition": "MXLEN == 32",
-              "inner_type": {
-                "type": "value",
-                "details": {
-                  "complex": "allOf"
-                }
-              }
-            },
-            {
-              "condition": "MXLEN == 64",
-              "inner_type": {
-                "type": "value",
-                "details": {
-                  "complex": "allOf"
-                }
-              }
-            }
-          ]
+          "complex": "allOf"
         }
       },
-      "has_requirements": false,
-      "requirements_summary": null,
+      "has_requirements": true,
+      "requirements_summary": "# \"Commercial architecture IDs are allocated by each commercial vendor independently, but must have the MSB set and cannot contain zero in the remaining MXLEN-1 bits.\"\nMXLEN == 32 -> ARCH_ID_VALUE != ",
       "csr_references": [
         {
           "csr": "marchid",
@@ -136,34 +116,14 @@
         "summary": "ext:S"
       },
       "value_type": {
-        "type": "conditional",
+        "type": "range",
         "details": {
-          "branches": [
-            {
-              "condition": "MXLEN == 32",
-              "inner_type": {
-                "type": "range",
-                "details": {
-                  "minimum": 0,
-                  "maximum": 9
-                }
-              }
-            },
-            {
-              "condition": "MXLEN == 64",
-              "inner_type": {
-                "type": "range",
-                "details": {
-                  "minimum": 0,
-                  "maximum": 16
-                }
-              }
-            }
-          ]
+          "minimum": 0,
+          "maximum": 16
         }
       },
-      "has_requirements": false,
-      "requirements_summary": null,
+      "has_requirements": true,
+      "requirements_summary": "MXLEN == 32 -> ASID_WIDTH <= 9;\n",
       "csr_references": [],
       "classification": "NORM_DIRECT",
       "classification_confidence": "high",
@@ -231,28 +191,9 @@
         "summary": "ext:Sm(>= 1.12.0)"
       },
       "value_type": {
-        "type": "conditional",
+        "type": "value",
         "details": {
-          "branches": [
-            {
-              "condition": "MXLEN == 32",
-              "inner_type": {
-                "type": "value",
-                "details": {
-                  "ref": "schema_defs.json#/$defs/uint32"
-                }
-              }
-            },
-            {
-              "condition": "MXLEN == 64",
-              "inner_type": {
-                "type": "value",
-                "details": {
-                  "ref": "schema_defs.json#/$defs/uint64"
-                }
-              }
-            }
-          ]
+          "ref": "schema_defs.json#/$defs/uint64"
         }
       },
       "has_requirements": true,
@@ -272,7 +213,7 @@
     {
       "name": "COUNTINHIBIT_EN",
       "long_name": "TODO",
-      "description": "Indicates which hardware performance monitor counters can be disabled from `mcountinhibit`.\n\nAn unimplemented counter cannot be specified, i.e., if HPM_COUNTER_EN[3] is false,\nit would be illegal to set COUNTINHIBIT_EN[3] to true.\n\nCOUNTINHIBIT_EN[1] can never be true, since it corresponds to `mcountinhibit.TM`,\nwhich is always read-only-0.\n\nCOUNTINHIBIT_EN[3:31] must all be false if `Zihpm` is not implemented.",
+      "description": "Indicates which hardware performance monitor counters can be disabled from `mcountinhibit`.\n\nAn unimplemented counter cannot be specified, i.e., if HPM_COUNTER_EN[3] is false,\nit would be illegal to set COUNTINHIBIT_EN[3] to true.\n\nCOUNTINHIBIT_EN[1] can never be true, since it corresponds to `mcountinhibit.TM`,\nwhich is always read-only-0.",
       "defined_by": {
         "extensions": [
           "Sm"
@@ -875,15 +816,15 @@
       "description": "The maximum size in bits of a vector element that any operation can produce or consume.",
       "defined_by": {
         "extensions": [
-          "V"
+          "Zvl32b"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "V"
+            "name": "Zvl32b"
           }
         },
-        "summary": "ext:V"
+        "summary": "ext:Zvl32b"
       },
       "value_type": {
         "type": "value",
@@ -905,15 +846,15 @@
       "description": "It is recommended that at reset, vtype.vill is set, the remaining bits in vtype are zero, and vl is set to zero.\nIf this parameter is set to true, this recommendation is followed. If it is false, at reset the respective fields\nwill be UNDEFINED_LEGAL.",
       "defined_by": {
         "extensions": [
-          "V"
+          "Zvl32b"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "V"
+            "name": "Zvl32b"
           }
         },
-        "summary": "ext:V"
+        "summary": "ext:Zvl32b"
       },
       "value_type": {
         "type": "binary",
@@ -1439,18 +1380,18 @@
     {
       "name": "HPM_COUNTER_EN",
       "long_name": "TODO",
-      "description": "List of HPM counters that are enabled.\nThere is one entry for each hpmcounter.\n\nThe first three entries *must* be false (as they correspond to CY, IR, TM in, _e.g._ `mhmpcountinhibit`)\nIndex 3 in HPM_COUNTER_EN corresponds to hpmcounter3.\nIndex 31 in HPM_COUNTER_EN corresponds to hpmcounter31.",
+      "description": "List of HPM counters that are enabled.\nThere is one entry for each hpmcounter.\n\nThe first three entries *must* be false (as they correspond to CY, IR, TM in, _e.g._ `mhmpcountinhibit`)\nIndex 3 in HPM_COUNTER_EN corresponds to mhpmcounter3.\nIndex 31 in HPM_COUNTER_EN corresponds to mhpmcounter31.",
       "defined_by": {
         "extensions": [
-          "Smhpm"
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "Smhpm"
+            "name": "Sm"
           }
         },
-        "summary": "ext:Smhpm"
+        "summary": "ext:Sm"
       },
       "value_type": {
         "type": "bitmask",
@@ -6690,25 +6631,185 @@
     {
       "name": "HPM_EVENTS",
       "long_name": "TODO",
-      "description": "List of defined event numbers that can be written into hpmeventN",
+      "description": "List of defined event numbers that can be written into mhpmeventN",
       "defined_by": {
         "extensions": [
-          "Smhpm"
+          "Sm"
         ],
         "params": [],
         "raw": {
-          "extension": {
-            "name": "Smhpm"
-          }
+          "allOf": [
+            {
+              "extension": {
+                "name": "Sm"
+              }
+            },
+            {
+              "param": {
+                "anyOf": [
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 3,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 4,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 4,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 5,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 6,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 7,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 8,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 9,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 10,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 11,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 12,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 13,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 14,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 15,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 16,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 17,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 18,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 19,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 20,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 21,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 22,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 23,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 24,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 25,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 26,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 27,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 28,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 29,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 30,
+                    "equal": true
+                  },
+                  {
+                    "name": "HPM_COUNTER_EN",
+                    "index": 31,
+                    "equal": true
+                  }
+                ]
+              }
+            }
+          ]
         },
-        "summary": "ext:Smhpm"
+        "summary": "ext:Sm AND {'param': {'anyOf': [{'name': 'HPM_COUNTER_EN', 'index': 3, 'equal': True}, {'na"
       },
       "value_type": {
         "type": "set",
         "details": {
           "element_type": "integer",
-          "min_items": null,
-          "max_items": null
+          "min_items": 0,
+          "max_items": 18446744073709551616
         }
       },
       "has_requirements": false,
@@ -7145,15 +7246,23 @@
       "description": "Indicates whether or not hardware will write to `mstatus.FS`\n\nValues are:\n[separator=\"!\"]\n!===\nh! never  ! Hardware never writes `mstatus.FS`\nh! precise  ! Hardware writes `mstatus.FS` to the Dirty (3) state precisely when F registers are modified\nh! imprecise ! Hardware writes `mstatus.FS` imprecisely. This will result in a call to unpredictable() on any attempt to read `mstatus` or write FP state.\n!===",
       "defined_by": {
         "extensions": [
-          "F"
+          "F",
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "F"
+            "allOf": [
+              {
+                "name": "F"
+              },
+              {
+                "name": "Sm"
+              }
+            ]
           }
         },
-        "summary": "ext:F"
+        "summary": "ext:F AND ext:Sm"
       },
       "value_type": {
         "type": "enum",
@@ -7185,15 +7294,23 @@
       "description": "Indicates whether or not hardware will write to `mstatus.VS`\n\nValues are:\n[separator=\"!\"]\n!===\nh! never  ! Hardware never writes `mstatus.VS`\nh! precise  ! Hardware writes `mstatus.VS` to the Dirty (3) state precisely when V registers are modified\nh! imprecise ! Hardware writes `mstatus.VS` imprecisely. This will result in a call to unpredictable() on any attempt to read `mstatus` or write vector state.\n!===",
       "defined_by": {
         "extensions": [
-          "V"
+          "Sm",
+          "Zvl32b"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "V"
+            "allOf": [
+              {
+                "name": "Zvl32b"
+              },
+              {
+                "name": "Sm"
+              }
+            ]
           }
         },
-        "summary": "ext:V"
+        "summary": "ext:Zvl32b AND ext:Sm"
       },
       "value_type": {
         "type": "enum",
@@ -7269,6 +7386,39 @@
       "source_file": "spec/std/isa/param/IGNORE_INVALID_VSATP_MODE_WRITES_WHEN_V_EQ_ZERO.yaml"
     },
     {
+      "name": "IMPRECISE_VECTOR_TRAP_SETTABLE",
+      "long_name": "TODO",
+      "description": "Some profiles may provide a privileged configuration bit that selects\nbetween precise and imprecise vector trap behavior, allowing flexibility\nin how traps and partial updates are reported.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/IMPRECISE_VECTOR_TRAP_SETTABLE.yaml"
+    },
+    {
       "name": "IMP_ID_VALUE",
       "long_name": "Vendor-specific implementation ID in `mimpid`",
       "description": "A unique encoding of the version of the processor implementation.",
@@ -7303,32 +7453,13 @@
         "summary": "ext:Sm AND param:MIMPID_IMPLEMENTED(equal=True)"
       },
       "value_type": {
-        "type": "conditional",
+        "type": "value",
         "details": {
-          "branches": [
-            {
-              "condition": "MXLEN == 32",
-              "inner_type": {
-                "type": "value",
-                "details": {
-                  "ref": "schema_defs.json#/$defs/uint32"
-                }
-              }
-            },
-            {
-              "condition": "MXLEN == 64",
-              "inner_type": {
-                "type": "value",
-                "details": {
-                  "ref": "schema_defs.json#/$defs/uint64"
-                }
-              }
-            }
-          ]
+          "ref": "schema_defs.json#/$defs/uint64"
         }
       },
-      "has_requirements": false,
-      "requirements_summary": null,
+      "has_requirements": true,
+      "requirements_summary": "(MXLEN == 32) -> IMP_ID_VALUE <= 32'hffffffff;\n",
       "csr_references": [
         {
           "csr": "mimpid",
@@ -7482,6 +7613,41 @@
       "classification_confidence": "high",
       "classification_reasoning": "Referenced in sw_write() of jvt.MODE",
       "source_file": "spec/std/isa/param/JVT_READ_ONLY.yaml"
+    },
+    {
+      "name": "LEGAL_VSTART",
+      "long_name": "TODO",
+      "description": "Implementations may raise illegal-instruction exceptions for vector\ninstructions that specify a `vstart` value the implementation can never\nproduce under the same `vtype` configuration (e.g., due to restrictions\non supported strides or alignments).",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "enum",
+        "details": {
+          "values": [
+            "1_stride",
+            "2_stride",
+            "4_stride",
+            "custom"
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/LEGAL_VSTART.yaml"
     },
     {
       "name": "LRSC_FAIL_ON_NON_EXACT_LRSC",
@@ -7738,15 +7904,15 @@
       "description": "Indicates which counters can be delegated via `mcounteren`.\n\nAn unimplemented counter cannot be specified, i.e., if\nHPM_COUNTER_EN[3] is false, it would be illegal to set\nMCOUNTENABLE_EN[3] to true.\n\nMCOUNTENABLE_EN[0:2] must all be false if `Zicntr` is not implemented.\nMCOUNTENABLE_EN[3:31] must all be false if `Zihpm` is not implemented.",
       "defined_by": {
         "extensions": [
-          "U"
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "U"
+            "name": "Sm"
           }
         },
-        "summary": "ext:U"
+        "summary": "ext:Sm"
       },
       "value_type": {
         "type": "bitmask",
@@ -7755,7 +7921,7 @@
         }
       },
       "has_requirements": true,
-      "requirements_summary": "for (U32 i=3; i < 32; i++) {\n  MCOUNTENABLE_EN[i] -> !implemented?(ExtensionName::Smhpm) || HPM_COUNTER_EN[i];\n}\n",
+      "requirements_summary": "for (U32 i=3; i < 32; i++) {\n  MCOUNTENABLE_EN[i] -> HPM_COUNTER_EN[i];\n}\n",
       "csr_references": [
         {
           "csr": "mcounteren",
@@ -8074,6 +8240,754 @@
       "source_file": "spec/std/isa/param/MCOUNTENABLE_EN.yaml"
     },
     {
+      "name": "MCTRCTL_CORSWAPINH_IMPLEMENTED",
+      "long_name": "mctrctl.CORSWAPINH implemented",
+      "description": "Whether or not mctrctl.CORSWAPINH is implemented.\n\nWhen not implemented mctrctl.CORSWAPINH will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_CORSWAPINH_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_CUSTOM_IMPLEMENTED",
+      "long_name": "mctrctl.CUSTOM implemented",
+      "description": "Whether or not mctrctl.CUSTOM is implemented.\n\nWhen not implemented mctrctl.CUSTOM will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_CUSTOM_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_DIRCALLINH_IMPLEMENTED",
+      "long_name": "mctrctl.DIRCALLINH implemented",
+      "description": "Whether or not mctrctl.DIRCALLINH is implemented.\n\nWhen not implemented mctrctl.DIRCALLINH will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_DIRCALLINH_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_DIRJMPINH_IMPLEMENTED",
+      "long_name": "mctrctl.DIRJMPINH implemented",
+      "description": "Whether or not mctrctl.DIRJMPINH is implemented.\n\nWhen not implemented mctrctl.DIRJMPINH will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_DIRJMPINH_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_DIRLJMPINH_IMPLEMENTED",
+      "long_name": "mctrctl.DIRLJMPINH implemented",
+      "description": "Whether or not mctrctl.DIRLJMPINH is implemented.\n\nWhen not implemented mctrctl.DIRLJMPINH will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_DIRLJMPINH_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_EXCINH_IMPLEMENTED",
+      "long_name": "mctrctl.EXCINH implemented",
+      "description": "Whether or not mctrctl.EXCINH is implemented.\n\nWhen not implemented mctrctl.EXCINH will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_EXCINH_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_INDCALLINH_IMPLEMENTED",
+      "long_name": "mctrctl.INDCALLINH implemented",
+      "description": "Whether or not mctrctl.INDCALLINH is implemented.\n\nWhen not implemented mctrctl.INDCALLINH will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_INDCALLINH_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_INDJMPINH_IMPLEMENTED",
+      "long_name": "mctrctl.INDJMPINH implemented",
+      "description": "Whether or not mctrctl.INDJMPINH is implemented.\n\nWhen not implemented mctrctl.INDJMPINH will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_INDJMPINH_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_INDLJMPINH_IMPLEMENTED",
+      "long_name": "mctrctl.INDLJMPINH implemented",
+      "description": "Whether or not mctrctl.INDLJMPINH is implemented.\n\nWhen not implemented mctrctl.INDLJMPINH will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_INDLJMPINH_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_INTRINH_IMPLEMENTED",
+      "long_name": "mctrctl.INTRINH implemented",
+      "description": "Whether or not mctrctl.INTRINH is implemented.\n\nWhen not implemented mctrctl.INTRINH will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_INTRINH_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_MTE_IMPLEMENTED",
+      "long_name": "mctrctl.MTE implemented",
+      "description": "Whether or not mctrctl.MTE is implemented.\n\nWhen not implemented mctrctl.MTE will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_MTE_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_NTBREN_IMPLEMENTED",
+      "long_name": "mctrctl.NTBREN implemented",
+      "description": "Whether or not mctrctl.NTBREN is implemented.\n\nWhen not implemented mctrctl.NTBREN will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_NTBREN_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_RASEMU_IMPLEMENTED",
+      "long_name": "mctrctl.RASEMU implemented",
+      "description": "Whether or not mctrctl.RASEMU is implemented.\n\nWhen not implemented mctrctl.RASEMU will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_RASEMU_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_RETINH_IMPLEMENTED",
+      "long_name": "mctrctl.RETINH implemented",
+      "description": "Whether or not mctrctl.RETINH is implemented.\n\nWhen not implemented mctrctl.RETINH will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_RETINH_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_STE_IMPLEMENTED",
+      "long_name": "mctrctl.STE implemented",
+      "description": "Whether or not mctrctl.STE is implemented.\n\nWhen not implemented mctrctl.STE will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_STE_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_TKBRINH_IMPLEMENTED",
+      "long_name": "mctrctl.TKBRINH implemented",
+      "description": "Whether or not mctrctl.TKBRINH is implemented.\n\nWhen not implemented mctrctl.TKBRINH will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_TKBRINH_IMPLEMENTED.yaml"
+    },
+    {
+      "name": "MCTRCTL_TRETINH_IMPLEMENTED",
+      "long_name": "mctrctl.TRETINH implemented",
+      "description": "Whether or not mctrctl.TRETINH is implemented.\n\nWhen not implemented mctrctl.TRETINH will be read-only-zero.",
+      "defined_by": {
+        "extensions": [
+          "Smctr"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Smctr"
+          }
+        },
+        "summary": "ext:Smctr"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [
+        {
+          "csr": "vsctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
+          "csr": "sctrctl",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        }
+      ],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "high",
+      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "source_file": "spec/std/isa/param/MCTRCTL_TRETINH_IMPLEMENTED.yaml"
+    },
+    {
       "name": "MIMPID_IMPLEMENTED",
       "long_name": "Whether or not the `mimpid` CSR is implemented.",
       "description": "* false: `mimpid` is not implemented, and must be read-only-0\n* true: `mimpid` is implemented, and the value is determined by `IMP_ID_VALUE`",
@@ -8109,7 +9023,7 @@
     {
       "name": "MISALIGNED_AMO",
       "long_name": "TODO",
-      "description": "whether or not the implementation supports misaligned atomics in main memory",
+      "description": "Whether or not the implementation supports misaligned atomics in main memory",
       "defined_by": {
         "extensions": [
           "Zaamo"
@@ -8629,22 +9543,30 @@
       "defined_by": {
         "extensions": [
           "F",
-          "S"
+          "S",
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "anyOf": [
+            "allOf": [
               {
-                "name": "F"
+                "name": "Sm"
               },
               {
-                "name": "S"
+                "anyOf": [
+                  {
+                    "name": "F"
+                  },
+                  {
+                    "name": "S"
+                  }
+                ]
               }
             ]
           }
         },
-        "summary": "(ext:F OR ext:S)"
+        "summary": "ext:Sm AND (ext:F OR ext:S)"
       },
       "value_type": {
         "type": "set",
@@ -8734,22 +9656,30 @@
       "defined_by": {
         "extensions": [
           "S",
-          "V"
+          "Sm",
+          "Zvl32b"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "anyOf": [
+            "allOf": [
               {
-                "name": "V"
+                "name": "Sm"
               },
               {
-                "name": "S"
+                "anyOf": [
+                  {
+                    "name": "Zvl32b"
+                  },
+                  {
+                    "name": "S"
+                  }
+                ]
               }
             ]
           }
         },
-        "summary": "(ext:V OR ext:S)"
+        "summary": "ext:Sm AND (ext:Zvl32b OR ext:S)"
       },
       "value_type": {
         "type": "set",
@@ -8805,30 +9735,10 @@
         "summary": "ext:Sm"
       },
       "value_type": {
-        "type": "conditional",
+        "type": "range",
         "details": {
-          "branches": [
-            {
-              "condition": "MXLEN == 32",
-              "inner_type": {
-                "type": "range",
-                "details": {
-                  "minimum": 0,
-                  "maximum": 32
-                }
-              }
-            },
-            {
-              "condition": "MXLEN == 64",
-              "inner_type": {
-                "type": "range",
-                "details": {
-                  "minimum": 0,
-                  "maximum": 64
-                }
-              }
-            }
-          ]
+          "minimum": 0,
+          "maximum": 64
         }
       },
       "has_requirements": true,
@@ -8933,126 +9843,76 @@
         "summary": "ext:Sm AND {'param': {'allOf': [{'name': 'MTVEC_MODES', 'includes': 0, 'reason': 'Only rele"
       },
       "value_type": {
-        "type": "conditional",
+        "type": "enum",
         "details": {
-          "branches": [
-            {
-              "condition": "MXLEN == 32",
-              "inner_type": {
-                "type": "enum",
-                "details": {
-                  "values": [
-                    4,
-                    8,
-                    16,
-                    32,
-                    64,
-                    128,
-                    256,
-                    512,
-                    1024,
-                    2048,
-                    4095,
-                    8192,
-                    16384,
-                    32768,
-                    65536,
-                    131072,
-                    262144,
-                    524288,
-                    1048576,
-                    2097152,
-                    4194304,
-                    8388608,
-                    16777216,
-                    33554432,
-                    67108864,
-                    134217728,
-                    268435456,
-                    536870912,
-                    1073741824,
-                    2147483648
-                  ]
-                }
-              }
-            },
-            {
-              "condition": "MXLEN == 64",
-              "inner_type": {
-                "type": "enum",
-                "details": {
-                  "values": [
-                    4,
-                    8,
-                    16,
-                    32,
-                    64,
-                    128,
-                    256,
-                    512,
-                    1024,
-                    2048,
-                    4095,
-                    8192,
-                    16384,
-                    32768,
-                    65536,
-                    131072,
-                    262144,
-                    524288,
-                    1048576,
-                    2097152,
-                    4194304,
-                    8388608,
-                    16777216,
-                    33554432,
-                    67108864,
-                    134217728,
-                    268435456,
-                    536870912,
-                    1073741824,
-                    2147483648,
-                    4294967296,
-                    8589934592,
-                    17179869184,
-                    34359738368,
-                    68719476736,
-                    137438953472,
-                    274877906944,
-                    549755813888,
-                    1099511627776,
-                    2199023255552,
-                    4398046511104,
-                    8796093022208,
-                    17592186044416,
-                    35184372088832,
-                    70368744177664,
-                    140737488355328,
-                    281474976710656,
-                    562949953421312,
-                    1125899906842624,
-                    2251799813685248,
-                    4503599627370496,
-                    9007199254740992,
-                    18014398509481984,
-                    36028797018963968,
-                    72057594037927936,
-                    144115188075855872,
-                    288230376151711744,
-                    576460752303423488,
-                    1152921504606846976,
-                    2305843009213693952,
-                    4611686018427387904,
-                    9223372036854775808
-                  ]
-                }
-              }
-            }
+          "values": [
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4095,
+            8192,
+            16384,
+            32768,
+            65536,
+            131072,
+            262144,
+            524288,
+            1048576,
+            2097152,
+            4194304,
+            8388608,
+            16777216,
+            33554432,
+            67108864,
+            134217728,
+            268435456,
+            536870912,
+            1073741824,
+            2147483648,
+            4294967296,
+            8589934592,
+            17179869184,
+            34359738368,
+            68719476736,
+            137438953472,
+            274877906944,
+            549755813888,
+            1099511627776,
+            2199023255552,
+            4398046511104,
+            8796093022208,
+            17592186044416,
+            35184372088832,
+            70368744177664,
+            140737488355328,
+            281474976710656,
+            562949953421312,
+            1125899906842624,
+            2251799813685248,
+            4503599627370496,
+            9007199254740992,
+            18014398509481984,
+            36028797018963968,
+            72057594037927936,
+            144115188075855872,
+            288230376151711744,
+            576460752303423488,
+            1152921504606846976,
+            2305843009213693952,
+            4611686018427387904,
+            9223372036854775808
           ]
         }
       },
-      "has_requirements": false,
-      "requirements_summary": null,
+      "has_requirements": true,
+      "requirements_summary": "(MXLEN == 32) -> MTVEC_BASE_ALIGNMENT_DIRECT <= 2147483648;\n",
       "csr_references": [],
       "classification": "NORM_CSR_WARL",
       "classification_confidence": "low",
@@ -9109,126 +9969,76 @@
         "summary": "ext:Sm AND {'param': {'allOf': [{'name': 'MTVEC_MODES', 'includes': 1, 'reason': 'Only rele"
       },
       "value_type": {
-        "type": "conditional",
+        "type": "enum",
         "details": {
-          "branches": [
-            {
-              "condition": "MXLEN == 32",
-              "inner_type": {
-                "type": "enum",
-                "details": {
-                  "values": [
-                    4,
-                    8,
-                    16,
-                    32,
-                    64,
-                    128,
-                    256,
-                    512,
-                    1024,
-                    2048,
-                    4095,
-                    8192,
-                    16384,
-                    32768,
-                    65536,
-                    131072,
-                    262144,
-                    524288,
-                    1048576,
-                    2097152,
-                    4194304,
-                    8388608,
-                    16777216,
-                    33554432,
-                    67108864,
-                    134217728,
-                    268435456,
-                    536870912,
-                    1073741824,
-                    2147483648
-                  ]
-                }
-              }
-            },
-            {
-              "condition": "MXLEN == 64",
-              "inner_type": {
-                "type": "enum",
-                "details": {
-                  "values": [
-                    4,
-                    8,
-                    16,
-                    32,
-                    64,
-                    128,
-                    256,
-                    512,
-                    1024,
-                    2048,
-                    4095,
-                    8192,
-                    16384,
-                    32768,
-                    65536,
-                    131072,
-                    262144,
-                    524288,
-                    1048576,
-                    2097152,
-                    4194304,
-                    8388608,
-                    16777216,
-                    33554432,
-                    67108864,
-                    134217728,
-                    268435456,
-                    536870912,
-                    1073741824,
-                    2147483648,
-                    4294967296,
-                    8589934592,
-                    17179869184,
-                    34359738368,
-                    68719476736,
-                    137438953472,
-                    274877906944,
-                    549755813888,
-                    1099511627776,
-                    2199023255552,
-                    4398046511104,
-                    8796093022208,
-                    17592186044416,
-                    35184372088832,
-                    70368744177664,
-                    140737488355328,
-                    281474976710656,
-                    562949953421312,
-                    1125899906842624,
-                    2251799813685248,
-                    4503599627370496,
-                    9007199254740992,
-                    18014398509481984,
-                    36028797018963968,
-                    72057594037927936,
-                    144115188075855872,
-                    288230376151711744,
-                    576460752303423488,
-                    1152921504606846976,
-                    2305843009213693952,
-                    4611686018427387904,
-                    9223372036854775808
-                  ]
-                }
-              }
-            }
+          "values": [
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4095,
+            8192,
+            16384,
+            32768,
+            65536,
+            131072,
+            262144,
+            524288,
+            1048576,
+            2097152,
+            4194304,
+            8388608,
+            16777216,
+            33554432,
+            67108864,
+            134217728,
+            268435456,
+            536870912,
+            1073741824,
+            2147483648,
+            4294967296,
+            8589934592,
+            17179869184,
+            34359738368,
+            68719476736,
+            137438953472,
+            274877906944,
+            549755813888,
+            1099511627776,
+            2199023255552,
+            4398046511104,
+            8796093022208,
+            17592186044416,
+            35184372088832,
+            70368744177664,
+            140737488355328,
+            281474976710656,
+            562949953421312,
+            1125899906842624,
+            2251799813685248,
+            4503599627370496,
+            9007199254740992,
+            18014398509481984,
+            36028797018963968,
+            72057594037927936,
+            144115188075855872,
+            288230376151711744,
+            576460752303423488,
+            1152921504606846976,
+            2305843009213693952,
+            4611686018427387904,
+            9223372036854775808
           ]
         }
       },
-      "has_requirements": false,
-      "requirements_summary": null,
+      "has_requirements": true,
+      "requirements_summary": "(MXLEN == 32) -> MTVEC_BASE_ALIGNMENT_VECTORED <= 2147483648;\n",
       "csr_references": [],
       "classification": "NORM_CSR_WARL",
       "classification_confidence": "low",
@@ -9341,15 +10151,23 @@
       "description": "When the `A` extensions is supported, indicates whether or not\nthe extension can be disabled in the `misa.A` bit.",
       "defined_by": {
         "extensions": [
-          "A"
+          "A",
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "A"
+            "allOf": [
+              {
+                "name": "A"
+              },
+              {
+                "name": "Sm"
+              }
+            ]
           }
         },
-        "summary": "ext:A"
+        "summary": "ext:A AND ext:Sm"
       },
       "value_type": {
         "type": "binary",
@@ -9385,15 +10203,23 @@
       "description": "Indicates whether or not the `B` extension can be disabled with the `misa.B` bit.",
       "defined_by": {
         "extensions": [
-          "B"
+          "B",
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "B"
+            "allOf": [
+              {
+                "name": "B"
+              },
+              {
+                "name": "Sm"
+              }
+            ]
           }
         },
-        "summary": "ext:B"
+        "summary": "ext:B AND ext:Sm"
       },
       "value_type": {
         "type": "binary",
@@ -9424,15 +10250,23 @@
       "description": "Indicates whether or not the `C` extension can be disabled with the `misa.C` bit.",
       "defined_by": {
         "extensions": [
-          "C"
+          "C",
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "C"
+            "allOf": [
+              {
+                "name": "C"
+              },
+              {
+                "name": "Sm"
+              }
+            ]
           }
         },
-        "summary": "ext:C"
+        "summary": "ext:C AND ext:Sm"
       },
       "value_type": {
         "type": "binary",
@@ -9463,15 +10297,23 @@
       "description": "Indicates whether or not the `D` extension can be disabled with the `misa.D` bit.",
       "defined_by": {
         "extensions": [
-          "D"
+          "D",
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "D"
+            "allOf": [
+              {
+                "name": "D"
+              },
+              {
+                "name": "Sm"
+              }
+            ]
           }
         },
-        "summary": "ext:D"
+        "summary": "ext:D AND ext:Sm"
       },
       "value_type": {
         "type": "binary",
@@ -9507,15 +10349,23 @@
       "description": "Indicates whether or not the `F` extension can be disabled with the `misa.F` bit.",
       "defined_by": {
         "extensions": [
-          "F"
+          "F",
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "F"
+            "allOf": [
+              {
+                "name": "F"
+              },
+              {
+                "name": "Sm"
+              }
+            ]
           }
         },
-        "summary": "ext:F"
+        "summary": "ext:F AND ext:Sm"
       },
       "value_type": {
         "type": "binary",
@@ -9551,15 +10401,23 @@
       "description": "Indicates whether or not the `H` extension can be disabled with the `misa.H` bit.",
       "defined_by": {
         "extensions": [
-          "H"
+          "H",
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "H"
+            "allOf": [
+              {
+                "name": "Sm"
+              },
+              {
+                "name": "H"
+              }
+            ]
           }
         },
-        "summary": "ext:H"
+        "summary": "ext:Sm AND ext:H"
       },
       "value_type": {
         "type": "binary",
@@ -9590,15 +10448,23 @@
       "description": "Indicates whether or not the `M` extension can be disabled with the `misa.M` bit.",
       "defined_by": {
         "extensions": [
-          "M"
+          "M",
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "M"
+            "allOf": [
+              {
+                "name": "M"
+              },
+              {
+                "name": "Sm"
+              }
+            ]
           }
         },
-        "summary": "ext:M"
+        "summary": "ext:M AND ext:Sm"
       },
       "value_type": {
         "type": "binary",
@@ -9634,15 +10500,23 @@
       "description": "Indicates whether or not the `Q` extension can be disabled with the `misa.Q` bit.",
       "defined_by": {
         "extensions": [
-          "Q"
+          "Q",
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "Q"
+            "allOf": [
+              {
+                "name": "Q"
+              },
+              {
+                "name": "Sm"
+              }
+            ]
           }
         },
-        "summary": "ext:Q"
+        "summary": "ext:Q AND ext:Sm"
       },
       "value_type": {
         "type": "binary",
@@ -9673,15 +10547,23 @@
       "description": "Indicates whether or not the `S` extension can be disabled with the `misa.S` bit.",
       "defined_by": {
         "extensions": [
-          "S"
+          "S",
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "S"
+            "allOf": [
+              {
+                "name": "S"
+              },
+              {
+                "name": "Sm"
+              }
+            ]
           }
         },
-        "summary": "ext:S"
+        "summary": "ext:S AND ext:Sm"
       },
       "value_type": {
         "type": "binary",
@@ -9712,15 +10594,23 @@
       "description": "Indicates whether or not the `U` extension can be disabled with the `misa.U` bit.",
       "defined_by": {
         "extensions": [
+          "Sm",
           "U"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "U"
+            "allOf": [
+              {
+                "name": "U"
+              },
+              {
+                "name": "Sm"
+              }
+            ]
           }
         },
-        "summary": "ext:U"
+        "summary": "ext:U AND ext:Sm"
       },
       "value_type": {
         "type": "binary",
@@ -9751,15 +10641,23 @@
       "description": "Indicates whether or not the `V` extension can be disabled with the `misa.V` bit.",
       "defined_by": {
         "extensions": [
+          "Sm",
           "V"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "V"
+            "allOf": [
+              {
+                "name": "V"
+              },
+              {
+                "name": "Sm"
+              }
+            ]
           }
         },
-        "summary": "ext:V"
+        "summary": "ext:V AND ext:Sm"
       },
       "value_type": {
         "type": "binary",
@@ -9813,14 +10711,14 @@
       "requirements_summary": "# if M-mode is rv32, then every mode must be rv32\nMXLEN == 32 -> xlen() == 32;\n\n# can't get in to rv64 anywhere unless MXLEN is 64\nxlen() == 64 -> MXLEN == 64;\n\n# if it's just M-mode, then xlen is alw",
       "csr_references": [
         {
+          "csr": "ssp",
+          "field": "(csr-level)",
+          "idl_key": "sw_read()"
+        },
+        {
           "csr": "satp",
           "field": "ASID",
           "idl_key": "sw_write(csr_value)"
-        },
-        {
-          "csr": "mconfigptr",
-          "field": "ADDRESS",
-          "idl_key": "legal?(csr_value)"
         },
         {
           "csr": "misa",
@@ -10235,34 +11133,14 @@
         "summary": "ext:H"
       },
       "value_type": {
-        "type": "conditional",
+        "type": "range",
         "details": {
-          "branches": [
-            {
-              "condition": "MXLEN == 32",
-              "inner_type": {
-                "type": "range",
-                "details": {
-                  "minimum": 1,
-                  "maximum": 31
-                }
-              }
-            },
-            {
-              "condition": "MXLEN == 64",
-              "inner_type": {
-                "type": "range",
-                "details": {
-                  "minimum": 1,
-                  "maximum": 63
-                }
-              }
-            }
-          ]
+          "minimum": 1,
+          "maximum": 63
         }
       },
-      "has_requirements": false,
-      "requirements_summary": null,
+      "has_requirements": true,
+      "requirements_summary": "(MXLEN == 32) -> NUM_EXTERNAL_GUEST_INTERRUPTS <= 31;\n",
       "csr_references": [
         {
           "csr": "hstatus",
@@ -10273,11 +11151,6 @@
           "csr": "hstatus",
           "field": "VGEIN",
           "idl_key": "type()"
-        },
-        {
-          "csr": "hstatus",
-          "field": "VGEIN",
-          "idl_key": "legal?(csr_value)"
         }
       ],
       "classification": "NORM_DIRECT",
@@ -10291,15 +11164,15 @@
       "description": "Number of implemented PMP entries. Can be any value between 0-64, inclusive.\n\nThe architecture mandates that the number of implemented PMP registers\nmust appear to be 0, 16, or 64.\n\nTherefore, pmp registers will behave as follows according to NUN_PMP_ENTRIES:\n\n[separator=\"!\"]\n!===\n! NUM_PMP_ENTRIES ! pmpaddr<0-15> / pmpcfg<0-3> ! pmpaddr<16-63> / pmpcfg<4-15>\n! 0               ! N                           ! N\n! 1-16            ! Y                           ! N\n! 17-64           ! Y                           ! Y\n!===\n\n** N = Not implemented; access will cause `IllegalInstruction`\n   if TRAP_ON_UNIMPLEMENTED_CSR is true\n** Y = Implemented; access will not cause an exception (from M-mode), but register\n   may be read-only-zero if NUM_PMP_ENTRIES is less than the corresponding register\n\n[NOTE]\n`pmpcfgN` for an odd N never exists when XLEN == 64\n\nWhen NUM_PMP_ENTRIES is not exactly 0, 16, or 64, some extant pmp registers,\nand associated pmpNcfg, will be read-only zero (but will never cause an exception).",
       "defined_by": {
         "extensions": [
-          "Smpmp"
+          "Sm"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "Smpmp"
+            "name": "Sm"
           }
         },
-        "summary": "ext:Smpmp"
+        "summary": "ext:Sm"
       },
       "value_type": {
         "type": "range",
@@ -11454,30 +12327,10 @@
         "summary": "ext:Sm"
       },
       "value_type": {
-        "type": "conditional",
+        "type": "range",
         "details": {
-          "branches": [
-            {
-              "condition": "MXLEN == 32",
-              "inner_type": {
-                "type": "range",
-                "details": {
-                  "minimum": 1,
-                  "maximum": 34
-                }
-              }
-            },
-            {
-              "condition": "MXLEN == 64",
-              "inner_type": {
-                "type": "range",
-                "details": {
-                  "minimum": 1,
-                  "maximum": 64
-                }
-              }
-            }
-          ]
+          "minimum": 1,
+          "maximum": 64
         }
       },
       "has_requirements": true,
@@ -12207,16 +13060,22 @@
       "long_name": "TODO",
       "description": "log2 of the smallest supported PMP region.\n\nGenerally, for systems with an MMU, should not be smaller than 12,\nas that would preclude caching PMP results in the TLB along with\nvirtual memory translations\n\nNote that PMP_GRANULARITY is equal to G+2 (not G) as described in\nthe privileged architecture.",
       "defined_by": {
-        "extensions": [
-          "Smpmp"
+        "extensions": [],
+        "params": [
+          {
+            "name": "NUM_PMP_ENTRIES",
+            "condition": {
+              "greaterThan": 0
+            }
+          }
         ],
-        "params": [],
         "raw": {
-          "extension": {
-            "name": "Smpmp"
+          "param": {
+            "name": "NUM_PMP_ENTRIES",
+            "greaterThan": 0
           }
         },
-        "summary": "ext:Smpmp"
+        "summary": "param:NUM_PMP_ENTRIES(greaterThan=0)"
       },
       "value_type": {
         "type": "range",
@@ -14634,20 +15493,88 @@
       "source_file": "spec/std/isa/param/REPORT_VA_IN_VSTVAL_ON_STORE_AMO_PAGE_FAULT.yaml"
     },
     {
+      "name": "RESERVED_VSET_X0X0_VILL_SET",
+      "long_name": "TODO",
+      "description": "When rs1 = x0 and rd = x0, vset instructions act as if the current\nvector length in `vl` is used as the AVL. If `vill` is set or the\nconfiguration is reserved, implementations may set `vill` to indicate\nunsupported use of these encodings.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "enum",
+        "details": {
+          "values": [
+            "never",
+            "always",
+            "custom"
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/RESERVED_VSET_X0X0_VILL_SET.yaml"
+    },
+    {
+      "name": "RESERVED_VSET_X0X0_VLMAX_CHANGE",
+      "long_name": "TODO",
+      "description": "When rs1=x0 and rd=x0, the instructions operate as if the current vector length in vl is used as the AVL.\nUse of the vset instructions with a new SEW/LMUL ratio that would result in a change of VLMAX is reserved.\nImplementations may set vill in either case.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "enum",
+        "details": {
+          "values": [
+            "never",
+            "always",
+            "custom"
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/RESERVED_VSET_X0X0_VLMAX_CHANGE.yaml"
+    },
+    {
       "name": "RVV_VL_WHEN_AVL_LT_DOUBLE_VLMAX",
       "long_name": "TODO",
       "description": "The value assigned to VL when AVL < 2*VLMAX.",
       "defined_by": {
         "extensions": [
-          "V"
+          "Zvl32b"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "V"
+            "name": "Zvl32b"
           }
         },
-        "summary": "ext:V"
+        "summary": "ext:Zvl32b"
       },
       "value_type": {
         "type": "enum",
@@ -14712,31 +15639,15 @@
       "description": "Indicates which counters can delegated via `scounteren`\n\nAn unimplemented counter cannot be specified, i.e., if\nHPM_COUNTER_EN[3] is false, it would be illegal to set\nSCOUNTENABLE_EN[3] to true.\n\nSCOUNTENABLE_EN[0:2] must all be false if `Zicntr` is not implemented.\nSCOUNTENABLE_EN[3:31] must all be false if `Zihpm` is not implemented.",
       "defined_by": {
         "extensions": [
-          "S",
-          "Zicntr",
-          "Zihpm"
+          "S"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "allOf": [
-              {
-                "name": "S"
-              },
-              {
-                "anyOf": [
-                  {
-                    "name": "Zicntr"
-                  },
-                  {
-                    "name": "Zihpm"
-                  }
-                ]
-              }
-            ]
+            "name": "S"
           }
         },
-        "summary": "ext:S AND (ext:Zicntr OR ext:Zihpm)"
+        "summary": "ext:S"
       },
       "value_type": {
         "type": "bitmask",
@@ -15074,6 +15985,41 @@
       "source_file": "spec/std/isa/param/SCOUNTENABLE_EN.yaml"
     },
     {
+      "name": "SEW_MIN",
+      "long_name": "TODO",
+      "description": "Implementations must provide fractional LMUL settings that allow the\nnarrowest supported element width (SEW) to occupy a fractional\nportion of a vector register relative to the widest supported SEW.\nIn general, implementations must support LMUL >= SEW_MIN/ELEN, where\nSEW_MIN is the narrowest supported SEW and ELEN is the widest SEW.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "enum",
+        "details": {
+          "values": [
+            8,
+            16,
+            32,
+            64
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/SEW_MIN.yaml"
+    },
+    {
       "name": "SSTATEEN_JVT_TYPE",
       "long_name": "TODO",
       "description": "Behavior of the sstateen0.JVT bit:\n\n  * 'rw': read-write\n  * 'read-only-0': read-only, fixed to 0\n  * 'read-only-1': read-only, fixed to 1",
@@ -15223,6 +16169,39 @@
       "classification_confidence": "high",
       "classification_reasoning": "Referenced in sw_write() of stvec.MODE",
       "source_file": "spec/std/isa/param/STVEC_MODE_VECTORED.yaml"
+    },
+    {
+      "name": "SUPPORT_FRACTIONAL_LMUL_BEYOND_REQUIRED",
+      "long_name": "TODO",
+      "description": "For a given supported fractional LMUL setting, implementations must\nprovide support for SEW settings covering the range from SEW_MIN\nup to LMUL * ELEN, inclusive. This ensures types narrower than the\nmaximum SEW are supported when fractional LMULs are selected.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            "no_unrequired_supported",
+            "custom"
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/SUPPORT_FRACTIONAL_LMUL_BEYOND_REQUIRED.yaml"
     },
     {
       "name": "SV32X4_TRANSLATION",
@@ -16998,6 +17977,306 @@
       "source_file": "spec/std/isa/param/U_MODE_ENDIANNESS.yaml"
     },
     {
+      "name": "VECTOR_FF_NO_EXCEPTION_TRIM",
+      "long_name": "TODO",
+      "description": "Implementations may process fewer than `vl` elements and reduce `vl`\neven when no exception occurs. However, if `vstart` == 0 and `vl` > 0,\nat least one element must be processed.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VECTOR_FF_NO_EXCEPTION_TRIM.yaml"
+    },
+    {
+      "name": "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD",
+      "long_name": "TODO",
+      "description": "For fault-only-first segment loads, if an exception occurs partway\nthrough the zeroth segment, the trap is taken. If it occurs in a\nsubsequent segment, `vl` may be reduced to the index of that segment.\nIt is implementation-defined whether a partial subset of the segment\nis loaded before the trap.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            "no_subsegment_loaded",
+            "custom"
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD.yaml"
+    },
+    {
+      "name": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "long_name": "TODO",
+      "description": "Fault-only-first (FF) load instructions may update active destination\nelements beyond the index that causes vector-length trimming, but not\npast the original `vl`. These spurious updates need not reflect the\ntrue memory contents; non-idempotent memory should only be accessed\nwhen the load is guaranteed not to be retried.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            "update_none",
+            "custom"
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VECTOR_FF_UPDATE_PAST_TRIM.yaml"
+    },
+    {
+      "name": "VECTOR_LOAD_PAST_TRAP",
+      "long_name": "TODO",
+      "description": "Vector load instructions may overwrite active destination vector register\ngroup elements past the element index where a trap is reported; the\nbehavior for elements beyond the trap index is implementation-defined.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VECTOR_LOAD_PAST_TRAP.yaml"
+    },
+    {
+      "name": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+      "long_name": "TODO",
+      "description": "Fault-only-first segment load instructions may overwrite destination\nvector register group elements beyond the point where a trap is\nreported or where `vl` is trimmed; the exact values written may be\nimplementation-defined.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            "no_overwrite",
+            "custom"
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT.yaml"
+    },
+    {
+      "name": "VECTOR_LS_INDEX_MAX_EEW",
+      "long_name": "TODO",
+      "description": "A profile may place an upper limit on the maximum supported index EEW\nused by vector load/store indexing. For example, some profiles may\nlimit indexing to sizes no larger than XLEN or a fixed EEW value.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "enum",
+        "details": {
+          "values": [
+            "8",
+            "16",
+            "32",
+            "64",
+            "XLEN"
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VECTOR_LS_INDEX_MAX_EEW.yaml"
+    },
+    {
+      "name": "VECTOR_LS_MISALIGNED_LEGAL",
+      "long_name": "TODO",
+      "description": "If an element accessed by a vector memory instruction is not naturally aligned to the size of the element,\neither the element is transferred successfully or an address misaligned exception is raised on that element.\nSupport for misaligned vector memory accesses is independent of an implementation's support for misaligned scalar memory accesses.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "medium",
+      "classification_reasoning": "Misaligned access behavior parameter",
+      "source_file": "spec/std/isa/param/VECTOR_LS_MISALIGNED_LEGAL.yaml"
+    },
+    {
+      "name": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+      "long_name": "TODO",
+      "description": "If a trap occurs during access to a segment, it is implementation-defined\nwhether some, all, or none of that segment's element accesses are\nperformed before the trap is taken.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VECTOR_LS_SEG_PARTIAL_ACCESS.yaml"
+    },
+    {
+      "name": "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL",
+      "long_name": "TODO",
+      "description": "Implementations may raise a misaligned address exception for whole-register\nloads/stores if the base address is not aligned to the maximum of the\nencoded EEW size (in bytes) or the implementation's smallest supported\nSEW (in bytes).",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "medium",
+      "classification_reasoning": "Misaligned access behavior parameter",
+      "source_file": "spec/std/isa/param/VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL.yaml"
+    },
+    {
       "name": "VENDOR_ID_BANK",
       "long_name": "JEDEC Vendor ID bank, for `mvendorid`.",
       "description": "Encodes the number of one-byte continuation codes in the Bank field of `mvendorid`.\n\niN JEDEC’s parlance, the bank number is one greater than the number of continuation codes; hence, the mvendorid Bank field encodes a value that is one less than the JEDEC bank number.",
@@ -17072,20 +18351,185 @@
       "source_file": "spec/std/isa/param/VENDOR_ID_OFFSET.yaml"
     },
     {
+      "name": "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR",
+      "long_name": "TODO",
+      "description": "Implementations are permitted to insert an additional additive identity\ninto the final reduction result, which may affect the final outcome\nwhen no active elements are present.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            "additive_identity",
+            "copy"
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR.yaml"
+    },
+    {
+      "name": "VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR",
+      "long_name": "TODO",
+      "description": "A reduction node that receives an input derived solely from masked-off\nelements or elements beyond `vl` may either treat that input as the\nadditive identity for the appropriate element width or copy the other\ninput through unchanged to the node output.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            "additive_identity",
+            "copy"
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR.yaml"
+    },
+    {
+      "name": "VFREDUSUM_NAN",
+      "long_name": "TODO",
+      "description": "The reduction tree structure must be deterministic for a given `vtype`\nand `vl`; as a consequence, implementations need not preserve NaN\npayloads when no elements are active. If no elements are active and the\nscalar input is NaN, implementations may canonicalize it (and raise an\nexception if it is a signaling NaN) or pass it through unchanged.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            "no_change",
+            "custom"
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VFREDUSUM_NAN.yaml"
+    },
+    {
+      "name": "VFREDUSUM_NODE_ROUNDING_BEHAVIOR",
+      "long_name": "TODO",
+      "description": "Each reduction operator computes an exact sum using an ideal scalar\nfloating-point addition, then converts that result into a floating-\npoint format with range and precision at least as large as the element\nSEW, rounding with the current dynamic rounding mode and raising\nexceptions as needed. Implementations may choose the exact range and\nprecision per operator.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            "SEW_precision",
+            "custom"
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VFREDUSUM_NODE_ROUNDING_BEHAVIOR.yaml"
+    },
+    {
+      "name": "VILL_SET_ON_RESERVED_VTYPE",
+      "long_name": "TODO",
+      "description": "Use of vtype encodings with LMUL < SEW_MIN/ELEN is reserved. Implementations\nmay set the `vill` status bit to indicate such vtype encodings are\nunsupported, providing a software-visible indication of invalid vtype\nselections.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VILL_SET_ON_RESERVED_VTYPE.yaml"
+    },
+    {
       "name": "VLEN",
       "long_name": "TODO",
       "description": "The number of bits in a single vector register.",
       "defined_by": {
         "extensions": [
-          "V"
+          "Zvl32b"
         ],
         "params": [],
         "raw": {
           "extension": {
-            "name": "V"
+            "name": "Zvl32b"
           }
         },
-        "summary": "ext:V"
+        "summary": "ext:Zvl32b"
       },
       "value_type": {
         "type": "value",
@@ -17129,34 +18573,14 @@
         "summary": "ext:H"
       },
       "value_type": {
-        "type": "conditional",
+        "type": "range",
         "details": {
-          "branches": [
-            {
-              "condition": "MXLEN == 32",
-              "inner_type": {
-                "type": "range",
-                "details": {
-                  "minimum": 0,
-                  "maximum": 7
-                }
-              }
-            },
-            {
-              "condition": "MXLEN == 64",
-              "inner_type": {
-                "type": "range",
-                "details": {
-                  "minimum": 0,
-                  "maximum": 14
-                }
-              }
-            }
-          ]
+          "minimum": 0,
+          "maximum": 14
         }
       },
-      "has_requirements": false,
-      "requirements_summary": null,
+      "has_requirements": true,
+      "requirements_summary": "(MXLEN == 32) -> VMID_WIDTH <= 7;\n",
       "csr_references": [
         {
           "csr": "hgatp",
@@ -17211,6 +18635,39 @@
       "classification_confidence": "medium",
       "classification_reasoning": "Translation/mode parameter",
       "source_file": "spec/std/isa/param/VSSTAGE_MODE_BARE.yaml"
+    },
+    {
+      "name": "VSSTATUS_VS_EXISTS",
+      "long_name": "TODO",
+      "description": "Some implementations provide a `vsstatus.VS` field even when the `misa.V`\nbit is clear. This parameter indicates whether `vsstatus.VS` exists\nindependently of the `misa.V` setting.",
+      "defined_by": {
+        "extensions": [
+          "Zvl32b"
+        ],
+        "params": [],
+        "raw": {
+          "extension": {
+            "name": "Zvl32b"
+          }
+        },
+        "summary": "ext:Zvl32b"
+      },
+      "value_type": {
+        "type": "binary",
+        "details": {
+          "choices": [
+            true,
+            false
+          ]
+        }
+      },
+      "has_requirements": false,
+      "requirements_summary": null,
+      "csr_references": [],
+      "classification": "NORM_DIRECT",
+      "classification_confidence": "low",
+      "classification_reasoning": "No strong signals; defaulting to direct normative parameter",
+      "source_file": "spec/std/isa/param/VSSTATUS_VS_EXISTS.yaml"
     },
     {
       "name": "VSTVEC_MODE_DIRECT",
