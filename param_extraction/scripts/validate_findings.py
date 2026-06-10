@@ -66,6 +66,8 @@ OPTIONALITY = re.compile(
     implementation[-\ ]defined        | implementation[-\ ]dependent          |
     \boptional(ly)?\b                  | \bunspecified\b                       |
     may\ or\ may\ not                  | \bneed\ not\b                         |
+    (is|are|is\ not|are\ not)\ not\ required\ to                              |
+    not\ required\ to\ (support|implement|provide|have)                       |
     may\ (optionally\ )?(be\ (implemented|read-only|supported|present|absent|configured)
         | implement | support | choose | contain | hold | return | vary
         | provide | omit | not\ support | not\ be | not\ implement)            |
@@ -73,7 +75,8 @@ OPTIONALITY = re.compile(
         | choose | contain | vary | be\ omitted)                              |
     \b(is|are)\ allowed\ to\b          |
     (vary|varies|depend|depends|differ|differs)\ (by|on|across|between).{0,30}implementation |
-    implementation.{0,20}(may|can|chooses?|decides?|selects?)
+    implementation.{0,20}(may|can|chooses?|decides?|selects?|defines?|provides?|sets?) |
+    (implementer|implementation)\ (chooses?|defines?|selects?|provides?|sets?)
     """,
     re.IGNORECASE | re.VERBOSE,
 )
