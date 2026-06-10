@@ -45,8 +45,28 @@ from run_prompt import (  # noqa: E402
     load_system_prompt,
     load_udb_param_names,
 )
+from structured_fields import build_index, summary_for_file  # noqa: E402
 
 logger = logging.getLogger("extract")
+
+# V3 Stage 3.3: append a checklist of CSR fields (from bytefield diagrams) to
+# each chunk so the model doesn't miss bit-level parameters. Opt-in.
+INCLUDE_STRUCTURED_FIELDS = os.environ.get("INCLUDE_STRUCTURED_FIELDS", "0") == "1"
+_STRUCTURED_INDEX: dict | None = None
+
+
+def _structured_summary(meta: dict) -> str:
+    """Cached structured-field checklist for the chunk's file / line window."""
+    global _STRUCTURED_INDEX
+    if not INCLUDE_STRUCTURED_FIELDS:
+        return ""
+    if _STRUCTURED_INDEX is None:
+        _STRUCTURED_INDEX = build_index()
+    return summary_for_file(
+        meta["source_file"], _STRUCTURED_INDEX,
+        start_line=meta.get("start_line", 0),
+        end_line=meta.get("end_line", 10**9),
+    )
 
 # Rate limit: 30K input tokens per minute for this API tier.
 # We track token expenditure and sleep as needed.
@@ -236,6 +256,9 @@ def _format_chunk(chunk_text: str, meta: dict) -> str:
         chunk_text,
         "```",
     ]
+    structured = _structured_summary(meta)
+    if structured:
+        lines += ["", structured]
     return "\n".join(lines)
 
 

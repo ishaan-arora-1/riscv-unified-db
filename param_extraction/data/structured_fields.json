@@ -1,0 +1,1345 @@
+{
+  "c-st-ext.adoc": [
+    {
+      "register": "rvc-instr-quad0",
+      "edn": "images/bytefield/rvc-instr-quad0.edn",
+      "line_number": 923,
+      "fields": [
+        "Illegal instruction",
+        "uimm[5:4|9:6|2|3]",
+        "rd\u2032",
+        "C.ADDI4SPN",
+        "uimm[5:3]",
+        "rs1\u2032",
+        "uimm[7:6]",
+        "C.FLD",
+        "uimm[2|6]",
+        "C.LW",
+        "C.FLW",
+        "C.LD",
+        "Reserved",
+        "rs2\u2032",
+        "C.FSD",
+        "C.SW",
+        "C.FSW",
+        "C.SD"
+      ],
+      "warl": false
+    },
+    {
+      "register": "rvc-instr-quad1",
+      "edn": "images/bytefield/rvc-instr-quad1.edn",
+      "line_number": 927,
+      "fields": [
+        "imm[5]",
+        "imm[4:0]",
+        "C.NOP",
+        "rs1/rd\u22600",
+        "C.ADDI",
+        "imm[11|4|9:8|10|6|7|3:1|5]",
+        "C.JAL",
+        "C.ADDIW",
+        "rd\u0338=0",
+        "C.LI",
+        "imm[9]",
+        "imm[4|6|8:7|5]",
+        "C.ADDI16SP",
+        "imm[17]",
+        "rd\u2260{0, 2}",
+        "imm[16:12]",
+        "C.LUI",
+        "uimm[5]",
+        "rs1\u02b9/rd\u02b9",
+        "uimm[4:0]",
+        "C.SRLI",
+        "C.SRAI",
+        "C.ANDI",
+        "rs2\u2032",
+        "C.SUB",
+        "C.XOR",
+        "C.OR",
+        "C.AND",
+        "C.SUBW",
+        "C.ADDW",
+        "Reserved",
+        "C.J",
+        "imm[8|4:3]",
+        "rs1\u2032",
+        "imm[7:6|2:1|5]",
+        "C.BEQZ",
+        "C.BNEZ"
+      ],
+      "warl": false
+    },
+    {
+      "register": "rvc-instr-quad2",
+      "edn": "images/bytefield/rvc-instr-quad2.edn",
+      "line_number": 931,
+      "fields": [
+        "nzuimm[5]",
+        "rs1/rd\u22600",
+        "nzuimm[4:0]",
+        "C.SLLI",
+        "uimm[5]",
+        "rd",
+        "uimm[4:3|8:6]",
+        "C.FLDSP",
+        "rd\u22600",
+        "uimm[4:2|7:6]",
+        "C.LWSP",
+        "C.FLWSP",
+        "C.LDSP",
+        "rs1\u22600",
+        "C.JR",
+        "rs2\u22600",
+        "C.MV",
+        "C.EBREAK",
+        "C.JALR",
+        "C.ADD",
+        "uimm[5:3|8:6]",
+        "rs2",
+        "C.FSDSP",
+        "uimm[5:2|7:6]",
+        "C.SWSP",
+        "C.FSWSP",
+        "C.SDSP"
+      ],
+      "warl": false
+    }
+  ],
+  "hypervisor.adoc": [
+    {
+      "register": "hedelegreg",
+      "edn": "images/bytefield/hedelegreg.edn",
+      "line_number": 359,
+      "fields": [
+        "Synchronous Exceptions"
+      ],
+      "warl": true
+    },
+    {
+      "register": "hidelegreg",
+      "edn": "images/bytefield/hidelegreg.edn",
+      "line_number": 363,
+      "fields": [
+        "HSXLEN-1",
+        "Interrupts",
+        "HSXLEN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "hvipreg",
+      "edn": "images/bytefield/hvipreg.edn",
+      "line_number": 486,
+      "fields": [
+        "HSXLEN-1",
+        "Virtual Interrupts",
+        "HSXLEN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "hvipreg-standard",
+      "edn": "images/bytefield/hvipreg-standard.edn",
+      "line_number": 497,
+      "fields": [
+        "VSEIP",
+        "VSTIP",
+        "VSSIP"
+      ],
+      "warl": false
+    },
+    {
+      "register": "hipreg",
+      "edn": "images/bytefield/hipreg.edn",
+      "line_number": 506,
+      "fields": [
+        "HSXLEN-1",
+        "Interrupts",
+        "HSXLEN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "hiereg",
+      "edn": "images/bytefield/hiereg.edn",
+      "line_number": 510,
+      "fields": [
+        "HSXLEN-1",
+        "Interrupts",
+        "HSXLEN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "hipreg-standard",
+      "edn": "images/bytefield/hipreg-standard.edn",
+      "line_number": 552,
+      "fields": [
+        "SGEIP",
+        "VSEIP",
+        "VSTIP",
+        "VSSIP"
+      ],
+      "warl": false
+    },
+    {
+      "register": "hiereg-standard",
+      "edn": "images/bytefield/hiereg-standard.edn",
+      "line_number": 556,
+      "fields": [
+        "SGEIE",
+        "VSEIE",
+        "VSTIE",
+        "VSSIE"
+      ],
+      "warl": false
+    },
+    {
+      "register": "hgeipreg",
+      "edn": "images/bytefield/hgeipreg.edn",
+      "line_number": 609,
+      "fields": [
+        "Guest External Interrupts",
+        "HSXLEN"
+      ],
+      "warl": false
+    },
+    {
+      "register": "hgeiereg",
+      "edn": "images/bytefield/hgeiereg.edn",
+      "line_number": 614,
+      "fields": [
+        "Guest External Interrupts",
+        "HSXLEN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "hcounterenreg",
+      "edn": "images/bytefield/hcounterenreg.edn",
+      "line_number": 854,
+      "fields": [
+        "HPM31",
+        "HPM30",
+        "HPM29",
+        "HPM5",
+        "HPM4",
+        "HPM3",
+        "IR",
+        "TM",
+        "CY"
+      ],
+      "warl": false
+    },
+    {
+      "register": "htimedelta",
+      "edn": "images/bytefield/htimedelta.edn",
+      "line_number": 893,
+      "fields": [
+        "htimedelta"
+      ],
+      "warl": false
+    },
+    {
+      "register": "htvalreg",
+      "edn": "images/bytefield/htvalreg.edn",
+      "line_number": 914,
+      "fields": [
+        "HSXLEN-1",
+        "htval",
+        "HSXLEN"
+      ],
+      "warl": false
+    },
+    {
+      "register": "htinstreg",
+      "edn": "images/bytefield/htinstreg.edn",
+      "line_number": 980,
+      "fields": [
+        "HSXLEN-1",
+        "htinst",
+        "HSXLEN"
+      ],
+      "warl": false
+    },
+    {
+      "register": "rv32hgatp",
+      "edn": "images/bytefield/rv32hgatp.edn",
+      "line_number": 1004,
+      "fields": [
+        "MODE",
+        "VMID",
+        "PPN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "rv64hgatp",
+      "edn": "images/bytefield/rv64hgatp.edn",
+      "line_number": 1008,
+      "fields": [
+        "MODE",
+        "VMID",
+        "PPN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "vsipreg",
+      "edn": "images/bytefield/vsipreg.edn",
+      "line_number": 1258,
+      "fields": [
+        "VSXLEN-1",
+        "Interrupts",
+        "VSXLEN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "vsiereg",
+      "edn": "images/bytefield/vsiereg.edn",
+      "line_number": 1262,
+      "fields": [
+        "VSXLEN-1",
+        "Interrupts",
+        "VSXLEN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "vsipreg-standard",
+      "edn": "images/bytefield/vsipreg-standard.edn",
+      "line_number": 1270,
+      "fields": [
+        "LCOFIP",
+        "SEIP",
+        "STIP",
+        "SSIP"
+      ],
+      "warl": false
+    },
+    {
+      "register": "vsiereg-standard",
+      "edn": "images/bytefield/vsiereg-standard.edn",
+      "line_number": 1274,
+      "fields": [
+        "LCOFIE",
+        "SEIE",
+        "STIE",
+        "SSIE"
+      ],
+      "warl": false
+    },
+    {
+      "register": "vstvecreg",
+      "edn": "images/bytefield/vstvecreg.edn",
+      "line_number": 1312,
+      "fields": [
+        "VSXLEN-1",
+        "BASE[VSXLEN-1:2]",
+        "MODE",
+        "VSXLEN-2"
+      ],
+      "warl": true
+    },
+    {
+      "register": "vsscratchreg",
+      "edn": "images/bytefield/vsscratchreg.edn",
+      "line_number": 1326,
+      "fields": [
+        "VSXLEN-1",
+        "vsscratch",
+        "VSXLEN"
+      ],
+      "warl": false
+    },
+    {
+      "register": "vsepcreg",
+      "edn": "images/bytefield/vsepcreg.edn",
+      "line_number": 1344,
+      "fields": [
+        "VSXLEN-1",
+        "vsepc",
+        "VSXLEN"
+      ],
+      "warl": false
+    },
+    {
+      "register": "vscausereg",
+      "edn": "images/bytefield/vscausereg.edn",
+      "line_number": 1362,
+      "fields": [
+        "VSXLEN-1",
+        "VSXLEN-2",
+        "Interrupt",
+        "Exception Code"
+      ],
+      "warl": false
+    },
+    {
+      "register": "vstvalreg",
+      "edn": "images/bytefield/vstvalreg.edn",
+      "line_number": 1380,
+      "fields": [
+        "VSXLEN-1",
+        "vstval",
+        "VSXLEN"
+      ],
+      "warl": false
+    },
+    {
+      "register": "rv32vsatpreg",
+      "edn": "images/bytefield/rv32vsatpreg.edn",
+      "line_number": 1396,
+      "fields": [
+        "Mode",
+        "ASID",
+        "PPN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "rv64vsatpreg",
+      "edn": "images/bytefield/rv64vsatpreg.edn",
+      "line_number": 1400,
+      "fields": [
+        "Mode",
+        "ASID",
+        "PPN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "hypv-mstatus",
+      "edn": "images/bytefield/hypv-mstatus.edn",
+      "line_number": 1673,
+      "fields": [
+        "SD",
+        "WPRI",
+        "MPV",
+        "GVA",
+        "MBE",
+        "SBE",
+        "SXL[1:0]",
+        "UXL[1:0]",
+        "TSR",
+        "TW",
+        "TVM",
+        "MXR",
+        "SUM",
+        "MPRV",
+        "XS[1:0]",
+        "FS[1:0]",
+        "MPP[1:0]",
+        "VS[1:0]",
+        "SPP",
+        "MPIE",
+        "UBE",
+        "SPIE",
+        "MIE",
+        "SIE"
+      ],
+      "warl": false
+    },
+    {
+      "register": "hypv-mstatush",
+      "edn": "images/bytefield/hypv-mstatush.edn",
+      "line_number": 1677,
+      "fields": [
+        "WPRI",
+        "MPV",
+        "GVA",
+        "MBE",
+        "SBE"
+      ],
+      "warl": false
+    },
+    {
+      "register": "hypv-mipreg-standard",
+      "edn": "images/bytefield/hypv-mipreg-standard.edn",
+      "line_number": 1797,
+      "fields": [
+        "LCOFIP",
+        "SGEIP",
+        "MEIP",
+        "VSEIP",
+        "SEIP",
+        "MTIP",
+        "VSTIP",
+        "STIP",
+        "MSIP",
+        "VSSIP",
+        "SSIP"
+      ],
+      "warl": false
+    },
+    {
+      "register": "hypv-miereg-standard",
+      "edn": "images/bytefield/hypv-miereg-standard.edn",
+      "line_number": 1801,
+      "fields": [
+        "LCOFIE",
+        "SGEIE",
+        "MEIE",
+        "VSEIE",
+        "SEIE",
+        "MTIE",
+        "VSTIE",
+        "STIE",
+        "MSIE",
+        "VSSIE",
+        "SSIE"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mtval2reg",
+      "edn": "images/bytefield/mtval2reg.edn",
+      "line_number": 1818,
+      "fields": [
+        "mtval2"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mtinstreg",
+      "edn": "images/bytefield/mtinstreg.edn",
+      "line_number": 1863,
+      "fields": [
+        "mtinst"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv32x4va",
+      "edn": "images/bytefield/sv32x4va.edn",
+      "line_number": 1941,
+      "fields": [
+        "VPN[1]",
+        "VPN[0]",
+        "page offset"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv39x4va",
+      "edn": "images/bytefield/sv39x4va.edn",
+      "line_number": 1951,
+      "fields": [
+        "VPN[2]",
+        "VPN[1]",
+        "VPN[0]",
+        "page offset"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv48x4va",
+      "edn": "images/bytefield/sv48x4va.edn",
+      "line_number": 1963,
+      "fields": [
+        "VPN[3]",
+        "VPN[2]",
+        "VPN[1]",
+        "VPN[0]",
+        "page offset"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv57x4va",
+      "edn": "images/bytefield/sv57x4va.edn",
+      "line_number": 1975,
+      "fields": [
+        "VPN[4]",
+        "VPN[3]",
+        "VPN[2]",
+        "VPN[1]",
+        "VPN[0]",
+        "page offset"
+      ],
+      "warl": false
+    }
+  ],
+  "machine.adoc": [
+    {
+      "register": "misareg",
+      "edn": "images/bytefield/misareg.edn",
+      "line_number": 27,
+      "fields": [
+        "MXL[1:0]",
+        "Extensions[25:0]"
+      ],
+      "warl": true
+    },
+    {
+      "register": "mvendorid",
+      "edn": "images/bytefield/mvendorid.edn",
+      "line_number": 272,
+      "fields": [
+        "Bank",
+        "Offset"
+      ],
+      "warl": false
+    },
+    {
+      "register": "marchid",
+      "edn": "images/bytefield/marchid.edn",
+      "line_number": 306,
+      "fields": [
+        "Architecture ID"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mimpid",
+      "edn": "images/bytefield/mimpid.edn",
+      "line_number": 344,
+      "fields": [
+        "Implementation"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mhartid",
+      "edn": "images/bytefield/mhartid.edn",
+      "line_number": 366,
+      "fields": [
+        "Hart ID"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mtvec",
+      "edn": "images/bytefield/mtvec.edn",
+      "line_number": 1215,
+      "fields": [
+        "BASE[MXLEN-1:2]",
+        "MODE"
+      ],
+      "warl": true
+    },
+    {
+      "register": "medeleg",
+      "edn": "images/bytefield/medeleg.edn",
+      "line_number": 1349,
+      "fields": [
+        "Synchronous Exceptions"
+      ],
+      "warl": true
+    },
+    {
+      "register": "mideleg",
+      "edn": "images/bytefield/mideleg.edn",
+      "line_number": 1363,
+      "fields": [
+        "Interrupts"
+      ],
+      "warl": true
+    },
+    {
+      "register": "mideleg",
+      "edn": "images/bytefield/mideleg.edn",
+      "line_number": 1390,
+      "fields": [
+        "Interrupts"
+      ],
+      "warl": true
+    },
+    {
+      "register": "mideleg",
+      "edn": "images/bytefield/mideleg.edn",
+      "line_number": 1394,
+      "fields": [
+        "Interrupts"
+      ],
+      "warl": true
+    },
+    {
+      "register": "mipreg-standard",
+      "edn": "images/bytefield/mipreg-standard.edn",
+      "line_number": 1427,
+      "fields": [
+        "LCOFIP",
+        "MEIP",
+        "SEIP",
+        "MTIP",
+        "STIP",
+        "MSIP",
+        "SSIP"
+      ],
+      "warl": false
+    },
+    {
+      "register": "miereg-standard",
+      "edn": "images/bytefield/miereg-standard.edn",
+      "line_number": 1431,
+      "fields": [
+        "LCOFIE",
+        "MEIE",
+        "SEIE",
+        "MTIE",
+        "STIE",
+        "MSIE",
+        "SSIE"
+      ],
+      "warl": false
+    },
+    {
+      "register": "hpmevents",
+      "edn": "images/bytefield/hpmevents.edn",
+      "line_number": 1589,
+      "fields": [
+        "mcycle",
+        "minstret",
+        "mhpmcounter3",
+        "mhpmevent3",
+        "mhpmcounter4",
+        "mhpmevent4",
+        "mhpmcounter30",
+        "mhpmevent30",
+        "mhpmcounter31",
+        "mhpmevent31"
+      ],
+      "warl": false
+    },
+    {
+      "register": "counteren",
+      "edn": "images/bytefield/counteren.edn",
+      "line_number": 1609,
+      "fields": [
+        "HPM31",
+        "HPM30",
+        "HPM29",
+        "HPM5",
+        "HPM4",
+        "HPM3",
+        "IR",
+        "TM",
+        "CY"
+      ],
+      "warl": false
+    },
+    {
+      "register": "counterinh",
+      "edn": "images/bytefield/counterinh.edn",
+      "line_number": 1667,
+      "fields": [
+        "HPM31",
+        "HPM30",
+        "HPM29",
+        "HPM5",
+        "HPM4",
+        "HPM3",
+        "IR",
+        "CY"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mscratch",
+      "edn": "images/bytefield/mscratch.edn",
+      "line_number": 1707,
+      "fields": [
+        "mscratch"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mepcreg",
+      "edn": "images/bytefield/mepcreg.edn",
+      "line_number": 1757,
+      "fields": [
+        "mepc"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mcausereg",
+      "edn": "images/bytefield/mcausereg.edn",
+      "line_number": 1778,
+      "fields": [
+        "Interrupt",
+        "Exception Code"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mtvalreg",
+      "edn": "images/bytefield/mtvalreg.edn",
+      "line_number": 2065,
+      "fields": [
+        "mtval"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mconfigptrreg",
+      "edn": "images/bytefield/mconfigptrreg.edn",
+      "line_number": 2145,
+      "fields": [
+        "mconfigptr"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mtime",
+      "edn": "images/bytefield/mtime.edn",
+      "line_number": 2567,
+      "fields": [
+        "mtime"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mtimecmp",
+      "edn": "images/bytefield/mtimecmp.edn",
+      "line_number": 2571,
+      "fields": [
+        "mtimecmp"
+      ],
+      "warl": false
+    },
+    {
+      "register": "cust-sys-instr",
+      "edn": "images/bytefield/cust-sys-instr.edn",
+      "line_number": 2804,
+      "fields": [
+        "funct6",
+        "custom",
+        "funct3",
+        "opcode",
+        "Recommended Purpose",
+        "SYSTEM",
+        "Unprivileged or User-Level",
+        "Supervisor-Level",
+        "HS-Level",
+        "Machine-Level"
+      ],
+      "warl": false
+    },
+    {
+      "register": "pmp-rv32",
+      "edn": "images/bytefield/pmp-rv32.edn",
+      "line_number": 3390,
+      "fields": [
+        "pmp3cfg",
+        "pmp2cfg",
+        "pmp1cfg",
+        "pmp0cfg",
+        "pmpcfg0",
+        "pmp7cfg",
+        "pmp6cfg",
+        "pmp5cfg",
+        "pmp4cfg",
+        "pmpcfg1",
+        "pmp63cfg",
+        "pmp62cfg",
+        "pmp61cfg",
+        "pmp60cfg",
+        "pmpcfg15"
+      ],
+      "warl": false
+    },
+    {
+      "register": "pmp-rv64",
+      "edn": "images/bytefield/pmp-rv64.edn",
+      "line_number": 3394,
+      "fields": [
+        "pmp7cfg",
+        "pmp6cfg",
+        "pmp5cfg",
+        "pmp4cfg",
+        "pmp3cfg",
+        "pmp2cfg",
+        "pmp1cfg",
+        "pmp0cfg",
+        "pmpcfg0",
+        "pmp15cfg",
+        "pmp14cfg",
+        "pmp13cfg",
+        "pmp12cfg",
+        "pmp11cfg",
+        "pmp10cfg",
+        "pmp9cfg",
+        "pmp8cfg",
+        "pmpcfg2",
+        "pmp63cfg",
+        "pmp62cfg",
+        "pmp61cfg",
+        "pmp60cfg",
+        "pmp59cfg",
+        "pmp58cfg",
+        "pmp57cfg",
+        "pmp56cfg",
+        "pmpcfg14"
+      ],
+      "warl": false
+    },
+    {
+      "register": "pmpaddr-rv32",
+      "edn": "images/bytefield/pmpaddr-rv32.edn",
+      "line_number": 3418,
+      "fields": [
+        "address[33:2]"
+      ],
+      "warl": true
+    },
+    {
+      "register": "pmpaddr-rv64",
+      "edn": "images/bytefield/pmpaddr-rv64.edn",
+      "line_number": 3422,
+      "fields": [
+        "address[55:2]"
+      ],
+      "warl": true
+    },
+    {
+      "register": "pmpcfg",
+      "edn": "images/bytefield/pmpcfg.edn",
+      "line_number": 3433,
+      "fields": [
+        "L",
+        "A",
+        "X",
+        "W",
+        "R"
+      ],
+      "warl": false
+    }
+  ],
+  "priv-insns.adoc": [
+    {
+      "register": "priv-instr-set",
+      "edn": "images/bytefield/priv-instr-set.edn",
+      "line_number": 12,
+      "fields": [
+        "funct7",
+        "rs2",
+        "rs1",
+        "funct3",
+        "rd",
+        "opcode",
+        "R-type",
+        "imm[11:0]",
+        "I-type",
+        "Trap-Return Instructions",
+        "SRET",
+        "MRET",
+        "MNRET",
+        "Interrupt-Management Instructions",
+        "WFI",
+        "Control Transfer Records Management Instructions",
+        "SCTRCLR",
+        "Supervisor Memory-Management Instructions",
+        "SFENCE.VMA",
+        "Hypervisor Memory-Management Instructions",
+        "HFENCE.VVMA",
+        "HFENCE.GVMA",
+        "Hypervisor Virtual-Machine Load and Store Instructions",
+        "HLV.B",
+        "HLV.BU",
+        "HLV.H",
+        "HLV.HU",
+        "HLV.W",
+        "HLVX.HU",
+        "HLVX.WU",
+        "HSV.B",
+        "HSV.H",
+        "HSV.W",
+        "Hypervisor Virtual-Machine Load and Store Instructions, RV64 only",
+        "HLV.WU",
+        "HLV.D",
+        "HSV.D",
+        "Svinval Memory-Management Extension",
+        "SINVAL.VMA",
+        "SFENCE.W.INVAL",
+        "SFENCE.INVAL.IR",
+        "HINVAL.VVMA",
+        "HINVAL.GVMA"
+      ],
+      "warl": false
+    }
+  ],
+  "rnmi.adoc": [
+    {
+      "register": "mnscratch",
+      "edn": "images/bytefield/mnscratch.edn",
+      "line_number": 39,
+      "fields": [
+        "mnscratch"
+      ],
+      "warl": false
+    },
+    {
+      "register": "mnepc",
+      "edn": "images/bytefield/mnepc.edn",
+      "line_number": 46,
+      "fields": [
+        "mnepc"
+      ],
+      "warl": true
+    },
+    {
+      "register": "mncause",
+      "edn": "images/bytefield/mncause.edn",
+      "line_number": 69,
+      "fields": [
+        "Interrupt",
+        "Exception Code"
+      ],
+      "warl": true
+    },
+    {
+      "register": "mnstatus",
+      "edn": "images/bytefield/mnstatus.edn",
+      "line_number": 82,
+      "fields": [
+        "Reserved",
+        "MNPP",
+        "MNPELP",
+        "MNPV",
+        "NMIE"
+      ],
+      "warl": true
+    }
+  ],
+  "supervisor.adoc": [
+    {
+      "register": "stvec",
+      "edn": "images/bytefield/stvec.edn",
+      "line_number": 326,
+      "fields": [
+        "SXLEN-1",
+        "BASE[SXLEN-1:2]",
+        "MODE",
+        "SXLEN-2"
+      ],
+      "warl": true
+    },
+    {
+      "register": "sip",
+      "edn": "images/bytefield/sip.edn",
+      "line_number": 377,
+      "fields": [
+        "SXLEN-1",
+        "Interrupts",
+        "SXLEN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "sie",
+      "edn": "images/bytefield/sie.edn",
+      "line_number": 380,
+      "fields": [
+        "SXLEN-1",
+        "Interrupts",
+        "SXLEN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "sipreg-standard",
+      "edn": "images/bytefield/sipreg-standard.edn",
+      "line_number": 417,
+      "fields": [
+        "LCOFIP",
+        "SEIP",
+        "STIP",
+        "SSIP"
+      ],
+      "warl": false
+    },
+    {
+      "register": "siereg-standard",
+      "edn": "images/bytefield/siereg-standard.edn",
+      "line_number": 421,
+      "fields": [
+        "LCOFIE",
+        "SEIE",
+        "STIE",
+        "SSIE"
+      ],
+      "warl": false
+    },
+    {
+      "register": "scounteren",
+      "edn": "images/bytefield/scounteren.edn",
+      "line_number": 503,
+      "fields": [
+        "HPM31",
+        "HPM30",
+        "HPM29",
+        "HPM5",
+        "HPM4",
+        "HPM3",
+        "IR",
+        "TM",
+        "CY"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sscratch",
+      "edn": "images/bytefield/sscratch.edn",
+      "line_number": 543,
+      "fields": [
+        "SXLEN-1",
+        "sscratch",
+        "SXLEN"
+      ],
+      "warl": false
+    },
+    {
+      "register": "epcreg",
+      "edn": "images/bytefield/epcreg.edn",
+      "line_number": 573,
+      "fields": [
+        "SXLEN-1",
+        "sepc",
+        "SXLEN"
+      ],
+      "warl": false
+    },
+    {
+      "register": "scausereg",
+      "edn": "images/bytefield/scausereg.edn",
+      "line_number": 596,
+      "fields": [
+        "SXLEN-1",
+        "SXLEN-2",
+        "Interrupt",
+        "Exception Code"
+      ],
+      "warl": false
+    },
+    {
+      "register": "stvalreg",
+      "edn": "images/bytefield/stvalreg.edn",
+      "line_number": 731,
+      "fields": [
+        "SXLEN-1",
+        "stval",
+        "SXLEN"
+      ],
+      "warl": false
+    },
+    {
+      "register": "rv32satp",
+      "edn": "images/bytefield/rv32satp.edn",
+      "line_number": 982,
+      "fields": [
+        "MODE",
+        "ASID",
+        "PPN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "rv64satp",
+      "edn": "images/bytefield/rv64satp.edn",
+      "line_number": 997,
+      "fields": [
+        "MODE",
+        "ASID",
+        "PPN"
+      ],
+      "warl": true
+    },
+    {
+      "register": "sv32va",
+      "edn": "images/bytefield/sv32va.edn",
+      "line_number": 1494,
+      "fields": [
+        "VPN[1]",
+        "VPN[0]",
+        "page offset"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv32pa",
+      "edn": "images/bytefield/sv32pa.edn",
+      "line_number": 1504,
+      "fields": [
+        "PPN[1]",
+        "PPN[0]",
+        "page offset"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv32pte",
+      "edn": "images/bytefield/sv32pte.edn",
+      "line_number": 1508,
+      "fields": [
+        "PPN[1]",
+        "PPN[0]",
+        "RSW",
+        "D",
+        "A",
+        "G",
+        "U",
+        "X",
+        "W",
+        "R",
+        "V"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv39va",
+      "edn": "images/bytefield/sv39va.edn",
+      "line_number": 1907,
+      "fields": [
+        "VPN[2]",
+        "VPN[1]",
+        "VPN[0]",
+        "page offset"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv39pa",
+      "edn": "images/bytefield/sv39pa.edn",
+      "line_number": 1911,
+      "fields": [
+        "PPN[2]",
+        "PPN[1]",
+        "PPN[0]",
+        "page offset"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv39pte",
+      "edn": "images/bytefield/sv39pte.edn",
+      "line_number": 1915,
+      "fields": [
+        "N",
+        "PBMT",
+        "Reserved",
+        "PPN[2]",
+        "PPN[1]",
+        "PPN[0]",
+        "RSW",
+        "D",
+        "A",
+        "G",
+        "U",
+        "X",
+        "W",
+        "R",
+        "V"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv48va",
+      "edn": "images/bytefield/sv48va.edn",
+      "line_number": 2001,
+      "fields": [
+        "VPN[3]",
+        "VPN[2]",
+        "VPN[1]",
+        "VPN[0]",
+        "page offset"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv48pa",
+      "edn": "images/bytefield/sv48pa.edn",
+      "line_number": 2005,
+      "fields": [
+        "PPN[3]",
+        "PPN[2]",
+        "PPN[1]",
+        "PPN[0]",
+        "page offset"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv48pte",
+      "edn": "images/bytefield/sv48pte.edn",
+      "line_number": 2009,
+      "fields": [
+        "N",
+        "PBMT",
+        "Reserved",
+        "PPN[3]",
+        "PPN[2]",
+        "PPN[1]",
+        "PPN[0]",
+        "RSW",
+        "D",
+        "A",
+        "G",
+        "U",
+        "X",
+        "W",
+        "R",
+        "V"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv57va",
+      "edn": "images/bytefield/sv57va.edn",
+      "line_number": 2066,
+      "fields": [
+        "VPN[4]",
+        "VPN[3]",
+        "VPN[2]",
+        "VPN[1]",
+        "VPN[0]",
+        "page offset"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv57pa",
+      "edn": "images/bytefield/sv57pa.edn",
+      "line_number": 2070,
+      "fields": [
+        "PPN[4]",
+        "PPN[3]",
+        "PPN[2]",
+        "PPN[1]",
+        "PPN[0]",
+        "page offset"
+      ],
+      "warl": false
+    },
+    {
+      "register": "sv57pte",
+      "edn": "images/bytefield/sv57pte.edn",
+      "line_number": 2074,
+      "fields": [
+        "N",
+        "PBMT",
+        "Reserved",
+        "PPN",
+        "RSW",
+        "D",
+        "A",
+        "G",
+        "U",
+        "X",
+        "W",
+        "R",
+        "V",
+        "PPN[4]",
+        "PPN[3]",
+        "PPN[2]",
+        "PPN[1]",
+        "PPN[0]"
+      ],
+      "warl": false
+    }
+  ]
+}
