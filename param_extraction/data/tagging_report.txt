@@ -6,11 +6,11 @@ Spec directory   : /Users/ashish/lfx/riscv-unified-db/ext/riscv-isa-manual/src
 Spreadsheet      : /Users/ashish/lfx/riscv-unified-db/param_extraction/data/parameters.csv
 Min confidence   : medium
 
-Requests         : 210
-Tags inserted    : 200
-  inline wraps   : 47
-  bare anchors   : 153
-Overlaps w/ norm : 153
+Requests         : 201
+Tags inserted    : 191
+  inline wraps   : 43
+  bare anchors   : 148
+Overlaps w/ norm : 148
 Unmatched rows   : 10
 
 Per-file breakdown:
@@ -22,12 +22,11 @@ Per-file breakdown:
   ext/riscv-isa-manual/src/supervisor.adoc                      req= 11  ins= 11  bare= 1  unmatched= 0
   ext/riscv-isa-manual/src/vector-crypto.adoc                   req= 12  ins= 11  bare=11  unmatched= 1
   ext/riscv-isa-manual/src/hypervisor.adoc                      req=  9  ins=  9  bare= 4  unmatched= 0
-  ext/riscv-isa-manual/src/scalar-crypto.adoc                   req=  9  ins=  9  bare= 0  unmatched= 0
   ext/riscv-isa-manual/src/cmo.adoc                             req=  6  ins=  6  bare= 1  unmatched= 0
+  ext/riscv-isa-manual/src/scalar-crypto.adoc                   req=  6  ins=  6  bare= 0  unmatched= 0
   ext/riscv-isa-manual/src/a-st-ext.adoc                        req=  5  ins=  5  bare= 4  unmatched= 0
   ext/riscv-isa-manual/src/zawrs.adoc                           req=  5  ins=  5  bare= 5  unmatched= 0
   ext/riscv-isa-manual/src/zpm.adoc                             req=  5  ins=  5  bare= 5  unmatched= 0
-  ext/riscv-isa-manual/src/b-st-ext.adoc                        req=  4  ins=  4  bare= 4  unmatched= 0
   ext/riscv-isa-manual/src/counters.adoc                        req=  4  ins=  4  bare= 4  unmatched= 0
   ext/riscv-isa-manual/src/indirect-csr.adoc                    req=  6  ins=  4  bare= 3  unmatched= 2
   ext/riscv-isa-manual/src/intro.adoc                           req=  3  ins=  3  bare= 2  unmatched= 0
@@ -44,10 +43,8 @@ Per-file breakdown:
   ext/riscv-isa-manual/src/smdbltrp.adoc                        req=  1  ins=  1  bare= 0  unmatched= 0
   ext/riscv-isa-manual/src/smepmp.adoc                          req=  1  ins=  1  bare= 1  unmatched= 0
   ext/riscv-isa-manual/src/sscofpmf.adoc                        req=  1  ins=  1  bare= 0  unmatched= 0
-  ext/riscv-isa-manual/src/zabha.adoc                           req=  1  ins=  1  bare= 0  unmatched= 0
   ext/riscv-isa-manual/src/zfa.adoc                             req=  1  ins=  1  bare= 1  unmatched= 0
   ext/riscv-isa-manual/src/zicsr.adoc                           req=  1  ins=  1  bare= 1  unmatched= 0
-  ext/riscv-isa-manual/src/zihintpause.adoc                     req=  1  ins=  1  bare= 1  unmatched= 0
   ext/riscv-isa-manual/src/zilsd.adoc                           req=  1  ins=  1  bare= 1  unmatched= 0
 
 Failures:

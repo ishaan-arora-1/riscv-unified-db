@@ -42,28 +42,6 @@ index 1ca38e4..0a2c2f8 100644
  optionally relaxes this alignment requirement.
  If present, the misaligned atomicity granule PMA specifies the size
  of a misaligned atomicity granule, a power-of-two number of bytes.
-diff --git a/src/b-st-ext.adoc b/src/b-st-ext.adoc
-index 68f7c46..32cb318 100644
---- a/src/b-st-ext.adoc
-+++ b/src/b-st-ext.adoc
-@@ -1060,7 +1060,7 @@ Encoding (RV64)::
- Description::
- This instruction returns _rs1_ with a single bit inverted at the index specified in _shamt_.
- The index is read from the lower log2(XLEN) bits of _shamt_.
--[#norm:binvi_shamt_rsv_rv32]#For RV32, the encodings corresponding to shamt[5]=1 are reserved.#
-+[#param:BCLRI_SHAMT_RSV_RV32]##[#norm:binvi_shamt_rsv_rv32]#For RV32, the encodings corresponding to shamt[5]=1 are reserved.#
- 
- [[norm:binvi_op]]
- Operation::
-@@ -1171,7 +1171,7 @@ Encoding (RV64)::
- Description::
- This instruction returns _rs1_ with a single bit set at the index specified in _shamt_.
- The index is read from the lower log2(XLEN) bits of _shamt_.
--[#norm:bseti_shamt_rsv_rv32]#For RV32, the encodings corresponding to shamt[5]=1 are reserved.#
-+[#param:BSETI_SHAMT_RSV_RV32]##[#param:BINVI_SHAMT_RSV_RV32]##[#param:BEXTI_SHAMT_RSV_RV32]##[#norm:bseti_shamt_rsv_rv32]#For RV32, the encodings corresponding to shamt[5]=1 are reserved.#
- 
- [[norm:bseti_op]]
- Operation::
 diff --git a/src/cmo.adoc b/src/cmo.adoc
 index 4963951..0b70d10 100644
 --- a/src/cmo.adoc
@@ -695,36 +673,9 @@ index 894fca9..7bcc108 100644
  loads and stores defined in the base ISAs, nor are loads and stores of no more
  than XLEN bits defined in the F, D, and Q extensions.#
 diff --git a/src/scalar-crypto.adoc b/src/scalar-crypto.adoc
-index 24a8a2e..498b44f 100644
+index 24a8a2e..bc7804e 100644
 --- a/src/scalar-crypto.adoc
 +++ b/src/scalar-crypto.adoc
-@@ -363,7 +363,7 @@ This extension is shorthand for the following set of other extensions:
- |===
- 
- [[norm:zkn_impl_all]]
--A core which implements `Zkn` must implement all of the above extensions.
-+[#param:ZKN_IMPL_ALL]#A core which implements `Zkn` must implement all of the above extensions.#
- 
- [[zks,Zks]]
- ==== `Zks` - ShangMi Algorithm Suite
-@@ -383,7 +383,7 @@ This extension is shorthand for the following set of other extensions:
- |===
- 
- [[norm:zks_impl_all]]
--A core which implements `Zks` must implement all of the above extensions.
-+[#param:ZKS_IMPL_ALL]#A core which implements `Zks` must implement all of the above extensions.#
- 
- [[zk,Zk]]
- ==== `Zk` - Standard scalar cryptography extension
-@@ -401,7 +401,7 @@ This extension is shorthand for the following set of other extensions:
- |===
- 
- [[norm:zk_impl_all]]
--A core which implements `Zk` must implement all of the above extensions.
-+[#param:ZK_IMPL_ALL]#A core which implements `Zk` must implement all of the above extensions.#
- 
- ==== `Zkt` - Data Independent Execution Latency
- 
 @@ -3549,10 +3549,10 @@ The 32-bit contents of `seed` are as follows:
  |`15: 0` |`entropy` |16 bits of randomness, only when `OPST=ES16`.
  |=======================================================================
@@ -1390,21 +1341,6 @@ index b1ddce1..6b209d4 100644
  * [#norm:vsm3me-vv_vdoverlapvs2_rsv]#The `vd` register group overlaps with the `vs2` register group.#
  
  Arguments::
-diff --git a/src/zabha.adoc b/src/zabha.adoc
-index 4c2da04..aa8d5b0 100644
---- a/src/zabha.adoc
-+++ b/src/zabha.adoc
-@@ -55,8 +55,8 @@ bits of the original value in `rd`.#
- 
- [#norm:Zabha_rs1_align_addr]#Similar to the AMOs specified in the A extension, the Zabha extension mandates
- that the address contained in the `rs1` register must be naturally aligned to
--the size of the operand.# The same exception options as specified in the A
--extension are applicable in cases where the address is not naturally aligned.
-+the size of the operand.# [#param:MISALIGNED_AMO]#The same exception options as specified in the A
-+extension are applicable in cases where the address is not naturally aligned.#
- 
- Similar to the AMOs specified in the A and Zacas extensions, the AMOs in the
- Zabha extension optionally provide release consistency semantics, using the `aq`
 diff --git a/src/zalasr.adoc b/src/zalasr.adoc
 index 5eff069..9e0b94f 100644
 --- a/src/zalasr.adoc
@@ -1512,18 +1448,6 @@ index f8de697..c90faab 100644
  strongly ordered, as defined by the Memory-Ordering PMAs section in
  Volume II of this manual. Accesses to strongly ordered CSRs have
  stronger ordering constraints with respect to accesses to both weakly
-diff --git a/src/zihintpause.adoc b/src/zihintpause.adoc
-index eb8f46c..f40fe3e 100644
---- a/src/zihintpause.adoc
-+++ b/src/zihintpause.adoc
-@@ -1,6 +1,6 @@
- [[zihintpause]]
- == "Zihintpause" Extension for Pause Hint, Version 2.0
--[#norm:pause_op]#The PAUSE instruction is a HINT that indicates the current hart's rate
-+[#param:PAUSE_DURATION]##[#norm:pause_op]#The PAUSE instruction is a HINT that indicates the current hart's rate
- of instruction retirement should be temporarily reduced or paused. The
- duration of its effect must be bounded and may be zero.#
- (((PAUSE, HINT)))
 diff --git a/src/zilsd.adoc b/src/zilsd.adoc
 index 757e9cb..f8c34a9 100644
 --- a/src/zilsd.adoc
