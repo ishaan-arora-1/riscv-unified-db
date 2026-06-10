@@ -1,29 +1,29 @@
 Phase 7 — Final Parameter Spreadsheet — Statistics
 ============================================================
 
-Total rows               : 210
+Total rows               : 201
 UDB ground-truth params  : 223
-Already named in UDB     : 70
-New (unnamed) discoveries: 140
-Spec files touched       : 35
+Already named in UDB     : 69
+New (unnamed) discoveries: 132
+Spec files touched       : 32
 
 Classification breakdown:
-  NORM_DIRECT         123
+  NORM_DIRECT         114
   NORM_CSR_RW          71
   NORM_CSR_WARL        15
   SW_RULE               1
 
 Value type breakdown:
-  binary        129
-  enum           27
+  binary        122
+  enum           26
   value          17
   bitmask        15
   set            12
-  range          10
+  range           9
 
 Confidence breakdown:
-  high        171
-  medium       39
+  high        163
+  medium       38
 
 Top spec files by parameter count:
   machine.adoc                       36
@@ -34,9 +34,9 @@ Top spec files by parameter count:
   smstateen.adoc                     11
   supervisor.adoc                    11
   hypervisor.adoc                     9
-  scalar-crypto.adoc                  9
   cmo.adoc                            6
   indirect-csr.adoc                   6
+  scalar-crypto.adoc                  6
   a-st-ext.adoc                       5
   zawrs.adoc                          5
   zpm.adoc                            5

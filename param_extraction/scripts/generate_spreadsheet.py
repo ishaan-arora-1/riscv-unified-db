@@ -219,8 +219,46 @@ def build_rows(
             }
         )
 
-    # Stable sort: confirmed (KEEP) first, then file / line / name.
+    # Final dedup on resolved parameter_name: two findings (often from
+    # different files) can resolve to the same UDB name. Keep the best one
+    # (KEEP > REVIEW > FRAGMENT, then higher confidence).
     verdict_rank = {"KEEP": 0, "REVIEW_NO_MODAL": 1, "FRAGMENT": 2}
+    best_by_name: dict[str, dict] = {}
+    name_dupes = 0
+    for r in rows:
+        key = r["parameter_name"]
+        cur = best_by_name.get(key)
+        if cur is None:
+            best_by_name[key] = r
+            continue
+        name_dupes += 1
+        better = (verdict_rank.get(r["validation"], 3), -CONFIDENCE_RANK.get(r["confidence"], 0))
+        cur_rank = (verdict_rank.get(cur["validation"], 3), -CONFIDENCE_RANK.get(cur["confidence"], 0))
+        if better < cur_rank:
+            best_by_name[key] = r
+    rows = list(best_by_name.values())
+    if name_dupes:
+        logger.info("Final dedup: collapsed %d duplicate-name rows", name_dupes)
+
+    # Over-decomposition flag: when 3+ NEW (unnamed) params share one excerpt,
+    # the model likely split a single statement into several invented params.
+    # Flag them for review rather than dropping (some are legitimate, e.g.
+    # "all fields within it are optional" covering several real fields).
+    excerpt_groups: dict[str, list[dict]] = {}
+    for r in rows:
+        excerpt_groups.setdefault(re.sub(r"\s+", " ", r["excerpt"].strip().lower()), []).append(r)
+    overdecomp_flagged = 0
+    for grp in excerpt_groups.values():
+        new_rows = [r for r in grp if r["named"] == "no"]
+        if len(new_rows) >= 3:
+            for r in new_rows:
+                note = f"over-decomposition: {len(new_rows)} new params share one excerpt — review"
+                r["notes"] = (r["notes"] + "; " + note) if r["notes"] else note
+                overdecomp_flagged += 1
+    if overdecomp_flagged:
+        logger.info("Flagged %d rows as possible over-decomposition", overdecomp_flagged)
+
+    # Stable sort: confirmed (KEEP) first, then file / line / name.
     rows.sort(key=lambda r: (verdict_rank.get(r["validation"], 3),
                              r["adoc_file"], r["line_number"], r["parameter_name"]))
 

@@ -188,21 +188,24 @@ def classify(finding: dict, note_index: dict) -> tuple[str, str]:
 
     has_opt = bool(OPTIONALITY.search(excerpt))
 
-    # 3. Fragment / not a sentence (only if it isn't a clear optionality hit).
-    if not has_opt and (len(excerpt) < MIN_SENTENCE_CHARS or " " not in excerpt.strip()):
-        return "FRAGMENT", f"excerpt is {len(excerpt)} chars, likely a fragment"
-
-    # 4. Clear optionality language → confirmed.
+    # 3. Clear optionality language → confirmed. (Checked first so a real
+    #    choice wins even if the sentence also contains must/reserved.)
     if has_opt:
         return "KEEP", "optionality language present"
 
-    # 5. Reserved / hardwired fact, no optionality.
+    # 4. Reserved / hardwired fact, no optionality. Checked BEFORE the fragment
+    #    rule so a short reserved sentence (e.g. "shamt[5]=1 are reserved") is
+    #    rejected, not kept as a fragment.
     if RESERVED.search(excerpt):
         return "REJECT_RESERVED", "reserved/hardwired statement of fact, no optionality"
 
-    # 6. Hard requirement, no optionality.
+    # 5. Hard requirement, no optionality.
     if REQUIREMENT.search(excerpt):
         return "REJECT_REQUIRED", "must/shall requirement with no optionality language"
+
+    # 6. Fragment / not a sentence.
+    if len(excerpt) < MIN_SENTENCE_CHARS or " " not in excerpt.strip():
+        return "FRAGMENT", f"excerpt is {len(excerpt)} chars, likely a fragment"
 
     # 7. Neither signal — genuinely ambiguous.
     return "REVIEW_NO_MODAL", "no optionality and no hard-rule language"

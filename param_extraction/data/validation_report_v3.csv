@@ -12,10 +12,6 @@ MISALIGNED_LDST_HW_OR_INVISIBLE_TRAP_FUNC_OF_ADDR,NON_ISA,high,DROP_NONARCH,clas
 MISALIGNED_LDST_INVISIBLE_TRAP,NON_ISA,high,DROP_NONARCH,class=NON_ISA is non-architectural,rv32.adoc,665,via an invisible trap into the execution environment implementation
 BOOTROM_SMEPMP_INITIALIZATION,NON_ISA,medium,DROP_NONARCH,class=NON_ISA is non-architectural,smepmp.adoc,69,"It is expected that BootROM will set ``mseccfg.MMWP`` and/or ``mseccfg.MML`` during early boot, before jumping to the firmware, so that the firmware will be able to determine the presence of Smepmp by reading ``mseccfg`` and checking the state of ``mseccfg.MMWP`` and ``mseccfg.MML``."
 ZCMP_BUS_FAULT_HANDLING,NON_ISA,high,DROP_NONARCH,class=NON_ISA is non-architectural,zc.adoc,1488,"It is platform defined whether the core implementation waits for the bus responses before continuing to the final stage of the sequence, or handles errors responses after completing the PUSH instruction."
-BCLRI_SHAMT_RSV_RV32,NORM_DIRECT,high,FRAGMENT,"excerpt is 65 chars, likely a fragment",b-st-ext.adoc,1088,"For RV32, the encodings corresponding to shamt[5]=1 are reserved."
-BEXTI_SHAMT_RSV_RV32,NORM_DIRECT,high,FRAGMENT,"excerpt is 65 chars, likely a fragment",b-st-ext.adoc,1158,"For RV32, the encodings corresponding to shamt[5]=1 are reserved."
-BINVI_SHAMT_RSV_RV32,NORM_DIRECT,high,FRAGMENT,"excerpt is 65 chars, likely a fragment",b-st-ext.adoc,1228,"For RV32, the encodings corresponding to shamt[5]=1 are reserved."
-BSETI_SHAMT_RSV_RV32,NORM_DIRECT,high,FRAGMENT,"excerpt is 65 chars, likely a fragment",b-st-ext.adoc,1298,"For RV32, the encodings corresponding to shamt[5]=1 are reserved."
 MISELECT_WARL_VALUES,NORM_CSR_WARL,high,FRAGMENT,"excerpt is 28 chars, likely a fragment",indirect-csr.adoc,62,miselect is a WARL register.
 SISELECT_MIN_RANGE,NORM_CSR_WARL,high,FRAGMENT,"excerpt is 73 chars, likely a fragment",indirect-csr.adoc,120,The siselect register will support the value range 0..0xFFF at a minimum.
 VSISELECT_MIN_RANGE,NORM_CSR_WARL,high,FRAGMENT,"excerpt is 74 chars, likely a fragment",indirect-csr.adoc,175,The vsiselect register will support the value range 0..0xFFF at a minimum.
@@ -30,9 +26,6 @@ MENVCFG_STCE_IMPLEMENTED,NORM_CSR_RW,medium,FRAGMENT,"excerpt is 69 chars, likel
 MSECCFG_PMM_IMPLEMENTED,NORM_CSR_RW,medium,FRAGMENT,"excerpt is 53 chars, likely a fragment",machine.adoc,2456,"If Smmpm is not implemented, `PMM` is read-only zero."
 MSECCFG_SSEED_IMPLEMENTED,NORM_CSR_RW,medium,FRAGMENT,"excerpt is 63 chars, likely a fragment",machine.adoc,2340,"If Zkr or S-mode is not implemented, `SSEED` is read-only zero."
 MSECCFG_USEED_IMPLEMENTED,NORM_CSR_RW,medium,FRAGMENT,"excerpt is 63 chars, likely a fragment",machine.adoc,2334,"If Zkr or U-mode is not implemented, `USEED` is read-only zero."
-ZKN_IMPL_ALL,NORM_DIRECT,high,FRAGMENT,"excerpt is 73 chars, likely a fragment",scalar-crypto.adoc,395,A core which implements `Zkn` must implement all of the above extensions.
-ZKS_IMPL_ALL,NORM_DIRECT,high,FRAGMENT,"excerpt is 73 chars, likely a fragment",scalar-crypto.adoc,418,A core which implements `Zks` must implement all of the above extensions.
-ZK_IMPL_ALL,NORM_DIRECT,high,FRAGMENT,"excerpt is 72 chars, likely a fragment",scalar-crypto.adoc,441,A core which implements `Zk` must implement all of the above extensions.
 SSTATUS_SUM_ACCESS,NORM_CSR_RW,medium,FRAGMENT,"excerpt is 49 chars, likely a fragment",supervisor.adoc,186,SUM is read-only 0 if `satp`.MODE is read-only 0.
 SSAMOSWAP_OPERATION,NORM_DIRECT,medium,FRAGMENT,"excerpt is 71 chars, likely a fragment",unpriv-cfi.adoc,336,Perform an atomic swap from a shadow stack location (See <<SSAMOSWAP>>)
 SSPUSH_ENCODING,NORM_DIRECT,high,FRAGMENT,"excerpt is 54 chars, likely a fragment",unpriv-cfi.adoc,327,`SSPUSH x1` and `SSPUSH x5` - encoded using `MOP.RR.7`
@@ -48,9 +41,7 @@ ZVBC_SEW_CONSTRAINT,NORM_CSR_WARL,high,FRAGMENT,"excerpt is 49 chars, likely a f
 ZVE32X_DEPENDENCY,NORM_DIRECT,high,FRAGMENT,"excerpt is 61 chars, likely a fragment",vector-crypto.adoc,374,All of the other Vector Crypto Extensions depend on `Zve32x`.
 ZVKNHA_ALGORITHM_SUPPORT,NORM_DIRECT,medium,FRAGMENT,"excerpt is 29 chars, likely a fragment",vector-crypto.adoc,549,Zvknha supports only SHA-256.
 ZVKNHB_ALGORITHM_SUPPORT,NORM_DIRECT,medium,FRAGMENT,"excerpt is 36 chars, likely a fragment",vector-crypto.adoc,548,Zvknhb supports SHA-256 and SHA-512.
-AMOCAS_REQUIRES_WRITE_PERMISSIONS,NORM_DIRECT,low,FRAGMENT,"excerpt is 64 chars, likely a fragment",zacas.adoc,175,An `AMOCAS.W/D/Q` instruction always requires write permissions.
 FCVTMOD_RM_RESERVED_BEHAVIOR,NORM_DIRECT,medium,FRAGMENT,"excerpt is 33 chars, likely a fragment",zfa.adoc,178,Other _rm_ values are _reserved_.
-PAUSE_DURATION,NORM_DIRECT,high,FRAGMENT,"excerpt is 59 chars, likely a fragment",zihintpause.adoc,5,The duration of its effect must be bounded and may be zero.
 ZILSD_ATOMIC_8BYTE_ACCESS,NORM_DIRECT,medium,FRAGMENT,"excerpt is 79 chars, likely a fragment",zilsd.adoc,37,"Even if naturally aligned, the memory access might not be performed atomically."
 PMLEN_MODE_DEPENDENT,NORM_DIRECT,high,FRAGMENT,"excerpt is 73 chars, likely a fragment",zpm.adoc,178,the supported values of PMLEN may depend on the effective privilege mode.
 LRSC_RESERVATION_STRATEGY,NORM_DIRECT,high,KEEP,optionality language present,a-st-ext.adoc,113,"An implementation can register an arbitrarily large reservation set on each LR, provided the reservation set includes all bytes of the addressed data word or doubleword."
@@ -172,6 +163,9 @@ CONFIG_PTR_ADDRESS,NORM_DIRECT,high,REJECT_REQUIRED,must/shall requirement with 
 PMP_G_VALUE,NORM_DIRECT,medium,REJECT_REQUIRED,must/shall requirement with no optionality language,machine.adoc,3500,"In general, the PMP grain is 2^G+2^ bytes and must be the same across all PMP regions."
 TRAP_ON_ILLEGAL_WLRL,NORM_DIRECT,high,REJECT_REQUIRED,must/shall requirement with no optionality language,priv-csrs.adoc,1120,Implementations are permitted but not required to raise an illegal-instruction exception if an instruction attempts to write a non-supported value to a WLRL field.
 WPRI_FIELD_IMPLEMENTATION,NORM_CSR_RW,high,REJECT_REQUIRED,must/shall requirement with no optionality language,priv-csrs.adoc,1095,"For forward compatibility, implementations that do not furnish these fields must make them read-only zero."
+ZKN_IMPL_ALL,NORM_DIRECT,high,REJECT_REQUIRED,must/shall requirement with no optionality language,scalar-crypto.adoc,395,A core which implements `Zkn` must implement all of the above extensions.
+ZKS_IMPL_ALL,NORM_DIRECT,high,REJECT_REQUIRED,must/shall requirement with no optionality language,scalar-crypto.adoc,418,A core which implements `Zks` must implement all of the above extensions.
+ZK_IMPL_ALL,NORM_DIRECT,high,REJECT_REQUIRED,must/shall requirement with no optionality language,scalar-crypto.adoc,441,A core which implements `Zk` must implement all of the above extensions.
 SIE_BITS_ACCESS,NORM_CSR_RW,high,REJECT_REQUIRED,must/shall requirement with no optionality language,supervisor.adoc,440,A bit in `sie` must be writable if the corresponding interrupt can ever become pending. Bits of `sie` that are not writable are read-only zero.
 TRAP_ON_SFENCE_VMA_WHEN_SATP_MODE_IS_READ_ONLY,NORM_DIRECT,medium,REJECT_REQUIRED,must/shall requirement with no optionality language,supervisor.adoc,1669,"For implementations that make `satp`.MODE read-only zero (always Bare), attempts to execute an SFENCE.VMA instruction might raise an illegal-instruction exception."
 SSP_CSR_WIDTH,NORM_DIRECT,high,REJECT_REQUIRED,must/shall requirement with no optionality language,unpriv-cfi.adoc,347,There is no high CSR defined as the `ssp` is always as wide as the `XLEN` of the current privilege mode.
@@ -179,6 +173,12 @@ ELEN,NORM_DIRECT,high,REJECT_REQUIRED,must/shall requirement with no optionality
 VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR,NORM_DIRECT,high,REJECT_REQUIRED,must/shall requirement with no optionality language,v-st-ext.adoc,4088,"The implementation must produce a result equivalent to a reduction tree composed of binary operator nodes, with the inputs being elements from the source vector register group (`vs2`) and the source scalar value (`vs1[0]`)."
 VFREDUSUM_REDTREE,NORM_DIRECT,high,REJECT_REQUIRED,must/shall requirement with no optionality language,v-st-ext.adoc,4103,The reduction tree structure must be deterministic for a given value in `vtype` and `vl`.
 VLEN,NORM_DIRECT,high,REJECT_REQUIRED,must/shall requirement with no optionality language,v-st-ext.adoc,24,"The number of bits in a single vector register, _VLEN_ >= ELEN, which must be a power of 2, and must be no greater than 2^16."
+AMOCAS_REQUIRES_WRITE_PERMISSIONS,NORM_DIRECT,low,REJECT_REQUIRED,must/shall requirement with no optionality language,zacas.adoc,175,An `AMOCAS.W/D/Q` instruction always requires write permissions.
+PAUSE_DURATION,NORM_DIRECT,high,REJECT_REQUIRED,must/shall requirement with no optionality language,zihintpause.adoc,5,The duration of its effect must be bounded and may be zero.
+BCLRI_SHAMT_RSV_RV32,NORM_DIRECT,high,REJECT_RESERVED,"reserved/hardwired statement of fact, no optionality",b-st-ext.adoc,1088,"For RV32, the encodings corresponding to shamt[5]=1 are reserved."
+BEXTI_SHAMT_RSV_RV32,NORM_DIRECT,high,REJECT_RESERVED,"reserved/hardwired statement of fact, no optionality",b-st-ext.adoc,1158,"For RV32, the encodings corresponding to shamt[5]=1 are reserved."
+BINVI_SHAMT_RSV_RV32,NORM_DIRECT,high,REJECT_RESERVED,"reserved/hardwired statement of fact, no optionality",b-st-ext.adoc,1228,"For RV32, the encodings corresponding to shamt[5]=1 are reserved."
+BSETI_SHAMT_RSV_RV32,NORM_DIRECT,high,REJECT_RESERVED,"reserved/hardwired statement of fact, no optionality",b-st-ext.adoc,1298,"For RV32, the encodings corresponding to shamt[5]=1 are reserved."
 TRAP_ON_RESERVED_ROUNDING_MODE,NORM_DIRECT,medium,REJECT_RESERVED,"reserved/hardwired statement of fact, no optionality",f-st-ext.adoc,119,"The behavior of floating-point instructions that depend on rounding mode when executed with a reserved rounding mode is _reserved_, including both static reserved rounding modes (101-110) and dynamic reserved rounding modes (101-111)."
 MSECCFG_IMPLEMENTED,NORM_DIRECT,high,REJECT_RESERVED,"reserved/hardwired statement of fact, no optionality",machine.adoc,2320,"It exists if any extension that adds a field to `mseccfg` is implemented. Otherwise, it is reserved."
 PMP_HARDWIRED_REGIONS,NORM_DIRECT,high,REJECT_RESERVED,"reserved/hardwired statement of fact, no optionality",machine.adoc,3335,"Certain regions' privileges can be hardwired—for example, some regions might only ever be visible in machine mode but in no lower-privilege layers."
