@@ -13,9 +13,9 @@ RISC-V Architectural Parameter Extraction Project
 
 2. CLASSIFICATION BREAKDOWN
 ----------------------------------------
-  NORM_CSR_RW             55  (24%)
+  NORM_CSR_RW             74  (33%)
   NORM_CSR_WARL           26  (11%)
-  NORM_DIRECT            140  (62%)
+  NORM_DIRECT            121  (54%)
   SW_RULE                  2  ( 0%)
 
   Classification descriptions:
@@ -69,7 +69,7 @@ RISC-V Architectural Parameter Extraction Project
 6. PARAMETER LISTING BY CLASSIFICATION
 ----------------------------------------
 
-  --- NORM_DIRECT (140 parameters) ---
+  --- NORM_DIRECT (121 parameters) ---
     ARCH_ID_VALUE
       Type: value  |  Exts: ext:Sm AND param:MARCHID_IMPLEMENTED(equal=True)  CSRs: marchid
       Spec: -> machine.adoc:297
@@ -129,83 +129,15 @@ RISC-V Architectural Parameter Extraction Project
     MARCHID_IMPLEMENTED
       Type: binary([True, False])  |  Exts: ext:Sm
       Spec: -> machine.adoc:303
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
+      Conf: high  |  Well-known architectural parameter 'MARCHID_IMPLEMENTED'
     MCONTEXT_AVAILABLE
       Type: binary([True, False])  |  Exts: ext:Sdtrig  CSRs: mcontext
       Spec: -> priv-csrs.adoc:1016
       Conf: high  |  Feature/CSR existence parameter ('AVAILABLE' suffix)
-    MCTRCTL_CORSWAPINH_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_CUSTOM_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_DIRCALLINH_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_DIRJMPINH_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_DIRLJMPINH_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_EXCINH_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_INDCALLINH_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_INDJMPINH_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_INDLJMPINH_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_INTRINH_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_MTE_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:553 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_NTBREN_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_RASEMU_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_RETINH_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_STE_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:553 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_TKBRINH_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MCTRCTL_TRETINH_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
-      Spec: -> smctr.adoc:413 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
     MIMPID_IMPLEMENTED
       Type: binary([True, False])  |  Exts: ext:Sm
       Spec: -> machine.adoc:337 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
+      Conf: high  |  Well-known architectural parameter 'MIMPID_IMPLEMENTED'
     MISALIGNED_AMO
       Type: binary([True, False])  |  Exts: ext:Zaamo
       Spec: -> zalasr.adoc:26 [NORM]
@@ -226,14 +158,6 @@ RISC-V Architectural Parameter Extraction Project
       Type: binary(['sequential_bytes', 'custom'])  |  Exts: ext:Sm AND param:MISALIGNED_LDST(equal=True)
       Spec: -> a-st-ext.adoc:385 [NORM]
       Conf: medium  |  Misaligned access behavior parameter
-    MISA_CSR_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:Sm  CSRs: mstatus
-      Spec: -> machine.adoc:23 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
-    MSTATUS_TVM_IMPLEMENTED
-      Type: binary([True, False])  |  Exts: ext:S  CSRs: mstatus
-      Spec: -> hypervisor.adoc:999 [NORM]
-      Conf: high  |  Feature/CSR existence parameter ('IMPLEMENTED' suffix)
     MTVAL_WIDTH
       Type: range  |  Exts: ext:Sm
       Spec: -> hypervisor.adoc:25 [NORM]
@@ -737,7 +661,7 @@ RISC-V Architectural Parameter Extraction Project
       Spec: -> machine.adoc:1256 [NORM]
       Conf: high  |  Referenced in sw_write() of vstvec.MODE
 
-  --- NORM_CSR_RW (55 parameters) ---
+  --- NORM_CSR_RW (74 parameters) ---
     COUNTINHIBIT_EN
       Type: bitmask  |  Exts: ext:Sm  CSRs: mcountinhibit
       Spec: -> machine.adoc:1669 [NORM]
@@ -794,6 +718,78 @@ RISC-V Architectural Parameter Extraction Project
       Type: bitmask  |  Exts: ext:Sm  CSRs: mcounteren
       Spec: -> machine.adoc:1656 [NORM]
       Conf: high  |  Controls type (RO/RW) of mcounteren.CY
+    MCTRCTL_CORSWAPINH_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_CUSTOM_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_DIRCALLINH_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_DIRJMPINH_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_DIRLJMPINH_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_EXCINH_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_INDCALLINH_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_INDJMPINH_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_INDLJMPINH_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_INTRINH_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_MTE_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:553 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_NTBREN_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_RASEMU_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_RETINH_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_STE_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:553 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_TKBRINH_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MCTRCTL_TRETINH_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Smctr  CSRs: sctrctl, vsctrctl
+      Spec: -> smctr.adoc:413 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
+    MISA_CSR_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:Sm  CSRs: mstatus
+      Spec: -> machine.adoc:23 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
     MSTATEEN_AIA_TYPE
       Type: enum(3 vals)  |  Exts: ext:Ssaia AND ext:Smstateen(~> 1.0)
       Spec: -> smstateen.adoc:288 [NORM]
@@ -818,6 +814,10 @@ RISC-V Architectural Parameter Extraction Project
       Type: enum(3 vals)  |  Exts: ext:Zcmt AND ext:Smstateen(~> 1.0)
       Spec: -> zc.adoc:2341 [NORM]
       Conf: low  |  CSR field type control parameter for 'mstateen' (determines RO/RW behavior)
+    MSTATUS_TVM_IMPLEMENTED
+      Type: binary([True, False])  |  Exts: ext:S  CSRs: mstatus
+      Spec: -> hypervisor.adoc:999 [NORM]
+      Conf: high  |  Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)
     MTVEC_ACCESS
       Type: binary(['ro', 'rw'])  |  Exts: ext:Sm  CSRs: mtvec
       Spec: -> machine.adoc:1209 [NORM]

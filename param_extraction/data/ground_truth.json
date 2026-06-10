@@ -6,9 +6,9 @@
   },
   "statistics": {
     "by_classification": {
-      "NORM_CSR_RW": 55,
+      "NORM_CSR_RW": 74,
       "NORM_CSR_WARL": 26,
-      "NORM_DIRECT": 140,
+      "NORM_DIRECT": 121,
       "SW_RULE": 2
     },
     "by_value_type": {
@@ -7814,7 +7814,7 @@
       "csr_references": [],
       "classification": "NORM_DIRECT",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Well-known architectural parameter 'MARCHID_IMPLEMENTED'",
       "source_file": "spec/std/isa/param/MARCHID_IMPLEMENTED.yaml"
     },
     {
@@ -8278,9 +8278,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_CORSWAPINH_IMPLEMENTED.yaml"
     },
     {
@@ -8322,9 +8322,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_CUSTOM_IMPLEMENTED.yaml"
     },
     {
@@ -8366,9 +8366,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_DIRCALLINH_IMPLEMENTED.yaml"
     },
     {
@@ -8410,9 +8410,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_DIRJMPINH_IMPLEMENTED.yaml"
     },
     {
@@ -8454,9 +8454,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_DIRLJMPINH_IMPLEMENTED.yaml"
     },
     {
@@ -8498,9 +8498,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_EXCINH_IMPLEMENTED.yaml"
     },
     {
@@ -8542,9 +8542,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_INDCALLINH_IMPLEMENTED.yaml"
     },
     {
@@ -8586,9 +8586,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_INDJMPINH_IMPLEMENTED.yaml"
     },
     {
@@ -8630,9 +8630,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_INDLJMPINH_IMPLEMENTED.yaml"
     },
     {
@@ -8674,9 +8674,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_INTRINH_IMPLEMENTED.yaml"
     },
     {
@@ -8718,9 +8718,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_MTE_IMPLEMENTED.yaml"
     },
     {
@@ -8762,9 +8762,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_NTBREN_IMPLEMENTED.yaml"
     },
     {
@@ -8806,9 +8806,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_RASEMU_IMPLEMENTED.yaml"
     },
     {
@@ -8850,9 +8850,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_RETINH_IMPLEMENTED.yaml"
     },
     {
@@ -8894,9 +8894,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_STE_IMPLEMENTED.yaml"
     },
     {
@@ -8938,9 +8938,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_TKBRINH_IMPLEMENTED.yaml"
     },
     {
@@ -8982,9 +8982,9 @@
           "idl_key": "sw_read()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MCTRCTL_TRETINH_IMPLEMENTED.yaml"
     },
     {
@@ -9017,7 +9017,7 @@
       "csr_references": [],
       "classification": "NORM_DIRECT",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Well-known architectural parameter 'MIMPID_IMPLEMENTED'",
       "source_file": "spec/std/isa/param/MIMPID_IMPLEMENTED.yaml"
     },
     {
@@ -9276,9 +9276,9 @@
           "idl_key": "type()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MISA_CSR_IMPLEMENTED.yaml"
     },
     {
@@ -9644,9 +9644,9 @@
           "idl_key": "reset_value()"
         }
       ],
-      "classification": "NORM_DIRECT",
+      "classification": "NORM_CSR_RW",
       "classification_confidence": "high",
-      "classification_reasoning": "Feature/CSR existence parameter ('IMPLEMENTED' suffix)",
+      "classification_reasoning": "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)",
       "source_file": "spec/std/isa/param/MSTATUS_TVM_IMPLEMENTED.yaml"
     },
     {

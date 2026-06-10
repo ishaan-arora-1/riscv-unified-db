@@ -10,11 +10,12 @@ and heuristically classifies each parameter.
 Output: data/ground_truth.json
 """
 
-import yaml
 import json
 import re
-from pathlib import Path
 from collections import defaultdict
+from pathlib import Path
+
+import yaml
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PARAM_DIR = REPO_ROOT / "spec" / "std" / "isa" / "param"
@@ -448,7 +449,6 @@ def classify_parameter(param_data, csr_refs, value_type_info):
     """
     name = param_data.get("name", "")
     desc = param_data.get("description", "").lower()
-    long_name = param_data.get("long_name", "").lower()
 
     has_csr_refs = len(csr_refs) > 0
     has_sw_write_ref = any(r["idl_key"] == "sw_write(csr_value)" for r in csr_refs)
@@ -467,22 +467,32 @@ def classify_parameter(param_data, csr_refs, value_type_info):
         reasoning = "Hardware update behavior (HW_ prefix) — software-deterministic with correct fencing"
         return classification, confidence, reasoning
 
-    # --- Check for existence/availability parameters ---
-    # Params with _IMPLEMENTED or _AVAILABLE suffix control whether a CSR/feature
-    # exists at all. They may be referenced in CSR IDL (because the CSR behavior
-    # depends on whether it exists), but the parameter itself is a direct
-    # architectural choice, not a WARL/RW control.
-    if name.endswith("_IMPLEMENTED") or name.endswith("_AVAILABLE"):
-        classification = "NORM_DIRECT"
-        confidence = "high"
-        reasoning = f"Feature/CSR existence parameter ('{name.split('_')[-1]}' suffix)"
-        return classification, confidence, reasoning
-
-    # --- Check for direct architectural parameters ---
+    # --- Check for direct architectural parameters (explicit allowlist) ---
+    # Checked before the _IMPLEMENTED rule below so ID-register value params
+    # (MARCHID_IMPLEMENTED, MIMPID_IMPLEMENTED) and width params (SXLEN, ...)
+    # stay NORM_DIRECT.
     if name in DIRECT_ARCH_NAMES:
         classification = "NORM_DIRECT"
         confidence = "high"
         reasoning = f"Well-known architectural parameter '{name}'"
+        return classification, confidence, reasoning
+
+    # --- Check for existence/availability parameters ---
+    # _IMPLEMENTED / _AVAILABLE usually marks a feature/CSR existence choice
+    # (NORM_DIRECT). BUT when the description says the field becomes
+    # read-only-zero if unimplemented, the choice is whether that CSR field is
+    # writable vs read-only — which is NORM_CSR_RW per the taxonomy (the same
+    # shape as COUNTINHIBIT_EN). The naive "always NORM_DIRECT" rule mislabeled
+    # the whole MCTRCTL_*_IMPLEMENTED family.
+    if name.endswith("_IMPLEMENTED") or name.endswith("_AVAILABLE"):
+        if re.search(r"read-only|read only|read-only-zero|read-only 0", desc):
+            classification = "NORM_CSR_RW"
+            confidence = "high"
+            reasoning = "Field implemented-else-read-only-zero — controls field RO/RW (NORM_CSR_RW)"
+        else:
+            classification = "NORM_DIRECT"
+            confidence = "high"
+            reasoning = f"Feature/CSR existence parameter ('{name.split('_')[-1]}' suffix)"
         return classification, confidence, reasoning
 
     # --- Check for trap/report behavior (normative, not CSR-controlled) ---
@@ -693,7 +703,7 @@ def main():
 
     # Step 2: Build CSR cross-reference
     print("Building CSR cross-reference...")
-    param_to_csrs, csr_to_params = build_csr_param_xref(CSR_DIR, param_names)
+    param_to_csrs, _csr_to_params = build_csr_param_xref(CSR_DIR, param_names)
     params_with_csr_refs = sum(1 for v in param_to_csrs.values() if v)
     print(f"  {params_with_csr_refs} parameters referenced in CSR IDL code")
 
