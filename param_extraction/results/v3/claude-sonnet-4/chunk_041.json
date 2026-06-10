@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_041",
+  "source_file": "rv32e.adoc",
+  "start_line": 1,
+  "end_line": 47,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "RV32E and RV64E reduce the integer register count to 16 general-purpose registers, (`x0-x15`), where `x0` is a dedicated zero register.",
+      "line_number": 21,
+      "reason": "Fixed requirement - RV32E/RV64E always have exactly 16 registers, no implementer choice"
+    },
+    {
+      "excerpt": "RV32E and RV64E use the same instruction-set encoding as RV32I and RV64I respectively, except that only registers `x0-x15` are provided.",
+      "line_number": 33,
+      "reason": "Fixed requirement - the encoding is always the same, no implementer choice"
+    },
+    {
+      "excerpt": "All encodings specifying the other registers `x16-x31` are reserved.",
+      "line_number": 34,
+      "reason": "Fixed fact - 'are reserved' describes a permanent state, not an implementer choice"
+    },
+    {
+      "excerpt": "RV32E was designed to provide an even smaller base core for embedded microcontrollers.",
+      "line_number": 11,
+      "reason": "Text inside [NOTE] block - non-normative informative content"
+    },
+    {
+      "excerpt": "We have found that in the small RV32I core implementations, the upper 16 registers consume around one quarter of the total area of the core excluding memories, thus their removal saves around 25% core area with a corresponding core power reduction.",
+      "line_number": 25,
+      "reason": "Text inside [NOTE] block - non-normative informative content about implementation benefits"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"RV32E and RV64E reduce the integer register count to 16 general-purpose registers, (`x0-x15`), where `x0` is a dedicated zero register.\",\n      \"line_number\": 21,\n      \"reason\": \"Fixed requirement - RV32E/RV64E always have exactly 16 registers, no implementer choice\"\n    },\n    {\n      \"excerpt\": \"RV32E and RV64E use the same instruction-set encoding as RV32I and RV64I respectively, except that only registers `x0-x15` are provided.\",\n      \"line_number\": 33,\n      \"reason\": \"Fixed requirement - the encoding is always the same, no implementer choice\"\n    },\n    {\n      \"excerpt\": \"All encodings specifying the other registers `x16-x31` are reserved.\",\n      \"line_number\": 34,\n      \"reason\": \"Fixed fact - 'are reserved' describes a permanent state, not an implementer choice\"\n    },\n    {\n      \"excerpt\": \"RV32E was designed to provide an even smaller base core for embedded microcontrollers.\",\n      \"line_number\": 11,\n      \"reason\": \"Text inside [NOTE] block - non-normative informative content\"\n    },\n    {\n      \"excerpt\": \"We have found that in the small RV32I core implementations, the upper 16 registers consume around one quarter of the total area of the core excluding memories, thus their removal saves around 25% core area with a corresponding core power reduction.\",\n      \"line_number\": 25,\n      \"reason\": \"Text inside [NOTE] block - non-normative informative content about implementation benefits\"\n    }\n  ]\n}\n```",
+  "input_tokens": 9771,
+  "output_tokens": 436,
+  "latency_ms": 7141,
+  "timestamp": "2026-06-10T18:18:49.489824+00:00",
+  "error": null,
+  "retry_count": 0
+}

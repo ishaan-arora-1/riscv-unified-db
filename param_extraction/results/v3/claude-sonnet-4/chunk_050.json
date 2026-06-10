@@ -1,0 +1,61 @@
+{
+  "chunk_id": "chunk_050",
+  "source_file": "smepmp.adoc",
+  "start_line": 1,
+  "end_line": 76,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Since all fields defined in ``mseccfg`` as part of this extension are locked when set (``MMWP``/``MML``) or locked when cleared (``RLB``), software can't poll them for determining the presence of Smepmp.",
+      "line_number": 69,
+      "parameter_name": "SMEPMP_EXTENSION_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "software can't poll them for determining the presence",
+      "confidence": "medium",
+      "reasoning": "The text implies that Smepmp extension presence is implementation-defined - some implementations have it, others don't. The inability to poll indicates this is a design-time choice, not runtime behavior."
+    },
+    {
+      "excerpt": "It is expected that BootROM will set ``mseccfg.MMWP`` and/or ``mseccfg.MML`` during early boot, before jumping to the firmware, so that the firmware will be able to determine the presence of Smepmp by reading ``mseccfg`` and checking the state of ``mseccfg.MMWP`` and ``mseccfg.MML``.",
+      "line_number": 69,
+      "parameter_name": "BOOTROM_SMEPMP_INITIALIZATION",
+      "existing_udb_name": null,
+      "class": "NON_ISA",
+      "value_type": "enum",
+      "modal_signal": "It is expected that BootROM will set",
+      "confidence": "medium",
+      "reasoning": "BootROM behavior is a platform-level choice outside the ISA scope. The 'expected' wording suggests this is implementation-defined platform behavior, not an architectural requirement."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "this extension introduces the `RLB`, `MMWP`, and `MML` fields in the `mseccfg` CSR and their associated rules.",
+      "line_number": 42,
+      "reason": "Statement of fact about what the extension defines - no implementer choice involved, just specification content"
+    },
+    {
+      "excerpt": "The physical memory protection rules when `mseccfg.MML` is set to 1 are summarized in the truth table below.",
+      "line_number": 46,
+      "reason": "Describes behavioral rules when MML=1 - this is fixed specification behavior, not an implementation choice"
+    },
+    {
+      "excerpt": "Without the Smepmp extension, it is not possible for a PMP rule to be *enforced* only on non-Machine modes and *denied* on Machine mode",
+      "line_number": 33,
+      "reason": "Statement of fact about limitations without the extension - describes what is 'not possible', which is a fixed constraint"
+    },
+    {
+      "excerpt": "Locked rules cannot be removed or modified until a *PMP reset*, unless ``mseccfg.RLB`` is set.",
+      "line_number": 65,
+      "reason": "Fixed behavioral rule - describes what 'cannot' be done, which is a mandatory constraint, not an implementation choice"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Since all fields defined in ``mseccfg`` as part of this extension are locked when set (``MMWP``/``MML``) or locked when cleared (``RLB``), software can't poll them for determining the presence of Smepmp.\",\n      \"line_number\": 69,\n      \"parameter_name\": \"SMEPMP_EXTENSION_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"software can't poll them for determining the presence\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The text implies that Smepmp extension presence is implementation-defined - some implementations have it, others don't. The inability to poll indicates this is a design-time choice, not runtime behavior.\"\n    },\n    {\n      \"excerpt\": \"It is expected that BootROM will set ``mseccfg.MMWP`` and/or ``mseccfg.MML`` during early boot, before jumping to the firmware, so that the firmware will be able to determine the presence of Smepmp by reading ``mseccfg`` and checking the state of ``mseccfg.MMWP`` and ``mseccfg.MML``.\",\n      \"line_number\": 69,\n      \"parameter_name\": \"BOOTROM_SMEPMP_INITIALIZATION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"It is expected that BootROM will set\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"BootROM behavior is a platform-level choice outside the ISA scope. The 'expected' wording suggests this is implementation-defined platform behavior, not an architectural requirement.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"this extension introduces the `RLB`, `MMWP`, and `MML` fields in the `mseccfg` CSR and their associated rules.\",\n      \"line_number\": 42,\n      \"reason\": \"Statement of fact about what the extension defines - no implementer choice involved, just specification content\"\n    },\n    {\n      \"excerpt\": \"The physical memory protection rules when `mseccfg.MML` is set to 1 are summarized in the truth table below.\",\n      \"line_number\": 46,\n      \"reason\": \"Describes behavioral rules when MML=1 - this is fixed specification behavior, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"Without the Smepmp extension, it is not possible for a PMP rule to be *enforced* only on non-Machine modes and *denied* on Machine mode\",\n      \"line_number\": 33,\n      \"reason\": \"Statement of fact about limitations without the extension - describes what is 'not possible', which is a fixed constraint\"\n    },\n    {\n      \"excerpt\": \"Locked rules cannot be removed or modified until a *PMP reset*, unless ``mseccfg.RLB`` is set.\",\n      \"line_number\": 65,\n      \"reason\": \"Fixed behavioral rule - describes what 'cannot' be done, which is a mandatory constraint, not an implementation choice\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11058,
+  "output_tokens": 814,
+  "latency_ms": 14709,
+  "timestamp": "2026-06-10T18:22:13.288151+00:00",
+  "error": null,
+  "retry_count": 0
+}

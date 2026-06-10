@@ -1,0 +1,88 @@
+{
+  "chunk_id": "chunk_027",
+  "source_file": "priv-cfi.adoc",
+  "start_line": 1,
+  "end_line": 373,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "When a trap is taken into privilege mode `x`, the `__x__PELP` is set to `ELP` and `ELP` is set to `NO_LP_EXPECTED`.",
+      "line_number": 82,
+      "parameter_name": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "existing_udb_name": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": null,
+      "confidence": "low",
+      "reasoning": "This describes fixed trap behavior that all implementations must follow. There is no optionality language - 'is set to' indicates a requirement, not a choice."
+    },
+    {
+      "excerpt": "When a trap is taken into privilege mode `x`, the `__x__PELP` is set to `ELP` and `ELP` is set to `NO_LP_EXPECTED`.",
+      "line_number": 82,
+      "parameter_name": "REPORT_CAUSE_IN_STVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "existing_udb_name": "REPORT_CAUSE_IN_STVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": null,
+      "confidence": "low",
+      "reasoning": "This describes fixed trap behavior that all implementations must follow. There is no optionality language - 'is set to' indicates a requirement, not a choice."
+    },
+    {
+      "excerpt": "When a trap is taken into privilege mode `x`, the `__x__PELP` is set to `ELP` and `ELP` is set to `NO_LP_EXPECTED`.",
+      "line_number": 82,
+      "parameter_name": "REPORT_CAUSE_IN_VSTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "existing_udb_name": "REPORT_CAUSE_IN_VSTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": null,
+      "confidence": "low",
+      "reasoning": "This describes fixed trap behavior that all implementations must follow. There is no optionality language - 'is set to' indicates a requirement, not a choice."
+    },
+    {
+      "excerpt": "When S-mode is not implemented, then `xSSE` is 0 at both M and U privilege modes.",
+      "line_number": 159,
+      "parameter_name": "ZICFISS_SMODE_XSSE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": null,
+      "confidence": "low",
+      "reasoning": "This states a fixed requirement about xSSE values when S-mode is not implemented. There is no optionality language - 'is 0' indicates a fixed rule, not an implementation choice."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The Zicfilp must be explicitly enabled for use at each privilege mode.",
+      "line_number": 46,
+      "reason": "This is inside a [NOTE] block, which is non-normative. Parameters are never extracted from NOTE blocks."
+    },
+    {
+      "excerpt": "A trap may need to be delivered to the same or to a higher privilege mode upon completion of `JALR`/`C.JALR`/`C.JR`, but before the instruction at the target of indirect call/jump was decoded",
+      "line_number": 56,
+      "reason": "This describes when traps 'may need to be delivered' - this is behavioral description of when traps occur, not an implementation choice about trap behavior."
+    },
+    {
+      "excerpt": "The software-check exception caused by Zicfilp has higher priority than an illegal-instruction exception but lower priority than instruction access-fault.",
+      "line_number": 64,
+      "reason": "This states a fixed priority ordering that all implementations must follow ('has higher priority'). No optionality language - it's a fixed requirement."
+    },
+    {
+      "excerpt": "The encoding `R=0`, `W=1`, and `X=0`, is defined to represent an SS page.",
+      "line_number": 201,
+      "reason": "This defines a fixed encoding that all implementations must use ('is defined to represent'). No implementation choice - it's a fixed specification."
+    },
+    {
+      "excerpt": "Memory mapped as an SS page cannot be written to by instructions other than `SSAMOSWAP.W/D`, `SSPUSH`, and `C.SSPUSH`.",
+      "line_number": 210,
+      "reason": "This states a fixed access control rule ('cannot be written to'). All implementations must enforce this - there is no choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"When a trap is taken into privilege mode `x`, the `__x__PELP` is set to `ELP` and `ELP` is set to `NO_LP_EXPECTED`.\",\n      \"line_number\": 82,\n      \"parameter_name\": \"REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK\",\n      \"existing_udb_name\": \"REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": null,\n      \"confidence\": \"low\",\n      \"reasoning\": \"This describes fixed trap behavior that all implementations must follow. There is no optionality language - 'is set to' indicates a requirement, not a choice.\"\n    },\n    {\n      \"excerpt\": \"When a trap is taken into privilege mode `x`, the `__x__PELP` is set to `ELP` and `ELP` is set to `NO_LP_EXPECTED`.\",\n      \"line_number\": 82,\n      \"parameter_name\": \"REPORT_CAUSE_IN_STVAL_ON_LANDING_PAD_SOFTWARE_CHECK\",\n      \"existing_udb_name\": \"REPORT_CAUSE_IN_STVAL_ON_LANDING_PAD_SOFTWARE_CHECK\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": null,\n      \"confidence\": \"low\",\n      \"reasoning\": \"This describes fixed trap behavior that all implementations must follow. There is no optionality language - 'is set to' indicates a requirement, not a choice.\"\n    },\n    {\n      \"excerpt\": \"When a trap is taken into privilege mode `x`, the `__x__PELP` is set to `ELP` and `ELP` is set to `NO_LP_EXPECTED`.\",\n      \"line_number\": 82,\n      \"parameter_name\": \"REPORT_CAUSE_IN_VSTVAL_ON_LANDING_PAD_SOFTWARE_CHECK\",\n      \"existing_udb_name\": \"REPORT_CAUSE_IN_VSTVAL_ON_LANDING_PAD_SOFTWARE_CHECK\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": null,\n      \"confidence\": \"low\",\n      \"reasoning\": \"This describes fixed trap behavior that all implementations must follow. There is no optionality language - 'is set to' indicates a requirement, not a choice.\"\n    },\n    {\n      \"excerpt\": \"When S-mode is not implemented, then `xSSE` is 0 at both M and U privilege modes.\",\n      \"line_number\": 159,\n      \"parameter_name\": \"ZICFISS_SMODE_XSSE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": null,\n      \"confidence\": \"low\",\n      \"reasoning\": \"This states a fixed requirement about xSSE values when S-mode is not implemented. There is no optionality language - 'is 0' indicates a fixed rule, not an implementation choice.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The Zicfilp must be explicitly enabled for use at each privilege mode.\",\n      \"line_number\": 46,\n      \"reason\": \"This is inside a [NOTE] block, which is non-normative. Parameters are never extracted from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"A trap may need to be delivered to the same or to a higher privilege mode upon completion of `JALR`/`C.JALR`/`C.JR`, but before the instruction at the target of indirect call/jump was decoded\",\n      \"line_number\": 56,\n      \"reason\": \"This describes when traps 'may need to be delivered' - this is behavioral description of when traps occur, not an implementation choice about trap behavior.\"\n    },\n    {\n      \"excerpt\": \"The software-check exception caused by Zicfilp has higher priority than an illegal-instruction exception but lower priority than instruction access-fault.\",\n      \"line_number\": 64,\n      \"reason\": \"This states a fixed priority ordering that all implementations must follow ('has higher priority'). No optionality language - it's a fixed requirement.\"\n    },\n    {\n      \"excerpt\": \"The encoding `R=0`, `W=1`, and `X=0`, is defined to represent an SS page.\",\n      \"line_number\": 201,\n      \"reason\": \"This defines a fixed encoding that all implementations must use ('is defined to represent'). No implementation choice - it's a fixed specification.\"\n    },\n    {\n      \"excerpt\": \"Memory mapped as an SS page cannot be written to by instructions other than `SSAMOSWAP.W/D`, `SSPUSH`, and `C.SSPUSH`.\",\n      \"line_number\": 210,\n      \"reason\": \"This states a fixed access control rule ('cannot be written to'). All implementations must enforce this - there is no choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 14494,
+  "output_tokens": 1282,
+  "latency_ms": 20880,
+  "timestamp": "2026-06-10T18:17:09.400357+00:00",
+  "error": null,
+  "retry_count": 0
+}

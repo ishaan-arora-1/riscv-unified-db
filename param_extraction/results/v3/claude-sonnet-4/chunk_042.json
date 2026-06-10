@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_042",
+  "source_file": "rv64.adoc",
+  "start_line": 1,
+  "end_line": 260,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "RV64I widens the integer registers and supported user address space to 64 bits (XLEN=64 in <<gprs>>).",
+      "line_number": 10,
+      "reason": "Fixed requirement - RV64I always has XLEN=64, no implementer choice"
+    },
+    {
+      "excerpt": "These \"*W\" instructions ignore the upper 32 bits of their inputs and always produce 32-bit signed values, sign-extending them to 64 bits, i.e. bits XLEN-1 through 31 are equal.",
+      "line_number": 16,
+      "reason": "Fixed behavioral requirement - 'always produce' indicates no implementer choice"
+    },
+    {
+      "excerpt": "SLLIW, SRLIW, and SRAIW encodings with _imm[5] {ne} 0_ are reserved.",
+      "line_number": 71,
+      "reason": "Fixed fact - 'are reserved' indicates these encodings are permanently reserved, not an implementer choice"
+    },
+    {
+      "excerpt": "In RV64I, only the low 6 bits of _rs2_ are considered for the shift amount.",
+      "line_number": 119,
+      "reason": "Fixed requirement - 'only the low 6 bits' is a fixed rule for all RV64I implementations"
+    },
+    {
+      "excerpt": "The execution environment will define what portions of the address space are legal to access.",
+      "line_number": 128,
+      "reason": "This describes EEI/platform responsibility, not an ISA architectural parameter"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"RV64I widens the integer registers and supported user address space to 64 bits (XLEN=64 in <<gprs>>).\",\n      \"line_number\": 10,\n      \"reason\": \"Fixed requirement - RV64I always has XLEN=64, no implementer choice\"\n    },\n    {\n      \"excerpt\": \"These \\\"*W\\\" instructions ignore the upper 32 bits of their inputs and always produce 32-bit signed values, sign-extending them to 64 bits, i.e. bits XLEN-1 through 31 are equal.\",\n      \"line_number\": 16,\n      \"reason\": \"Fixed behavioral requirement - 'always produce' indicates no implementer choice\"\n    },\n    {\n      \"excerpt\": \"SLLIW, SRLIW, and SRAIW encodings with _imm[5] {ne} 0_ are reserved.\",\n      \"line_number\": 71,\n      \"reason\": \"Fixed fact - 'are reserved' indicates these encodings are permanently reserved, not an implementer choice\"\n    },\n    {\n      \"excerpt\": \"In RV64I, only the low 6 bits of _rs2_ are considered for the shift amount.\",\n      \"line_number\": 119,\n      \"reason\": \"Fixed requirement - 'only the low 6 bits' is a fixed rule for all RV64I implementations\"\n    },\n    {\n      \"excerpt\": \"The execution environment will define what portions of the address space are legal to access.\",\n      \"line_number\": 128,\n      \"reason\": \"This describes EEI/platform responsibility, not an ISA architectural parameter\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12917,
+  "output_tokens": 430,
+  "latency_ms": 8383,
+  "timestamp": "2026-06-10T18:18:58.896748+00:00",
+  "error": null,
+  "retry_count": 0
+}

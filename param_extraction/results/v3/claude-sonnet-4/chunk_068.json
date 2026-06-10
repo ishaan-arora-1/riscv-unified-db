@@ -1,0 +1,55 @@
+{
+  "chunk_id": "chunk_068",
+  "source_file": "zfa.adoc",
+  "start_line": 1,
+  "end_line": 261,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Other _rm_ values are _reserved_.",
+      "line_number": 178,
+      "parameter_name": "FCVTMOD_RM_RESERVED_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "Other _rm_ values are _reserved_",
+      "confidence": "medium",
+      "reasoning": "The behavior when reserved rm values are used in FCVTMOD.W.D is unspecified by the spec. The implementation must choose how to handle these reserved encodings (trap, ignore, etc.)."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The FLI._fmt_ instructions never set any floating-point exception flags.",
+      "line_number": 95,
+      "reason": "Fixed requirement - 'never set' is a binding rule for all implementations, not a choice"
+    },
+    {
+      "excerpt": "Zero and infinite inputs are copied to _rd_ unmodified.",
+      "line_number": 107,
+      "reason": "Fixed behavioral requirement - describes what must happen with specific inputs, no implementation choice"
+    },
+    {
+      "excerpt": "Signaling NaN inputs cause the invalid operation exception flag to be set; no other exception flags are set.",
+      "line_number": 107,
+      "reason": "Fixed requirement - specifies exactly which exception flags are set, no optionality"
+    },
+    {
+      "excerpt": "FCVTMOD.W.D always rounds towards zero.",
+      "line_number": 158,
+      "reason": "Fixed requirement - 'always rounds' specifies mandatory behavior, not an implementation choice"
+    },
+    {
+      "excerpt": "This instruction is only provided if the D extension is implemented.",
+      "line_number": 176,
+      "reason": "Conditional availability based on extension support, but not an implementation parameter within the extension itself"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Other _rm_ values are _reserved_.\",\n      \"line_number\": 178,\n      \"parameter_name\": \"FCVTMOD_RM_RESERVED_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"Other _rm_ values are _reserved_\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The behavior when reserved rm values are used in FCVTMOD.W.D is unspecified by the spec. The implementation must choose how to handle these reserved encodings (trap, ignore, etc.).\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The FLI._fmt_ instructions never set any floating-point exception flags.\",\n      \"line_number\": 95,\n      \"reason\": \"Fixed requirement - 'never set' is a binding rule for all implementations, not a choice\"\n    },\n    {\n      \"excerpt\": \"Zero and infinite inputs are copied to _rd_ unmodified.\",\n      \"line_number\": 107,\n      \"reason\": \"Fixed behavioral requirement - describes what must happen with specific inputs, no implementation choice\"\n    },\n    {\n      \"excerpt\": \"Signaling NaN inputs cause the invalid operation exception flag to be set; no other exception flags are set.\",\n      \"line_number\": 107,\n      \"reason\": \"Fixed requirement - specifies exactly which exception flags are set, no optionality\"\n    },\n    {\n      \"excerpt\": \"FCVTMOD.W.D always rounds towards zero.\",\n      \"line_number\": 158,\n      \"reason\": \"Fixed requirement - 'always rounds' specifies mandatory behavior, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"This instruction is only provided if the D extension is implemented.\",\n      \"line_number\": 176,\n      \"reason\": \"Conditional availability based on extension support, but not an implementation parameter within the extension itself\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13126,
+  "output_tokens": 509,
+  "latency_ms": 10098,
+  "timestamp": "2026-06-10T18:38:56.213408+00:00",
+  "error": null,
+  "retry_count": 0
+}

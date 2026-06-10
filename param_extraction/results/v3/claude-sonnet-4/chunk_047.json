@@ -1,0 +1,66 @@
+{
+  "chunk_id": "chunk_047",
+  "source_file": "smcntrpmf.adoc",
+  "start_line": 1,
+  "end_line": 72,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "For each bit in 61:58, if the associated privilege mode is not implemented, the bit is read-only zero.",
+      "line_number": 35,
+      "parameter_name": "MCYCLECFG_PRIVILEGE_MODE_BITS_RW",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "bitmask",
+      "modal_signal": "if the associated privilege mode is not implemented, the bit is read-only zero",
+      "confidence": "high",
+      "reasoning": "The implementation chooses which privilege mode filtering bits (MINH, SINH, UINH, VSINH, VUINH) are read-write vs read-only-zero based on which privilege modes are implemented. This is a per-bit RO/RW choice."
+    },
+    {
+      "excerpt": "The content of these registers may be accessible from Supervisor level if the Smcdeleg/Ssccfg extensions are implemented.",
+      "line_number": 39,
+      "parameter_name": "MCYCLECFG_SUPERVISOR_ACCESS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may be accessible from Supervisor level",
+      "confidence": "high",
+      "reasoning": "Whether mcyclecfg/minstretcfg are accessible from supervisor mode is an optional implementation choice ('may be accessible'), contingent on implementing the Smcdeleg/Ssccfg extensions."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "mcyclecfg and minstretcfg are 64-bit registers that configure privilege mode filtering for the cycle and instret counters, respectively.",
+      "line_number": 17,
+      "reason": "Fixed architectural fact - these registers are always 64-bit and always configure filtering. No implementation choice."
+    },
+    {
+      "excerpt": "When all xINH bits are zero, event counting is enabled in all modes.",
+      "line_number": 33,
+      "reason": "Fixed behavioral requirement - describes what happens when all bits are zero, not an implementation choice."
+    },
+    {
+      "excerpt": "The fundamental behavior of cycle and instret is modified in that counting does not occur while executing in an inhibited privilege mode.",
+      "line_number": 50,
+      "reason": "Fixed behavioral requirement - describes the mandatory behavior when filtering is enabled, not an implementation choice."
+    },
+    {
+      "excerpt": "instructions that retire in a non-inhibited mode increment instret, and instructions that retire in an inhibited mode do not.",
+      "line_number": 58,
+      "reason": "Fixed behavioral requirement - describes the mandatory counting behavior based on privilege mode, not an implementation choice."
+    },
+    {
+      "excerpt": "For RV32, bits 63:32 of mcyclecfg can be accessed via the mcyclecfgh CSR, and bits 63:32 of minstretcfg can be accessed via the minstretcfgh CSR.",
+      "line_number": 37,
+      "reason": "Fixed architectural requirement for RV32 - all RV32 implementations must provide these high-word CSRs. No choice involved."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"For each bit in 61:58, if the associated privilege mode is not implemented, the bit is read-only zero.\",\n      \"line_number\": 35,\n      \"parameter_name\": \"MCYCLECFG_PRIVILEGE_MODE_BITS_RW\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"if the associated privilege mode is not implemented, the bit is read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses which privilege mode filtering bits (MINH, SINH, UINH, VSINH, VUINH) are read-write vs read-only-zero based on which privilege modes are implemented. This is a per-bit RO/RW choice.\"\n    },\n    {\n      \"excerpt\": \"The content of these registers may be accessible from Supervisor level if the Smcdeleg/Ssccfg extensions are implemented.\",\n      \"line_number\": 39,\n      \"parameter_name\": \"MCYCLECFG_SUPERVISOR_ACCESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may be accessible from Supervisor level\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether mcyclecfg/minstretcfg are accessible from supervisor mode is an optional implementation choice ('may be accessible'), contingent on implementing the Smcdeleg/Ssccfg extensions.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"mcyclecfg and minstretcfg are 64-bit registers that configure privilege mode filtering for the cycle and instret counters, respectively.\",\n      \"line_number\": 17,\n      \"reason\": \"Fixed architectural fact - these registers are always 64-bit and always configure filtering. No implementation choice.\"\n    },\n    {\n      \"excerpt\": \"When all xINH bits are zero, event counting is enabled in all modes.\",\n      \"line_number\": 33,\n      \"reason\": \"Fixed behavioral requirement - describes what happens when all bits are zero, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The fundamental behavior of cycle and instret is modified in that counting does not occur while executing in an inhibited privilege mode.\",\n      \"line_number\": 50,\n      \"reason\": \"Fixed behavioral requirement - describes the mandatory behavior when filtering is enabled, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"instructions that retire in a non-inhibited mode increment instret, and instructions that retire in an inhibited mode do not.\",\n      \"line_number\": 58,\n      \"reason\": \"Fixed behavioral requirement - describes the mandatory counting behavior based on privilege mode, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"For RV32, bits 63:32 of mcyclecfg can be accessed via the mcyclecfgh CSR, and bits 63:32 of minstretcfg can be accessed via the minstretcfgh CSR.\",\n      \"line_number\": 37,\n      \"reason\": \"Fixed architectural requirement for RV32 - all RV32 implementations must provide these high-word CSRs. No choice involved.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 10622,
+  "output_tokens": 835,
+  "latency_ms": 14422,
+  "timestamp": "2026-06-10T18:20:43.881911+00:00",
+  "error": null,
+  "retry_count": 0
+}

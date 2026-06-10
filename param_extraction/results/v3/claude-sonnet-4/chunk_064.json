@@ -1,0 +1,55 @@
+{
+  "chunk_id": "chunk_064",
+  "source_file": "zacas.adoc",
+  "start_line": 1,
+  "end_line": 225,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "An `AMOCAS.W/D/Q` instruction always requires write permissions.",
+      "line_number": 175,
+      "parameter_name": "AMOCAS_REQUIRES_WRITE_PERMISSIONS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "always requires",
+      "confidence": "low",
+      "reasoning": "This appears to be a fixed requirement ('always requires') rather than an implementation choice. The wording suggests this is mandatory behavior for all implementations, not an optional parameter."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "`AMOCAS.W/D/Q` requires that the address held in `rs1` be naturally aligned to the size of the operand (i.e., 16-byte aligned for _quadwords_, eight-byte aligned for _doublewords_, and four-byte aligned for _words_).",
+      "line_number": 158,
+      "reason": "Fixed requirement ('requires') - all implementations must enforce natural alignment, no implementer choice"
+    },
+    {
+      "excerpt": "The instruction requires the first register in the pair to be even numbered; encodings with odd numbered registers specified in `rs2` and `rd` are reserved.",
+      "line_number": 40,
+      "reason": "Fixed requirement ('requires') and reserved encodings - no implementation choice, all must enforce even-numbered register pairs"
+    },
+    {
+      "excerpt": "The memory operation performed by an `AMOCAS.W/D/Q`, when successful, has acquire semantics if `aq` bit is 1 and has release semantics if `rl` bit is 1.",
+      "line_number": 163,
+      "reason": "Behavioral description controlled by instruction encoding bits - the behavior is determined by the aq/rl bits at runtime, not an implementation choice"
+    },
+    {
+      "excerpt": "When the first register of a source register pair is `x0`, then both halves of the pair read as zero.",
+      "line_number": 42,
+      "reason": "Fixed behavioral rule ('when...then') - describes mandatory behavior when x0 is used, not an implementation choice"
+    },
+    {
+      "excerpt": "For RV32, `AMOCAS.W` atomically loads a 32-bit data value from address in `rs1`, compares the loaded value to the 32-bit value held in `rd`, and if the comparison is bitwise equal, then stores the 32-bit value held in `rs2` to the original address in `rs1`.",
+      "line_number": 20,
+      "reason": "Operational definition of instruction behavior - describes what the instruction does, not an implementation choice"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"An `AMOCAS.W/D/Q` instruction always requires write permissions.\",\n      \"line_number\": 175,\n      \"parameter_name\": \"AMOCAS_REQUIRES_WRITE_PERMISSIONS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"always requires\",\n      \"confidence\": \"low\",\n      \"reasoning\": \"This appears to be a fixed requirement ('always requires') rather than an implementation choice. The wording suggests this is mandatory behavior for all implementations, not an optional parameter.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"`AMOCAS.W/D/Q` requires that the address held in `rs1` be naturally aligned to the size of the operand (i.e., 16-byte aligned for _quadwords_, eight-byte aligned for _doublewords_, and four-byte aligned for _words_).\",\n      \"line_number\": 158,\n      \"reason\": \"Fixed requirement ('requires') - all implementations must enforce natural alignment, no implementer choice\"\n    },\n    {\n      \"excerpt\": \"The instruction requires the first register in the pair to be even numbered; encodings with odd numbered registers specified in `rs2` and `rd` are reserved.\",\n      \"line_number\": 40,\n      \"reason\": \"Fixed requirement ('requires') and reserved encodings - no implementation choice, all must enforce even-numbered register pairs\"\n    },\n    {\n      \"excerpt\": \"The memory operation performed by an `AMOCAS.W/D/Q`, when successful, has acquire semantics if `aq` bit is 1 and has release semantics if `rl` bit is 1.\",\n      \"line_number\": 163,\n      \"reason\": \"Behavioral description controlled by instruction encoding bits - the behavior is determined by the aq/rl bits at runtime, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"When the first register of a source register pair is `x0`, then both halves of the pair read as zero.\",\n      \"line_number\": 42,\n      \"reason\": \"Fixed behavioral rule ('when...then') - describes mandatory behavior when x0 is used, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"For RV32, `AMOCAS.W` atomically loads a 32-bit data value from address in `rs1`, compares the loaded value to the 32-bit value held in `rd`, and if the comparison is bitwise equal, then stores the 32-bit value held in `rs2` to the original address in `rs1`.\",\n      \"line_number\": 20,\n      \"reason\": \"Operational definition of instruction behavior - describes what the instruction does, not an implementation choice\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12948,
+  "output_tokens": 698,
+  "latency_ms": 12857,
+  "timestamp": "2026-06-10T18:37:48.077138+00:00",
+  "error": null,
+  "retry_count": 0
+}

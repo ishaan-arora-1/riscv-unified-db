@@ -1,0 +1,198 @@
+{
+  "chunk_id": "chunk_009",
+  "source_file": "cmo.adoc",
+  "start_line": 1,
+  "end_line": 1094,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "In the initial set of CMO extensions, the size of a cache block shall be uniform throughout the system.",
+      "line_number": 38,
+      "parameter_name": "CACHE_BLOCK_SIZE",
+      "existing_udb_name": "CACHE_BLOCK_SIZE",
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": null,
+      "confidence": "low",
+      "reasoning": "While this states a requirement ('shall be uniform'), the cache block size itself is implementation-specific as stated earlier in the text. The uniformity is a constraint, but the actual size value is chosen by the implementer."
+    },
+    {
+      "excerpt": "The capacity and organization of a cache and the size of a cache block are both _implementation-specific_, and the execution environment provides software a means to discover information about the caches and cache blocks in a system.",
+      "line_number": 85,
+      "parameter_name": "CACHE_BLOCK_SIZE",
+      "existing_udb_name": "CACHE_BLOCK_SIZE",
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "implementation-specific",
+      "confidence": "high",
+      "reasoning": "The cache block size is explicitly stated to be implementation-specific, meaning the implementer chooses this value."
+    },
+    {
+      "excerpt": "Each `x{csrname}` register is WARL; however, software should determine the legal values from the execution environment discovery mechanism.",
+      "line_number": 598,
+      "parameter_name": "XENVCFG_LEGAL_VALUES",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "set",
+      "modal_signal": "Each `x{csrname}` register is WARL",
+      "confidence": "high",
+      "reasoning": "The xenvcfg registers are WARL, meaning the set of legal values varies by implementation. The parameter is which values are supported in these WARL fields."
+    },
+    {
+      "excerpt": "If the above constraints are not met, the behavior of a CBO instruction is UNSPECIFIED.",
+      "line_number": 318,
+      "parameter_name": "CBO_BEHAVIOR_ON_CONSTRAINT_VIOLATION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "behavior of a CBO instruction is UNSPECIFIED",
+      "confidence": "medium",
+      "reasoning": "When PMP/PMA constraints are not met, the behavior is unspecified, meaning implementations may choose different behaviors. This is an implementation choice about how to handle constraint violations."
+    },
+    {
+      "excerpt": "If neither a load instruction nor store instruction is permitted to access the physical addresses, but an instruction fetch is permitted to access the physical addresses, whether a cache-block management instruction is permitted to access the cache block is UNSPECIFIED.",
+      "line_number": 344,
+      "parameter_name": "CBM_ACCESS_ON_IFETCH_ONLY",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "whether a cache-block management instruction is permitted to access the cache block is UNSPECIFIED",
+      "confidence": "high",
+      "reasoning": "Whether cache-block management instructions can access blocks when only instruction fetch is permitted is unspecified, giving implementations a choice."
+    },
+    {
+      "excerpt": "Unless otherwise defined by the debug architecture specification, the behavior of trigger modules with respect to CMO instructions is UNSPECIFIED.",
+      "line_number": 395,
+      "parameter_name": "CMO_TRIGGER_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "behavior of trigger modules with respect to CMO instructions is UNSPECIFIED",
+      "confidence": "high",
+      "reasoning": "The behavior of trigger modules with CMO instructions is unspecified, allowing implementations to choose how triggers interact with these instructions."
+    },
+    {
+      "excerpt": "Memory accesses may be considered to be loads or stores depending on the implementation, i.e. whether an address trigger matches on these instructions when `mcontrol6.load=1` or `mcontrol6.store=1` is _implementation-specific_",
+      "line_number": 456,
+      "parameter_name": "PREFETCH_TRIGGER_ACCESS_TYPE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "implementation-specific",
+      "confidence": "high",
+      "reasoning": "Whether prefetch instructions are considered loads or stores for trigger matching is implementation-specific, giving implementers a choice."
+    },
+    {
+      "excerpt": "As described in the hypervisor extension, a zero may be written into `mtinst` or `htinst` instead of the standard transformation defined above.",
+      "line_number": 476,
+      "parameter_name": "CMO_TINST_ZERO_OPTION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "a zero may be written",
+      "confidence": "high",
+      "reasoning": "Implementations may choose to write zero to mtinst/htinst instead of the standard transformation for CMO instructions."
+    },
+    {
+      "excerpt": "When executing a *cbo.clean* instruction, an implementation may instead perform a flush operation, since the result of that operation is indistinguishable from the sequence of performing a clean operation just before deallocating all cached copies in the set of coherent caches.",
+      "line_number": 695,
+      "parameter_name": "CBO_CLEAN_MAY_FLUSH",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "an implementation may instead perform a flush operation",
+      "confidence": "high",
+      "reasoning": "Implementations may choose to perform a flush operation instead of a clean operation for cbo.clean instructions."
+    },
+    {
+      "excerpt": "When executing a *cbo.inval* instruction, an implementation may instead perform a flush operation, since the result of that operation is indistinguishable from the sequence of performing a write transfer to memory just before performing an invalidate operation.",
+      "line_number": 773,
+      "parameter_name": "CBO_INVAL_MAY_FLUSH",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "an implementation may instead perform a flush operation",
+      "confidence": "high",
+      "reasoning": "Implementations may choose to perform a flush operation instead of an invalidate operation for cbo.inval instructions."
+    },
+    {
+      "excerpt": "An implementation may or may not update the entire set of bytes atomically.",
+      "line_number": 810,
+      "parameter_name": "CBO_ZERO_ATOMIC_UPDATE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may or may not update the entire set of bytes atomically",
+      "confidence": "high",
+      "reasoning": "Whether cbo.zero updates all bytes atomically is an implementation choice ('may or may not')."
+    },
+    {
+      "excerpt": "An implementation may opt to cache a copy of the cache block in a cache accessed by an instruction fetch in order to improve memory access latency, but this behavior is not required.",
+      "line_number": 847,
+      "parameter_name": "PREFETCH_I_CACHING_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may opt to cache a copy",
+      "confidence": "high",
+      "reasoning": "Whether prefetch.i actually caches the block is optional ('may opt to cache'), giving implementations a choice."
+    },
+    {
+      "excerpt": "An implementation may opt to cache a copy of the cache block in a cache accessed by a data read in order to improve memory access latency, but this behavior is not required.",
+      "line_number": 883,
+      "parameter_name": "PREFETCH_R_CACHING_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may opt to cache a copy",
+      "confidence": "high",
+      "reasoning": "Whether prefetch.r actually caches the block is optional ('may opt to cache'), giving implementations a choice."
+    },
+    {
+      "excerpt": "An implementation may opt to cache a copy of the cache block in a cache accessed by a data write in order to improve memory access latency, but this behavior is not required.",
+      "line_number": 919,
+      "parameter_name": "PREFETCH_W_CACHING_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may opt to cache a copy",
+      "confidence": "high",
+      "reasoning": "Whether prefetch.w actually caches the block is optional ('may opt to cache'), giving implementations a choice."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "In future CMO extensions, the requirement for a uniform cache block size may be relaxed.",
+      "line_number": 40,
+      "reason": "This is inside a NOTE block, which is non-normative. NOTE blocks do not define architectural parameters."
+    },
+    {
+      "excerpt": "The PMP access control bits shall be the same for _all_ physical addresses in the cache block, and if write permission is granted by the PMP access control bits, read permission shall also be granted",
+      "line_number": 310,
+      "reason": "This is a fixed requirement ('shall be the same') that applies to all implementations, not an implementation choice."
+    },
+    {
+      "excerpt": "CMO instructions do _not_ generate address-misaligned exceptions.",
+      "line_number": 390,
+      "reason": "This is a fixed requirement ('do not generate') that applies to all implementations, not an implementation choice."
+    },
+    {
+      "excerpt": "The CBIE/CBCFE/CBZE fields in each `x{csrname}` register do not affect the read and write behavior of the same fields in the other `x{csrname}` registers.",
+      "line_number": 596,
+      "reason": "This describes fixed behavior ('do not affect') that is the same for all implementations, not a parameter."
+    },
+    {
+      "excerpt": "It is not required that _rs1_ is aligned to the size of a cache block.",
+      "line_number": 720,
+      "reason": "This states what is not required, but does not give implementations a choice about behavior - it's a fixed rule about alignment requirements."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"In the initial set of CMO extensions, the size of a cache block shall be uniform throughout the system.\",\n      \"line_number\": 38,\n      \"parameter_name\": \"CACHE_BLOCK_SIZE\",\n      \"existing_udb_name\": \"CACHE_BLOCK_SIZE\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": null,\n      \"confidence\": \"low\",\n      \"reasoning\": \"While this states a requirement ('shall be uniform'), the cache block size itself is implementation-specific as stated earlier in the text. The uniformity is a constraint, but the actual size value is chosen by the implementer.\"\n    },\n    {\n      \"excerpt\": \"The capacity and organization of a cache and the size of a cache block are both _implementation-specific_, and the execution environment provides software a means to discover information about the caches and cache blocks in a system.\",\n      \"line_number\": 85,\n      \"parameter_name\": \"CACHE_BLOCK_SIZE\",\n      \"existing_udb_name\": \"CACHE_BLOCK_SIZE\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation-specific\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The cache block size is explicitly stated to be implementation-specific, meaning the implementer chooses this value.\"\n    },\n    {\n      \"excerpt\": \"Each `x{csrname}` register is WARL; however, software should determine the legal values from the execution environment discovery mechanism.\",\n      \"line_number\": 598,\n      \"parameter_name\": \"XENVCFG_LEGAL_VALUES\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"Each `x{csrname}` register is WARL\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The xenvcfg registers are WARL, meaning the set of legal values varies by implementation. The parameter is which values are supported in these WARL fields.\"\n    },\n    {\n      \"excerpt\": \"If the above constraints are not met, the behavior of a CBO instruction is UNSPECIFIED.\",\n      \"line_number\": 318,\n      \"parameter_name\": \"CBO_BEHAVIOR_ON_CONSTRAINT_VIOLATION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"behavior of a CBO instruction is UNSPECIFIED\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When PMP/PMA constraints are not met, the behavior is unspecified, meaning implementations may choose different behaviors. This is an implementation choice about how to handle constraint violations.\"\n    },\n    {\n      \"excerpt\": \"If neither a load instruction nor store instruction is permitted to access the physical addresses, but an instruction fetch is permitted to access the physical addresses, whether a cache-block management instruction is permitted to access the cache block is UNSPECIFIED.\",\n      \"line_number\": 344,\n      \"parameter_name\": \"CBM_ACCESS_ON_IFETCH_ONLY\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"whether a cache-block management instruction is permitted to access the cache block is UNSPECIFIED\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether cache-block management instructions can access blocks when only instruction fetch is permitted is unspecified, giving implementations a choice.\"\n    },\n    {\n      \"excerpt\": \"Unless otherwise defined by the debug architecture specification, the behavior of trigger modules with respect to CMO instructions is UNSPECIFIED.\",\n      \"line_number\": 395,\n      \"parameter_name\": \"CMO_TRIGGER_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"behavior of trigger modules with respect to CMO instructions is UNSPECIFIED\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The behavior of trigger modules with CMO instructions is unspecified, allowing implementations to choose how triggers interact with these instructions.\"\n    },\n    {\n      \"excerpt\": \"Memory accesses may be considered to be loads or stores depending on the implementation, i.e. whether an address trigger matches on these instructions when `mcontrol6.load=1` or `mcontrol6.store=1` is _implementation-specific_\",\n      \"line_number\": 456,\n      \"parameter_name\": \"PREFETCH_TRIGGER_ACCESS_TYPE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"implementation-specific\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether prefetch instructions are considered loads or stores for trigger matching is implementation-specific, giving implementers a choice.\"\n    },\n    {\n      \"excerpt\": \"As described in the hypervisor extension, a zero may be written into `mtinst` or `htinst` instead of the standard transformation defined above.\",\n      \"line_number\": 476,\n      \"parameter_name\": \"CMO_TINST_ZERO_OPTION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"a zero may be written\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Implementations may choose to write zero to mtinst/htinst instead of the standard transformation for CMO instructions.\"\n    },\n    {\n      \"excerpt\": \"When executing a *cbo.clean* instruction, an implementation may instead perform a flush operation, since the result of that operation is indistinguishable from the sequence of performing a clean operation just before deallocating all cached copies in the set of coherent caches.\",\n      \"line_number\": 695,\n      \"parameter_name\": \"CBO_CLEAN_MAY_FLUSH\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"an implementation may instead perform a flush operation\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Implementations may choose to perform a flush operation instead of a clean operation for cbo.clean instructions.\"\n    },\n    {\n      \"excerpt\": \"When executing a *cbo.inval* instruction, an implementation may instead perform a flush operation, since the result of that operation is indistinguishable from the sequence of performing a write transfer to memory just before performing an invalidate operation.\",\n      \"line_number\": 773,\n      \"parameter_name\": \"CBO_INVAL_MAY_FLUSH\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"an implementation may instead perform a flush operation\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Implementations may choose to perform a flush operation instead of an invalidate operation for cbo.inval instructions.\"\n    },\n    {\n      \"excerpt\": \"An implementation may or may not update the entire set of bytes atomically.\",\n      \"line_number\": 810,\n      \"parameter_name\": \"CBO_ZERO_ATOMIC_UPDATE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may or may not update the entire set of bytes atomically\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether cbo.zero updates all bytes atomically is an implementation choice ('may or may not').\"\n    },\n    {\n      \"excerpt\": \"An implementation may opt to cache a copy of the cache block in a cache accessed by an instruction fetch in order to improve memory access latency, but this behavior is not required.\",\n      \"line_number\": 847,\n      \"parameter_name\": \"PREFETCH_I_CACHING_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may opt to cache a copy\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether prefetch.i actually caches the block is optional ('may opt to cache'), giving implementations a choice.\"\n    },\n    {\n      \"excerpt\": \"An implementation may opt to cache a copy of the cache block in a cache accessed by a data read in order to improve memory access latency, but this behavior is not required.\",\n      \"line_number\": 883,\n      \"parameter_name\": \"PREFETCH_R_CACHING_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may opt to cache a copy\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether prefetch.r actually caches the block is optional ('may opt to cache'), giving implementations a choice.\"\n    },\n    {\n      \"excerpt\": \"An implementation may opt to cache a copy of the cache block in a cache accessed by a data write in order to improve memory access latency, but this behavior is not required.\",\n      \"line_number\": 919,\n      \"parameter_name\": \"PREFETCH_W_CACHING_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may opt to cache a copy\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether prefetch.w actually caches the block is optional ('may opt to cache'), giving implementations a choice.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"In future CMO extensions, the requirement for a uniform cache block size may be relaxed.\",\n      \"line_number\": 40,\n      \"reason\": \"This is inside a NOTE block, which is non-normative. NOTE blocks do not define architectural parameters.\"\n    },\n    {\n      \"excerpt\": \"The PMP access control bits shall be the same for _all_ physical addresses in the cache block, and if write permission is granted by the PMP access control bits, read permission shall also be granted\",\n      \"line_number\": 310,\n      \"reason\": \"This is a fixed requirement ('shall be the same') that applies to all implementations, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"CMO instructions do _not_ generate address-misaligned exceptions.\",\n      \"line_number\": 390,\n      \"reason\": \"This is a fixed requirement ('do not generate') that applies to all implementations, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The CBIE/CBCFE/CBZE fields in each `x{csrname}` register do not affect the read and write behavior of the same fields in the other `x{csrname}` registers.\",\n      \"line_number\": 596,\n      \"reason\": \"This describes fixed behavior ('do not affect') that is the same for all implementations, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"It is not required that _rs1_ is aligned to the size of a cache block.\",\n      \"line_number\": 720,\n      \"reason\": \"This states what is not required, but does not give implementations a choice about behavior - it's a fixed rule about alignment requirements.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 20688,
+  "output_tokens": 2829,
+  "latency_ms": 42522,
+  "timestamp": "2026-06-10T18:13:56.685346+00:00",
+  "error": null,
+  "retry_count": 0
+}

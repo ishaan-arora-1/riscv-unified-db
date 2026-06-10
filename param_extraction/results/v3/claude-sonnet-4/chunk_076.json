@@ -1,0 +1,55 @@
+{
+  "chunk_id": "chunk_076",
+  "source_file": "zilsd.adoc",
+  "start_line": 1,
+  "end_line": 315,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Even if naturally aligned, the memory access might not be performed atomically.",
+      "line_number": 37,
+      "parameter_name": "ZILSD_ATOMIC_8BYTE_ACCESS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "might not be performed atomically",
+      "confidence": "medium",
+      "reasoning": "Whether naturally aligned 8-byte accesses are atomic is implementation-defined ('might not be performed atomically'). This is a design-time choice about atomicity guarantees."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Operands containing `src` for store instructions and `dest` for load instructions are held in aligned `x`-register pairs, i.e., register numbers must be even.",
+      "line_number": 7,
+      "reason": "Fixed requirement - 'must be even' is a binding constraint on all implementations, not an implementer choice"
+    },
+    {
+      "excerpt": "Regardless of endianness, the lower-numbered register holds the low-order bits, and the higher-numbered register holds the high-order bits",
+      "line_number": 9,
+      "reason": "Fixed architectural rule - describes required bit layout in register pairs, no implementer choice"
+    },
+    {
+      "excerpt": "As the access size is 64-bit, accesses are only considered naturally aligned for effective addresses that are a multiple of 8. In this case, these instructions are guaranteed to not raise an address-misaligned exception.",
+      "line_number": 34,
+      "reason": "Fixed requirement - 'guaranteed to not raise' is a binding rule about when exceptions must not occur"
+    },
+    {
+      "excerpt": "If the effective address is a multiple of 4, then each word access is required to be performed atomically.",
+      "line_number": 39,
+      "reason": "Fixed requirement - 'is required to be performed atomically' is a binding constraint, not optional"
+    },
+    {
+      "excerpt": "To ensure resumable trap handling is possible for the load instructions, the base register must have its original value if a trap is taken.",
+      "line_number": 50,
+      "reason": "Fixed requirement - 'must have its original value' is a binding constraint for trap handling"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Even if naturally aligned, the memory access might not be performed atomically.\",\n      \"line_number\": 37,\n      \"parameter_name\": \"ZILSD_ATOMIC_8BYTE_ACCESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"might not be performed atomically\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Whether naturally aligned 8-byte accesses are atomic is implementation-defined ('might not be performed atomically'). This is a design-time choice about atomicity guarantees.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Operands containing `src` for store instructions and `dest` for load instructions are held in aligned `x`-register pairs, i.e., register numbers must be even.\",\n      \"line_number\": 7,\n      \"reason\": \"Fixed requirement - 'must be even' is a binding constraint on all implementations, not an implementer choice\"\n    },\n    {\n      \"excerpt\": \"Regardless of endianness, the lower-numbered register holds the low-order bits, and the higher-numbered register holds the high-order bits\",\n      \"line_number\": 9,\n      \"reason\": \"Fixed architectural rule - describes required bit layout in register pairs, no implementer choice\"\n    },\n    {\n      \"excerpt\": \"As the access size is 64-bit, accesses are only considered naturally aligned for effective addresses that are a multiple of 8. In this case, these instructions are guaranteed to not raise an address-misaligned exception.\",\n      \"line_number\": 34,\n      \"reason\": \"Fixed requirement - 'guaranteed to not raise' is a binding rule about when exceptions must not occur\"\n    },\n    {\n      \"excerpt\": \"If the effective address is a multiple of 4, then each word access is required to be performed atomically.\",\n      \"line_number\": 39,\n      \"reason\": \"Fixed requirement - 'is required to be performed atomically' is a binding constraint, not optional\"\n    },\n    {\n      \"excerpt\": \"To ensure resumable trap handling is possible for the load instructions, the base register must have its original value if a trap is taken.\",\n      \"line_number\": 50,\n      \"reason\": \"Fixed requirement - 'must have its original value' is a binding constraint for trap handling\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12824,
+  "output_tokens": 600,
+  "latency_ms": 11060,
+  "timestamp": "2026-06-10T18:40:22.913986+00:00",
+  "error": null,
+  "retry_count": 0
+}

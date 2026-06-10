@@ -1,0 +1,56 @@
+{
+  "chunk_id": "chunk_054",
+  "source_file": "sstc.adoc",
+  "start_line": 1,
+  "end_line": 24,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "This extension adds the S-level `stimecmp` CSR (<<stimecmp>>) and the VS-level `vstimecmp` CSR (<<vstimecmp>>).",
+      "line_number": 21,
+      "parameter_name": "SSTC_EXTENSION_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "This extension adds",
+      "confidence": "high",
+      "reasoning": "The Sstc extension is optional - implementations may or may not include it. The presence of stimecmp and vstimecmp CSRs depends on whether the extension is implemented."
+    },
+    {
+      "excerpt": "This extension adds the `STCE` bit to the `menvcfg` (<<sec:menvcfg>>) and `henvcfg` (<<sec:henvcfg>>) CSRs.",
+      "line_number": 22,
+      "parameter_name": "STCE_BIT_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "This extension adds",
+      "confidence": "high",
+      "reasoning": "The STCE bit in menvcfg and henvcfg is added by this extension, so its presence is conditional on the extension being implemented."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The current Privileged arch specification only defines a hardware mechanism for generating machine-mode timer interrupts",
+      "line_number": 4,
+      "reason": "Statement of fact about what the current specification defines - no implementer choice involved"
+    },
+    {
+      "excerpt": "M-mode software then multiplexes these multiple logical timers onto its one physical M-mode timer facility",
+      "line_number": 10,
+      "reason": "Describes software behavior and current implementation approach - not an architectural parameter"
+    },
+    {
+      "excerpt": "The extension name is \"Sstc\"",
+      "line_number": 19,
+      "reason": "Fixed naming convention - not a choice left to implementers"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"This extension adds the S-level `stimecmp` CSR (<<stimecmp>>) and the VS-level `vstimecmp` CSR (<<vstimecmp>>).\",\n      \"line_number\": 21,\n      \"parameter_name\": \"SSTC_EXTENSION_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"This extension adds\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The Sstc extension is optional - implementations may or may not include it. The presence of stimecmp and vstimecmp CSRs depends on whether the extension is implemented.\"\n    },\n    {\n      \"excerpt\": \"This extension adds the `STCE` bit to the `menvcfg` (<<sec:menvcfg>>) and `henvcfg` (<<sec:henvcfg>>) CSRs.\",\n      \"line_number\": 22,\n      \"parameter_name\": \"STCE_BIT_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"This extension adds\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The STCE bit in menvcfg and henvcfg is added by this extension, so its presence is conditional on the extension being implemented.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The current Privileged arch specification only defines a hardware mechanism for generating machine-mode timer interrupts\",\n      \"line_number\": 4,\n      \"reason\": \"Statement of fact about what the current specification defines - no implementer choice involved\"\n    },\n    {\n      \"excerpt\": \"M-mode software then multiplexes these multiple logical timers onto its one physical M-mode timer facility\",\n      \"line_number\": 10,\n      \"reason\": \"Describes software behavior and current implementation approach - not an architectural parameter\"\n    },\n    {\n      \"excerpt\": \"The extension name is \\\"Sstc\\\"\",\n      \"line_number\": 19,\n      \"reason\": \"Fixed naming convention - not a choice left to implementers\"\n    }\n  ]\n}\n```",
+  "input_tokens": 9692,
+  "output_tokens": 579,
+  "latency_ms": 9973,
+  "timestamp": "2026-06-10T18:23:21.273265+00:00",
+  "error": null,
+  "retry_count": 0
+}

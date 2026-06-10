@@ -1,0 +1,110 @@
+{
+  "chunk_id": "chunk_045",
+  "source_file": "scalar-crypto.adoc",
+  "start_line": 3423,
+  "end_line": 5594,
+  "content_start_line": 3453,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Attempts to access the `seed` CSR using a read-only CSR-access instruction (`CSRRS`/`CSRRC` with _rs1_=`x0` or `CSRRSI`/`CSRRCI` with _uimm_=0) raise an illegal-instruction exception; any other CSR-access instruction may be used to access `seed`.",
+      "line_number": 3540,
+      "parameter_name": "SEED_CSR_ACCESS_CONTROL",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "raise an illegal-instruction exception",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether to raise an illegal-instruction exception for read-only CSR access instructions to the seed CSR. This is a design-time choice about access control behavior."
+    },
+    {
+      "excerpt": "The `seed` CSR is also access controlled by execution mode, and attempted read or write access will raise an illegal-instruction exception outside M mode unless access is explicitly granted.",
+      "line_number": 3555,
+      "parameter_name": "SEED_CSR_MODE_ACCESS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "unless access is explicitly granted",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether to grant access to the seed CSR from non-M modes. The 'unless access is explicitly granted' indicates this is an implementation choice."
+    },
+    {
+      "excerpt": "An implementation may safely set reserved and custom bits to zeros.",
+      "line_number": 3572,
+      "parameter_name": "SEED_CSR_RESERVED_BITS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "may safely set reserved and custom bits to zeros",
+      "confidence": "high",
+      "reasoning": "The implementation may choose the values of reserved and custom bits in the seed CSR ('may safely set'). This is a direct implementation choice."
+    },
+    {
+      "excerpt": "Implementations may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`.",
+      "line_number": 3750,
+      "parameter_name": "MSECCFG_SEED_BITS_RW",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "may implement `mseccfg` such that `[s,u]seed` is a read-only constant value",
+      "confidence": "high",
+      "reasoning": "The implementation may choose whether the [s,u]seed bits in mseccfg are read-only or read-write ('may implement ... read-only constant value'). This controls the RW nature of CSR fields."
+    },
+    {
+      "excerpt": "When not implemented (e.g., in virtual machines), `mnoise` can permanently read zero (`0x00000000`) and ignore writes.",
+      "line_number": 4470,
+      "parameter_name": "MNOISE_CSR_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "When not implemented",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether to implement the mnoise CSR ('When not implemented' implies it may or may not be implemented). This is a direct implementation choice."
+    },
+    {
+      "excerpt": "When available, but `NOISE_TEST = 0`, `mnoise` can return a nonzero constant (e.g. `0x00000001`) but no noise samples.",
+      "line_number": 4472,
+      "parameter_name": "MNOISE_CSR_NONZERO_VALUE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "can return a nonzero constant",
+      "confidence": "high",
+      "reasoning": "When mnoise is implemented but not in test mode, the implementation can choose what nonzero constant to return ('can return a nonzero constant'). This is a direct value choice."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The `seed` CSR provides an interface to a NIST SP 800-90B cite:[TuBaKe:18] or BSI AIS-31 cite:[KiSc11] compliant physical Entropy Source (ES).",
+      "line_number": 3495,
+      "reason": "Statement of fact about what the seed CSR provides - no implementation choice indicated"
+    },
+    {
+      "excerpt": "`seed` is an unprivileged CSR located at address `0x015`.",
+      "line_number": 3507,
+      "reason": "Fixed requirement - the CSR address and privilege level are specified, not chosen by implementer"
+    },
+    {
+      "excerpt": "The write value (in `rs1` or `uimm`) must be ignored by implementations.",
+      "line_number": 3543,
+      "reason": "Fixed 'must' requirement that applies to all implementations - no choice"
+    },
+    {
+      "excerpt": "Each returned `seed[15:0]` = `entropy` value represents unique randomness when `OPST`=`ES16` (`seed[31:30]` = `10`), even if its numerical value is the same as that of a previously polled `entropy` value.",
+      "line_number": 3573,
+      "reason": "Fixed requirement about entropy uniqueness - 'represents unique randomness' is a mandatory property, not an implementation choice"
+    },
+    {
+      "excerpt": "When `OPST` is not `ES16`, `entropy` must be set to 0.",
+      "line_number": 3576,
+      "reason": "Fixed 'must' requirement - no implementation choice about setting entropy to 0"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Attempts to access the `seed` CSR using a read-only CSR-access instruction (`CSRRS`/`CSRRC` with _rs1_=`x0` or `CSRRSI`/`CSRRCI` with _uimm_=0) raise an illegal-instruction exception; any other CSR-access instruction may be used to access `seed`.\",\n      \"line_number\": 3540,\n      \"parameter_name\": \"SEED_CSR_ACCESS_CONTROL\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"raise an illegal-instruction exception\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to raise an illegal-instruction exception for read-only CSR access instructions to the seed CSR. This is a design-time choice about access control behavior.\"\n    },\n    {\n      \"excerpt\": \"The `seed` CSR is also access controlled by execution mode, and attempted read or write access will raise an illegal-instruction exception outside M mode unless access is explicitly granted.\",\n      \"line_number\": 3555,\n      \"parameter_name\": \"SEED_CSR_MODE_ACCESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"unless access is explicitly granted\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to grant access to the seed CSR from non-M modes. The 'unless access is explicitly granted' indicates this is an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"An implementation may safely set reserved and custom bits to zeros.\",\n      \"line_number\": 3572,\n      \"parameter_name\": \"SEED_CSR_RESERVED_BITS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"may safely set reserved and custom bits to zeros\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may choose the values of reserved and custom bits in the seed CSR ('may safely set'). This is a direct implementation choice.\"\n    },\n    {\n      \"excerpt\": \"Implementations may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`.\",\n      \"line_number\": 3750,\n      \"parameter_name\": \"MSECCFG_SEED_BITS_RW\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may implement `mseccfg` such that `[s,u]seed` is a read-only constant value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may choose whether the [s,u]seed bits in mseccfg are read-only or read-write ('may implement ... read-only constant value'). This controls the RW nature of CSR fields.\"\n    },\n    {\n      \"excerpt\": \"When not implemented (e.g., in virtual machines), `mnoise` can permanently read zero (`0x00000000`) and ignore writes.\",\n      \"line_number\": 4470,\n      \"parameter_name\": \"MNOISE_CSR_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"When not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to implement the mnoise CSR ('When not implemented' implies it may or may not be implemented). This is a direct implementation choice.\"\n    },\n    {\n      \"excerpt\": \"When available, but `NOISE_TEST = 0`, `mnoise` can return a nonzero constant (e.g. `0x00000001`) but no noise samples.\",\n      \"line_number\": 4472,\n      \"parameter_name\": \"MNOISE_CSR_NONZERO_VALUE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"can return a nonzero constant\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"When mnoise is implemented but not in test mode, the implementation can choose what nonzero constant to return ('can return a nonzero constant'). This is a direct value choice.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The `seed` CSR provides an interface to a NIST SP 800-90B cite:[TuBaKe:18] or BSI AIS-31 cite:[KiSc11] compliant physical Entropy Source (ES).\",\n      \"line_number\": 3495,\n      \"reason\": \"Statement of fact about what the seed CSR provides - no implementation choice indicated\"\n    },\n    {\n      \"excerpt\": \"`seed` is an unprivileged CSR located at address `0x015`.\",\n      \"line_number\": 3507,\n      \"reason\": \"Fixed requirement - the CSR address and privilege level are specified, not chosen by implementer\"\n    },\n    {\n      \"excerpt\": \"The write value (in `rs1` or `uimm`) must be ignored by implementations.\",\n      \"line_number\": 3543,\n      \"reason\": \"Fixed 'must' requirement that applies to all implementations - no choice\"\n    },\n    {\n      \"excerpt\": \"Each returned `seed[15:0]` = `entropy` value represents unique randomness when `OPST`=`ES16` (`seed[31:30]` = `10`), even if its numerical value is the same as that of a previously polled `entropy` value.\",\n      \"line_number\": 3573,\n      \"reason\": \"Fixed requirement about entropy uniqueness - 'represents unique randomness' is a mandatory property, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"When `OPST` is not `ES16`, `entropy` must be set to 0.\",\n      \"line_number\": 3576,\n      \"reason\": \"Fixed 'must' requirement - no implementation choice about setting entropy to 0\"\n    }\n  ]\n}\n```",
+  "input_tokens": 40409,
+  "output_tokens": 1573,
+  "latency_ms": 31759,
+  "timestamp": "2026-06-10T18:20:10.454482+00:00",
+  "error": null,
+  "retry_count": 0
+}

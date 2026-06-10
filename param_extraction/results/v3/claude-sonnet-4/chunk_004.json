@@ -1,0 +1,50 @@
+{
+  "chunk_id": "chunk_004",
+  "source_file": "bfloat16.adoc",
+  "start_line": 1,
+  "end_line": 790,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Future floating-point extensions, including those that operate on BF16 values, may chose not to support subnormal numbers.",
+      "line_number": 165,
+      "parameter_name": "BF16_SUBNORMAL_SUPPORT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may chose not to support subnormal numbers",
+      "confidence": "high",
+      "reasoning": "Future extensions have the choice whether to support subnormal BF16 numbers ('may chose not to support'). This is a design-time implementation choice not controlled by any CSR field."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "All of the BF16 instructions in the extensions defined in this specification (i.e., Zfbfmin, Zvfbfmin, and Zvfbfwma) fully support subnormal numbers.",
+      "line_number": 158,
+      "reason": "Fixed requirement ('fully support') that applies to all implementations of these specific extensions - no implementer choice"
+    },
+    {
+      "excerpt": "The BF16 extensions defined in this specification (i.e., `Zfbfmin`, `Zvfbfmin`, and `Zvfbfwma`) depend on the single-precision floating-point extension `F`.",
+      "line_number": 280,
+      "reason": "Fixed dependency requirement - all implementations must satisfy this dependency, no choice involved"
+    },
+    {
+      "excerpt": "* `SEW` is any value other than 16",
+      "line_number": 549,
+      "reason": "Reserved encoding fact - states what values are not allowed, not an implementation choice"
+    },
+    {
+      "excerpt": "In RISC-V, tininess is detected after rounding.",
+      "line_number": 242,
+      "reason": "Fixed requirement that applies to all RISC-V implementations - no implementer choice about when to detect tininess"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Future floating-point extensions, including those that operate on BF16 values, may chose not to support subnormal numbers.\",\n      \"line_number\": 165,\n      \"parameter_name\": \"BF16_SUBNORMAL_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may chose not to support subnormal numbers\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Future extensions have the choice whether to support subnormal BF16 numbers ('may chose not to support'). This is a design-time implementation choice not controlled by any CSR field.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"All of the BF16 instructions in the extensions defined in this specification (i.e., Zfbfmin, Zvfbfmin, and Zvfbfwma) fully support subnormal numbers.\",\n      \"line_number\": 158,\n      \"reason\": \"Fixed requirement ('fully support') that applies to all implementations of these specific extensions - no implementer choice\"\n    },\n    {\n      \"excerpt\": \"The BF16 extensions defined in this specification (i.e., `Zfbfmin`, `Zvfbfmin`, and `Zvfbfwma`) depend on the single-precision floating-point extension `F`.\",\n      \"line_number\": 280,\n      \"reason\": \"Fixed dependency requirement - all implementations must satisfy this dependency, no choice involved\"\n    },\n    {\n      \"excerpt\": \"* `SEW` is any value other than 16\",\n      \"line_number\": 549,\n      \"reason\": \"Reserved encoding fact - states what values are not allowed, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"In RISC-V, tininess is detected after rounding.\",\n      \"line_number\": 242,\n      \"reason\": \"Fixed requirement that applies to all RISC-V implementations - no implementer choice about when to detect tininess\"\n    }\n  ]\n}\n```",
+  "input_tokens": 17566,
+  "output_tokens": 530,
+  "latency_ms": 11848,
+  "timestamp": "2026-06-10T18:12:54.637903+00:00",
+  "error": null,
+  "retry_count": 0
+}

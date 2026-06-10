@@ -1,0 +1,83 @@
+{
+  "chunk_id": "chunk_011",
+  "source_file": "counters.adoc",
+  "start_line": 1,
+  "end_line": 236,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The implemented number and width of these additional counters, and the set of events they count, are platform-specific.",
+      "line_number": 189,
+      "parameter_name": "HPM_COUNTER_EN",
+      "existing_udb_name": "HPM_COUNTER_EN",
+      "class": "NORM_DIRECT",
+      "value_type": "bitmask",
+      "modal_signal": "platform-specific",
+      "confidence": "high",
+      "reasoning": "The number of implemented hardware performance counters is platform-specific ('platform-specific'), meaning each implementation chooses which of the 29 possible counters to implement."
+    },
+    {
+      "excerpt": "The implemented number and width of these additional counters, and the set of events they count, are platform-specific.",
+      "line_number": 189,
+      "parameter_name": "HPM_EVENTS",
+      "existing_udb_name": "HPM_EVENTS",
+      "class": "NORM_DIRECT",
+      "value_type": "set",
+      "modal_signal": "platform-specific",
+      "confidence": "high",
+      "reasoning": "The set of events counted by hardware performance counters is platform-specific ('platform-specific'), meaning implementations choose which events each counter can monitor."
+    },
+    {
+      "excerpt": "Accessing an unimplemented counter may cause an illegal-instruction exception or may return a constant value.",
+      "line_number": 191,
+      "parameter_name": "HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "may cause an illegal-instruction exception or may return a constant value",
+      "confidence": "high",
+      "reasoning": "The behavior when accessing unimplemented counters is a choice ('may cause ... or may return'), with two possible outcomes: exception or constant value."
+    },
+    {
+      "excerpt": "If the configuration used to select the events counted by a counter is misconfigured, the counter may return a constant value.",
+      "line_number": 192,
+      "parameter_name": "HPM_MISCONFIGURED_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "the counter may return a constant value",
+      "confidence": "medium",
+      "reasoning": "When a counter is misconfigured, it 'may return a constant value', implying the implementation can choose whether to return a constant or some other behavior (though the alternative is not explicitly stated)."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "RISC-V ISAs provide a set of up to thirty-two 64-bit performance counters and timers that are accessible via unprivileged XLEN-bit read-only CSR registers `0xC00`\u2013`0xC1F`",
+      "line_number": 4,
+      "reason": "Statement of fact about what RISC-V provides - no implementer choice indicated"
+    },
+    {
+      "excerpt": "The real-time clocks of all harts must be synchronized to within one tick of the real-time clock.",
+      "line_number": 125,
+      "reason": "Fixed requirement using 'must' - all implementations are required to synchronize clocks, no choice"
+    },
+    {
+      "excerpt": "The underlying 64-bit counter should never overflow in practice.",
+      "line_number": 58,
+      "reason": "Statement about expected behavior ('should never overflow') - not an implementation choice"
+    },
+    {
+      "excerpt": "Instructions that cause synchronous exceptions, including ECALL and EBREAK, are not considered to retire and hence do not increment the `instret` CSR.",
+      "line_number": 147,
+      "reason": "Fixed rule about instruction retirement - no implementer choice, appears in NOTE block"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The implemented number and width of these additional counters, and the set of events they count, are platform-specific.\",\n      \"line_number\": 189,\n      \"parameter_name\": \"HPM_COUNTER_EN\",\n      \"existing_udb_name\": \"HPM_COUNTER_EN\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"platform-specific\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of implemented hardware performance counters is platform-specific ('platform-specific'), meaning each implementation chooses which of the 29 possible counters to implement.\"\n    },\n    {\n      \"excerpt\": \"The implemented number and width of these additional counters, and the set of events they count, are platform-specific.\",\n      \"line_number\": 189,\n      \"parameter_name\": \"HPM_EVENTS\",\n      \"existing_udb_name\": \"HPM_EVENTS\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"platform-specific\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The set of events counted by hardware performance counters is platform-specific ('platform-specific'), meaning implementations choose which events each counter can monitor.\"\n    },\n    {\n      \"excerpt\": \"Accessing an unimplemented counter may cause an illegal-instruction exception or may return a constant value.\",\n      \"line_number\": 191,\n      \"parameter_name\": \"HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"may cause an illegal-instruction exception or may return a constant value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The behavior when accessing unimplemented counters is a choice ('may cause ... or may return'), with two possible outcomes: exception or constant value.\"\n    },\n    {\n      \"excerpt\": \"If the configuration used to select the events counted by a counter is misconfigured, the counter may return a constant value.\",\n      \"line_number\": 192,\n      \"parameter_name\": \"HPM_MISCONFIGURED_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"the counter may return a constant value\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When a counter is misconfigured, it 'may return a constant value', implying the implementation can choose whether to return a constant or some other behavior (though the alternative is not explicitly stated).\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"RISC-V ISAs provide a set of up to thirty-two 64-bit performance counters and timers that are accessible via unprivileged XLEN-bit read-only CSR registers `0xC00`\u2013`0xC1F`\",\n      \"line_number\": 4,\n      \"reason\": \"Statement of fact about what RISC-V provides - no implementer choice indicated\"\n    },\n    {\n      \"excerpt\": \"The real-time clocks of all harts must be synchronized to within one tick of the real-time clock.\",\n      \"line_number\": 125,\n      \"reason\": \"Fixed requirement using 'must' - all implementations are required to synchronize clocks, no choice\"\n    },\n    {\n      \"excerpt\": \"The underlying 64-bit counter should never overflow in practice.\",\n      \"line_number\": 58,\n      \"reason\": \"Statement about expected behavior ('should never overflow') - not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"Instructions that cause synchronous exceptions, including ECALL and EBREAK, are not considered to retire and hence do not increment the `instret` CSR.\",\n      \"line_number\": 147,\n      \"reason\": \"Fixed rule about instruction retirement - no implementer choice, appears in NOTE block\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12422,
+  "output_tokens": 1005,
+  "latency_ms": 15620,
+  "timestamp": "2026-06-10T18:14:13.334079+00:00",
+  "error": null,
+  "retry_count": 0
+}

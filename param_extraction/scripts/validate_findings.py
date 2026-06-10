@@ -64,13 +64,15 @@ MIN_SENTENCE_CHARS = 80
 OPTIONALITY = re.compile(
     r"""
     implementation[-\ ]defined        | implementation[-\ ]dependent          |
+    implementation[-\ ]specific        |
     \boptional(ly)?\b                  | \bunspecified\b                       |
     may\ or\ may\ not                  | \bneed\ not\b                         |
     (is|are|is\ not|are\ not)\ not\ required\ to                              |
     not\ required\ to\ (support|implement|provide|have)                       |
     may\ (optionally\ )?(be\ (implemented|read-only|supported|present|absent|configured)
         | implement | support | choose | contain | hold | return | vary
-        | provide | omit | not\ support | not\ be | not\ implement)            |
+        | provide | omit | define | represent | specify
+        | not\ support | not\ be | not\ implement)                             |
     can\ (be\ (implemented|read-only|configured)
         | choose | contain | vary | be\ omitted)                              |
     \b(is|are)\ allowed\ to\b          |

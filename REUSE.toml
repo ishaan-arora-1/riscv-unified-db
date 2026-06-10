@@ -117,3 +117,13 @@ path = [
 ]
 SPDX-FileCopyrightText = "Copyright (c) Jordan Carlin"
 SPDX-License-Identifier = "BSD-3-Clause-Clear"
+
+# V3 parameter-extraction rework: generated results + data artifacts
+[[annotations]]
+path = [
+    "param_extraction/results/v3/**",
+    "param_extraction/data/validation_report*.csv",
+    "param_extraction/data/validation_stats*.txt",
+]
+SPDX-FileCopyrightText = "2026 Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>"
+SPDX-License-Identifier = "BSD-3-Clause-Clear"

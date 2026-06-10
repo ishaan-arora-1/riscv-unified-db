@@ -1,0 +1,38 @@
+{
+  "chunk_id": "chunk_003",
+  "source_file": "b-st-ext.adoc",
+  "start_line": 3397,
+  "end_line": 3485,
+  "content_start_line": 3427,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "This instruction zero-extends the least-significant halfword of the source to XLEN by inserting 0's into all of the bits more significant than 15.",
+      "line_number": 3397,
+      "reason": "Fixed behavioral description of the zext.h instruction - no implementer choice"
+    },
+    {
+      "excerpt": "This instruction is available only on RV32.",
+      "line_number": 3447,
+      "reason": "Fixed requirement stating zip instruction availability - 'only on RV32' is a constraint, not an optional choice"
+    },
+    {
+      "excerpt": "This instruction gathers bits from the high and low halves of the source word into odd/even bit positions in the destination word.",
+      "line_number": 3444,
+      "reason": "Fixed behavioral description of the zip instruction - no implementer choice"
+    },
+    {
+      "excerpt": "This instruction is useful for implementing the SHA3 cryptographic hash function on a 32-bit architecture, as it implements the bit-interleaving operation used to speed up the 64-bit rotations directly.",
+      "line_number": 3460,
+      "reason": "Text inside [NOTE] block is non-normative - even if it contained optionality language, NOTE blocks are informative only"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"This instruction zero-extends the least-significant halfword of the source to XLEN by inserting 0's into all of the bits more significant than 15.\",\n      \"line_number\": 3397,\n      \"reason\": \"Fixed behavioral description of the zext.h instruction - no implementer choice\"\n    },\n    {\n      \"excerpt\": \"This instruction is available only on RV32.\",\n      \"line_number\": 3447,\n      \"reason\": \"Fixed requirement stating zip instruction availability - 'only on RV32' is a constraint, not an optional choice\"\n    },\n    {\n      \"excerpt\": \"This instruction gathers bits from the high and low halves of the source word into odd/even bit positions in the destination word.\",\n      \"line_number\": 3444,\n      \"reason\": \"Fixed behavioral description of the zip instruction - no implementer choice\"\n    },\n    {\n      \"excerpt\": \"This instruction is useful for implementing the SHA3 cryptographic hash function on a 32-bit architecture, as it implements the bit-interleaving operation used to speed up the 64-bit rotations directly.\",\n      \"line_number\": 3460,\n      \"reason\": \"Text inside [NOTE] block is non-normative - even if it contained optionality language, NOTE blocks are informative only\"\n    }\n  ]\n}\n```",
+  "input_tokens": 9879,
+  "output_tokens": 345,
+  "latency_ms": 6687,
+  "timestamp": "2026-06-10T18:12:41.765943+00:00",
+  "error": null,
+  "retry_count": 0
+}

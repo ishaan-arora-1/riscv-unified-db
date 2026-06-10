@@ -1,0 +1,99 @@
+{
+  "chunk_id": "chunk_028",
+  "source_file": "priv-csrs.adoc",
+  "start_line": 1,
+  "end_line": 1273,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "an implementation may contain additional CSRs, accessible by some subset of the privilege levels using the CSR instructions described in Volume I.",
+      "line_number": 12,
+      "parameter_name": "ADDITIONAL_CSRS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "set",
+      "modal_signal": "may contain additional CSRs",
+      "confidence": "high",
+      "reasoning": "Implementations may choose to include additional CSRs beyond the standard ones ('may contain additional CSRs'). This is a direct implementation choice not controlled by any CSR field."
+    },
+    {
+      "excerpt": "Implementations should raise illegal-instruction exceptions on machine-mode access to the latter set of registers.",
+      "line_number": 62,
+      "parameter_name": "DEBUG_CSR_ACCESS_EXCEPTION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "should raise illegal-instruction exceptions",
+      "confidence": "medium",
+      "reasoning": "Whether to raise exceptions on machine-mode access to debug-mode-only CSRs is implementation-defined ('should raise'). The 'should' indicates a recommendation but allows implementation choice."
+    },
+    {
+      "excerpt": "For forward compatibility, implementations that do not furnish these fields must make them read-only zero.",
+      "line_number": 1095,
+      "parameter_name": "WPRI_FIELD_IMPLEMENTATION",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "implementations that do not furnish these fields",
+      "confidence": "high",
+      "reasoning": "Whether WPRI fields are implemented or read-only zero is an implementation choice ('implementations that do not furnish these fields'). This controls the RO/RW nature of reserved fields."
+    },
+    {
+      "excerpt": "Implementations are permitted but not required to raise an illegal-instruction exception if an instruction attempts to write a non-supported value to a WLRL field.",
+      "line_number": 1120,
+      "parameter_name": "TRAP_ON_ILLEGAL_WLRL",
+      "existing_udb_name": "TRAP_ON_ILLEGAL_WLRL",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "are permitted but not required to raise an illegal-instruction exception",
+      "confidence": "high",
+      "reasoning": "Whether to trap on illegal WLRL writes is optional ('permitted but not required'). This is a direct implementation choice about exception behavior."
+    },
+    {
+      "excerpt": "Implementations will not raise an exception on writes of unsupported values to a WARL field.",
+      "line_number": 1137,
+      "parameter_name": "WARL_NO_EXCEPTION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "will not raise an exception",
+      "confidence": "high",
+      "reasoning": "This is actually a fixed requirement ('will not raise') that applies to all implementations - WARL fields never cause exceptions on illegal writes. This is not a parameter but a fixed rule."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The privileged architecture requires the Zicsr extension",
+      "line_number": 8,
+      "reason": "Fixed requirement ('requires') - all privileged implementations must include Zicsr, no choice"
+    },
+    {
+      "excerpt": "The top two bits (csr[11:10]) indicate whether the register is read/write (00,01, or 10) or read-only (11).",
+      "line_number": 28,
+      "reason": "Fixed encoding rule - describes how CSR address bits encode access permissions, not an implementation choice"
+    },
+    {
+      "excerpt": "Instructions that access a non-existent CSR are reserved.",
+      "line_number": 48,
+      "reason": "Fixed fact - reserved encodings are permanently reserved, not chosen by implementer"
+    },
+    {
+      "excerpt": "Attempts to access a CSR without appropriate privilege level raise illegal-instruction exceptions",
+      "line_number": 49,
+      "reason": "Fixed requirement ('raise') - all implementations must behave this way for privilege violations"
+    },
+    {
+      "excerpt": "Standard CSRs do not have side effects on reads but may have side effects on writes.",
+      "line_number": 21,
+      "reason": "Fixed behavioral rule - describes standard CSR behavior, not an implementation choice"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"an implementation may contain additional CSRs, accessible by some subset of the privilege levels using the CSR instructions described in Volume I.\",\n      \"line_number\": 12,\n      \"parameter_name\": \"ADDITIONAL_CSRS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"may contain additional CSRs\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Implementations may choose to include additional CSRs beyond the standard ones ('may contain additional CSRs'). This is a direct implementation choice not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"Implementations should raise illegal-instruction exceptions on machine-mode access to the latter set of registers.\",\n      \"line_number\": 62,\n      \"parameter_name\": \"DEBUG_CSR_ACCESS_EXCEPTION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"should raise illegal-instruction exceptions\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Whether to raise exceptions on machine-mode access to debug-mode-only CSRs is implementation-defined ('should raise'). The 'should' indicates a recommendation but allows implementation choice.\"\n    },\n    {\n      \"excerpt\": \"For forward compatibility, implementations that do not furnish these fields must make them read-only zero.\",\n      \"line_number\": 1095,\n      \"parameter_name\": \"WPRI_FIELD_IMPLEMENTATION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"implementations that do not furnish these fields\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether WPRI fields are implemented or read-only zero is an implementation choice ('implementations that do not furnish these fields'). This controls the RO/RW nature of reserved fields.\"\n    },\n    {\n      \"excerpt\": \"Implementations are permitted but not required to raise an illegal-instruction exception if an instruction attempts to write a non-supported value to a WLRL field.\",\n      \"line_number\": 1120,\n      \"parameter_name\": \"TRAP_ON_ILLEGAL_WLRL\",\n      \"existing_udb_name\": \"TRAP_ON_ILLEGAL_WLRL\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"are permitted but not required to raise an illegal-instruction exception\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether to trap on illegal WLRL writes is optional ('permitted but not required'). This is a direct implementation choice about exception behavior.\"\n    },\n    {\n      \"excerpt\": \"Implementations will not raise an exception on writes of unsupported values to a WARL field.\",\n      \"line_number\": 1137,\n      \"parameter_name\": \"WARL_NO_EXCEPTION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"will not raise an exception\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This is actually a fixed requirement ('will not raise') that applies to all implementations - WARL fields never cause exceptions on illegal writes. This is not a parameter but a fixed rule.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The privileged architecture requires the Zicsr extension\",\n      \"line_number\": 8,\n      \"reason\": \"Fixed requirement ('requires') - all privileged implementations must include Zicsr, no choice\"\n    },\n    {\n      \"excerpt\": \"The top two bits (csr[11:10]) indicate whether the register is read/write (00,01, or 10) or read-only (11).\",\n      \"line_number\": 28,\n      \"reason\": \"Fixed encoding rule - describes how CSR address bits encode access permissions, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"Instructions that access a non-existent CSR are reserved.\",\n      \"line_number\": 48,\n      \"reason\": \"Fixed fact - reserved encodings are permanently reserved, not chosen by implementer\"\n    },\n    {\n      \"excerpt\": \"Attempts to access a CSR without appropriate privilege level raise illegal-instruction exceptions\",\n      \"line_number\": 49,\n      \"reason\": \"Fixed requirement ('raise') - all implementations must behave this way for privilege violations\"\n    },\n    {\n      \"excerpt\": \"Standard CSRs do not have side effects on reads but may have side effects on writes.\",\n      \"line_number\": 21,\n      \"reason\": \"Fixed behavioral rule - describes standard CSR behavior, not an implementation choice\"\n    }\n  ]\n}\n```",
+  "input_tokens": 22268,
+  "output_tokens": 1203,
+  "latency_ms": 22190,
+  "timestamp": "2026-06-10T18:17:32.624573+00:00",
+  "error": null,
+  "retry_count": 0
+}

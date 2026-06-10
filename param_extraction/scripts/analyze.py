@@ -21,6 +21,7 @@ import argparse
 import csv
 import json
 import logging
+import os
 import re
 from collections import Counter
 from dataclasses import dataclass
@@ -30,6 +31,15 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = SCRIPT_DIR.parent
 RESULTS_DIR = PROJECT_DIR / "results"
 DATA_DIR = PROJECT_DIR / "data"
+
+# Read/write versioned results dirs (results/v2, results/v3, ...) to match
+# extract.py. v1 stays at the top-level results/ for back-compat.
+PROMPT_VERSION = os.environ.get("PROMPT_VERSION", "v1")
+
+
+def results_dir() -> Path:
+    return RESULTS_DIR / PROMPT_VERSION if PROMPT_VERSION != "v1" else RESULTS_DIR
+
 
 logger = logging.getLogger("analyze")
 
@@ -42,7 +52,7 @@ DEBUG_SPEC_PREFIXES = ("DBG_", "DCSR_", "TRIGGER_", "TDATA_", "MCONTEXT_", "HCON
 
 
 def load_merged_results(model_display: str = "claude-sonnet-4") -> dict:
-    path = RESULTS_DIR / f"all_results_{model_display}.json"
+    path = results_dir() / f"all_results_{model_display}.json"
     if not path.exists():
         raise FileNotFoundError(f"No merged results: {path}. Run extract.py merge first.")
     with open(path) as f:
@@ -68,17 +78,26 @@ def deduplicate(merged: dict) -> list[dict]:
     confidence_rank = {"high": 3, "medium": 2, "low": 1}
 
     by_name: dict[str, list[dict]] = {}
+    skipped_unnamed = 0
     for result in merged["results"]:
         for param in result.get("parameters", []):
+            name = (param.get("parameter_name") or "").strip()
+            if not name:
+                # A finding with no name can't be aligned or tagged downstream.
+                skipped_unnamed += 1
+                continue
             enriched = {
                 **param,
+                "parameter_name": name,
                 "_chunk_id": result["chunk_id"],
                 "_source_file": result["source_file"],
                 "_start_line": result["start_line"],
                 "_end_line": result["end_line"],
                 "_content_start_line": result["content_start_line"],
             }
-            by_name.setdefault(param["parameter_name"], []).append(enriched)
+            by_name.setdefault(name, []).append(enriched)
+    if skipped_unnamed:
+        logger.warning("Skipped %d findings with no parameter_name", skipped_unnamed)
 
     deduped: list[dict] = []
     dedup_log: list[dict] = []
@@ -386,9 +405,7 @@ def align_to_udb(
         if len(udb_toks) < 2 or len(llm_toks) < 2:
             return False
         common = udb_toks & llm_toks
-        if len(common) >= max(2, len(udb_toks) - 1) and len(common) / len(udb_toks | llm_toks) >= 0.55:
-            return True
-        return False
+        return len(common) >= max(2, len(udb_toks) - 1) and len(common) / len(udb_toks | llm_toks) >= 0.55
 
     for udb_name in sorted(udb_names - matched_udb):
         for param in deduped:
@@ -696,7 +713,7 @@ def generate_discrepancies(
 
 
 def write_deduped(deduped: list[dict], model_display: str) -> Path:
-    out_path = RESULTS_DIR / f"deduped_{model_display}.json"
+    out_path = results_dir() / f"deduped_{model_display}.json"
     output = {
         "model": model_display,
         "total_unique_parameters": len(deduped),
@@ -713,7 +730,7 @@ def write_alignment(
     udb_coverage: dict,
     model_display: str,
 ) -> Path:
-    out_path = RESULTS_DIR / f"alignment_{model_display}.json"
+    out_path = results_dir() / f"alignment_{model_display}.json"
     output = {
         "model": model_display,
         "total_alignments": len(alignments),
@@ -728,7 +745,7 @@ def write_alignment(
 
 
 def write_metrics(metrics: dict, model_display: str) -> Path:
-    out_path = RESULTS_DIR / f"metrics_{model_display}.json"
+    out_path = results_dir() / f"metrics_{model_display}.json"
     with open(out_path, "w") as f:
         json.dump(metrics, f, indent=2)
         f.write("\n")
@@ -736,7 +753,7 @@ def write_metrics(metrics: dict, model_display: str) -> Path:
 
 
 def write_discrepancies(discrepancies: list[dict], model_display: str) -> Path:
-    csv_path = RESULTS_DIR / f"discrepancies_{model_display}.csv"
+    csv_path = results_dir() / f"discrepancies_{model_display}.csv"
     fieldnames = [
         "type",
         "llm_name",

@@ -1,0 +1,110 @@
+{
+  "chunk_id": "chunk_059",
+  "source_file": "v-st-ext.adoc",
+  "start_line": 3386,
+  "end_line": 5396,
+  "content_start_line": 3394,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "For the non-exceptional cases, the low bit of the exponent and the six high bits of significand (after the leading one) are concatenated and used to address the following table.",
+      "line_number": 3506,
+      "parameter_name": "VFRSQRT7_FINAL_NODE_ELEMENT_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "are concatenated and used to address the following table",
+      "confidence": "medium",
+      "reasoning": "The implementation chooses how to compute the table lookup for vfrsqrt7. The specific table addressing method is implementation-defined behavior."
+    },
+    {
+      "excerpt": "For the non-exceptional cases, the seven high bits of significand (after the leading one) are used to address the following table.",
+      "line_number": 3618,
+      "parameter_name": "VFREC7_FINAL_NODE_ELEMENT_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "are used to address the following table",
+      "confidence": "medium",
+      "reasoning": "The implementation chooses how to compute the table lookup for vfrec7. The specific table addressing method is implementation-defined behavior."
+    },
+    {
+      "excerpt": "The implementation must produce a result equivalent to a reduction tree composed of binary operator nodes, with the inputs being elements from the source vector register group (`vs2`) and the source scalar value (`vs1[0]`).",
+      "line_number": 4088,
+      "parameter_name": "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR",
+      "existing_udb_name": "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "The implementation must produce a result equivalent to a reduction tree",
+      "confidence": "high",
+      "reasoning": "The implementation chooses the specific reduction tree structure for vfredusum, as long as it produces equivalent results. This is a design-time choice about the reduction algorithm."
+    },
+    {
+      "excerpt": "The reduction tree structure must be deterministic for a given value in `vtype` and `vl`.",
+      "line_number": 4103,
+      "parameter_name": "VFREDUSUM_REDTREE",
+      "existing_udb_name": "VFREDUSUM_REDTREE",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "must be deterministic for a given value",
+      "confidence": "high",
+      "reasoning": "The implementation chooses the specific reduction tree structure, but it must be deterministic. This is a design-time choice about the reduction tree topology."
+    },
+    {
+      "excerpt": "The additive identity is +0.0 when rounding down (towards -{inf}) or -0.0 for all other rounding modes.",
+      "line_number": 4100,
+      "parameter_name": "VFREDUSUM_ADDITIVE_IMPL",
+      "existing_udb_name": "VFREDUSUM_ADDITIVE_IMPL",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "An implementation is allowed to add an additional additive identity",
+      "confidence": "high",
+      "reasoning": "The implementation may choose to add an additive identity to the final result ('is allowed to add'). The specific identity value depends on rounding mode but the choice to add it is implementation-defined."
+    },
+    {
+      "excerpt": "Some vector instructions treat operands as a vector of one or more _element_ _groups_, where each element group is a fixed number of elements.",
+      "line_number": 5330,
+      "parameter_name": "VECTOR_ELEMENT_GROUP_SUPPORT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": null,
+      "confidence": "low",
+      "reasoning": "This appears to describe a general concept rather than a specific implementation choice. No clear optionality signal is present in this sentence."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "All four varieties of fused multiply-add are provided, and in two destructive forms that overwrite one of the operands, either the addend or the first multiplicand.",
+      "line_number": 3394,
+      "reason": "Fixed requirement - 'are provided' describes what the spec mandates, not an implementation choice"
+    },
+    {
+      "excerpt": "The widening floating-point fused multiply-add instructions all overwrite the wide addend with the result.",
+      "line_number": 3439,
+      "reason": "Fixed behavioral requirement - 'all overwrite' is a mandatory behavior, not optional"
+    },
+    {
+      "excerpt": "This is a unary vector-vector instruction that returns an estimate of 1/sqrt(x) accurate to 7 bits.",
+      "line_number": 3470,
+      "reason": "Fixed specification - describes what the instruction does, not an implementation choice"
+    },
+    {
+      "excerpt": "Vector reduction operations take a vector register group of elements and a scalar held in element 0 of a vector register, and perform a reduction using some binary operator, to produce a scalar result in element 0 of a vector register.",
+      "line_number": 3978,
+      "reason": "Fixed behavioral description - describes what reduction operations do, not an implementation choice"
+    },
+    {
+      "excerpt": "Traps on vector reduction instructions are always reported with a `vstart` of 0.",
+      "line_number": 4044,
+      "reason": "Fixed requirement - 'always reported' is mandatory behavior for all implementations"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"For the non-exceptional cases, the low bit of the exponent and the six high bits of significand (after the leading one) are concatenated and used to address the following table.\",\n      \"line_number\": 3506,\n      \"parameter_name\": \"VFRSQRT7_FINAL_NODE_ELEMENT_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"are concatenated and used to address the following table\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The implementation chooses how to compute the table lookup for vfrsqrt7. The specific table addressing method is implementation-defined behavior.\"\n    },\n    {\n      \"excerpt\": \"For the non-exceptional cases, the seven high bits of significand (after the leading one) are used to address the following table.\",\n      \"line_number\": 3618,\n      \"parameter_name\": \"VFREC7_FINAL_NODE_ELEMENT_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"are used to address the following table\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The implementation chooses how to compute the table lookup for vfrec7. The specific table addressing method is implementation-defined behavior.\"\n    },\n    {\n      \"excerpt\": \"The implementation must produce a result equivalent to a reduction tree composed of binary operator nodes, with the inputs being elements from the source vector register group (`vs2`) and the source scalar value (`vs1[0]`).\",\n      \"line_number\": 4088,\n      \"parameter_name\": \"VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR\",\n      \"existing_udb_name\": \"VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"The implementation must produce a result equivalent to a reduction tree\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses the specific reduction tree structure for vfredusum, as long as it produces equivalent results. This is a design-time choice about the reduction algorithm.\"\n    },\n    {\n      \"excerpt\": \"The reduction tree structure must be deterministic for a given value in `vtype` and `vl`.\",\n      \"line_number\": 4103,\n      \"parameter_name\": \"VFREDUSUM_REDTREE\",\n      \"existing_udb_name\": \"VFREDUSUM_REDTREE\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"must be deterministic for a given value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses the specific reduction tree structure, but it must be deterministic. This is a design-time choice about the reduction tree topology.\"\n    },\n    {\n      \"excerpt\": \"The additive identity is +0.0 when rounding down (towards -{inf}) or -0.0 for all other rounding modes.\",\n      \"line_number\": 4100,\n      \"parameter_name\": \"VFREDUSUM_ADDITIVE_IMPL\",\n      \"existing_udb_name\": \"VFREDUSUM_ADDITIVE_IMPL\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"An implementation is allowed to add an additional additive identity\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may choose to add an additive identity to the final result ('is allowed to add'). The specific identity value depends on rounding mode but the choice to add it is implementation-defined.\"\n    },\n    {\n      \"excerpt\": \"Some vector instructions treat operands as a vector of one or more _element_ _groups_, where each element group is a fixed number of elements.\",\n      \"line_number\": 5330,\n      \"parameter_name\": \"VECTOR_ELEMENT_GROUP_SUPPORT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": null,\n      \"confidence\": \"low\",\n      \"reasoning\": \"This appears to describe a general concept rather than a specific implementation choice. No clear optionality signal is present in this sentence.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"All four varieties of fused multiply-add are provided, and in two destructive forms that overwrite one of the operands, either the addend or the first multiplicand.\",\n      \"line_number\": 3394,\n      \"reason\": \"Fixed requirement - 'are provided' describes what the spec mandates, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"The widening floating-point fused multiply-add instructions all overwrite the wide addend with the result.\",\n      \"line_number\": 3439,\n      \"reason\": \"Fixed behavioral requirement - 'all overwrite' is a mandatory behavior, not optional\"\n    },\n    {\n      \"excerpt\": \"This is a unary vector-vector instruction that returns an estimate of 1/sqrt(x) accurate to 7 bits.\",\n      \"line_number\": 3470,\n      \"reason\": \"Fixed specification - describes what the instruction does, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"Vector reduction operations take a vector register group of elements and a scalar held in element 0 of a vector register, and perform a reduction using some binary operator, to produce a scalar result in element 0 of a vector register.\",\n      \"line_number\": 3978,\n      \"reason\": \"Fixed behavioral description - describes what reduction operations do, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"Traps on vector reduction instructions are always reported with a `vstart` of 0.\",\n      \"line_number\": 4044,\n      \"reason\": \"Fixed requirement - 'always reported' is mandatory behavior for all implementations\"\n    }\n  ]\n}\n```",
+  "input_tokens": 37934,
+  "output_tokens": 1503,
+  "latency_ms": 29590,
+  "timestamp": "2026-06-10T18:36:29.152823+00:00",
+  "error": null,
+  "retry_count": 0
+}

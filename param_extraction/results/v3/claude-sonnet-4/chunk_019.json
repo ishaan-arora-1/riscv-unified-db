@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_019",
+  "source_file": "m-st-ext.adoc",
+  "start_line": 1,
+  "end_line": 157,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "MUL performs an XLEN-bit\u00d7XLEN-bit multiplication of `rs1` by `rs2` and places the lower XLEN bits in the destination register.",
+      "line_number": 22,
+      "reason": "Fixed behavioral requirement describing what MUL instruction does - no implementer choice"
+    },
+    {
+      "excerpt": "MULH, MULHU, and MULHSU perform the same multiplication but return the upper XLEN bits of the full 2\u00d7XLEN-bit product, for signed\u00d7signed, unsigned\u00d7unsigned, and `rs1`\u00d7unsigned `rs2` multiplication.",
+      "line_number": 23,
+      "reason": "Fixed behavioral requirement describing what MULH/MULHU/MULHSU instructions do - no implementer choice"
+    },
+    {
+      "excerpt": "DIV and DIVU perform an XLEN bits by XLEN bits signed and unsigned integer division of `rs1` by `rs2`, rounding towards zero.",
+      "line_number": 50,
+      "reason": "Fixed behavioral requirement describing what DIV/DIVU instructions do - no implementer choice"
+    },
+    {
+      "excerpt": "The quotient of division by zero has all bits set",
+      "line_number": 71,
+      "reason": "Fixed requirement specifying exact behavior for division by zero - no implementer choice"
+    },
+    {
+      "excerpt": "We separate integer multiply and divide out from the base to simplify low-end implementations, or for applications where integer multiply and divide operations are either infrequent or better handled in attached accelerators.",
+      "line_number": 9,
+      "reason": "Text inside [NOTE] block - non-normative informative content"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"MUL performs an XLEN-bit\u00d7XLEN-bit multiplication of `rs1` by `rs2` and places the lower XLEN bits in the destination register.\",\n      \"line_number\": 22,\n      \"reason\": \"Fixed behavioral requirement describing what MUL instruction does - no implementer choice\"\n    },\n    {\n      \"excerpt\": \"MULH, MULHU, and MULHSU perform the same multiplication but return the upper XLEN bits of the full 2\u00d7XLEN-bit product, for signed\u00d7signed, unsigned\u00d7unsigned, and `rs1`\u00d7unsigned `rs2` multiplication.\",\n      \"line_number\": 23,\n      \"reason\": \"Fixed behavioral requirement describing what MULH/MULHU/MULHSU instructions do - no implementer choice\"\n    },\n    {\n      \"excerpt\": \"DIV and DIVU perform an XLEN bits by XLEN bits signed and unsigned integer division of `rs1` by `rs2`, rounding towards zero.\",\n      \"line_number\": 50,\n      \"reason\": \"Fixed behavioral requirement describing what DIV/DIVU instructions do - no implementer choice\"\n    },\n    {\n      \"excerpt\": \"The quotient of division by zero has all bits set\",\n      \"line_number\": 71,\n      \"reason\": \"Fixed requirement specifying exact behavior for division by zero - no implementer choice\"\n    },\n    {\n      \"excerpt\": \"We separate integer multiply and divide out from the base to simplify low-end implementations, or for applications where integer multiply and divide operations are either infrequent or better handled in attached accelerators.\",\n      \"line_number\": 9,\n      \"reason\": \"Text inside [NOTE] block - non-normative informative content\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11222,
+  "output_tokens": 452,
+  "latency_ms": 7522,
+  "timestamp": "2026-06-10T18:16:37.585269+00:00",
+  "error": null,
+  "retry_count": 0
+}

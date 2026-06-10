@@ -1,0 +1,121 @@
+{
+  "chunk_id": "chunk_018",
+  "source_file": "intro.adoc",
+  "start_line": 1,
+  "end_line": 696,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "There are two primary base integer variants, RV32I and RV64I, described in <<rv32>> and <<rv64>>, which provide 32-bit or 64-bit address spaces respectively.",
+      "line_number": 244,
+      "parameter_name": "BASE_ISA_VARIANT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "There are two primary base integer variants",
+      "confidence": "medium",
+      "reasoning": "The implementer chooses which base ISA variant (RV32I or RV64I) to implement. This is a fundamental architectural choice that determines address space width."
+    },
+    {
+      "excerpt": "We use the term XLEN to refer to the width of an integer register in bits (either 32 or 64).",
+      "line_number": 246,
+      "parameter_name": "XLEN",
+      "existing_udb_name": "MXLEN",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "either 32 or 64",
+      "confidence": "high",
+      "reasoning": "XLEN is a fundamental parameter that the implementer sets based on the chosen base ISA variant. The value is either 32 or 64 bits."
+    },
+    {
+      "excerpt": "The base integer instruction sets use a two's-complement representation for signed integer values.",
+      "line_number": 251,
+      "parameter_name": "INTEGER_REPRESENTATION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": null,
+      "confidence": "low",
+      "reasoning": "This appears to be a fixed requirement ('use a two's-complement representation') rather than an implementation choice. All RISC-V implementations must use two's-complement, so this is not a parameter."
+    },
+    {
+      "excerpt": "The implementation of a RISC-V execution environment can be pure hardware, pure software, or a combination of hardware and software.",
+      "line_number": 130,
+      "parameter_name": "EEI_IMPLEMENTATION_TYPE",
+      "existing_udb_name": null,
+      "class": "NON_ISA",
+      "value_type": "enum",
+      "modal_signal": "can be pure hardware, pure software, or a combination",
+      "confidence": "medium",
+      "reasoning": "While this describes implementation choices, it's about execution environment implementation (platform-level) rather than ISA architectural parameters. This is outside the ISA scope."
+    },
+    {
+      "excerpt": "RISC-V base ISAs have either little-endian or big-endian memory systems, with the privileged architecture further defining bi-endian operation.",
+      "line_number": 598,
+      "parameter_name": "MEMORY_ENDIANNESS",
+      "existing_udb_name": null,
+      "class": "NON_ISA",
+      "value_type": "enum",
+      "modal_signal": "have either little-endian or big-endian",
+      "confidence": "medium",
+      "reasoning": "Memory system endianness is typically an EEI/platform choice rather than an ISA architectural parameter. The ISA defines instruction encoding endianness as fixed little-endian."
+    },
+    {
+      "excerpt": "We use the term IALIGN (measured in bits) to refer to the instruction-address alignment constraint the implementation enforces. IALIGN is 32 bits in the base ISA, but some ISA extensions, including the compressed ISA extension, relax IALIGN to 16 bits. IALIGN may not take on any value other than 16 or 32.",
+      "line_number": 555,
+      "parameter_name": "IALIGN",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "the implementation enforces",
+      "confidence": "high",
+      "reasoning": "IALIGN is an implementation choice that determines instruction alignment constraints. The implementation chooses between 16 or 32 bits based on supported extensions."
+    },
+    {
+      "excerpt": "We use the term ILEN (measured in bits) to refer to the maximum instruction length supported by an implementation, and which is always a multiple of IALIGN.",
+      "line_number": 561,
+      "parameter_name": "ILEN",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "range",
+      "modal_signal": "supported by an implementation",
+      "confidence": "high",
+      "reasoning": "ILEN is the maximum instruction length that an implementation chooses to support. It varies by implementation based on which extensions are supported."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The base integer instruction sets use a two's-complement representation for signed integer values.",
+      "line_number": 251,
+      "reason": "Fixed requirement - all RISC-V implementations must use two's-complement, no implementer choice"
+    },
+    {
+      "excerpt": "All the 32-bit instructions in the base ISA have their lowest two bits set to `11`.",
+      "line_number": 569,
+      "reason": "Fixed encoding requirement - all implementations must follow this encoding rule"
+    },
+    {
+      "excerpt": "Encodings with bits [15:0] all zeros are defined as illegal instructions.",
+      "line_number": 587,
+      "reason": "Fixed specification - defines what is illegal, not an implementation choice"
+    },
+    {
+      "excerpt": "Instructions are stored in memory as a sequence of 16-bit little-endian parcels, regardless of memory system endianness.",
+      "line_number": 600,
+      "reason": "Fixed requirement - instruction encoding endianness is always little-endian, no choice"
+    },
+    {
+      "excerpt": "We use the term _exception_ to refer to an unusual condition occurring at run time associated with an instruction in the current RISC-V hart.",
+      "line_number": 640,
+      "reason": "Definition/terminology - not an implementation parameter"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"There are two primary base integer variants, RV32I and RV64I, described in <<rv32>> and <<rv64>>, which provide 32-bit or 64-bit address spaces respectively.\",\n      \"line_number\": 244,\n      \"parameter_name\": \"BASE_ISA_VARIANT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"There are two primary base integer variants\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The implementer chooses which base ISA variant (RV32I or RV64I) to implement. This is a fundamental architectural choice that determines address space width.\"\n    },\n    {\n      \"excerpt\": \"We use the term XLEN to refer to the width of an integer register in bits (either 32 or 64).\",\n      \"line_number\": 246,\n      \"parameter_name\": \"XLEN\",\n      \"existing_udb_name\": \"MXLEN\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"either 32 or 64\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"XLEN is a fundamental parameter that the implementer sets based on the chosen base ISA variant. The value is either 32 or 64 bits.\"\n    },\n    {\n      \"excerpt\": \"The base integer instruction sets use a two's-complement representation for signed integer values.\",\n      \"line_number\": 251,\n      \"parameter_name\": \"INTEGER_REPRESENTATION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": null,\n      \"confidence\": \"low\",\n      \"reasoning\": \"This appears to be a fixed requirement ('use a two's-complement representation') rather than an implementation choice. All RISC-V implementations must use two's-complement, so this is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The implementation of a RISC-V execution environment can be pure hardware, pure software, or a combination of hardware and software.\",\n      \"line_number\": 130,\n      \"parameter_name\": \"EEI_IMPLEMENTATION_TYPE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"can be pure hardware, pure software, or a combination\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"While this describes implementation choices, it's about execution environment implementation (platform-level) rather than ISA architectural parameters. This is outside the ISA scope.\"\n    },\n    {\n      \"excerpt\": \"RISC-V base ISAs have either little-endian or big-endian memory systems, with the privileged architecture further defining bi-endian operation.\",\n      \"line_number\": 598,\n      \"parameter_name\": \"MEMORY_ENDIANNESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"have either little-endian or big-endian\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Memory system endianness is typically an EEI/platform choice rather than an ISA architectural parameter. The ISA defines instruction encoding endianness as fixed little-endian.\"\n    },\n    {\n      \"excerpt\": \"We use the term IALIGN (measured in bits) to refer to the instruction-address alignment constraint the implementation enforces. IALIGN is 32 bits in the base ISA, but some ISA extensions, including the compressed ISA extension, relax IALIGN to 16 bits. IALIGN may not take on any value other than 16 or 32.\",\n      \"line_number\": 555,\n      \"parameter_name\": \"IALIGN\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"the implementation enforces\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"IALIGN is an implementation choice that determines instruction alignment constraints. The implementation chooses between 16 or 32 bits based on supported extensions.\"\n    },\n    {\n      \"excerpt\": \"We use the term ILEN (measured in bits) to refer to the maximum instruction length supported by an implementation, and which is always a multiple of IALIGN.\",\n      \"line_number\": 561,\n      \"parameter_name\": \"ILEN\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"supported by an implementation\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"ILEN is the maximum instruction length that an implementation chooses to support. It varies by implementation based on which extensions are supported.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The base integer instruction sets use a two's-complement representation for signed integer values.\",\n      \"line_number\": 251,\n      \"reason\": \"Fixed requirement - all RISC-V implementations must use two's-complement, no implementer choice\"\n    },\n    {\n      \"excerpt\": \"All the 32-bit instructions in the base ISA have their lowest two bits set to `11`.\",\n      \"line_number\": 569,\n      \"reason\": \"Fixed encoding requirement - all implementations must follow this encoding rule\"\n    },\n    {\n      \"excerpt\": \"Encodings with bits [15:0] all zeros are defined as illegal instructions.\",\n      \"line_number\": 587,\n      \"reason\": \"Fixed specification - defines what is illegal, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"Instructions are stored in memory as a sequence of 16-bit little-endian parcels, regardless of memory system endianness.\",\n      \"line_number\": 600,\n      \"reason\": \"Fixed requirement - instruction encoding endianness is always little-endian, no choice\"\n    },\n    {\n      \"excerpt\": \"We use the term _exception_ to refer to an unusual condition occurring at run time associated with an instruction in the current RISC-V hart.\",\n      \"line_number\": 640,\n      \"reason\": \"Definition/terminology - not an implementation parameter\"\n    }\n  ]\n}\n```",
+  "input_tokens": 17873,
+  "output_tokens": 1581,
+  "latency_ms": 24223,
+  "timestamp": "2026-06-10T18:16:29.035861+00:00",
+  "error": null,
+  "retry_count": 0
+}

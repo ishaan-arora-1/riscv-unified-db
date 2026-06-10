@@ -1,0 +1,198 @@
+{
+  "chunk_id": "chunk_057",
+  "source_file": "unpriv-cfi.adoc",
+  "start_line": 1,
+  "end_line": 894,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The `LPAD` instruction (See <<LP_INST>>) is encoded using the `AUIPC` major opcode with _rd_=`x0`.",
+      "line_number": 71,
+      "parameter_name": "ZICFILP_LPAD_ENCODING",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "is encoded using",
+      "confidence": "medium",
+      "reasoning": "The encoding choice for LPAD instruction is implementation-defined by the spec ('is encoded using'). This is a direct architectural choice about instruction encoding."
+    },
+    {
+      "excerpt": "To support labeled landing pads, the indirect call/jump sites establish an expected landing pad label (e.g., using the `LUI` instruction) in the bits 31:12 of the `x7` register.",
+      "line_number": 189,
+      "parameter_name": "ZICFILP_LABEL_REGISTER",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "establish an expected landing pad label",
+      "confidence": "medium",
+      "reasoning": "The choice of x7 register for landing pad labels and the bit positions (31:12) are architectural design choices specified by the extension."
+    },
+    {
+      "excerpt": "The `LPAD` instruction is encoded with a 20-bit immediate value called the landing-pad-label (`LPL`) that is matched to the expected landing pad label.",
+      "line_number": 191,
+      "parameter_name": "ZICFILP_LPL_WIDTH",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "is encoded with a 20-bit immediate value",
+      "confidence": "high",
+      "reasoning": "The 20-bit width of the landing pad label immediate field is a direct architectural parameter defined by the encoding."
+    },
+    {
+      "excerpt": "When Zicfilp is enabled, `LPAD` is the only instruction allowed to execute when the `ELP` state is `LP_EXPECTED`.",
+      "line_number": 226,
+      "parameter_name": "ZICFILP_ELP_ENFORCEMENT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "is the only instruction allowed to execute",
+      "confidence": "high",
+      "reasoning": "Whether LPAD enforcement is active when Zicfilp is enabled is a direct architectural behavior choice ('is the only instruction allowed')."
+    },
+    {
+      "excerpt": "If Zicfilp is enabled, the `LPAD` instruction causes a software-check exception with `__x__tval` set to \"landing pad fault (code=2)\"",
+      "line_number": 228,
+      "parameter_name": "ZICFILP_EXCEPTION_CODE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "causes a software-check exception with tval set to",
+      "confidence": "high",
+      "reasoning": "The specific exception code (2) for landing pad faults is a direct architectural parameter defined by the extension."
+    },
+    {
+      "excerpt": "The `pc` is not 4-byte aligned and `ELP` is `LP_EXPECTED`.",
+      "line_number": 231,
+      "parameter_name": "ZICFILP_ALIGNMENT_REQUIREMENT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "is not 4-byte aligned",
+      "confidence": "high",
+      "reasoning": "The 4-byte alignment requirement for LPAD instructions is a direct architectural parameter."
+    },
+    {
+      "excerpt": "When Zicfiss is enabled, each function that needs to spill the link register, typically non-leaf functions, store the link register value to the regular stack and a shadow copy of the link register value to the shadow stack when the function is entered (the prologue).",
+      "line_number": 295,
+      "parameter_name": "ZICFISS_PROLOGUE_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "store the link register value to the regular stack and a shadow copy",
+      "confidence": "medium",
+      "reasoning": "The requirement for functions to store link register values on both stacks when Zicfiss is enabled is an architectural behavior choice."
+    },
+    {
+      "excerpt": "The Zicfiss instructions, except `SSAMOSWAP.W/D`, are encoded using a subset of May-Be-Operation instructions defined by the Zimop and Zcmop extensions.",
+      "line_number": 301,
+      "parameter_name": "ZICFISS_ENCODING_SCHEME",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "are encoded using a subset of May-Be-Operation instructions",
+      "confidence": "high",
+      "reasoning": "The choice to encode Zicfiss instructions using Zimop/Zcmop subset is a direct architectural encoding decision."
+    },
+    {
+      "excerpt": "`SSPUSH x1` and `SSPUSH x5` - encoded using `MOP.RR.7`",
+      "line_number": 327,
+      "parameter_name": "SSPUSH_ENCODING",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "encoded using MOP.RR.7",
+      "confidence": "high",
+      "reasoning": "The specific encoding choice for SSPUSH instructions using MOP.RR.7 is a direct architectural parameter."
+    },
+    {
+      "excerpt": "The `ssp` CSR is an unprivileged read-write (URW) CSR that reads and writes `XLEN` low order bits of the shadow stack pointer (`ssp`).",
+      "line_number": 345,
+      "parameter_name": "SSP_CSR_ACCESS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "is an unprivileged read-write (URW) CSR",
+      "confidence": "high",
+      "reasoning": "The access permissions (URW) for the ssp CSR are a direct architectural choice."
+    },
+    {
+      "excerpt": "The CSR address is 0x011.",
+      "line_number": 346,
+      "parameter_name": "SSP_CSR_ADDRESS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "The CSR address is",
+      "confidence": "high",
+      "reasoning": "The specific CSR address (0x011) for ssp is a direct architectural parameter."
+    },
+    {
+      "excerpt": "There is no high CSR defined as the `ssp` is always as wide as the `XLEN` of the current privilege mode.",
+      "line_number": 347,
+      "parameter_name": "SSP_CSR_WIDTH",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "is always as wide as the XLEN",
+      "confidence": "high",
+      "reasoning": "The width of the ssp CSR being XLEN-wide is a direct architectural choice ('is always as wide as')."
+    },
+    {
+      "excerpt": "The bits 1:0 of `ssp` are read-only zero. If the UXLEN or SXLEN may never be 32, then the bit 2 is also read-only zero.",
+      "line_number": 348,
+      "parameter_name": "SSP_ALIGNMENT_BITS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "bitmask",
+      "modal_signal": "are read-only zero",
+      "confidence": "high",
+      "reasoning": "The read-only zero bits in ssp (bits 1:0, conditionally bit 2) are direct architectural parameters defining alignment requirements."
+    },
+    {
+      "excerpt": "Perform an atomic swap from a shadow stack location (See <<SSAMOSWAP>>)",
+      "line_number": 336,
+      "parameter_name": "SSAMOSWAP_OPERATION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "Perform an atomic swap",
+      "confidence": "medium",
+      "reasoning": "The atomic swap operation capability for shadow stack locations is a direct architectural feature choice."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The term _call_ is used to refer to a `JAL` or `JALR` instruction with a link register as destination, i.e., _rd_\u2260`x0`.",
+      "line_number": 40,
+      "reason": "This is a definitional statement that establishes terminology, not an implementation choice. It defines what constitutes a 'call' but doesn't give implementers any options."
+    },
+    {
+      "excerpt": "The `ELP` state is initialized to `NO_LP_EXPECTED` by the hart upon reset.",
+      "line_number": 157,
+      "reason": "This is a fixed requirement ('is initialized to') that applies to all implementations - there is no implementer choice about the reset value."
+    },
+    {
+      "excerpt": "Only `x1` and `x5` registers are supported as `rs2` for `SSPUSH`.",
+      "line_number": 378,
+      "reason": "This is a fixed constraint ('Only x1 and x5 registers are supported') that applies to all implementations - not an optional choice."
+    },
+    {
+      "excerpt": "The shadow stack, similar to the regular stack, grows downwards, from higher addresses to lower addresses.",
+      "line_number": 276,
+      "reason": "This describes a fixed architectural behavior ('grows downwards') that is the same for all implementations - not a parameter."
+    },
+    {
+      "excerpt": "Each entry on the shadow stack is `XLEN` wide and holds the link register value.",
+      "line_number": 278,
+      "reason": "This is a fixed requirement ('is XLEN wide') about shadow stack entry size that applies to all implementations."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The `LPAD` instruction (See <<LP_INST>>) is encoded using the `AUIPC` major opcode with _rd_=`x0`.\",\n      \"line_number\": 71,\n      \"parameter_name\": \"ZICFILP_LPAD_ENCODING\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"is encoded using\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The encoding choice for LPAD instruction is implementation-defined by the spec ('is encoded using'). This is a direct architectural choice about instruction encoding.\"\n    },\n    {\n      \"excerpt\": \"To support labeled landing pads, the indirect call/jump sites establish an expected landing pad label (e.g., using the `LUI` instruction) in the bits 31:12 of the `x7` register.\",\n      \"line_number\": 189,\n      \"parameter_name\": \"ZICFILP_LABEL_REGISTER\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"establish an expected landing pad label\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The choice of x7 register for landing pad labels and the bit positions (31:12) are architectural design choices specified by the extension.\"\n    },\n    {\n      \"excerpt\": \"The `LPAD` instruction is encoded with a 20-bit immediate value called the landing-pad-label (`LPL`) that is matched to the expected landing pad label.\",\n      \"line_number\": 191,\n      \"parameter_name\": \"ZICFILP_LPL_WIDTH\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"is encoded with a 20-bit immediate value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The 20-bit width of the landing pad label immediate field is a direct architectural parameter defined by the encoding.\"\n    },\n    {\n      \"excerpt\": \"When Zicfilp is enabled, `LPAD` is the only instruction allowed to execute when the `ELP` state is `LP_EXPECTED`.\",\n      \"line_number\": 226,\n      \"parameter_name\": \"ZICFILP_ELP_ENFORCEMENT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"is the only instruction allowed to execute\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether LPAD enforcement is active when Zicfilp is enabled is a direct architectural behavior choice ('is the only instruction allowed').\"\n    },\n    {\n      \"excerpt\": \"If Zicfilp is enabled, the `LPAD` instruction causes a software-check exception with `__x__tval` set to \\\"landing pad fault (code=2)\\\"\",\n      \"line_number\": 228,\n      \"parameter_name\": \"ZICFILP_EXCEPTION_CODE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"causes a software-check exception with tval set to\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The specific exception code (2) for landing pad faults is a direct architectural parameter defined by the extension.\"\n    },\n    {\n      \"excerpt\": \"The `pc` is not 4-byte aligned and `ELP` is `LP_EXPECTED`.\",\n      \"line_number\": 231,\n      \"parameter_name\": \"ZICFILP_ALIGNMENT_REQUIREMENT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"is not 4-byte aligned\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The 4-byte alignment requirement for LPAD instructions is a direct architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"When Zicfiss is enabled, each function that needs to spill the link register, typically non-leaf functions, store the link register value to the regular stack and a shadow copy of the link register value to the shadow stack when the function is entered (the prologue).\",\n      \"line_number\": 295,\n      \"parameter_name\": \"ZICFISS_PROLOGUE_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"store the link register value to the regular stack and a shadow copy\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The requirement for functions to store link register values on both stacks when Zicfiss is enabled is an architectural behavior choice.\"\n    },\n    {\n      \"excerpt\": \"The Zicfiss instructions, except `SSAMOSWAP.W/D`, are encoded using a subset of May-Be-Operation instructions defined by the Zimop and Zcmop extensions.\",\n      \"line_number\": 301,\n      \"parameter_name\": \"ZICFISS_ENCODING_SCHEME\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"are encoded using a subset of May-Be-Operation instructions\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The choice to encode Zicfiss instructions using Zimop/Zcmop subset is a direct architectural encoding decision.\"\n    },\n    {\n      \"excerpt\": \"`SSPUSH x1` and `SSPUSH x5` - encoded using `MOP.RR.7`\",\n      \"line_number\": 327,\n      \"parameter_name\": \"SSPUSH_ENCODING\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"encoded using MOP.RR.7\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The specific encoding choice for SSPUSH instructions using MOP.RR.7 is a direct architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"The `ssp` CSR is an unprivileged read-write (URW) CSR that reads and writes `XLEN` low order bits of the shadow stack pointer (`ssp`).\",\n      \"line_number\": 345,\n      \"parameter_name\": \"SSP_CSR_ACCESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"is an unprivileged read-write (URW) CSR\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The access permissions (URW) for the ssp CSR are a direct architectural choice.\"\n    },\n    {\n      \"excerpt\": \"The CSR address is 0x011.\",\n      \"line_number\": 346,\n      \"parameter_name\": \"SSP_CSR_ADDRESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"The CSR address is\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The specific CSR address (0x011) for ssp is a direct architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"There is no high CSR defined as the `ssp` is always as wide as the `XLEN` of the current privilege mode.\",\n      \"line_number\": 347,\n      \"parameter_name\": \"SSP_CSR_WIDTH\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"is always as wide as the XLEN\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The width of the ssp CSR being XLEN-wide is a direct architectural choice ('is always as wide as').\"\n    },\n    {\n      \"excerpt\": \"The bits 1:0 of `ssp` are read-only zero. If the UXLEN or SXLEN may never be 32, then the bit 2 is also read-only zero.\",\n      \"line_number\": 348,\n      \"parameter_name\": \"SSP_ALIGNMENT_BITS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"are read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The read-only zero bits in ssp (bits 1:0, conditionally bit 2) are direct architectural parameters defining alignment requirements.\"\n    },\n    {\n      \"excerpt\": \"Perform an atomic swap from a shadow stack location (See <<SSAMOSWAP>>)\",\n      \"line_number\": 336,\n      \"parameter_name\": \"SSAMOSWAP_OPERATION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"Perform an atomic swap\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The atomic swap operation capability for shadow stack locations is a direct architectural feature choice.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The term _call_ is used to refer to a `JAL` or `JALR` instruction with a link register as destination, i.e., _rd_\u2260`x0`.\",\n      \"line_number\": 40,\n      \"reason\": \"This is a definitional statement that establishes terminology, not an implementation choice. It defines what constitutes a 'call' but doesn't give implementers any options.\"\n    },\n    {\n      \"excerpt\": \"The `ELP` state is initialized to `NO_LP_EXPECTED` by the hart upon reset.\",\n      \"line_number\": 157,\n      \"reason\": \"This is a fixed requirement ('is initialized to') that applies to all implementations - there is no implementer choice about the reset value.\"\n    },\n    {\n      \"excerpt\": \"Only `x1` and `x5` registers are supported as `rs2` for `SSPUSH`.\",\n      \"line_number\": 378,\n      \"reason\": \"This is a fixed constraint ('Only x1 and x5 registers are supported') that applies to all implementations - not an optional choice.\"\n    },\n    {\n      \"excerpt\": \"The shadow stack, similar to the regular stack, grows downwards, from higher addresses to lower addresses.\",\n      \"line_number\": 276,\n      \"reason\": \"This describes a fixed architectural behavior ('grows downwards') that is the same for all implementations - not a parameter.\"\n    },\n    {\n      \"excerpt\": \"Each entry on the shadow stack is `XLEN` wide and holds the link register value.\",\n      \"line_number\": 278,\n      \"reason\": \"This is a fixed requirement ('is XLEN wide') about shadow stack entry size that applies to all implementations.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 21206,
+  "output_tokens": 2790,
+  "latency_ms": 44418,
+  "timestamp": "2026-06-10T18:35:01.756037+00:00",
+  "error": null,
+  "retry_count": 0
+}

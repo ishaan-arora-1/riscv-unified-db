@@ -1,0 +1,440 @@
+{
+  "chunk_id": "chunk_020",
+  "source_file": "machine.adoc",
+  "start_line": 1,
+  "end_line": 3359,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "a value of zero can be returned to indicate the `misa` register has not been implemented",
+      "line_number": 21,
+      "parameter_name": "MISA_CSR_IMPLEMENTED",
+      "existing_udb_name": "MISA_CSR_IMPLEMENTED",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "can be returned to indicate",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether to implement the misa CSR or return zero ('can be returned to indicate'). This is a design-time choice about CSR presence."
+    },
+    {
+      "excerpt": "The Extensions field is a *WARL* field that can contain writable bits where the implementation allows the supported ISA to be modified.",
+      "line_number": 58,
+      "parameter_name": "MUTABLE_MISA_EXTENSIONS",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "bitmask",
+      "modal_signal": "can contain writable bits where the implementation allows",
+      "confidence": "high",
+      "reasoning": "The implementation chooses which extension bits in misa are writable ('can contain writable bits where the implementation allows'). This controls the RW nature of individual extension bits."
+    },
+    {
+      "excerpt": "This register must be readable in any implementation, but a value of 0 can be returned to indicate the field is not implemented.",
+      "line_number": 95,
+      "parameter_name": "VENDOR_ID_BANK",
+      "existing_udb_name": "VENDOR_ID_BANK",
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "can be returned to indicate the field is not implemented",
+      "confidence": "high",
+      "reasoning": "The implementation chooses the vendor ID value or returns 0 if not implemented ('can be returned to indicate'). This is the specific value returned by the read-only register."
+    },
+    {
+      "excerpt": "This register must be readable in any implementation, but a value of 0 can be returned to indicate the field is not implemented.",
+      "line_number": 115,
+      "parameter_name": "MARCHID_IMPLEMENTED",
+      "existing_udb_name": "MARCHID_IMPLEMENTED",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "can be returned to indicate the field is not implemented",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether to implement marchid or return 0 ('can be returned to indicate'). Binary choice about register implementation."
+    },
+    {
+      "excerpt": "This register must be readable in any implementation, but a value of 0 can be returned to indicate that the field is not implemented.",
+      "line_number": 130,
+      "parameter_name": "MIMPID_IMPLEMENTED",
+      "existing_udb_name": "MIMPID_IMPLEMENTED",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "can be returned to indicate that the field is not implemented",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether to implement mimpid or return 0 ('can be returned to indicate'). Binary choice about register implementation."
+    },
+    {
+      "excerpt": "an implementation may make SXL be a read-only field whose value always ensures that SXLEN=MXLEN.",
+      "line_number": 244,
+      "parameter_name": "SXLEN",
+      "existing_udb_name": "SXLEN",
+      "class": "NORM_CSR_RW",
+      "value_type": "enum",
+      "modal_signal": "an implementation may make SXL be a read-only field",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether SXL is read-only or writable ('may make ... read-only field'). This controls the mutability of the SXL field."
+    },
+    {
+      "excerpt": "an implementation may make UXL be a read-only field whose value always ensures that UXLEN=MXLEN or UXLEN=SXLEN.",
+      "line_number": 249,
+      "parameter_name": "UXLEN",
+      "existing_udb_name": "UXLEN",
+      "class": "NORM_CSR_RW",
+      "value_type": "enum",
+      "modal_signal": "an implementation may make UXL be a read-only field",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether UXL is read-only or writable ('may make ... read-only field'). This controls the mutability of the UXL field."
+    },
+    {
+      "excerpt": "an implementation may make SBE be a read-only copy of MBE.",
+      "line_number": 679,
+      "parameter_name": "S_MODE_ENDIANNESS",
+      "existing_udb_name": "S_MODE_ENDIANNESS",
+      "class": "NORM_CSR_RW",
+      "value_type": "enum",
+      "modal_signal": "an implementation may make SBE be a read-only copy",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether SBE is independent or a read-only copy of MBE ('may make ... read-only copy'). This controls the independence of the SBE field."
+    },
+    {
+      "excerpt": "an implementation may make UBE be a read-only copy of either MBE or SBE.",
+      "line_number": 681,
+      "parameter_name": "U_MODE_ENDIANNESS",
+      "existing_udb_name": "U_MODE_ENDIANNESS",
+      "class": "NORM_CSR_RW",
+      "value_type": "enum",
+      "modal_signal": "an implementation may make UBE be a read-only copy",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether UBE is independent or a read-only copy ('may make ... read-only copy'). This controls the independence of the UBE field."
+    },
+    {
+      "excerpt": "The `mtvec` register must always be implemented, but can contain a read-only value.",
+      "line_number": 1217,
+      "parameter_name": "MTVEC_ACCESS",
+      "existing_udb_name": "MTVEC_ACCESS",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "can contain a read-only value",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether mtvec is read-only or read-write ('can contain a read-only value'). Binary choice about the mutability of the register."
+    },
+    {
+      "excerpt": "If `mtvec` is writable, the set of values the register may hold can vary by implementation.",
+      "line_number": 1219,
+      "parameter_name": "MTVEC_MODES",
+      "existing_udb_name": "MTVEC_MODES",
+      "class": "NORM_CSR_WARL",
+      "value_type": "set",
+      "modal_signal": "the set of values the register may hold can vary by implementation",
+      "confidence": "high",
+      "reasoning": "The mtvec MODE field is WARL, and the set of supported mode values varies by implementation ('can vary by implementation'). The parameter is the set of legal MODE values."
+    },
+    {
+      "excerpt": "An implementation can choose to subset the delegatable traps, with the supported delegatable bits found by writing one to every bit location, then reading back the value in `medeleg` or `mideleg` to see which bit positions hold a one.",
+      "line_number": 1310,
+      "parameter_name": "DELEGATABLE_EXCEPTIONS",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "bitmask",
+      "modal_signal": "An implementation can choose to subset the delegatable traps",
+      "confidence": "high",
+      "reasoning": "The implementation chooses which exception types can be delegated ('can choose to subset'). This determines which bits in medeleg are writable vs read-only-zero."
+    },
+    {
+      "excerpt": "Each individual bit in register `mip` may be writable or may be read-only.",
+      "line_number": 1395,
+      "parameter_name": "MIP_WRITABLE_BITS",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "bitmask",
+      "modal_signal": "may be writable or may be read-only",
+      "confidence": "high",
+      "reasoning": "The implementation chooses which bits in mip are writable vs read-only ('may be writable or may be read-only'). This controls the RW nature of individual interrupt pending bits."
+    },
+    {
+      "excerpt": "If a system has only one hart, or if a platform standard supports the delivery of machine-level interprocessor interrupts through external interrupts (MEI) instead, then `mip`.MSIP and `mie`.MSIE may both be read-only zeros.",
+      "line_number": 1442,
+      "parameter_name": "MSIP_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "may both be read-only zeros",
+      "confidence": "high",
+      "reasoning": "The implementation may make MSIP/MSIE read-only zero in single-hart systems ('may both be read-only zeros'). This controls whether these interrupt bits are implemented."
+    },
+    {
+      "excerpt": "All counters should be implemented, but a legal implementation is to make both the counter and its corresponding event selector be read-only 0.",
+      "line_number": 1549,
+      "parameter_name": "HPM_COUNTER_EN",
+      "existing_udb_name": "HPM_COUNTER_EN",
+      "class": "NORM_CSR_RW",
+      "value_type": "bitmask",
+      "modal_signal": "a legal implementation is to make both the counter and its corresponding event selector be read-only 0",
+      "confidence": "high",
+      "reasoning": "The implementation may make HPM counters read-only zero ('legal implementation is to make ... read-only 0'). This controls which performance counters are implemented vs read-only-zero."
+    },
+    {
+      "excerpt": "all fields are *WARL* and may be read-only zero, indicating reads to the corresponding counter will cause an illegal-instruction exception when executing in a less-privileged mode.",
+      "line_number": 1672,
+      "parameter_name": "MCOUNTEREN_FLDS_RDONLY0",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "bitmask",
+      "modal_signal": "may be read-only zero",
+      "confidence": "high",
+      "reasoning": "The implementation may make mcounteren fields read-only zero ('may be read-only zero'). This controls which counter-enable bits are writable vs hardwired to zero."
+    },
+    {
+      "excerpt": "an implementation may make any subset of the counters read-only zero.",
+      "line_number": 1672,
+      "parameter_name": "COUNTINHIBIT_EN",
+      "existing_udb_name": "COUNTINHIBIT_EN",
+      "class": "NORM_CSR_RW",
+      "value_type": "bitmask",
+      "modal_signal": "an implementation may make any subset of the counters read-only zero",
+      "confidence": "high",
+      "reasoning": "Which bits of mcountinhibit are writable depends on which HPM counters are implemented; unimplemented counters are read-only-zero ('may make any subset ... read-only zero')."
+    },
+    {
+      "excerpt": "If the `mcountinhibit` register is not implemented, the implementation behaves as though the register were set to zero.",
+      "line_number": 1708,
+      "parameter_name": "MCOUNTINHIBIT_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "If the `mcountinhibit` register is not implemented",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether to implement mcountinhibit ('If ... not implemented'). Binary choice about register presence."
+    },
+    {
+      "excerpt": "The `mtval` register can optionally also be used to return the faulting instruction bits on an illegal-instruction exception.",
+      "line_number": 2079,
+      "parameter_name": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+      "existing_udb_name": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "can optionally also be used to return the faulting instruction bits",
+      "confidence": "high",
+      "reasoning": "Whether mtval reports the faulting instruction encoding is optional ('can optionally'). No CSR field controls this; it is a design-time choice, so NORM_DIRECT."
+    },
+    {
+      "excerpt": "The `mconfigptr` register must be implemented, but it may be zero to indicate the configuration data structure does not exist or that an alternative mechanism must be used to locate it.",
+      "line_number": 2149,
+      "parameter_name": "CONFIG_PTR_ADDRESS",
+      "existing_udb_name": "CONFIG_PTR_ADDRESS",
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "may be zero to indicate",
+      "confidence": "high",
+      "reasoning": "The implementation chooses the configuration pointer value or zero ('may be zero to indicate'). This is the specific value returned by the read-only register."
+    },
+    {
+      "excerpt": "If S-mode is not supported, or if `satp`.MODE is read-only zero (always Bare), the implementation may make FIOM read-only zero.",
+      "line_number": 2186,
+      "parameter_name": "MENVCFG_FIOM_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "the implementation may make FIOM read-only zero",
+      "confidence": "high",
+      "reasoning": "The implementation may make FIOM read-only zero in certain configurations ('may make ... read-only zero'). This controls whether the FIOM bit is writable."
+    },
+    {
+      "excerpt": "If Svpbmt is not implemented, PBMTE is read-only zero.",
+      "line_number": 2205,
+      "parameter_name": "MENVCFG_PBMTE_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "PBMTE is read-only zero",
+      "confidence": "medium",
+      "reasoning": "When Svpbmt is not implemented, PBMTE is read-only zero. This implies the implementation chooses whether to support Svpbmt, which determines if PBMTE is writable."
+    },
+    {
+      "excerpt": "If Svadu is not implemented, ADUE is read-only zero.",
+      "line_number": 2224,
+      "parameter_name": "MENVCFG_ADUE_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "ADUE is read-only zero",
+      "confidence": "medium",
+      "reasoning": "When Svadu is not implemented, ADUE is read-only zero. This implies the implementation chooses whether to support Svadu, which determines if ADUE is writable."
+    },
+    {
+      "excerpt": "If Smcdeleg is not implemented, CDE is read-only zero.",
+      "line_number": 2235,
+      "parameter_name": "MENVCFG_CDE_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "CDE is read-only zero",
+      "confidence": "medium",
+      "reasoning": "When Smcdeleg is not implemented, CDE is read-only zero. This implies the implementation chooses whether to support Smcdeleg, which determines if CDE is writable."
+    },
+    {
+      "excerpt": "When the Sstc extension is not implemented, `STCE` is read-only zero.",
+      "line_number": 2239,
+      "parameter_name": "MENVCFG_STCE_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "STCE` is read-only zero",
+      "confidence": "medium",
+      "reasoning": "When Sstc is not implemented, STCE is read-only zero. This implies the implementation chooses whether to support Sstc, which determines if STCE is writable."
+    },
+    {
+      "excerpt": "When the Zicboz extension is not implemented, `CBZE` is read-only zero.",
+      "line_number": 2250,
+      "parameter_name": "MENVCFG_CBZE_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "CBZE` is read-only zero",
+      "confidence": "medium",
+      "reasoning": "When Zicboz is not implemented, CBZE is read-only zero. This implies the implementation chooses whether to support Zicboz, which determines if CBZE is writable."
+    },
+    {
+      "excerpt": "When the Zicbom extension is not implemented, `CBCFE` is read-only zero.",
+      "line_number": 2257,
+      "parameter_name": "MENVCFG_CBCFE_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "CBCFE` is read-only zero",
+      "confidence": "medium",
+      "reasoning": "When Zicbom is not implemented, CBCFE is read-only zero. This implies the implementation chooses whether to support Zicbom, which determines if CBCFE is writable."
+    },
+    {
+      "excerpt": "When the Zicbom extension is not implemented, `CBIE` is read-only zero.",
+      "line_number": 2263,
+      "parameter_name": "MENVCFG_CBIE_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "CBIE` is read-only zero",
+      "confidence": "medium",
+      "reasoning": "When Zicbom is not implemented, CBIE is read-only zero. This implies the implementation chooses whether to support Zicbom, which determines if CBIE is writable."
+    },
+    {
+      "excerpt": "If Smnpm is not implemented, `PMM` is read-only zero.",
+      "line_number": 2278,
+      "parameter_name": "MENVCFG_PMM_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "PMM` is read-only zero",
+      "confidence": "medium",
+      "reasoning": "When Smnpm is not implemented, PMM is read-only zero. This implies the implementation chooses whether to support Smnpm, which determines if PMM is writable."
+    },
+    {
+      "excerpt": "It exists if any extension that adds a field to `mseccfg` is implemented. Otherwise, it is reserved.",
+      "line_number": 2320,
+      "parameter_name": "MSECCFG_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "It exists if any extension that adds a field to `mseccfg` is implemented",
+      "confidence": "high",
+      "reasoning": "The mseccfg register exists only if extensions that use it are implemented ('exists if ... implemented'). This is a choice about register presence based on extension support."
+    },
+    {
+      "excerpt": "If Zkr or U-mode is not implemented, `USEED` is read-only zero.",
+      "line_number": 2334,
+      "parameter_name": "MSECCFG_USEED_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "USEED` is read-only zero",
+      "confidence": "medium",
+      "reasoning": "When Zkr or U-mode is not implemented, USEED is read-only zero. This implies the implementation chooses whether to support these features, which determines if USEED is writable."
+    },
+    {
+      "excerpt": "If Zkr or S-mode is not implemented, `SSEED` is read-only zero.",
+      "line_number": 2340,
+      "parameter_name": "MSECCFG_SSEED_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "SSEED` is read-only zero",
+      "confidence": "medium",
+      "reasoning": "When Zkr or S-mode is not implemented, SSEED is read-only zero. This implies the implementation chooses whether to support these features, which determines if SSEED is writable."
+    },
+    {
+      "excerpt": "If Smmpm is not implemented, `PMM` is read-only zero.",
+      "line_number": 2456,
+      "parameter_name": "MSECCFG_PMM_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "PMM` is read-only zero",
+      "confidence": "medium",
+      "reasoning": "When Smmpm is not implemented, PMM is read-only zero. This implies the implementation chooses whether to support Smmpm, which determines if PMM is writable."
+    },
+    {
+      "excerpt": "Implementations can convert reads of the `time` and `timeh` CSRs into loads to the memory-mapped `mtime` register, or emulate this functionality on behalf of less-privileged modes in M-mode software.",
+      "line_number": 1659,
+      "parameter_name": "TIME_CSR_IMPLEMENTED",
+      "existing_udb_name": "TIME_CSR_IMPLEMENTED",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "Implementations can convert reads ... or emulate this functionality",
+      "confidence": "high",
+      "reasoning": "The implementation can choose to implement time/timeh CSRs directly or emulate them ('can convert ... or emulate'). This is a choice about how to provide the time CSR functionality."
+    },
+    {
+      "excerpt": "WFI is available in all privileged modes, and optionally available to U-mode.",
+      "line_number": 2756,
+      "parameter_name": "WFI_AVAILABLE_U_MODE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "optionally available to U-mode",
+      "confidence": "high",
+      "reasoning": "WFI availability in U-mode is optional ('optionally available'). The implementation chooses whether to allow WFI in U-mode."
+    },
+    {
+      "excerpt": "The granularity of PMP access control settings are platform-specific, but the standard PMP encoding supports regions as small as four bytes.",
+      "line_number": 3340,
+      "parameter_name": "PMP_GRANULARITY",
+      "existing_udb_name": "PMP_GRANULARITY",
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "are platform-specific",
+      "confidence": "high",
+      "reasoning": "PMP granularity is platform-specific ('are platform-specific'), meaning the implementation chooses the granularity value within the constraints of the standard encoding."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The MXL field is read-only.",
+      "line_number": 30,
+      "reason": "Fixed requirement - MXL field is always read-only, no implementation choice"
+    },
+    {
+      "excerpt": "The `misa` CSR is MXLEN bits wide.",
+      "line_number": 42,
+      "reason": "Statement of fact - register width is determined by MXLEN, not an implementation choice"
+    },
+    {
+      "excerpt": "Hart IDs must be unique within the execution environment.",
+      "line_number": 148,
+      "reason": "Fixed requirement - 'must be unique' is a mandatory constraint, not optional"
+    },
+    {
+      "excerpt": "The low bit of `mepc` (`mepc[0]`) is always zero.",
+      "line_number": 1958,
+      "reason": "Fixed requirement - 'always zero' describes mandatory behavior, not implementation choice"
+    },
+    {
+      "excerpt": "Upon reset, a hart's privilege mode is set to M.",
+      "line_number": 2844,
+      "reason": "Fixed requirement - reset behavior is mandatory ('is set to'), not optional"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"a value of zero can be returned to indicate the `misa` register has not been implemented\",\n      \"line_number\": 21,\n      \"parameter_name\": \"MISA_CSR_IMPLEMENTED\",\n      \"existing_udb_name\": \"MISA_CSR_IMPLEMENTED\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"can be returned to indicate\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to implement the misa CSR or return zero ('can be returned to indicate'). This is a design-time choice about CSR presence.\"\n    },\n    {\n      \"excerpt\": \"The Extensions field is a *WARL* field that can contain writable bits where the implementation allows the supported ISA to be modified.\",\n      \"line_number\": 58,\n      \"parameter_name\": \"MUTABLE_MISA_EXTENSIONS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"can contain writable bits where the implementation allows\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses which extension bits in misa are writable ('can contain writable bits where the implementation allows'). This controls the RW nature of individual extension bits.\"\n    },\n    {\n      \"excerpt\": \"This register must be readable in any implementation, but a value of 0 can be returned to indicate the field is not implemented.\",\n      \"line_number\": 95,\n      \"parameter_name\": \"VENDOR_ID_BANK\",\n      \"existing_udb_name\": \"VENDOR_ID_BANK\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"can be returned to indicate the field is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses the vendor ID value or returns 0 if not implemented ('can be returned to indicate'). This is the specific value returned by the read-only register.\"\n    },\n    {\n      \"excerpt\": \"This register must be readable in any implementation, but a value of 0 can be returned to indicate the field is not implemented.\",\n      \"line_number\": 115,\n      \"parameter_name\": \"MARCHID_IMPLEMENTED\",\n      \"existing_udb_name\": \"MARCHID_IMPLEMENTED\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"can be returned to indicate the field is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to implement marchid or return 0 ('can be returned to indicate'). Binary choice about register implementation.\"\n    },\n    {\n      \"excerpt\": \"This register must be readable in any implementation, but a value of 0 can be returned to indicate that the field is not implemented.\",\n      \"line_number\": 130,\n      \"parameter_name\": \"MIMPID_IMPLEMENTED\",\n      \"existing_udb_name\": \"MIMPID_IMPLEMENTED\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"can be returned to indicate that the field is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to implement mimpid or return 0 ('can be returned to indicate'). Binary choice about register implementation.\"\n    },\n    {\n      \"excerpt\": \"an implementation may make SXL be a read-only field whose value always ensures that SXLEN=MXLEN.\",\n      \"line_number\": 244,\n      \"parameter_name\": \"SXLEN\",\n      \"existing_udb_name\": \"SXLEN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"an implementation may make SXL be a read-only field\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether SXL is read-only or writable ('may make ... read-only field'). This controls the mutability of the SXL field.\"\n    },\n    {\n      \"excerpt\": \"an implementation may make UXL be a read-only field whose value always ensures that UXLEN=MXLEN or UXLEN=SXLEN.\",\n      \"line_number\": 249,\n      \"parameter_name\": \"UXLEN\",\n      \"existing_udb_name\": \"UXLEN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"an implementation may make UXL be a read-only field\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether UXL is read-only or writable ('may make ... read-only field'). This controls the mutability of the UXL field.\"\n    },\n    {\n      \"excerpt\": \"an implementation may make SBE be a read-only copy of MBE.\",\n      \"line_number\": 679,\n      \"parameter_name\": \"S_MODE_ENDIANNESS\",\n      \"existing_udb_name\": \"S_MODE_ENDIANNESS\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"an implementation may make SBE be a read-only copy\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether SBE is independent or a read-only copy of MBE ('may make ... read-only copy'). This controls the independence of the SBE field.\"\n    },\n    {\n      \"excerpt\": \"an implementation may make UBE be a read-only copy of either MBE or SBE.\",\n      \"line_number\": 681,\n      \"parameter_name\": \"U_MODE_ENDIANNESS\",\n      \"existing_udb_name\": \"U_MODE_ENDIANNESS\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"an implementation may make UBE be a read-only copy\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether UBE is independent or a read-only copy ('may make ... read-only copy'). This controls the independence of the UBE field.\"\n    },\n    {\n      \"excerpt\": \"The `mtvec` register must always be implemented, but can contain a read-only value.\",\n      \"line_number\": 1217,\n      \"parameter_name\": \"MTVEC_ACCESS\",\n      \"existing_udb_name\": \"MTVEC_ACCESS\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"can contain a read-only value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether mtvec is read-only or read-write ('can contain a read-only value'). Binary choice about the mutability of the register.\"\n    },\n    {\n      \"excerpt\": \"If `mtvec` is writable, the set of values the register may hold can vary by implementation.\",\n      \"line_number\": 1219,\n      \"parameter_name\": \"MTVEC_MODES\",\n      \"existing_udb_name\": \"MTVEC_MODES\",\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"the set of values the register may hold can vary by implementation\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The mtvec MODE field is WARL, and the set of supported mode values varies by implementation ('can vary by implementation'). The parameter is the set of legal MODE values.\"\n    },\n    {\n      \"excerpt\": \"An implementation can choose to subset the delegatable traps, with the supported delegatable bits found by writing one to every bit location, then reading back the value in `medeleg` or `mideleg` to see which bit positions hold a one.\",\n      \"line_number\": 1310,\n      \"parameter_name\": \"DELEGATABLE_EXCEPTIONS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"An implementation can choose to subset the delegatable traps\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses which exception types can be delegated ('can choose to subset'). This determines which bits in medeleg are writable vs read-only-zero.\"\n    },\n    {\n      \"excerpt\": \"Each individual bit in register `mip` may be writable or may be read-only.\",\n      \"line_number\": 1395,\n      \"parameter_name\": \"MIP_WRITABLE_BITS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"may be writable or may be read-only\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses which bits in mip are writable vs read-only ('may be writable or may be read-only'). This controls the RW nature of individual interrupt pending bits.\"\n    },\n    {\n      \"excerpt\": \"If a system has only one hart, or if a platform standard supports the delivery of machine-level interprocessor interrupts through external interrupts (MEI) instead, then `mip`.MSIP and `mie`.MSIE may both be read-only zeros.\",\n      \"line_number\": 1442,\n      \"parameter_name\": \"MSIP_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may both be read-only zeros\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may make MSIP/MSIE read-only zero in single-hart systems ('may both be read-only zeros'). This controls whether these interrupt bits are implemented.\"\n    },\n    {\n      \"excerpt\": \"All counters should be implemented, but a legal implementation is to make both the counter and its corresponding event selector be read-only 0.\",\n      \"line_number\": 1549,\n      \"parameter_name\": \"HPM_COUNTER_EN\",\n      \"existing_udb_name\": \"HPM_COUNTER_EN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"a legal implementation is to make both the counter and its corresponding event selector be read-only 0\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may make HPM counters read-only zero ('legal implementation is to make ... read-only 0'). This controls which performance counters are implemented vs read-only-zero.\"\n    },\n    {\n      \"excerpt\": \"all fields are *WARL* and may be read-only zero, indicating reads to the corresponding counter will cause an illegal-instruction exception when executing in a less-privileged mode.\",\n      \"line_number\": 1672,\n      \"parameter_name\": \"MCOUNTEREN_FLDS_RDONLY0\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"may be read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may make mcounteren fields read-only zero ('may be read-only zero'). This controls which counter-enable bits are writable vs hardwired to zero.\"\n    },\n    {\n      \"excerpt\": \"an implementation may make any subset of the counters read-only zero.\",\n      \"line_number\": 1672,\n      \"parameter_name\": \"COUNTINHIBIT_EN\",\n      \"existing_udb_name\": \"COUNTINHIBIT_EN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"an implementation may make any subset of the counters read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Which bits of mcountinhibit are writable depends on which HPM counters are implemented; unimplemented counters are read-only-zero ('may make any subset ... read-only zero').\"\n    },\n    {\n      \"excerpt\": \"If the `mcountinhibit` register is not implemented, the implementation behaves as though the register were set to zero.\",\n      \"line_number\": 1708,\n      \"parameter_name\": \"MCOUNTINHIBIT_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"If the `mcountinhibit` register is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to implement mcountinhibit ('If ... not implemented'). Binary choice about register presence.\"\n    },\n    {\n      \"excerpt\": \"The `mtval` register can optionally also be used to return the faulting instruction bits on an illegal-instruction exception.\",\n      \"line_number\": 2079,\n      \"parameter_name\": \"REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION\",\n      \"existing_udb_name\": \"REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"can optionally also be used to return the faulting instruction bits\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether mtval reports the faulting instruction encoding is optional ('can optionally'). No CSR field controls this; it is a design-time choice, so NORM_DIRECT.\"\n    },\n    {\n      \"excerpt\": \"The `mconfigptr` register must be implemented, but it may be zero to indicate the configuration data structure does not exist or that an alternative mechanism must be used to locate it.\",\n      \"line_number\": 2149,\n      \"parameter_name\": \"CONFIG_PTR_ADDRESS\",\n      \"existing_udb_name\": \"CONFIG_PTR_ADDRESS\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"may be zero to indicate\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses the configuration pointer value or zero ('may be zero to indicate'). This is the specific value returned by the read-only register.\"\n    },\n    {\n      \"excerpt\": \"If S-mode is not supported, or if `satp`.MODE is read-only zero (always Bare), the implementation may make FIOM read-only zero.\",\n      \"line_number\": 2186,\n      \"parameter_name\": \"MENVCFG_FIOM_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"the implementation may make FIOM read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may make FIOM read-only zero in certain configurations ('may make ... read-only zero'). This controls whether the FIOM bit is writable.\"\n    },\n    {\n      \"excerpt\": \"If Svpbmt is not implemented, PBMTE is read-only zero.\",\n      \"line_number\": 2205,\n      \"parameter_name\": \"MENVCFG_PBMTE_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"PBMTE is read-only zero\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When Svpbmt is not implemented, PBMTE is read-only zero. This implies the implementation chooses whether to support Svpbmt, which determines if PBMTE is writable.\"\n    },\n    {\n      \"excerpt\": \"If Svadu is not implemented, ADUE is read-only zero.\",\n      \"line_number\": 2224,\n      \"parameter_name\": \"MENVCFG_ADUE_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"ADUE is read-only zero\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When Svadu is not implemented, ADUE is read-only zero. This implies the implementation chooses whether to support Svadu, which determines if ADUE is writable.\"\n    },\n    {\n      \"excerpt\": \"If Smcdeleg is not implemented, CDE is read-only zero.\",\n      \"line_number\": 2235,\n      \"parameter_name\": \"MENVCFG_CDE_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"CDE is read-only zero\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When Smcdeleg is not implemented, CDE is read-only zero. This implies the implementation chooses whether to support Smcdeleg, which determines if CDE is writable.\"\n    },\n    {\n      \"excerpt\": \"When the Sstc extension is not implemented, `STCE` is read-only zero.\",\n      \"line_number\": 2239,\n      \"parameter_name\": \"MENVCFG_STCE_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"STCE` is read-only zero\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When Sstc is not implemented, STCE is read-only zero. This implies the implementation chooses whether to support Sstc, which determines if STCE is writable.\"\n    },\n    {\n      \"excerpt\": \"When the Zicboz extension is not implemented, `CBZE` is read-only zero.\",\n      \"line_number\": 2250,\n      \"parameter_name\": \"MENVCFG_CBZE_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"CBZE` is read-only zero\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When Zicboz is not implemented, CBZE is read-only zero. This implies the implementation chooses whether to support Zicboz, which determines if CBZE is writable.\"\n    },\n    {\n      \"excerpt\": \"When the Zicbom extension is not implemented, `CBCFE` is read-only zero.\",\n      \"line_number\": 2257,\n      \"parameter_name\": \"MENVCFG_CBCFE_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"CBCFE` is read-only zero\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When Zicbom is not implemented, CBCFE is read-only zero. This implies the implementation chooses whether to support Zicbom, which determines if CBCFE is writable.\"\n    },\n    {\n      \"excerpt\": \"When the Zicbom extension is not implemented, `CBIE` is read-only zero.\",\n      \"line_number\": 2263,\n      \"parameter_name\": \"MENVCFG_CBIE_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"CBIE` is read-only zero\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When Zicbom is not implemented, CBIE is read-only zero. This implies the implementation chooses whether to support Zicbom, which determines if CBIE is writable.\"\n    },\n    {\n      \"excerpt\": \"If Smnpm is not implemented, `PMM` is read-only zero.\",\n      \"line_number\": 2278,\n      \"parameter_name\": \"MENVCFG_PMM_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"PMM` is read-only zero\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When Smnpm is not implemented, PMM is read-only zero. This implies the implementation chooses whether to support Smnpm, which determines if PMM is writable.\"\n    },\n    {\n      \"excerpt\": \"It exists if any extension that adds a field to `mseccfg` is implemented. Otherwise, it is reserved.\",\n      \"line_number\": 2320,\n      \"parameter_name\": \"MSECCFG_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"It exists if any extension that adds a field to `mseccfg` is implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The mseccfg register exists only if extensions that use it are implemented ('exists if ... implemented'). This is a choice about register presence based on extension support.\"\n    },\n    {\n      \"excerpt\": \"If Zkr or U-mode is not implemented, `USEED` is read-only zero.\",\n      \"line_number\": 2334,\n      \"parameter_name\": \"MSECCFG_USEED_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"USEED` is read-only zero\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When Zkr or U-mode is not implemented, USEED is read-only zero. This implies the implementation chooses whether to support these features, which determines if USEED is writable.\"\n    },\n    {\n      \"excerpt\": \"If Zkr or S-mode is not implemented, `SSEED` is read-only zero.\",\n      \"line_number\": 2340,\n      \"parameter_name\": \"MSECCFG_SSEED_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"SSEED` is read-only zero\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When Zkr or S-mode is not implemented, SSEED is read-only zero. This implies the implementation chooses whether to support these features, which determines if SSEED is writable.\"\n    },\n    {\n      \"excerpt\": \"If Smmpm is not implemented, `PMM` is read-only zero.\",\n      \"line_number\": 2456,\n      \"parameter_name\": \"MSECCFG_PMM_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"PMM` is read-only zero\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"When Smmpm is not implemented, PMM is read-only zero. This implies the implementation chooses whether to support Smmpm, which determines if PMM is writable.\"\n    },\n    {\n      \"excerpt\": \"Implementations can convert reads of the `time` and `timeh` CSRs into loads to the memory-mapped `mtime` register, or emulate this functionality on behalf of less-privileged modes in M-mode software.\",\n      \"line_number\": 1659,\n      \"parameter_name\": \"TIME_CSR_IMPLEMENTED\",\n      \"existing_udb_name\": \"TIME_CSR_IMPLEMENTED\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"Implementations can convert reads ... or emulate this functionality\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation can choose to implement time/timeh CSRs directly or emulate them ('can convert ... or emulate'). This is a choice about how to provide the time CSR functionality.\"\n    },\n    {\n      \"excerpt\": \"WFI is available in all privileged modes, and optionally available to U-mode.\",\n      \"line_number\": 2756,\n      \"parameter_name\": \"WFI_AVAILABLE_U_MODE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"optionally available to U-mode\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"WFI availability in U-mode is optional ('optionally available'). The implementation chooses whether to allow WFI in U-mode.\"\n    },\n    {\n      \"excerpt\": \"The granularity of PMP access control settings are platform-specific, but the standard PMP encoding supports regions as small as four bytes.\",\n      \"line_number\": 3340,\n      \"parameter_name\": \"PMP_GRANULARITY\",\n      \"existing_udb_name\": \"PMP_GRANULARITY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"are platform-specific\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"PMP granularity is platform-specific ('are platform-specific'), meaning the implementation chooses the granularity value within the constraints of the standard encoding.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The MXL field is read-only.\",\n      \"line_number\": 30,\n      \"reason\": \"Fixed requirement - MXL field is always read-only, no implementation choice\"\n    },\n    {\n      \"excerpt\": \"The `misa` CSR is MXLEN bits wide.\",\n      \"line_number\": 42,\n      \"reason\": \"Statement of fact - register width is determined by MXLEN, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"Hart IDs must be unique within the execution environment.\",\n      \"line_number\": 148,\n      \"reason\": \"Fixed requirement - 'must be unique' is a mandatory constraint, not optional\"\n    },\n    {\n      \"excerpt\": \"The low bit of `mepc` (`mepc[0]`) is always zero.\",\n      \"line_number\": 1958,\n      \"reason\": \"Fixed requirement - 'always zero' describes mandatory behavior, not implementation choice\"\n    },\n    {\n      \"excerpt\": \"Upon reset, a hart's privilege mode is set to M.\",\n      \"line_number\": 2844,\n      \"reason\": \"Fixed requirement - reset behavior is mandatory ('is set to'), not optional\"\n    }\n  ]\n}\n```",
+  "input_tokens": 55476,
+  "output_tokens": 6778,
+  "latency_ms": 88517,
+  "timestamp": "2026-06-10T18:09:59.687797+00:00",
+  "error": null,
+  "retry_count": 0
+}

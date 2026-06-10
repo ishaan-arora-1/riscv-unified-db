@@ -1,0 +1,110 @@
+{
+  "chunk_id": "chunk_078",
+  "source_file": "zpm.adoc",
+  "start_line": 1,
+  "end_line": 223,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The tag checks themselves can be implemented in software or hardware.",
+      "line_number": 14,
+      "parameter_name": "PM_TAG_CHECK_IMPLEMENTATION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "can be implemented in software or hardware",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether tag checks are done in software or hardware ('can be implemented in software or hardware'). This is a design-time choice not controlled by any CSR field."
+    },
+    {
+      "excerpt": "The current standard only supports PMLEN=XLEN-48 (i.e., PMLEN=16 in RV64) and PMLEN=XLEN-57 (i.e., PMLEN=7 in RV64).",
+      "line_number": 82,
+      "parameter_name": "PMLEN_SUPPORTED_VALUES",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "set",
+      "modal_signal": "only supports PMLEN=XLEN-48 ... and PMLEN=XLEN-57",
+      "confidence": "high",
+      "reasoning": "The implementation chooses which PMLEN values to support from the defined set. The spec says 'only supports' these values, indicating the implementer selects from this constrained set."
+    },
+    {
+      "excerpt": "A setting has been reserved to potentially support other values of PMLEN in future standards.",
+      "line_number": 82,
+      "parameter_name": "PMLEN_FUTURE_RESERVED_SETTING",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "has been reserved to potentially support",
+      "confidence": "medium",
+      "reasoning": "A reserved setting exists for future PMLEN values. The implementation chooses whether to implement this reserved setting, though its behavior is not yet defined."
+    },
+    {
+      "excerpt": "the supported values of PMLEN may depend on the effective privilege mode.",
+      "line_number": 178,
+      "parameter_name": "PMLEN_MODE_DEPENDENT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may depend on the effective privilege mode",
+      "confidence": "high",
+      "reasoning": "Whether PMLEN values vary by privilege mode is an implementation choice ('may depend on'). The implementation chooses whether to have mode-dependent PMLEN support."
+    },
+    {
+      "excerpt": "Trying to enable pointer masking in an unsupported scenario represents an illegal write to the corresponding pointer masking enable bit and follows WARL semantics.",
+      "line_number": 179,
+      "parameter_name": "PM_ENABLE_WARL_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "set",
+      "modal_signal": "unsupported scenario represents an illegal write ... follows WARL semantics",
+      "confidence": "high",
+      "reasoning": "The pointer masking enable bits are WARL fields where the legal values (supported scenarios) vary by implementation. The parameter is which combinations of privilege modes and PMLEN values are supported."
+    },
+    {
+      "excerpt": "In RV32, trying to enable pointer masking will result in an illegal WARL write and not update the pointer masking configuration bits",
+      "line_number": 165,
+      "parameter_name": "PM_RV32_WARL_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "binary",
+      "modal_signal": "will result in an illegal WARL write",
+      "confidence": "high",
+      "reasoning": "In RV32, pointer masking enable bits are WARL fields that reject all enable attempts. This defines the legal values (always disabled) for these WARL fields in RV32."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "RISC-V Pointer Masking (PM) is a feature that, when enabled, causes the CPU to ignore the upper bits of the effective address",
+      "line_number": 6,
+      "reason": "Statement of fact describing what PM does when enabled - no implementer choice about the basic mechanism"
+    },
+    {
+      "excerpt": "Such tools can be applied in all privilege modes (U, S, and M).",
+      "line_number": 6,
+      "reason": "Statement of fact about where tools can be applied - no optionality for implementers"
+    },
+    {
+      "excerpt": "When pointer masking is enabled, the ignore transformation will be applied to every explicit memory access",
+      "line_number": 70,
+      "reason": "Fixed requirement ('will be applied') describing mandatory behavior when PM is enabled"
+    },
+    {
+      "excerpt": "The transformation *does not* apply to implicit accesses such as page-table walks or instruction fetches.",
+      "line_number": 70,
+      "reason": "Fixed requirement ('does not apply') that applies to all implementations"
+    },
+    {
+      "excerpt": "Pointer masking only applies to RV64.",
+      "line_number": 165,
+      "reason": "Fixed requirement limiting PM to RV64 - no implementer choice"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The tag checks themselves can be implemented in software or hardware.\",\n      \"line_number\": 14,\n      \"parameter_name\": \"PM_TAG_CHECK_IMPLEMENTATION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"can be implemented in software or hardware\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether tag checks are done in software or hardware ('can be implemented in software or hardware'). This is a design-time choice not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"The current standard only supports PMLEN=XLEN-48 (i.e., PMLEN=16 in RV64) and PMLEN=XLEN-57 (i.e., PMLEN=7 in RV64).\",\n      \"line_number\": 82,\n      \"parameter_name\": \"PMLEN_SUPPORTED_VALUES\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"only supports PMLEN=XLEN-48 ... and PMLEN=XLEN-57\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses which PMLEN values to support from the defined set. The spec says 'only supports' these values, indicating the implementer selects from this constrained set.\"\n    },\n    {\n      \"excerpt\": \"A setting has been reserved to potentially support other values of PMLEN in future standards.\",\n      \"line_number\": 82,\n      \"parameter_name\": \"PMLEN_FUTURE_RESERVED_SETTING\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"has been reserved to potentially support\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"A reserved setting exists for future PMLEN values. The implementation chooses whether to implement this reserved setting, though its behavior is not yet defined.\"\n    },\n    {\n      \"excerpt\": \"the supported values of PMLEN may depend on the effective privilege mode.\",\n      \"line_number\": 178,\n      \"parameter_name\": \"PMLEN_MODE_DEPENDENT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may depend on the effective privilege mode\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether PMLEN values vary by privilege mode is an implementation choice ('may depend on'). The implementation chooses whether to have mode-dependent PMLEN support.\"\n    },\n    {\n      \"excerpt\": \"Trying to enable pointer masking in an unsupported scenario represents an illegal write to the corresponding pointer masking enable bit and follows WARL semantics.\",\n      \"line_number\": 179,\n      \"parameter_name\": \"PM_ENABLE_WARL_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"unsupported scenario represents an illegal write ... follows WARL semantics\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The pointer masking enable bits are WARL fields where the legal values (supported scenarios) vary by implementation. The parameter is which combinations of privilege modes and PMLEN values are supported.\"\n    },\n    {\n      \"excerpt\": \"In RV32, trying to enable pointer masking will result in an illegal WARL write and not update the pointer masking configuration bits\",\n      \"line_number\": 165,\n      \"parameter_name\": \"PM_RV32_WARL_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"will result in an illegal WARL write\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"In RV32, pointer masking enable bits are WARL fields that reject all enable attempts. This defines the legal values (always disabled) for these WARL fields in RV32.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"RISC-V Pointer Masking (PM) is a feature that, when enabled, causes the CPU to ignore the upper bits of the effective address\",\n      \"line_number\": 6,\n      \"reason\": \"Statement of fact describing what PM does when enabled - no implementer choice about the basic mechanism\"\n    },\n    {\n      \"excerpt\": \"Such tools can be applied in all privilege modes (U, S, and M).\",\n      \"line_number\": 6,\n      \"reason\": \"Statement of fact about where tools can be applied - no optionality for implementers\"\n    },\n    {\n      \"excerpt\": \"When pointer masking is enabled, the ignore transformation will be applied to every explicit memory access\",\n      \"line_number\": 70,\n      \"reason\": \"Fixed requirement ('will be applied') describing mandatory behavior when PM is enabled\"\n    },\n    {\n      \"excerpt\": \"The transformation *does not* apply to implicit accesses such as page-table walks or instruction fetches.\",\n      \"line_number\": 70,\n      \"reason\": \"Fixed requirement ('does not apply') that applies to all implementations\"\n    },\n    {\n      \"excerpt\": \"Pointer masking only applies to RV64.\",\n      \"line_number\": 165,\n      \"reason\": \"Fixed requirement limiting PM to RV64 - no implementer choice\"\n    }\n  ]\n}\n```",
+  "input_tokens": 15197,
+  "output_tokens": 1408,
+  "latency_ms": 23694,
+  "timestamp": "2026-06-10T18:40:57.313934+00:00",
+  "error": null,
+  "retry_count": 0
+}

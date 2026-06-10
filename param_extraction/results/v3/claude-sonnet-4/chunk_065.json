@@ -1,0 +1,66 @@
+{
+  "chunk_id": "chunk_065",
+  "source_file": "zalasr.adoc",
+  "start_line": 1,
+  "end_line": 137,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated.",
+      "line_number": 20,
+      "parameter_name": "ZALASR_MISALIGNED_EXCEPTION_TYPE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "an address-misaligned exception or an access-fault exception will be generated",
+      "confidence": "medium",
+      "reasoning": "The implementation chooses which type of exception to generate for misaligned Zalasr instructions. The 'or' indicates a choice between two exception types, though the optionality is implicit in the implementation's exception handling policy."
+    },
+    {
+      "excerpt": "The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement.",
+      "line_number": 23,
+      "parameter_name": "ZALASR_MISALIGNED_ATOMICITY_GRANULE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "optionally relaxes this alignment requirement",
+      "confidence": "high",
+      "reasoning": "The misaligned atomicity granule PMA can optionally relax alignment requirements for Zalasr instructions ('optionally relaxes'). This is an implementation choice about whether to support misaligned atomic operations within the granule."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The Zalasr instructions always sign-extend the value placed in rd and ignore the upper bits of the value of rs2.",
+      "line_number": 16,
+      "reason": "Fixed behavioral requirement ('always') that applies to all implementations - no implementer choice"
+    },
+    {
+      "excerpt": "The instructions in the Zalasr extension require that the address held in rs1 be naturally aligned to the size in bytes (2^width^) of the operand.",
+      "line_number": 18,
+      "reason": "Fixed requirement ('require') for natural alignment - no implementer choice in the base alignment rule"
+    },
+    {
+      "excerpt": "This load must have the ordering annotation aq and may have ordering annotation rl encoded in the instruction.",
+      "line_number": 65,
+      "reason": "Fixed encoding requirement ('must have') - the 'may have' refers to optional encoding bits, not implementation choice"
+    },
+    {
+      "excerpt": "The versions without the aq bit set are RESERVED.",
+      "line_number": 68,
+      "reason": "Fixed fact about reserved encodings ('are RESERVED') - not an implementation choice"
+    },
+    {
+      "excerpt": "LD.{AQ, AQRL} is RV64-only.",
+      "line_number": 69,
+      "reason": "Fixed architectural constraint ('is RV64-only') - not an implementation choice"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated.\",\n      \"line_number\": 20,\n      \"parameter_name\": \"ZALASR_MISALIGNED_EXCEPTION_TYPE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"an address-misaligned exception or an access-fault exception will be generated\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The implementation chooses which type of exception to generate for misaligned Zalasr instructions. The 'or' indicates a choice between two exception types, though the optionality is implicit in the implementation's exception handling policy.\"\n    },\n    {\n      \"excerpt\": \"The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement.\",\n      \"line_number\": 23,\n      \"parameter_name\": \"ZALASR_MISALIGNED_ATOMICITY_GRANULE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"optionally relaxes this alignment requirement\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The misaligned atomicity granule PMA can optionally relax alignment requirements for Zalasr instructions ('optionally relaxes'). This is an implementation choice about whether to support misaligned atomic operations within the granule.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The Zalasr instructions always sign-extend the value placed in rd and ignore the upper bits of the value of rs2.\",\n      \"line_number\": 16,\n      \"reason\": \"Fixed behavioral requirement ('always') that applies to all implementations - no implementer choice\"\n    },\n    {\n      \"excerpt\": \"The instructions in the Zalasr extension require that the address held in rs1 be naturally aligned to the size in bytes (2^width^) of the operand.\",\n      \"line_number\": 18,\n      \"reason\": \"Fixed requirement ('require') for natural alignment - no implementer choice in the base alignment rule\"\n    },\n    {\n      \"excerpt\": \"This load must have the ordering annotation aq and may have ordering annotation rl encoded in the instruction.\",\n      \"line_number\": 65,\n      \"reason\": \"Fixed encoding requirement ('must have') - the 'may have' refers to optional encoding bits, not implementation choice\"\n    },\n    {\n      \"excerpt\": \"The versions without the aq bit set are RESERVED.\",\n      \"line_number\": 68,\n      \"reason\": \"Fixed fact about reserved encodings ('are RESERVED') - not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"LD.{AQ, AQRL} is RV64-only.\",\n      \"line_number\": 69,\n      \"reason\": \"Fixed architectural constraint ('is RV64-only') - not an implementation choice\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11678,
+  "output_tokens": 763,
+  "latency_ms": 13196,
+  "timestamp": "2026-06-10T18:38:02.306613+00:00",
+  "error": null,
+  "retry_count": 0
+}

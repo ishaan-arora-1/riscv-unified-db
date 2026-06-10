@@ -1,0 +1,110 @@
+{
+  "chunk_id": "chunk_001",
+  "source_file": "a-st-ext.adoc",
+  "start_line": 1,
+  "end_line": 484,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "An implementation can register an arbitrarily large reservation set on each LR, provided the reservation set includes all bytes of the addressed data word or doubleword.",
+      "line_number": 113,
+      "parameter_name": "LRSC_RESERVATION_STRATEGY",
+      "existing_udb_name": "LRSC_RESERVATION_STRATEGY",
+      "class": "NORM_DIRECT",
+      "value_type": "range",
+      "modal_signal": "can register an arbitrarily large reservation set",
+      "confidence": "high",
+      "reasoning": "The implementation chooses the size of the reservation set ('can register an arbitrarily large reservation set'). This is a design-time choice about reservation tracking strategy, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "An SC may succeed only if no store from another hart to the reservation set can be observed to have occurred between the LR and the SC, and if there is no other SC between the LR and itself in program order.",
+      "line_number": 115,
+      "parameter_name": "LRSC_FAIL_ON_NON_EXACT_LRSC",
+      "existing_udb_name": "LRSC_FAIL_ON_NON_EXACT_LRSC",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may succeed only if",
+      "confidence": "medium",
+      "reasoning": "Whether SC fails when conditions are not met is implementation-defined; the spec says SC 'may succeed' under conditions, implying the implementation chooses the exact failure policy for edge cases."
+    },
+    {
+      "excerpt": "Following this model, in systems with memory translation, an SC is allowed to succeed if the earlier LR reserved the same location using an alias with a different virtual address, but is also allowed to fail if the virtual address is different.",
+      "line_number": 125,
+      "parameter_name": "LRSC_FAIL_ON_VA_SYNONYM",
+      "existing_udb_name": "LRSC_FAIL_ON_VA_SYNONYM",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "is allowed to succeed ... but is also allowed to fail",
+      "confidence": "high",
+      "reasoning": "Whether SC fails when using a VA synonym is an implementation choice ('allowed to succeed ... but is also allowed to fail'). The implementation chooses the VA synonym handling policy."
+    },
+    {
+      "excerpt": "If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated. The access-fault exception can be generated for a memory access that would otherwise be able to complete except for the misalignment, if the misaligned access should not be emulated.",
+      "line_number": 102,
+      "parameter_name": "LRSC_MISALIGNED_BEHAVIOR",
+      "existing_udb_name": "LRSC_MISALIGNED_BEHAVIOR",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "can be generated ... if the misaligned access should not be emulated",
+      "confidence": "medium",
+      "reasoning": "Whether misaligned LR/SC generates address-misaligned or access-fault exception is implementation-defined ('can be generated ... if the misaligned access should not be emulated')."
+    },
+    {
+      "excerpt": "The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement.",
+      "line_number": 350,
+      "parameter_name": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+      "existing_udb_name": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "optionally relaxes this alignment requirement",
+      "confidence": "high",
+      "reasoning": "The misaligned atomicity granule size is optional ('optionally relaxes') and when present, the implementation defines its size (power-of-two number of bytes)."
+    },
+    {
+      "excerpt": "If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated. The access-fault exception can be generated for a memory access that would otherwise be able to complete except for the misalignment, if the misaligned access should not be emulated.",
+      "line_number": 344,
+      "parameter_name": "MISALIGNED_AMO",
+      "existing_udb_name": "MISALIGNED_AMO",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "can be generated ... if the misaligned access should not be emulated",
+      "confidence": "medium",
+      "reasoning": "Whether misaligned AMO generates address-misaligned or access-fault exception is implementation-defined ('can be generated ... if the misaligned access should not be emulated')."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "LR.W loads a word from the address in rs1, places the sign-extended value in rd, and registers a reservation set\u2014a set of bytes that subsumes the bytes in the addressed word.",
+      "line_number": 67,
+      "reason": "Fixed behavioral description of what LR.W does - no implementer choice, just stating the required operation"
+    },
+    {
+      "excerpt": "SC.W conditionally writes a word in rs2 to the address in rs1: the SC.W succeeds only if the reservation is still valid and the reservation set contains the bytes being written.",
+      "line_number": 68,
+      "reason": "Fixed requirement describing SC.W success conditions - 'only if' establishes mandatory conditions, not optional behavior"
+    },
+    {
+      "excerpt": "No SC.W instruction shall retire unless it passes memory permission checks",
+      "line_number": 72,
+      "reason": "Fixed requirement using 'shall' - applies to all implementations with no choice"
+    },
+    {
+      "excerpt": "The failure code with value 1 encodes an unspecified failure. Other failure codes are reserved at this time.",
+      "line_number": 89,
+      "reason": "Statement of fact about reserved encodings - 'are reserved' is a fixed specification, not an implementation choice"
+    },
+    {
+      "excerpt": "The SC must fail if the address is not within the reservation set of the most recent LR in program order.",
+      "line_number": 135,
+      "reason": "Fixed requirement using 'must fail' - mandatory behavior for all implementations, no choice"
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"An implementation can register an arbitrarily large reservation set on each LR, provided the reservation set includes all bytes of the addressed data word or doubleword.\",\n      \"line_number\": 113,\n      \"parameter_name\": \"LRSC_RESERVATION_STRATEGY\",\n      \"existing_udb_name\": \"LRSC_RESERVATION_STRATEGY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"can register an arbitrarily large reservation set\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses the size of the reservation set ('can register an arbitrarily large reservation set'). This is a design-time choice about reservation tracking strategy, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"An SC may succeed only if no store from another hart to the reservation set can be observed to have occurred between the LR and the SC, and if there is no other SC between the LR and itself in program order.\",\n      \"line_number\": 115,\n      \"parameter_name\": \"LRSC_FAIL_ON_NON_EXACT_LRSC\",\n      \"existing_udb_name\": \"LRSC_FAIL_ON_NON_EXACT_LRSC\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may succeed only if\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Whether SC fails when conditions are not met is implementation-defined; the spec says SC 'may succeed' under conditions, implying the implementation chooses the exact failure policy for edge cases.\"\n    },\n    {\n      \"excerpt\": \"Following this model, in systems with memory translation, an SC is allowed to succeed if the earlier LR reserved the same location using an alias with a different virtual address, but is also allowed to fail if the virtual address is different.\",\n      \"line_number\": 125,\n      \"parameter_name\": \"LRSC_FAIL_ON_VA_SYNONYM\",\n      \"existing_udb_name\": \"LRSC_FAIL_ON_VA_SYNONYM\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"is allowed to succeed ... but is also allowed to fail\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether SC fails when using a VA synonym is an implementation choice ('allowed to succeed ... but is also allowed to fail'). The implementation chooses the VA synonym handling policy.\"\n    },\n    {\n      \"excerpt\": \"If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated. The access-fault exception can be generated for a memory access that would otherwise be able to complete except for the misalignment, if the misaligned access should not be emulated.\",\n      \"line_number\": 102,\n      \"parameter_name\": \"LRSC_MISALIGNED_BEHAVIOR\",\n      \"existing_udb_name\": \"LRSC_MISALIGNED_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"can be generated ... if the misaligned access should not be emulated\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Whether misaligned LR/SC generates address-misaligned or access-fault exception is implementation-defined ('can be generated ... if the misaligned access should not be emulated').\"\n    },\n    {\n      \"excerpt\": \"The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement.\",\n      \"line_number\": 350,\n      \"parameter_name\": \"MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE\",\n      \"existing_udb_name\": \"MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"optionally relaxes this alignment requirement\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The misaligned atomicity granule size is optional ('optionally relaxes') and when present, the implementation defines its size (power-of-two number of bytes).\"\n    },\n    {\n      \"excerpt\": \"If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated. The access-fault exception can be generated for a memory access that would otherwise be able to complete except for the misalignment, if the misaligned access should not be emulated.\",\n      \"line_number\": 344,\n      \"parameter_name\": \"MISALIGNED_AMO\",\n      \"existing_udb_name\": \"MISALIGNED_AMO\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"can be generated ... if the misaligned access should not be emulated\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Whether misaligned AMO generates address-misaligned or access-fault exception is implementation-defined ('can be generated ... if the misaligned access should not be emulated').\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"LR.W loads a word from the address in rs1, places the sign-extended value in rd, and registers a reservation set\u2014a set of bytes that subsumes the bytes in the addressed word.\",\n      \"line_number\": 67,\n      \"reason\": \"Fixed behavioral description of what LR.W does - no implementer choice, just stating the required operation\"\n    },\n    {\n      \"excerpt\": \"SC.W conditionally writes a word in rs2 to the address in rs1: the SC.W succeeds only if the reservation is still valid and the reservation set contains the bytes being written.\",\n      \"line_number\": 68,\n      \"reason\": \"Fixed requirement describing SC.W success conditions - 'only if' establishes mandatory conditions, not optional behavior\"\n    },\n    {\n      \"excerpt\": \"No SC.W instruction shall retire unless it passes memory permission checks\",\n      \"line_number\": 72,\n      \"reason\": \"Fixed requirement using 'shall' - applies to all implementations with no choice\"\n    },\n    {\n      \"excerpt\": \"The failure code with value 1 encodes an unspecified failure. Other failure codes are reserved at this time.\",\n      \"line_number\": 89,\n      \"reason\": \"Statement of fact about reserved encodings - 'are reserved' is a fixed specification, not an implementation choice\"\n    },\n    {\n      \"excerpt\": \"The SC must fail if the address is not within the reservation set of the most recent LR in program order.\",\n      \"line_number\": 135,\n      \"reason\": \"Fixed requirement using 'must fail' - mandatory behavior for all implementations, no choice\"\n    }\n  ]\n}\n```",
+  "input_tokens": 15648,
+  "output_tokens": 1682,
+  "latency_ms": 29241,
+  "timestamp": "2026-06-10T18:12:13.318312+00:00",
+  "error": null,
+  "retry_count": 0
+}
