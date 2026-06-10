@@ -40,6 +40,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = SCRIPT_DIR.parent
 DATA_DIR = PROJECT_DIR / "data"
 RESULTS_DIR = PROJECT_DIR / "results"
+SPEC_DIR = PROJECT_DIR.parent / "ext" / "riscv-isa-manual" / "src"
 
 sys.path.insert(0, str(SCRIPT_DIR))
 from validate_findings import KEPT_VERDICTS, classify, load_note_index  # noqa: E402
@@ -257,6 +258,27 @@ def build_rows(
                 overdecomp_flagged += 1
     if overdecomp_flagged:
         logger.info("Flagged %d rows as possible over-decomposition", overdecomp_flagged)
+
+    # Excerpt-fidelity check: confirm each excerpt actually appears (whitespace-
+    # normalized) in its source spec file. Catches paraphrases and cases where
+    # the model echoed a few-shot example instead of quoting the chunk.
+    spec_cache: dict[str, str] = {}
+    not_verbatim = 0
+    for r in rows:
+        fname = r["adoc_file"]
+        if fname not in spec_cache:
+            path = SPEC_DIR / fname
+            spec_cache[fname] = (
+                re.sub(r"\s+", " ", path.read_text(encoding="utf-8", errors="replace")).lower()
+                if path.exists() else ""
+            )
+        key = re.sub(r"\s+", " ", r["excerpt"].strip().lower())[:60]
+        if key and spec_cache[fname] and key not in spec_cache[fname]:
+            note = "excerpt not verbatim in spec — verify wording"
+            r["notes"] = (r["notes"] + "; " + note) if r["notes"] else note
+            not_verbatim += 1
+    if not_verbatim:
+        logger.info("Flagged %d rows whose excerpt is not verbatim in the spec", not_verbatim)
 
     # Stable sort: confirmed (KEEP) first, then file / line / name.
     rows.sort(key=lambda r: (verdict_rank.get(r["validation"], 3),
