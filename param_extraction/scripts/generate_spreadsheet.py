@@ -41,6 +41,9 @@ PROJECT_DIR = SCRIPT_DIR.parent
 DATA_DIR = PROJECT_DIR / "data"
 RESULTS_DIR = PROJECT_DIR / "results"
 
+sys.path.insert(0, str(SCRIPT_DIR))
+from validate_findings import KEPT_VERDICTS, classify, load_note_index  # noqa: E402
+
 logger = logging.getLogger("phase7")
 
 CONFIDENCE_RANK = {"high": 3, "medium": 2, "low": 1}
@@ -54,6 +57,8 @@ COLUMNS = [
     "class",
     "value_type",
     "confidence",
+    "modal_signal",
+    "validation",
     "notes",
 ]
 
@@ -148,16 +153,29 @@ def build_rows(
     alignment: dict,
     udb_names: set[str],
     min_confidence: str = "medium",
+    exclude_rejected: bool = True,
 ) -> list[dict]:
-    """Build one spreadsheet row per confirmed parameter."""
+    """Build one spreadsheet row per confirmed parameter.
+
+    Each finding is run through the V3 validation gate; rows carry their
+    ``validation`` verdict and the model's ``modal_signal``. When
+    ``exclude_rejected`` is set, hard-rejected findings (NOTE-origin,
+    reserved-fact, must/shall requirement, non-architectural class) are kept
+    out of the deliverable and only counted.
+    """
     min_rank = CONFIDENCE_RANK[min_confidence]
     alignment_lookup = build_alignment_lookup(alignment)
+
+    params = deduped.get("parameters", [])
+    source_files = {p.get("_source_file") or "" for p in params if p.get("_source_file")}
+    note_index = load_note_index(source_files)
 
     rows: list[dict] = []
     skipped_low = 0
     skipped_missing_excerpt = 0
+    skipped_rejected = 0
 
-    for p in deduped.get("parameters", []):
+    for p in params:
         conf = (p.get("confidence") or "low").lower()
         if CONFIDENCE_RANK.get(conf, 0) < min_rank:
             skipped_low += 1
@@ -166,6 +184,11 @@ def build_rows(
         excerpt = (p.get("excerpt") or "").strip()
         if not excerpt:
             skipped_missing_excerpt += 1
+            continue
+
+        verdict, _reason = classify(p, note_index)
+        if exclude_rejected and verdict not in KEPT_VERDICTS:
+            skipped_rejected += 1
             continue
 
         llm_name = p.get("parameter_name") or ""
@@ -190,18 +213,23 @@ def build_rows(
                 "class": p.get("class", "UNKNOWN"),
                 "value_type": p.get("value_type", ""),
                 "confidence": conf,
+                "modal_signal": p.get("modal_signal") or "",
+                "validation": verdict,
                 "notes": notes_hint,
             }
         )
 
-    # Stable sort: file, then line number, then parameter name.
-    rows.sort(key=lambda r: (r["adoc_file"], r["line_number"], r["parameter_name"]))
+    # Stable sort: confirmed (KEEP) first, then file / line / name.
+    verdict_rank = {"KEEP": 0, "REVIEW_NO_MODAL": 1, "FRAGMENT": 2}
+    rows.sort(key=lambda r: (verdict_rank.get(r["validation"], 3),
+                             r["adoc_file"], r["line_number"], r["parameter_name"]))
 
     logger.info(
-        "Built %d rows (skipped %d low-confidence, %d missing-excerpt)",
+        "Built %d rows (skipped %d low-confidence, %d missing-excerpt, %d rejected)",
         len(rows),
         skipped_low,
         skipped_missing_excerpt,
+        skipped_rejected,
     )
     return rows
 
@@ -253,6 +281,8 @@ def write_xlsx(rows: list[dict], path: Path) -> None:
         "class": 18,
         "value_type": 12,
         "confidence": 12,
+        "modal_signal": 40,
+        "validation": 16,
         "notes": 36,
     }
     for idx, col in enumerate(COLUMNS, start=1):
@@ -310,13 +340,13 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument(
         "--deduped",
         type=Path,
-        default=RESULTS_DIR / "v2" / "deduped_claude-sonnet-4.json",
+        default=RESULTS_DIR / "v3" / "deduped_claude-sonnet-4.json",
         help="Path to deduped LLM results JSON (Phase 6 V2 output)",
     )
     p.add_argument(
         "--alignment",
         type=Path,
-        default=RESULTS_DIR / "v2" / "alignment_claude-sonnet-4.json",
+        default=RESULTS_DIR / "v3" / "alignment_claude-sonnet-4.json",
         help="Path to LLM↔UDB alignment JSON (Phase 5/6 output)",
     )
     p.add_argument(
@@ -342,6 +372,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         type=Path,
         default=DATA_DIR / "parameters.xlsx",
         help="Output XLSX path",
+    )
+    p.add_argument(
+        "--include-rejected",
+        action="store_true",
+        help="Include hard-rejected findings (NOTE/reserved/must-shall/non-arch) "
+        "in the output instead of dropping them",
     )
     p.add_argument(
         "--out-stats",
@@ -386,6 +422,7 @@ def main(argv: list[str] | None = None) -> int:
         alignment=alignment,
         udb_names=udb_names,
         min_confidence=args.min_confidence,
+        exclude_rejected=not args.include_rejected,
     )
 
     args.out_csv.parent.mkdir(parents=True, exist_ok=True)
