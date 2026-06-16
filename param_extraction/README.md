@@ -135,11 +135,6 @@ git -C ext/riscv-isa-manual checkout -- .                        # restore submo
 ```
 
 ---
-
-## Two bugs this work found inside UDB itself
-1. **Stale parameter set** — analysis assumed 185 params; UDB now has 223 (MOCK fixtures removed, 38 added). Fixed by regenerating Phase 1.
-2. **Classification heuristic** — `export_udb_params.py` labeled every `_IMPLEMENTED` param `NORM_DIRECT`; the `MCTRCTL_*` family (read-only-zero when unimplemented) is actually `NORM_CSR_RW`. Fixed (21 params relabeled).
-
 ## Layout
 ```
 param_extraction/
