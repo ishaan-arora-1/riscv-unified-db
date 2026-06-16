@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: SENVCFG_FIOM_ACCESS
+long_name: TODO   # TODO: short human-readable label
+description: |
+  If `satp`.MODE is read-only zero (always Bare), the implementation may make FIOM read-only zero.
+  # Source: supervisor.adoc:1001 (classification NORM_CSR_RW)
+schema:
+  type: boolean
+definedBy:
+  extension:
+    name: S   # TODO: verify defining extension

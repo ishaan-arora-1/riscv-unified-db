@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: CBM_ACCESS_ON_IFETCH_ONLY
+long_name: TODO   # TODO: short human-readable label
+description: |
+  If neither a load instruction nor store instruction is permitted to access the physical addresses, but an instruction fetch is permitted to access the physical addresses, whether a cache-block management instruction is permitted to access the cache block is UNSPECIFIED.
+  # Source: cmo.adoc:344 (classification NORM_DIRECT)
+schema:
+  type: boolean
+definedBy:
+  extension:
+    name: Zicbom   # TODO: VERIFY defining extension

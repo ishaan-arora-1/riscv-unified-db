@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: MSECCFG_SEED_BITS_RW
+long_name: TODO   # TODO: short human-readable label
+description: |
+  Implementations may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`.
+  # Source: scalar-crypto.adoc:3750 (classification NORM_CSR_RW)
+schema:
+  type: boolean
+definedBy:
+  extension:
+    name: Zkr   # TODO: verify defining extension

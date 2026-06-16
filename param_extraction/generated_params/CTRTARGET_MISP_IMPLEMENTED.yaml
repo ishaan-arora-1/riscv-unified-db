@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: CTRTARGET_MISP_IMPLEMENTED
+long_name: TODO   # TODO: short human-readable label
+description: |
+  The optional MISP bit is set by the hardware when the recorded transfer is an instruction whose target or taken/not-taken direction was mispredicted by the branch predictor. MISP is read-only 0 when not implemented.
+  # Source: smctr.adoc:295 (classification NORM_CSR_RW)
+schema:
+  type: boolean
+definedBy:
+  extension:
+    name: Smctr   # TODO: verify defining extension

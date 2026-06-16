@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: MNEPC_INVALID_ADDRESS_CONVERSION
+long_name: TODO   # TODO: short human-readable label
+description: |
+  Prior to writing `mnepc`, implementations may convert an invalid address into some other invalid address that `mnepc` is capable of holding.
+  # Source: rnmi.adoc:62 (classification NORM_DIRECT)
+schema:
+  type: boolean
+definedBy:
+  extension:
+    name: Smrnmi   # TODO: verify defining extension

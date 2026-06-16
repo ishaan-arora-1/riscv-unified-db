@@ -1,0 +1,20 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: DELEGATABLE_EXCEPTIONS
+long_name: TODO   # TODO: short human-readable label
+description: |
+  An implementation can choose to subset the delegatable traps, with the supported delegatable bits found by writing one to every bit location, then reading back the value in `medeleg` or `mideleg` to see which bit positions hold a one.
+  # Source: machine.adoc:1310 (classification NORM_CSR_WARL)
+schema:
+  type: array
+  items:
+    type: boolean
+  # TODO: set the fixed length (one bool per field/bit)
+definedBy:
+  extension:
+    name: Sm   # TODO: verify defining extension

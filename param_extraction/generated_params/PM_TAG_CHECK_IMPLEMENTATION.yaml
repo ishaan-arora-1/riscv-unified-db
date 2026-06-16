@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: PM_TAG_CHECK_IMPLEMENTATION
+long_name: TODO   # TODO: short human-readable label
+description: |
+  The tag checks themselves can be implemented in software or hardware.
+  # Source: zpm.adoc:14 (classification NORM_DIRECT)
+schema:
+  type: boolean
+definedBy:
+  extension:
+    name: Smmpm   # TODO: VERIFY defining extension

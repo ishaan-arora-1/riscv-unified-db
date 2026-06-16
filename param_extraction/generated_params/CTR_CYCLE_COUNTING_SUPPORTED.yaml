@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: CTR_CYCLE_COUNTING_SUPPORTED
+long_name: TODO   # TODO: short human-readable label
+description: |
+  The `ctrdata` register may optionally include a count of CPU cycles elapsed since the prior CTR record.
+  # Source: smctr.adoc:612 (classification NORM_DIRECT)
+schema:
+  type: boolean
+definedBy:
+  extension:
+    name: Smctr   # TODO: verify defining extension

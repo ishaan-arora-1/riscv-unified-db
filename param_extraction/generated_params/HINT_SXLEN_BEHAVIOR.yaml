@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: HINT_SXLEN_BEHAVIOR
+long_name: TODO   # TODO: short human-readable label
+description: |
+  When such a HINT is executed with XLEN < SXLEN and bits SXLEN..XLEN of the destination register not all equal to bit XLEN-1, it is implementation-defined whether bits SXLEN..XLEN of the destination register are unchanged or are overwritten with copies of bit XLEN-1.
+  # Source: supervisor.adoc:149 (classification NORM_DIRECT)
+schema:
+  type: boolean
+definedBy:
+  extension:
+    name: S   # TODO: verify defining extension

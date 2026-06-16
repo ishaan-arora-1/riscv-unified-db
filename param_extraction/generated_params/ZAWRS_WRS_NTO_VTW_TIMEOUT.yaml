@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: ZAWRS_WRS_NTO_VTW_TIMEOUT
+long_name: TODO   # TODO: short human-readable label
+description: |
+  When executing in VS or VU mode, if the `VTW` bit is set in `hstatus`, the `TW` bit in `mstatus` is clear, and the `WRS.NTO` does not complete within an implementation-specific bounded time limit, the `WRS.NTO` instruction will cause a virtual-instruction exception.
+  # Source: zawrs.adoc:76 (classification NORM_DIRECT)
+schema:
+  type: integer
+definedBy:
+  extension:
+    name: Zawrs   # TODO: verify defining extension

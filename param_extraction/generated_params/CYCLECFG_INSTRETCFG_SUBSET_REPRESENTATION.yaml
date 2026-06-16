@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: CYCLECFG_INSTRETCFG_SUBSET_REPRESENTATION
+long_name: TODO   # TODO: short human-readable label
+description: |
+  Likewise, `cyclecfg` and `instretcfg` may represent a subset of the state accessed by the `mcyclecfg` and `minstretcfg` registers, respectively.
+  # Source: smcdeleg.adoc:62 (classification NORM_DIRECT)
+schema:
+  type: boolean
+definedBy:
+  extension:
+    name: Smcdeleg   # TODO: verify defining extension

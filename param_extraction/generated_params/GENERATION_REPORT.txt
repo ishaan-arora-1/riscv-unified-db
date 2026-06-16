@@ -1,0 +1,47 @@
+Generated parameter YAML stubs — human completion checklist
+============================================================
+
+Stubs written: 37  (to /Users/ashish/lfx/riscv-unified-db/param_extraction/generated_params)
+
+Every stub needs: long_name, verified definedBy extension, and
+(for enum/range/set/bitmask) the concrete legal values.
+
+parameter                                    ext(guess)   value_type needs
+------------------------------------------------------------------------------------------
+CBO_BEHAVIOR_ON_CONSTRAINT_VIOLATION         Zicbom?      enum       fill enum values
+CBM_ACCESS_ON_IFETCH_ONLY                    Zicbom?      binary     
+CMO_TRIGGER_BEHAVIOR                         Zicbom?      enum       fill enum values
+CBO_ZERO_ATOMIC_UPDATE                       Zicbom?      binary     
+HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR            Zihpm?       enum       fill enum values
+HPM_MISCONFIGURED_BEHAVIOR                   Zihpm?       binary     
+VSXL_RO_PARAM                                H            binary     
+VTW_VIRTINSTR_PARAM                          H            binary     
+VSSTATUS_UBE_PARAM                           H            binary     
+DELEGATABLE_EXCEPTIONS                       Sm           bitmask    set bitmask length
+MIP_WRITABLE_BITS                            Sm           bitmask    set bitmask length
+MENVCFG_FIOM_IMPLEMENTED                     Sm           binary     
+PMP_MMODE_ENFORCEMENT                        Sm           binary     
+PMPADDR_WARL_MASK                            Sm           bitmask    set bitmask length
+NUM_PRIVILEGE_MODES                          Sm?          enum       fill enum values
+DEBUG_MODE_IMPLEMENTED                       Sm?          binary     
+MNEPC_INVALID_ADDRESS_CONVERSION             Smrnmi       binary     
+MSECCFG_SEED_BITS_RW                         Zkr          binary     
+HPMEVENT_SUBSET_REPRESENTATION               Smcdeleg     binary     
+CYCLECFG_INSTRETCFG_SUBSET_REPRESENTATION    Smcdeleg     binary     
+SCTRDEPTH_SUPPORTED_VALUES                   Smctr        set        confirm the universe of values
+CTRTARGET_MISP_IMPLEMENTED                   Smctr        binary     
+CTR_CYCLE_COUNTING_SUPPORTED                 Smctr        binary     
+CTR_CCE_WIDTH                                Smctr        range      fill minimum/maximum
+CTR_RASEMU_SUPPORTED                         Smctr        binary     
+STATEEN_IMPLICIT_UPDATE_EXCEPTION            Smstateen    binary     
+SSTATUS_UXL_ACCESS                           S            binary     
+HINT_SXLEN_BEHAVIOR                          S            binary     
+SSTATUS_UBE_ACCESS                           S            binary     
+SIP_BITS_ACCESS                              S            bitmask    set bitmask length
+STANDARD_INTERRUPT_SUPPORT                   S            bitmask    set bitmask length
+SENVCFG_FIOM_ACCESS                          S            binary     
+ZALASR_MISALIGNED_ATOMICITY_GRANULE          Zalasr       binary     
+ZAWRS_WRS_NTO_TW_TIMEOUT                     Zawrs        value      confirm integer vs string and any bounds
+ZAWRS_WRS_NTO_VTW_TIMEOUT                    Zawrs        value      confirm integer vs string and any bounds
+CSR_STRONGLY_ORDERED                         Zicsr        set        confirm the universe of values
+PM_TAG_CHECK_IMPLEMENTATION                  Smmpm?       binary     

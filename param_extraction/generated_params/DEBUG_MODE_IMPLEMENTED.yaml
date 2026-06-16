@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: DEBUG_MODE_IMPLEMENTED
+long_name: TODO   # TODO: short human-readable label
+description: |
+  Implementations may also include a debug mode to support off-chip debugging and/or manufacturing test.
+  # Source: priv-intro.adoc:185 (classification NORM_DIRECT)
+schema:
+  type: boolean
+definedBy:
+  extension:
+    name: Sm   # TODO: VERIFY defining extension

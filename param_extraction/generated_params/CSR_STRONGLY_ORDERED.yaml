@@ -1,0 +1,19 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: CSR_STRONGLY_ORDERED
+long_name: TODO   # TODO: short human-readable label
+description: |
+  The hardware platform may define that accesses to certain CSRs are strongly ordered, as defined by the Memory-Ordering PMAs section in Volume II of this manual.
+  # Source: zicsr.adoc:244 (classification NORM_DIRECT)
+schema:
+  type: array
+  items:
+    type: integer   # TODO: confirm element type / universe
+definedBy:
+  extension:
+    name: Zicsr   # TODO: verify defining extension

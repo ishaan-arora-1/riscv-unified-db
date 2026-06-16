@@ -122,6 +122,7 @@ SPDX-License-Identifier = "BSD-3-Clause-Clear"
 [[annotations]]
 path = [
     "param_extraction/results/v3/**",
+    "param_extraction/generated_params/**",
     "param_extraction/data/validation_report*.csv",
     "param_extraction/data/validation_stats*.txt",
 ]

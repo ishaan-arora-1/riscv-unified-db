@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: ZAWRS_WRS_NTO_TW_TIMEOUT
+long_name: TODO   # TODO: short human-readable label
+description: |
+  When the `TW` (Timeout Wait) bit in `mstatus` is set and `WRS.NTO` is executed in any privilege mode other than M mode, and it does not complete within an implementation-specific bounded time limit, the `WRS.NTO` instruction will cause an illegal-instruction exception.
+  # Source: zawrs.adoc:72 (classification NORM_DIRECT)
+schema:
+  type: integer
+definedBy:
+  extension:
+    name: Zawrs   # TODO: verify defining extension

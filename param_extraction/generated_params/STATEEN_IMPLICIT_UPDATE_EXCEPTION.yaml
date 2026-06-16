@@ -1,0 +1,17 @@
+# Copyright (c) Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# yaml-language-server: $schema=../../../schemas/param_schema.json
+
+$schema: param_schema.json#
+kind: parameter
+name: STATEEN_IMPLICIT_UPDATE_EXCEPTION
+long_name: TODO   # TODO: short human-readable label
+description: |
+  When a `stateen` CSR prevents access to state for a privilege mode, attempting to execute in that privilege mode an instruction that _implicitly_ updates the state without reading it may or may not raise an illegal-instruction or virtual-instruction exception.
+  # Source: smstateen.adoc:103 (classification NORM_DIRECT)
+schema:
+  type: boolean
+definedBy:
+  extension:
+    name: Smstateen   # TODO: verify defining extension
