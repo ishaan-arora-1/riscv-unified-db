@@ -33,6 +33,9 @@ Final deliverables live in `data/`:
 ## Prerequisites (once)
 
 ```bash
+# 0. Install uv (the Python runner used by every command below)
+curl -LsSf https://astral.sh/uv/install.sh | sh      # or: brew install uv
+
 # 1. Clone and init the spec submodule (the pipeline reads ext/riscv-isa-manual/src)
 git submodule update --init ext/riscv-isa-manual
 
@@ -47,6 +50,22 @@ export OPENAI_API_KEY=sk-...             # optional, only for a GPT-4o ensemble
 ```
 
 All commands are run from the repository root.
+
+> [!IMPORTANT]
+> **Two things to know before re-running Phase 4 (the LLM step):**
+>
+> 1. **Model deprecation.** Results were generated with `claude-sonnet-4-20250514`,
+>    which Anthropic deprecates on **2026-06-15**. After that date a fresh run
+>    fails unless you point at a current model — no code edit needed, just set
+>    an env var:
+>    ```bash
+>    export MODEL_ID=claude-sonnet-4-6     # or any current Sonnet
+>    ```
+> 2. **Non-determinism.** Even at temperature 0, LLM output varies slightly run
+>    to run, so a re-run will produce *similar but not byte-identical* findings
+>    and metrics. The committed `results/v3/` are the exact run behind the
+>    reported numbers; Phases 1–3, 5, 7, 8 are fully deterministic and will
+>    reproduce exactly.
 
 ---
 

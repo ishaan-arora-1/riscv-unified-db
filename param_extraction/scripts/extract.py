@@ -478,8 +478,12 @@ def process_chunk(
     """Process a single chunk through the LLM pipeline."""
     model_info = MODEL_ALIASES[model_alias]
     provider = model_info["provider"]
-    model_id = model_info["model_id"]
+    # Allow overriding the concrete model id without editing this file, e.g. when
+    # the pinned model is deprecated:  MODEL_ID=claude-sonnet-4-6 ...
+    model_id = os.environ.get("MODEL_ID", model_info["model_id"])
     display_name = model_info["display_name"]
+    if model_id != model_info["model_id"]:
+        logger.info("Model id overridden via MODEL_ID env: %s", model_id)
 
     user_message = build_user_message(chunk_text, chunk_meta)
     est_tokens = estimate_tokens(system_prompt + user_message)
