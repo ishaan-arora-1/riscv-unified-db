@@ -1,0 +1,232 @@
+{
+  "positive_examples": [
+    {
+      "_comment": "NORM_DIRECT: A fundamental implementation choice not tied to any CSR field",
+      "input_excerpt": "Implementations may implement zero, 16, or 64 PMP entries; the lowest-numbered PMP entries must be implemented first. All PMP CSR fields are WARL and may be read-only zero.",
+      "input_file": "machine.adoc",
+      "input_line": 3340,
+      "expected_output": {
+        "excerpt": "Implementations may implement zero, 16, or 64 PMP entries; the lowest-numbered PMP entries must be implemented first.",
+        "line_number": 3340,
+        "parameter_name": "NUM_PMP_ENTRIES",
+        "existing_udb_name": "NUM_PMP_ENTRIES",
+        "class": "NORM_DIRECT",
+        "value_type": "range",
+        "modal_signal": "may implement zero, 16, or 64",
+        "confidence": "high",
+        "reasoning": "The number of PMP entries is a direct implementation choice (0, 16, or 64), signaled by 'may implement'. It is not controlled by any CSR field."
+      }
+    },
+    {
+      "_comment": "NORM_DIRECT: A vector extension parameter whose value the implementer sets",
+      "input_excerpt": ". The maximum size in bits of a vector element that any operation can produce or consume, _ELEN_ >= 8, which must be a power of 2.\n. The number of bits in a single vector register, _VLEN_ >= ELEN, which must be a power of 2, and must be no greater than 2^16.",
+      "input_file": "v-st-ext.adoc",
+      "input_line": 22,
+      "expected_output": {
+        "excerpt": "The maximum size in bits of a vector element that any operation can produce or consume, _ELEN_ >= 8, which must be a power of 2.",
+        "line_number": 22,
+        "parameter_name": "ELEN",
+        "existing_udb_name": "ELEN",
+        "class": "NORM_DIRECT",
+        "value_type": "value",
+        "modal_signal": "implementer sets the maximum element size (ELEN >= 8)",
+        "confidence": "high",
+        "reasoning": "ELEN is a value the implementer chooses (the maximum element size). The constraints (>= 8, power of 2) bound the choice but the specific value is set per implementation."
+      }
+    },
+    {
+      "_comment": "NORM_CSR_WARL: The legal values of a WARL CSR field",
+      "input_excerpt": "The `mtvec` register is an MXLEN-bit WARL read/write register that holds trap vector configuration, consisting of a vector base address (BASE) and a vector mode (MODE).\n...\nThe `mtvec` register must always be implemented, but can contain a read-only value. If `mtvec` is writable, the set of values the register may hold can vary by implementation.",
+      "input_file": "machine.adoc",
+      "input_line": 1209,
+      "expected_output": {
+        "excerpt": "If `mtvec` is writable, the set of values the register may hold can vary by implementation.",
+        "line_number": 1219,
+        "parameter_name": "MTVEC_MODES",
+        "existing_udb_name": "MTVEC_MODES",
+        "class": "NORM_CSR_WARL",
+        "value_type": "set",
+        "modal_signal": "the set of values the register may hold can vary by implementation",
+        "confidence": "high",
+        "reasoning": "The mtvec MODE field is WARL, and the set of supported mode values varies by implementation ('can vary by implementation'). The parameter is the set of legal MODE values."
+      }
+    },
+    {
+      "_comment": "NORM_CSR_RW: Controls whether CSR fields are read-only or read-write",
+      "input_excerpt": "The MBE, SBE, and UBE bits in `mstatus` and `mstatush` are WARL fields that control the endianness of memory accesses other than instruction fetches.\n...\nIf S-mode is supported, an implementation may make SBE be a read-only copy of MBE.",
+      "input_file": "machine.adoc",
+      "input_line": 679,
+      "expected_output": {
+        "excerpt": "If S-mode is supported, an implementation may make SBE be a read-only copy of MBE.",
+        "line_number": 681,
+        "parameter_name": "M_MODE_ENDIANNESS",
+        "existing_udb_name": "M_MODE_ENDIANNESS",
+        "class": "NORM_CSR_RW",
+        "value_type": "enum",
+        "modal_signal": "an implementation may make SBE be a read-only copy",
+        "confidence": "high",
+        "reasoning": "The implementation chooses whether MBE/SBE are read-only or read-write ('an implementation may make ... read-only'). This controls the RO/RW nature of the field."
+      }
+    },
+    {
+      "_comment": "SW_RULE: Implementation-defined but deterministic with correct software",
+      "input_excerpt": "If an instruction explicitly or implicitly writes a floating-point register or the `fcsr` but does not alter its contents, and FS=Initial or FS=Clean, it is implementation-defined whether FS transitions to Dirty.",
+      "input_file": "machine.adoc",
+      "input_line": 1012,
+      "expected_output": {
+        "excerpt": "it is implementation-defined whether FS transitions to Dirty.",
+        "line_number": 1014,
+        "parameter_name": "HW_MSTATUS_FS_DIRTY_UPDATE",
+        "existing_udb_name": "HW_MSTATUS_FS_DIRTY_UPDATE",
+        "class": "SW_RULE",
+        "value_type": "enum",
+        "modal_signal": "implementation-defined whether FS transitions to Dirty",
+        "confidence": "medium",
+        "reasoning": "Whether hardware updates mstatus.FS to Dirty is implementation-defined, but software can handle this deterministically with proper FS management and fencing."
+      }
+    },
+    {
+      "_comment": "NORM_CSR_RW: Whether a CSR is read-only or read-write",
+      "input_excerpt": "The `mtvec` register must always be implemented, but can contain a read-only value.",
+      "input_file": "machine.adoc",
+      "input_line": 1217,
+      "expected_output": {
+        "excerpt": "The `mtvec` register must always be implemented, but can contain a read-only value.",
+        "line_number": 1217,
+        "parameter_name": "MTVEC_ACCESS",
+        "existing_udb_name": "MTVEC_ACCESS",
+        "class": "NORM_CSR_RW",
+        "value_type": "binary",
+        "modal_signal": "can contain a read-only value",
+        "confidence": "high",
+        "reasoning": "The implementation chooses whether mtvec is read-only or read-write ('can contain a read-only value'). Binary choice about the mutability of the register."
+      }
+    },
+    {
+      "_comment": "NORM_CSR_RW: Counter-inhibit bits — which HPM counters are implemented",
+      "input_excerpt": "The counter-inhibit register `mcountinhibit` is a 32-bit WARL register that controls which of the hardware performance-monitoring counters increment. When the CY, IR, or HPMn bit in the `mcountinhibit` register is clear, the corresponding counter increments; an implementation may make any subset of the counters read-only zero.",
+      "input_file": "machine.adoc",
+      "input_line": 1669,
+      "expected_output": {
+        "excerpt": "an implementation may make any subset of the counters read-only zero.",
+        "line_number": 1672,
+        "parameter_name": "COUNTINHIBIT_EN",
+        "existing_udb_name": "COUNTINHIBIT_EN",
+        "class": "NORM_CSR_RW",
+        "value_type": "bitmask",
+        "modal_signal": "an implementation may make any subset of the counters read-only zero",
+        "confidence": "high",
+        "reasoning": "Which bits of mcountinhibit are writable depends on which HPM counters are implemented; unimplemented counters are read-only-zero ('may make any subset ... read-only zero')."
+      }
+    },
+    {
+      "_comment": "NORM_CSR_WARL: VM translation mode support in hgatp",
+      "input_excerpt": "A write to `hgatp` with an unsupported MODE value is not ignored as it is for `satp`. Instead, the fields of `hgatp` are WARL in the normal way, so an unsupported value is simply not stored. Implementations are not required to support all defined MODE settings.",
+      "input_file": "hypervisor.adoc",
+      "input_line": 1073,
+      "expected_output": {
+        "excerpt": "Implementations are not required to support all defined MODE settings.",
+        "line_number": 1075,
+        "parameter_name": "GSTAGE_MODE_BARE",
+        "existing_udb_name": "GSTAGE_MODE_BARE",
+        "class": "NORM_CSR_WARL",
+        "value_type": "binary",
+        "modal_signal": "are not required to support all defined MODE settings",
+        "confidence": "high",
+        "reasoning": "Which hgatp.MODE values are legal is an implementation choice ('not required to support all defined MODE settings'). The parameter is whether a given mode is in the supported set."
+      }
+    },
+    {
+      "_comment": "NORM_DIRECT: tval reporting — what value is written on exception",
+      "input_excerpt": "The `mtval` register can optionally also be used to return the faulting instruction bits on an illegal-instruction exception (`mepc` points to the faulting instruction in memory).",
+      "input_file": "machine.adoc",
+      "input_line": 2079,
+      "expected_output": {
+        "excerpt": "The `mtval` register can optionally also be used to return the faulting instruction bits on an illegal-instruction exception.",
+        "line_number": 2079,
+        "parameter_name": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+        "existing_udb_name": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+        "class": "NORM_DIRECT",
+        "value_type": "binary",
+        "modal_signal": "can optionally also be used to return the faulting instruction bits",
+        "confidence": "high",
+        "reasoning": "Whether mtval reports the faulting instruction encoding is optional ('can optionally'). No CSR field controls this; it is a design-time choice, so NORM_DIRECT."
+      }
+    },
+    {
+      "_comment": "NORM_DIRECT: LR/SC failure conditions",
+      "input_excerpt": "An SC can only pair with the most recent LR in program order. An SC may succeed only if no store from another hart to the reservation set can be observed to have occurred between the LR and the SC, and if there is no other SC between the LR and the SC in program order.",
+      "input_file": "a-st-ext.adoc",
+      "input_line": 115,
+      "expected_output": {
+        "excerpt": "An SC may succeed only if no store from another hart to the reservation set can be observed to have occurred between the LR and the SC.",
+        "line_number": 115,
+        "parameter_name": "LRSC_FAIL_ON_NON_EXACT_LRSC",
+        "existing_udb_name": "LRSC_FAIL_ON_NON_EXACT_LRSC",
+        "class": "NORM_DIRECT",
+        "value_type": "binary",
+        "modal_signal": "An SC may succeed only if",
+        "confidence": "medium",
+        "reasoning": "Whether SC fails when the address does not exactly match the LR is implementation-defined; the spec says SC 'may succeed' under conditions, implying the implementation chooses the exact failure policy."
+      }
+    }
+  ],
+  "negative_examples": [
+    {
+      "_comment": "FALSE POSITIVE: NOTE block discussing implementation options — non-normative",
+      "input_excerpt": "[NOTE]\n====\nSome platforms may choose to disallow speculatively writing FS to close a potential side channel.\n====",
+      "input_file": "machine.adoc",
+      "input_line": 1005,
+      "expected_output": null,
+      "reason_for_rejection": "This text is inside a [NOTE] block and is therefore non-normative. It describes a platform suggestion, not an architectural requirement. Do not extract parameters from NOTE, TIP, WARNING, or IMPORTANT blocks — even when they contain 'may'."
+    },
+    {
+      "_comment": "FALSE POSITIVE: Behavior controlled by a CSR field value, not a parameter itself",
+      "input_excerpt": "When MODE=Direct, all traps into machine mode cause the `pc` to be set to the address in the BASE field.",
+      "input_file": "machine.adoc",
+      "input_line": 1254,
+      "expected_output": null,
+      "reason_for_rejection": "This describes what happens when mtvec.MODE has a specific value. The behavior is determined by the CSR field value at runtime, not by an implementation choice. The parameter is which MODE values are supported (MTVEC_MODES), not this behavioral description."
+    },
+    {
+      "_comment": "FALSE POSITIVE: Fixed 'must' requirement, not an implementation choice",
+      "input_excerpt": "For RV32C, _shamt[5]_ must be zero; the code points with _shamt[5]_=1 are designated for custom extensions.",
+      "input_file": "c-st-ext.adoc",
+      "input_line": 412,
+      "expected_output": null,
+      "reason_for_rejection": "'must be zero' is a fixed requirement binding on every RV32C implementation — there is no implementer choice, so it is not a parameter. The mention of custom extensions is informative, not an architectural parameter of the base ISA."
+    },
+    {
+      "_comment": "FALSE POSITIVE: 'shall' uniformity requirement, not a parameter",
+      "input_excerpt": "In the initial set of CMO extensions, the size of a cache block shall be uniform throughout the system.",
+      "input_file": "cmo.adoc",
+      "input_line": 38,
+      "expected_output": null,
+      "reason_for_rejection": "'shall be uniform' is a fixed requirement. (The cache block SIZE itself is a parameter, defined elsewhere with 'implementation-defined' wording — but THIS sentence only states the uniformity rule and has no optionality, so it is not the parameter.)"
+    },
+    {
+      "_comment": "FALSE POSITIVE: Reserved statement of fact, not a choice",
+      "input_excerpt": "A 16-bit instruction with all bits zero is permanently reserved as an illegal instruction.",
+      "input_file": "c-st-ext.adoc",
+      "input_line": 95,
+      "expected_output": null,
+      "reason_for_rejection": "'permanently reserved' is a fixed fact true of every implementation. A reserved encoding is not chosen by the implementer, so it is not a parameter."
+    },
+    {
+      "_comment": "FALSE POSITIVE: 'implementation-defined' but platform/EEI-level, not an ISA parameter",
+      "input_excerpt": "The RNMI interrupt trap handler address is implementation-defined.",
+      "input_file": "rnmi.adoc",
+      "input_line": 44,
+      "expected_output": null,
+      "reason_for_rejection": "Although this says 'implementation-defined', a trap handler address is a platform/physical-design choice outside the ISA scope (classify as NON_ISA, do not emit as an architectural parameter). Optionality wording alone is not sufficient — the choice must be an ISA-level architectural parameter."
+    },
+    {
+      "_comment": "FALSE POSITIVE: 'may' used as permission/capability, not as optionality",
+      "input_excerpt": "Software may determine the PMP granularity by writing zero to `pmp0cfg`, then writing all ones to `pmpaddr0`, then reading back `pmpaddr0`.",
+      "input_file": "machine.adoc",
+      "input_line": 3530,
+      "expected_output": null,
+      "reason_for_rejection": "Here 'may' means 'is allowed to' (permission for software), not 'might or might not' (optionality for the implementer). This describes a software technique, not an implementation-defined parameter."
+    }
+  ]
+}
