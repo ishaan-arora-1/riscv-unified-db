@@ -4,14 +4,15 @@ V3 Stage 1 — Finding Validation — Statistics
 Total findings examined : 346
 
 Verdict breakdown:
-  KEEP                 94  (27.2%)
+  KEEP                 93  (26.9%)
   REVIEW_NO_MODAL     111  (32.1%)
   FRAGMENT             69  (19.9%)
   REJECT_NOTE           8  ( 2.3%)
   REJECT_RESERVED      18  ( 5.2%)
-  REJECT_REQUIRED      32  ( 9.2%)
+  REJECT_REQUIRED      30  ( 8.7%)
   DROP_NONARCH         14  ( 4.0%)
+  REJECT_UNCERTIFIABLE    3
 
-Reviewable (KEEP+REVIEW+FRAGMENT) before final dedup : 274
+Reviewable (KEEP+REVIEW+FRAGMENT) before final dedup : 273
 Final-dedup collisions collapsed                     : 0
-Confirmed/reviewable after final dedup               : 274
+Confirmed/reviewable after final dedup               : 273

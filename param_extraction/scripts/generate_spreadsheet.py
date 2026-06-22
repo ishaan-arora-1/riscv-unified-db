@@ -60,8 +60,44 @@ COLUMNS = [
     "confidence",
     "modal_signal",
     "validation",
+    "tagged",
+    "refers_to_warl",
+    "in_intro_section",
+    "sw_keywords",
     "notes",
 ]
+
+# Software-requirement / clarification keywords (manager review 2): untagged
+# uses near these are usually clarifications or SW requirements, not parameters.
+_SW_KEYWORDS = re.compile(r"\b(software|firmware|will|note)\b", re.IGNORECASE)
+# WARL keyword, OR a generic read-only/read-write field restatement. Both mean
+# the choice is the general CSR-field behavior already captured by the field
+# model (mentor review 1 lines 11/12; manager review 2 line 28).
+_WARL_RE = re.compile(
+    r"\bwarl\b"
+    r"|writable or (may be )?read-only"
+    r"|read-only or (may be )?read-write"
+    r"|each (individual )?bit[^.]{0,40}(writable|read-only)",
+    re.IGNORECASE,
+)
+
+
+def compute_signals(excerpt: str, adoc_file: str, spec_norm: str) -> dict:
+    """Manager-requested diagnostic columns for one finding."""
+    key = re.sub(r"\s+", " ", excerpt.strip().lower())[:50]
+    # Tagged: is the excerpt covered by an existing spec tag ([#...]) just before it?
+    tagged = "no"
+    if key and spec_norm:
+        i = spec_norm.find(key)
+        if i >= 0 and "[#" in spec_norm[max(0, i - 140):i + 40]:
+            tagged = "yes"
+    sw = sorted({m.group(0).lower() for m in _SW_KEYWORDS.finditer(excerpt)})
+    return {
+        "tagged": tagged,
+        "refers_to_warl": "yes" if _WARL_RE.search(excerpt) else "no",
+        "in_intro_section": "yes" if "intro" in adoc_file.lower() else "no",
+        "sw_keywords": ", ".join(sw),
+    }
 
 
 # ── Loaders ────────────────────────────────────────────────────────────────
@@ -259,11 +295,13 @@ def build_rows(
     if overdecomp_flagged:
         logger.info("Flagged %d rows as possible over-decomposition", overdecomp_flagged)
 
-    # Excerpt-fidelity check: confirm each excerpt actually appears (whitespace-
-    # normalized) in its source spec file. Catches paraphrases and cases where
-    # the model echoed a few-shot example instead of quoting the chunk.
+    # Diagnostic columns + excerpt-fidelity check (single pass, shared spec cache).
+    # Columns (manager review 2): tagged, refers_to_warl, in_intro_section,
+    # sw_keywords. Plus flags: WARL-already-covered (likely duplicate), and
+    # excerpts that aren't verbatim in the spec.
     spec_cache: dict[str, str] = {}
     not_verbatim = 0
+    warl_flagged = 0
     for r in rows:
         fname = r["adoc_file"]
         if fname not in spec_cache:
@@ -272,13 +310,30 @@ def build_rows(
                 re.sub(r"\s+", " ", path.read_text(encoding="utf-8", errors="replace")).lower()
                 if path.exists() else ""
             )
+        r.update(compute_signals(r["excerpt"], fname, spec_cache[fname]))
+
+        def add_note(r: dict, note: str) -> None:
+            r["notes"] = (r["notes"] + "; " + note) if r["notes"] else note
+
+        # WARL fields are usually covered by the general CSR field WARL model.
+        if r["refers_to_warl"] == "yes":
+            add_note(r, "likely duplicate: WARL field, usually covered by CSR field model")
+            warl_flagged += 1
+        # Intro/overview sections are essentially non-normative.
+        if r["in_intro_section"] == "yes":
+            add_note(r, "from an introduction section (non-normative)")
+        # Untagged + software/firmware/note/will -> usually a clarification or SW rule.
+        if r["tagged"] == "no" and r["sw_keywords"]:
+            add_note(r, f"untagged + SW keywords ({r['sw_keywords']}) — likely clarification/SW requirement")
+
         key = re.sub(r"\s+", " ", r["excerpt"].strip().lower())[:60]
         if key and spec_cache[fname] and key not in spec_cache[fname]:
-            note = "excerpt not verbatim in spec — verify wording"
-            r["notes"] = (r["notes"] + "; " + note) if r["notes"] else note
+            add_note(r, "excerpt not verbatim in spec — verify wording")
             not_verbatim += 1
     if not_verbatim:
         logger.info("Flagged %d rows whose excerpt is not verbatim in the spec", not_verbatim)
+    if warl_flagged:
+        logger.info("Flagged %d rows as WARL (likely covered by CSR field model)", warl_flagged)
 
     # Stable sort: confirmed (KEEP) first, then file / line / name.
     rows.sort(key=lambda r: (verdict_rank.get(r["validation"], 3),
@@ -343,7 +398,11 @@ def write_xlsx(rows: list[dict], path: Path) -> None:
         "confidence": 12,
         "modal_signal": 40,
         "validation": 16,
-        "notes": 36,
+        "tagged": 8,
+        "refers_to_warl": 14,
+        "in_intro_section": 14,
+        "sw_keywords": 16,
+        "notes": 50,
     }
     for idx, col in enumerate(COLUMNS, start=1):
         ws.column_dimensions[get_column_letter(idx)].width = widths.get(col, 18)

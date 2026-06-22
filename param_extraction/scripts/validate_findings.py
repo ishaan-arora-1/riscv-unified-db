@@ -65,11 +65,11 @@ OPTIONALITY = re.compile(
     r"""
     implementation[-\ ]defined        | implementation[-\ ]dependent          |
     implementation[-\ ]specific        |
-    \boptional(ly)?\b                  | \bunspecified\b                       |
+    \boptional(ly)?\b                  |
     may\ or\ may\ not                  | \bneed\ not\b                         |
     (is|are|is\ not|are\ not)\ not\ required\ to                              |
     not\ required\ to\ (support|implement|provide|have)                       |
-    may\ (optionally\ )?(be\ (implemented|read-only|supported|present|absent|configured)
+    may\ (optionally\ )?(be\ (implemented|read-only|supported|present|absent|configured|zero|one)
         | implement | support | choose | contain | hold | return | vary
         | provide | omit | define | represent | specify
         | not\ support | not\ be | not\ implement)                             |
@@ -89,6 +89,23 @@ REQUIREMENT = re.compile(r"\b(must|shall|required|mandatory|always)\b", re.IGNOR
 # Reserved / hardwired statements of fact (not a knob).
 RESERVED = re.compile(
     r"\b(reserved|hardwired|hard-wired|tied\ to|fixed\ to|wpri)\b", re.IGNORECASE
+)
+
+# Uncertifiable: a behavior/result/outcome that is *unspecified*, or anything
+# "misconfigured". There's no enumerable, verifiable value set, so it can't be a
+# certifiable parameter (mentor review 1: "we will never certify unspecified
+# behavior"; "no way to know what misconfigured is").
+UNCERTIFIABLE = re.compile(
+    r"\bmisconfigured\b"
+    r"|(behaviou?r|result|results|outcome|permitted|whether)\b[^.]{0,80}\bunspecified\b"
+    r"|\bunspecified\b[^.]{0,40}(behaviou?r|result|outcome)",
+    re.IGNORECASE,
+)
+
+# Quantity words: an unspecified *value/width/number* is still a real value
+# parameter (e.g. ASID_WIDTH), so these protect value params from the rule above.
+QUANTITY = re.compile(
+    r"\b(number of|width|size|bits|amount|count|value of|granularity|depth)\b", re.IGNORECASE
 )
 
 # Admonition openers, both the block form ([NOTE]\n====) and the inline form (NOTE:).
@@ -185,6 +202,12 @@ def classify(finding: dict, note_index: dict) -> tuple[str, str]:
     #    text, not by the unreliable LLM line number.
     if excerpt and in_note_block(fname, excerpt, note_index):
         return "REJECT_NOTE", f"excerpt text found inside an admonition block in {fname}"
+
+    # 3. Uncertifiable behavior: unspecified result / misconfigured, with no
+    #    enumerable value set. (A value/width that is unspecified is still a
+    #    real value parameter, so QUANTITY findings are exempt.)
+    if UNCERTIFIABLE.search(excerpt) and not QUANTITY.search(excerpt):
+        return "REJECT_UNCERTIFIABLE", "unspecified behavior / misconfigured — no verifiable value set"
 
     has_opt = bool(OPTIONALITY.search(excerpt))
 

@@ -5,6 +5,7 @@ indirect-csr.adoc,242,HSTATEEN_CSRIND_TYPE,NORM_CSR_RW,high,excerpt not found,"I
 machine.adoc,1217,MTVEC_ACCESS,NORM_CSR_RW,high,excerpt not found,"The `mtvec` register must always be implemented, but can contain a read-only value."
 machine.adoc,1672,COUNTINHIBIT_EN,NORM_CSR_RW,high,excerpt not found,an implementation may make any subset of the counters read-only zero.
 machine.adoc,2079,REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION,NORM_DIRECT,high,excerpt not found,The `mtval` register can optionally also be used to return the faulting instruction bits on an illegal-instruction exception.
+machine.adoc,2149,CONFIG_PTR_ADDRESS,NORM_DIRECT,high,excerpt not found,"The `mconfigptr` register must be implemented, but it may be zero to indicate the configuration data structure does not exist or that an alternative mechanism must be used to locate it."
 machine.adoc,2756,WFI_AVAILABLE_U_MODE,NORM_DIRECT,high,excerpt not found,"WFI is available in all privileged modes, and optionally available to U-mode."
 machine.adoc,3395,PMPADDR_WARL_MASK,NORM_CSR_WARL,high,excerpt not found,"Not all physical address bits may be implemented, and so the `pmpaddr` registers are WARL."
 vector-crypto.adoc,372,ZVE64X_DEPENDENCY,NORM_DIRECT,high,excerpt not found,"The Zvknhb and Zvbc Vector Crypto Extensions --and accordingly the composite extensions Zvkn, Zvknc, Zvkng, and Zvksc-- depend on Zve64x."

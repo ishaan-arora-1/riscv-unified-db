@@ -6,15 +6,15 @@ Spec directory   : /Users/ashish/lfx/riscv-unified-db/ext/riscv-isa-manual/src
 Spreadsheet      : /Users/ashish/lfx/riscv-unified-db/param_extraction/data/parameters.csv
 Min confidence   : medium
 
-Requests         : 201
-Tags inserted    : 191
-  inline wraps   : 43
-  bare anchors   : 148
-Overlaps w/ norm : 148
-Unmatched rows   : 10
+Requests         : 199
+Tags inserted    : 188
+  inline wraps   : 41
+  bare anchors   : 147
+Overlaps w/ norm : 147
+Unmatched rows   : 11
 
 Per-file breakdown:
-  ext/riscv-isa-manual/src/machine.adoc                         req= 36  ins= 31  bare=30  unmatched= 5
+  ext/riscv-isa-manual/src/machine.adoc                         req= 37  ins= 31  bare=30  unmatched= 6
   ext/riscv-isa-manual/src/smctr.adoc                           req= 25  ins= 25  bare=25  unmatched= 0
   ext/riscv-isa-manual/src/v-st-ext.adoc                        req= 14  ins= 14  bare=10  unmatched= 0
   ext/riscv-isa-manual/src/unpriv-cfi.adoc                      req= 13  ins= 13  bare=13  unmatched= 0
@@ -22,13 +22,13 @@ Per-file breakdown:
   ext/riscv-isa-manual/src/supervisor.adoc                      req= 11  ins= 11  bare= 1  unmatched= 0
   ext/riscv-isa-manual/src/vector-crypto.adoc                   req= 12  ins= 11  bare=11  unmatched= 1
   ext/riscv-isa-manual/src/hypervisor.adoc                      req=  9  ins=  9  bare= 4  unmatched= 0
-  ext/riscv-isa-manual/src/cmo.adoc                             req=  6  ins=  6  bare= 1  unmatched= 0
   ext/riscv-isa-manual/src/scalar-crypto.adoc                   req=  6  ins=  6  bare= 0  unmatched= 0
   ext/riscv-isa-manual/src/a-st-ext.adoc                        req=  5  ins=  5  bare= 4  unmatched= 0
   ext/riscv-isa-manual/src/zawrs.adoc                           req=  5  ins=  5  bare= 5  unmatched= 0
   ext/riscv-isa-manual/src/zpm.adoc                             req=  5  ins=  5  bare= 5  unmatched= 0
-  ext/riscv-isa-manual/src/counters.adoc                        req=  4  ins=  4  bare= 4  unmatched= 0
   ext/riscv-isa-manual/src/indirect-csr.adoc                    req=  6  ins=  4  bare= 3  unmatched= 2
+  ext/riscv-isa-manual/src/cmo.adoc                             req=  3  ins=  3  bare= 0  unmatched= 0
+  ext/riscv-isa-manual/src/counters.adoc                        req=  3  ins=  3  bare= 3  unmatched= 0
   ext/riscv-isa-manual/src/intro.adoc                           req=  3  ins=  3  bare= 2  unmatched= 0
   ext/riscv-isa-manual/src/priv-csrs.adoc                       req=  3  ins=  3  bare= 2  unmatched= 0
   ext/riscv-isa-manual/src/rvwmo.adoc                           req=  3  ins=  3  bare= 3  unmatched= 0
@@ -45,6 +45,7 @@ Per-file breakdown:
   ext/riscv-isa-manual/src/sscofpmf.adoc                        req=  1  ins=  1  bare= 0  unmatched= 0
   ext/riscv-isa-manual/src/zfa.adoc                             req=  1  ins=  1  bare= 1  unmatched= 0
   ext/riscv-isa-manual/src/zicsr.adoc                           req=  1  ins=  1  bare= 1  unmatched= 0
+  ext/riscv-isa-manual/src/zihintpause.adoc                     req=  1  ins=  1  bare= 1  unmatched= 0
   ext/riscv-isa-manual/src/zilsd.adoc                           req=  1  ins=  1  bare= 1  unmatched= 0
 
 Failures:
@@ -60,6 +61,8 @@ Failures:
   ✗ COUNTINHIBIT_EN: excerpt not found
   [ext/riscv-isa-manual/src/machine.adoc]
   ✗ REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION: excerpt not found
+  [ext/riscv-isa-manual/src/machine.adoc]
+  ✗ CONFIG_PTR_ADDRESS: excerpt not found
   [ext/riscv-isa-manual/src/machine.adoc]
   ✗ WFI_AVAILABLE_U_MODE: excerpt not found
   [ext/riscv-isa-manual/src/machine.adoc]

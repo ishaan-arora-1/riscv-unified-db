@@ -43,7 +43,7 @@ index 1ca38e4..0a2c2f8 100644
  If present, the misaligned atomicity granule PMA specifies the size
  of a misaligned atomicity granule, a power-of-two number of bytes.
 diff --git a/src/cmo.adoc b/src/cmo.adoc
-index 4963951..0b70d10 100644
+index 4963951..c2ad4ad 100644
 --- a/src/cmo.adoc
 +++ b/src/cmo.adoc
 @@ -90,10 +90,10 @@ a cache that first performs a read transfer from memory._
@@ -59,39 +59,6 @@ index 4963951..0b70d10 100644
  a cache block shall be uniform throughout the system.
  
  [NOTE]
-@@ -328,7 +328,7 @@ constraints on the physical addresses in a given cache block:
-   and if write permission is granted by the supported access type PMAs, read
-   permission shall also be granted#
- 
--[#norm:cbo_rsv]#If the above constraints are not met, the behavior of a CBO instruction is
-+[#param:CBO_BEHAVIOR_ON_CONSTRAINT_VIOLATION]##[#norm:cbo_rsv]#If the above constraints are not met, the behavior of a CBO instruction is
- UNSPECIFIED.#
- 
- [NOTE]
-@@ -355,10 +355,10 @@ whether accesses by cache-block zero instructions are supported.
- 
- [#norm:cbm_access]#A cache-block management instruction is permitted to access the specified cache
- block whenever a load instruction or store instruction is permitted to access
--the corresponding physical addresses.# If neither a load instruction nor store
-+the corresponding physical addresses.# [#param:CBM_ACCESS_ON_IFETCH_ONLY]#If neither a load instruction nor store
- instruction is permitted to access the physical addresses, but an instruction
- fetch is permitted to access the physical addresses, whether a cache-block
--management instruction is permitted to access the cache block is UNSPECIFIED. [#norm:cbm_unperm_fault]#If
-+management instruction is permitted to access the cache block is UNSPECIFIED.# [#norm:cbm_unperm_fault]#If
- access to the cache block is not permitted, a cache-block management instruction
- raises a store page-fault or store guest-page-fault exception if address
- translation does not permit any access or raises a store access-fault exception
-@@ -415,8 +415,8 @@ CMO instructions do _not_ generate address-misaligned exceptions.
- 
- ===== Breakpoint Exceptions and Debug Mode Entry
- 
--Unless otherwise defined by the debug architecture specification, the behavior
--of trigger modules with respect to CMO instructions is UNSPECIFIED.
-+[#param:CMO_TRIGGER_BEHAVIOR]#Unless otherwise defined by the debug architecture specification, the behavior
-+of trigger modules with respect to CMO instructions is UNSPECIFIED.#
- 
- [NOTE]
- ====
 @@ -659,8 +659,8 @@ else
  The CBIE/CBCFE/CBZE fields in each `x{csrname}` register do not affect the
  read and write behavior of the same fields in the other `x{csrname}` registers.
@@ -115,10 +82,10 @@ index 4963951..0b70d10 100644
  [[norm:cbo-zero_offset]]
  The assembly _offset_ operand may be omitted. If it isn't then any expression
 diff --git a/src/counters.adoc b/src/counters.adoc
-index dd883f4..cbc86f0 100644
+index dd883f4..6172611 100644
 --- a/src/counters.adoc
 +++ b/src/counters.adoc
-@@ -208,10 +208,10 @@ this would increase the size of the user context, especially for
+@@ -208,8 +208,8 @@ this would increase the size of the user context, especially for
  implementations with a richer set of counters.
  ====
  
@@ -127,11 +94,8 @@ index dd883f4..cbc86f0 100644
 +[#param:HPM_EVENTS]##[#param:HPM_COUNTER_EN]##[#norm:hpm_platform_specific_impl]#The implemented number and width of these additional counters, and the
 +set of events they count, are platform-specific.# [#param:HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR]##[#norm:hpm_unimplemented_counter_access]#Accessing an
  unimplemented counter may cause an illegal-instruction exception or may
--return a constant value.# [#norm:hpm_misconfigured_event_behavior]#If the configuration used to select the events
-+return a constant value.# [#param:HPM_MISCONFIGURED_BEHAVIOR]##[#norm:hpm_misconfigured_event_behavior]#If the configuration used to select the events
+ return a constant value.# [#norm:hpm_misconfigured_event_behavior]#If the configuration used to select the events
  counted by a counter is misconfigured, the counter may return a constant
- value.#
- 
 diff --git a/src/d-st-ext.adoc b/src/d-st-ext.adoc
 index 44c2736..6bd6611 100644
 --- a/src/d-st-ext.adoc
@@ -1448,6 +1412,18 @@ index f8de697..c90faab 100644
  strongly ordered, as defined by the Memory-Ordering PMAs section in
  Volume II of this manual. Accesses to strongly ordered CSRs have
  stronger ordering constraints with respect to accesses to both weakly
+diff --git a/src/zihintpause.adoc b/src/zihintpause.adoc
+index eb8f46c..f40fe3e 100644
+--- a/src/zihintpause.adoc
++++ b/src/zihintpause.adoc
+@@ -1,6 +1,6 @@
+ [[zihintpause]]
+ == "Zihintpause" Extension for Pause Hint, Version 2.0
+-[#norm:pause_op]#The PAUSE instruction is a HINT that indicates the current hart's rate
++[#param:PAUSE_DURATION]##[#norm:pause_op]#The PAUSE instruction is a HINT that indicates the current hart's rate
+ of instruction retirement should be temporarily reduced or paused. The
+ duration of its effect must be bounded and may be zero.#
+ (((PAUSE, HINT)))
 diff --git a/src/zilsd.adoc b/src/zilsd.adoc
 index 757e9cb..f8c34a9 100644
 --- a/src/zilsd.adoc
