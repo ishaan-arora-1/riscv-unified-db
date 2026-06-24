@@ -1,0 +1,55 @@
+{
+  "chunk_id": "chunk_045",
+  "source_file": "scalar-crypto.adoc",
+  "start_line": 3423,
+  "end_line": 5594,
+  "content_start_line": 3453,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Implementations may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`.",
+      "line_number": 3697,
+      "parameter_name": "SSEED_USEED_WRITABLE",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`",
+      "confidence": "high",
+      "reasoning": "The spec explicitly says implementations may make the [s,u]seed fields of mseccfg read-only zero, meaning the implementation chooses whether these fields are writable or read-only. This is a NORM_CSR_RW parameter controlling the RO/RW nature of the mseccfg.[s,u]seed fields."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "An implementation may safely set reserved and custom bits to zeros.",
+      "line_number": 3617,
+      "reason": "This is a permission-may for the implementation regarding reserved/custom bits in the seed CSR. While it uses 'may', it is a permissive statement about what is safe to do, not a normative architectural parameter defining a design-time choice with enumerable legal values. The reserved bits behavior is not a certifiable parameter."
+    },
+    {
+      "excerpt": "The write value (in `rs1` or `uimm`) must be ignored by implementations.",
+      "line_number": 3598,
+      "reason": "This is a fixed requirement ('must be ignored') binding on all implementations \u2014 there is no implementer choice here, so it is not a parameter."
+    },
+    {
+      "excerpt": "Attempts to access the `seed` CSR using a read-only CSR-access instruction (`CSRRS`/`CSRRC` with _rs1_=`x0` or `CSRRSI`/`CSRRCI` with _uimm_=0) raise an illegal-instruction exception; any other CSR-access instruction may be used to access `seed`.",
+      "line_number": 3594,
+      "reason": "This describes fixed required behavior ('raise an illegal-instruction exception') and a permission for software ('may be used'). No implementer choice is present."
+    },
+    {
+      "excerpt": "Vendors do not have to implement all of the list's instructions to be Zkt compliant; however, if they claim to have Zkt and implement any of the listed instructions, it must have data-independent latency.",
+      "line_number": 3762,
+      "reason": "This describes the Zkt compliance rule \u2014 it is a conditional requirement ('must have data-independent latency') rather than a certifiable architectural parameter with enumerable legal values. The choice of which instructions to implement is already captured by the extension support parameters."
+    },
+    {
+      "excerpt": "When `NOISE_TEST = 1` in `mnoise`, the `seed` CSR must not return anything via `ES16`; it should be in `BIST` state unless the source is `DEAD`.",
+      "line_number": 5484,
+      "reason": "This is a fixed behavioral requirement ('must not return') describing what happens when NOISE_TEST=1. It is not an implementer choice \u2014 it is a required behavior. The mnoise CSR itself is described as a non-normative suggested interface."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Implementations may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`.\",\n      \"line_number\": 3697,\n      \"parameter_name\": \"SSEED_USEED_WRITABLE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly says implementations may make the [s,u]seed fields of mseccfg read-only zero, meaning the implementation chooses whether these fields are writable or read-only. This is a NORM_CSR_RW parameter controlling the RO/RW nature of the mseccfg.[s,u]seed fields.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"An implementation may safely set reserved and custom bits to zeros.\",\n      \"line_number\": 3617,\n      \"reason\": \"This is a permission-may for the implementation regarding reserved/custom bits in the seed CSR. While it uses 'may', it is a permissive statement about what is safe to do, not a normative architectural parameter defining a design-time choice with enumerable legal values. The reserved bits behavior is not a certifiable parameter.\"\n    },\n    {\n      \"excerpt\": \"The write value (in `rs1` or `uimm`) must be ignored by implementations.\",\n      \"line_number\": 3598,\n      \"reason\": \"This is a fixed requirement ('must be ignored') binding on all implementations \u2014 there is no implementer choice here, so it is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"Attempts to access the `seed` CSR using a read-only CSR-access instruction (`CSRRS`/`CSRRC` with _rs1_=`x0` or `CSRRSI`/`CSRRCI` with _uimm_=0) raise an illegal-instruction exception; any other CSR-access instruction may be used to access `seed`.\",\n      \"line_number\": 3594,\n      \"reason\": \"This describes fixed required behavior ('raise an illegal-instruction exception') and a permission for software ('may be used'). No implementer choice is present.\"\n    },\n    {\n      \"excerpt\": \"Vendors do not have to implement all of the list's instructions to be Zkt compliant; however, if they claim to have Zkt and implement any of the listed instructions, it must have data-independent latency.\",\n      \"line_number\": 3762,\n      \"reason\": \"This describes the Zkt compliance rule \u2014 it is a conditional requirement ('must have data-independent latency') rather than a certifiable architectural parameter with enumerable legal values. The choice of which instructions to implement is already captured by the extension support parameters.\"\n    },\n    {\n      \"excerpt\": \"When `NOISE_TEST = 1` in `mnoise`, the `seed` CSR must not return anything via `ES16`; it should be in `BIST` state unless the source is `DEAD`.\",\n      \"line_number\": 5484,\n      \"reason\": \"This is a fixed behavioral requirement ('must not return') describing what happens when NOISE_TEST=1. It is not an implementer choice \u2014 it is a required behavior. The mnoise CSR itself is described as a non-normative suggested interface.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 40953,
+  "output_tokens": 872,
+  "latency_ms": 21784,
+  "timestamp": "2026-06-22T08:51:48.212608+00:00",
+  "error": null,
+  "retry_count": 0
+}

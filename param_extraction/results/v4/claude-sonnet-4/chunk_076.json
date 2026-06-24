@@ -1,0 +1,55 @@
+{
+  "chunk_id": "chunk_076",
+  "source_file": "zilsd.adoc",
+  "start_line": 1,
+  "end_line": 315,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Even if naturally aligned, the memory access might not be performed atomically.",
+      "line_number": 36,
+      "parameter_name": "ZILSD_NATURALLY_ALIGNED_ATOMIC",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "might not be performed atomically",
+      "confidence": "medium",
+      "reasoning": "The spec says that even for naturally aligned (8-byte) accesses, the memory access 'might not be performed atomically' \u2014 meaning the implementation may or may not perform it atomically. This is an implementation choice about atomicity of naturally-aligned 64-bit accesses. The word 'might not' signals that some implementations will and some won't."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Operands containing `src` for store instructions and `dest` for load instructions are held in aligned `x`-register pairs, i.e., register numbers must be even. Use of misaligned (odd-numbered) registers for these operands is _reserved_.",
+      "line_number": 6,
+      "reason": "Fixed requirement ('must be even') and reserved encoding fact. No implementer choice here."
+    },
+    {
+      "excerpt": "As the access size is 64-bit, accesses are only considered naturally aligned for effective addresses that are a multiple of 8. In this case, these instructions are guaranteed to not raise an address-misaligned exception.",
+      "line_number": 33,
+      "reason": "Fixed behavioral rule ('guaranteed to not raise'). No implementer choice \u2014 this is a mandatory requirement."
+    },
+    {
+      "excerpt": "If the effective address is a multiple of 4, then each word access is required to be performed atomically.",
+      "line_number": 38,
+      "reason": "Fixed requirement ('is required to be performed atomically'). No implementer choice."
+    },
+    {
+      "excerpt": "To ensure resumable trap handling is possible for the load instructions, the base register must have its original value if a trap is taken.",
+      "line_number": 46,
+      "reason": "Fixed requirement ('must have its original value'). No implementer choice."
+    },
+    {
+      "excerpt": "For the purposes of RVWMO and exception handling, LD and SD instructions are considered to be misaligned loads and stores, with one additional constraint: an LD or SD instruction whose effective address is a multiple of 4 gives rise to two 4-byte memory operations.",
+      "line_number": 100,
+      "reason": "Fixed behavioral definition, not an implementer choice. The 'NOTE' that follows clarifies this permits one access regardless of alignment, but the normative text itself is a fixed rule."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Even if naturally aligned, the memory access might not be performed atomically.\",\n      \"line_number\": 36,\n      \"parameter_name\": \"ZILSD_NATURALLY_ALIGNED_ATOMIC\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"might not be performed atomically\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The spec says that even for naturally aligned (8-byte) accesses, the memory access 'might not be performed atomically' \u2014 meaning the implementation may or may not perform it atomically. This is an implementation choice about atomicity of naturally-aligned 64-bit accesses. The word 'might not' signals that some implementations will and some won't.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Operands containing `src` for store instructions and `dest` for load instructions are held in aligned `x`-register pairs, i.e., register numbers must be even. Use of misaligned (odd-numbered) registers for these operands is _reserved_.\",\n      \"line_number\": 6,\n      \"reason\": \"Fixed requirement ('must be even') and reserved encoding fact. No implementer choice here.\"\n    },\n    {\n      \"excerpt\": \"As the access size is 64-bit, accesses are only considered naturally aligned for effective addresses that are a multiple of 8. In this case, these instructions are guaranteed to not raise an address-misaligned exception.\",\n      \"line_number\": 33,\n      \"reason\": \"Fixed behavioral rule ('guaranteed to not raise'). No implementer choice \u2014 this is a mandatory requirement.\"\n    },\n    {\n      \"excerpt\": \"If the effective address is a multiple of 4, then each word access is required to be performed atomically.\",\n      \"line_number\": 38,\n      \"reason\": \"Fixed requirement ('is required to be performed atomically'). No implementer choice.\"\n    },\n    {\n      \"excerpt\": \"To ensure resumable trap handling is possible for the load instructions, the base register must have its original value if a trap is taken.\",\n      \"line_number\": 46,\n      \"reason\": \"Fixed requirement ('must have its original value'). No implementer choice.\"\n    },\n    {\n      \"excerpt\": \"For the purposes of RVWMO and exception handling, LD and SD instructions are considered to be misaligned loads and stores, with one additional constraint: an LD or SD instruction whose effective address is a multiple of 4 gives rise to two 4-byte memory operations.\",\n      \"line_number\": 100,\n      \"reason\": \"Fixed behavioral definition, not an implementer choice. The 'NOTE' that follows clarifies this permits one access regardless of alignment, but the normative text itself is a fixed rule.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13368,
+  "output_tokens": 697,
+  "latency_ms": 15825,
+  "timestamp": "2026-06-24T08:47:55.944084+00:00",
+  "error": null,
+  "retry_count": 0
+}

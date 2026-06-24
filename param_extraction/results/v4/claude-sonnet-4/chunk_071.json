@@ -1,0 +1,38 @@
+{
+  "chunk_id": "chunk_071",
+  "source_file": "zicond.adoc",
+  "start_line": 1,
+  "end_line": 187,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Furthermore, if the Zkt extension is implemented, this instruction's timing is independent of the data values in _rs1_ and _rs2_.",
+      "line_number": 50,
+      "reason": "This is a fixed behavioral requirement ('is independent of') conditional on Zkt being implemented \u2014 not an implementer choice. It describes a mandatory property of the instruction when Zkt is present, not an optional parameter."
+    },
+    {
+      "excerpt": "If _rs2_ contains the value zero, this instruction writes the value zero to _rd_. Otherwise, this instruction copies the contents of _rs1_ to _rd_.",
+      "line_number": 44,
+      "reason": "This is a fixed behavioral description of the czero.eqz instruction \u2014 a mandatory requirement, not an implementer choice. No optionality language present."
+    },
+    {
+      "excerpt": "If _rs2_ contains a nonzero value, this instruction writes the value zero to _rd_. Otherwise, this instruction copies the contents of _rs1_ to _rd_.",
+      "line_number": 82,
+      "reason": "This is a fixed behavioral description of the czero.nez instruction \u2014 a mandatory requirement, not an implementer choice. No optionality language present."
+    },
+    {
+      "excerpt": "This instruction carries a syntactic dependency from both _rs1_ and _rs2_ to _rd_.",
+      "line_number": 48,
+      "reason": "Fixed requirement ('carries a syntactic dependency') \u2014 no optionality language, not an implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Furthermore, if the Zkt extension is implemented, this instruction's timing is independent of the data values in _rs1_ and _rs2_.\",\n      \"line_number\": 50,\n      \"reason\": \"This is a fixed behavioral requirement ('is independent of') conditional on Zkt being implemented \u2014 not an implementer choice. It describes a mandatory property of the instruction when Zkt is present, not an optional parameter.\"\n    },\n    {\n      \"excerpt\": \"If _rs2_ contains the value zero, this instruction writes the value zero to _rd_. Otherwise, this instruction copies the contents of _rs1_ to _rd_.\",\n      \"line_number\": 44,\n      \"reason\": \"This is a fixed behavioral description of the czero.eqz instruction \u2014 a mandatory requirement, not an implementer choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"If _rs2_ contains a nonzero value, this instruction writes the value zero to _rd_. Otherwise, this instruction copies the contents of _rs1_ to _rd_.\",\n      \"line_number\": 82,\n      \"reason\": \"This is a fixed behavioral description of the czero.nez instruction \u2014 a mandatory requirement, not an implementer choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"This instruction carries a syntactic dependency from both _rs1_ and _rs2_ to _rd_.\",\n      \"line_number\": 48,\n      \"reason\": \"Fixed requirement ('carries a syntactic dependency') \u2014 no optionality language, not an implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11682,
+  "output_tokens": 408,
+  "latency_ms": 6613,
+  "timestamp": "2026-06-24T08:46:50.958685+00:00",
+  "error": null,
+  "retry_count": 0
+}

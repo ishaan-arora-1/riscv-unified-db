@@ -1,0 +1,66 @@
+{
+  "chunk_id": "chunk_028",
+  "source_file": "priv-csrs.adoc",
+  "start_line": 1,
+  "end_line": 1273,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "an implementation may contain additional CSRs, accessible by some subset of the privilege levels using the CSR instructions described in Volume I.",
+      "line_number": 13,
+      "parameter_name": "ADDITIONAL_CSRS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may contain additional CSRs",
+      "confidence": "medium",
+      "reasoning": "The spec says an implementation 'may contain additional CSRs', indicating an optional implementation choice to add non-standard CSRs. This is a design-time decision. Confidence is medium because the specific set of additional CSRs is unconstrained, making it hard to certify, but the binary choice (whether to add any) is a real implementer decision."
+    },
+    {
+      "excerpt": "Implementations are permitted but not required to raise an illegal-instruction exception if an instruction attempts to write a non-supported value to a *WLRL* field.",
+      "line_number": 1196,
+      "parameter_name": "TRAP_ON_ILLEGAL_WLRL",
+      "existing_udb_name": "TRAP_ON_ILLEGAL_WLRL",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "permitted but not required to raise an illegal-instruction exception",
+      "confidence": "high",
+      "reasoning": "The spec explicitly says implementations are 'permitted but not required' to raise an illegal-instruction exception on writes of non-supported values to WLRL fields. This is a clear binary implementation choice at design time, not controlled by any CSR field."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The top two bits (csr[11:10]) indicate whether the register is read/write (`00`,`01`, or `10`) or read-only (`11`).",
+      "line_number": 30,
+      "reason": "This is a fixed architectural rule describing the CSR address encoding convention. There is no implementer choice here \u2014 it is a 'must' requirement that applies to all implementations."
+    },
+    {
+      "excerpt": "Attempts to access a CSR without appropriate privilege level raise illegal-instruction exceptions or, as described in <<sec:hcauses>>, virtual-instruction exceptions.",
+      "line_number": 47,
+      "reason": "This is a fixed behavioral requirement ('raise ... exceptions'), not an implementer choice. No optionality language is present."
+    },
+    {
+      "excerpt": "For forward compatibility, implementations that do not furnish these fields must make them read-only zero.",
+      "line_number": 1163,
+      "reason": "This uses 'must', making it a fixed requirement for all implementations. There is no implementer choice \u2014 unimplemented WPRI fields must be read-only zero."
+    },
+    {
+      "excerpt": "Implementations will not raise an exception on writes of unsupported values to a *WARL* field.",
+      "line_number": 1210,
+      "reason": "This is a fixed requirement ('will not raise an exception') binding on all implementations. It describes mandatory behavior, not an optional choice."
+    },
+    {
+      "excerpt": "If the width of a CSR is changed (for example, by changing SXLEN or UXLEN, as described in <<xlen-control>>), the values of the _writable_ fields and bits of the new-width CSR are, unless specified otherwise, determined from the previous-width CSR as though by this algorithm",
+      "line_number": 1233,
+      "reason": "This describes a fixed behavioral rule for CSR width modulation. The algorithm is mandatory ('are determined from'), not an implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"an implementation may contain additional CSRs, accessible by some subset of the privilege levels using the CSR instructions described in Volume I.\",\n      \"line_number\": 13,\n      \"parameter_name\": \"ADDITIONAL_CSRS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may contain additional CSRs\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The spec says an implementation 'may contain additional CSRs', indicating an optional implementation choice to add non-standard CSRs. This is a design-time decision. Confidence is medium because the specific set of additional CSRs is unconstrained, making it hard to certify, but the binary choice (whether to add any) is a real implementer decision.\"\n    },\n    {\n      \"excerpt\": \"Implementations are permitted but not required to raise an illegal-instruction exception if an instruction attempts to write a non-supported value to a *WLRL* field.\",\n      \"line_number\": 1196,\n      \"parameter_name\": \"TRAP_ON_ILLEGAL_WLRL\",\n      \"existing_udb_name\": \"TRAP_ON_ILLEGAL_WLRL\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"permitted but not required to raise an illegal-instruction exception\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly says implementations are 'permitted but not required' to raise an illegal-instruction exception on writes of non-supported values to WLRL fields. This is a clear binary implementation choice at design time, not controlled by any CSR field.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The top two bits (csr[11:10]) indicate whether the register is read/write (`00`,`01`, or `10`) or read-only (`11`).\",\n      \"line_number\": 30,\n      \"reason\": \"This is a fixed architectural rule describing the CSR address encoding convention. There is no implementer choice here \u2014 it is a 'must' requirement that applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"Attempts to access a CSR without appropriate privilege level raise illegal-instruction exceptions or, as described in <<sec:hcauses>>, virtual-instruction exceptions.\",\n      \"line_number\": 47,\n      \"reason\": \"This is a fixed behavioral requirement ('raise ... exceptions'), not an implementer choice. No optionality language is present.\"\n    },\n    {\n      \"excerpt\": \"For forward compatibility, implementations that do not furnish these fields must make them read-only zero.\",\n      \"line_number\": 1163,\n      \"reason\": \"This uses 'must', making it a fixed requirement for all implementations. There is no implementer choice \u2014 unimplemented WPRI fields must be read-only zero.\"\n    },\n    {\n      \"excerpt\": \"Implementations will not raise an exception on writes of unsupported values to a *WARL* field.\",\n      \"line_number\": 1210,\n      \"reason\": \"This is a fixed requirement ('will not raise an exception') binding on all implementations. It describes mandatory behavior, not an optional choice.\"\n    },\n    {\n      \"excerpt\": \"If the width of a CSR is changed (for example, by changing SXLEN or UXLEN, as described in <<xlen-control>>), the values of the _writable_ fields and bits of the new-width CSR are, unless specified otherwise, determined from the previous-width CSR as though by this algorithm\",\n      \"line_number\": 1233,\n      \"reason\": \"This describes a fixed behavioral rule for CSR width modulation. The algorithm is mandatory ('are determined from'), not an implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 22812,
+  "output_tokens": 936,
+  "latency_ms": 18169,
+  "timestamp": "2026-06-22T08:49:20.391564+00:00",
+  "error": null,
+  "retry_count": 0
+}

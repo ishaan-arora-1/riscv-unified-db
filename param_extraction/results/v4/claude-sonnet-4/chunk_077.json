@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_077",
+  "source_file": "zimop.adoc",
+  "start_line": 1,
+  "end_line": 113,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Unless redefined by another extension, these instructions simply write 0 to `x[rd]`.",
+      "line_number": 30,
+      "reason": "This is a fixed behavioral requirement for MOP.R.n instructions when not redefined. There is no implementer choice here \u2014 every implementation must write 0 to x[rd]. Not a parameter."
+    },
+    {
+      "excerpt": "Unless redefined by another extension, these instructions simply write 0 to `x[rd]`.",
+      "line_number": 41,
+      "reason": "Same as above for MOP.RR.n instructions. Fixed behavioral requirement, not an implementer choice."
+    },
+    {
+      "excerpt": "The MOPs defined in the Zimop extension do not carry a syntactic dependency from `x[rs1]` or `x[rs2]` to `x[rd]`, though an extension that redefines the MOP may impose such a requirement.",
+      "line_number": 63,
+      "reason": "This is a fixed behavioral statement about the base Zimop MOPs (no syntactic dependency). The 'may impose' clause refers to future extension authors, not hardware implementers of Zimop itself. Not an implementer choice."
+    },
+    {
+      "excerpt": "Unlike the MOPs defined in the Zimop extension, the C.MOP.__n__ instructions are defined to _not_ write any register.",
+      "line_number": 76,
+      "reason": "Fixed behavioral requirement for C.MOP.n instructions \u2014 they must not write any register. No implementer choice; this is a 'shall' requirement."
+    },
+    {
+      "excerpt": "The Zcmop extension depends upon the Zca extension.",
+      "line_number": 81,
+      "reason": "This is a fixed dependency requirement, not an implementer choice. It states a mandatory prerequisite, not an optional parameter."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Unless redefined by another extension, these instructions simply write 0 to `x[rd]`.\",\n      \"line_number\": 30,\n      \"reason\": \"This is a fixed behavioral requirement for MOP.R.n instructions when not redefined. There is no implementer choice here \u2014 every implementation must write 0 to x[rd]. Not a parameter.\"\n    },\n    {\n      \"excerpt\": \"Unless redefined by another extension, these instructions simply write 0 to `x[rd]`.\",\n      \"line_number\": 41,\n      \"reason\": \"Same as above for MOP.RR.n instructions. Fixed behavioral requirement, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The MOPs defined in the Zimop extension do not carry a syntactic dependency from `x[rs1]` or `x[rs2]` to `x[rd]`, though an extension that redefines the MOP may impose such a requirement.\",\n      \"line_number\": 63,\n      \"reason\": \"This is a fixed behavioral statement about the base Zimop MOPs (no syntactic dependency). The 'may impose' clause refers to future extension authors, not hardware implementers of Zimop itself. Not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Unlike the MOPs defined in the Zimop extension, the C.MOP.__n__ instructions are defined to _not_ write any register.\",\n      \"line_number\": 76,\n      \"reason\": \"Fixed behavioral requirement for C.MOP.n instructions \u2014 they must not write any register. No implementer choice; this is a 'shall' requirement.\"\n    },\n    {\n      \"excerpt\": \"The Zcmop extension depends upon the Zca extension.\",\n      \"line_number\": 81,\n      \"reason\": \"This is a fixed dependency requirement, not an implementer choice. It states a mandatory prerequisite, not an optional parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11303,
+  "output_tokens": 490,
+  "latency_ms": 9464,
+  "timestamp": "2026-06-24T08:48:06.435861+00:00",
+  "error": null,
+  "retry_count": 0
+}

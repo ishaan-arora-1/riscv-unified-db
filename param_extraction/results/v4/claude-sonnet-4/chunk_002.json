@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_002",
+  "source_file": "b-st-ext.adoc",
+  "start_line": 1,
+  "end_line": 3426,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The bitmanip extensions are defined for RV32 and RV64.",
+      "line_number": 11,
+      "reason": "Fixed statement of fact about which base ISAs the extensions are defined for. No optionality language \u2014 this is a normative requirement, not an implementer choice."
+    },
+    {
+      "excerpt": "For RV32, the encodings corresponding to shamt[5]=1 are reserved.",
+      "line_number": 558,
+      "reason": "Fixed reserved encoding fact. 'Reserved' means it is permanently fixed, not an implementer choice. Applies equally to bclri, bexti, binvi, bseti, and rori."
+    },
+    {
+      "excerpt": "The B standard extension comprises instructions provided by the Zba, Zbb, and Zbs extensions.",
+      "line_number": 96,
+      "reason": "Fixed normative statement defining the composition of the B extension. No optionality \u2014 every B implementation must include exactly these sub-extensions."
+    },
+    {
+      "excerpt": "This instruction is available only on RV32.",
+      "line_number": 3148,
+      "reason": "Fixed architectural fact about the unzip instruction's availability. No implementer choice \u2014 it is a fixed constraint."
+    },
+    {
+      "excerpt": "The single-bit instructions provide a mechanism to set, clear, invert, or extract a single bit in a register. The bit is specified by its index.",
+      "line_number": 330,
+      "reason": "Descriptive/introductory text about Zbs functionality. No optionality language; this is a fixed behavioral description, not an implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The bitmanip extensions are defined for RV32 and RV64.\",\n      \"line_number\": 11,\n      \"reason\": \"Fixed statement of fact about which base ISAs the extensions are defined for. No optionality language \u2014 this is a normative requirement, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"For RV32, the encodings corresponding to shamt[5]=1 are reserved.\",\n      \"line_number\": 558,\n      \"reason\": \"Fixed reserved encoding fact. 'Reserved' means it is permanently fixed, not an implementer choice. Applies equally to bclri, bexti, binvi, bseti, and rori.\"\n    },\n    {\n      \"excerpt\": \"The B standard extension comprises instructions provided by the Zba, Zbb, and Zbs extensions.\",\n      \"line_number\": 96,\n      \"reason\": \"Fixed normative statement defining the composition of the B extension. No optionality \u2014 every B implementation must include exactly these sub-extensions.\"\n    },\n    {\n      \"excerpt\": \"This instruction is available only on RV32.\",\n      \"line_number\": 3148,\n      \"reason\": \"Fixed architectural fact about the unzip instruction's availability. No implementer choice \u2014 it is a fixed constraint.\"\n    },\n    {\n      \"excerpt\": \"The single-bit instructions provide a mechanism to set, clear, invert, or extract a single bit in a register. The bit is specified by its index.\",\n      \"line_number\": 330,\n      \"reason\": \"Descriptive/introductory text about Zbs functionality. No optionality language; this is a fixed behavioral description, not an implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 39412,
+  "output_tokens": 436,
+  "latency_ms": 10827,
+  "timestamp": "2026-06-22T08:44:21.916529+00:00",
+  "error": null,
+  "retry_count": 0
+}

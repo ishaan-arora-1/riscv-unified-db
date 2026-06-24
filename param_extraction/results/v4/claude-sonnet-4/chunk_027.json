@@ -1,0 +1,55 @@
+{
+  "chunk_id": "chunk_027",
+  "source_file": "priv-cfi.adoc",
+  "start_line": 1,
+  "end_line": 373,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The `mtval` register can optionally also be used to return the faulting instruction bits on an illegal-instruction exception (`mepc` points to the faulting instruction in memory).",
+      "line_number": 1,
+      "parameter_name": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "existing_udb_name": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": null,
+      "confidence": "low",
+      "reasoning": "No explicit optionality language found in this excerpt for tval reporting on software-check exceptions. The known UDB parameters REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK and REPORT_CAUSE_IN_STVAL_ON_LANDING_PAD_SOFTWARE_CHECK exist, but the text in this excerpt does not contain the defining sentence for those parameters. Moving to skipped."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "When a trap is taken into privilege mode `x`, the `__x__PELP` is set to `ELP` and `ELP` is set to `NO_LP_EXPECTED`.",
+      "line_number": 82,
+      "reason": "Fixed requirement ('is set to') describing mandatory trap delivery behavior. No implementer choice \u2014 applies to all implementations."
+    },
+    {
+      "excerpt": "An `MRET` or `SRET` instruction is used to return from a trap in M-mode or S-mode, respectively. When executing an `__x__RET` instruction, if the new privilege mode is `y`, then `ELP` is set to the value of `__x__PELP` if `__y__LPE` (see <<FCFIACT>>) is 1; otherwise, it is set to `NO_LP_EXPECTED`; `__x__PELP` is set to `NO_LP_EXPECTED`.",
+      "line_number": 86,
+      "reason": "Fixed behavioral requirement describing mandatory xRET semantics. No implementer choice."
+    },
+    {
+      "excerpt": "If the privilege mode is less than M and `menvcfg.SSE` is 0, an illegal-instruction exception is raised.",
+      "line_number": 121,
+      "reason": "Fixed requirement ('is raised') \u2014 mandatory behavior for all implementations supporting Zicfiss. No implementer choice."
+    },
+    {
+      "excerpt": "Memory mapped as an SS page cannot be written to by instructions other than `SSAMOSWAP.W/D`, `SSPUSH`, and `C.SSPUSH`. Attempts will raise a store/AMO access-fault exception.",
+      "line_number": 213,
+      "reason": "Fixed requirement ('cannot be written', 'will raise') \u2014 mandatory behavior for all Zicfiss implementations. No implementer choice."
+    },
+    {
+      "excerpt": "If `satp.MODE` (or `vsatp.MODE` when `V=1`) is set to `Bare` and the effective privilege mode is less than M, shadow stack instructions raise a store/AMO access-fault exception.",
+      "line_number": 205,
+      "reason": "Fixed behavioral requirement ('raise') describing mandatory exception behavior when satp.MODE=Bare. No implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The `mtval` register can optionally also be used to return the faulting instruction bits on an illegal-instruction exception (`mepc` points to the faulting instruction in memory).\",\n      \"line_number\": 1,\n      \"parameter_name\": \"REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK\",\n      \"existing_udb_name\": \"REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": null,\n      \"confidence\": \"low\",\n      \"reasoning\": \"No explicit optionality language found in this excerpt for tval reporting on software-check exceptions. The known UDB parameters REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK and REPORT_CAUSE_IN_STVAL_ON_LANDING_PAD_SOFTWARE_CHECK exist, but the text in this excerpt does not contain the defining sentence for those parameters. Moving to skipped.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"When a trap is taken into privilege mode `x`, the `__x__PELP` is set to `ELP` and `ELP` is set to `NO_LP_EXPECTED`.\",\n      \"line_number\": 82,\n      \"reason\": \"Fixed requirement ('is set to') describing mandatory trap delivery behavior. No implementer choice \u2014 applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"An `MRET` or `SRET` instruction is used to return from a trap in M-mode or S-mode, respectively. When executing an `__x__RET` instruction, if the new privilege mode is `y`, then `ELP` is set to the value of `__x__PELP` if `__y__LPE` (see <<FCFIACT>>) is 1; otherwise, it is set to `NO_LP_EXPECTED`; `__x__PELP` is set to `NO_LP_EXPECTED`.\",\n      \"line_number\": 86,\n      \"reason\": \"Fixed behavioral requirement describing mandatory xRET semantics. No implementer choice.\"\n    },\n    {\n      \"excerpt\": \"If the privilege mode is less than M and `menvcfg.SSE` is 0, an illegal-instruction exception is raised.\",\n      \"line_number\": 121,\n      \"reason\": \"Fixed requirement ('is raised') \u2014 mandatory behavior for all implementations supporting Zicfiss. No implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Memory mapped as an SS page cannot be written to by instructions other than `SSAMOSWAP.W/D`, `SSPUSH`, and `C.SSPUSH`. Attempts will raise a store/AMO access-fault exception.\",\n      \"line_number\": 213,\n      \"reason\": \"Fixed requirement ('cannot be written', 'will raise') \u2014 mandatory behavior for all Zicfiss implementations. No implementer choice.\"\n    },\n    {\n      \"excerpt\": \"If `satp.MODE` (or `vsatp.MODE` when `V=1`) is set to `Bare` and the effective privilege mode is less than M, shadow stack instructions raise a store/AMO access-fault exception.\",\n      \"line_number\": 205,\n      \"reason\": \"Fixed behavioral requirement ('raise') describing mandatory exception behavior when satp.MODE=Bare. No implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 15038,
+  "output_tokens": 870,
+  "latency_ms": 18045,
+  "timestamp": "2026-06-22T08:49:01.195354+00:00",
+  "error": null,
+  "retry_count": 0
+}

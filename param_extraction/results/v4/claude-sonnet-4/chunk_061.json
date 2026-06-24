@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_061",
+  "source_file": "vector-crypto.adoc",
+  "start_line": 3311,
+  "end_line": 4966,
+  "content_start_line": 3341,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "`zvknha`: `SEW` is any value other than 32",
+      "line_number": 3358,
+      "reason": "This is a fixed reserved encoding constraint \u2014 a 'must not' rule, not an implementer choice. There is no optionality language."
+    },
+    {
+      "excerpt": "The `vd` register group overlaps with either `vs1` or `vs2`",
+      "line_number": 3360,
+      "reason": "This is a fixed reserved encoding constraint, not an implementer choice. No optionality language present."
+    },
+    {
+      "excerpt": "`SEW`=32: Four rounds of SHA-256 message schedule expansion are performed (`zvknha` and `zvknhb`)",
+      "line_number": 3381,
+      "reason": "This is a behavioral description of what the instruction does at a specific SEW value \u2014 not an implementer choice."
+    },
+    {
+      "excerpt": "Four rounds of SM4 Encryption/Decryption are performed.",
+      "line_number": 4630,
+      "reason": "This is a fixed behavioral description of the vsm4r instruction, not an implementer choice. No optionality language."
+    },
+    {
+      "excerpt": "The elements in `vs2` are zero-extended to 2*`SEW` bits, then shifted left by the shift amount specified by either the corresponding elements of `vs1` (vector-vector), integer register `rs1` (vector-scalar), or an immediate value (vector-immediate). Only the low log2(2*`SEW`) bits of the shift-amount value are used, all other bits are ignored.",
+      "line_number": 4726,
+      "reason": "This is a fixed behavioral description of the vwsll instruction operation \u2014 a normative requirement, not an implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"`zvknha`: `SEW` is any value other than 32\",\n      \"line_number\": 3358,\n      \"reason\": \"This is a fixed reserved encoding constraint \u2014 a 'must not' rule, not an implementer choice. There is no optionality language.\"\n    },\n    {\n      \"excerpt\": \"The `vd` register group overlaps with either `vs1` or `vs2`\",\n      \"line_number\": 3360,\n      \"reason\": \"This is a fixed reserved encoding constraint, not an implementer choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"`SEW`=32: Four rounds of SHA-256 message schedule expansion are performed (`zvknha` and `zvknhb`)\",\n      \"line_number\": 3381,\n      \"reason\": \"This is a behavioral description of what the instruction does at a specific SEW value \u2014 not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Four rounds of SM4 Encryption/Decryption are performed.\",\n      \"line_number\": 4630,\n      \"reason\": \"This is a fixed behavioral description of the vsm4r instruction, not an implementer choice. No optionality language.\"\n    },\n    {\n      \"excerpt\": \"The elements in `vs2` are zero-extended to 2*`SEW` bits, then shifted left by the shift amount specified by either the corresponding elements of `vs1` (vector-vector), integer register `rs1` (vector-scalar), or an immediate value (vector-immediate). Only the low log2(2*`SEW`) bits of the shift-amount value are used, all other bits are ignored.\",\n      \"line_number\": 4726,\n      \"reason\": \"This is a fixed behavioral description of the vwsll instruction operation \u2014 a normative requirement, not an implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 36541,
+  "output_tokens": 480,
+  "latency_ms": 17837,
+  "timestamp": "2026-06-22T08:59:12.270423+00:00",
+  "error": null,
+  "retry_count": 0
+}

@@ -1,0 +1,93 @@
+{
+  "chunk_id": "chunk_059",
+  "source_file": "v-st-ext.adoc",
+  "start_line": 3386,
+  "end_line": 5396,
+  "content_start_line": 3394,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "An implementation\nis allowed to add an additional additive identity to the final result.",
+      "line_number": 3817,
+      "parameter_name": "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR",
+      "existing_udb_name": "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "is allowed to add an additional additive identity",
+      "confidence": "high",
+      "reasoning": "The implementation may or may not add an additional additive identity to the final vfredusum result. This is an explicit implementer choice ('is allowed to'), not a fixed requirement."
+    },
+    {
+      "excerpt": "A node where one input is derived only from elements masked-off or beyond the active vector length may either treat that input as the additive identity of the appropriate EEW or simply copy the other input to its output.",
+      "line_number": 3808,
+      "parameter_name": "VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR",
+      "existing_udb_name": "VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may either treat that input as the additive identity ... or simply copy the other input",
+      "confidence": "high",
+      "reasoning": "The implementation chooses how to handle inactive/out-of-range inputs in the vfredusum reduction tree: treat as additive identity or copy the other input. This is a binary implementer choice signaled by 'may either ... or'."
+    },
+    {
+      "excerpt": "A different floating-point range and precision may be chosen for the result of each operator.",
+      "line_number": 3806,
+      "parameter_name": "VFREDUSUM_NODE_ROUNDING_BEHAVIOR",
+      "existing_udb_name": "VFREDUSUM_NODE_ROUNDING_BEHAVIOR",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may be chosen for the result of each operator",
+      "confidence": "high",
+      "reasoning": "The implementation may choose different floating-point range and precision for each operator node in the vfredusum reduction tree. This is an explicit implementer choice ('may be chosen')."
+    },
+    {
+      "excerpt": "The reduction tree structure must be deterministic for a given value\nin `vtype` and `vl`.",
+      "line_number": 3820,
+      "parameter_name": "VFREDUSUM_REDTREE",
+      "existing_udb_name": "VFREDUSUM_REDTREE",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "must be deterministic for a given value in `vtype` and `vl`",
+      "confidence": "low",
+      "reasoning": "This is actually a fixed requirement ('must be deterministic'), not an implementer choice. However, the tree structure itself is implementation-defined \u2014 the spec leaves the specific tree topology to the implementer as long as it is deterministic. Confidence is low because the sentence itself is a 'must' requirement, not an optionality signal. Moving to skipped."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The `vfredosum` instruction must sum the floating-point values in element order, starting with the scalar in `vs1[0]`",
+      "line_number": 3773,
+      "reason": "Fixed requirement ('must sum ... in element order'). No implementer choice \u2014 every implementation must follow this ordering. Not a parameter."
+    },
+    {
+      "excerpt": "The reduction tree structure must be deterministic for a given value in `vtype` and `vl`.",
+      "line_number": 3820,
+      "reason": "Fixed requirement ('must be deterministic'). While the tree topology is implementation-defined, this sentence only states a constraint on it, not an optionality signal for a certifiable parameter."
+    },
+    {
+      "excerpt": "Imprecise traps shall report the faulting element in `vstart` for traps caused by synchronous vector exceptions.",
+      "line_number": 5148,
+      "reason": "Fixed requirement ('shall report'). No implementer choice here \u2014 this is a mandatory rule for implementations that support imprecise traps."
+    },
+    {
+      "excerpt": "All Zve* extensions have precise traps.",
+      "line_number": 5248,
+      "reason": "Fixed requirement for Zve* extensions. No implementer choice \u2014 all Zve* implementations must have precise traps."
+    },
+    {
+      "excerpt": "The V vector extension has precise traps.",
+      "line_number": 5296,
+      "reason": "Fixed requirement for the V extension. No implementer choice \u2014 V implementations must have precise traps."
+    },
+    {
+      "excerpt": "Implementations may optimize certain OFFSET values for `vslideup` and `vslidedown`. In particular, power-of-2 offsets may operate substantially faster than other offsets.",
+      "line_number": 4697,
+      "reason": "This is inside a NOTE block and describes a microarchitectural optimization hint, not an architectural parameter. The 'may' here is permission/suggestion, not an ISA-level implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"An implementation\\nis allowed to add an additional additive identity to the final result.\",\n      \"line_number\": 3817,\n      \"parameter_name\": \"VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR\",\n      \"existing_udb_name\": \"VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"is allowed to add an additional additive identity\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may or may not add an additional additive identity to the final vfredusum result. This is an explicit implementer choice ('is allowed to'), not a fixed requirement.\"\n    },\n    {\n      \"excerpt\": \"A node where one input is derived only from elements masked-off or beyond the active vector length may either treat that input as the additive identity of the appropriate EEW or simply copy the other input to its output.\",\n      \"line_number\": 3808,\n      \"parameter_name\": \"VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR\",\n      \"existing_udb_name\": \"VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may either treat that input as the additive identity ... or simply copy the other input\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses how to handle inactive/out-of-range inputs in the vfredusum reduction tree: treat as additive identity or copy the other input. This is a binary implementer choice signaled by 'may either ... or'.\"\n    },\n    {\n      \"excerpt\": \"A different floating-point range and precision may be chosen for the result of each operator.\",\n      \"line_number\": 3806,\n      \"parameter_name\": \"VFREDUSUM_NODE_ROUNDING_BEHAVIOR\",\n      \"existing_udb_name\": \"VFREDUSUM_NODE_ROUNDING_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may be chosen for the result of each operator\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may choose different floating-point range and precision for each operator node in the vfredusum reduction tree. This is an explicit implementer choice ('may be chosen').\"\n    },\n    {\n      \"excerpt\": \"The reduction tree structure must be deterministic for a given value\\nin `vtype` and `vl`.\",\n      \"line_number\": 3820,\n      \"parameter_name\": \"VFREDUSUM_REDTREE\",\n      \"existing_udb_name\": \"VFREDUSUM_REDTREE\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"must be deterministic for a given value in `vtype` and `vl`\",\n      \"confidence\": \"low\",\n      \"reasoning\": \"This is actually a fixed requirement ('must be deterministic'), not an implementer choice. However, the tree structure itself is implementation-defined \u2014 the spec leaves the specific tree topology to the implementer as long as it is deterministic. Confidence is low because the sentence itself is a 'must' requirement, not an optionality signal. Moving to skipped.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The `vfredosum` instruction must sum the floating-point values in element order, starting with the scalar in `vs1[0]`\",\n      \"line_number\": 3773,\n      \"reason\": \"Fixed requirement ('must sum ... in element order'). No implementer choice \u2014 every implementation must follow this ordering. Not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The reduction tree structure must be deterministic for a given value in `vtype` and `vl`.\",\n      \"line_number\": 3820,\n      \"reason\": \"Fixed requirement ('must be deterministic'). While the tree topology is implementation-defined, this sentence only states a constraint on it, not an optionality signal for a certifiable parameter.\"\n    },\n    {\n      \"excerpt\": \"Imprecise traps shall report the faulting element in `vstart` for traps caused by synchronous vector exceptions.\",\n      \"line_number\": 5148,\n      \"reason\": \"Fixed requirement ('shall report'). No implementer choice here \u2014 this is a mandatory rule for implementations that support imprecise traps.\"\n    },\n    {\n      \"excerpt\": \"All Zve* extensions have precise traps.\",\n      \"line_number\": 5248,\n      \"reason\": \"Fixed requirement for Zve* extensions. No implementer choice \u2014 all Zve* implementations must have precise traps.\"\n    },\n    {\n      \"excerpt\": \"The V vector extension has precise traps.\",\n      \"line_number\": 5296,\n      \"reason\": \"Fixed requirement for the V extension. No implementer choice \u2014 V implementations must have precise traps.\"\n    },\n    {\n      \"excerpt\": \"Implementations may optimize certain OFFSET values for `vslideup` and `vslidedown`. In particular, power-of-2 offsets may operate substantially faster than other offsets.\",\n      \"line_number\": 4697,\n      \"reason\": \"This is inside a NOTE block and describes a microarchitectural optimization hint, not an architectural parameter. The 'may' here is permission/suggestion, not an ISA-level implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 38478,
+  "output_tokens": 1366,
+  "latency_ms": 25714,
+  "timestamp": "2026-06-22T08:58:20.157522+00:00",
+  "error": null,
+  "retry_count": 0
+}

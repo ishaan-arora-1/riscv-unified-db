@@ -1,0 +1,99 @@
+{
+  "chunk_id": "chunk_038",
+  "source_file": "rnmi.adoc",
+  "start_line": 1,
+  "end_line": 166,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The RNMI interrupt trap handler address is implementation-defined.",
+      "line_number": 24,
+      "parameter_name": "RNMI_TRAP_HANDLER_ADDRESS",
+      "existing_udb_name": null,
+      "class": "NON_ISA",
+      "value_type": "value",
+      "modal_signal": "implementation-defined",
+      "confidence": "high",
+      "reasoning": "The RNMI trap handler address is explicitly 'implementation-defined', but as noted in the negative examples, trap handler addresses are platform/physical-design choices outside the ISA scope (NON_ISA). This matches Non-parameter 6 exactly."
+    },
+    {
+      "excerpt": "RNMI also has an associated exception trap handler address, which is implementation defined.",
+      "line_number": 26,
+      "parameter_name": "RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS",
+      "existing_udb_name": null,
+      "class": "NON_ISA",
+      "value_type": "value",
+      "modal_signal": "implementation defined",
+      "confidence": "high",
+      "reasoning": "Like the RNMI interrupt trap handler address, the exception trap handler address is 'implementation defined' but is a platform/physical-design choice outside the ISA scope (NON_ISA)."
+    },
+    {
+      "excerpt": "Prior to writing `mnepc`, implementations may convert an invalid address into some other invalid address that `mnepc` is capable of holding.",
+      "line_number": 68,
+      "parameter_name": "MNEPC_INVALID_ADDR_CONVERSION",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "binary",
+      "modal_signal": "implementations may convert an invalid address into some other invalid address",
+      "confidence": "high",
+      "reasoning": "The mnepc register is WARL, and the spec explicitly says implementations 'may convert' invalid addresses. This is an implementation choice about how invalid addresses are handled in the WARL field \u2014 whether the implementation performs such conversion or not."
+    },
+    {
+      "excerpt": "If the reason is an interrupt and RNMI causes are not supported, bit MXLEN-1 is set to 1, and zero is written to the least-significant bits.",
+      "line_number": 80,
+      "parameter_name": "RNMI_CAUSE_CODES_SUPPORTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "RNMI causes are not supported",
+      "confidence": "medium",
+      "reasoning": "The spec describes a case where 'RNMI causes are not supported', implying this is an implementation choice \u2014 whether the implementation supports encoding specific RNMI cause codes in mncause or only writes zero. This is a design-time choice not controlled by a CSR field."
+    },
+    {
+      "excerpt": "If the Zicfilp extension is implemented, `mnstatus` also holds the MNPELP field, which on entry to the RNMI trap handler holds the previous `ELP` state.",
+      "line_number": 97,
+      "parameter_name": "MNSTATUS_MNPELP_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "If the Zicfilp extension is implemented",
+      "confidence": "medium",
+      "reasoning": "The MNPELP field in mnstatus is conditionally present depending on whether Zicfilp is implemented. Whether Zicfilp is implemented is itself an implementation choice, making the presence of MNPELP implementation-dependent. However, this is really a consequence of the Zicfilp extension parameter rather than a standalone parameter \u2014 confidence is medium."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "These interrupts have higher priority than any other interrupt or exception on the hart and cannot be disabled by software.",
+      "line_number": 18,
+      "reason": "Fixed requirement ('cannot be disabled') \u2014 this is a mandatory behavioral property of RNMI, not an implementation choice."
+    },
+    {
+      "excerpt": "The low bit of `mnepc` (`mnepc[0]`) is always zero.",
+      "line_number": 57,
+      "reason": "Fixed fact ('always zero') \u2014 this is a hardwired property of mnepc[0], not an implementation choice."
+    },
+    {
+      "excerpt": "Upon reset, NMIE contains the value 0.",
+      "line_number": 107,
+      "reason": "Fixed requirement \u2014 the reset value of NMIE is mandated to be 0 for all implementations. No implementer choice exists."
+    },
+    {
+      "excerpt": "Software can set NMIE to 1, but attempts to clear NMIE have no effect.",
+      "line_number": 113,
+      "reason": "Fixed behavioral rule about NMIE \u2014 'attempts to clear NMIE have no effect' is a mandatory property, not an implementation choice. Also describes software behavior."
+    },
+    {
+      "excerpt": "The other bits in `mnstatus` are _reserved_; software should write zeros and hardware implementations should return zeros.",
+      "line_number": 130,
+      "reason": "Reserved bits are a fixed fact \u2014 'reserved' and 'should return zeros' describe a fixed property. The 'should' here is a documentation convention for reserved fields, not an implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The RNMI interrupt trap handler address is implementation-defined.\",\n      \"line_number\": 24,\n      \"parameter_name\": \"RNMI_TRAP_HANDLER_ADDRESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation-defined\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The RNMI trap handler address is explicitly 'implementation-defined', but as noted in the negative examples, trap handler addresses are platform/physical-design choices outside the ISA scope (NON_ISA). This matches Non-parameter 6 exactly.\"\n    },\n    {\n      \"excerpt\": \"RNMI also has an associated exception trap handler address, which is implementation defined.\",\n      \"line_number\": 26,\n      \"parameter_name\": \"RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation defined\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Like the RNMI interrupt trap handler address, the exception trap handler address is 'implementation defined' but is a platform/physical-design choice outside the ISA scope (NON_ISA).\"\n    },\n    {\n      \"excerpt\": \"Prior to writing `mnepc`, implementations may convert an invalid address into some other invalid address that `mnepc` is capable of holding.\",\n      \"line_number\": 68,\n      \"parameter_name\": \"MNEPC_INVALID_ADDR_CONVERSION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"implementations may convert an invalid address into some other invalid address\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The mnepc register is WARL, and the spec explicitly says implementations 'may convert' invalid addresses. This is an implementation choice about how invalid addresses are handled in the WARL field \u2014 whether the implementation performs such conversion or not.\"\n    },\n    {\n      \"excerpt\": \"If the reason is an interrupt and RNMI causes are not supported, bit MXLEN-1 is set to 1, and zero is written to the least-significant bits.\",\n      \"line_number\": 80,\n      \"parameter_name\": \"RNMI_CAUSE_CODES_SUPPORTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"RNMI causes are not supported\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The spec describes a case where 'RNMI causes are not supported', implying this is an implementation choice \u2014 whether the implementation supports encoding specific RNMI cause codes in mncause or only writes zero. This is a design-time choice not controlled by a CSR field.\"\n    },\n    {\n      \"excerpt\": \"If the Zicfilp extension is implemented, `mnstatus` also holds the MNPELP field, which on entry to the RNMI trap handler holds the previous `ELP` state.\",\n      \"line_number\": 97,\n      \"parameter_name\": \"MNSTATUS_MNPELP_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"If the Zicfilp extension is implemented\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The MNPELP field in mnstatus is conditionally present depending on whether Zicfilp is implemented. Whether Zicfilp is implemented is itself an implementation choice, making the presence of MNPELP implementation-dependent. However, this is really a consequence of the Zicfilp extension parameter rather than a standalone parameter \u2014 confidence is medium.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"These interrupts have higher priority than any other interrupt or exception on the hart and cannot be disabled by software.\",\n      \"line_number\": 18,\n      \"reason\": \"Fixed requirement ('cannot be disabled') \u2014 this is a mandatory behavioral property of RNMI, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The low bit of `mnepc` (`mnepc[0]`) is always zero.\",\n      \"line_number\": 57,\n      \"reason\": \"Fixed fact ('always zero') \u2014 this is a hardwired property of mnepc[0], not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"Upon reset, NMIE contains the value 0.\",\n      \"line_number\": 107,\n      \"reason\": \"Fixed requirement \u2014 the reset value of NMIE is mandated to be 0 for all implementations. No implementer choice exists.\"\n    },\n    {\n      \"excerpt\": \"Software can set NMIE to 1, but attempts to clear NMIE have no effect.\",\n      \"line_number\": 113,\n      \"reason\": \"Fixed behavioral rule about NMIE \u2014 'attempts to clear NMIE have no effect' is a mandatory property, not an implementation choice. Also describes software behavior.\"\n    },\n    {\n      \"excerpt\": \"The other bits in `mnstatus` are _reserved_; software should write zeros and hardware implementations should return zeros.\",\n      \"line_number\": 130,\n      \"reason\": \"Reserved bits are a fixed fact \u2014 'reserved' and 'should return zeros' describe a fixed property. The 'should' here is a documentation convention for reserved fields, not an implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12590,
+  "output_tokens": 1416,
+  "latency_ms": 23361,
+  "timestamp": "2026-06-22T08:50:10.646737+00:00",
+  "error": null,
+  "retry_count": 0
+}

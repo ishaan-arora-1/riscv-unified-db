@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_050",
+  "source_file": "smepmp.adoc",
+  "start_line": 1,
+  "end_line": 76,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Terms: * *PMP Entry*: A pair of ``pmpcfg[i]`` / ``pmpaddr[i]`` registers. * *PMP Rule*: The contents of a pmpcfg register and its associated pmpaddr register(s)...",
+      "line_number": 16,
+      "reason": "This is inside a [NOTE] block and is purely definitional/informative. No parameters may be extracted from NOTE blocks."
+    },
+    {
+      "excerpt": "Without the Smepmp extension, it is not possible for a PMP rule to be *enforced* only on non-Machine modes and *denied* on Machine mode, in order to allow access to a memory region solely by less-privileged modes.",
+      "line_number": 38,
+      "reason": "This is a statement of fact about the base spec's behavior without Smepmp \u2014 no implementer choice is presented. 'Is not possible' is a fixed constraint, not an optionality signal."
+    },
+    {
+      "excerpt": "So for any physical memory region which is not protected with a Locked rule, Machine mode has unlimited access, including the ability to execute it.",
+      "line_number": 38,
+      "reason": "This is a statement of fact describing existing behavior, not an implementation choice. No optionality language is present."
+    },
+    {
+      "excerpt": "this extension introduces the `RLB`, `MMWP`, and `MML` fields in the `mseccfg` CSR and their associated rules.",
+      "line_number": 51,
+      "reason": "This is a fixed normative statement that the extension introduces specific fields \u2014 it is a requirement, not an implementation choice. No optionality language is present."
+    },
+    {
+      "excerpt": "It is expected that BootROM will set ``mseccfg.MMWP`` and/or ``mseccfg.MML`` during early boot, before jumping to the firmware, so that the firmware will be able to determine the presence of Smepmp by reading ``mseccfg``.",
+      "line_number": 73,
+      "reason": "This is a software/firmware behavioral expectation (aimed at BootROM software), not an architectural parameter. It is also a clarification about software discovery, not an implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Terms: * *PMP Entry*: A pair of ``pmpcfg[i]`` / ``pmpaddr[i]`` registers. * *PMP Rule*: The contents of a pmpcfg register and its associated pmpaddr register(s)...\",\n      \"line_number\": 16,\n      \"reason\": \"This is inside a [NOTE] block and is purely definitional/informative. No parameters may be extracted from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"Without the Smepmp extension, it is not possible for a PMP rule to be *enforced* only on non-Machine modes and *denied* on Machine mode, in order to allow access to a memory region solely by less-privileged modes.\",\n      \"line_number\": 38,\n      \"reason\": \"This is a statement of fact about the base spec's behavior without Smepmp \u2014 no implementer choice is presented. 'Is not possible' is a fixed constraint, not an optionality signal.\"\n    },\n    {\n      \"excerpt\": \"So for any physical memory region which is not protected with a Locked rule, Machine mode has unlimited access, including the ability to execute it.\",\n      \"line_number\": 38,\n      \"reason\": \"This is a statement of fact describing existing behavior, not an implementation choice. No optionality language is present.\"\n    },\n    {\n      \"excerpt\": \"this extension introduces the `RLB`, `MMWP`, and `MML` fields in the `mseccfg` CSR and their associated rules.\",\n      \"line_number\": 51,\n      \"reason\": \"This is a fixed normative statement that the extension introduces specific fields \u2014 it is a requirement, not an implementation choice. No optionality language is present.\"\n    },\n    {\n      \"excerpt\": \"It is expected that BootROM will set ``mseccfg.MMWP`` and/or ``mseccfg.MML`` during early boot, before jumping to the firmware, so that the firmware will be able to determine the presence of Smepmp by reading ``mseccfg``.\",\n      \"line_number\": 73,\n      \"reason\": \"This is a software/firmware behavioral expectation (aimed at BootROM software), not an architectural parameter. It is also a clarification about software discovery, not an implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11602,
+  "output_tokens": 581,
+  "latency_ms": 9768,
+  "timestamp": "2026-06-22T08:54:02.519067+00:00",
+  "error": null,
+  "retry_count": 0
+}

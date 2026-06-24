@@ -1,0 +1,55 @@
+{
+  "chunk_id": "chunk_072",
+  "source_file": "zicsr.adoc",
+  "start_line": 1,
+  "end_line": 254,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The hardware platform may define that accesses to certain CSRs are strongly ordered, as defined by the Memory-Ordering PMAs section in Volume II of this manual.",
+      "line_number": 243,
+      "parameter_name": "STRONGLY_ORDERED_CSRS",
+      "existing_udb_name": null,
+      "class": "NON_ISA",
+      "value_type": "set",
+      "modal_signal": "may define that accesses to certain CSRs are strongly ordered",
+      "confidence": "medium",
+      "reasoning": "The hardware platform may define certain CSRs as strongly ordered \u2014 this is a platform-level memory ordering choice. While it contains optionality language ('may define'), it is a platform/PMA-level decision rather than a pure ISA architectural parameter, making it NON_ISA. However, it is borderline since it affects ISA-visible behavior. Classified NON_ISA because it references the Memory-Ordering PMAs section (a platform-level concept) and is a platform-level choice."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "If _rd_=`x0`, then the instruction shall not read the CSR and shall not cause any of the side effects that might occur on a CSR read.",
+      "line_number": 31,
+      "reason": "Fixed requirement ('shall not') binding on all implementations \u2014 no implementer choice here."
+    },
+    {
+      "excerpt": "For both CSRRS and CSRRC, if _rs1_=`x0`, then the instruction will not write to the CSR at all, and so shall not cause any of the side effects that might otherwise occur on a CSR write, nor raise illegal-instruction exceptions on accesses to read-only CSRs.",
+      "line_number": 62,
+      "reason": "Fixed behavioral requirement ('shall not') describing mandatory ISA behavior, not an implementation choice."
+    },
+    {
+      "excerpt": "Some CSRs, such as the instructions-retired counter, `instret`, may be modified as side effects of instruction execution.",
+      "line_number": 163,
+      "reason": "'May be modified' here is a statement of fact about possible side effects, not an implementer optionality signal. This describes ISA-defined behavior, not a parameter."
+    },
+    {
+      "excerpt": "For the RVWMO memory consistency model (<<memorymodel>>), CSR accesses are weakly ordered by default, so other harts or devices may observe CSR accesses in an order different from program order.",
+      "line_number": 218,
+      "reason": "This is a fixed behavioral rule of the RVWMO memory model, not an implementation choice. 'May observe' is a permission statement about observers, not an implementer optionality signal."
+    },
+    {
+      "excerpt": "Unless specified otherwise, the full consequences of any such side effects are observable by the very next instruction, and no consequences may be observed out-of-order by preceding instructions.",
+      "line_number": 213,
+      "reason": "Fixed requirement about synchronous side-effect ordering ('no consequences may be observed out-of-order'). This is a mandatory rule, not an implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The hardware platform may define that accesses to certain CSRs are strongly ordered, as defined by the Memory-Ordering PMAs section in Volume II of this manual.\",\n      \"line_number\": 243,\n      \"parameter_name\": \"STRONGLY_ORDERED_CSRS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"may define that accesses to certain CSRs are strongly ordered\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The hardware platform may define certain CSRs as strongly ordered \u2014 this is a platform-level memory ordering choice. While it contains optionality language ('may define'), it is a platform/PMA-level decision rather than a pure ISA architectural parameter, making it NON_ISA. However, it is borderline since it affects ISA-visible behavior. Classified NON_ISA because it references the Memory-Ordering PMAs section (a platform-level concept) and is a platform-level choice.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"If _rd_=`x0`, then the instruction shall not read the CSR and shall not cause any of the side effects that might occur on a CSR read.\",\n      \"line_number\": 31,\n      \"reason\": \"Fixed requirement ('shall not') binding on all implementations \u2014 no implementer choice here.\"\n    },\n    {\n      \"excerpt\": \"For both CSRRS and CSRRC, if _rs1_=`x0`, then the instruction will not write to the CSR at all, and so shall not cause any of the side effects that might otherwise occur on a CSR write, nor raise illegal-instruction exceptions on accesses to read-only CSRs.\",\n      \"line_number\": 62,\n      \"reason\": \"Fixed behavioral requirement ('shall not') describing mandatory ISA behavior, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"Some CSRs, such as the instructions-retired counter, `instret`, may be modified as side effects of instruction execution.\",\n      \"line_number\": 163,\n      \"reason\": \"'May be modified' here is a statement of fact about possible side effects, not an implementer optionality signal. This describes ISA-defined behavior, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"For the RVWMO memory consistency model (<<memorymodel>>), CSR accesses are weakly ordered by default, so other harts or devices may observe CSR accesses in an order different from program order.\",\n      \"line_number\": 218,\n      \"reason\": \"This is a fixed behavioral rule of the RVWMO memory model, not an implementation choice. 'May observe' is a permission statement about observers, not an implementer optionality signal.\"\n    },\n    {\n      \"excerpt\": \"Unless specified otherwise, the full consequences of any such side effects are observable by the very next instruction, and no consequences may be observed out-of-order by preceding instructions.\",\n      \"line_number\": 213,\n      \"reason\": \"Fixed requirement about synchronous side-effect ordering ('no consequences may be observed out-of-order'). This is a mandatory rule, not an implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13258,
+  "output_tokens": 793,
+  "latency_ms": 14971,
+  "timestamp": "2026-06-24T08:47:06.955914+00:00",
+  "error": null,
+  "retry_count": 0
+}

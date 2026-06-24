@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_064",
+  "source_file": "zacas.adoc",
+  "start_line": 1,
+  "end_line": 225,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "`AMOCAS.W/D/Q` requires that the address held in `rs1` be naturally aligned to the size of the operand (i.e., 16-byte aligned for _quadwords_, eight-byte aligned for _doublewords_, and four-byte aligned for _words_).",
+      "line_number": 155,
+      "reason": "Fixed requirement ('requires') \u2014 no implementer choice. Every implementation must enforce natural alignment. Not a parameter."
+    },
+    {
+      "excerpt": "The memory operation performed by an `AMOCAS.W/D/Q`, when successful, has acquire semantics if `aq` bit is 1 and has release semantics if `rl` bit is 1.",
+      "line_number": 160,
+      "reason": "Behavioral description of what happens at runtime based on instruction encoding bits. No implementer choice; this is a fixed ISA rule."
+    },
+    {
+      "excerpt": "The memory operation performed by an `AMOCAS.W/D/Q`, when not successful, has acquire semantics if `aq` bit is 1 but does not have release semantics, regardless of `rl`.",
+      "line_number": 162,
+      "reason": "Fixed behavioral rule for unsuccessful AMOCAS \u2014 no optionality language, no implementer choice."
+    },
+    {
+      "excerpt": "An `AMOCAS.W/D/Q` instruction always requires write permissions.",
+      "line_number": 172,
+      "reason": "'Always requires' is a fixed requirement binding on all implementations. No implementer choice."
+    },
+    {
+      "excerpt": "The instruction requires the first register in the pair to be even numbered; encodings with odd numbered registers specified in `rs2` and `rd` are reserved.",
+      "line_number": 43,
+      "reason": "'Reserved' encoding and 'requires' are fixed facts/requirements. No implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"`AMOCAS.W/D/Q` requires that the address held in `rs1` be naturally aligned to the size of the operand (i.e., 16-byte aligned for _quadwords_, eight-byte aligned for _doublewords_, and four-byte aligned for _words_).\",\n      \"line_number\": 155,\n      \"reason\": \"Fixed requirement ('requires') \u2014 no implementer choice. Every implementation must enforce natural alignment. Not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The memory operation performed by an `AMOCAS.W/D/Q`, when successful, has acquire semantics if `aq` bit is 1 and has release semantics if `rl` bit is 1.\",\n      \"line_number\": 160,\n      \"reason\": \"Behavioral description of what happens at runtime based on instruction encoding bits. No implementer choice; this is a fixed ISA rule.\"\n    },\n    {\n      \"excerpt\": \"The memory operation performed by an `AMOCAS.W/D/Q`, when not successful, has acquire semantics if `aq` bit is 1 but does not have release semantics, regardless of `rl`.\",\n      \"line_number\": 162,\n      \"reason\": \"Fixed behavioral rule for unsuccessful AMOCAS \u2014 no optionality language, no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"An `AMOCAS.W/D/Q` instruction always requires write permissions.\",\n      \"line_number\": 172,\n      \"reason\": \"'Always requires' is a fixed requirement binding on all implementations. No implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The instruction requires the first register in the pair to be even numbered; encodings with odd numbered registers specified in `rs2` and `rd` are reserved.\",\n      \"line_number\": 43,\n      \"reason\": \"'Reserved' encoding and 'requires' are fixed facts/requirements. No implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13492,
+  "output_tokens": 498,
+  "latency_ms": 9442,
+  "timestamp": "2026-06-22T08:59:32.582995+00:00",
+  "error": null,
+  "retry_count": 0
+}

@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_003",
+  "source_file": "b-st-ext.adoc",
+  "start_line": 3397,
+  "end_line": 3485,
+  "content_start_line": 3427,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The *zext.h* mnemonic corresponds to different instruction encodings in RV32 and RV64.",
+      "line_number": 3408,
+      "reason": "This is inside a [NOTE] block and is therefore non-normative. It states a fact about encoding differences, not an implementer choice."
+    },
+    {
+      "excerpt": "This instruction is available only on RV32.",
+      "line_number": 3452,
+      "reason": "This is a fixed architectural constraint ('only on RV32'), not an implementer choice. No optionality language present."
+    },
+    {
+      "excerpt": "This instruction is useful for implementing the SHA3 cryptographic hash function on a 32-bit architecture, as it implements the bit-interleaving operation used to speed up the 64-bit rotations directly.",
+      "line_number": 3476,
+      "reason": "This is inside a [NOTE] (Software Hint) block and is non-normative. It describes a software use case, not an architectural parameter."
+    },
+    {
+      "excerpt": "This instruction zero-extends the least-significant halfword of the source to XLEN by inserting 0's into all of the bits more significant than 15.",
+      "line_number": 3398,
+      "reason": "This is a fixed behavioral description of the zext.h instruction. No optionality language; it describes what the instruction must do, not an implementer choice."
+    },
+    {
+      "excerpt": "Interleave upper and lower halves of the source register into odd and even bits of the destination register, respectively.",
+      "line_number": 3422,
+      "reason": "This is a fixed behavioral description of the zip instruction. No optionality language; it describes what the instruction must do, not an implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The *zext.h* mnemonic corresponds to different instruction encodings in RV32 and RV64.\",\n      \"line_number\": 3408,\n      \"reason\": \"This is inside a [NOTE] block and is therefore non-normative. It states a fact about encoding differences, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"This instruction is available only on RV32.\",\n      \"line_number\": 3452,\n      \"reason\": \"This is a fixed architectural constraint ('only on RV32'), not an implementer choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"This instruction is useful for implementing the SHA3 cryptographic hash function on a 32-bit architecture, as it implements the bit-interleaving operation used to speed up the 64-bit rotations directly.\",\n      \"line_number\": 3476,\n      \"reason\": \"This is inside a [NOTE] (Software Hint) block and is non-normative. It describes a software use case, not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"This instruction zero-extends the least-significant halfword of the source to XLEN by inserting 0's into all of the bits more significant than 15.\",\n      \"line_number\": 3398,\n      \"reason\": \"This is a fixed behavioral description of the zext.h instruction. No optionality language; it describes what the instruction must do, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Interleave upper and lower halves of the source register into odd and even bits of the destination register, respectively.\",\n      \"line_number\": 3422,\n      \"reason\": \"This is a fixed behavioral description of the zip instruction. No optionality language; it describes what the instruction must do, not an implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 10423,
+  "output_tokens": 470,
+  "latency_ms": 8656,
+  "timestamp": "2026-06-22T08:44:31.600960+00:00",
+  "error": null,
+  "retry_count": 0
+}

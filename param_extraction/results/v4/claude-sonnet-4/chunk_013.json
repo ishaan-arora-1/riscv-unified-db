@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_013",
+  "source_file": "f-st-ext.adoc",
+  "start_line": 1,
+  "end_line": 524,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The F extension adds 32 floating-point registers, `f0-f31`, each 32 bits wide, and a floating-point control and status register `fcsr`",
+      "line_number": 12,
+      "reason": "Fixed architectural fact \u2014 the F extension always adds exactly 32 registers of 32 bits. No optionality language; this is a fixed requirement, not an implementer choice."
+    },
+    {
+      "excerpt": "Bits 31--8 of the `fcsr` are reserved for other standard extensions. If these extensions are not present, implementations shall ignore writes to these bits and supply a zero value when read.",
+      "line_number": 100,
+      "reason": "'shall ignore' and 'supply a zero value' are fixed requirements binding on all implementations. 'Reserved' bits are a fixed fact, not an implementer choice."
+    },
+    {
+      "excerpt": "The behavior of floating-point instructions that depend on rounding mode when executed with a reserved rounding mode is _reserved_, including both static reserved rounding modes (101-110) and dynamic reserved rounding modes (101-111).",
+      "line_number": 107,
+      "reason": "This describes behavior as 'reserved' (unspecified behavior), which is a hard exclusion \u2014 unspecified behavior is not a certifiable parameter."
+    },
+    {
+      "excerpt": "As described in <<ldst>>, the execution environment defines whether misaligned floating-point loads and stores are handled invisibly or raise a contained or fatal trap.",
+      "line_number": 247,
+      "reason": "This is a NON_ISA / EEI-defined parameter (execution environment defines misalignment handling), not an ISA-level architectural parameter. It also references a parameter defined elsewhere."
+    },
+    {
+      "excerpt": "Operations on subnormal numbers are handled in accordance with the IEEE 754-2008 standard.",
+      "line_number": 213,
+      "reason": "Fixed requirement \u2014 all implementations must comply with IEEE 754-2008 for subnormal arithmetic. No optionality language; not an implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The F extension adds 32 floating-point registers, `f0-f31`, each 32 bits wide, and a floating-point control and status register `fcsr`\",\n      \"line_number\": 12,\n      \"reason\": \"Fixed architectural fact \u2014 the F extension always adds exactly 32 registers of 32 bits. No optionality language; this is a fixed requirement, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Bits 31--8 of the `fcsr` are reserved for other standard extensions. If these extensions are not present, implementations shall ignore writes to these bits and supply a zero value when read.\",\n      \"line_number\": 100,\n      \"reason\": \"'shall ignore' and 'supply a zero value' are fixed requirements binding on all implementations. 'Reserved' bits are a fixed fact, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The behavior of floating-point instructions that depend on rounding mode when executed with a reserved rounding mode is _reserved_, including both static reserved rounding modes (101-110) and dynamic reserved rounding modes (101-111).\",\n      \"line_number\": 107,\n      \"reason\": \"This describes behavior as 'reserved' (unspecified behavior), which is a hard exclusion \u2014 unspecified behavior is not a certifiable parameter.\"\n    },\n    {\n      \"excerpt\": \"As described in <<ldst>>, the execution environment defines whether misaligned floating-point loads and stores are handled invisibly or raise a contained or fatal trap.\",\n      \"line_number\": 247,\n      \"reason\": \"This is a NON_ISA / EEI-defined parameter (execution environment defines misalignment handling), not an ISA-level architectural parameter. It also references a parameter defined elsewhere.\"\n    },\n    {\n      \"excerpt\": \"Operations on subnormal numbers are handled in accordance with the IEEE 754-2008 standard.\",\n      \"line_number\": 213,\n      \"reason\": \"Fixed requirement \u2014 all implementations must comply with IEEE 754-2008 for subnormal arithmetic. No optionality language; not an implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 17286,
+  "output_tokens": 536,
+  "latency_ms": 13512,
+  "timestamp": "2026-06-22T08:46:24.978804+00:00",
+  "error": null,
+  "retry_count": 0
+}

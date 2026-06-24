@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_060",
+  "source_file": "vector-crypto.adoc",
+  "start_line": 1,
+  "end_line": 3340,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "For all of the vector crypto instructions in this specification, `EEW`=`SEW`.",
+      "line_number": 175,
+      "reason": "Fixed requirement (statement of fact) \u2014 no optionality language. EEW equals SEW for all vector crypto instructions; there is no implementer choice here."
+    },
+    {
+      "excerpt": "Since `vl` and `vstart` refer to elements, Vector Crypto instructions that use elements groups (See <<crypto-vector-element-groups>>) require that these values are an integer multiple of the Element Group Size (`EGS`).",
+      "line_number": 213,
+      "reason": "Fixed requirement ('require') \u2014 no optionality language. This is a mandatory constraint on vl and vstart, not an implementer choice."
+    },
+    {
+      "excerpt": "For element-group instructions, `LMUL`*`VLEN` must always be at least as large as `EGW`, otherwise an _illegal-instruction exception_ is raised, even if `vl`=0.",
+      "line_number": 224,
+      "reason": "Fixed requirement ('must always') \u2014 no optionality language. This is a mandatory rule, not an implementer choice."
+    },
+    {
+      "excerpt": "All _cryptography-specific_ instructions defined in this Vector Crypto specification ... shall be executed with data-independent execution latency as defined in the RISC-V Scalar Cryptography Extensions specification.",
+      "line_number": 388,
+      "reason": "Fixed requirement ('shall') \u2014 no optionality language. Data-independent execution latency is mandatory for all cryptography-specific instructions, not an implementer choice."
+    },
+    {
+      "excerpt": "These instructions are only defined for `SEW`=64.",
+      "line_number": 430,
+      "reason": "Fixed requirement / statement of fact \u2014 no optionality language. The SEW=64 restriction for Zvbc instructions is a fixed rule, not an implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"For all of the vector crypto instructions in this specification, `EEW`=`SEW`.\",\n      \"line_number\": 175,\n      \"reason\": \"Fixed requirement (statement of fact) \u2014 no optionality language. EEW equals SEW for all vector crypto instructions; there is no implementer choice here.\"\n    },\n    {\n      \"excerpt\": \"Since `vl` and `vstart` refer to elements, Vector Crypto instructions that use elements groups (See <<crypto-vector-element-groups>>) require that these values are an integer multiple of the Element Group Size (`EGS`).\",\n      \"line_number\": 213,\n      \"reason\": \"Fixed requirement ('require') \u2014 no optionality language. This is a mandatory constraint on vl and vstart, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"For element-group instructions, `LMUL`*`VLEN` must always be at least as large as `EGW`, otherwise an _illegal-instruction exception_ is raised, even if `vl`=0.\",\n      \"line_number\": 224,\n      \"reason\": \"Fixed requirement ('must always') \u2014 no optionality language. This is a mandatory rule, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"All _cryptography-specific_ instructions defined in this Vector Crypto specification ... shall be executed with data-independent execution latency as defined in the RISC-V Scalar Cryptography Extensions specification.\",\n      \"line_number\": 388,\n      \"reason\": \"Fixed requirement ('shall') \u2014 no optionality language. Data-independent execution latency is mandatory for all cryptography-specific instructions, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"These instructions are only defined for `SEW`=64.\",\n      \"line_number\": 430,\n      \"reason\": \"Fixed requirement / statement of fact \u2014 no optionality language. The SEW=64 restriction for Zvbc instructions is a fixed rule, not an implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 43661,
+  "output_tokens": 512,
+  "latency_ms": 12069,
+  "timestamp": "2026-06-22T08:58:33.260128+00:00",
+  "error": null,
+  "retry_count": 0
+}

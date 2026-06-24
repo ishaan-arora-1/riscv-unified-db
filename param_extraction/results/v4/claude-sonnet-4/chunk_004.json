@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_004",
+  "source_file": "bfloat16.adoc",
+  "start_line": 1,
+  "end_line": 790,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "All of the BF16 instructions in the extensions defined in this specification (i.e., Zfbfmin, Zvfbfmin, and Zvfbfwma) fully support subnormal numbers. That is, instructions are able to accept subnormal values as inputs and they can produce subnormal results.",
+      "line_number": 148,
+      "reason": "Fixed requirement \u2014 'fully support' is a mandatory behavioral statement, not an implementation choice. No optionality language present."
+    },
+    {
+      "excerpt": "Future floating-point extensions, including those that operate on BF16 values, may chose not to support subnormal numbers.",
+      "line_number": 154,
+      "reason": "This is inside a [NOTE] block and is therefore non-normative. Parameters must not be extracted from NOTE blocks."
+    },
+    {
+      "excerpt": "Reserved Encodings: `SEW` is any value other than 16",
+      "line_number": 598,
+      "reason": "This is a fixed reserved-encoding fact, not an implementation choice. 'Reserved' encodings are fixed constraints, not parameters."
+    },
+    {
+      "excerpt": "Narrowing convert FP32 value to a BF16 value. Round according to the RM field.",
+      "line_number": 530,
+      "reason": "This is a behavioral description of a fixed instruction operation, not an implementation choice. No optionality language present."
+    },
+    {
+      "excerpt": "The BF16 extensions defined in this specification (i.e., `Zfbfmin`, `Zvfbfmin`, and `Zvfbfwma`) depend on the single-precision floating-point extension `F`.",
+      "line_number": 280,
+      "reason": "This is a fixed dependency requirement ('depend on'), not an implementation choice. No optionality language present."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"All of the BF16 instructions in the extensions defined in this specification (i.e., Zfbfmin, Zvfbfmin, and Zvfbfwma) fully support subnormal numbers. That is, instructions are able to accept subnormal values as inputs and they can produce subnormal results.\",\n      \"line_number\": 148,\n      \"reason\": \"Fixed requirement \u2014 'fully support' is a mandatory behavioral statement, not an implementation choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"Future floating-point extensions, including those that operate on BF16 values, may chose not to support subnormal numbers.\",\n      \"line_number\": 154,\n      \"reason\": \"This is inside a [NOTE] block and is therefore non-normative. Parameters must not be extracted from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"Reserved Encodings: `SEW` is any value other than 16\",\n      \"line_number\": 598,\n      \"reason\": \"This is a fixed reserved-encoding fact, not an implementation choice. 'Reserved' encodings are fixed constraints, not parameters.\"\n    },\n    {\n      \"excerpt\": \"Narrowing convert FP32 value to a BF16 value. Round according to the RM field.\",\n      \"line_number\": 530,\n      \"reason\": \"This is a behavioral description of a fixed instruction operation, not an implementation choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"The BF16 extensions defined in this specification (i.e., `Zfbfmin`, `Zvfbfmin`, and `Zvfbfwma`) depend on the single-precision floating-point extension `F`.\",\n      \"line_number\": 280,\n      \"reason\": \"This is a fixed dependency requirement ('depend on'), not an implementation choice. No optionality language present.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 18110,
+  "output_tokens": 491,
+  "latency_ms": 10548,
+  "timestamp": "2026-06-22T08:44:43.178091+00:00",
+  "error": null,
+  "retry_count": 0
+}

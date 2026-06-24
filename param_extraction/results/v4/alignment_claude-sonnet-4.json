@@ -1,0 +1,2561 @@
+{
+  "model": "claude-sonnet-4",
+  "total_alignments": 258,
+  "by_type": {
+    "exact": 91,
+    "one_to_many": 10,
+    "explicit_group": 59,
+    "stem": 3,
+    "fuzzy_name": 3,
+    "none": 92
+  },
+  "alignments": [
+    {
+      "llm_name": "ASID_WIDTH",
+      "udb_name": "ASID_WIDTH",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_DIRECT",
+      "class_match": false
+    },
+    {
+      "llm_name": "CACHE_BLOCK_SIZE",
+      "udb_name": "CACHE_BLOCK_SIZE",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "CONFIG_PTR_ADDRESS",
+      "udb_name": "CONFIG_PTR_ADDRESS",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "COUNTINHIBIT_EN",
+      "udb_name": "COUNTINHIBIT_EN",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "ELEN",
+      "udb_name": "ELEN",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "GSTAGE_MODE_BARE",
+      "udb_name": "GSTAGE_MODE_BARE",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_WARL",
+      "class_match": true
+    },
+    {
+      "llm_name": "HCOUNTENABLE_EN",
+      "udb_name": "HCOUNTENABLE_EN",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "HPM_COUNTER_EN",
+      "udb_name": "HPM_COUNTER_EN",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": false
+    },
+    {
+      "llm_name": "HW_MSTATUS_FS_DIRTY_UPDATE",
+      "udb_name": "HW_MSTATUS_FS_DIRTY_UPDATE",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "SW_RULE",
+      "udb_class": "SW_RULE",
+      "class_match": true
+    },
+    {
+      "llm_name": "HW_MSTATUS_VS_DIRTY_UPDATE",
+      "udb_name": "HW_MSTATUS_VS_DIRTY_UPDATE",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "SW_RULE",
+      "udb_class": "SW_RULE",
+      "class_match": true
+    },
+    {
+      "llm_name": "IGNORE_INVALID_VSATP_MODE_WRITES_WHEN_V_EQ_ZERO",
+      "udb_name": "IGNORE_INVALID_VSATP_MODE_WRITES_WHEN_V_EQ_ZERO",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_WARL",
+      "class_match": true
+    },
+    {
+      "llm_name": "JVT_BASE_MASK",
+      "udb_name": "JVT_BASE_MASK",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_WARL",
+      "class_match": true
+    },
+    {
+      "llm_name": "JVT_READ_ONLY",
+      "udb_name": "JVT_READ_ONLY",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_WARL",
+      "class_match": false
+    },
+    {
+      "llm_name": "LEGAL_VSTART",
+      "udb_name": "LEGAL_VSTART",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "LRSC_FAIL_ON_NON_EXACT_LRSC",
+      "udb_name": "LRSC_FAIL_ON_NON_EXACT_LRSC",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "LRSC_RESERVATION_STRATEGY",
+      "udb_name": "LRSC_RESERVATION_STRATEGY",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "MARCHID_IMPLEMENTED",
+      "udb_name": "MARCHID_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCOUNTENABLE_EN",
+      "udb_name": "MCOUNTENABLE_EN",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_CORSWAPINH_IMPLEMENTED",
+      "udb_name": "MCTRCTL_CORSWAPINH_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_CUSTOM_IMPLEMENTED",
+      "udb_name": "MCTRCTL_CUSTOM_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_DIRCALLINH_IMPLEMENTED",
+      "udb_name": "MCTRCTL_DIRCALLINH_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_DIRJMPINH_IMPLEMENTED",
+      "udb_name": "MCTRCTL_DIRJMPINH_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_DIRLJMPINH_IMPLEMENTED",
+      "udb_name": "MCTRCTL_DIRLJMPINH_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_EXCINH_IMPLEMENTED",
+      "udb_name": "MCTRCTL_EXCINH_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_INDCALLINH_IMPLEMENTED",
+      "udb_name": "MCTRCTL_INDCALLINH_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_INDJMPINH_IMPLEMENTED",
+      "udb_name": "MCTRCTL_INDJMPINH_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_INDLJMPINH_IMPLEMENTED",
+      "udb_name": "MCTRCTL_INDLJMPINH_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_INTRINH_IMPLEMENTED",
+      "udb_name": "MCTRCTL_INTRINH_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_MTE_IMPLEMENTED",
+      "udb_name": "MCTRCTL_MTE_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_NTBREN_IMPLEMENTED",
+      "udb_name": "MCTRCTL_NTBREN_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_RASEMU_IMPLEMENTED",
+      "udb_name": "MCTRCTL_RASEMU_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_RETINH_IMPLEMENTED",
+      "udb_name": "MCTRCTL_RETINH_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_STE_IMPLEMENTED",
+      "udb_name": "MCTRCTL_STE_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_TKBRINH_IMPLEMENTED",
+      "udb_name": "MCTRCTL_TKBRINH_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MCTRCTL_TRETINH_IMPLEMENTED",
+      "udb_name": "MCTRCTL_TRETINH_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MIMPID_IMPLEMENTED",
+      "udb_name": "MIMPID_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "MISALIGNED_AMO",
+      "udb_name": "MISALIGNED_AMO",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "MISALIGNED_LDST",
+      "udb_name": "MISALIGNED_LDST",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
+      "udb_name": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+      "udb_name": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "MISA_CSR_IMPLEMENTED",
+      "udb_name": "MISA_CSR_IMPLEMENTED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": false
+    },
+    {
+      "llm_name": "MSTATEEN_AIA_TYPE",
+      "udb_name": "MSTATEEN_AIA_TYPE",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MSTATUS_FS_LEGAL_VALUES",
+      "udb_name": "MSTATUS_FS_LEGAL_VALUES",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_WARL",
+      "class_match": false
+    },
+    {
+      "llm_name": "MSTATUS_VS_LEGAL_VALUES",
+      "udb_name": "MSTATUS_VS_LEGAL_VALUES",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_WARL",
+      "class_match": false
+    },
+    {
+      "llm_name": "MTVAL_WIDTH",
+      "udb_name": "MTVAL_WIDTH",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_DIRECT",
+      "class_match": false
+    },
+    {
+      "llm_name": "MTVEC_ACCESS",
+      "udb_name": "MTVEC_ACCESS",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MTVEC_BASE_ALIGNMENT_VECTORED",
+      "udb_name": "MTVEC_BASE_ALIGNMENT_VECTORED",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_WARL",
+      "class_match": true
+    },
+    {
+      "llm_name": "MTVEC_MODES",
+      "udb_name": "MTVEC_MODES",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_WARL",
+      "class_match": true
+    },
+    {
+      "llm_name": "MUTABLE_MISA_V",
+      "udb_name": "MUTABLE_MISA_V",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "NUM_EXTERNAL_GUEST_INTERRUPTS",
+      "udb_name": "NUM_EXTERNAL_GUEST_INTERRUPTS",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "NUM_PMP_ENTRIES",
+      "udb_name": "NUM_PMP_ENTRIES",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "PMA_GRANULARITY",
+      "udb_name": "PMA_GRANULARITY",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "PMLEN",
+      "udb_name": "PMLEN",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "PMP_GRANULARITY",
+      "udb_name": "PMP_GRANULARITY",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "udb_name": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+      "udb_name": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "REPORT_ENCODING_IN_STVAL_ON_ILLEGAL_INSTRUCTION",
+      "udb_name": "REPORT_ENCODING_IN_STVAL_ON_ILLEGAL_INSTRUCTION",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT",
+      "udb_name": "REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "RESERVED_VSET_X0X0_VILL_SET",
+      "udb_name": "RESERVED_VSET_X0X0_VILL_SET",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "SATP_MODE_BARE",
+      "udb_name": "SATP_MODE_BARE",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_WARL",
+      "class_match": true
+    },
+    {
+      "llm_name": "SCOUNTENABLE_EN",
+      "udb_name": "SCOUNTENABLE_EN",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "SV32_VSMODE_TRANSLATION",
+      "udb_name": "SV32_VSMODE_TRANSLATION",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_DIRECT",
+      "class_match": false
+    },
+    {
+      "llm_name": "SXLEN",
+      "udb_name": "SXLEN",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_DIRECT",
+      "class_match": false
+    },
+    {
+      "llm_name": "S_MODE_ENDIANNESS",
+      "udb_name": "S_MODE_ENDIANNESS",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "TRAP_ON_ILLEGAL_WLRL",
+      "udb_name": "TRAP_ON_ILLEGAL_WLRL",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "TRAP_ON_RESERVED_INSTRUCTION",
+      "udb_name": "TRAP_ON_RESERVED_INSTRUCTION",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "TRAP_ON_SFENCE_VMA_WHEN_SATP_MODE_IS_READ_ONLY",
+      "udb_name": "TRAP_ON_SFENCE_VMA_WHEN_SATP_MODE_IS_READ_ONLY",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "UXLEN",
+      "udb_name": "UXLEN",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_DIRECT",
+      "class_match": false
+    },
+    {
+      "llm_name": "U_MODE_ENDIANNESS",
+      "udb_name": "U_MODE_ENDIANNESS",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "VECTOR_FF_NO_EXCEPTION_TRIM",
+      "udb_name": "VECTOR_FF_NO_EXCEPTION_TRIM",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD",
+      "udb_name": "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "udb_name": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VECTOR_LOAD_PAST_TRAP",
+      "udb_name": "VECTOR_LOAD_PAST_TRAP",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+      "udb_name": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VECTOR_LS_MISALIGNED_LEGAL",
+      "udb_name": "VECTOR_LS_MISALIGNED_LEGAL",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+      "udb_name": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL",
+      "udb_name": "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VENDOR_ID_BANK",
+      "udb_name": "VENDOR_ID_BANK",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR",
+      "udb_name": "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR",
+      "udb_name": "VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VFREDUSUM_NODE_ROUNDING_BEHAVIOR",
+      "udb_name": "VFREDUSUM_NODE_ROUNDING_BEHAVIOR",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VILL_SET_ON_RESERVED_VTYPE",
+      "udb_name": "VILL_SET_ON_RESERVED_VTYPE",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VLEN",
+      "udb_name": "VLEN",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VMID_WIDTH",
+      "udb_name": "VMID_WIDTH",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VSSTATUS_VS_EXISTS",
+      "udb_name": "VSSTATUS_VS_EXISTS",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "VSXLEN",
+      "udb_name": "VSXLEN",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_DIRECT",
+      "class_match": false
+    },
+    {
+      "llm_name": "VS_MODE_ENDIANNESS",
+      "udb_name": "VS_MODE_ENDIANNESS",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "VUXLEN",
+      "udb_name": "VUXLEN",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_DIRECT",
+      "class_match": false
+    },
+    {
+      "llm_name": "VU_MODE_ENDIANNESS",
+      "udb_name": "VU_MODE_ENDIANNESS",
+      "match_type": "exact",
+      "match_score": 1.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "MUTABLE_MISA_EXTENSIONS",
+      "udb_name": "MUTABLE_MISA_A",
+      "match_type": "one_to_many",
+      "match_score": 0.9,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "MUTABLE_MISA_EXTENSIONS",
+      "udb_name": "MUTABLE_MISA_B",
+      "match_type": "one_to_many",
+      "match_score": 0.9,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "MUTABLE_MISA_EXTENSIONS",
+      "udb_name": "MUTABLE_MISA_C",
+      "match_type": "one_to_many",
+      "match_score": 0.9,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "MUTABLE_MISA_EXTENSIONS",
+      "udb_name": "MUTABLE_MISA_D",
+      "match_type": "one_to_many",
+      "match_score": 0.9,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "MUTABLE_MISA_EXTENSIONS",
+      "udb_name": "MUTABLE_MISA_F",
+      "match_type": "one_to_many",
+      "match_score": 0.9,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "MUTABLE_MISA_EXTENSIONS",
+      "udb_name": "MUTABLE_MISA_H",
+      "match_type": "one_to_many",
+      "match_score": 0.9,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "MUTABLE_MISA_EXTENSIONS",
+      "udb_name": "MUTABLE_MISA_M",
+      "match_type": "one_to_many",
+      "match_score": 0.9,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "MUTABLE_MISA_EXTENSIONS",
+      "udb_name": "MUTABLE_MISA_Q",
+      "match_type": "one_to_many",
+      "match_score": 0.9,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "MUTABLE_MISA_EXTENSIONS",
+      "udb_name": "MUTABLE_MISA_S",
+      "match_type": "one_to_many",
+      "match_score": 0.9,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "MUTABLE_MISA_EXTENSIONS",
+      "udb_name": "MUTABLE_MISA_U",
+      "match_type": "one_to_many",
+      "match_score": 0.9,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_MTVAL_ON_STORE_AMO_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_MTVAL_ON_STORE_AMO_MISALIGNED",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_MTVAL_ON_BREAKPOINT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_MTVAL_ON_LOAD_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_MTVAL_ON_LOAD_ACCESS_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_MTVAL_ON_INSTRUCTION_MISALIGNED",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_MTVAL_ON_LOAD_MISALIGNED",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_MTVAL_ON_INSTRUCTION_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_MTVAL_ON_INSTRUCTION_ACCESS_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_MTVAL_ON_STORE_AMO_ACCESS_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_STVAL_ON_STORE_AMO_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_STVAL_ON_INSTRUCTION_MISALIGNED",
+      "match_type": "explicit_group",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_STVAL_ON_STORE_AMO_MISALIGNED",
+      "match_type": "explicit_group",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_STVAL_ON_LOAD_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_STVAL_ON_INSTRUCTION_ACCESS_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_STVAL_ON_LOAD_MISALIGNED",
+      "match_type": "explicit_group",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_STVAL_ON_LOAD_ACCESS_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_STVAL_ON_INSTRUCTION_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_STVAL_ON_STORE_AMO_ACCESS_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 1.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_VSTVAL_ON_INSTRUCTION_MISALIGNED",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_VSTVAL_ON_LOAD_MISALIGNED",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_VSTVAL_ON_LOAD_ACCESS_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_VSTVAL_ON_STORE_AMO_MISALIGNED",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_VSTVAL_ON_STORE_AMO_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_VSTVAL_ON_LOAD_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_VSTVAL_ON_STORE_AMO_ACCESS_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_VSTVAL_ON_BREAKPOINT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_VSTVAL_ON_INSTRUCTION_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+      "udb_name": "REPORT_VA_IN_VSTVAL_ON_INSTRUCTION_ACCESS_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT",
+      "udb_name": "REPORT_GPA_IN_TVAL_ON_INTERMEDIATE_GUEST_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 1.1,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT",
+      "udb_name": "REPORT_GPA_IN_TVAL_ON_STORE_AMO_GUEST_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 1.1,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT",
+      "udb_name": "REPORT_GPA_IN_TVAL_ON_LOAD_GUEST_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 1.1,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+      "udb_name": "REPORT_ENCODING_IN_VSTVAL_ON_VIRTUAL_INSTRUCTION",
+      "match_type": "explicit_group",
+      "match_score": 1.1,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+      "udb_name": "REPORT_ENCODING_IN_VSTVAL_ON_ILLEGAL_INSTRUCTION",
+      "match_type": "explicit_group",
+      "match_score": 1.1,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "udb_name": "REPORT_CAUSE_IN_VSTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "match_type": "explicit_group",
+      "match_score": 0.9,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "udb_name": "REPORT_CAUSE_IN_MTVAL_ON_SHADOW_STACK_SOFTWARE_CHECK",
+      "match_type": "explicit_group",
+      "match_score": 0.9,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "udb_name": "REPORT_CAUSE_IN_VSTVAL_ON_SHADOW_STACK_SOFTWARE_CHECK",
+      "match_type": "explicit_group",
+      "match_score": 0.9,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "udb_name": "REPORT_CAUSE_IN_STVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "match_type": "explicit_group",
+      "match_score": 0.9,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "udb_name": "REPORT_CAUSE_IN_STVAL_ON_SHADOW_STACK_SOFTWARE_CHECK",
+      "match_type": "explicit_group",
+      "match_score": 0.9,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_BREAKPOINT",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_FINAL_INSTRUCTION_GUEST_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_LOAD_ADDRESS_MISALIGNED",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_SCALL",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_LOAD_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_UCALL",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_FINAL_STORE_AMO_GUEST_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_LOAD_ACCESS_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_STORE_AMO_ACCESS_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_STORE_AMO_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_VIRTUAL_INSTRUCTION",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_MCALL",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_VSCALL",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_FINAL_LOAD_GUEST_PAGE_FAULT",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_STORE_AMO_ADDRESS_MISALIGNED",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+      "udb_name": "TINST_VALUE_ON_INSTRUCTION_ADDRESS_MISALIGNED",
+      "match_type": "explicit_group",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": null
+    },
+    {
+      "llm_name": "RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS",
+      "udb_name": "TRAP_ON_ECALL_FROM_VS",
+      "match_type": "explicit_group",
+      "match_score": 0.6,
+      "llm_class": "NON_ISA",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS",
+      "udb_name": "TRAP_ON_ECALL_FROM_M",
+      "match_type": "explicit_group",
+      "match_score": 0.6,
+      "llm_class": "NON_ISA",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS",
+      "udb_name": "TRAP_ON_ECALL_FROM_S",
+      "match_type": "explicit_group",
+      "match_score": 0.6,
+      "llm_class": "NON_ISA",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS",
+      "udb_name": "TRAP_ON_ECALL_FROM_U",
+      "match_type": "explicit_group",
+      "match_score": 0.6,
+      "llm_class": "NON_ISA",
+      "udb_class": "NORM_DIRECT",
+      "class_match": null
+    },
+    {
+      "llm_name": "MTVEC_BASE_ALIGNMENT_VECTORED",
+      "udb_name": "MTVEC_BASE_ALIGNMENT_DIRECT",
+      "match_type": "stem",
+      "match_score": 0.7,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_CSR_WARL",
+      "class_match": true
+    },
+    {
+      "llm_name": "S_MODE_ENDIANNESS",
+      "udb_name": "M_MODE_ENDIANNESS",
+      "match_type": "stem",
+      "match_score": 0.7,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": "NORM_CSR_RW",
+      "class_match": true
+    },
+    {
+      "llm_name": "TRAP_ON_RESERVED_INSTRUCTION",
+      "udb_name": "TRAP_ON_UNIMPLEMENTED_INSTRUCTION",
+      "match_type": "stem",
+      "match_score": 0.7,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "LRSC_FAIL_ON_DEVICE_WRITE",
+      "udb_name": "LRSC_FAIL_ON_VA_SYNONYM",
+      "match_type": "fuzzy_name",
+      "match_score": 0.429,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "SSAMOSWAP_MISALIGNED_BEHAVIOR",
+      "udb_name": "LRSC_MISALIGNED_BEHAVIOR",
+      "match_type": "fuzzy_name",
+      "match_score": 0.5,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": "NORM_DIRECT",
+      "class_match": true
+    },
+    {
+      "llm_name": "PMP_ADDR_WIDTH",
+      "udb_name": "PHYS_ADDR_WIDTH",
+      "match_type": "fuzzy_name",
+      "match_score": 0.5,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": "NORM_DIRECT",
+      "class_match": false
+    },
+    {
+      "llm_name": "ADDITIONAL_CSRS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CBM_ACCESS_ON_EXEC_ONLY_REGION",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CBO_ZERO_ATOMICITY",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CBO_ZERO_ATOMIC_UPDATE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CBO_ZERO_UPDATE_GRANULARITY",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CMO_TRIGGER_MODULE_BEHAVIOR",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CTR_CCE_WIDTH",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CTR_CCV_CLEAR_SCENARIOS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CTR_CTRDATA_TYPE_IMPLEMENTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CTR_CYCLE_COUNT_IMPLEMENTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CTR_EXTERNAL_TRAP_RECORDING_IMPLEMENTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CTR_MISP_IMPLEMENTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CTR_RASEMU_IMPLEMENTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CTR_SUPPORTED_DEPTHS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CUSTOM_EXCEPTION_PRIORITY",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "CYCLE_MODE_TRANSITION_REPORTING_CYCLE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "DEBUG_MODE_IMPLEMENTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "ENDIANNESS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NON_ISA",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "HGATP_PPN_LOWER_BITS_RO",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "HIDELEG_PLATFORM_INTERRUPT_TRANSLATION",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "HINT_SXLEN_DEST_REG_BEHAVIOR",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "HINT_XLEN_REDUCTION_BEHAVIOR",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "HIP_WRITABLE_BITS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "HPM_UNIMPLEMENTED_COUNTER_ACCESS_BEHAVIOR",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "ILEN",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "JVT_MODE_SUPPORTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "LCOFI_MIDELEG_HIDELEG_WRITABLE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "LRSC_FAIL_ON_RESERVATION_SET_DEVICE_WRITE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MCAUSE_RESET_VALUE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MCYCLECFG_UNIMPLEMENTED_MODE_BITS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MCYCLE_SHARED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MEDELEG_MIDELEG_IMPLEMENTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MEDELEG_WARL_BITS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MEMORY_ORDERING_MODEL",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MENVCFG_FIOM_READONLY",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MEPC_INVALID_ADDR_CONVERSION",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MHPMEVENT_INH_BITS_IMPLEMENTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MIDELEG_RO1_LOWER_LEVEL",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MIP_MSIP_MIE_MSIE_READONLY",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MIP_WRITABLE_BITS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MISA_COLLECTIVE_WARL_CONSTRAINTS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MISELECT_READ_ONLY_ZERO",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MISELECT_WIDTH",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MNEPC_INVALID_ADDR_CONVERSION",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MNSTATUS_MNPELP_IMPLEMENTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MSTATEEN_BIT63_RO",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "MSTATUS_FS_NO_DIRTY_TRACK",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "NMI_MCAUSE_VALUE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "NMI_VECTOR",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NON_ISA",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "NUM_PRIVILEGE_MODES",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "PMA_IDEMPOTENT_IMPLICIT_READ_SIZE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "PMA_MAG_FAULT_TYPE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "PMLEN_ILLEGAL_WARL",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "PMLEN_PER_MODE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "PMP_CSR_READ_ONLY_ZERO",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "PMP_MMODE_ENFORCEMENT",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "PMP_MMODE_LOCKING",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "PM_EXTENSIONS_SUPPORTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "PM_RV32_WARL_BEHAVIOR",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "RESET_VECTOR",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NON_ISA",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "RNMI_CAUSE_CODES_SUPPORTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "RNMI_TRAP_HANDLER_ADDRESS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NON_ISA",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "SATP_MODE_SV39_SV48_SV57",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "SENVCFG_FIOM_ACCESS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "SIP_SIE_UNIMPL_INTERRUPTS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "SSEED_USEED_WRITABLE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "SSP_BIT2_READ_ONLY",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "SSTATUS_SUM_ACCESS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "STATEEN_BIT_ACCESS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_RW",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "STATEEN_IMPLICIT_UPDATE_EXCEPTION",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "STIMECMP_IMPLEMENTED",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "STRONGLY_ORDERED_CSRS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NON_ISA",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "SV48_REQUIRES_SV39",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "SV57_REQUIRES_SV48",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "SVPBMT_ADDITIONAL_PMA_OVERRIDE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "UXLEN_LEGAL_VALUES",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "VECTOR_LS_CONSTANT_STRIDE_X0_FEWER_OPS",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "VFREDUSUM_REDTREE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "VTW_WFI_ALWAYS_TRAP",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "WFI_NOP_BEHAVIOR",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "WFI_TW_ALWAYS_ILLEGAL",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "WFI_U_MODE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "WRS_NTO_TW_TIMEOUT_LIMIT",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "WRS_NTO_VTW_TIMEOUT_LIMIT",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "WRS_SPURIOUS_WAKEUP",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "WRS_STO_TIMEOUT_DURATION",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "XENVCFG_CMO_LEGAL_VALUES",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_CSR_WARL",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "XRET_CLEARS_LR_RESERVATION",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "ZALASR_MISALIGNED_ATOMICITY_GRANULE_PMA",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "ZCMP_BUS_FAULT_HANDLING",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "ZCMP_INTERRUPTS_DURING_SEQUENCE",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    },
+    {
+      "llm_name": "ZILSD_NATURALLY_ALIGNED_ATOMIC",
+      "udb_name": null,
+      "match_type": "none",
+      "match_score": 0.0,
+      "llm_class": "NORM_DIRECT",
+      "udb_class": null,
+      "class_match": null
+    }
+  ],
+  "udb_coverage": {
+    "VECTOR_LS_MISALIGNED_LEGAL": "VECTOR_LS_MISALIGNED_LEGAL",
+    "JVT_BASE_MASK": "JVT_BASE_MASK",
+    "SV32_VSMODE_TRANSLATION": "SV32_VSMODE_TRANSLATION",
+    "MTVEC_BASE_ALIGNMENT_VECTORED": "MTVEC_BASE_ALIGNMENT_VECTORED",
+    "TRAP_ON_ECALL_FROM_M": "RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS",
+    "REPORT_VA_IN_VSTVAL_ON_INSTRUCTION_MISALIGNED": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "VFREDUSUM_NAN": null,
+    "REPORT_VA_IN_STVAL_ON_STORE_AMO_PAGE_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "REPORT_VA_IN_MTVAL_ON_STORE_AMO_PAGE_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "MCTRCTL_DIRJMPINH_IMPLEMENTED": "MCTRCTL_DIRJMPINH_IMPLEMENTED",
+    "U_MODE_ENDIANNESS": "U_MODE_ENDIANNESS",
+    "REPORT_ENCODING_IN_VSTVAL_ON_VIRTUAL_INSTRUCTION": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+    "TRAP_ON_ILLEGAL_WLRL": "TRAP_ON_ILLEGAL_WLRL",
+    "S_MODE_ENDIANNESS": "S_MODE_ENDIANNESS",
+    "MCTRCTL_INDLJMPINH_IMPLEMENTED": "MCTRCTL_INDLJMPINH_IMPLEMENTED",
+    "MCTRCTL_DIRLJMPINH_IMPLEMENTED": "MCTRCTL_DIRLJMPINH_IMPLEMENTED",
+    "MTVEC_BASE_ALIGNMENT_DIRECT": "MTVEC_BASE_ALIGNMENT_VECTORED",
+    "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "REPORT_VA_IN_STVAL_ON_INSTRUCTION_MISALIGNED": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "SV48X4_TRANSLATION": null,
+    "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR": "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR",
+    "MSTATEEN_IMSIC_TYPE": null,
+    "MSTATUS_TVM_IMPLEMENTED": null,
+    "SXLEN": "SXLEN",
+    "REPORT_VA_IN_MTVAL_ON_STORE_AMO_MISALIGNED": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "JVT_BASE_TYPE": null,
+    "REPORT_VA_IN_MTVAL_ON_BREAKPOINT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "REPORT_CAUSE_IN_VSTVAL_ON_LANDING_PAD_SOFTWARE_CHECK": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+    "REPORT_VA_IN_VSTVAL_ON_LOAD_MISALIGNED": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "REPORT_VA_IN_MTVAL_ON_LOAD_PAGE_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "MUTABLE_MISA_Q": "MUTABLE_MISA_EXTENSIONS",
+    "MSTATEEN_ENVCFG_TYPE": null,
+    "VECTOR_LS_INDEX_MAX_EEW": null,
+    "REPORT_VA_IN_STVAL_ON_BREAKPOINT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "STVEC_MODE_VECTORED": null,
+    "VENDOR_ID_BANK": "VENDOR_ID_BANK",
+    "UXLEN": "UXLEN",
+    "RVV_VL_WHEN_AVL_LT_DOUBLE_VLMAX": null,
+    "MUTABLE_MISA_C": "MUTABLE_MISA_EXTENSIONS",
+    "REPORT_VA_IN_VSTVAL_ON_LOAD_ACCESS_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "MCTRCTL_EXCINH_IMPLEMENTED": "MCTRCTL_EXCINH_IMPLEMENTED",
+    "REPORT_VA_IN_STVAL_ON_STORE_AMO_MISALIGNED": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "MCTRCTL_STE_IMPLEMENTED": "MCTRCTL_STE_IMPLEMENTED",
+    "MCTRCTL_TKBRINH_IMPLEMENTED": "MCTRCTL_TKBRINH_IMPLEMENTED",
+    "HW_MSTATUS_FS_DIRTY_UPDATE": "HW_MSTATUS_FS_DIRTY_UPDATE",
+    "MTVEC_ILLEGAL_WRITE_BEHAVIOR": null,
+    "MUTABLE_MISA_M": "MUTABLE_MISA_EXTENSIONS",
+    "MCTRCTL_RASEMU_IMPLEMENTED": "MCTRCTL_RASEMU_IMPLEMENTED",
+    "REPORT_CAUSE_IN_MTVAL_ON_SHADOW_STACK_SOFTWARE_CHECK": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+    "REPORT_VA_IN_VSTVAL_ON_STORE_AMO_MISALIGNED": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "HSTATEEN_CSRIND_TYPE": null,
+    "MSTATEEN_AIA_TYPE": "MSTATEEN_AIA_TYPE",
+    "SV48_VSMODE_TRANSLATION": null,
+    "REPORT_VA_IN_STVAL_ON_LOAD_PAGE_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT": "REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT",
+    "TRAP_ON_ECALL_FROM_VS": "RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS",
+    "STVAL_WIDTH": null,
+    "MUTABLE_MISA_H": "MUTABLE_MISA_EXTENSIONS",
+    "VFREDUSUM_NODE_ROUNDING_BEHAVIOR": "VFREDUSUM_NODE_ROUNDING_BEHAVIOR",
+    "MISALIGNED_LDST_EXCEPTION_PRIORITY": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
+    "GSTAGE_MODE_BARE": "GSTAGE_MODE_BARE",
+    "HCONTEXT_AVAILABLE": null,
+    "MUTABLE_MISA_A": "MUTABLE_MISA_EXTENSIONS",
+    "TRAP_ON_RESERVED_INSTRUCTION": "TRAP_ON_RESERVED_INSTRUCTION",
+    "VENDOR_ID_OFFSET": null,
+    "MUTABLE_MISA_V": "MUTABLE_MISA_V",
+    "HPM_COUNTER_EN": "HPM_COUNTER_EN",
+    "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+    "TINST_VALUE_ON_BREAKPOINT": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "MUTABLE_MISA_D": "MUTABLE_MISA_EXTENSIONS",
+    "REPORT_ENCODING_IN_STVAL_ON_ILLEGAL_INSTRUCTION": "REPORT_ENCODING_IN_STVAL_ON_ILLEGAL_INSTRUCTION",
+    "MCTRCTL_CORSWAPINH_IMPLEMENTED": "MCTRCTL_CORSWAPINH_IMPLEMENTED",
+    "HCOUNTENABLE_EN": "HCOUNTENABLE_EN",
+    "REPORT_VA_IN_STVAL_ON_INSTRUCTION_ACCESS_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "M_MODE_ENDIANNESS": "S_MODE_ENDIANNESS",
+    "REPORT_VA_IN_STVAL_ON_LOAD_MISALIGNED": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "HSTATEEN_AIA_TYPE": null,
+    "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL": "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL",
+    "VU_MODE_ENDIANNESS": "VU_MODE_ENDIANNESS",
+    "REPORT_VA_IN_VSTVAL_ON_STORE_AMO_PAGE_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "IMP_ID_VALUE": null,
+    "SV39X4_TRANSLATION": null,
+    "MSTATEEN_CONTEXT_TYPE": null,
+    "RESERVED_VSET_X0X0_VILL_SET": "RESERVED_VSET_X0X0_VILL_SET",
+    "MUTABLE_MISA_S": "MUTABLE_MISA_EXTENSIONS",
+    "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+    "CONFIG_PTR_ADDRESS": "CONFIG_PTR_ADDRESS",
+    "HSTATEEN_IMSIC_TYPE": null,
+    "TINST_VALUE_ON_FINAL_INSTRUCTION_GUEST_PAGE_FAULT": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "MCTRCTL_INDJMPINH_IMPLEMENTED": "MCTRCTL_INDJMPINH_IMPLEMENTED",
+    "TINST_VALUE_ON_LOAD_ADDRESS_MISALIGNED": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "MISA_CSR_IMPLEMENTED": "MISA_CSR_IMPLEMENTED",
+    "DBG_HCONTEXT_WIDTH": null,
+    "FOLLOW_VTYPE_RESET_RECOMMENDATION": null,
+    "MCTRCTL_TRETINH_IMPLEMENTED": "MCTRCTL_TRETINH_IMPLEMENTED",
+    "TINST_VALUE_ON_SCALL": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "LRSC_MISALIGNED_BEHAVIOR": "SSAMOSWAP_MISALIGNED_BEHAVIOR",
+    "ARCH_ID_VALUE": null,
+    "MCTRCTL_RETINH_IMPLEMENTED": "MCTRCTL_RETINH_IMPLEMENTED",
+    "MTVAL_WIDTH": "MTVAL_WIDTH",
+    "REPORT_VA_IN_MTVAL_ON_LOAD_ACCESS_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "MSTATUS_VS_LEGAL_VALUES": "MSTATUS_VS_LEGAL_VALUES",
+    "DCSR_STOPCOUNT_TYPE": null,
+    "MCID_WIDTH": null,
+    "REPORT_CAUSE_IN_VSTVAL_ON_SHADOW_STACK_SOFTWARE_CHECK": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+    "LEGAL_VSTART": "LEGAL_VSTART",
+    "MSTATUS_FS_LEGAL_VALUES": "MSTATUS_FS_LEGAL_VALUES",
+    "REPORT_VA_IN_VSTVAL_ON_LOAD_PAGE_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "TINST_VALUE_ON_LOAD_PAGE_FAULT": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "REPORT_VA_IN_MTVAL_ON_INSTRUCTION_MISALIGNED": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "TINST_VALUE_ON_UCALL": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "SUPPORT_FRACTIONAL_LMUL_BEYOND_REQUIRED": null,
+    "TINST_VALUE_ON_FINAL_STORE_AMO_GUEST_PAGE_FAULT": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "REPORT_VA_IN_VSTVAL_ON_STORE_AMO_ACCESS_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "REPORT_VA_IN_MTVAL_ON_LOAD_MISALIGNED": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "PMP_GRANULARITY": "PMP_GRANULARITY",
+    "MIMPID_IMPLEMENTED": "MIMPID_IMPLEMENTED",
+    "SATP_MODE_BARE": "SATP_MODE_BARE",
+    "HPM_EVENTS": null,
+    "STVEC_MODE_DIRECT": null,
+    "PMLEN": "PMLEN",
+    "LRSC_FAIL_ON_VA_SYNONYM": "LRSC_FAIL_ON_DEVICE_WRITE",
+    "HSTATEEN_JVT_TYPE": null,
+    "VUXLEN": "VUXLEN",
+    "REPORT_VA_IN_VSTVAL_ON_BREAKPOINT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+    "FORCE_UPGRADE_CBO_INVAL_TO_FLUSH": null,
+    "REPORT_VA_IN_VSTVAL_ON_INSTRUCTION_PAGE_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "MSTATEEN_JVT_TYPE": null,
+    "VECTOR_FF_UPDATE_PAST_TRIM": "VECTOR_FF_UPDATE_PAST_TRIM",
+    "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+    "NUM_PMP_ENTRIES": "NUM_PMP_ENTRIES",
+    "DBG_SCONTEXT_WIDTH": null,
+    "MARCHID_IMPLEMENTED": "MARCHID_IMPLEMENTED",
+    "VSSTATUS_VS_EXISTS": "VSSTATUS_VS_EXISTS",
+    "PHYS_ADDR_WIDTH": "PMP_ADDR_WIDTH",
+    "VSTVEC_MODE_VECTORED": null,
+    "RESERVED_VSET_X0X0_VLMAX_CHANGE": null,
+    "IGNORE_INVALID_VSATP_MODE_WRITES_WHEN_V_EQ_ZERO": "IGNORE_INVALID_VSATP_MODE_WRITES_WHEN_V_EQ_ZERO",
+    "VSTVEC_MODE_DIRECT": null,
+    "MXLEN": null,
+    "VSXLEN": "VSXLEN",
+    "MISALIGNED_SPLIT_STRATEGY": null,
+    "DCSR_STOPTIME_TYPE": null,
+    "TRAP_ON_UNIMPLEMENTED_CSR": null,
+    "MCTRCTL_DIRCALLINH_IMPLEMENTED": "MCTRCTL_DIRCALLINH_IMPLEMENTED",
+    "TINST_VALUE_ON_LOAD_ACCESS_FAULT": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "TINST_VALUE_ON_STORE_AMO_ACCESS_FAULT": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "TINST_VALUE_ON_STORE_AMO_PAGE_FAULT": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "TINST_VALUE_ON_VIRTUAL_INSTRUCTION": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "TINST_VALUE_ON_MCALL": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "VILL_SET_ON_RESERVED_VTYPE": "VILL_SET_ON_RESERVED_VTYPE",
+    "SV57X4_TRANSLATION": null,
+    "HSTATEEN_CONTEXT_TYPE": null,
+    "MUTABLE_MISA_B": "MUTABLE_MISA_EXTENSIONS",
+    "ELEN": "ELEN",
+    "MSTATEEN_CSRIND_TYPE": null,
+    "MCTRCTL_CUSTOM_IMPLEMENTED": "MCTRCTL_CUSTOM_IMPLEMENTED",
+    "TRAP_ON_SFENCE_VMA_WHEN_SATP_MODE_IS_READ_ONLY": "TRAP_ON_SFENCE_VMA_WHEN_SATP_MODE_IS_READ_ONLY",
+    "MTVEC_MODES": "MTVEC_MODES",
+    "VS_MODE_ENDIANNESS": "VS_MODE_ENDIANNESS",
+    "MUTABLE_MISA_U": "MUTABLE_MISA_EXTENSIONS",
+    "REPORT_VA_IN_MTVAL_ON_INSTRUCTION_PAGE_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "DCSR_STEPIE_TYPE": null,
+    "VECTOR_LS_SEG_PARTIAL_ACCESS": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+    "VLEN": "VLEN",
+    "JVT_READ_ONLY": "JVT_READ_ONLY",
+    "REPORT_CAUSE_IN_STVAL_ON_LANDING_PAD_SOFTWARE_CHECK": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+    "TRAP_ON_UNIMPLEMENTED_INSTRUCTION": "TRAP_ON_RESERVED_INSTRUCTION",
+    "MCOUNTENABLE_EN": "MCOUNTENABLE_EN",
+    "MCONTEXT_AVAILABLE": null,
+    "SV57_VSMODE_TRANSLATION": null,
+    "NUM_EXTERNAL_GUEST_INTERRUPTS": "NUM_EXTERNAL_GUEST_INTERRUPTS",
+    "SSTATEEN_JVT_TYPE": null,
+    "TIME_CSR_IMPLEMENTED": null,
+    "REPORT_VA_IN_MTVAL_ON_INSTRUCTION_ACCESS_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "REPORT_GPA_IN_TVAL_ON_INTERMEDIATE_GUEST_PAGE_FAULT": "REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT",
+    "REPORT_GPA_IN_TVAL_ON_STORE_AMO_GUEST_PAGE_FAULT": "REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT",
+    "CACHE_BLOCK_SIZE": "CACHE_BLOCK_SIZE",
+    "TINST_VALUE_ON_VSCALL": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "MUTABLE_MISA_F": "MUTABLE_MISA_EXTENSIONS",
+    "MISALIGNED_LDST": "MISALIGNED_LDST",
+    "TINST_VALUE_ON_FINAL_LOAD_GUEST_PAGE_FAULT": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "TRAP_ON_ECALL_FROM_S": "RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS",
+    "VECTOR_LOAD_PAST_TRAP": "VECTOR_LOAD_PAST_TRAP",
+    "SV32X4_TRANSLATION": null,
+    "LRSC_RESERVATION_STRATEGY": "LRSC_RESERVATION_STRATEGY",
+    "MCTRCTL_INTRINH_IMPLEMENTED": "MCTRCTL_INTRINH_IMPLEMENTED",
+    "VSSTAGE_MODE_BARE": null,
+    "VECTOR_FF_NO_EXCEPTION_TRIM": "VECTOR_FF_NO_EXCEPTION_TRIM",
+    "MCTRCTL_MTE_IMPLEMENTED": "MCTRCTL_MTE_IMPLEMENTED",
+    "COUNTINHIBIT_EN": "COUNTINHIBIT_EN",
+    "TRAP_ON_ECALL_FROM_U": "RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS",
+    "MCTRCTL_NTBREN_IMPLEMENTED": "MCTRCTL_NTBREN_IMPLEMENTED",
+    "TRAP_ON_EBREAK": null,
+    "ASID_WIDTH": "ASID_WIDTH",
+    "REPORT_VA_IN_STVAL_ON_LOAD_ACCESS_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "PRECISE_SYNCHRONOUS_EXCEPTIONS": null,
+    "REPORT_ENCODING_IN_VSTVAL_ON_ILLEGAL_INSTRUCTION": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+    "VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR": "VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR",
+    "REPORT_CAUSE_IN_STVAL_ON_SHADOW_STACK_SOFTWARE_CHECK": "REPORT_CAUSE_IN_MTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+    "SEW_MIN": null,
+    "LRSC_FAIL_ON_NON_EXACT_LRSC": "LRSC_FAIL_ON_NON_EXACT_LRSC",
+    "SCOUNTENABLE_EN": "SCOUNTENABLE_EN",
+    "REPORT_GPA_IN_TVAL_ON_LOAD_GUEST_PAGE_FAULT": "REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT",
+    "REPORT_VA_IN_MTVAL_ON_STORE_AMO_ACCESS_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD": "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD",
+    "IMPRECISE_VECTOR_TRAP_SETTABLE": null,
+    "REPORT_VA_IN_VSTVAL_ON_INSTRUCTION_ACCESS_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "DCSR_MPRVEN_TYPE": null,
+    "HSTATEEN_ENVCFG_TYPE": null,
+    "MISALIGNED_AMO": "MISALIGNED_AMO",
+    "SV39_VSMODE_TRANSLATION": null,
+    "MTVEC_ACCESS": "MTVEC_ACCESS",
+    "VMID_WIDTH": "VMID_WIDTH",
+    "REPORT_VA_IN_STVAL_ON_INSTRUCTION_PAGE_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "MCTRCTL_INDCALLINH_IMPLEMENTED": "MCTRCTL_INDCALLINH_IMPLEMENTED",
+    "PMA_GRANULARITY": "PMA_GRANULARITY",
+    "REPORT_VA_IN_STVAL_ON_STORE_AMO_ACCESS_FAULT": "REPORT_VA_IN_STVAL_ON_BREAKPOINT",
+    "TINST_VALUE_ON_STORE_AMO_ADDRESS_MISALIGNED": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "HW_MSTATUS_VS_DIRTY_UPDATE": "HW_MSTATUS_VS_DIRTY_UPDATE",
+    "RCID_WIDTH": null,
+    "TINST_VALUE_ON_INSTRUCTION_ADDRESS_MISALIGNED": "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_068",
+  "source_file": "zfa.adoc",
+  "start_line": 1,
+  "end_line": 261,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "If the D extension is implemented, FLI.D performs the analogous operation, but loads a double-precision value into floating-point register _rd_.",
+      "line_number": 68,
+      "reason": "This is a conditional behavioral description ('If the D extension is implemented'), not an implementation choice within Zfa itself. The D extension's presence is a separate parameter defined elsewhere. This sentence describes what FLI.D does when D is present, not an implementer choice."
+    },
+    {
+      "excerpt": "The FLI._fmt_ instructions never set any floating-point exception flags.",
+      "line_number": 91,
+      "reason": "Fixed behavioral requirement ('never set') \u2014 no implementer choice, not a parameter."
+    },
+    {
+      "excerpt": "FCVTMOD.W.D always rounds towards zero.",
+      "line_number": 155,
+      "reason": "Fixed requirement ('always') \u2014 no implementer choice, not a parameter."
+    },
+    {
+      "excerpt": "Other _rm_ values are _reserved_.",
+      "line_number": 163,
+      "reason": "Statement of fact about reserved encodings \u2014 no implementer choice, not a parameter."
+    },
+    {
+      "excerpt": "The FLEQ.S and FLTQ.S instructions are defined like the FLE.S and FLT.S instructions, except that quiet NaN inputs do not cause the invalid operation exception flag to be set.",
+      "line_number": 228,
+      "reason": "Fixed behavioral specification ('do not cause') \u2014 no implementer choice, not a parameter."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"If the D extension is implemented, FLI.D performs the analogous operation, but loads a double-precision value into floating-point register _rd_.\",\n      \"line_number\": 68,\n      \"reason\": \"This is a conditional behavioral description ('If the D extension is implemented'), not an implementation choice within Zfa itself. The D extension's presence is a separate parameter defined elsewhere. This sentence describes what FLI.D does when D is present, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The FLI._fmt_ instructions never set any floating-point exception flags.\",\n      \"line_number\": 91,\n      \"reason\": \"Fixed behavioral requirement ('never set') \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"FCVTMOD.W.D always rounds towards zero.\",\n      \"line_number\": 155,\n      \"reason\": \"Fixed requirement ('always') \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"Other _rm_ values are _reserved_.\",\n      \"line_number\": 163,\n      \"reason\": \"Statement of fact about reserved encodings \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The FLEQ.S and FLTQ.S instructions are defined like the FLE.S and FLT.S instructions, except that quiet NaN inputs do not cause the invalid operation exception flag to be set.\",\n      \"line_number\": 228,\n      \"reason\": \"Fixed behavioral specification ('do not cause') \u2014 no implementer choice, not a parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13670,
+  "output_tokens": 418,
+  "latency_ms": 9292,
+  "timestamp": "2026-06-22T09:00:48.098309+00:00",
+  "error": null,
+  "retry_count": 0
+}

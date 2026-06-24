@@ -1,0 +1,66 @@
+{
+  "chunk_id": "chunk_047",
+  "source_file": "smcntrpmf.adoc",
+  "start_line": 1,
+  "end_line": 72,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "For each bit in 61:58, if the associated privilege mode is not implemented, the bit is read-only zero.",
+      "line_number": 43,
+      "parameter_name": "MCYCLECFG_UNIMPLEMENTED_MODE_BITS",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "bitmask",
+      "modal_signal": "the bit is read-only zero",
+      "confidence": "high",
+      "reasoning": "Whether each of the xINH bits (SINH, UINH, VSINH, VUINH) in mcyclecfg/minstretcfg is writable or read-only-zero depends on whether the associated privilege mode is implemented. This is an implementation choice about which bits are read-only vs. read-write, making it a NORM_CSR_RW parameter. The same applies to minstretcfg by symmetry."
+    },
+    {
+      "excerpt": "Mode transition operations (traps and trap returns) may take multiple clock cycles, and the change of privilege mode may be reported as occurring in any one of those cycles (possibly different for each occurrence of a trap or trap return).",
+      "line_number": 58,
+      "parameter_name": "CYCLE_MODE_TRANSITION_REPORTING_CYCLE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "may be reported as occurring in any one of those cycles",
+      "confidence": "high",
+      "reasoning": "The spec explicitly states that the cycle in which a privilege mode change is reported during a trap/trap-return is an implementation choice ('may be reported as occurring in any one of those cycles'). This is a design-time decision about cycle counting behavior during mode transitions, not controlled by any CSR field."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "mcyclecfg and minstretcfg are 64-bit registers that configure privilege mode filtering for the cycle and instret counters, respectively.",
+      "line_number": 19,
+      "reason": "This is a fixed statement of fact about the register width and purpose. No optionality language is present; every implementation must have these as 64-bit registers."
+    },
+    {
+      "excerpt": "When all xINH bits are zero, event counting is enabled in all modes.",
+      "line_number": 41,
+      "reason": "This is a fixed behavioral description of what happens when all inhibit bits are zero. It is a normative rule, not an implementation choice."
+    },
+    {
+      "excerpt": "The content of these registers may be accessible from Supervisor level if the Smcdeleg/Ssccfg extensions are implemented.",
+      "line_number": 47,
+      "reason": "The 'may' here is conditional on whether Smcdeleg/Ssccfg are implemented \u2014 it is a behavioral description of those extensions' effects, not a standalone implementation choice about mcyclecfg/minstretcfg. It is also a clarification referencing behavior defined elsewhere."
+    },
+    {
+      "excerpt": "The latter do retire, and should increment instret only if the originating privilege mode is not inhibited.",
+      "line_number": 65,
+      "reason": "This is a normative behavioral rule ('should' here is a specification requirement for xRET counting behavior), not an implementation-defined choice. It defines the required behavior for all implementations."
+    },
+    {
+      "excerpt": "For RV32, bits 63:32 of mcyclecfg can be accessed via the mcyclecfgh CSR, and bits 63:32 of minstretcfg can be accessed via the minstretcfgh CSR.",
+      "line_number": 45,
+      "reason": "This is a fixed architectural rule for RV32 implementations \u2014 it describes how the upper 32 bits are accessed. The 'can' here means 'is possible/available', not an implementation choice. It is a fixed ISA rule."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"For each bit in 61:58, if the associated privilege mode is not implemented, the bit is read-only zero.\",\n      \"line_number\": 43,\n      \"parameter_name\": \"MCYCLECFG_UNIMPLEMENTED_MODE_BITS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"the bit is read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether each of the xINH bits (SINH, UINH, VSINH, VUINH) in mcyclecfg/minstretcfg is writable or read-only-zero depends on whether the associated privilege mode is implemented. This is an implementation choice about which bits are read-only vs. read-write, making it a NORM_CSR_RW parameter. The same applies to minstretcfg by symmetry.\"\n    },\n    {\n      \"excerpt\": \"Mode transition operations (traps and trap returns) may take multiple clock cycles, and the change of privilege mode may be reported as occurring in any one of those cycles (possibly different for each occurrence of a trap or trap return).\",\n      \"line_number\": 58,\n      \"parameter_name\": \"CYCLE_MODE_TRANSITION_REPORTING_CYCLE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"may be reported as occurring in any one of those cycles\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly states that the cycle in which a privilege mode change is reported during a trap/trap-return is an implementation choice ('may be reported as occurring in any one of those cycles'). This is a design-time decision about cycle counting behavior during mode transitions, not controlled by any CSR field.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"mcyclecfg and minstretcfg are 64-bit registers that configure privilege mode filtering for the cycle and instret counters, respectively.\",\n      \"line_number\": 19,\n      \"reason\": \"This is a fixed statement of fact about the register width and purpose. No optionality language is present; every implementation must have these as 64-bit registers.\"\n    },\n    {\n      \"excerpt\": \"When all xINH bits are zero, event counting is enabled in all modes.\",\n      \"line_number\": 41,\n      \"reason\": \"This is a fixed behavioral description of what happens when all inhibit bits are zero. It is a normative rule, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The content of these registers may be accessible from Supervisor level if the Smcdeleg/Ssccfg extensions are implemented.\",\n      \"line_number\": 47,\n      \"reason\": \"The 'may' here is conditional on whether Smcdeleg/Ssccfg are implemented \u2014 it is a behavioral description of those extensions' effects, not a standalone implementation choice about mcyclecfg/minstretcfg. It is also a clarification referencing behavior defined elsewhere.\"\n    },\n    {\n      \"excerpt\": \"The latter do retire, and should increment instret only if the originating privilege mode is not inhibited.\",\n      \"line_number\": 65,\n      \"reason\": \"This is a normative behavioral rule ('should' here is a specification requirement for xRET counting behavior), not an implementation-defined choice. It defines the required behavior for all implementations.\"\n    },\n    {\n      \"excerpt\": \"For RV32, bits 63:32 of mcyclecfg can be accessed via the mcyclecfgh CSR, and bits 63:32 of minstretcfg can be accessed via the minstretcfgh CSR.\",\n      \"line_number\": 45,\n      \"reason\": \"This is a fixed architectural rule for RV32 implementations \u2014 it describes how the upper 32 bits are accessed. The 'can' here means 'is possible/available', not an implementation choice. It is a fixed ISA rule.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11166,
+  "output_tokens": 1022,
+  "latency_ms": 18620,
+  "timestamp": "2026-06-22T08:52:25.471586+00:00",
+  "error": null,
+  "retry_count": 0
+}

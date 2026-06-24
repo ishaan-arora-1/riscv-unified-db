@@ -1,0 +1,319 @@
+{
+  "chunk_id": "chunk_048",
+  "source_file": "smctr.adoc",
+  "start_line": 1,
+  "end_line": 763,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "It is implementation-specific which DEPTH value(s) are supported.",
+      "line_number": 222,
+      "parameter_name": "CTR_SUPPORTED_DEPTHS",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "set",
+      "modal_signal": "implementation-specific which DEPTH value(s) are supported",
+      "confidence": "high",
+      "reasoning": "The sctrdepth.DEPTH field is WARL, and the set of legal DEPTH values is explicitly stated to be implementation-specific. This is a NORM_CSR_WARL parameter controlling which depth encodings are legal."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_MTE_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_MTE_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The MTE field in mctrctl is optional; unimplemented fields are read-only 0. This is a per-field RW/RO choice. The known UDB name MCTRCTL_MTE_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_STE_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_STE_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The STE field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_STE_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_RASEMU_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_RASEMU_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The RASEMU field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_RASEMU_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_EXCINH_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_EXCINH_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The EXCINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_EXCINH_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_INTRINH_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_INTRINH_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The INTRINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_INTRINH_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_TRETINH_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_TRETINH_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The TRETINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_TRETINH_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_NTBREN_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_NTBREN_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The NTBREN field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_NTBREN_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_TKBRINH_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_TKBRINH_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The TKBRINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_TKBRINH_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_INDCALLINH_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_INDCALLINH_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The INDCALLINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_INDCALLINH_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_DIRCALLINH_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_DIRCALLINH_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The DIRCALLINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_DIRCALLINH_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_INDJMPINH_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_INDJMPINH_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The INDJMPINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_INDJMPINH_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_DIRJMPINH_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_DIRJMPINH_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The DIRJMPINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_DIRJMPINH_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_CORSWAPINH_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_CORSWAPINH_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The CORSWAPINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_CORSWAPINH_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_RETINH_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_RETINH_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The RETINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_RETINH_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_INDLJMPINH_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_INDLJMPINH_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The INDLJMPINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_INDLJMPINH_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_DIRLJMPINH_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_DIRLJMPINH_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The DIRLJMPINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_DIRLJMPINH_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.",
+      "line_number": 107,
+      "parameter_name": "MCTRCTL_CUSTOM_IMPLEMENTED",
+      "existing_udb_name": "MCTRCTL_CUSTOM_IMPLEMENTED",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "All fields are optional except for M, S, U, and BPFRZ",
+      "confidence": "high",
+      "reasoning": "The Custom[3:0] field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_CUSTOM_IMPLEMENTED matches."
+    },
+    {
+      "excerpt": "The optional MISP bit is set by the hardware when the recorded transfer is an instruction whose target or taken/not-taken direction was mispredicted by the branch predictor. MISP is read-only 0 when not implemented.",
+      "line_number": 330,
+      "parameter_name": "CTR_MISP_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "optional MISP bit",
+      "confidence": "high",
+      "reasoning": "The MISP bit in ctrtarget is explicitly described as optional ('The optional MISP bit'). When not implemented it is read-only 0. This is a NORM_CSR_RW parameter controlling whether the MISP bit is writable or read-only-zero."
+    },
+    {
+      "excerpt": "The `ctrdata` register contains metadata for the recorded transfer. This register must be implemented, though all fields within it are optional. Unimplemented fields are read-only 0.",
+      "line_number": 349,
+      "parameter_name": "CTR_CTRDATA_TYPE_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "all fields within it are optional",
+      "confidence": "high",
+      "reasoning": "The TYPE, CCV, and CC fields within ctrdata are all optional ('all fields within it are optional'). Unimplemented fields are read-only 0. This is a NORM_CSR_RW parameter for each field."
+    },
+    {
+      "excerpt": "The `ctrdata` register may optionally include a count of CPU cycles elapsed since the prior CTR record.  The elapsed cycle count value is represented by the CC field, which has a 12-bit mantissa component (Cycle Count Mantissa, or CCM) and a 4-bit exponent component (Cycle Count Exponent, or CCE).",
+      "line_number": 618,
+      "parameter_name": "CTR_CYCLE_COUNT_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "may optionally include a count of CPU cycles",
+      "confidence": "high",
+      "reasoning": "The cycle count feature (CC field in ctrdata) is explicitly optional ('may optionally include'). This is a design-time choice about whether the CC/CCV fields are implemented."
+    },
+    {
+      "excerpt": "An implementation that supports cycle counting must implement CCV and all CCM bits, but may implement 0..4 exponent bits in CCE. Unimplemented CCE bits are read-only 0.",
+      "line_number": 648,
+      "parameter_name": "CTR_CCE_WIDTH",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "range",
+      "modal_signal": "may implement 0..4 exponent bits in CCE",
+      "confidence": "high",
+      "reasoning": "The number of implemented CCE bits (0 to 4) is an implementation choice ('may implement 0..4 exponent bits'). Unimplemented bits are read-only 0. This is a NORM_CSR_RW parameter controlling how many CCE bits are writable."
+    },
+    {
+      "excerpt": "If external trap recording is implemented, `mctrctl`.MTE and `sctrctl`.STE must be implemented, while `vsctrctl`.STE must be implemented if the H extension is implemented.",
+      "line_number": 543,
+      "parameter_name": "CTR_EXTERNAL_TRAP_RECORDING_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "If external trap recording is implemented",
+      "confidence": "high",
+      "reasoning": "External trap recording is an optional feature ('If external trap recording is implemented'). The implementation chooses whether to support it. This is a design-time NORM_DIRECT choice."
+    },
+    {
+      "excerpt": "When the optional `__x__ctrctl`.RASEMU bit is implemented and set to 1, transfer recording behavior is altered to emulate the behavior of a return-address stack (RAS).",
+      "line_number": 693,
+      "parameter_name": "CTR_RASEMU_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "optional `__x__ctrctl`.RASEMU bit is implemented",
+      "confidence": "high",
+      "reasoning": "The RASEMU bit is explicitly described as optional ('the optional ... RASEMU bit is implemented'). When not implemented it is read-only 0 (per the general rule for unimplemented fields). This is a NORM_CSR_RW parameter."
+    },
+    {
+      "excerpt": "CCV should additionally be cleared after any other implementation-specific scenarios where active cycles might not be counted in CtrCycleCounter.",
+      "line_number": 672,
+      "parameter_name": "CTR_CCV_CLEAR_SCENARIOS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "set",
+      "modal_signal": "implementation-specific scenarios",
+      "confidence": "medium",
+      "reasoning": "The spec says CCV should be cleared in 'implementation-specific scenarios' beyond the defined ones. This is an implementation choice about additional conditions under which CCV is cleared. However, the set of scenarios is not enumerable, which makes this borderline. Keeping it as medium confidence since the spec explicitly calls out 'implementation-specific scenarios' as a real implementer choice."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The `mctrctl` register is a 64-bit read/write register that enables and configures the CTR capability.",
+      "line_number": 37,
+      "reason": "This is a fixed statement of fact about the register's size and access type. No optionality language; it is a requirement, not a parameter."
+    },
+    {
+      "excerpt": "Attempts to access `sctrdepth` from VS-mode or VU-mode raise a virtual-instruction exception, unless CTR state enable access restrictions apply.",
+      "line_number": 228,
+      "reason": "This is a fixed behavioral requirement ('raise a virtual-instruction exception'). No implementer choice; it is a 'must' rule."
+    },
+    {
+      "excerpt": "Recorded transfers will set the `ctrsource`.V bit to 1, and will update all implemented record fields.",
+      "line_number": 468,
+      "reason": "This is a fixed behavioral requirement describing what hardware must do when recording a transfer. No optionality language."
+    },
+    {
+      "excerpt": "The CtrCycleCounter is reset on writes to `__x__ctrctl`, and on execution of SCTRCLR, to ensure that any accumulated cycle counts do not persist across a context switch.",
+      "line_number": 644,
+      "reason": "This is a fixed behavioral requirement ('is reset on'). No implementer choice; it is a mandatory behavior."
+    },
+    {
+      "excerpt": "SCTRCLR raises an illegal-instruction exception in U-mode, and a virtual-instruction exception in VU-mode, unless CTR state enable access restrictions apply.",
+      "line_number": 393,
+      "reason": "This is a fixed behavioral requirement about exception behavior. No optionality language; it is a 'must' rule."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"It is implementation-specific which DEPTH value(s) are supported.\",\n      \"line_number\": 222,\n      \"parameter_name\": \"CTR_SUPPORTED_DEPTHS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"implementation-specific which DEPTH value(s) are supported\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The sctrdepth.DEPTH field is WARL, and the set of legal DEPTH values is explicitly stated to be implementation-specific. This is a NORM_CSR_WARL parameter controlling which depth encodings are legal.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_MTE_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_MTE_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The MTE field in mctrctl is optional; unimplemented fields are read-only 0. This is a per-field RW/RO choice. The known UDB name MCTRCTL_MTE_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_STE_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_STE_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The STE field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_STE_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_RASEMU_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_RASEMU_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The RASEMU field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_RASEMU_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_EXCINH_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_EXCINH_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The EXCINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_EXCINH_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_INTRINH_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_INTRINH_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The INTRINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_INTRINH_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_TRETINH_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_TRETINH_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The TRETINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_TRETINH_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_NTBREN_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_NTBREN_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The NTBREN field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_NTBREN_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_TKBRINH_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_TKBRINH_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The TKBRINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_TKBRINH_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_INDCALLINH_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_INDCALLINH_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The INDCALLINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_INDCALLINH_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_DIRCALLINH_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_DIRCALLINH_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The DIRCALLINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_DIRCALLINH_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_INDJMPINH_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_INDJMPINH_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The INDJMPINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_INDJMPINH_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_DIRJMPINH_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_DIRJMPINH_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The DIRJMPINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_DIRJMPINH_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_CORSWAPINH_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_CORSWAPINH_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The CORSWAPINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_CORSWAPINH_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_RETINH_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_RETINH_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The RETINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_RETINH_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_INDLJMPINH_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_INDLJMPINH_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The INDLJMPINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_INDLJMPINH_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_DIRLJMPINH_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_DIRLJMPINH_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The DIRLJMPINH field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_DIRLJMPINH_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"All fields are optional except for M, S, U, and BPFRZ.  All unimplemented fields are read-only 0, while all implemented fields are writable.  If the Sscofpmf extension is implemented, LCOFIFRZ must be writable.\",\n      \"line_number\": 107,\n      \"parameter_name\": \"MCTRCTL_CUSTOM_IMPLEMENTED\",\n      \"existing_udb_name\": \"MCTRCTL_CUSTOM_IMPLEMENTED\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"All fields are optional except for M, S, U, and BPFRZ\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The Custom[3:0] field in mctrctl is optional; unimplemented fields are read-only 0. Known UDB name MCTRCTL_CUSTOM_IMPLEMENTED matches.\"\n    },\n    {\n      \"excerpt\": \"The optional MISP bit is set by the hardware when the recorded transfer is an instruction whose target or taken/not-taken direction was mispredicted by the branch predictor. MISP is read-only 0 when not implemented.\",\n      \"line_number\": 330,\n      \"parameter_name\": \"CTR_MISP_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"optional MISP bit\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The MISP bit in ctrtarget is explicitly described as optional ('The optional MISP bit'). When not implemented it is read-only 0. This is a NORM_CSR_RW parameter controlling whether the MISP bit is writable or read-only-zero.\"\n    },\n    {\n      \"excerpt\": \"The `ctrdata` register contains metadata for the recorded transfer. This register must be implemented, though all fields within it are optional. Unimplemented fields are read-only 0.\",\n      \"line_number\": 349,\n      \"parameter_name\": \"CTR_CTRDATA_TYPE_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"all fields within it are optional\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The TYPE, CCV, and CC fields within ctrdata are all optional ('all fields within it are optional'). Unimplemented fields are read-only 0. This is a NORM_CSR_RW parameter for each field.\"\n    },\n    {\n      \"excerpt\": \"The `ctrdata` register may optionally include a count of CPU cycles elapsed since the prior CTR record.  The elapsed cycle count value is represented by the CC field, which has a 12-bit mantissa component (Cycle Count Mantissa, or CCM) and a 4-bit exponent component (Cycle Count Exponent, or CCE).\",\n      \"line_number\": 618,\n      \"parameter_name\": \"CTR_CYCLE_COUNT_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may optionally include a count of CPU cycles\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The cycle count feature (CC field in ctrdata) is explicitly optional ('may optionally include'). This is a design-time choice about whether the CC/CCV fields are implemented.\"\n    },\n    {\n      \"excerpt\": \"An implementation that supports cycle counting must implement CCV and all CCM bits, but may implement 0..4 exponent bits in CCE. Unimplemented CCE bits are read-only 0.\",\n      \"line_number\": 648,\n      \"parameter_name\": \"CTR_CCE_WIDTH\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"may implement 0..4 exponent bits in CCE\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of implemented CCE bits (0 to 4) is an implementation choice ('may implement 0..4 exponent bits'). Unimplemented bits are read-only 0. This is a NORM_CSR_RW parameter controlling how many CCE bits are writable.\"\n    },\n    {\n      \"excerpt\": \"If external trap recording is implemented, `mctrctl`.MTE and `sctrctl`.STE must be implemented, while `vsctrctl`.STE must be implemented if the H extension is implemented.\",\n      \"line_number\": 543,\n      \"parameter_name\": \"CTR_EXTERNAL_TRAP_RECORDING_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"If external trap recording is implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"External trap recording is an optional feature ('If external trap recording is implemented'). The implementation chooses whether to support it. This is a design-time NORM_DIRECT choice.\"\n    },\n    {\n      \"excerpt\": \"When the optional `__x__ctrctl`.RASEMU bit is implemented and set to 1, transfer recording behavior is altered to emulate the behavior of a return-address stack (RAS).\",\n      \"line_number\": 693,\n      \"parameter_name\": \"CTR_RASEMU_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"optional `__x__ctrctl`.RASEMU bit is implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The RASEMU bit is explicitly described as optional ('the optional ... RASEMU bit is implemented'). When not implemented it is read-only 0 (per the general rule for unimplemented fields). This is a NORM_CSR_RW parameter.\"\n    },\n    {\n      \"excerpt\": \"CCV should additionally be cleared after any other implementation-specific scenarios where active cycles might not be counted in CtrCycleCounter.\",\n      \"line_number\": 672,\n      \"parameter_name\": \"CTR_CCV_CLEAR_SCENARIOS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"implementation-specific scenarios\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The spec says CCV should be cleared in 'implementation-specific scenarios' beyond the defined ones. This is an implementation choice about additional conditions under which CCV is cleared. However, the set of scenarios is not enumerable, which makes this borderline. Keeping it as medium confidence since the spec explicitly calls out 'implementation-specific scenarios' as a real implementer choice.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The `mctrctl` register is a 64-bit read/write register that enables and configures the CTR capability.\",\n      \"line_number\": 37,\n      \"reason\": \"This is a fixed statement of fact about the register's size and access type. No optionality language; it is a requirement, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"Attempts to access `sctrdepth` from VS-mode or VU-mode raise a virtual-instruction exception, unless CTR state enable access restrictions apply.\",\n      \"line_number\": 228,\n      \"reason\": \"This is a fixed behavioral requirement ('raise a virtual-instruction exception'). No implementer choice; it is a 'must' rule.\"\n    },\n    {\n      \"excerpt\": \"Recorded transfers will set the `ctrsource`.V bit to 1, and will update all implemented record fields.\",\n      \"line_number\": 468,\n      \"reason\": \"This is a fixed behavioral requirement describing what hardware must do when recording a transfer. No optionality language.\"\n    },\n    {\n      \"excerpt\": \"The CtrCycleCounter is reset on writes to `__x__ctrctl`, and on execution of SCTRCLR, to ensure that any accumulated cycle counts do not persist across a context switch.\",\n      \"line_number\": 644,\n      \"reason\": \"This is a fixed behavioral requirement ('is reset on'). No implementer choice; it is a mandatory behavior.\"\n    },\n    {\n      \"excerpt\": \"SCTRCLR raises an illegal-instruction exception in U-mode, and a virtual-instruction exception in VU-mode, unless CTR state enable access restrictions apply.\",\n      \"line_number\": 393,\n      \"reason\": \"This is a fixed behavioral requirement about exception behavior. No optionality language; it is a 'must' rule.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 24736,
+  "output_tokens": 6294,
+  "latency_ms": 75624,
+  "timestamp": "2026-06-22T08:53:42.130813+00:00",
+  "error": null,
+  "retry_count": 0
+}

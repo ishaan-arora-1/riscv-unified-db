@@ -1,0 +1,66 @@
+{
+  "chunk_id": "chunk_018",
+  "source_file": "intro.adoc",
+  "start_line": 1,
+  "end_line": 696,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Optionally, an implementation may adopt the stronger model of Total Store Ordering, as defined in <<ztso>>.",
+      "line_number": 468,
+      "parameter_name": "MEMORY_ORDERING_MODEL",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "an implementation may adopt the stronger model of Total Store Ordering",
+      "confidence": "high",
+      "reasoning": "The implementation chooses between RVWMO (default) and TSO ('may adopt the stronger model'). This is a design-time architectural choice not controlled by any CSR field."
+    },
+    {
+      "excerpt": "We use the term ILEN (measured in bits) to refer to the maximum instruction length supported by an implementation, and which is always a multiple of IALIGN. For implementations supporting only a base instruction set, ILEN is 32 bits. Implementations supporting longer instructions have larger values of ILEN.",
+      "line_number": 499,
+      "parameter_name": "ILEN",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "range",
+      "modal_signal": "Implementations supporting longer instructions have larger values of ILEN",
+      "confidence": "high",
+      "reasoning": "ILEN is a value the implementer chooses (the maximum instruction length). The spec states it varies by implementation ('Implementations supporting longer instructions have larger values of ILEN'), making it a design-time parameter."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "There are two primary base integer variants, RV32I and RV64I, described in <<rv32>> and <<rv64>>, which provide 32-bit or 64-bit address spaces respectively.",
+      "line_number": 237,
+      "reason": "This is a statement of fact describing the two defined base ISA variants. There is no optionality language \u2014 it does not say an implementation 'may choose' between them; it simply describes what exists. The MXLEN parameter is defined elsewhere with proper optionality wording."
+    },
+    {
+      "excerpt": "IALIGN is 32 bits in the base ISA, but some ISA extensions, including the compressed ISA extension, relax IALIGN to 16 bits. IALIGN may not take on any value other than 16 or 32.",
+      "line_number": 494,
+      "reason": "This describes a fixed constraint on IALIGN values (must be 16 or 32). The value of IALIGN is determined by which ISA extensions are present, not by a free implementation choice. The 'may not' here is a prohibition, not optionality."
+    },
+    {
+      "excerpt": "The term UNSPECIFIED refers to a behavior or value that is intentionally unconstrained. The definition of these behaviors or values is open to extensions, platform standards, or implementations.",
+      "line_number": 672,
+      "reason": "This is a definitional/introductory statement about the term UNSPECIFIED. It is not itself defining a specific architectural parameter \u2014 it is meta-commentary about how the spec uses the term. Per the hard exclusion rules, unspecified behaviors are not extractable parameters."
+    },
+    {
+      "excerpt": "The base RISC-V ISA has fixed-length 32-bit instructions that must be naturally aligned on 32-bit boundaries.",
+      "line_number": 484,
+      "reason": "This is a fixed requirement ('must be naturally aligned'). There is no implementer choice here \u2014 all base ISA implementations must follow this rule. Not a parameter."
+    },
+    {
+      "excerpt": "RISC-V base ISAs have either little-endian or big-endian memory systems, with the privileged architecture further defining bi-endian operation.",
+      "line_number": 560,
+      "reason": "This is a statement of fact about what variants exist. The endianness choice is defined in the privileged architecture (mstatus.MBE/SBE/UBE fields), not here. This sentence has no optionality language directing an implementer to choose \u2014 it merely describes the landscape. The actual endianness parameters are captured in the privileged spec."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Optionally, an implementation may adopt the stronger model of Total Store Ordering, as defined in <<ztso>>.\",\n      \"line_number\": 468,\n      \"parameter_name\": \"MEMORY_ORDERING_MODEL\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"an implementation may adopt the stronger model of Total Store Ordering\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses between RVWMO (default) and TSO ('may adopt the stronger model'). This is a design-time architectural choice not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"We use the term ILEN (measured in bits) to refer to the maximum instruction length supported by an implementation, and which is always a multiple of IALIGN. For implementations supporting only a base instruction set, ILEN is 32 bits. Implementations supporting longer instructions have larger values of ILEN.\",\n      \"line_number\": 499,\n      \"parameter_name\": \"ILEN\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"Implementations supporting longer instructions have larger values of ILEN\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"ILEN is a value the implementer chooses (the maximum instruction length). The spec states it varies by implementation ('Implementations supporting longer instructions have larger values of ILEN'), making it a design-time parameter.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"There are two primary base integer variants, RV32I and RV64I, described in <<rv32>> and <<rv64>>, which provide 32-bit or 64-bit address spaces respectively.\",\n      \"line_number\": 237,\n      \"reason\": \"This is a statement of fact describing the two defined base ISA variants. There is no optionality language \u2014 it does not say an implementation 'may choose' between them; it simply describes what exists. The MXLEN parameter is defined elsewhere with proper optionality wording.\"\n    },\n    {\n      \"excerpt\": \"IALIGN is 32 bits in the base ISA, but some ISA extensions, including the compressed ISA extension, relax IALIGN to 16 bits. IALIGN may not take on any value other than 16 or 32.\",\n      \"line_number\": 494,\n      \"reason\": \"This describes a fixed constraint on IALIGN values (must be 16 or 32). The value of IALIGN is determined by which ISA extensions are present, not by a free implementation choice. The 'may not' here is a prohibition, not optionality.\"\n    },\n    {\n      \"excerpt\": \"The term UNSPECIFIED refers to a behavior or value that is intentionally unconstrained. The definition of these behaviors or values is open to extensions, platform standards, or implementations.\",\n      \"line_number\": 672,\n      \"reason\": \"This is a definitional/introductory statement about the term UNSPECIFIED. It is not itself defining a specific architectural parameter \u2014 it is meta-commentary about how the spec uses the term. Per the hard exclusion rules, unspecified behaviors are not extractable parameters.\"\n    },\n    {\n      \"excerpt\": \"The base RISC-V ISA has fixed-length 32-bit instructions that must be naturally aligned on 32-bit boundaries.\",\n      \"line_number\": 484,\n      \"reason\": \"This is a fixed requirement ('must be naturally aligned'). There is no implementer choice here \u2014 all base ISA implementations must follow this rule. Not a parameter.\"\n    },\n    {\n      \"excerpt\": \"RISC-V base ISAs have either little-endian or big-endian memory systems, with the privileged architecture further defining bi-endian operation.\",\n      \"line_number\": 560,\n      \"reason\": \"This is a statement of fact about what variants exist. The endianness choice is defined in the privileged architecture (mstatus.MBE/SBE/UBE fields), not here. This sentence has no optionality language directing an implementer to choose \u2014 it merely describes the landscape. The actual endianness parameters are captured in the privileged spec.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 18417,
+  "output_tokens": 1062,
+  "latency_ms": 22025,
+  "timestamp": "2026-06-22T08:48:22.341101+00:00",
+  "error": null,
+  "retry_count": 0
+}

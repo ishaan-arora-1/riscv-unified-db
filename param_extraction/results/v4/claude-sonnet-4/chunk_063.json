@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_063",
+  "source_file": "zabha.adoc",
+  "start_line": 1,
+  "end_line": 68,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Byte and halfword AMOs always sign-extend the value placed in `rd`, and ignore the stem:[XLEN-1:2^{(width + 3)}] bits of the original value in `rs2`.",
+      "line_number": 55,
+      "reason": "Fixed requirement ('always sign-extend', 'ignore') \u2014 no implementer choice, not a parameter."
+    },
+    {
+      "excerpt": "Similar to the AMOs specified in the A extension, the Zabha extension mandates that the address contained in the `rs1` register must be naturally aligned to the size of the operand.",
+      "line_number": 59,
+      "reason": "Fixed requirement ('mandates ... must be naturally aligned') \u2014 no implementer choice."
+    },
+    {
+      "excerpt": "The same exception options as specified in the A extension are applicable in cases where the address is not naturally aligned.",
+      "line_number": 60,
+      "reason": "This references exception options defined in the A extension (a parameter defined elsewhere). It is a clarification pointing to another section, not a new parameter definition."
+    },
+    {
+      "excerpt": "the AMOs in the Zabha extension optionally provide release consistency semantics, using the `aq` and `rl` bits, to help implement multiprocessor synchronization.",
+      "line_number": 63,
+      "reason": "The word 'optionally' here refers to the programmer's optional use of the aq/rl bits per instruction, not an implementation-time architectural choice. This is a software/programmer-level option, not an implementer parameter."
+    },
+    {
+      "excerpt": "Zabha omits _byte_ and _halfword_ support for `LR` and `SC` due to low utility.",
+      "line_number": 67,
+      "reason": "This is inside a [NOTE] block and is therefore non-normative. No parameter may be extracted from NOTE blocks."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Byte and halfword AMOs always sign-extend the value placed in `rd`, and ignore the stem:[XLEN-1:2^{(width + 3)}] bits of the original value in `rs2`.\",\n      \"line_number\": 55,\n      \"reason\": \"Fixed requirement ('always sign-extend', 'ignore') \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"Similar to the AMOs specified in the A extension, the Zabha extension mandates that the address contained in the `rs1` register must be naturally aligned to the size of the operand.\",\n      \"line_number\": 59,\n      \"reason\": \"Fixed requirement ('mandates ... must be naturally aligned') \u2014 no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The same exception options as specified in the A extension are applicable in cases where the address is not naturally aligned.\",\n      \"line_number\": 60,\n      \"reason\": \"This references exception options defined in the A extension (a parameter defined elsewhere). It is a clarification pointing to another section, not a new parameter definition.\"\n    },\n    {\n      \"excerpt\": \"the AMOs in the Zabha extension optionally provide release consistency semantics, using the `aq` and `rl` bits, to help implement multiprocessor synchronization.\",\n      \"line_number\": 63,\n      \"reason\": \"The word 'optionally' here refers to the programmer's optional use of the aq/rl bits per instruction, not an implementation-time architectural choice. This is a software/programmer-level option, not an implementer parameter.\"\n    },\n    {\n      \"excerpt\": \"Zabha omits _byte_ and _halfword_ support for `LR` and `SC` due to low utility.\",\n      \"line_number\": 67,\n      \"reason\": \"This is inside a [NOTE] block and is therefore non-normative. No parameter may be extracted from NOTE blocks.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 10938,
+  "output_tokens": 496,
+  "latency_ms": 8811,
+  "timestamp": "2026-06-22T08:59:22.108109+00:00",
+  "error": null,
+  "retry_count": 0
+}

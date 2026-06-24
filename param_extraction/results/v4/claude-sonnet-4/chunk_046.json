@@ -1,0 +1,55 @@
+{
+  "chunk_id": "chunk_046",
+  "source_file": "smcdeleg.adoc",
+  "start_line": 1,
+  "end_line": 140,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "It is optional whether the LCOFI bit (bit 13) in each of `mideleg` and `hideleg`, which allows all LCOFIs to be delegated to S-mode and VS-mode, respectively, is implemented and writable.",
+      "line_number": 138,
+      "parameter_name": "LCOFI_MIDELEG_HIDELEG_WRITABLE",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "It is optional whether the LCOFI bit ... is implemented and writable",
+      "confidence": "low",
+      "reasoning": "This text is inside a [NOTE] block (lines 130-139), which is non-normative. However, the optionality language 'It is optional whether ... is implemented and writable' is explicit. Per the rules, parameters must NOT be extracted from NOTE/TIP/WARNING/IMPORTANT blocks. Therefore this should be skipped."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "For a RISC-V hardware platform, Smcdeleg and Ssccfg must always be implemented in tandem.",
+      "line_number": 29,
+      "reason": "Fixed requirement ('must always be implemented in tandem') \u2014 no implementer choice, applies to all implementations."
+    },
+    {
+      "excerpt": "When the Smcdeleg/Ssccfg extensions are enabled (`menvcfg`.CDE=1), it further allows M-mode to delegate select counters to S-mode.",
+      "line_number": 34,
+      "reason": "Behavioral description of what happens when CDE=1. The parameter (whether CDE is implemented/writable) is defined elsewhere; this sentence describes runtime behavior, not an implementation choice."
+    },
+    {
+      "excerpt": "`hpmevent__i__` may represent a subset of the state accessed by the `mhpmevent__i__` register. Specifically, if Sscofpmf is implemented, event selector bit 62 (MINH) is read-only 0 when accessed through `sireg*`.",
+      "line_number": 62,
+      "reason": "The 'may' here is not optionality for the implementer \u2014 it describes a conditional architectural fact (MINH is read-only 0 when accessed via sireg*). This is a fixed rule when Sscofpmf is implemented, not an implementation choice."
+    },
+    {
+      "excerpt": "If any extension upon which the underlying state depends is not implemented, an attempt from M or S mode to access the given state through `sireg*` raises an illegal-instruction exception.",
+      "line_number": 97,
+      "reason": "Fixed requirement describing mandatory exception behavior when an extension is absent. No implementer choice \u2014 'raises an illegal-instruction exception' is a 'must' rule."
+    },
+    {
+      "excerpt": "It is optional whether the LCOFI bit (bit 13) in each of `mideleg` and `hideleg`, which allows all LCOFIs to be delegated to S-mode and VS-mode, respectively, is implemented and writable.",
+      "line_number": 138,
+      "reason": "This text is inside a [NOTE] block (lines 130-139), which is non-normative. Parameters must not be extracted from NOTE/TIP/WARNING/IMPORTANT blocks, even when they contain explicit optionality language."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"It is optional whether the LCOFI bit (bit 13) in each of `mideleg` and `hideleg`, which allows all LCOFIs to be delegated to S-mode and VS-mode, respectively, is implemented and writable.\",\n      \"line_number\": 138,\n      \"parameter_name\": \"LCOFI_MIDELEG_HIDELEG_WRITABLE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"It is optional whether the LCOFI bit ... is implemented and writable\",\n      \"confidence\": \"low\",\n      \"reasoning\": \"This text is inside a [NOTE] block (lines 130-139), which is non-normative. However, the optionality language 'It is optional whether ... is implemented and writable' is explicit. Per the rules, parameters must NOT be extracted from NOTE/TIP/WARNING/IMPORTANT blocks. Therefore this should be skipped.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"For a RISC-V hardware platform, Smcdeleg and Ssccfg must always be implemented in tandem.\",\n      \"line_number\": 29,\n      \"reason\": \"Fixed requirement ('must always be implemented in tandem') \u2014 no implementer choice, applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"When the Smcdeleg/Ssccfg extensions are enabled (`menvcfg`.CDE=1), it further allows M-mode to delegate select counters to S-mode.\",\n      \"line_number\": 34,\n      \"reason\": \"Behavioral description of what happens when CDE=1. The parameter (whether CDE is implemented/writable) is defined elsewhere; this sentence describes runtime behavior, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"`hpmevent__i__` may represent a subset of the state accessed by the `mhpmevent__i__` register. Specifically, if Sscofpmf is implemented, event selector bit 62 (MINH) is read-only 0 when accessed through `sireg*`.\",\n      \"line_number\": 62,\n      \"reason\": \"The 'may' here is not optionality for the implementer \u2014 it describes a conditional architectural fact (MINH is read-only 0 when accessed via sireg*). This is a fixed rule when Sscofpmf is implemented, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"If any extension upon which the underlying state depends is not implemented, an attempt from M or S mode to access the given state through `sireg*` raises an illegal-instruction exception.\",\n      \"line_number\": 97,\n      \"reason\": \"Fixed requirement describing mandatory exception behavior when an extension is absent. No implementer choice \u2014 'raises an illegal-instruction exception' is a 'must' rule.\"\n    },\n    {\n      \"excerpt\": \"It is optional whether the LCOFI bit (bit 13) in each of `mideleg` and `hideleg`, which allows all LCOFIs to be delegated to S-mode and VS-mode, respectively, is implemented and writable.\",\n      \"line_number\": 138,\n      \"reason\": \"This text is inside a [NOTE] block (lines 130-139), which is non-normative. Parameters must not be extracted from NOTE/TIP/WARNING/IMPORTANT blocks, even when they contain explicit optionality language.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12563,
+  "output_tokens": 872,
+  "latency_ms": 16591,
+  "timestamp": "2026-06-22T08:52:05.827735+00:00",
+  "error": null,
+  "retry_count": 0
+}
