@@ -123,6 +123,7 @@ SPDX-License-Identifier = "BSD-3-Clause-Clear"
 path = [
     "param_extraction/results/v3/**",
     "param_extraction/data/final_*",
+    "param_extraction/data/corrected_*",
     "param_extraction/data/parameters_v4*",
     "param_extraction/results/v4/**",
     "param_extraction/generated_params/**",

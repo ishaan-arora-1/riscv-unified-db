@@ -1,0 +1,25 @@
+parameter_name,class,value_type,adoc_file,line_number,modal_signal,excerpt,mentor_note
+HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR,NORM_DIRECT,enum,high,may cause an illegal-instruction exception or may return a constant value,counters.adoc,191,"WARL parameter:  returning a constant value implies implemented, so which counters are implemented is the parameter, If unimplmented, requires illegal inst trap (NOT unspecified)"
+HPM_MISCONFIGURED_BEHAVIOR,NORM_DIRECT,binary,medium,the counter may return a constant value,counters.adoc,192,"parameter: WARL behavior (only tested if Ssstrict is implemented, else is unspeciifed"
+VSXL_RO_PARAM,NORM_CSR_RW,binary,high,an implementation may make VSXL be a read-only field,hypervisor.adoc,244,"new WARL parameter behavior! (ReadOnly, but value is the the value of some other state bit"
+VTW_VIRTINSTR_PARAM,NORM_DIRECT,binary,high,An implementation may have WFI always raise a virtual-instruction exception,hypervisor.adoc,260,"parameter: raise virt inst, or just wait?"
+VSSTATUS_UBE_PARAM,NORM_CSR_RW,binary,high,An implementation may make field UBE be a read-only copy,hypervisor.adoc,1226,"parameter: new WARL  behavior! (ReadOnly, but value is the the value of some other state bit)"
+DELEGATABLE_EXCEPTIONS,NORM_CSR_WARL,bitmask,high,An implementation can choose to subset the delegatable traps,machine.adoc,1310,parameter: WARL behavior (RW or RO0; RO1 not legal)
+MIP_WRITABLE_BITS,NORM_CSR_RW,bitmask,high,may be writable or may be read-only,machine.adoc,1395,parameter: WARL behavior (RW or RO0; RO1 not legal)
+PMPADDR_WARL_MASK,NORM_CSR_WARL,bitmask,high,Not all physical address bits may be implemented,machine.adoc,3395,parameter: WARL  (number of implemented address bits; conditional on or priv mode and xSATP.mode (VA vs. PA)
+MNEPC_INVALID_ADDRESS_CONVERSION,NORM_DIRECT,binary,high,implementations may convert an invalid address,rnmi.adoc,62,"parameter: WARL behavior ( but depends on definition of ""invalid"". Implies implemented<full width.)"
+MSECCFG_SEED_BITS_RW,NORM_CSR_RW,binary,high,"may implement `mseccfg` such that `[s,u]seed` is a read-only constant value",scalar-crypto.adoc,3750,parameter: WARL behavior (RW or RO0; RO1 not legal)
+SCTRDEPTH_SUPPORTED_VALUES,NORM_CSR_WARL,set,high,implementation-specific which DEPTH value(s) are supported,smctr.adoc,189,"parameter: WARL behavior (range value, or set)"
+CTRTARGET_MISP_IMPLEMENTED,NORM_CSR_RW,binary,high,The optional MISP bit,smctr.adoc,295,"new WARL parameter behavior! (ReadOnly, but value is either fixed 0 or the the value of some *internal* status  bit)"
+CTR_CYCLE_COUNTING_SUPPORTED,NORM_DIRECT,binary,high,may optionally include a count of CPU cycles,smctr.adoc,612,parameter
+CTR_CCE_WIDTH,NORM_DIRECT,range,high,may implement 0..4 exponent bits in CCE,smctr.adoc,638,parameter
+CTR_RASEMU_SUPPORTED,NORM_DIRECT,binary,high,When the optional `__x__ctrctl`.RASEMU bit is implemented,smctr.adoc,669,parameter
+STATEEN_IMPLICIT_UPDATE_EXCEPTION,NORM_DIRECT,binary,high,may or may not raise an illegal-instruction or virtual-instruction exception,smstateen.adoc,103,parameter (trap or not; which kind of trap is defined elsewhere)
+SSTATUS_UXL_ACCESS,NORM_CSR_RW,binary,high,an implementation may make UXL be a read-only field,supervisor.adoc,134,"new WARL parameter behavior! (ReadOnly, but value includes the value of sother state bit)"
+HINT_SXLEN_BEHAVIOR,NORM_DIRECT,binary,high,it is implementation-defined whether bits SXLEN..XLEN of the destination register are unchanged or are overwritten,supervisor.adoc,149,parameter
+SSTATUS_UBE_ACCESS,NORM_CSR_RW,binary,high,An implementation may make UBE be a read-only field,supervisor.adoc,221,"new WARL parameter behavior! (ReadOnly, but value includes the value of some state  bit)"
+SIP_BITS_ACCESS,NORM_CSR_RW,bitmask,high,may be writable or may be read-only,supervisor.adoc,434,"WARL parameter (RW, RdOnly0/1)"
+STANDARD_INTERRUPT_SUPPORT,NORM_CSR_RW,bitmask,high,may not be implemented,supervisor.adoc,520,"WARL parameter (RW, RdOnly0)"
+SENVCFG_FIOM_ACCESS,NORM_CSR_RW,binary,high,the implementation may make FIOM read-only zero,supervisor.adoc,1001,WARL parameter: conditional on mode 
+ZALASR_MISALIGNED_ATOMICITY_GRANULE,NORM_DIRECT,binary,high,optionally relaxes this alignment requirement,zalasr.adoc,23,parameter: (existence & value of atomicity granule)
+CSR_STRONGLY_ORDERED,NORM_DIRECT,set,high,may define that accesses to certain CSRs are strongly ordered,zicsr.adoc,244,parameter: memory ordering PMA value(s)

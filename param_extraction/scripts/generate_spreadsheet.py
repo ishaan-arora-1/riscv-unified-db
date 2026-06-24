@@ -315,9 +315,10 @@ def build_rows(
         def add_note(r: dict, note: str) -> None:
             r["notes"] = (r["notes"] + "; " + note) if r["notes"] else note
 
-        # WARL fields are usually covered by the general CSR field WARL model.
+        # WARL behavior IS a parameter (mentor's annotated review) — classify it,
+        # don't drop it. Flag only as a reminder to check field-level duplication.
         if r["refers_to_warl"] == "yes":
-            add_note(r, "likely duplicate: WARL field, usually covered by CSR field model")
+            add_note(r, "WARL behavior — classify (RW/RO0, legal values); check this specific field isn't already defined")
             warl_flagged += 1
         # Intro/overview sections are essentially non-normative.
         if r["in_intro_section"] == "yes":

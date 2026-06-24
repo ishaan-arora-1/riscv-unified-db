@@ -1,0 +1,5 @@
+parameter_name,class,value_type,adoc_file,line_number,modal_signal,excerpt,mentor_note
+CBO_ZERO_ATOMIC_UPDATE,NORM_DIRECT,binary,high,may or may not update the entire set of bytes atomically,cmo.adoc,810,"technically a parameter, but impossible to reliably test"
+MENVCFG_FIOM_IMPLEMENTED,NORM_CSR_RW,binary,high,the implementation may make FIOM read-only zero,machine.adoc,2186,"?? Is this WARLbehavior, or should ""may"" be ""must"""
+HPMEVENT_SUBSET_REPRESENTATION,NORM_DIRECT,binary,high,may represent a subset,smcdeleg.adoc,58,"possible duplication, unclear definition. Is this simply reiterating that mcounteren and menvcfg.CDE change accessibility of counter&event selection"
+CYCLECFG_INSTRETCFG_SUBSET_REPRESENTATION,NORM_DIRECT,binary,high,may represent a subset,smcdeleg.adoc,62,"possible duplication, unclear definition. Is this simply reiterating that mcounteren and menvcfg.CDE change accessibility of counter&event selection"

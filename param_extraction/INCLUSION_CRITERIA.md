@@ -52,8 +52,7 @@ upgraded to `[#param:]`); untagged text is more likely a clarification.
 | 5a | *Exception:* an unspecified **value/width/number** the implementation picks | That IS a value parameter (e.g. ASID_WIDTH) | V3 |
 | 5b | *Distinguish:* "may or may not **support / implement** a feature" is a binary **support parameter** (yes/no, testable) — keep it; it is NOT unspecified behavior | A feature-support choice is observable | Domain review |
 | 6 | "Misconfigured", or implementation-defined with **no testable units / enumerable options** (e.g. "bounded time limit", unknown units), **or a value that cannot be observed/tested at all** (line 17: "kind of invisible") | Cannot test or certify | Mentor + manager |
-| 7 | A plain **WARL / read-only-vs-read-write field restatement** ("field X is WARL", "each bit may be writable or read-only") | Already covered by the CSR field model | Both reviews |
-| 7a | *Exception:* a **specific legal-value choice** of a WARL field (which MODE/DEPTH values are supported) | That IS a parameter | — |
+| ~~7~~ | **CORRECTED — WARL behavior is NOT an exclusion.** A WARL / read-only-vs-read-write field behavior **is a parameter** (classify it as WARL behavior: e.g. "RW or RO0; RO1 not legal", legal-value set, conditional-on-mode). Drop it ONLY if the **specific field** is already defined as a parameter elsewhere — a true field-level **duplicate** (then it falls under rule 11). | The mentor's annotated V3 review labelled the WARL rows "parameter: WARL behavior", not duplicates. "Usually covered by general WARL field definitions" means *check each field for an existing definition*, not *discard all WARL*. | Mentor annotated review |
 | 8 | From an **introduction / overview** section | Non-normative | Manager |
 | 9 | **Untagged** text that is a software/firmware requirement or clarification (keywords `software`/`firmware`/`note`/`will`). NOTE: *tagged* text is a positive signal — do not exclude it on this basis | Clarification / SW requirement, not an implementer choice | Manager |
 | 10 | A clarification that **references a parameter defined elsewhere** | Points at an existing param | Manager |
@@ -74,6 +73,16 @@ upgraded to `[#param:]`); untagged text is more likely a clarification.
 
 Note: a "field implemented, else read-only-zero" param is `NORM_CSR_RW`, **not**
 `NORM_DIRECT` (corrected ground-truth heuristic, V3).
+
+**WARL parameters are a major, valid category — do not filter them out.** The
+mentor's annotated review confirmed most WARL findings as real parameters. Common
+WARL parameter shapes to classify (not drop):
+- legal-value set of a field (which MODE/DEPTH values are supported);
+- whether a field/bit is RW vs read-only-0 (with which RO values are legal, e.g.
+  "RW or RO0; RO1 not legal");
+- conditional behavior (read-only only under a stated condition / mode);
+- **NEW pattern he flagged:** a field that is read-only but whose **value mirrors
+  another state bit** (e.g. `vsstatus`.UXL read-only-equal-to another XL field).
 
 **Value-type accuracy:** the `value_type` must match the actual field — e.g. a
 field with a numeric width is a `range`, not a `bitmask` (manager, line 15). A
