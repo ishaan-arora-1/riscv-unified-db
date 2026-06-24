@@ -29,6 +29,13 @@ The excerpt must contain genuine optionality language:
 A choice-word is **necessary but not sufficient** — it must also survive every
 exclusion below.
 
+Note on weaker words: `should` (a recommendation) and a bare `can`/`will` are
+NOT by themselves optionality — untagged uses of these alongside the keywords in
+rule 9 are usually clarifications, not parameters. Whether the excerpt is
+**tagged** in the spec is a useful positive signal: tagged text is genuine
+normative content (and if it is a parameter, its `[#norm:]` tag should be
+upgraded to `[#param:]`); untagged text is more likely a clarification.
+
 ## 2. Exclusion rules (each one disqualifies)
 
 | # | Rule — NOT a parameter if it is… | Why | First learned |
@@ -39,11 +46,11 @@ exclusion below.
 | 4 | Model-classified non-architectural (`NON_ISA`/`NON_NORM`/`DOC_RULE`/`UNKNOWN`) | Out of ISA scope | Taxonomy |
 | 5 | **Unspecified behavior/result/outcome — including "may or may not X"** | Intentionally unconstrained; cannot certify | Mentor + V4 adjudication |
 | 5a | *Exception:* an unspecified **value/width/number** the implementation picks | That IS a value parameter (e.g. ASID_WIDTH) | V3 |
-| 6 | "Misconfigured", or implementation-defined with **no testable units / enumerable options** (e.g. "bounded time limit", unknown units) | Cannot test | Mentor + manager |
+| 6 | "Misconfigured", or implementation-defined with **no testable units / enumerable options** (e.g. "bounded time limit", unknown units), **or a value that cannot be observed/tested at all** (line 17: "kind of invisible") | Cannot test or certify | Mentor + manager |
 | 7 | A plain **WARL / read-only-vs-read-write field restatement** ("field X is WARL", "each bit may be writable or read-only") | Already covered by the CSR field model | Both reviews |
 | 7a | *Exception:* a **specific legal-value choice** of a WARL field (which MODE/DEPTH values are supported) | That IS a parameter | — |
 | 8 | From an **introduction / overview** section | Non-normative | Manager |
-| 9 | A **software/firmware requirement or clarification** (esp. near `software`/`firmware`/`note`/`will`, or untagged) | Not an implementer hardware choice | Manager |
+| 9 | **Untagged** text that is a software/firmware requirement or clarification (keywords `software`/`firmware`/`note`/`will`). NOTE: *tagged* text is a positive signal — do not exclude it on this basis | Clarification / SW requirement, not an implementer choice | Manager |
 | 10 | A clarification that **references a parameter defined elsewhere** | Points at an existing param | Manager |
 | 11 | A **duplicate** — same concept as an existing UDB parameter, even under a different name or in a different location | Not new | Both reviews |
 | 12 | **Describing how an existing mechanism** (lock bit, feature) already works | Not a new knob | Manager (lock bit) |
@@ -62,6 +69,11 @@ exclusion below.
 
 Note: a "field implemented, else read-only-zero" param is `NORM_CSR_RW`, **not**
 `NORM_DIRECT` (corrected ground-truth heuristic, V3).
+
+**Value-type accuracy:** the `value_type` must match the actual field — e.g. a
+field with a numeric width is a `range`, not a `bitmask` (manager, line 15). A
+mis-typed value is also a clue it may be a WARL duplicate (rule 7/11), so verify
+value_type and WARL coverage together.
 
 ## 4. How the rules are enforced (defense in depth)
 
