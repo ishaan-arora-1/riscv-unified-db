@@ -3,77 +3,75 @@ SPDX-FileCopyrightText: 2026 Contributors to the RISCV UnifiedDB <https://github
 SPDX-License-Identifier: BSD-3-Clause-Clear
 -->
 
-# Parameter Inclusion Criteria
+# Parameter Inclusion Criteria — Final Ruleset (V1–V4)
 
-The rules the pipeline uses to decide whether a spec excerpt is a real,
-certifiable architectural **parameter**. This is a living document: each rule
-cites its source, and new rules are added as expert review surfaces them.
+The complete set of rules for deciding whether a spec excerpt is a real,
+certifiable architectural **parameter**. Consolidated from the whole project:
+the original taxonomy, both expert reviews, and the V4 LLM-adjudication pass.
 
-## What a parameter is
+## 0. Definition
 
-An architectural parameter is an **implementation choice with a finite,
-enumerable, verifiable set of legal values**, left to the implementer by the
-spec, supported by an extension, and **not already captured** elsewhere in UDB.
+A parameter is **an implementation choice with a finite, enumerable, verifiable
+set of legal values** — left to the implementer by the spec, supported by an
+extension, and **not already captured** elsewhere in UDB.
 
-The key test (from the certification purpose of UDB and the schema's
-requirement that a description "include a list of valid values"): **if you
-cannot list the legal values, or cannot verify an implementation against them,
-it is not a certifiable parameter.**
+Master test: *if you cannot list the legal values and verify an implementation
+against them, it is not a certifiable parameter.*
 
-A choice-word ("may", "optional", "implementation-defined") is **necessary but
-not sufficient** — many sentences contain one and are still not parameters.
+## 1. Inclusion signals (necessary)
 
-## Inclusion signals (necessary, not sufficient)
-
-Optionality language that indicates a genuine implementer choice:
+The excerpt must contain genuine optionality language:
 `may` (as optionality), `optional`/`optionally`, `implementation-defined`,
 `implementation-specific`/`-dependent`, `can choose`/`can be configured`,
-`is/are not required to`, `need not`, `may be zero/one`, and
-"the implementation chooses/defines/selects/sets a value/width".
+`is/are not required to`, `need not`, `may be zero/one`, or
+"the implementation **chooses / defines / selects / sets** a value/width/number".
 
-A value, width, or number that is *unspecified* but chosen by the
-implementation (e.g. `ASID_WIDTH`) **is** a parameter — see exclusion rule 5.
+A choice-word is **necessary but not sufficient** — it must also survive every
+exclusion below.
 
-## Exclusion rules (what disqualifies an excerpt)
+## 2. Exclusion rules (each one disqualifies)
 
-| # | Rule | Why | Source | Pipeline action |
-|---|---|---|---|---|
-| 1 | Text inside `[NOTE]`/`[TIP]`/`[WARNING]`/`[IMPORTANT]` blocks | Non-normative | Phase 2 design | `REJECT_NOTE` (matched by text, not line number) |
-| 2 | Fixed requirement (`must`, `shall`, `required`, `mandatory`, `always`) with no optionality | No implementer choice | Phase 2 + mentor review | `REJECT_REQUIRED` |
-| 3 | Reserved / hardwired statement of fact (`reserved`, `hardwired`, `WPRI`) | Fixed, not chosen | Pre-send audit | `REJECT_RESERVED` |
-| 4 | Model classified it non-architectural (`NON_ISA`/`NON_NORM`/`DOC_RULE`/`UNKNOWN`) | Out of ISA scope | Taxonomy | `DROP_NONARCH` |
-| 5 | **Unspecified *behavior*/result/outcome, or "misconfigured"** | No verifiable value set — "we never certify unspecified behavior" | Mentor review 1; spec §"UNSPECIFIED Behaviors and Values" | `REJECT_UNCERTIFIABLE` (exempts unspecified *values/widths*, which are real value params) |
-| 6 | **Generic WARL / read-only-vs-read-write field restatement** | Already captured by the CSR field model | Mentor review 1 (lines 11,12); manager review 2 (line 28) | `refers_to_warl=yes` column + "likely duplicate" flag |
-| 7 | **From an introduction / overview section** | Intro text is essentially non-normative | Manager review 2 (line 17) | `in_intro_section=yes` column + flag |
-| 8 | **Untagged text near `software`/`firmware`/`note`/`will`** | Usually a clarification or software requirement, not a parameter | Manager review 2 | `sw_keywords` column + "likely clarification" flag |
-| 9 | "implementation-defined" but **no enumerable/testable options** (e.g. "bounded time limit", unknown units) | Cannot test or even emulate | Manager review 2 (lines 35,36) | flag for human review |
-| 10 | A clarification that **references an already-defined parameter** | Points at an existing param, not new | Manager review 2 (line 34) | flag (duplicate check) |
-| 11 | **Duplicate** — same concept is already a named UDB param or a WARL-modeled field | Not new | Mentor review 1 (line 16); manager review 2 (priority) | duplicate check vs named params + CSR-field model |
+| # | Rule — NOT a parameter if it is… | Why | First learned |
+|---|---|---|---|
+| 1 | Inside a `[NOTE]`/`[TIP]`/`[WARNING]`/`[IMPORTANT]` block | Non-normative | V2 |
+| 2 | A fixed requirement (`must`, `shall`, `required`, `mandatory`, `always`) with no optionality | No choice | V2 / mentor |
+| 3 | A reserved / hardwired statement of fact (`reserved`, `hardwired`, `WPRI`) | Fixed, not chosen | V3 audit |
+| 4 | Model-classified non-architectural (`NON_ISA`/`NON_NORM`/`DOC_RULE`/`UNKNOWN`) | Out of ISA scope | Taxonomy |
+| 5 | **Unspecified behavior/result/outcome — including "may or may not X"** | Intentionally unconstrained; cannot certify | Mentor + V4 adjudication |
+| 5a | *Exception:* an unspecified **value/width/number** the implementation picks | That IS a value parameter (e.g. ASID_WIDTH) | V3 |
+| 6 | "Misconfigured", or implementation-defined with **no testable units / enumerable options** (e.g. "bounded time limit", unknown units) | Cannot test | Mentor + manager |
+| 7 | A plain **WARL / read-only-vs-read-write field restatement** ("field X is WARL", "each bit may be writable or read-only") | Already covered by the CSR field model | Both reviews |
+| 7a | *Exception:* a **specific legal-value choice** of a WARL field (which MODE/DEPTH values are supported) | That IS a parameter | — |
+| 8 | From an **introduction / overview** section | Non-normative | Manager |
+| 9 | A **software/firmware requirement or clarification** (esp. near `software`/`firmware`/`note`/`will`, or untagged) | Not an implementer hardware choice | Manager |
+| 10 | A clarification that **references a parameter defined elsewhere** | Points at an existing param | Manager |
+| 11 | A **duplicate** — same concept as an existing UDB parameter, even under a different name or in a different location | Not new | Both reviews |
+| 12 | **Describing how an existing mechanism** (lock bit, feature) already works | Not a new knob | Manager (lock bit) |
+| 13 | **Extension/register presence** — whether a whole extension or register exists | That's extension membership, not a parameter | V4 review |
+| 14 | **Derived** — fully determined by another choice, not a free independent one | Not an independent parameter | V4 review |
+| 15 | A genuine normative **rule** whose parameter-ness needs the design rationale | Cannot be decided mechanically | Manager → flag for human, never assert |
 
-## Diagnostic columns (manager review 2)
+## 3. Classification (for the parameters that pass)
 
-Added to the spreadsheet so a reviewer can triage quickly:
-- **`tagged`** — is the excerpt already covered by a spec tag (`[#...]`)? Tagged text is genuine normative content; untagged text near software-requirement words is usually a clarification. (If a tagged excerpt *is* a parameter, the existing `[#norm:]` tag should be upgraded to also mark it a parameter.)
-- **`refers_to_warl`** — does it describe a WARL / RO-vs-RW field already covered by the CSR field model?
-- **`in_intro_section`** — is the source an introduction/overview file?
-- **`sw_keywords`** — which clarification/SW-requirement words appear.
+| Class | Meaning |
+|---|---|
+| `NORM_DIRECT` | Implementation picks a value directly; no CSR field controls it |
+| `NORM_CSR_WARL` | The legal-value set of a WARL CSR field |
+| `NORM_CSR_RW` | Whether a CSR field is read-only vs read-write (incl. field implemented-else-read-only-zero) |
+| `SW_RULE` | Looks impl-defined but deterministic if software follows the spec |
 
-## Residual human-judgment cases
+Note: a "field implemented, else read-only-zero" param is `NORM_CSR_RW`, **not**
+`NORM_DIRECT` (corrected ground-truth heuristic, V3).
 
-Some excerpts are genuine normative **rules** but not parameters, and cannot be
-labelled correctly without the design rationale — e.g. "an invalid address must
-remain identifiable as invalid" (`MNEPC_INVALID_ADDRESS_CONVERSION`). These are
-**flagged for human review, never auto-labelled**. (Manager review 2, line 18.)
+## 4. How the rules are enforced (defense in depth)
 
-## What is automated vs pending
+No single layer is trusted; a parameter must survive all four:
 
-- **Automated now:** rules 1–8 (rejections + diagnostic columns + WARL/RW and intro/SW flags), plus value-parameter protection for rule 5.
-- **Partially automated:** rule 6/11 — the WARL/RW *phrasing* is flagged, but a full cross-reference of each candidate against the CSR-field WARL definitions (to catch duplicates that don't use the word "WARL") is the next build.
-- **Human-judgment:** rules 9, 10, 12 are surfaced as flags for a reviewer.
+1. **Prompt (V4):** the exclusions are baked into extraction, so the model produces clean candidates by construction.
+2. **Script filter** (`validate_findings.py` + `generate_spreadsheet.py`): mechanical rules (1–9) + diagnostic columns `tagged`, `refers_to_warl`, `in_intro_section`, `sw_keywords`.
+3. **LLM adjudication** (`adjudicate.py`): the semantic rules (10–14) — duplicate detection against all existing UDB params, "describes existing mechanism", certifiability — that scripts cannot do.
+4. **Human review:** the final authority. Rule 15 and any layer-disagreements go here. The automated layers are a strong *candidate generator*, not the final word.
 
-## Sources
-- **Mentor review 1**: unspecified ≠ parameter; WARL restatements already modeled; duplicate concern.
-- **Manager review 2**: tagged/untagged signal; `refers_to_warl` and `tagged` columns; intro = non-normative; software/firmware/note/will keywords; "implementation-defined" with no testable options; clarifications referencing real params; rationale-dependent rules.
-- **Spec**: `ext/riscv-isa-manual/src/intro.adoc` §"UNSPECIFIED Behaviors and Values".
-- **Schema**: `spec/schemas/param_schema.json` (description must include a list of valid values).
-- **Certification models**: `spec/std/isa/proc_cert_model/*.yaml` `param_constraints` (the parameters certification actually tracks).
+## 5. Tagging follow-on
+Where a confirmed parameter's excerpt already carries a `[#norm:NAME]` tag, the
+tag should be upgraded to also indicate a parameter (`[#param:NAME]`).
