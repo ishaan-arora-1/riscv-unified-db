@@ -11,12 +11,16 @@ the original taxonomy, both expert reviews, and the V4 LLM-adjudication pass.
 
 ## 0. Definition
 
-A parameter is **an implementation choice with a finite, enumerable, verifiable
-set of legal values** — left to the implementer by the spec, supported by an
-extension, and **not already captured** elsewhere in UDB.
+A parameter is **an implementation choice whose outcome can be observed and
+verified** — the implementer selects from a defined set, a bounded range, or
+commits to a single fixed declared value — left to the implementer by the spec,
+supported by an extension, and **not already captured** elsewhere in UDB.
 
-Master test: *if you cannot list the legal values and verify an implementation
-against them, it is not a certifiable parameter.*
+Master test: *if an implementation's choice cannot be observed and tested, it is
+not a certifiable parameter.* This deliberately admits value/ID/reset
+parameters (e.g. `ARCH_ID_VALUE`) whose value space is unconstrained but whose
+chosen value is declared and readable; it excludes unspecified *behaviors*,
+which cannot be tested.
 
 ## 1. Inclusion signals (necessary)
 
@@ -44,8 +48,9 @@ upgraded to `[#param:]`); untagged text is more likely a clarification.
 | 2 | A fixed requirement (`must`, `shall`, `required`, `mandatory`, `always`) with no optionality | No choice | V2 / mentor |
 | 3 | A reserved / hardwired statement of fact (`reserved`, `hardwired`, `WPRI`) | Fixed, not chosen | V3 audit |
 | 4 | Model-classified non-architectural (`NON_ISA`/`NON_NORM`/`DOC_RULE`/`UNKNOWN`) | Out of ISA scope | Taxonomy |
-| 5 | **Unspecified behavior/result/outcome — including "may or may not X"** | Intentionally unconstrained; cannot certify | Mentor + V4 adjudication |
+| 5 | **Unspecified behavior/result/outcome** — e.g. "the result is unspecified", or "may or may not [happen/fail/update]" describing a runtime *outcome* | Intentionally unconstrained; cannot test | Mentor + V4 adjudication |
 | 5a | *Exception:* an unspecified **value/width/number** the implementation picks | That IS a value parameter (e.g. ASID_WIDTH) | V3 |
+| 5b | *Distinguish:* "may or may not **support / implement** a feature" is a binary **support parameter** (yes/no, testable) — keep it; it is NOT unspecified behavior | A feature-support choice is observable | Domain review |
 | 6 | "Misconfigured", or implementation-defined with **no testable units / enumerable options** (e.g. "bounded time limit", unknown units), **or a value that cannot be observed/tested at all** (line 17: "kind of invisible") | Cannot test or certify | Mentor + manager |
 | 7 | A plain **WARL / read-only-vs-read-write field restatement** ("field X is WARL", "each bit may be writable or read-only") | Already covered by the CSR field model | Both reviews |
 | 7a | *Exception:* a **specific legal-value choice** of a WARL field (which MODE/DEPTH values are supported) | That IS a parameter | — |
@@ -54,7 +59,7 @@ upgraded to `[#param:]`); untagged text is more likely a clarification.
 | 10 | A clarification that **references a parameter defined elsewhere** | Points at an existing param | Manager |
 | 11 | A **duplicate** — same concept as an existing UDB parameter, even under a different name or in a different location | Not new | Both reviews |
 | 12 | **Describing how an existing mechanism** (lock bit, feature) already works | Not a new knob | Manager (lock bit) |
-| 13 | **Extension/register presence** — whether a whole extension or register exists | That's extension membership, not a parameter | V4 review |
+| 13 | **Extension / whole-register presence** — whether a complete extension or register exists | That's extension membership, not a parameter. *But:* whether an **optional field within a register** is implemented (read-only-zero if not) IS a `NORM_CSR_RW` parameter | V4 review |
 | 14 | **Derived** — fully determined by another choice, not a free independent one | Not an independent parameter | V4 review |
 | 15 | A genuine normative **rule** whose parameter-ness needs the design rationale | Cannot be decided mechanically | Manager → flag for human, never assert |
 
@@ -65,7 +70,7 @@ upgraded to `[#param:]`); untagged text is more likely a clarification.
 | `NORM_DIRECT` | Implementation picks a value directly; no CSR field controls it |
 | `NORM_CSR_WARL` | The legal-value set of a WARL CSR field |
 | `NORM_CSR_RW` | Whether a CSR field is read-only vs read-write (incl. field implemented-else-read-only-zero) |
-| `SW_RULE` | Looks impl-defined but deterministic if software follows the spec |
+| `SW_RULE` | A *hardware* choice that looks impl-defined but is deterministic if software follows the spec (e.g. `HW_MSTATUS_FS_DIRTY_UPDATE`). Distinct from rule 9: SW_RULE is still a hardware parameter; rule 9 excludes a requirement placed *on* software |
 
 Note: a "field implemented, else read-only-zero" param is `NORM_CSR_RW`, **not**
 `NORM_DIRECT` (corrected ground-truth heuristic, V3).
