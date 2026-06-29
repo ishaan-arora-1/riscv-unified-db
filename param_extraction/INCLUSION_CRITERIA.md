@@ -56,7 +56,7 @@ upgraded to `[#param:]`); untagged text is more likely a clarification.
 | 8 | From an **introduction / overview** section | Non-normative | Manager |
 | 9 | **Untagged** text that is a software/firmware requirement or clarification (keywords `software`/`firmware`/`note`/`will`). NOTE: *tagged* text is a positive signal — do not exclude it on this basis | Clarification / SW requirement, not an implementer choice | Manager |
 | 10 | A clarification that **references a parameter defined elsewhere** | Points at an existing param | Manager |
-| 11 | A **duplicate** — same concept as an existing UDB parameter, even under a different name or in a different location | Not new | Both reviews |
+| 11 | A **duplicate** — same concept as an existing UDB parameter (different name or location), OR the **same normative text appearing in multiple chapters** (identical wording, sometimes tagged), OR the **same parameter described under a different per-chapter condition** ("under condition X this parameter applies", where X varies by chapter) | Not new; cross-chapter duplication is common and tricky to tag | Both reviews + Umer detailed review |
 | 12 | **Describing how an existing mechanism** (lock bit, feature) already works | Not a new knob | Manager (lock bit) |
 | 13 | **Extension / whole-register presence** — whether a complete extension or register exists | That's extension membership, not a parameter. *But:* whether an **optional field within a register** is implemented (read-only-zero if not) IS a `NORM_CSR_RW` parameter | V4 review |
 | 14 | **Derived** — fully determined by another choice, not a free independent one | Not an independent parameter | V4 review |
@@ -81,8 +81,20 @@ WARL parameter shapes to classify (not drop):
 - whether a field/bit is RW vs read-only-0 (with which RO values are legal, e.g.
   "RW or RO0; RO1 not legal");
 - conditional behavior (read-only only under a stated condition / mode);
-- **NEW pattern he flagged:** a field that is read-only but whose **value mirrors
-  another state bit** (e.g. `vsstatus`.UXL read-only-equal-to another XL field).
+- **Read-only mirroring another state bit:** a field that is read-only but whose
+  **value mirrors another state bit** (e.g. `vsstatus`.UXL read-only-equal-to
+  another XL field; or a copy of an explicit or *implicit* bit such as `MISP`).
+
+**Implicit WARL — the spec is often NOT explicit.** A bit listed as just an
+RW-CSR bit may in fact be always, or optionally, read-only-0, read-only-1, or a
+copy of another (explicit or implicit) state bit. Treat these conditional
+read-only behaviors as WARL parameters **even when the word "WARL" is absent**.
+
+**HINT ops may change processor state.** A HINT is allowed (depending on the
+parameter) to change state that is **not visible to the privilege mode executing
+it** — only to higher privilege levels. So a HINT's effect on currently
+non-visible high bits IS a valid parameter; do NOT reject it on the assumption
+that hints never change state. (Corrects an earlier worry on the HINT_* params.)
 
 **Value-type accuracy:** the `value_type` must match the actual field — e.g. a
 field with a numeric width is a `range`, not a `bitmask` (manager, line 15). A
@@ -94,7 +106,7 @@ value_type and WARL coverage together.
 No single layer is trusted; a parameter must survive all four:
 
 1. **Prompt (V4):** the exclusions are baked into extraction, so the model produces clean candidates by construction.
-2. **Script filter** (`validate_findings.py` + `generate_spreadsheet.py`): mechanical rules (1–9) + diagnostic columns `tagged`, `refers_to_warl`, `in_intro_section`, `sw_keywords`.
+2. **Script filter** (`validate_findings.py` + `generate_spreadsheet.py`): mechanical rules (1–9) + reviewer columns the mentor asked for: `line_number` (spec line), `norm_tag` (the `[#norm:NAME]` tag covering the text, if any), `tagged`, `refers_to_csr_field_value` (does the text describe a CSR field value?), `refers_to_warl` (incl. implicit WARL), `in_intro_section`, `sw_keywords`.
 3. **LLM adjudication** (`adjudicate.py`): the semantic rules (10–14) — duplicate detection against all existing UDB params, "describes existing mechanism", certifiability — that scripts cannot do.
 4. **Human review:** the final authority. Rule 15 and any layer-disagreements go here. The automated layers are a strong *candidate generator*, not the final word.
 

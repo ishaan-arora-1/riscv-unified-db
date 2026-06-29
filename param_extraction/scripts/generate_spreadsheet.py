@@ -61,6 +61,8 @@ COLUMNS = [
     "modal_signal",
     "validation",
     "tagged",
+    "norm_tag",
+    "refers_to_csr_field_value",
     "refers_to_warl",
     "in_intro_section",
     "sw_keywords",
@@ -77,23 +79,44 @@ _WARL_RE = re.compile(
     r"\bwarl\b"
     r"|writable or (may be )?read-only"
     r"|read-only or (may be )?read-write"
-    r"|each (individual )?bit[^.]{0,40}(writable|read-only)",
+    r"|each (individual )?bit[^.]{0,40}(writable|read-only)"
+    # implicit WARL (mentor email): a bit that is conditionally read-only-0/1
+    # or a copy of another state bit, even without the word "WARL".
+    r"|read-only (zero|0|one|1|copy)"
+    r"|copy of (some |an?other )?[^.]{0,20}(state|status) ?bit",
     re.IGNORECASE,
+)
+# Tag name covering the text, e.g. [#norm:misa_acc] -> "norm:misa_acc".
+_NORM_TAG = re.compile(r"\[#([a-z0-9_:-]+)\]", re.IGNORECASE)
+# Does the excerpt describe a CSR field value? (mentor email): a CSR/field
+# reference plus value/RO-RW/legal/bit language.
+_CSR_FIELD_VALUE = re.compile(
+    r"(read-only|read-write|\bRO\b|\bRW\b|writable|legal value|`[a-z]+`\.[A-Za-z]|"
+    r"field|\bbit\b|MODE|encod)", re.IGNORECASE
 )
 
 
 def compute_signals(excerpt: str, adoc_file: str, spec_norm: str) -> dict:
-    """Manager-requested diagnostic columns for one finding."""
+    """Reviewer diagnostic columns for one finding."""
     key = re.sub(r"\s+", " ", excerpt.strip().lower())[:50]
-    # Tagged: is the excerpt covered by an existing spec tag ([#...]) just before it?
+    # Tagged + which tag: is the excerpt covered by an existing [#...] tag?
     tagged = "no"
+    norm_tag = ""
     if key and spec_norm:
         i = spec_norm.find(key)
-        if i >= 0 and "[#" in spec_norm[max(0, i - 140):i + 40]:
-            tagged = "yes"
+        if i >= 0:
+            window = spec_norm[max(0, i - 200):i + 40]
+            if "[#" in window:
+                tagged = "yes"
+                m = list(_NORM_TAG.finditer(window))
+                if m:
+                    norm_tag = m[-1].group(1)  # nearest tag before the text
     sw = sorted({m.group(0).lower() for m in _SW_KEYWORDS.finditer(excerpt)})
+    csr_val = bool(re.search(r"`[a-z][a-z0-9]*`", excerpt)) and bool(_CSR_FIELD_VALUE.search(excerpt))
     return {
         "tagged": tagged,
+        "norm_tag": norm_tag,
+        "refers_to_csr_field_value": "yes" if csr_val else "no",
         "refers_to_warl": "yes" if _WARL_RE.search(excerpt) else "no",
         "in_intro_section": "yes" if "intro" in adoc_file.lower() else "no",
         "sw_keywords": ", ".join(sw),
@@ -400,6 +423,8 @@ def write_xlsx(rows: list[dict], path: Path) -> None:
         "modal_signal": 40,
         "validation": 16,
         "tagged": 8,
+        "norm_tag": 24,
+        "refers_to_csr_field_value": 14,
         "refers_to_warl": 14,
         "in_intro_section": 14,
         "sw_keywords": 16,
