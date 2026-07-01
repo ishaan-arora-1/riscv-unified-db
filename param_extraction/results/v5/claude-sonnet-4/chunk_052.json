@@ -1,0 +1,55 @@
+{
+  "chunk_id": "chunk_052",
+  "source_file": "sscofpmf.adoc",
+  "start_line": 1,
+  "end_line": 129,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "For each ``x``INH bit, if the associated privilege mode is not implemented, the bit is read-only zero.",
+      "line_number": 52,
+      "parameter_name": "MHPMEVENT_INH_BITS_RW",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "bitmask",
+      "modal_signal": "the bit is read-only zero",
+      "confidence": "high",
+      "reasoning": "Each xINH bit (MINH, SINH, UINH, VSINH, VUINH) in mhpmevent is read-only zero when the associated privilege mode is not implemented. This is an implementation choice about which privilege modes are supported, which determines which INH bits are writable vs. read-only-zero. This is a NORM_CSR_RW parameter because it controls the RO/RW nature of specific bits in the mhpmevent CSR."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The OF bit is set when the corresponding hpmcounter overflows, and remains set until written by software.",
+      "line_number": 57,
+      "reason": "Fixed behavioral requirement ('is set', 'remains set') \u2014 no implementer choice, this is a mandatory behavior for all implementations."
+    },
+    {
+      "excerpt": "Count overflow never results from writes to the mhpmcounter__n__ or mhpmevent__n__ registers, only from hardware increments of counter registers.",
+      "line_number": 73,
+      "reason": "Fixed requirement ('never results from writes') \u2014 this is a mandatory rule with no implementer choice."
+    },
+    {
+      "excerpt": "If supervisor mode is implemented, the 32-bit scountovf register contains read-only shadow copies of the OF bits in all 29 mhpmevent registers.",
+      "line_number": 62,
+      "reason": "This is a conditional fixed requirement ('if S-mode is implemented, then scountovf contains...'), not an implementer choice. The behavior is mandated when S-mode is present."
+    },
+    {
+      "excerpt": "When an OF bit is set, it eventually, but not necessarily immediately, sets the LCOFIP bit in the `mip`/`sip` registers.",
+      "line_number": 83,
+      "reason": "This describes timing behavior ('eventually, but not necessarily immediately') which is a fixed behavioral rule, not an implementer choice about a parameter. The 'not necessarily immediately' is a timing relaxation, not an enumerable parameter."
+    },
+    {
+      "excerpt": "Read access to bit _X_ is subject to the same mcounteren (or mcounteren and hcounteren) CSRs that mediate access to the hpmcounter CSRs by S-mode (or VS-mode).",
+      "line_number": 118,
+      "reason": "Fixed behavioral requirement describing access control rules \u2014 no implementer choice, this is a mandatory rule for all implementations."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"For each ``x``INH bit, if the associated privilege mode is not implemented, the bit is read-only zero.\",\n      \"line_number\": 52,\n      \"parameter_name\": \"MHPMEVENT_INH_BITS_RW\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"the bit is read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Each xINH bit (MINH, SINH, UINH, VSINH, VUINH) in mhpmevent is read-only zero when the associated privilege mode is not implemented. This is an implementation choice about which privilege modes are supported, which determines which INH bits are writable vs. read-only-zero. This is a NORM_CSR_RW parameter because it controls the RO/RW nature of specific bits in the mhpmevent CSR.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The OF bit is set when the corresponding hpmcounter overflows, and remains set until written by software.\",\n      \"line_number\": 57,\n      \"reason\": \"Fixed behavioral requirement ('is set', 'remains set') \u2014 no implementer choice, this is a mandatory behavior for all implementations.\"\n    },\n    {\n      \"excerpt\": \"Count overflow never results from writes to the mhpmcounter__n__ or mhpmevent__n__ registers, only from hardware increments of counter registers.\",\n      \"line_number\": 73,\n      \"reason\": \"Fixed requirement ('never results from writes') \u2014 this is a mandatory rule with no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"If supervisor mode is implemented, the 32-bit scountovf register contains read-only shadow copies of the OF bits in all 29 mhpmevent registers.\",\n      \"line_number\": 62,\n      \"reason\": \"This is a conditional fixed requirement ('if S-mode is implemented, then scountovf contains...'), not an implementer choice. The behavior is mandated when S-mode is present.\"\n    },\n    {\n      \"excerpt\": \"When an OF bit is set, it eventually, but not necessarily immediately, sets the LCOFIP bit in the `mip`/`sip` registers.\",\n      \"line_number\": 83,\n      \"reason\": \"This describes timing behavior ('eventually, but not necessarily immediately') which is a fixed behavioral rule, not an implementer choice about a parameter. The 'not necessarily immediately' is a timing relaxation, not an enumerable parameter.\"\n    },\n    {\n      \"excerpt\": \"Read access to bit _X_ is subject to the same mcounteren (or mcounteren and hcounteren) CSRs that mediate access to the hpmcounter CSRs by S-mode (or VS-mode).\",\n      \"line_number\": 118,\n      \"reason\": \"Fixed behavioral requirement describing access control rules \u2014 no implementer choice, this is a mandatory rule for all implementations.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11600,
+  "output_tokens": 768,
+  "latency_ms": 13274,
+  "timestamp": "2026-06-29T10:38:24.752692+00:00",
+  "error": null,
+  "retry_count": 0
+}

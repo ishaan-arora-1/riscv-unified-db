@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_043",
+  "source_file": "rvwmo.adoc",
+  "start_line": 1,
+  "end_line": 807,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "All memory operations are single-copy atomic: they can never be observed in a partially complete state.",
+      "line_number": 72,
+      "reason": "Fixed requirement ('can never be observed in a partially complete state') \u2014 no implementer choice, this is a universal rule binding all RVWMO implementations."
+    },
+    {
+      "excerpt": "A misaligned load or store instruction may be decomposed into a set of component memory operations of any granularity.",
+      "line_number": 97,
+      "reason": "Although 'may be decomposed' sounds like optionality, this is a behavioral description of what the memory model permits (the decomposition is allowed), not an implementer choice that can be certified as a parameter. The 'may' here is permission for the model, not an implementation-defined choice with enumerable values."
+    },
+    {
+      "excerpt": "if misaligned atomics are supported via the misaligned atomicity granule PMA, then AMOs within an atomicity granule are not decomposed, nor are loads and stores defined in the base ISAs, nor are loads and stores of no more than XLEN bits defined in the F, D, and Q extensions.",
+      "line_number": 103,
+      "reason": "This is a conditional fixed requirement ('are not decomposed') \u2014 it describes what must happen when misaligned atomics are supported via PMA. The PMA support itself is defined elsewhere; this sentence is a behavioral rule, not a new parameter."
+    },
+    {
+      "excerpt": "The complete list of conditions determining whether an SC must succeed, may succeed, or must fail is defined in <<sec:lrsc>>.",
+      "line_number": 116,
+      "reason": "This is a cross-reference clarification pointing to another section where the SC success/failure conditions are defined. It is not itself a parameter definition."
+    },
+    {
+      "excerpt": "No memory operation may be preceded in the global memory order by an infinite sequence of other memory operations.",
+      "line_number": 358,
+      "reason": "Fixed requirement (progress axiom) \u2014 'may be preceded' here is a prohibition ('No ... may'), not an implementer choice. This is a universal rule binding all RVWMO implementations."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"All memory operations are single-copy atomic: they can never be observed in a partially complete state.\",\n      \"line_number\": 72,\n      \"reason\": \"Fixed requirement ('can never be observed in a partially complete state') \u2014 no implementer choice, this is a universal rule binding all RVWMO implementations.\"\n    },\n    {\n      \"excerpt\": \"A misaligned load or store instruction may be decomposed into a set of component memory operations of any granularity.\",\n      \"line_number\": 97,\n      \"reason\": \"Although 'may be decomposed' sounds like optionality, this is a behavioral description of what the memory model permits (the decomposition is allowed), not an implementer choice that can be certified as a parameter. The 'may' here is permission for the model, not an implementation-defined choice with enumerable values.\"\n    },\n    {\n      \"excerpt\": \"if misaligned atomics are supported via the misaligned atomicity granule PMA, then AMOs within an atomicity granule are not decomposed, nor are loads and stores defined in the base ISAs, nor are loads and stores of no more than XLEN bits defined in the F, D, and Q extensions.\",\n      \"line_number\": 103,\n      \"reason\": \"This is a conditional fixed requirement ('are not decomposed') \u2014 it describes what must happen when misaligned atomics are supported via PMA. The PMA support itself is defined elsewhere; this sentence is a behavioral rule, not a new parameter.\"\n    },\n    {\n      \"excerpt\": \"The complete list of conditions determining whether an SC must succeed, may succeed, or must fail is defined in <<sec:lrsc>>.\",\n      \"line_number\": 116,\n      \"reason\": \"This is a cross-reference clarification pointing to another section where the SC success/failure conditions are defined. It is not itself a parameter definition.\"\n    },\n    {\n      \"excerpt\": \"No memory operation may be preceded in the global memory order by an infinite sequence of other memory operations.\",\n      \"line_number\": 358,\n      \"reason\": \"Fixed requirement (progress axiom) \u2014 'may be preceded' here is a prohibition ('No ... may'), not an implementer choice. This is a universal rule binding all RVWMO implementations.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 19703,
+  "output_tokens": 560,
+  "latency_ms": 14040,
+  "timestamp": "2026-06-29T10:34:32.261499+00:00",
+  "error": null,
+  "retry_count": 0
+}

@@ -124,6 +124,8 @@ path = [
     "param_extraction/results/v3/**",
     "param_extraction/data/final_*",
     "param_extraction/data/corrected_*",
+    "param_extraction/data/batch2_*",
+    "param_extraction/results/v5/**",
     "param_extraction/data/parameters_v4*",
     "param_extraction/results/v4/**",
     "param_extraction/generated_params/**",

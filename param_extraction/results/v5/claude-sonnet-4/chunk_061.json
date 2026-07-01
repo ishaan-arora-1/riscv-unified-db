@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_061",
+  "source_file": "vector-crypto.adoc",
+  "start_line": 3311,
+  "end_line": 4966,
+  "content_start_line": 3341,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "[NOTE]\n.Note to software developers\n====\nThe first 16 SEW-sized words of the message schedule come from the _message block_\nin big-endian byte order. Since this instruction treats all words as little endian,\nsoftware is required to endian swap these words.\n====",
+      "line_number": 3395,
+      "reason": "NOTE block \u2014 non-normative. Also describes a software requirement, not an implementation choice."
+    },
+    {
+      "excerpt": "[NOTE]\n====\nPreventing overlap between `vd` and `vs1` or `vs2` simplifies implementation with `VLEN < EGW`.\nThis restriction does not have any coding impact since proper implementation of the algorithm requires\nthat `vd`, `vs1` and `vs2` each contain different portions of the message schedule.\n====",
+      "line_number": 3430,
+      "reason": "NOTE block \u2014 non-normative. Explains rationale for a fixed encoding restriction, not an implementation choice."
+    },
+    {
+      "excerpt": "* [#norm:vsha2ms-vv_Zvknha_sewn32_rsv]#`zvknha`: `SEW` is any value other than 32#",
+      "line_number": 3356,
+      "reason": "Fixed reserved encoding constraint \u2014 not an implementation choice. All implementations must treat these as reserved."
+    },
+    {
+      "excerpt": "[NOTE]\n====\nImplementation Hint\n\nThe round constants (CK) can be generated on the fly fairly cheaply.\nIf the bytes of the constants are assigned an incrementing index from 0 to 127, the value of each byte is equal to its index multiplied by 7 modulo 256.\n====",
+      "line_number": 3762,
+      "reason": "NOTE block \u2014 non-normative implementation hint. Not an architectural parameter."
+    },
+    {
+      "excerpt": "[NOTE]\n====\nIn SM4, encryption and decryption are identical except that decryption consumes the round keys in the reverse order.\n====",
+      "line_number": 3843,
+      "reason": "NOTE block \u2014 non-normative informational note about the SM4 algorithm. Not an implementation choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"[NOTE]\\n.Note to software developers\\n====\\nThe first 16 SEW-sized words of the message schedule come from the _message block_\\nin big-endian byte order. Since this instruction treats all words as little endian,\\nsoftware is required to endian swap these words.\\n====\",\n      \"line_number\": 3395,\n      \"reason\": \"NOTE block \u2014 non-normative. Also describes a software requirement, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"[NOTE]\\n====\\nPreventing overlap between `vd` and `vs1` or `vs2` simplifies implementation with `VLEN < EGW`.\\nThis restriction does not have any coding impact since proper implementation of the algorithm requires\\nthat `vd`, `vs1` and `vs2` each contain different portions of the message schedule.\\n====\",\n      \"line_number\": 3430,\n      \"reason\": \"NOTE block \u2014 non-normative. Explains rationale for a fixed encoding restriction, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"* [#norm:vsha2ms-vv_Zvknha_sewn32_rsv]#`zvknha`: `SEW` is any value other than 32#\",\n      \"line_number\": 3356,\n      \"reason\": \"Fixed reserved encoding constraint \u2014 not an implementation choice. All implementations must treat these as reserved.\"\n    },\n    {\n      \"excerpt\": \"[NOTE]\\n====\\nImplementation Hint\\n\\nThe round constants (CK) can be generated on the fly fairly cheaply.\\nIf the bytes of the constants are assigned an incrementing index from 0 to 127, the value of each byte is equal to its index multiplied by 7 modulo 256.\\n====\",\n      \"line_number\": 3762,\n      \"reason\": \"NOTE block \u2014 non-normative implementation hint. Not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"[NOTE]\\n====\\nIn SM4, encryption and decryption are identical except that decryption consumes the round keys in the reverse order.\\n====\",\n      \"line_number\": 3843,\n      \"reason\": \"NOTE block \u2014 non-normative informational note about the SM4 algorithm. Not an implementation choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 36545,
+  "output_tokens": 582,
+  "latency_ms": 16924,
+  "timestamp": "2026-07-01T10:00:44.275007+00:00",
+  "error": null,
+  "retry_count": 0
+}

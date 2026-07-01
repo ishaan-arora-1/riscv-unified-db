@@ -1,0 +1,99 @@
+{
+  "chunk_id": "chunk_051",
+  "source_file": "smstateen.adoc",
+  "start_line": 1,
+  "end_line": 383,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Each standard-defined bit of a `stateen` CSR is WARL and may be read-only zero or one, subject to the following conditions.",
+      "line_number": 131,
+      "parameter_name": "STATEEN_BIT_ACCESS",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "bitmask",
+      "modal_signal": "may be read-only zero or one",
+      "confidence": "high",
+      "reasoning": "Each bit of a stateen CSR is WARL and the implementation chooses whether each bit is read-only zero, read-only one, or writable. This is a WARL field parameter \u2014 the legal values per bit vary by implementation."
+    },
+    {
+      "excerpt": "Bits in any `stateen` CSR that are defined to control state that a hart doesn't implement are read-only zeros for that hart.",
+      "line_number": 134,
+      "parameter_name": "STATEEN_UNIMPLEMENTED_STATE_ROZ",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "bitmask",
+      "modal_signal": "are read-only zeros for that hart",
+      "confidence": "medium",
+      "reasoning": "Which bits are read-only zero depends on which extensions/state the hart implements \u2014 an implementation choice. The set of read-only-zero bits varies per implementation based on which state is implemented. However, this is a consequence of the implementation choice of which extensions are supported, not a standalone parameter. Confidence is medium because the optionality is indirect (which state is implemented determines which bits are RO0)."
+    },
+    {
+      "excerpt": "Bit 63 of each `mstateen` CSR may be read-only zero only if the hypervisor extension is not implemented and the matching supervisor-level `sstateen` CSR is all read-only zeros.",
+      "line_number": 183,
+      "parameter_name": "MSTATEEN_BIT63_ACCESS",
+      "existing_udb_name": "MSTATEEN_AIA_TYPE",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "may be read-only zero only if",
+      "confidence": "high",
+      "reasoning": "Bit 63 of each mstateen CSR may be read-only zero under specific conditions (no hypervisor extension and matching sstateen is all RO0). This is an implementation choice about whether bit 63 is writable or read-only, signaled by 'may be read-only zero'. This is a NORM_CSR_RW parameter."
+    },
+    {
+      "excerpt": "When a `stateen` CSR prevents access to state for a privilege mode, attempting to execute in that privilege mode an instruction that _implicitly_ updates the state without reading it may or may not raise an illegal-instruction or virtual-instruction exception.",
+      "line_number": 96,
+      "parameter_name": "STATEEN_IMPLICIT_UPDATE_EXCEPTION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may or may not raise an illegal-instruction or virtual-instruction exception",
+      "confidence": "high",
+      "reasoning": "The spec explicitly says 'may or may not raise' an exception for implicit state updates when stateen blocks access. This is an implementation choice for each such case, signaled by 'may or may not'. It is a NORM_DIRECT parameter since no CSR field controls this \u2014 the spec says such cases must be explicitly specified one way or the other per extension."
+    },
+    {
+      "excerpt": "The FCSR bit controls access to `fcsr` for the case when floating-point instructions operate on `x` registers instead of `f` registers as specified by the Zfinx and related extensions (Zdinx, etc.).",
+      "line_number": 237,
+      "parameter_name": "MSTATEEN0_FCSR_TYPE",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": null,
+      "confidence": "low",
+      "reasoning": "This sentence describes the function of the FCSR bit but does not itself contain optionality language. The WARL nature is established by the general stateen WARL rule at line 131. Moving to skipped since no direct optionality signal here."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "For every bit with a defined purpose in an `sstateen` CSR, the same bit is defined in the matching `mstateen` CSR to control access below machine level to the same state.",
+      "line_number": 113,
+      "reason": "Fixed requirement describing the encoding correspondence between sstateen and mstateen CSRs. No implementer choice \u2014 'is defined' is a statement of fact/requirement."
+    },
+    {
+      "excerpt": "On reset, all writable `mstateen` bits are initialized by the hardware to zeros.",
+      "line_number": 163,
+      "reason": "Fixed requirement ('are initialized ... to zeros') \u2014 no implementer choice about reset value for writable bits. This is a 'must' rule, not a parameter."
+    },
+    {
+      "excerpt": "Bit 63 of each `hstateen` CSR is always writable (not read-only).",
+      "line_number": 185,
+      "reason": "Fixed requirement ('always writable') \u2014 no implementer choice. Every implementation must make bit 63 of hstateen writable."
+    },
+    {
+      "excerpt": "Whenever `misa.F` = 1, FCSR bit of `mstateen0` is read-only zero (and hence read-only zero in `hstateen0` and `sstateen0` too).",
+      "line_number": 239,
+      "reason": "Fixed rule: when misa.F=1, the FCSR bit must be read-only zero. This is a conditional requirement ('whenever ... is'), not an implementation choice."
+    },
+    {
+      "excerpt": "With the hypervisor extension, the `hstateen` CSRs have identical encodings to the `mstateen` CSRs, except controlling accesses for a virtual machine (from VS and VU modes).",
+      "line_number": 128,
+      "reason": "Statement of fact describing the encoding relationship between hstateen and mstateen CSRs. No implementer choice involved."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Each standard-defined bit of a `stateen` CSR is WARL and may be read-only zero or one, subject to the following conditions.\",\n      \"line_number\": 131,\n      \"parameter_name\": \"STATEEN_BIT_ACCESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"may be read-only zero or one\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Each bit of a stateen CSR is WARL and the implementation chooses whether each bit is read-only zero, read-only one, or writable. This is a WARL field parameter \u2014 the legal values per bit vary by implementation.\"\n    },\n    {\n      \"excerpt\": \"Bits in any `stateen` CSR that are defined to control state that a hart doesn't implement are read-only zeros for that hart.\",\n      \"line_number\": 134,\n      \"parameter_name\": \"STATEEN_UNIMPLEMENTED_STATE_ROZ\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"are read-only zeros for that hart\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Which bits are read-only zero depends on which extensions/state the hart implements \u2014 an implementation choice. The set of read-only-zero bits varies per implementation based on which state is implemented. However, this is a consequence of the implementation choice of which extensions are supported, not a standalone parameter. Confidence is medium because the optionality is indirect (which state is implemented determines which bits are RO0).\"\n    },\n    {\n      \"excerpt\": \"Bit 63 of each `mstateen` CSR may be read-only zero only if the hypervisor extension is not implemented and the matching supervisor-level `sstateen` CSR is all read-only zeros.\",\n      \"line_number\": 183,\n      \"parameter_name\": \"MSTATEEN_BIT63_ACCESS\",\n      \"existing_udb_name\": \"MSTATEEN_AIA_TYPE\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may be read-only zero only if\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Bit 63 of each mstateen CSR may be read-only zero under specific conditions (no hypervisor extension and matching sstateen is all RO0). This is an implementation choice about whether bit 63 is writable or read-only, signaled by 'may be read-only zero'. This is a NORM_CSR_RW parameter.\"\n    },\n    {\n      \"excerpt\": \"When a `stateen` CSR prevents access to state for a privilege mode, attempting to execute in that privilege mode an instruction that _implicitly_ updates the state without reading it may or may not raise an illegal-instruction or virtual-instruction exception.\",\n      \"line_number\": 96,\n      \"parameter_name\": \"STATEEN_IMPLICIT_UPDATE_EXCEPTION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may or may not raise an illegal-instruction or virtual-instruction exception\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly says 'may or may not raise' an exception for implicit state updates when stateen blocks access. This is an implementation choice for each such case, signaled by 'may or may not'. It is a NORM_DIRECT parameter since no CSR field controls this \u2014 the spec says such cases must be explicitly specified one way or the other per extension.\"\n    },\n    {\n      \"excerpt\": \"The FCSR bit controls access to `fcsr` for the case when floating-point instructions operate on `x` registers instead of `f` registers as specified by the Zfinx and related extensions (Zdinx, etc.).\",\n      \"line_number\": 237,\n      \"parameter_name\": \"MSTATEEN0_FCSR_TYPE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": null,\n      \"confidence\": \"low\",\n      \"reasoning\": \"This sentence describes the function of the FCSR bit but does not itself contain optionality language. The WARL nature is established by the general stateen WARL rule at line 131. Moving to skipped since no direct optionality signal here.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"For every bit with a defined purpose in an `sstateen` CSR, the same bit is defined in the matching `mstateen` CSR to control access below machine level to the same state.\",\n      \"line_number\": 113,\n      \"reason\": \"Fixed requirement describing the encoding correspondence between sstateen and mstateen CSRs. No implementer choice \u2014 'is defined' is a statement of fact/requirement.\"\n    },\n    {\n      \"excerpt\": \"On reset, all writable `mstateen` bits are initialized by the hardware to zeros.\",\n      \"line_number\": 163,\n      \"reason\": \"Fixed requirement ('are initialized ... to zeros') \u2014 no implementer choice about reset value for writable bits. This is a 'must' rule, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"Bit 63 of each `hstateen` CSR is always writable (not read-only).\",\n      \"line_number\": 185,\n      \"reason\": \"Fixed requirement ('always writable') \u2014 no implementer choice. Every implementation must make bit 63 of hstateen writable.\"\n    },\n    {\n      \"excerpt\": \"Whenever `misa.F` = 1, FCSR bit of `mstateen0` is read-only zero (and hence read-only zero in `hstateen0` and `sstateen0` too).\",\n      \"line_number\": 239,\n      \"reason\": \"Fixed rule: when misa.F=1, the FCSR bit must be read-only zero. This is a conditional requirement ('whenever ... is'), not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"With the hypervisor extension, the `hstateen` CSRs have identical encodings to the `mstateen` CSRs, except controlling accesses for a virtual machine (from VS and VU modes).\",\n      \"line_number\": 128,\n      \"reason\": \"Statement of fact describing the encoding relationship between hstateen and mstateen CSRs. No implementer choice involved.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 15973,
+  "output_tokens": 1654,
+  "latency_ms": 31812,
+  "timestamp": "2026-06-29T10:38:10.445584+00:00",
+  "error": null,
+  "retry_count": 0
+}

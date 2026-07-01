@@ -1,0 +1,88 @@
+{
+  "chunk_id": "chunk_066",
+  "source_file": "zawrs.adoc",
+  "start_line": 1,
+  "end_line": 103,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "`WRS.STO` (WRS-with-short-timeout) is provided that works like `WRS.NTO` but bounds the stall duration to an implementation-define short timeout such that the stall is terminated on the timeout if no other conditions have occurred to terminate the stall.",
+      "line_number": 31,
+      "parameter_name": "WRS_STO_TIMEOUT_DURATION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "range",
+      "modal_signal": "implementation-define short timeout",
+      "confidence": "high",
+      "reasoning": "The duration of the WRS.STO timeout is explicitly left to the implementation ('implementation-define short timeout'). The implementer chooses the specific timeout value at design time; no CSR field controls it."
+    },
+    {
+      "excerpt": "While stalled, an implementation is permitted to occasionally terminate the stall and complete execution for any reason.",
+      "line_number": 70,
+      "parameter_name": "WRS_SPURIOUS_WAKEUP",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "an implementation is permitted to occasionally terminate the stall",
+      "confidence": "high",
+      "reasoning": "The spec explicitly permits (but does not require) implementations to terminate the stall spuriously for any reason. This is an implementation choice about whether/when to allow spurious wakeups, signaled by 'is permitted to'."
+    },
+    {
+      "excerpt": "When the `TW` (Timeout Wait) bit in `mstatus` is set and `WRS.NTO` is executed in any privilege mode other than M mode, and it does not complete within an implementation-specific bounded time limit, the `WRS.NTO` instruction will cause an illegal-instruction exception.",
+      "line_number": 75,
+      "parameter_name": "WRS_NTO_TW_TIMEOUT_LIMIT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "range",
+      "modal_signal": "implementation-specific bounded time limit",
+      "confidence": "high",
+      "reasoning": "The time limit before WRS.NTO raises an illegal-instruction exception (when TW=1) is implementation-specific. The implementer chooses this bound at design time; no CSR field controls it."
+    },
+    {
+      "excerpt": "When executing in VS or VU mode, if the `VTW` bit is set in `hstatus`, the `TW` bit in `mstatus` is clear, and the `WRS.NTO` does not complete within an implementation-specific bounded time limit, the `WRS.NTO` instruction will cause a virtual-instruction exception.",
+      "line_number": 80,
+      "parameter_name": "WRS_NTO_VTW_TIMEOUT_LIMIT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "range",
+      "modal_signal": "implementation-specific bounded time limit",
+      "confidence": "high",
+      "reasoning": "The time limit before WRS.NTO raises a virtual-instruction exception (when VTW=1, TW=0, in VS/VU mode) is implementation-specific. The implementer chooses this bound at design time."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The `WRS.NTO` and `WRS.STO` instructions cause the hart to temporarily stall execution in a low-power state as long as the reservation set is valid and no pending interrupts, even if disabled, are observed.",
+      "line_number": 46,
+      "reason": "This is a fixed behavioral description of what the instructions do \u2014 no implementer choice is expressed. 'Cause the hart to stall' is a requirement, not an option."
+    },
+    {
+      "excerpt": "These instructions are available in all privilege modes.",
+      "line_number": 48,
+      "reason": "Fixed requirement ('are available') \u2014 no implementer choice. All implementations must make these instructions available in all privilege modes."
+    },
+    {
+      "excerpt": "`WRS.NTO` and `WRS.STO` instructions follow the rules of the `WFI` instruction for resuming execution on a pending interrupt.",
+      "line_number": 73,
+      "reason": "Fixed behavioral rule ('follow the rules') \u2014 no implementer choice. This is a normative requirement that applies to all implementations."
+    },
+    {
+      "excerpt": "The duration of a `WRS.STO` instruction's timeout may vary significantly within and among implementations. In typical implementations this duration should be roughly in the range of 10 to 100 times an on-chip cache miss latency or a cacheless access to main memory.",
+      "line_number": 91,
+      "reason": "This is inside a [NOTE] block and is therefore non-normative. Even though it describes implementation variation, NOTE blocks must not be used as sources for parameter extraction."
+    },
+    {
+      "excerpt": "Since the `WRS.STO` and `WRS.NTO` instructions can complete execution for reasons other than stores to the reservation set, software will likely need a means of looping until the required stores have occurred.",
+      "line_number": 87,
+      "reason": "This is inside a [NOTE] block and is a software guidance statement, not an architectural parameter."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"`WRS.STO` (WRS-with-short-timeout) is provided that works like `WRS.NTO` but bounds the stall duration to an implementation-define short timeout such that the stall is terminated on the timeout if no other conditions have occurred to terminate the stall.\",\n      \"line_number\": 31,\n      \"parameter_name\": \"WRS_STO_TIMEOUT_DURATION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"implementation-define short timeout\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The duration of the WRS.STO timeout is explicitly left to the implementation ('implementation-define short timeout'). The implementer chooses the specific timeout value at design time; no CSR field controls it.\"\n    },\n    {\n      \"excerpt\": \"While stalled, an implementation is permitted to occasionally terminate the stall and complete execution for any reason.\",\n      \"line_number\": 70,\n      \"parameter_name\": \"WRS_SPURIOUS_WAKEUP\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"an implementation is permitted to occasionally terminate the stall\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly permits (but does not require) implementations to terminate the stall spuriously for any reason. This is an implementation choice about whether/when to allow spurious wakeups, signaled by 'is permitted to'.\"\n    },\n    {\n      \"excerpt\": \"When the `TW` (Timeout Wait) bit in `mstatus` is set and `WRS.NTO` is executed in any privilege mode other than M mode, and it does not complete within an implementation-specific bounded time limit, the `WRS.NTO` instruction will cause an illegal-instruction exception.\",\n      \"line_number\": 75,\n      \"parameter_name\": \"WRS_NTO_TW_TIMEOUT_LIMIT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"implementation-specific bounded time limit\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The time limit before WRS.NTO raises an illegal-instruction exception (when TW=1) is implementation-specific. The implementer chooses this bound at design time; no CSR field controls it.\"\n    },\n    {\n      \"excerpt\": \"When executing in VS or VU mode, if the `VTW` bit is set in `hstatus`, the `TW` bit in `mstatus` is clear, and the `WRS.NTO` does not complete within an implementation-specific bounded time limit, the `WRS.NTO` instruction will cause a virtual-instruction exception.\",\n      \"line_number\": 80,\n      \"parameter_name\": \"WRS_NTO_VTW_TIMEOUT_LIMIT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"implementation-specific bounded time limit\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The time limit before WRS.NTO raises a virtual-instruction exception (when VTW=1, TW=0, in VS/VU mode) is implementation-specific. The implementer chooses this bound at design time.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The `WRS.NTO` and `WRS.STO` instructions cause the hart to temporarily stall execution in a low-power state as long as the reservation set is valid and no pending interrupts, even if disabled, are observed.\",\n      \"line_number\": 46,\n      \"reason\": \"This is a fixed behavioral description of what the instructions do \u2014 no implementer choice is expressed. 'Cause the hart to stall' is a requirement, not an option.\"\n    },\n    {\n      \"excerpt\": \"These instructions are available in all privilege modes.\",\n      \"line_number\": 48,\n      \"reason\": \"Fixed requirement ('are available') \u2014 no implementer choice. All implementations must make these instructions available in all privilege modes.\"\n    },\n    {\n      \"excerpt\": \"`WRS.NTO` and `WRS.STO` instructions follow the rules of the `WFI` instruction for resuming execution on a pending interrupt.\",\n      \"line_number\": 73,\n      \"reason\": \"Fixed behavioral rule ('follow the rules') \u2014 no implementer choice. This is a normative requirement that applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"The duration of a `WRS.STO` instruction's timeout may vary significantly within and among implementations. In typical implementations this duration should be roughly in the range of 10 to 100 times an on-chip cache miss latency or a cacheless access to main memory.\",\n      \"line_number\": 91,\n      \"reason\": \"This is inside a [NOTE] block and is therefore non-normative. Even though it describes implementation variation, NOTE blocks must not be used as sources for parameter extraction.\"\n    },\n    {\n      \"excerpt\": \"Since the `WRS.STO` and `WRS.NTO` instructions can complete execution for reasons other than stores to the reservation set, software will likely need a means of looping until the required stores have occurred.\",\n      \"line_number\": 87,\n      \"reason\": \"This is inside a [NOTE] block and is a software guidance statement, not an architectural parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11207,
+  "output_tokens": 1371,
+  "latency_ms": 19528,
+  "timestamp": "2026-07-01T10:01:45.031990+00:00",
+  "error": null,
+  "retry_count": 0
+}

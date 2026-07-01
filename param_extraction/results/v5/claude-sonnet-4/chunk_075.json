@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_075",
+  "source_file": "zihintpause.adoc",
+  "start_line": 1,
+  "end_line": 56,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The duration of its effect must be bounded and may be zero.",
+      "line_number": 5,
+      "reason": "This describes a fixed requirement ('must be bounded') and a behavioral fact about the PAUSE instruction's duration. The 'may be zero' is a statement about the possible outcome of the instruction's effect, not an implementer choice that can be certified as a parameter with enumerable legal values. It is a behavioral description, not an architectural parameter."
+    },
+    {
+      "excerpt": "The duration of a PAUSE instruction's effect may vary significantly within and among implementations.",
+      "line_number": 17,
+      "reason": "This is inside a [NOTE] block and is therefore non-normative. Parameters must not be extracted from NOTE blocks."
+    },
+    {
+      "excerpt": "Multithreaded cores might temporarily relinquish execution resources to other harts when PAUSE is executed.",
+      "line_number": 12,
+      "reason": "This is inside a [NOTE] block and is non-normative. It describes a possible microarchitectural behavior, not an architectural parameter."
+    },
+    {
+      "excerpt": "PAUSE is encoded as a hint within the FENCE opcode because some implementations are expected to deliberately stall the PAUSE instruction until outstanding memory transactions have completed.",
+      "line_number": 40,
+      "reason": "This is inside a [NOTE] block and is non-normative. It provides rationale for the encoding choice, not an architectural parameter."
+    },
+    {
+      "excerpt": "PAUSE is encoded as a FENCE instruction with _pred_=`W`, _succ_=`0`, _fm_=`0`, _rd_=`x0`, and _rs1_=`x0`.",
+      "line_number": 32,
+      "reason": "This is a fixed encoding requirement \u2014 there is no implementer choice here. It is a normative rule ('is encoded as'), not a parameter."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The duration of its effect must be bounded and may be zero.\",\n      \"line_number\": 5,\n      \"reason\": \"This describes a fixed requirement ('must be bounded') and a behavioral fact about the PAUSE instruction's duration. The 'may be zero' is a statement about the possible outcome of the instruction's effect, not an implementer choice that can be certified as a parameter with enumerable legal values. It is a behavioral description, not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"The duration of a PAUSE instruction's effect may vary significantly within and among implementations.\",\n      \"line_number\": 17,\n      \"reason\": \"This is inside a [NOTE] block and is therefore non-normative. Parameters must not be extracted from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"Multithreaded cores might temporarily relinquish execution resources to other harts when PAUSE is executed.\",\n      \"line_number\": 12,\n      \"reason\": \"This is inside a [NOTE] block and is non-normative. It describes a possible microarchitectural behavior, not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"PAUSE is encoded as a hint within the FENCE opcode because some implementations are expected to deliberately stall the PAUSE instruction until outstanding memory transactions have completed.\",\n      \"line_number\": 40,\n      \"reason\": \"This is inside a [NOTE] block and is non-normative. It provides rationale for the encoding choice, not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"PAUSE is encoded as a FENCE instruction with _pred_=`W`, _succ_=`0`, _fm_=`0`, _rd_=`x0`, and _rs1_=`x0`.\",\n      \"line_number\": 32,\n      \"reason\": \"This is a fixed encoding requirement \u2014 there is no implementer choice here. It is a normative rule ('is encoded as'), not a parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 10368,
+  "output_tokens": 494,
+  "latency_ms": 9624,
+  "timestamp": "2026-07-01T10:04:03.635642+00:00",
+  "error": null,
+  "retry_count": 0
+}

@@ -1,0 +1,132 @@
+{
+  "chunk_id": "chunk_009",
+  "source_file": "cmo.adoc",
+  "start_line": 1,
+  "end_line": 1094,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The capacity and organization of a cache and the size of a cache block are both _implementation-specific_, and the execution environment provides software a means to discover information about the caches and cache blocks in a system.",
+      "line_number": 88,
+      "parameter_name": "CACHE_BLOCK_SIZE",
+      "existing_udb_name": "CACHE_BLOCK_SIZE",
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "implementation-specific",
+      "confidence": "high",
+      "reasoning": "The size of a cache block is explicitly stated to be implementation-specific. The implementer chooses the cache block size at design time. This is a well-known UDB parameter."
+    },
+    {
+      "excerpt": "An implementation may or may not update the entire set of bytes atomically with a single store operation.",
+      "line_number": 131,
+      "parameter_name": "CBO_ZERO_ATOMICITY",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may or may not update the entire set of bytes atomically",
+      "confidence": "high",
+      "reasoning": "The spec explicitly says the implementation may or may not perform the zero operation atomically. This is a design-time choice about the atomicity of cbo.zero, not controlled by any CSR field."
+    },
+    {
+      "excerpt": "Cache-block zero instructions store zeros to the set of bytes corresponding to a cache block. An implementation may update the bytes in any order and with any granularity and atomicity, including individual bytes.",
+      "line_number": 793,
+      "parameter_name": "CBO_ZERO_GRANULARITY",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "may update the bytes in any order and with any granularity and atomicity",
+      "confidence": "high",
+      "reasoning": "The implementation chooses the granularity and order of byte updates for cbo.zero. This is an explicit implementation choice ('may update the bytes in any order and with any granularity and atomicity')."
+    },
+    {
+      "excerpt": "Unless otherwise defined by the debug architecture specification, the behavior of trigger modules with respect to CMO instructions is UNSPECIFIED.",
+      "line_number": 449,
+      "parameter_name": "CMO_TRIGGER_MODULE_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "is UNSPECIFIED",
+      "confidence": "low",
+      "reasoning": "The behavior of trigger modules with respect to CMO instructions is unspecified (unless defined by the debug architecture spec). This is an unspecified behavior rather than a value parameter \u2014 the spec does not enumerate legal choices. Confidence is low because 'UNSPECIFIED behavior' falls under the hard exclusion for unspecified behavior."
+    },
+    {
+      "excerpt": "An implementation may or may not update the entire set of bytes atomically.",
+      "line_number": 1003,
+      "parameter_name": "CBO_ZERO_ATOMICITY_INSTR",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may or may not update the entire set of bytes atomically",
+      "confidence": "high",
+      "reasoning": "In the cbo.zero instruction description, the spec again states the implementation may or may not update bytes atomically. This is a design-time binary choice about atomicity of the cbo.zero instruction."
+    },
+    {
+      "excerpt": "Each `x{csrname}` register is WARL; however, software should determine the legal values from the execution environment discovery mechanism.",
+      "line_number": 700,
+      "parameter_name": "XENVCFG_LEGAL_VALUES",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "set",
+      "modal_signal": "WARL",
+      "confidence": "medium",
+      "reasoning": "The xenvcfg registers (menvcfg, senvcfg, henvcfg) are WARL, meaning the legal values for the CBIE/CBCFE/CBZE fields are implementation-defined. The spec says software should discover legal values from the execution environment, confirming the set of legal values varies by implementation."
+    },
+    {
+      "excerpt": "If neither a load instruction nor store instruction is permitted to access the physical addresses, but an instruction fetch is permitted to access the physical addresses, whether a cache-block management instruction is permitted to access the cache block is UNSPECIFIED.",
+      "line_number": 368,
+      "parameter_name": "CBM_ACCESS_ON_EXEC_ONLY_REGION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "is UNSPECIFIED",
+      "confidence": "low",
+      "reasoning": "Whether a cache-block management instruction can access a region that only permits instruction fetches is unspecified. This is an unspecified behavior rather than a clearly enumerable value parameter. Confidence is low because 'UNSPECIFIED behavior' is a hard exclusion, but the binary choice (permit or fault) is finite and testable."
+    },
+    {
+      "excerpt": "FORCE_UPGRADE_CBO_INVAL_TO_FLUSH: if (((priv_mode != M) && (m{csrname}.CBIE == 01)) ... <execute CBO.INVAL and perform flush operation>",
+      "line_number": 630,
+      "parameter_name": "FORCE_UPGRADE_CBO_INVAL_TO_FLUSH",
+      "existing_udb_name": "FORCE_UPGRADE_CBO_INVAL_TO_FLUSH",
+      "class": "NORM_CSR_WARL",
+      "value_type": "enum",
+      "modal_signal": "WARL",
+      "confidence": "medium",
+      "reasoning": "The CBIE field in xenvcfg is WARL and controls whether CBO.INVAL performs an invalidate or is upgraded to a flush. The legal values (00=trap, 01=flush, 10=invalidate) are implementation-defined choices for the WARL field. This matches the known UDB parameter FORCE_UPGRADE_CBO_INVAL_TO_FLUSH."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "In the initial set of CMO extensions, the size of a cache block shall be uniform throughout the system.",
+      "line_number": 90,
+      "reason": "Fixed requirement ('shall be uniform'). This is a constraint on all implementations, not an implementer choice. The cache block SIZE is a parameter (extracted above), but this uniformity rule is not."
+    },
+    {
+      "excerpt": "The PMP access control bits shall be the same for _all_ physical addresses in the cache block, and if write permission is granted by the PMP access control bits, read permission shall also be granted",
+      "line_number": 349,
+      "reason": "Fixed requirement ('shall be the same'). This is a constraint on all implementations, not an implementer choice."
+    },
+    {
+      "excerpt": "CMO instructions do _not_ generate address-misaligned exceptions.",
+      "line_number": 443,
+      "reason": "Fixed statement of fact/requirement. All implementations must behave this way; there is no implementer choice."
+    },
+    {
+      "excerpt": "When a page-fault, guest-page-fault, or access-fault exception is taken, the relevant *tval CSR is written with the faulting effective address (i.e. the value of _rs1_).",
+      "line_number": 408,
+      "reason": "Fixed requirement ('is written with'). This is a mandatory behavior for all implementations, not an implementer choice."
+    },
+    {
+      "excerpt": "If access to the cache block is not permitted, a cache-block prefetch instruction does not raise any exceptions and shall not access any caches or memory.",
+      "line_number": 400,
+      "reason": "Fixed requirement ('shall not access'). This is a mandatory behavior for all implementations, not an implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The capacity and organization of a cache and the size of a cache block are both _implementation-specific_, and the execution environment provides software a means to discover information about the caches and cache blocks in a system.\",\n      \"line_number\": 88,\n      \"parameter_name\": \"CACHE_BLOCK_SIZE\",\n      \"existing_udb_name\": \"CACHE_BLOCK_SIZE\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation-specific\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The size of a cache block is explicitly stated to be implementation-specific. The implementer chooses the cache block size at design time. This is a well-known UDB parameter.\"\n    },\n    {\n      \"excerpt\": \"An implementation may or may not update the entire set of bytes atomically with a single store operation.\",\n      \"line_number\": 131,\n      \"parameter_name\": \"CBO_ZERO_ATOMICITY\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may or may not update the entire set of bytes atomically\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly says the implementation may or may not perform the zero operation atomically. This is a design-time choice about the atomicity of cbo.zero, not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"Cache-block zero instructions store zeros to the set of bytes corresponding to a cache block. An implementation may update the bytes in any order and with any granularity and atomicity, including individual bytes.\",\n      \"line_number\": 793,\n      \"parameter_name\": \"CBO_ZERO_GRANULARITY\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"may update the bytes in any order and with any granularity and atomicity\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses the granularity and order of byte updates for cbo.zero. This is an explicit implementation choice ('may update the bytes in any order and with any granularity and atomicity').\"\n    },\n    {\n      \"excerpt\": \"Unless otherwise defined by the debug architecture specification, the behavior of trigger modules with respect to CMO instructions is UNSPECIFIED.\",\n      \"line_number\": 449,\n      \"parameter_name\": \"CMO_TRIGGER_MODULE_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"is UNSPECIFIED\",\n      \"confidence\": \"low\",\n      \"reasoning\": \"The behavior of trigger modules with respect to CMO instructions is unspecified (unless defined by the debug architecture spec). This is an unspecified behavior rather than a value parameter \u2014 the spec does not enumerate legal choices. Confidence is low because 'UNSPECIFIED behavior' falls under the hard exclusion for unspecified behavior.\"\n    },\n    {\n      \"excerpt\": \"An implementation may or may not update the entire set of bytes atomically.\",\n      \"line_number\": 1003,\n      \"parameter_name\": \"CBO_ZERO_ATOMICITY_INSTR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may or may not update the entire set of bytes atomically\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"In the cbo.zero instruction description, the spec again states the implementation may or may not update bytes atomically. This is a design-time binary choice about atomicity of the cbo.zero instruction.\"\n    },\n    {\n      \"excerpt\": \"Each `x{csrname}` register is WARL; however, software should determine the legal values from the execution environment discovery mechanism.\",\n      \"line_number\": 700,\n      \"parameter_name\": \"XENVCFG_LEGAL_VALUES\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"WARL\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The xenvcfg registers (menvcfg, senvcfg, henvcfg) are WARL, meaning the legal values for the CBIE/CBCFE/CBZE fields are implementation-defined. The spec says software should discover legal values from the execution environment, confirming the set of legal values varies by implementation.\"\n    },\n    {\n      \"excerpt\": \"If neither a load instruction nor store instruction is permitted to access the physical addresses, but an instruction fetch is permitted to access the physical addresses, whether a cache-block management instruction is permitted to access the cache block is UNSPECIFIED.\",\n      \"line_number\": 368,\n      \"parameter_name\": \"CBM_ACCESS_ON_EXEC_ONLY_REGION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"is UNSPECIFIED\",\n      \"confidence\": \"low\",\n      \"reasoning\": \"Whether a cache-block management instruction can access a region that only permits instruction fetches is unspecified. This is an unspecified behavior rather than a clearly enumerable value parameter. Confidence is low because 'UNSPECIFIED behavior' is a hard exclusion, but the binary choice (permit or fault) is finite and testable.\"\n    },\n    {\n      \"excerpt\": \"FORCE_UPGRADE_CBO_INVAL_TO_FLUSH: if (((priv_mode != M) && (m{csrname}.CBIE == 01)) ... <execute CBO.INVAL and perform flush operation>\",\n      \"line_number\": 630,\n      \"parameter_name\": \"FORCE_UPGRADE_CBO_INVAL_TO_FLUSH\",\n      \"existing_udb_name\": \"FORCE_UPGRADE_CBO_INVAL_TO_FLUSH\",\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"WARL\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The CBIE field in xenvcfg is WARL and controls whether CBO.INVAL performs an invalidate or is upgraded to a flush. The legal values (00=trap, 01=flush, 10=invalidate) are implementation-defined choices for the WARL field. This matches the known UDB parameter FORCE_UPGRADE_CBO_INVAL_TO_FLUSH.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"In the initial set of CMO extensions, the size of a cache block shall be uniform throughout the system.\",\n      \"line_number\": 90,\n      \"reason\": \"Fixed requirement ('shall be uniform'). This is a constraint on all implementations, not an implementer choice. The cache block SIZE is a parameter (extracted above), but this uniformity rule is not.\"\n    },\n    {\n      \"excerpt\": \"The PMP access control bits shall be the same for _all_ physical addresses in the cache block, and if write permission is granted by the PMP access control bits, read permission shall also be granted\",\n      \"line_number\": 349,\n      \"reason\": \"Fixed requirement ('shall be the same'). This is a constraint on all implementations, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"CMO instructions do _not_ generate address-misaligned exceptions.\",\n      \"line_number\": 443,\n      \"reason\": \"Fixed statement of fact/requirement. All implementations must behave this way; there is no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"When a page-fault, guest-page-fault, or access-fault exception is taken, the relevant *tval CSR is written with the faulting effective address (i.e. the value of _rs1_).\",\n      \"line_number\": 408,\n      \"reason\": \"Fixed requirement ('is written with'). This is a mandatory behavior for all implementations, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"If access to the cache block is not permitted, a cache-block prefetch instruction does not raise any exceptions and shall not access any caches or memory.\",\n      \"line_number\": 400,\n      \"reason\": \"Fixed requirement ('shall not access'). This is a mandatory behavior for all implementations, not an implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 21236,
+  "output_tokens": 2109,
+  "latency_ms": 37349,
+  "timestamp": "2026-06-29T10:25:47.473390+00:00",
+  "error": null,
+  "retry_count": 0
+}

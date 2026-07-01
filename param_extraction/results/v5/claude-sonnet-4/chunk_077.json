@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_077",
+  "source_file": "zimop.adoc",
+  "start_line": 1,
+  "end_line": 113,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Unless redefined by another extension, these instructions simply write 0 to `x[rd]`.",
+      "line_number": 30,
+      "reason": "This is a fixed behavioral requirement for MOP.R.n instructions when not redefined \u2014 no implementer choice is expressed. The 'unless redefined' clause refers to future extension authors, not hardware implementers making a design-time choice."
+    },
+    {
+      "excerpt": "Unless redefined by another extension, these instructions simply write 0 to `x[rd]`.",
+      "line_number": 40,
+      "reason": "Same as above for MOP.RR.n \u2014 fixed behavioral requirement, not an implementer choice."
+    },
+    {
+      "excerpt": "The MOPs defined in the Zimop extension do not carry a syntactic dependency from `x[rs1]` or `x[rs2]` to `x[rd]`, though an extension that redefines the MOP may impose such a requirement.",
+      "line_number": 63,
+      "reason": "This is a fixed behavioral rule about syntactic dependency for Zimop MOPs. The 'may impose' clause refers to future extension authors, not hardware implementers making a design-time choice."
+    },
+    {
+      "excerpt": "Unlike the MOPs defined in the Zimop extension, the C.MOP.__n__ instructions are defined to _not_ write any register.",
+      "line_number": 75,
+      "reason": "Fixed behavioral requirement \u2014 all C.MOP.n instructions must not write any register. No implementer choice."
+    },
+    {
+      "excerpt": "C.MOP.__n__ is encoded in the reserved encoding space corresponding to C.LUI x__n__, 0, as shown in <<norm:c-mop_enc>>.",
+      "line_number": 74,
+      "reason": "Fixed encoding assignment \u2014 not an implementer choice. The encoding is specified by the standard."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Unless redefined by another extension, these instructions simply write 0 to `x[rd]`.\",\n      \"line_number\": 30,\n      \"reason\": \"This is a fixed behavioral requirement for MOP.R.n instructions when not redefined \u2014 no implementer choice is expressed. The 'unless redefined' clause refers to future extension authors, not hardware implementers making a design-time choice.\"\n    },\n    {\n      \"excerpt\": \"Unless redefined by another extension, these instructions simply write 0 to `x[rd]`.\",\n      \"line_number\": 40,\n      \"reason\": \"Same as above for MOP.RR.n \u2014 fixed behavioral requirement, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The MOPs defined in the Zimop extension do not carry a syntactic dependency from `x[rs1]` or `x[rs2]` to `x[rd]`, though an extension that redefines the MOP may impose such a requirement.\",\n      \"line_number\": 63,\n      \"reason\": \"This is a fixed behavioral rule about syntactic dependency for Zimop MOPs. The 'may impose' clause refers to future extension authors, not hardware implementers making a design-time choice.\"\n    },\n    {\n      \"excerpt\": \"Unlike the MOPs defined in the Zimop extension, the C.MOP.__n__ instructions are defined to _not_ write any register.\",\n      \"line_number\": 75,\n      \"reason\": \"Fixed behavioral requirement \u2014 all C.MOP.n instructions must not write any register. No implementer choice.\"\n    },\n    {\n      \"excerpt\": \"C.MOP.__n__ is encoded in the reserved encoding space corresponding to C.LUI x__n__, 0, as shown in <<norm:c-mop_enc>>.\",\n      \"line_number\": 74,\n      \"reason\": \"Fixed encoding assignment \u2014 not an implementer choice. The encoding is specified by the standard.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11307,
+  "output_tokens": 498,
+  "latency_ms": 9094,
+  "timestamp": "2026-07-01T10:04:25.435401+00:00",
+  "error": null,
+  "retry_count": 0
+}

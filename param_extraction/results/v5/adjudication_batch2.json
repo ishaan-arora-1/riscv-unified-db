@@ -1,0 +1,650 @@
+[
+  {
+    "parameter_name": "ADDITIONAL_CSRS",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "This is an open-ended permission for implementations to add arbitrary custom CSRs with no finite enumerable set of values to certify.",
+    "class": "NORM_DIRECT",
+    "excerpt": "an implementation may contain additional CSRs, accessible by some subset of the privilege levels using the CSR instructions described in Volume I."
+  },
+  {
+    "parameter_name": "CBO_ZERO_ATOMICITY",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "While it appears binary (atomic or not), the excerpt describes unconstrained implementation behavior with no testable unit boundary, and is subsumed by CBO_ZERO_GRANULARITY which covers the same concept more completely.",
+    "class": "NORM_DIRECT",
+    "excerpt": "An implementation may or may not update the entire set of bytes atomically with a single store operation."
+  },
+  {
+    "parameter_name": "CBO_ZERO_ATOMICITY_INSTR",
+    "verdict": "DROP",
+    "rule": "duplicate",
+    "duplicate_of": null,
+    "reasoning": "This is a duplicate of CBO_ZERO_ATOMICITY describing the same unconstrained atomicity choice for cbo.zero; both should be dropped for the same reason.",
+    "class": "NORM_DIRECT",
+    "excerpt": "An implementation may or may not update the entire set of bytes atomically."
+  },
+  {
+    "parameter_name": "CBO_ZERO_GRANULARITY",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The excerpt explicitly permits any order, any granularity, and any atomicity including individual bytes \u2014 this is intentionally unconstrained behavior with no finite enumerable set of legal values.",
+    "class": "NORM_DIRECT",
+    "excerpt": "Cache-block zero instructions store zeros to the set of bytes corresponding to a cache block. An implementation may update the bytes in any order and with any granularity and atomicity, including individual bytes."
+  },
+  {
+    "parameter_name": "CTR_CCV_CLEAR_SCENARIOS",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "Implementation-specific scenarios for clearing CCV are intentionally unconstrained and cannot be enumerated or certified.",
+    "class": "NORM_DIRECT",
+    "excerpt": "CCV should additionally be cleared after any other implementation-specific scenarios where active cycles might not be counted in CtrCycleCounter."
+  },
+  {
+    "parameter_name": "CTR_CTRDATA_TYPE_IMPLEMENTED",
+    "verdict": "NEEDS_HUMAN",
+    "rule": "needs_rationale",
+    "duplicate_of": null,
+    "reasoning": "The set of optional fields within ctrdata could form a certifiable parameter (a bitmask of implemented fields), but it is unclear whether UDB already models this via the CSR field model or whether a separate parameter is warranted.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "The `ctrdata` register contains metadata for the recorded transfer. This register must be implemented, though all fields within it are optional. Unimplemented fields are read-only 0."
+  },
+  {
+    "parameter_name": "CUSTOM_EXCEPTION_PRIORITY",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The priority of custom synchronous exceptions is explicitly implementation-defined with no finite enumerable set of legal values to certify.",
+    "class": "NORM_DIRECT",
+    "excerpt": "The priority of any custom synchronous exceptions is implementation-defined."
+  },
+  {
+    "parameter_name": "CYCLECFG_INSTRETCFG_MINH_RO_THROUGH_SIREG",
+    "verdict": "DROP",
+    "rule": "sw_or_clarification",
+    "duplicate_of": null,
+    "reasoning": "This is a clarification of how an existing WARL/read-only field behaves when accessed through an indirect register alias, not a new independent implementation choice.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "Likewise, cyclecfg and instretcfg may represent a subset of the state accessed by the mcyclecfg and minstretcfg registers, respectively. If Smcntrpmf is implemented, counter configuration register bit 62 (MINH) is read-only 0 when accessed through sireg*."
+  },
+  {
+    "parameter_name": "CYCLE_MODE_TRANSITION_REPORTING_CYCLE",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The text describes intentionally unconstrained behavior (the cycle in which a mode change is reported may vary per occurrence), which is unspecified/implementation-defined with no finite enumerable set of legal values to certify.",
+    "class": "NORM_DIRECT",
+    "excerpt": "Mode transition operations (traps and trap returns) may take multiple clock cycles, and the change of privilege mode may be reported as occurring in any one of those cycles (possibly different for each occurrence of a trap or trap return)."
+  },
+  {
+    "parameter_name": "HGATP_PPN_LOWER_BITS_RO",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "This is a finite, verifiable implementation choice (whether hgatp.PPN[1:0] are read-only zero or writable) not already captured in the existing UDB parameters.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "An implementation that supports only the defined paged virtual-memory schemes and/or Bare may make PPN[1:0] read-only zero."
+  },
+  {
+    "parameter_name": "HIDELEG_PLATFORM_INTERRUPT_TRANSLATION",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The text explicitly states the behavior 'may or may not be done' with no further constraint, making it intentionally unspecified with no testable enumerable options defined.",
+    "class": "NORM_DIRECT",
+    "excerpt": "Similar translations may or may not be done for platform interrupt causes (codes 16 and above)."
+  },
+  {
+    "parameter_name": "HIP_BIT_WRITABLE",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "This is a finite, verifiable per-bit implementation choice (whether a given hip bit is writable or read-only when the corresponding sie bit is read-only zero) not already captured in existing UDB parameters.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "If bit _i_ of `sie` is read-only zero, the same bit in register `hip` may be writable or may be read-only."
+  },
+  {
+    "parameter_name": "HPMEVENT_MINH_RO_THROUGH_SIREG",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "This is a normative, verifiable implementation choice about whether hpmevent MINH (bit 62) is read-only 0 when accessed via sireg* (i.e., whether hpmevent accessed through sireg* is a subset of mhpmevent), not captured elsewhere in UDB.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "hpmevent__i__ may represent a subset of the state accessed by the mhpmevent__i__ register. Specifically, if Sscofpmf is implemented, event selector bit 62 (MINH) is read-only 0 when accessed through sireg*."
+  },
+  {
+    "parameter_name": "HTINST_LEGAL_VALUES",
+    "verdict": "DROP",
+    "rule": "warl_covered",
+    "duplicate_of": null,
+    "reasoning": "This is a restatement of the WARL property of htinst \u2014 that it only needs to hold values the hardware writes \u2014 which is already covered by the CSR field WARL model and the existing TINST_VALUE_ON_* parameters.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "`htinst` is a *WARL* register that need only be able to hold the values that the implementation may automatically write to it on a trap."
+  },
+  {
+    "parameter_name": "LCOFI_MIDELEG_HIDELEG_WRITABLE",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "Whether the LCOFI bit (bit 13) in mideleg and hideleg is implemented and writable is a finite, verifiable implementation choice not already captured in existing UDB parameters.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "It is optional whether the LCOFI bit (bit 13) in each of mideleg and hideleg, which allows all LCOFIs to be delegated to S-mode and VS-mode, respectively, is implemented and writable."
+  },
+  {
+    "parameter_name": "LRSC_FAIL_ON_DEVICE_WRITE_OUTSIDE_LR_BYTES",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The text explicitly states the SC 'may or may not fail' in this scenario, which is intentionally unspecified behavior with no enumerable legal values to certify.",
+    "class": "NORM_DIRECT",
+    "excerpt": "(If such a device writes the reservation set but does not write the bytes accessed by the LR, the SC may or may not fail.)"
+  },
+  {
+    "parameter_name": "MCAUSE_RESET_VALUE",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The reset value has 'implementation-specific interpretation' with only a non-binding 'should' recommendation, making it unspecified/unconstrained behavior that cannot be certified.",
+    "class": "NORM_DIRECT",
+    "excerpt": "The `mcause` values after reset have implementation-specific interpretation, but the value 0 should be returned on implementations that do not distinguish different reset conditions."
+  },
+  {
+    "parameter_name": "MCOUNTINHIBIT_IMPLEMENTED",
+    "verdict": "DROP",
+    "rule": "duplicate",
+    "duplicate_of": "COUNTINHIBIT_EN",
+    "reasoning": "Whether mcountinhibit is implemented is already captured by COUNTINHIBIT_EN, which tracks which counters can be disabled via mcountinhibit.",
+    "class": "NORM_DIRECT",
+    "excerpt": "If the `mcountinhibit` register is not implemented, the implementation behaves as though the register were set to zero."
+  },
+  {
+    "parameter_name": "MCYCLECFG_UNIMPLEMENTED_MODE_BITS",
+    "verdict": "DROP",
+    "rule": "sw_or_clarification",
+    "duplicate_of": null,
+    "reasoning": "This is a clarification of how unimplemented privilege-mode bits behave (read-only zero), not a new implementer choice \u2014 the behavior is fully determined by which privilege modes are implemented.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "For each bit in 61:58, if the associated privilege mode is not implemented, the bit is read-only zero."
+  },
+  {
+    "parameter_name": "MEDELEG_MIDELEG_IMPLEMENTED",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "Whether medeleg/mideleg registers are implemented at all is a finite, verifiable, binary implementation choice not already captured in UDB.",
+    "class": "NORM_DIRECT",
+    "excerpt": "implementations can provide individual read/write bits within `medeleg` and `mideleg` to indicate that certain exceptions and interrupts should be processed directly by a lower privilege level."
+  },
+  {
+    "parameter_name": "MEDELEG_MIDELEG_WARL_BITS",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "The subset of delegatable trap bits that are read-write (vs. read-only zero) in medeleg/mideleg is a finite, enumerable, verifiable implementation parameter not already captured in UDB.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "An implementation can choose to subset the delegatable traps, with the supported delegatable bits found by writing one to every bit location, then reading back the value in `medeleg` or `mideleg` to see which bit positions hold a one."
+  },
+  {
+    "parameter_name": "MEMORY_CONSISTENCY_MODEL",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "Whether the implementation adopts RVWMO or the stronger TSO memory model is a finite, binary, verifiable architectural parameter not already captured in UDB.",
+    "class": "NORM_DIRECT",
+    "excerpt": "Optionally, an implementation may adopt the stronger model of Total Store Ordering, as defined in <<ztso>>."
+  },
+  {
+    "parameter_name": "MENVCFG_FIOM_READONLY_ZERO",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "Whether menvcfg.FIOM is read-only zero (when S-mode is absent or satp.MODE is always Bare) is a finite, binary, verifiable implementation choice not already captured in UDB.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "If S-mode is not supported, or if `satp`.MODE is read-only zero (always Bare), the implementation may make FIOM read-only zero."
+  },
+  {
+    "parameter_name": "MEPC_INVALID_ADDR_CONVERSION",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The conversion of an invalid address to 'some other invalid address' is intentionally unconstrained \u2014 the target invalid address is unspecified and not verifiable.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "Prior to writing `mepc`, implementations may convert an invalid address into some other invalid address that `mepc` is capable of holding."
+  },
+  {
+    "parameter_name": "MHPMEVENT_INH_BITS_RW",
+    "verdict": "DROP",
+    "rule": "existing_mechanism",
+    "duplicate_of": null,
+    "reasoning": "This merely restates the standard WARL/read-only-zero rule for unimplemented privilege mode INH bits, which is already covered by the CSR field model and the existing COUNTINHIBIT_EN/HPM_COUNTER_EN parameters.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "For each ``x``INH bit, if the associated privilege mode is not implemented, the bit is read-only zero."
+  },
+  {
+    "parameter_name": "MIP_MSIP_MIE_MSIE_RO_ZERO",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "Whether mip.MSIP and mie.MSIE are read-only zero (vs. writable) is a finite, verifiable, implementation-specific hardware choice not captured by any existing UDB parameter.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "If a system has only one hart, or if a platform standard supports the delivery of machine-level interprocessor interrupts through external interrupts (MEI) instead, then `mip`.MSIP and `mie`.MSIE may both be read-only zeros."
+  },
+  {
+    "parameter_name": "MISA_COLLECTIVE_WARL_CONSTRAINTS",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The candidate describes an open-ended, implementation-defined set of possible collective constraints on misa fields with no enumerable legal values, making it unverifiable and uncertifiable as a parameter.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "An implementation may impose additional constraints on the collective setting of two or more `misa` fields, in which case they function collectively as a single *WARL* field."
+  },
+  {
+    "parameter_name": "MISELECT_WIDTH",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "The number of implemented bits in miselect (or whether it is read-only zero) is a finite, verifiable implementation choice not captured by any existing UDB parameter.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "The `miselect` register implements at least enough bits to support all implemented `miselect` values (corresponding to the implemented extensions that utilize `miselect`/`mireg*` to indirectly access register state). The `miselect` register may be read-only zero if there are no extensions implemented that utilize it."
+  },
+  {
+    "parameter_name": "MNEPC_IALIGN_VARIABLE",
+    "verdict": "DROP",
+    "rule": "sw_or_clarification",
+    "duplicate_of": null,
+    "reasoning": "This is a clarification of how mnepc[1] masking works when IALIGN is variable, which is a consequence of the existing IALIGN/misa mutability mechanism rather than a new independent certifiable parameter.",
+    "class": "NORM_DIRECT",
+    "excerpt": "If an implementation allows IALIGN to be either 16 or 32 (by changing CSR `misa`, for example), then, whenever IALIGN=32, bit `mnepc[1]` is masked on reads so that it appears to be 0."
+  },
+  {
+    "parameter_name": "MNEPC_INVALID_ADDR_CONVERSION",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The conversion of an invalid address to 'some other invalid address' is intentionally unconstrained implementation-defined behavior with no enumerable legal values.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "Prior to writing `mnepc`, implementations may convert an invalid address into some other invalid address that `mnepc` is capable of holding."
+  },
+  {
+    "parameter_name": "MNEPC_LEGAL_VALUES",
+    "verdict": "DROP",
+    "rule": "warl_covered",
+    "duplicate_of": null,
+    "reasoning": "This is a plain restatement of the WARL property of mnepc (must hold all valid virtual addresses, need not hold all invalid addresses), which is already covered by the CSR field model.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "`mnepc` is a *WARL* register that must be able to hold all valid virtual addresses. It need not be capable of holding all possible invalid addresses."
+  },
+  {
+    "parameter_name": "MNSTATUS_MNPELP_IMPLEMENTED",
+    "verdict": "DROP",
+    "rule": "sw_or_clarification",
+    "duplicate_of": null,
+    "reasoning": "This is a clarification that MNPELP exists in mnstatus when Zicfilp is implemented, not an independent implementation choice \u2014 the presence of the field is fully determined by whether Zicfilp is implemented.",
+    "class": "NORM_DIRECT",
+    "excerpt": "If the Zicfilp extension is implemented, `mnstatus` also holds the MNPELP field, which on entry to the RNMI trap handler holds the previous `ELP` state."
+  },
+  {
+    "parameter_name": "MSECCFG_SSEED_USEED_ACCESS",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "This is a genuine implementer choice with finite enumerable values (read-write vs. read-only-0) for mseccfg.[s,u]seed bits, not covered by any existing UDB parameter.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "Implementations may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`."
+  },
+  {
+    "parameter_name": "MSTATEEN0_FCSR_TYPE",
+    "verdict": "DROP",
+    "rule": "intro",
+    "duplicate_of": null,
+    "reasoning": "The excerpt contains no modal signal and is purely descriptive/introductory text explaining what the FCSR bit does, not an implementer choice with enumerable values.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "The FCSR bit controls access to `fcsr` for the case when floating-point instructions operate on `x` registers instead of `f` registers as specified by the Zfinx and related extensions (Zdinx, etc.)."
+  },
+  {
+    "parameter_name": "MTINST_LEGAL_VALUES",
+    "verdict": "DROP",
+    "rule": "warl_covered",
+    "duplicate_of": null,
+    "reasoning": "This is a plain restatement that mtinst is WARL and need only hold values the hardware writes automatically, which is the definition of WARL and is already covered by the CSR field model plus the existing TINST_VALUE_ON_* parameters.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "`mtinst` is a *WARL* register that need only be able to hold the values that the implementation may automatically write to it on a trap."
+  },
+  {
+    "parameter_name": "MTVAL_INVALID_ADDR_CONVERSION",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The conversion of an invalid address to 'some other invalid address' is intentionally unconstrained with no finite enumerable set of legal conversion strategies, making it unverifiable.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "Prior to writing `mtval`, implementations may convert an invalid address into some other invalid address that `mtval` is capable of holding."
+  },
+  {
+    "parameter_name": "MTVAL_READONLY_ZERO",
+    "verdict": "DROP",
+    "rule": "duplicate",
+    "duplicate_of": "MTVAL_WIDTH",
+    "reasoning": "Whether mtval is read-only zero is already captured by MTVAL_WIDTH (a width of 0 implemented bits corresponds to read-only zero), so this is a duplicate of that existing parameter.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "If the hardware platform specifies that no exceptions set `mtval` to a nonzero value, then `mtval` is read-only zero."
+  },
+  {
+    "parameter_name": "NMI_MCAUSE_VALUE",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The excerpt explicitly states the values are 'implementation-defined' with no enumerable set of legal values provided, making it unverifiable as a certifiable parameter.",
+    "class": "NORM_DIRECT",
+    "excerpt": "The values written to `mcause` on an NMI are implementation-defined."
+  },
+  {
+    "parameter_name": "PMA_IDEMPOTENT_IMPLICIT_READ_SIZE",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "This is a genuine implementation choice \u2014 the size of naturally aligned power-of-2 regions for implicit idempotent reads \u2014 with a finite verifiable value (a power-of-2 size bounded by the smallest page size), not captured by PMA_GRANULARITY or any other existing UDB parameter.",
+    "class": "NORM_DIRECT",
+    "excerpt": "The size of these naturally aligned power-of-2 regions is implementation-defined, but, for systems with page-based virtual memory, must not exceed the smallest supported page size."
+  },
+  {
+    "parameter_name": "PMA_MAG_EXCEPTION_TYPE",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "This is a distinct implementer choice from MISALIGNED_LDST_EXCEPTION_PRIORITY: whether misaligned accesses to PMA-restricted regions raise access-fault instead of address-misaligned exceptions, with a finite enumerable set of behaviors (access-fault vs. address-misaligned), not covered by any existing UDB parameter.",
+    "class": "NORM_DIRECT",
+    "excerpt": "Implementations may raise access-fault exceptions instead of address-misaligned exceptions for some misaligned accesses, indicating the instruction should not be emulated by a trap handler."
+  },
+  {
+    "parameter_name": "PMLEN_PER_MODE",
+    "verdict": "DROP",
+    "rule": "duplicate",
+    "duplicate_of": "PMLEN",
+    "reasoning": "The per-mode variation of PMLEN is a clarification of the existing PMLEN parameter, not a new independent architectural parameter.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "the supported values of PMLEN may depend on the effective privilege mode. The current standard only defines PMLEN=XLEN-48 and PMLEN=XLEN-57, but this assumption may be relaxed in future extensions and profiles. Trying to enable pointer masking in an unsupported scenario represents an illegal write to the corresponding pointer masking enable bit and follows WARL semantics."
+  },
+  {
+    "parameter_name": "PMPADDR_IMPLEMENTED_BITS",
+    "verdict": "DROP",
+    "rule": "warl_covered",
+    "duplicate_of": null,
+    "reasoning": "The implemented physical address bits in pmpaddr are already captured by PHYS_ADDR_WIDTH and PMP_GRANULARITY; this is a restatement of WARL semantics on the CSR field.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "Not all physical address bits may be implemented, and so the `pmpaddr` registers are *WARL*."
+  },
+  {
+    "parameter_name": "PMP_CSR_FIELDS_RO_ZERO",
+    "verdict": "DROP",
+    "rule": "warl_covered",
+    "duplicate_of": null,
+    "reasoning": "This is a generic restatement that PMP CSR fields follow WARL semantics and may be read-only zero, already covered by the CSR field model.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "All PMP CSR fields are *WARL* and may be read-only zero."
+  },
+  {
+    "parameter_name": "PMP_MMODE_LOCKING",
+    "verdict": "DROP",
+    "rule": "existing_mechanism",
+    "duplicate_of": null,
+    "reasoning": "This describes how the PMP locking mechanism works when active, not a new certifiable parameter distinct from whether the feature is supported.",
+    "class": "NORM_DIRECT",
+    "excerpt": "Optionally, PMP checks may additionally apply to M-mode accesses, in which case the PMP registers themselves are locked, so that even M-mode software cannot change them until the hart is reset."
+  },
+  {
+    "parameter_name": "PMP_MMODE_LOCKING_SUPPORTED",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "Whether M-mode PMP locking (applying PMP checks to M-mode accesses) is supported is a finite, enumerable, verifiable implementer hardware choice not already captured in UDB.",
+    "class": "NORM_DIRECT",
+    "excerpt": "Optionally, PMP checks may additionally apply to M-mode accesses, in which case the PMP registers themselves are locked, so that even M-mode software cannot change them until the hart is reset."
+  },
+  {
+    "parameter_name": "PM_EXTENSIONS_SUPPORTED",
+    "verdict": "DROP",
+    "rule": "duplicate",
+    "duplicate_of": "PMLEN",
+    "reasoning": "The set of supported pointer masking extensions is already captured through PMLEN and its legal values; this is an imprecise overlap with that existing parameter.",
+    "class": "NORM_DIRECT",
+    "excerpt": "Pointer masking refers to a number of separate extensions, all of which are privileged. This approach is used to capture optionality of pointer masking features. Profiles and implementations may choose to support an arbitrary subset of these extensions and must define valid ranges for their corresponding values of PMLEN."
+  },
+  {
+    "parameter_name": "PM_RV32_WARL_BEHAVIOR",
+    "verdict": "DROP",
+    "rule": "sw_or_clarification",
+    "duplicate_of": null,
+    "reasoning": "This is a clarification that pointer masking enable writes are illegal WARL on RV32, describing how an existing mechanism behaves rather than defining a new parameter.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "In RV32, trying to enable pointer masking will result in an illegal WARL write and not update the pointer masking configuration bits"
+  },
+  {
+    "parameter_name": "SEED_CUSTOM_BITS_VALUE",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The statement that reserved/custom bits 'may safely' be set to zeros describes a permissive/unspecified behavior, not a finite enumerable certifiable parameter.",
+    "class": "NORM_DIRECT",
+    "excerpt": "An implementation may safely set reserved and custom bits to zeros."
+  },
+  {
+    "parameter_name": "SEPC_INVALID_ADDR_BEHAVIOR",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "This is a genuine implementer choice: whether sepc converts an invalid address to another invalid address it can hold, which is a finite, verifiable hardware parameter not already captured in UDB.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "`sepc` is a *WARL* register that must be able to hold all valid virtual addresses. It need not be capable of holding all possible invalid addresses. Prior to writing `sepc`, implementations may convert an invalid address into some other invalid address that `sepc` is capable of holding."
+  },
+  {
+    "parameter_name": "SIP_SIE_IMPLEMENTED_INTERRUPTS",
+    "verdict": "DROP",
+    "rule": "warl_covered",
+    "duplicate_of": null,
+    "reasoning": "This is a restatement of WARL field behavior for sip/sie interrupt bits; the per-interrupt implementation status is already captured by the CSR field model and existing interrupt-enable parameters.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "Each standard interrupt type (SEI, STI, SSI, or LCOFI) may not be implemented, in which case the corresponding interrupt-pending and interrupt-enable bits are read-only zeros. All bits in `sip` and `sie` are *WARL* fields."
+  },
+  {
+    "parameter_name": "SIP_WRITABLE_BITS",
+    "verdict": "DROP",
+    "rule": "warl_covered",
+    "duplicate_of": null,
+    "reasoning": "Stating that each bit in sip may be writable or read-only is a generic WARL field restatement already covered by the CSR field model, not a new certifiable parameter.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "Each individual bit in register `sip` may be writable or may be read-only."
+  },
+  {
+    "parameter_name": "SISELECT_WIDTH",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "The maximum supported value range of siselect is a finite, verifiable implementation choice (minimum 0..0xFFF, potentially larger if extensions are implemented) not already captured in UDB.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "The `siselect` register will support the value range 0..0xFFF at a minimum. A future extension may define a value range outside of this minimum range. Only if such an extension is implemented will `siselect` be required to support larger values."
+  },
+  {
+    "parameter_name": "SMNPM_IMPLEMENTED",
+    "verdict": "DROP",
+    "rule": "duplicate",
+    "duplicate_of": "PMLEN",
+    "reasoning": "Whether pointer masking for the next lower privilege mode is implemented is already captured by the PMLEN parameter in UDB.",
+    "class": "NORM_DIRECT",
+    "excerpt": "A machine-level extension that provides pointer masking for the next lower privilege mode (S/HS if S-mode is implemented, or U-mode otherwise)."
+  },
+  {
+    "parameter_name": "SSNPM_IMPLEMENTED",
+    "verdict": "DROP",
+    "rule": "duplicate",
+    "duplicate_of": "PMLEN",
+    "reasoning": "Whether supervisor-level pointer masking for U/VS/VU-mode is implemented is already captured by the PMLEN parameter in UDB.",
+    "class": "NORM_DIRECT",
+    "excerpt": "A supervisor-level extension that provides pointer masking for the next lower privilege mode (U-mode), and for VS- and VU-modes if the H extension is present."
+  },
+  {
+    "parameter_name": "SSP_BIT2_READ_ONLY_ZERO",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "Whether bit 2 of ssp is read-only zero (contingent on UXLEN/SXLEN never being 32) is a finite, verifiable hardware implementation choice not already captured in UDB.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "The bits 1:0 of `ssp` are read-only zero. If the UXLEN or SXLEN may never be 32, then the bit 2 is also read-only zero."
+  },
+  {
+    "parameter_name": "STATEEN_BIT_ACCESS",
+    "verdict": "DROP",
+    "rule": "warl_covered",
+    "duplicate_of": null,
+    "reasoning": "This is a generic restatement that stateen CSR bits are WARL and may be read-only zero or one, which is already covered by the existing MSTATEEN_*/HSTATEEN_*/SSTATEEN_* parameters in UDB.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "Each standard-defined bit of a `stateen` CSR is WARL and may be read-only zero or one, subject to the following conditions."
+  },
+  {
+    "parameter_name": "STATEEN_UNIMPLEMENTED_STATE_ROZ",
+    "verdict": "DROP",
+    "rule": "existing_mechanism",
+    "duplicate_of": null,
+    "reasoning": "This is a plain restatement of the standard CSR field model rule that unimplemented bits are read-only zero, not a new implementer choice.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "Bits in any `stateen` CSR that are defined to control state that a hart doesn't implement are read-only zeros for that hart."
+  },
+  {
+    "parameter_name": "STVAL_INVALID_ADDR_BEHAVIOR",
+    "verdict": "DROP",
+    "rule": "warl_covered",
+    "duplicate_of": "STVAL_WIDTH",
+    "reasoning": "The conversion of invalid addresses before writing stval is WARL behavior already covered by the CSR field model and STVAL_WIDTH; there is no finite enumerable set of conversion strategies to certify.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "`stval` is a *WARL* register that must be able to hold all valid virtual addresses and the value 0. It need not be capable of holding all possible invalid addresses. Prior to writing `stval`, implementations may convert an invalid address into some other invalid address that `stval` is capable of holding."
+  },
+  {
+    "parameter_name": "SVADU_IMPLEMENTED",
+    "verdict": "DROP",
+    "rule": "sw_or_clarification",
+    "duplicate_of": null,
+    "reasoning": "This is a clarification that menvcfg.ADUE is writable when Svadu is implemented \u2014 it describes a consequence of implementing the extension, not an independent implementer choice.",
+    "class": "NORM_DIRECT",
+    "excerpt": "[#norm:Svadu_hw_update_a_d_bits]#If the Svadu extension is implemented, the `menvcfg`.ADUE field is writable.#"
+  },
+  {
+    "parameter_name": "SVPBMT_ADDITIONAL_PMA_OVERRIDES",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The additional PMA overrides are implementation-defined with no finite enumerable set of legal values, making this uncertifiable.",
+    "class": "NORM_DIRECT",
+    "excerpt": "[#norm:Svpbmt_impl_may_override_pmas]#Implementations may override additional PMAs not explicitly listed in <<pbmt>>.#"
+  },
+  {
+    "parameter_name": "UNIMPLEMENTED_HPM_COUNTER_ACCESS_BEHAVIOR",
+    "verdict": "DROP",
+    "rule": "duplicate",
+    "duplicate_of": "HPM_COUNTER_EN",
+    "reasoning": "The behavior of accessing unimplemented HPM counters is already captured by HPM_COUNTER_EN (which identifies which counters are implemented) in combination with TRAP_ON_UNIMPLEMENTED_CSR.",
+    "class": "NORM_DIRECT",
+    "excerpt": "Accessing an unimplemented counter may cause an illegal-instruction exception or may return a constant value."
+  },
+  {
+    "parameter_name": "VGEIN_RO_ZERO",
+    "verdict": "DROP",
+    "rule": "existing_mechanism",
+    "duplicate_of": "NUM_EXTERNAL_GUEST_INTERRUPTS",
+    "reasoning": "VGEIN being read-only zero when GEILEN=0 is a direct consequence of NUM_EXTERNAL_GUEST_INTERRUPTS=0, not an independent parameter.",
+    "class": "NORM_CSR_RW",
+    "excerpt": "GEILEN may be zero, in which case VGEIN may be read-only zero."
+  },
+  {
+    "parameter_name": "VSISELECT_WIDTH",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "The supported value range of vsiselect is a genuine, finite, verifiable implementer choice (minimum 0..0xFFF, potentially larger) not already captured in UDB.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "The `vsiselect` register will support the value range 0..0xFFF at a minimum. A future extension may define a value range outside of this minimum range. Only if such an extension is implemented will `vsiselect` be required to support larger values."
+  },
+  {
+    "parameter_name": "WFI_NOP_BEHAVIOR",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "Whether WFI may resume for any reason (including NOP implementation) is a genuine boolean implementer choice with a finite set of legal values not already captured in UDB.",
+    "class": "NORM_DIRECT",
+    "excerpt": "Implementations are permitted to resume execution for any reason, even if an enabled interrupt has not become pending. Hence, a legal implementation is to simply implement the WFI instruction as a NOP."
+  },
+  {
+    "parameter_name": "WFI_U_MODE_AVAILABLE",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "Whether WFI is available in U-mode is a finite, binary, verifiable implementation choice not already captured in the existing UDB parameters.",
+    "class": "NORM_DIRECT",
+    "excerpt": "WFI is available in all privileged modes, and optionally available to U-mode."
+  },
+  {
+    "parameter_name": "WRS_NTO_TW_TIMEOUT_LIMIT",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The timeout value is implementation-specific with no enumerable or testable set of legal values; it is an unspecified implementation-defined quantity, not a certifiable parameter.",
+    "class": "NORM_DIRECT",
+    "excerpt": "When the `TW` (Timeout Wait) bit in `mstatus` is set and `WRS.NTO` is executed in any privilege mode other than M mode, and it does not complete within an implementation-specific bounded time limit, the `WRS.NTO` instruction will cause an illegal-instruction exception."
+  },
+  {
+    "parameter_name": "WRS_NTO_VTW_TIMEOUT_LIMIT",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "Same as WRS_NTO_TW_TIMEOUT_LIMIT \u2014 the timeout is implementation-specific with no finite enumerable set of legal values.",
+    "class": "NORM_DIRECT",
+    "excerpt": "When executing in VS or VU mode, if the `VTW` bit is set in `hstatus`, the `TW` bit in `mstatus` is clear, and the `WRS.NTO` does not complete within an implementation-specific bounded time limit, the `WRS.NTO` instruction will cause a virtual-instruction exception."
+  },
+  {
+    "parameter_name": "WRS_SPURIOUS_WAKEUP",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "This describes intentionally unconstrained behavior (spurious wakeup permitted for any reason), not a finite enumerable implementation choice that can be certified.",
+    "class": "NORM_DIRECT",
+    "excerpt": "While stalled, an implementation is permitted to occasionally terminate the stall and complete execution for any reason."
+  },
+  {
+    "parameter_name": "WRS_STO_TIMEOUT_DURATION",
+    "verdict": "DROP",
+    "rule": "unspecified",
+    "duplicate_of": null,
+    "reasoning": "The short timeout duration is implementation-defined with no enumerable or verifiable set of legal values, making it uncertifiable as a parameter.",
+    "class": "NORM_DIRECT",
+    "excerpt": "`WRS.STO` (WRS-with-short-timeout) is provided that works like `WRS.NTO` but bounds the stall duration to an implementation-define short timeout such that the stall is terminated on the timeout if no other conditions have occurred to terminate the stall."
+  },
+  {
+    "parameter_name": "XENVCFG_LEGAL_VALUES",
+    "verdict": "DROP",
+    "rule": "warl_covered",
+    "duplicate_of": null,
+    "reasoning": "This is a generic restatement that xenvcfg fields are WARL, which is already covered by the CSR field model and existing UDB parameters for specific envcfg fields.",
+    "class": "NORM_CSR_WARL",
+    "excerpt": "Each `x{csrname}` register is WARL; however, software should determine the legal values from the execution environment discovery mechanism."
+  },
+  {
+    "parameter_name": "ZALASR_MISALIGNED_ATOMICITY_GRANULE_PMA",
+    "verdict": "DROP",
+    "rule": "references_existing",
+    "duplicate_of": null,
+    "reasoning": "This references the misaligned atomicity granule PMA mechanism already captured by MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE and related existing UDB parameters.",
+    "class": "NORM_DIRECT",
+    "excerpt": "The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement."
+  },
+  {
+    "parameter_name": "ZCMP_PUSH_BUS_FAULT_HANDLING",
+    "verdict": "KEEP",
+    "rule": "certifiable",
+    "duplicate_of": null,
+    "reasoning": "Whether the core waits for bus responses before continuing or handles errors after completing PUSH is a finite, binary, verifiable implementation choice specific to Zcmp not captured elsewhere in UDB.",
+    "class": "NORM_DIRECT",
+    "excerpt": "It is platform defined whether the core implementation waits for the bus responses before continuing to the final stage of the sequence, or handles errors responses after completing the PUSH instruction."
+  }
+]

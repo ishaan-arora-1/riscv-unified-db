@@ -1,0 +1,99 @@
+{
+  "chunk_id": "chunk_067",
+  "source_file": "zc.adoc",
+  "start_line": 1,
+  "end_line": 2582,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "It is implementation defined whether interrupts can also be taken during the sequence execution.",
+      "line_number": 1098,
+      "parameter_name": "ZCMP_INTERRUPTS_DURING_SEQUENCE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "implementation defined whether interrupts can also be taken",
+      "confidence": "high",
+      "reasoning": "The spec explicitly states it is 'implementation defined' whether interrupts can be taken during PUSH/POP sequence execution. This is a design-time choice with two options: interrupts allowed or not allowed during the sequence."
+    },
+    {
+      "excerpt": "It is platform defined whether the core implementation waits for the bus responses before continuing to the final stage of the sequence, or handles errors responses after completing the PUSH instruction.",
+      "line_number": 1121,
+      "parameter_name": "ZCMP_PUSH_BUS_FAULT_HANDLING",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "platform defined whether the core implementation waits for the bus responses",
+      "confidence": "high",
+      "reasoning": "The spec says it is 'platform defined' whether the core waits for bus responses before continuing or handles error responses after completing PUSH. This is a binary implementation choice about fault handling strategy."
+    },
+    {
+      "excerpt": "If <<Zcmt>> is implemented then _jvt_ must also be implemented, but can contain a read-only value. If _jvt_ is writable, the set of values the register may hold can vary by implementation.",
+      "line_number": 2468,
+      "parameter_name": "JVT_READ_ONLY",
+      "existing_udb_name": "JVT_READ_ONLY",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "can contain a read-only value",
+      "confidence": "high",
+      "reasoning": "The jvt register 'can contain a read-only value', meaning the implementation chooses whether jvt is read-only or read-write. This is a binary RO/RW choice for the CSR."
+    },
+    {
+      "excerpt": "If _jvt_ is writable, the set of values the register may hold can vary by implementation. The value in the BASE field must always be aligned on a 64-byte boundary.",
+      "line_number": 2468,
+      "parameter_name": "JVT_BASE_MASK",
+      "existing_udb_name": "JVT_BASE_MASK",
+      "class": "NORM_CSR_WARL",
+      "value_type": "bitmask",
+      "modal_signal": "the set of values the register may hold can vary by implementation",
+      "confidence": "high",
+      "reasoning": "The jvt BASE field is WARL and the set of legal values varies by implementation ('can vary by implementation'). The constraint is 64-byte alignment, but which higher bits are writable is implementation-defined."
+    },
+    {
+      "excerpt": "_jvt.mode_ is a *WARL* field, so can only be programmed to modes which are implemented. Therefore the discovery mechanism is to attempt to program different modes and read back the values to see which are available. Jump table mode _must_ be implemented.",
+      "line_number": 2487,
+      "parameter_name": "JVT_BASE_TYPE",
+      "existing_udb_name": "JVT_BASE_TYPE",
+      "class": "NORM_CSR_WARL",
+      "value_type": "set",
+      "modal_signal": "can only be programmed to modes which are implemented",
+      "confidence": "high",
+      "reasoning": "The jvt.mode field is WARL and only implemented modes can be programmed. Jump table mode (000000) must be implemented, but other modes are optional. The set of legal mode values is implementation-defined."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "MISA.C is set if the following extensions are selected: Zca and not F; Zca, Zcf and F (but not D) is specified (RV32 only); ...",
+      "line_number": 72,
+      "reason": "This is a fixed rule ('is set if') describing when MISA.C is set. There is no implementer choice here \u2014 it is a deterministic requirement based on which extensions are selected."
+    },
+    {
+      "excerpt": "Correct execution requires that _sp_ refers to idempotent memory (also see <<pushpop_non-idem-mem>>), because the core must be able to handle traps detected during the sequence.",
+      "line_number": 1093,
+      "reason": "This is a fixed requirement ('requires', 'must be able to') \u2014 not an implementer choice. It describes a constraint on correct usage."
+    },
+    {
+      "excerpt": "If a trap occurs during the sequence then _xEPC_ is updated with the PC of the instruction, _xTVAL_ (if not read-only-zero) updated with the bad address if it was an access fault and _xCAUSE_ updated with the type of trap.",
+      "line_number": 1096,
+      "reason": "This describes fixed required behavior when a trap occurs during PUSH/POP. The parenthetical '(if not read-only-zero)' references a parameter defined elsewhere (xTVAL width/access), not a new parameter."
+    },
+    {
+      "excerpt": "Table jump uses a 256-entry XLEN wide table in instruction memory to contain function addresses. The table must be a minimum of 64-byte aligned.",
+      "line_number": 2399,
+      "reason": "These are fixed requirements ('must be a minimum of 64-byte aligned') \u2014 not implementer choices. The alignment is mandated, not optional."
+    },
+    {
+      "excerpt": "An implementation may have a requirement to issue a PUSH/POP instruction to non-idempotent memory. If the core implementation does not support PUSH/POP to non-idempotent memories, the core may use an idempotency PMA to detect it and take a load (POP/POPRET) or store (PUSH) access-fault exception in order to avoid unpredictable results.",
+      "line_number": 1175,
+      "reason": "The 'may use an idempotency PMA' is a permission for software/hardware to use a mechanism, not a normative implementer choice with enumerable values. The behavior when non-idempotent memory is used is described as 'unpredictable results', which is an unspecified behavior exclusion."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"It is implementation defined whether interrupts can also be taken during the sequence execution.\",\n      \"line_number\": 1098,\n      \"parameter_name\": \"ZCMP_INTERRUPTS_DURING_SEQUENCE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"implementation defined whether interrupts can also be taken\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly states it is 'implementation defined' whether interrupts can be taken during PUSH/POP sequence execution. This is a design-time choice with two options: interrupts allowed or not allowed during the sequence.\"\n    },\n    {\n      \"excerpt\": \"It is platform defined whether the core implementation waits for the bus responses before continuing to the final stage of the sequence, or handles errors responses after completing the PUSH instruction.\",\n      \"line_number\": 1121,\n      \"parameter_name\": \"ZCMP_PUSH_BUS_FAULT_HANDLING\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"platform defined whether the core implementation waits for the bus responses\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec says it is 'platform defined' whether the core waits for bus responses before continuing or handles error responses after completing PUSH. This is a binary implementation choice about fault handling strategy.\"\n    },\n    {\n      \"excerpt\": \"If <<Zcmt>> is implemented then _jvt_ must also be implemented, but can contain a read-only value. If _jvt_ is writable, the set of values the register may hold can vary by implementation.\",\n      \"line_number\": 2468,\n      \"parameter_name\": \"JVT_READ_ONLY\",\n      \"existing_udb_name\": \"JVT_READ_ONLY\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"can contain a read-only value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The jvt register 'can contain a read-only value', meaning the implementation chooses whether jvt is read-only or read-write. This is a binary RO/RW choice for the CSR.\"\n    },\n    {\n      \"excerpt\": \"If _jvt_ is writable, the set of values the register may hold can vary by implementation. The value in the BASE field must always be aligned on a 64-byte boundary.\",\n      \"line_number\": 2468,\n      \"parameter_name\": \"JVT_BASE_MASK\",\n      \"existing_udb_name\": \"JVT_BASE_MASK\",\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"the set of values the register may hold can vary by implementation\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The jvt BASE field is WARL and the set of legal values varies by implementation ('can vary by implementation'). The constraint is 64-byte alignment, but which higher bits are writable is implementation-defined.\"\n    },\n    {\n      \"excerpt\": \"_jvt.mode_ is a *WARL* field, so can only be programmed to modes which are implemented. Therefore the discovery mechanism is to attempt to program different modes and read back the values to see which are available. Jump table mode _must_ be implemented.\",\n      \"line_number\": 2487,\n      \"parameter_name\": \"JVT_BASE_TYPE\",\n      \"existing_udb_name\": \"JVT_BASE_TYPE\",\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"can only be programmed to modes which are implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The jvt.mode field is WARL and only implemented modes can be programmed. Jump table mode (000000) must be implemented, but other modes are optional. The set of legal mode values is implementation-defined.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"MISA.C is set if the following extensions are selected: Zca and not F; Zca, Zcf and F (but not D) is specified (RV32 only); ...\",\n      \"line_number\": 72,\n      \"reason\": \"This is a fixed rule ('is set if') describing when MISA.C is set. There is no implementer choice here \u2014 it is a deterministic requirement based on which extensions are selected.\"\n    },\n    {\n      \"excerpt\": \"Correct execution requires that _sp_ refers to idempotent memory (also see <<pushpop_non-idem-mem>>), because the core must be able to handle traps detected during the sequence.\",\n      \"line_number\": 1093,\n      \"reason\": \"This is a fixed requirement ('requires', 'must be able to') \u2014 not an implementer choice. It describes a constraint on correct usage.\"\n    },\n    {\n      \"excerpt\": \"If a trap occurs during the sequence then _xEPC_ is updated with the PC of the instruction, _xTVAL_ (if not read-only-zero) updated with the bad address if it was an access fault and _xCAUSE_ updated with the type of trap.\",\n      \"line_number\": 1096,\n      \"reason\": \"This describes fixed required behavior when a trap occurs during PUSH/POP. The parenthetical '(if not read-only-zero)' references a parameter defined elsewhere (xTVAL width/access), not a new parameter.\"\n    },\n    {\n      \"excerpt\": \"Table jump uses a 256-entry XLEN wide table in instruction memory to contain function addresses. The table must be a minimum of 64-byte aligned.\",\n      \"line_number\": 2399,\n      \"reason\": \"These are fixed requirements ('must be a minimum of 64-byte aligned') \u2014 not implementer choices. The alignment is mandated, not optional.\"\n    },\n    {\n      \"excerpt\": \"An implementation may have a requirement to issue a PUSH/POP instruction to non-idempotent memory. If the core implementation does not support PUSH/POP to non-idempotent memories, the core may use an idempotency PMA to detect it and take a load (POP/POPRET) or store (PUSH) access-fault exception in order to avoid unpredictable results.\",\n      \"line_number\": 1175,\n      \"reason\": \"The 'may use an idempotency PMA' is a permission for software/hardware to use a mechanism, not a normative implementer choice with enumerable values. The behavior when non-idempotent memory is used is described as 'unpredictable results', which is an unspecified behavior exclusion.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 35607,
+  "output_tokens": 1698,
+  "latency_ms": 34859,
+  "timestamp": "2026-07-01T10:02:20.919802+00:00",
+  "error": null,
+  "retry_count": 0
+}

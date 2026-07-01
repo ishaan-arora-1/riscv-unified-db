@@ -1,0 +1,132 @@
+{
+  "chunk_id": "chunk_078",
+  "source_file": "zpm.adoc",
+  "start_line": 1,
+  "end_line": 223,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The current standard only supports PMLEN=XLEN-48 (i.e., PMLEN=16 in RV64) and PMLEN=XLEN-57 (i.e., PMLEN=7 in RV64). A setting has been reserved to potentially support other values of PMLEN in future standards.",
+      "line_number": 120,
+      "parameter_name": "PMLEN",
+      "existing_udb_name": "PMLEN",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "The current standard only supports PMLEN=XLEN-48 ... and PMLEN=XLEN-57",
+      "confidence": "high",
+      "reasoning": "PMLEN is a configurable implementation parameter. The spec defines exactly two supported values (XLEN-48 and XLEN-57), and the implementer chooses which to support. This is a design-time choice not controlled by a CSR field directly \u2014 the CSR bits encode the selection, but the set of legal values is the parameter."
+    },
+    {
+      "excerpt": "Pointer masking refers to a number of separate extensions, all of which are privileged. This approach is used to capture optionality of pointer masking features. Profiles and implementations may choose to support an arbitrary subset of these extensions and must define valid ranges for their corresponding values of PMLEN.",
+      "line_number": 172,
+      "parameter_name": "PM_EXTENSIONS_SUPPORTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "set",
+      "modal_signal": "implementations may choose to support an arbitrary subset of these extensions",
+      "confidence": "high",
+      "reasoning": "The spec explicitly states that implementations may choose any subset of the pointer masking extensions (Ssnpm, Smnpm, Smmpm, Sspm, Supm). This is a design-time implementation choice with a finite universe of options."
+    },
+    {
+      "excerpt": "A supervisor-level extension that provides pointer masking for the next lower privilege mode (U-mode), and for VS- and VU-modes if the H extension is present.",
+      "line_number": 179,
+      "parameter_name": "SSNPM_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "implementations may choose to support an arbitrary subset of these extensions",
+      "confidence": "medium",
+      "reasoning": "Ssnpm is one of the optional pointer masking extensions. Whether it is implemented is an implementation choice per the parent sentence about arbitrary subset selection. Binary: implemented or not."
+    },
+    {
+      "excerpt": "A machine-level extension that provides pointer masking for the next lower privilege mode (S/HS if S-mode is implemented, or U-mode otherwise).",
+      "line_number": 181,
+      "parameter_name": "SMNPM_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "implementations may choose to support an arbitrary subset of these extensions",
+      "confidence": "medium",
+      "reasoning": "Smnpm is one of the optional pointer masking extensions. Whether it is implemented is an implementation choice per the parent sentence about arbitrary subset selection."
+    },
+    {
+      "excerpt": "A machine-level extension that provides pointer masking for M-mode.",
+      "line_number": 183,
+      "parameter_name": "SMMPM_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "implementations may choose to support an arbitrary subset of these extensions",
+      "confidence": "medium",
+      "reasoning": "Smmpm is one of the optional pointer masking extensions. Whether it is implemented is an implementation choice per the parent sentence about arbitrary subset selection."
+    },
+    {
+      "excerpt": "In RV32, trying to enable pointer masking will result in an illegal WARL write and not update the pointer masking configuration bits",
+      "line_number": 196,
+      "parameter_name": "PM_RV32_WARL_BEHAVIOR",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "binary",
+      "modal_signal": "will result in an illegal WARL write and not update the pointer masking configuration bits",
+      "confidence": "high",
+      "reasoning": "The pointer masking configuration bits are WARL fields. In RV32 (or when XLEN=32 for a privilege mode), the bits are read-only zero \u2014 the legal value set contains only 0. This is a WARL field behavior parameter."
+    },
+    {
+      "excerpt": "the supported values of PMLEN may depend on the effective privilege mode. The current standard only defines PMLEN=XLEN-48 and PMLEN=XLEN-57, but this assumption may be relaxed in future extensions and profiles. Trying to enable pointer masking in an unsupported scenario represents an illegal write to the corresponding pointer masking enable bit and follows WARL semantics.",
+      "line_number": 213,
+      "parameter_name": "PMLEN_PER_MODE",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "set",
+      "modal_signal": "the supported values of PMLEN may depend on the effective privilege mode",
+      "confidence": "high",
+      "reasoning": "The set of legal PMLEN values is implementation-defined and may vary per privilege mode. The pointer masking enable/mode bits are WARL fields, and which values are legal (i.e., which PMLEN settings are supported for each mode) is an implementation choice. 'May depend on the effective privilege mode' signals the optionality."
+    },
+    {
+      "excerpt": "The tag checks themselves can be implemented in software or hardware.",
+      "line_number": 11,
+      "parameter_name": "PM_TAG_CHECK_IMPLEMENTATION",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "can be implemented in software or hardware",
+      "confidence": "low",
+      "reasoning": "The spec says tag checks 'can be implemented in software or hardware', which signals an implementation choice. However, this is more of an architectural description of the design space than a normative parameter \u2014 it describes what is possible, not what the implementation must declare. Confidence is low because this may be informational rather than a certifiable parameter."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "RISC-V Pointer Masking (PM) is a feature that, when enabled, causes the CPU to ignore the upper bits of the effective address",
+      "line_number": 6,
+      "reason": "This is introductory/overview text describing what the feature does. No optionality language; it is a factual description of the feature, not an implementation choice."
+    },
+    {
+      "excerpt": "The ignore transformation differs depending on whether it applies to a virtual or physical address. For virtual addresses, it replaces the upper PMLEN bits with the sign extension of the PMLEN+1st bit.",
+      "line_number": 44,
+      "reason": "This is a fixed normative rule ('replaces ... with') describing the required behavior of the ignore transformation. There is no implementer choice here \u2014 every implementation must perform this transformation."
+    },
+    {
+      "excerpt": "When pointer masking is enabled, the ignore transformation will be applied to every explicit memory access (e.g., loads/stores, atomics operations, and floating point loads/stores).",
+      "line_number": 68,
+      "reason": "Fixed requirement ('will be applied') describing mandatory behavior when pointer masking is enabled. No implementer choice."
+    },
+    {
+      "excerpt": "Pointer masking only applies to RV64.",
+      "line_number": 193,
+      "reason": "Fixed architectural constraint ('only applies to'), not an implementation choice. Every implementation must follow this rule."
+    },
+    {
+      "excerpt": "Setting UXL/SXL/MXL to 1 will clear the corresponding pointer masking configuration bits.",
+      "line_number": 199,
+      "reason": "Fixed behavioral requirement ('will clear') describing mandatory hardware behavior. No implementer choice \u2014 this is a 'must' rule expressed as a future-tense statement."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The current standard only supports PMLEN=XLEN-48 (i.e., PMLEN=16 in RV64) and PMLEN=XLEN-57 (i.e., PMLEN=7 in RV64). A setting has been reserved to potentially support other values of PMLEN in future standards.\",\n      \"line_number\": 120,\n      \"parameter_name\": \"PMLEN\",\n      \"existing_udb_name\": \"PMLEN\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"The current standard only supports PMLEN=XLEN-48 ... and PMLEN=XLEN-57\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"PMLEN is a configurable implementation parameter. The spec defines exactly two supported values (XLEN-48 and XLEN-57), and the implementer chooses which to support. This is a design-time choice not controlled by a CSR field directly \u2014 the CSR bits encode the selection, but the set of legal values is the parameter.\"\n    },\n    {\n      \"excerpt\": \"Pointer masking refers to a number of separate extensions, all of which are privileged. This approach is used to capture optionality of pointer masking features. Profiles and implementations may choose to support an arbitrary subset of these extensions and must define valid ranges for their corresponding values of PMLEN.\",\n      \"line_number\": 172,\n      \"parameter_name\": \"PM_EXTENSIONS_SUPPORTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"implementations may choose to support an arbitrary subset of these extensions\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly states that implementations may choose any subset of the pointer masking extensions (Ssnpm, Smnpm, Smmpm, Sspm, Supm). This is a design-time implementation choice with a finite universe of options.\"\n    },\n    {\n      \"excerpt\": \"A supervisor-level extension that provides pointer masking for the next lower privilege mode (U-mode), and for VS- and VU-modes if the H extension is present.\",\n      \"line_number\": 179,\n      \"parameter_name\": \"SSNPM_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"implementations may choose to support an arbitrary subset of these extensions\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Ssnpm is one of the optional pointer masking extensions. Whether it is implemented is an implementation choice per the parent sentence about arbitrary subset selection. Binary: implemented or not.\"\n    },\n    {\n      \"excerpt\": \"A machine-level extension that provides pointer masking for the next lower privilege mode (S/HS if S-mode is implemented, or U-mode otherwise).\",\n      \"line_number\": 181,\n      \"parameter_name\": \"SMNPM_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"implementations may choose to support an arbitrary subset of these extensions\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Smnpm is one of the optional pointer masking extensions. Whether it is implemented is an implementation choice per the parent sentence about arbitrary subset selection.\"\n    },\n    {\n      \"excerpt\": \"A machine-level extension that provides pointer masking for M-mode.\",\n      \"line_number\": 183,\n      \"parameter_name\": \"SMMPM_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"implementations may choose to support an arbitrary subset of these extensions\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Smmpm is one of the optional pointer masking extensions. Whether it is implemented is an implementation choice per the parent sentence about arbitrary subset selection.\"\n    },\n    {\n      \"excerpt\": \"In RV32, trying to enable pointer masking will result in an illegal WARL write and not update the pointer masking configuration bits\",\n      \"line_number\": 196,\n      \"parameter_name\": \"PM_RV32_WARL_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"will result in an illegal WARL write and not update the pointer masking configuration bits\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The pointer masking configuration bits are WARL fields. In RV32 (or when XLEN=32 for a privilege mode), the bits are read-only zero \u2014 the legal value set contains only 0. This is a WARL field behavior parameter.\"\n    },\n    {\n      \"excerpt\": \"the supported values of PMLEN may depend on the effective privilege mode. The current standard only defines PMLEN=XLEN-48 and PMLEN=XLEN-57, but this assumption may be relaxed in future extensions and profiles. Trying to enable pointer masking in an unsupported scenario represents an illegal write to the corresponding pointer masking enable bit and follows WARL semantics.\",\n      \"line_number\": 213,\n      \"parameter_name\": \"PMLEN_PER_MODE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"the supported values of PMLEN may depend on the effective privilege mode\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The set of legal PMLEN values is implementation-defined and may vary per privilege mode. The pointer masking enable/mode bits are WARL fields, and which values are legal (i.e., which PMLEN settings are supported for each mode) is an implementation choice. 'May depend on the effective privilege mode' signals the optionality.\"\n    },\n    {\n      \"excerpt\": \"The tag checks themselves can be implemented in software or hardware.\",\n      \"line_number\": 11,\n      \"parameter_name\": \"PM_TAG_CHECK_IMPLEMENTATION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"can be implemented in software or hardware\",\n      \"confidence\": \"low\",\n      \"reasoning\": \"The spec says tag checks 'can be implemented in software or hardware', which signals an implementation choice. However, this is more of an architectural description of the design space than a normative parameter \u2014 it describes what is possible, not what the implementation must declare. Confidence is low because this may be informational rather than a certifiable parameter.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"RISC-V Pointer Masking (PM) is a feature that, when enabled, causes the CPU to ignore the upper bits of the effective address\",\n      \"line_number\": 6,\n      \"reason\": \"This is introductory/overview text describing what the feature does. No optionality language; it is a factual description of the feature, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The ignore transformation differs depending on whether it applies to a virtual or physical address. For virtual addresses, it replaces the upper PMLEN bits with the sign extension of the PMLEN+1st bit.\",\n      \"line_number\": 44,\n      \"reason\": \"This is a fixed normative rule ('replaces ... with') describing the required behavior of the ignore transformation. There is no implementer choice here \u2014 every implementation must perform this transformation.\"\n    },\n    {\n      \"excerpt\": \"When pointer masking is enabled, the ignore transformation will be applied to every explicit memory access (e.g., loads/stores, atomics operations, and floating point loads/stores).\",\n      \"line_number\": 68,\n      \"reason\": \"Fixed requirement ('will be applied') describing mandatory behavior when pointer masking is enabled. No implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Pointer masking only applies to RV64.\",\n      \"line_number\": 193,\n      \"reason\": \"Fixed architectural constraint ('only applies to'), not an implementation choice. Every implementation must follow this rule.\"\n    },\n    {\n      \"excerpt\": \"Setting UXL/SXL/MXL to 1 will clear the corresponding pointer masking configuration bits.\",\n      \"line_number\": 199,\n      \"reason\": \"Fixed behavioral requirement ('will clear') describing mandatory hardware behavior. No implementer choice \u2014 this is a 'must' rule expressed as a future-tense statement.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 15745,
+  "output_tokens": 2144,
+  "latency_ms": 35107,
+  "timestamp": "2026-07-01T10:05:01.567181+00:00",
+  "error": null,
+  "retry_count": 0
+}

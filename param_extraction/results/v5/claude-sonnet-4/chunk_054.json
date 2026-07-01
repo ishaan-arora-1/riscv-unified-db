@@ -1,0 +1,38 @@
+{
+  "chunk_id": "chunk_054",
+  "source_file": "sstc.adoc",
+  "start_line": 1,
+  "end_line": 24,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "This extension serves to provide supervisor mode with its own CSR-based timer interrupt facility that it can directly manage to provide its own timer service (in the form of having its own `stimecmp` register) - thus eliminating the large overheads for emulating S/HS-mode timers and timer interrupt generation up in M-mode.",
+      "line_number": 13,
+      "reason": "This is introductory/overview text describing the purpose of the Sstc extension. It contains no optionality language and describes a fixed architectural feature, not an implementer choice."
+    },
+    {
+      "excerpt": "This extension adds the S-level `stimecmp` CSR and the VS-level `vstimecmp` CSR.",
+      "line_number": 21,
+      "reason": "This is a fixed statement of fact about what the extension adds. No optionality language \u2014 the CSRs are required when the extension is implemented. Not an implementer choice."
+    },
+    {
+      "excerpt": "This extension adds the `STCE` bit to the `menvcfg` and `henvcfg` CSRs.",
+      "line_number": 22,
+      "reason": "Fixed requirement describing what the extension mandates. No optionality language; not an implementer choice."
+    },
+    {
+      "excerpt": "Further, this extension adds a similar facility to the Hypervisor extension for VS-mode.",
+      "line_number": 17,
+      "reason": "Introductory/overview text describing the scope of the extension. No optionality language and no implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"This extension serves to provide supervisor mode with its own CSR-based timer interrupt facility that it can directly manage to provide its own timer service (in the form of having its own `stimecmp` register) - thus eliminating the large overheads for emulating S/HS-mode timers and timer interrupt generation up in M-mode.\",\n      \"line_number\": 13,\n      \"reason\": \"This is introductory/overview text describing the purpose of the Sstc extension. It contains no optionality language and describes a fixed architectural feature, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"This extension adds the S-level `stimecmp` CSR and the VS-level `vstimecmp` CSR.\",\n      \"line_number\": 21,\n      \"reason\": \"This is a fixed statement of fact about what the extension adds. No optionality language \u2014 the CSRs are required when the extension is implemented. Not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"This extension adds the `STCE` bit to the `menvcfg` and `henvcfg` CSRs.\",\n      \"line_number\": 22,\n      \"reason\": \"Fixed requirement describing what the extension mandates. No optionality language; not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Further, this extension adds a similar facility to the Hypervisor extension for VS-mode.\",\n      \"line_number\": 17,\n      \"reason\": \"Introductory/overview text describing the scope of the extension. No optionality language and no implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 10240,
+  "output_tokens": 415,
+  "latency_ms": 7155,
+  "timestamp": "2026-06-29T10:38:43.512991+00:00",
+  "error": null,
+  "retry_count": 0
+}

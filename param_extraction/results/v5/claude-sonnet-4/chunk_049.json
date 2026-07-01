@@ -1,0 +1,38 @@
+{
+  "chunk_id": "chunk_049",
+  "source_file": "smdbltrp.adoc",
+  "start_line": 1,
+  "end_line": 17,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "When the Smrnmi extension (<<rnmi>>) is implemented, it enables invocation of the RNMI handler on a double trap in M-mode to handle the critical error.",
+      "line_number": 5,
+      "reason": "This is a behavioral description of what happens when Smrnmi is implemented \u2014 it describes a fixed consequence, not an implementer choice. No optionality language ('may', 'optional', 'implementation-defined') is present."
+    },
+    {
+      "excerpt": "If the Smrnmi extension is not implemented or if a double trap occurs during the RNMI handler's execution, this extension helps transition the hart to a critical error state and enables signaling the critical error to the platform.",
+      "line_number": 7,
+      "reason": "This is a fixed behavioral description of what the extension does under specific conditions. No optionality language is present; it is not an implementer choice."
+    },
+    {
+      "excerpt": "The extension introduces a mechanism to enter Debug Mode instead of asserting a critical-error signal to the platform when the hart is in a critical error state.",
+      "line_number": 13,
+      "reason": "This is an introductory/overview description of the extension's mechanism. It describes a feature of the extension, not an implementer choice. No optionality language is present, and this is overview text."
+    },
+    {
+      "excerpt": "See <<machine-double-trap>> for the operational details.",
+      "line_number": 17,
+      "reason": "This is a cross-reference pointer, not a normative statement or parameter definition."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"When the Smrnmi extension (<<rnmi>>) is implemented, it enables invocation of the RNMI handler on a double trap in M-mode to handle the critical error.\",\n      \"line_number\": 5,\n      \"reason\": \"This is a behavioral description of what happens when Smrnmi is implemented \u2014 it describes a fixed consequence, not an implementer choice. No optionality language ('may', 'optional', 'implementation-defined') is present.\"\n    },\n    {\n      \"excerpt\": \"If the Smrnmi extension is not implemented or if a double trap occurs during the RNMI handler's execution, this extension helps transition the hart to a critical error state and enables signaling the critical error to the platform.\",\n      \"line_number\": 7,\n      \"reason\": \"This is a fixed behavioral description of what the extension does under specific conditions. No optionality language is present; it is not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The extension introduces a mechanism to enter Debug Mode instead of asserting a critical-error signal to the platform when the hart is in a critical error state.\",\n      \"line_number\": 13,\n      \"reason\": \"This is an introductory/overview description of the extension's mechanism. It describes a feature of the extension, not an implementer choice. No optionality language is present, and this is overview text.\"\n    },\n    {\n      \"excerpt\": \"See <<machine-double-trap>> for the operational details.\",\n      \"line_number\": 17,\n      \"reason\": \"This is a cross-reference pointer, not a normative statement or parameter definition.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 10016,
+  "output_tokens": 417,
+  "latency_ms": 7350,
+  "timestamp": "2026-06-29T10:37:26.693593+00:00",
+  "error": null,
+  "retry_count": 0
+}

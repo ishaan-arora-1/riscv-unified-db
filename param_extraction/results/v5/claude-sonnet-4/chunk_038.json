@@ -1,0 +1,110 @@
+{
+  "chunk_id": "chunk_038",
+  "source_file": "rnmi.adoc",
+  "start_line": 1,
+  "end_line": 166,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The RNMI interrupt trap handler address is implementation-defined.",
+      "line_number": 24,
+      "parameter_name": "RNMI_TRAP_HANDLER_ADDRESS",
+      "existing_udb_name": null,
+      "class": "NON_ISA",
+      "value_type": "value",
+      "modal_signal": "implementation-defined",
+      "confidence": "high",
+      "reasoning": "The RNMI trap handler address is explicitly 'implementation-defined', but as noted in the negative examples, trap handler addresses are platform/physical-design choices outside the ISA scope (NON_ISA). This matches the negative example 6 pattern exactly."
+    },
+    {
+      "excerpt": "RNMI also has an associated exception trap handler address, which is implementation defined.",
+      "line_number": 26,
+      "parameter_name": "RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS",
+      "existing_udb_name": null,
+      "class": "NON_ISA",
+      "value_type": "value",
+      "modal_signal": "implementation defined",
+      "confidence": "high",
+      "reasoning": "The RNMI exception trap handler address is 'implementation defined', but like the RNMI trap handler address, this is a platform/physical-design choice outside the ISA scope (NON_ISA)."
+    },
+    {
+      "excerpt": "Prior to writing `mnepc`, implementations may convert an invalid address into some other invalid address that `mnepc` is capable of holding.",
+      "line_number": 68,
+      "parameter_name": "MNEPC_INVALID_ADDR_CONVERSION",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "binary",
+      "modal_signal": "implementations may convert an invalid address into some other invalid address",
+      "confidence": "high",
+      "reasoning": "This describes the WARL behavior of mnepc: whether an implementation converts invalid addresses to a representable invalid address is an implementation choice ('may convert'). This is a NORM_CSR_WARL parameter about the legal values and conversion behavior of the mnepc WARL register."
+    },
+    {
+      "excerpt": "`mnepc` is a *WARL* register that must be able to hold all valid virtual addresses. It need not be capable of holding all possible invalid addresses.",
+      "line_number": 65,
+      "parameter_name": "MNEPC_LEGAL_VALUES",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_WARL",
+      "value_type": "set",
+      "modal_signal": "need not be capable of holding all possible invalid addresses",
+      "confidence": "high",
+      "reasoning": "mnepc is explicitly WARL and 'need not be capable of holding all possible invalid addresses' \u2014 the set of legal values (which invalid addresses are representable) varies by implementation. This is a NORM_CSR_WARL parameter."
+    },
+    {
+      "excerpt": "If an implementation allows IALIGN to be either 16 or 32 (by changing CSR `misa`, for example), then, whenever IALIGN=32, bit `mnepc[1]` is masked on reads so that it appears to be 0.",
+      "line_number": 60,
+      "parameter_name": "MNEPC_IALIGN_VARIABLE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "If an implementation allows IALIGN to be either 16 or 32",
+      "confidence": "high",
+      "reasoning": "Whether an implementation supports variable IALIGN (16 or 32) is an implementation choice ('if an implementation allows'). This determines whether mnepc[1] masking behavior applies. It is a design-time choice, not controlled by a single CSR field."
+    },
+    {
+      "excerpt": "If the Zicfilp extension is implemented, `mnstatus` also holds the MNPELP field, which on entry to the RNMI trap handler holds the previous `ELP` state.",
+      "line_number": 97,
+      "parameter_name": "MNSTATUS_MNPELP_IMPLEMENTED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "If the Zicfilp extension is implemented",
+      "confidence": "high",
+      "reasoning": "The MNPELP field in mnstatus is only present when the Zicfilp extension is implemented. Whether Zicfilp is implemented is an implementation choice, making the presence of MNPELP conditional. This is a NORM_DIRECT parameter about whether the field exists."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "These interrupts have higher priority than any other interrupt or exception on the hart and cannot be disabled by software.",
+      "line_number": 18,
+      "reason": "Fixed requirement ('have higher priority', 'cannot be disabled') \u2014 no implementer choice, applies to all Smrnmi implementations."
+    },
+    {
+      "excerpt": "The low bit of `mnepc` (`mnepc[0]`) is always zero.",
+      "line_number": 57,
+      "reason": "Fixed fact ('is always zero') \u2014 hardwired behavior, not an implementer choice."
+    },
+    {
+      "excerpt": "Upon reset, NMIE contains the value 0.",
+      "line_number": 107,
+      "reason": "Fixed requirement about reset state ('contains the value 0') \u2014 no implementer choice, applies to all Smrnmi implementations."
+    },
+    {
+      "excerpt": "Software can set NMIE to 1, but attempts to clear NMIE have no effect.",
+      "line_number": 112,
+      "reason": "Fixed behavioral rule about NMIE \u2014 'attempts to clear NMIE have no effect' is a fixed requirement, not an implementer choice. Also describes software behavior."
+    },
+    {
+      "excerpt": "The other bits in `mnstatus` are _reserved_; software should write zeros and hardware implementations should return zeros.",
+      "line_number": 130,
+      "reason": "Reserved bits are a fixed fact \u2014 'reserved' and 'should return zeros' describe a fixed requirement, not an implementer choice. The reserved status is not chosen by the implementer."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The RNMI interrupt trap handler address is implementation-defined.\",\n      \"line_number\": 24,\n      \"parameter_name\": \"RNMI_TRAP_HANDLER_ADDRESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation-defined\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The RNMI trap handler address is explicitly 'implementation-defined', but as noted in the negative examples, trap handler addresses are platform/physical-design choices outside the ISA scope (NON_ISA). This matches the negative example 6 pattern exactly.\"\n    },\n    {\n      \"excerpt\": \"RNMI also has an associated exception trap handler address, which is implementation defined.\",\n      \"line_number\": 26,\n      \"parameter_name\": \"RNMI_EXCEPTION_TRAP_HANDLER_ADDRESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation defined\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The RNMI exception trap handler address is 'implementation defined', but like the RNMI trap handler address, this is a platform/physical-design choice outside the ISA scope (NON_ISA).\"\n    },\n    {\n      \"excerpt\": \"Prior to writing `mnepc`, implementations may convert an invalid address into some other invalid address that `mnepc` is capable of holding.\",\n      \"line_number\": 68,\n      \"parameter_name\": \"MNEPC_INVALID_ADDR_CONVERSION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"implementations may convert an invalid address into some other invalid address\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"This describes the WARL behavior of mnepc: whether an implementation converts invalid addresses to a representable invalid address is an implementation choice ('may convert'). This is a NORM_CSR_WARL parameter about the legal values and conversion behavior of the mnepc WARL register.\"\n    },\n    {\n      \"excerpt\": \"`mnepc` is a *WARL* register that must be able to hold all valid virtual addresses. It need not be capable of holding all possible invalid addresses.\",\n      \"line_number\": 65,\n      \"parameter_name\": \"MNEPC_LEGAL_VALUES\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"need not be capable of holding all possible invalid addresses\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"mnepc is explicitly WARL and 'need not be capable of holding all possible invalid addresses' \u2014 the set of legal values (which invalid addresses are representable) varies by implementation. This is a NORM_CSR_WARL parameter.\"\n    },\n    {\n      \"excerpt\": \"If an implementation allows IALIGN to be either 16 or 32 (by changing CSR `misa`, for example), then, whenever IALIGN=32, bit `mnepc[1]` is masked on reads so that it appears to be 0.\",\n      \"line_number\": 60,\n      \"parameter_name\": \"MNEPC_IALIGN_VARIABLE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"If an implementation allows IALIGN to be either 16 or 32\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether an implementation supports variable IALIGN (16 or 32) is an implementation choice ('if an implementation allows'). This determines whether mnepc[1] masking behavior applies. It is a design-time choice, not controlled by a single CSR field.\"\n    },\n    {\n      \"excerpt\": \"If the Zicfilp extension is implemented, `mnstatus` also holds the MNPELP field, which on entry to the RNMI trap handler holds the previous `ELP` state.\",\n      \"line_number\": 97,\n      \"parameter_name\": \"MNSTATUS_MNPELP_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"If the Zicfilp extension is implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The MNPELP field in mnstatus is only present when the Zicfilp extension is implemented. Whether Zicfilp is implemented is an implementation choice, making the presence of MNPELP conditional. This is a NORM_DIRECT parameter about whether the field exists.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"These interrupts have higher priority than any other interrupt or exception on the hart and cannot be disabled by software.\",\n      \"line_number\": 18,\n      \"reason\": \"Fixed requirement ('have higher priority', 'cannot be disabled') \u2014 no implementer choice, applies to all Smrnmi implementations.\"\n    },\n    {\n      \"excerpt\": \"The low bit of `mnepc` (`mnepc[0]`) is always zero.\",\n      \"line_number\": 57,\n      \"reason\": \"Fixed fact ('is always zero') \u2014 hardwired behavior, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Upon reset, NMIE contains the value 0.\",\n      \"line_number\": 107,\n      \"reason\": \"Fixed requirement about reset state ('contains the value 0') \u2014 no implementer choice, applies to all Smrnmi implementations.\"\n    },\n    {\n      \"excerpt\": \"Software can set NMIE to 1, but attempts to clear NMIE have no effect.\",\n      \"line_number\": 112,\n      \"reason\": \"Fixed behavioral rule about NMIE \u2014 'attempts to clear NMIE have no effect' is a fixed requirement, not an implementer choice. Also describes software behavior.\"\n    },\n    {\n      \"excerpt\": \"The other bits in `mnstatus` are _reserved_; software should write zeros and hardware implementations should return zeros.\",\n      \"line_number\": 130,\n      \"reason\": \"Reserved bits are a fixed fact \u2014 'reserved' and 'should return zeros' describe a fixed requirement, not an implementer choice. The reserved status is not chosen by the implementer.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12594,
+  "output_tokens": 1638,
+  "latency_ms": 25393,
+  "timestamp": "2026-06-29T10:33:33.467164+00:00",
+  "error": null,
+  "retry_count": 0
+}

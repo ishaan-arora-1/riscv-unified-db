@@ -1,0 +1,55 @@
+{
+  "chunk_id": "chunk_065",
+  "source_file": "zalasr.adoc",
+  "start_line": 1,
+  "end_line": 137,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement.",
+      "line_number": 32,
+      "parameter_name": "ZALASR_MISALIGNED_ATOMICITY_GRANULE_PMA",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "optionally relaxes",
+      "confidence": "medium",
+      "reasoning": "The misaligned atomicity granule PMA is an optional feature that relaxes the natural alignment requirement for Zalasr instructions. The word 'optionally' signals an implementation choice. This is a design-time decision about whether the PMA is configured to allow misaligned atomics. However, the PMA granularity itself is defined in Volume II; this sentence references that parameter. Still, the presence or absence of this PMA relaxation for Zalasr is an implementation choice signaled by 'optionally'. Classified as NORM_DIRECT since no CSR field directly controls this \u2014 it is a PMA configuration choice."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated.",
+      "line_number": 29,
+      "reason": "This is a fixed behavioral requirement ('will be generated') describing what must happen on misalignment. There is no implementer choice here \u2014 it is a mandatory rule, not a parameter."
+    },
+    {
+      "excerpt": "The versions without the _aq_ bit set are RESERVED.",
+      "line_number": 79,
+      "reason": "This is a fixed fact about reserved encodings. 'RESERVED' is not an implementer choice \u2014 it is a fixed constraint binding all implementations."
+    },
+    {
+      "excerpt": "The versions without the _rl_ bit set are RESERVED.",
+      "line_number": 126,
+      "reason": "Same as above \u2014 a fixed reserved-encoding fact, not an implementer choice."
+    },
+    {
+      "excerpt": "The Zalasr instructions always sign-extend the value placed in _rd_ and ignore the upper bits of the value of _rs2_.",
+      "line_number": 24,
+      "reason": "This is a fixed behavioral requirement ('always sign-extend', 'ignore') that applies to all implementations. No implementer choice is present."
+    },
+    {
+      "excerpt": "LD.{AQ, AQRL} is RV64-only.",
+      "line_number": 80,
+      "reason": "This is a fixed architectural fact about which ISA width supports the LD variants. It is not an implementer choice \u2014 it is a fixed constraint."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement.\",\n      \"line_number\": 32,\n      \"parameter_name\": \"ZALASR_MISALIGNED_ATOMICITY_GRANULE_PMA\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"optionally relaxes\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The misaligned atomicity granule PMA is an optional feature that relaxes the natural alignment requirement for Zalasr instructions. The word 'optionally' signals an implementation choice. This is a design-time decision about whether the PMA is configured to allow misaligned atomics. However, the PMA granularity itself is defined in Volume II; this sentence references that parameter. Still, the presence or absence of this PMA relaxation for Zalasr is an implementation choice signaled by 'optionally'. Classified as NORM_DIRECT since no CSR field directly controls this \u2014 it is a PMA configuration choice.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"If the address is not naturally aligned, an address-misaligned exception or an access-fault exception will be generated.\",\n      \"line_number\": 29,\n      \"reason\": \"This is a fixed behavioral requirement ('will be generated') describing what must happen on misalignment. There is no implementer choice here \u2014 it is a mandatory rule, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The versions without the _aq_ bit set are RESERVED.\",\n      \"line_number\": 79,\n      \"reason\": \"This is a fixed fact about reserved encodings. 'RESERVED' is not an implementer choice \u2014 it is a fixed constraint binding all implementations.\"\n    },\n    {\n      \"excerpt\": \"The versions without the _rl_ bit set are RESERVED.\",\n      \"line_number\": 126,\n      \"reason\": \"Same as above \u2014 a fixed reserved-encoding fact, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The Zalasr instructions always sign-extend the value placed in _rd_ and ignore the upper bits of the value of _rs2_.\",\n      \"line_number\": 24,\n      \"reason\": \"This is a fixed behavioral requirement ('always sign-extend', 'ignore') that applies to all implementations. No implementer choice is present.\"\n    },\n    {\n      \"excerpt\": \"LD.{AQ, AQRL} is RV64-only.\",\n      \"line_number\": 80,\n      \"reason\": \"This is a fixed architectural fact about which ISA width supports the LD variants. It is not an implementer choice \u2014 it is a fixed constraint.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12226,
+  "output_tokens": 699,
+  "latency_ms": 14352,
+  "timestamp": "2026-07-01T10:01:24.476677+00:00",
+  "error": null,
+  "retry_count": 0
+}

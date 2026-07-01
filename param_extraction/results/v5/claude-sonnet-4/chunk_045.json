@@ -1,0 +1,66 @@
+{
+  "chunk_id": "chunk_045",
+  "source_file": "scalar-crypto.adoc",
+  "start_line": 3423,
+  "end_line": 5594,
+  "content_start_line": 3453,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "Implementations may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`.",
+      "line_number": 3697,
+      "parameter_name": "MSECCFG_SSEED_USEED_ACCESS",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`",
+      "confidence": "high",
+      "reasoning": "The spec explicitly says implementations may make the [s,u]seed fields of mseccfg read-only zero, meaning the implementation chooses whether these fields are writable or read-only. This is a NORM_CSR_RW parameter controlling the RO/RW nature of the mseccfg.[s,u]seed fields."
+    },
+    {
+      "excerpt": "An implementation may safely set reserved and custom bits to zeros.",
+      "line_number": 3617,
+      "parameter_name": "SEED_CUSTOM_BITS_VALUE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may safely set reserved and custom bits to zeros",
+      "confidence": "medium",
+      "reasoning": "The spec says an implementation 'may safely set reserved and custom bits to zeros', implying the implementation chooses what value to place in the custom bits (seed[23:16]). The custom bits are designated for custom/experimental use, so the implementation defines their value. However, this is somewhat weak optionality \u2014 the 'may' here could be read as permission rather than a design-time choice. Confidence is medium."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Attempts to access the `seed` CSR using a read-only CSR-access instruction (`CSRRS`/`CSRRC` with _rs1_=`x0` or `CSRRSI`/`CSRRCI` with _uimm_=0) raise an illegal-instruction exception; any other CSR-access instruction may be used to access `seed`.",
+      "line_number": 3591,
+      "reason": "This is a fixed requirement ('raise an illegal-instruction exception') and a permission for software ('may be used'). There is no implementer choice here \u2014 it is a normative rule binding all implementations."
+    },
+    {
+      "excerpt": "The write value (in `rs1` or `uimm`) must be ignored by implementations.",
+      "line_number": 3594,
+      "reason": "Fixed requirement ('must be ignored'). No implementer choice \u2014 all implementations must ignore the write value."
+    },
+    {
+      "excerpt": "When `OPST` is not `ES16`, `entropy` must be set to 0.",
+      "line_number": 3618,
+      "reason": "Fixed requirement ('must be set to 0'). No implementer choice \u2014 this is a mandatory behavior for all implementations."
+    },
+    {
+      "excerpt": "Vendors do not have to implement all of the list's instructions to be Zkt compliant; however, if they claim to have Zkt and implement any of the listed instructions, it must have data-independent latency.",
+      "line_number": 3762,
+      "reason": "This describes a compliance rule for the Zkt extension, not an architectural parameter. The 'do not have to implement' is a compliance rule about which instructions are required, not a design-time parameter with enumerable legal values. It is a normative rule about Zkt compliance scope."
+    },
+    {
+      "excerpt": "The behavior of other input and output bits is largely left to the vendor (as they depend on the technical details of the physical entropy source), as is the address of the custom `mnoise` CSR.",
+      "line_number": 4394,
+      "reason": "This is in the context of a non-normative suggested test interface (mnoise). The section explicitly states 'This non-normative interface is not intended to be used as a source of randomness or for other production use.' Parameters from non-normative sections should not be extracted."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Implementations may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`.\",\n      \"line_number\": 3697,\n      \"parameter_name\": \"MSECCFG_SSEED_USEED_ACCESS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may implement `mseccfg` such that `[s,u]seed` is a read-only constant value `0`\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly says implementations may make the [s,u]seed fields of mseccfg read-only zero, meaning the implementation chooses whether these fields are writable or read-only. This is a NORM_CSR_RW parameter controlling the RO/RW nature of the mseccfg.[s,u]seed fields.\"\n    },\n    {\n      \"excerpt\": \"An implementation may safely set reserved and custom bits to zeros.\",\n      \"line_number\": 3617,\n      \"parameter_name\": \"SEED_CUSTOM_BITS_VALUE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may safely set reserved and custom bits to zeros\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The spec says an implementation 'may safely set reserved and custom bits to zeros', implying the implementation chooses what value to place in the custom bits (seed[23:16]). The custom bits are designated for custom/experimental use, so the implementation defines their value. However, this is somewhat weak optionality \u2014 the 'may' here could be read as permission rather than a design-time choice. Confidence is medium.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Attempts to access the `seed` CSR using a read-only CSR-access instruction (`CSRRS`/`CSRRC` with _rs1_=`x0` or `CSRRSI`/`CSRRCI` with _uimm_=0) raise an illegal-instruction exception; any other CSR-access instruction may be used to access `seed`.\",\n      \"line_number\": 3591,\n      \"reason\": \"This is a fixed requirement ('raise an illegal-instruction exception') and a permission for software ('may be used'). There is no implementer choice here \u2014 it is a normative rule binding all implementations.\"\n    },\n    {\n      \"excerpt\": \"The write value (in `rs1` or `uimm`) must be ignored by implementations.\",\n      \"line_number\": 3594,\n      \"reason\": \"Fixed requirement ('must be ignored'). No implementer choice \u2014 all implementations must ignore the write value.\"\n    },\n    {\n      \"excerpt\": \"When `OPST` is not `ES16`, `entropy` must be set to 0.\",\n      \"line_number\": 3618,\n      \"reason\": \"Fixed requirement ('must be set to 0'). No implementer choice \u2014 this is a mandatory behavior for all implementations.\"\n    },\n    {\n      \"excerpt\": \"Vendors do not have to implement all of the list's instructions to be Zkt compliant; however, if they claim to have Zkt and implement any of the listed instructions, it must have data-independent latency.\",\n      \"line_number\": 3762,\n      \"reason\": \"This describes a compliance rule for the Zkt extension, not an architectural parameter. The 'do not have to implement' is a compliance rule about which instructions are required, not a design-time parameter with enumerable legal values. It is a normative rule about Zkt compliance scope.\"\n    },\n    {\n      \"excerpt\": \"The behavior of other input and output bits is largely left to the vendor (as they depend on the technical details of the physical entropy source), as is the address of the custom `mnoise` CSR.\",\n      \"line_number\": 4394,\n      \"reason\": \"This is in the context of a non-normative suggested test interface (mnoise). The section explicitly states 'This non-normative interface is not intended to be used as a source of randomness or for other production use.' Parameters from non-normative sections should not be extracted.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 40957,
+  "output_tokens": 1062,
+  "latency_ms": 26316,
+  "timestamp": "2026-06-29T10:35:15.671572+00:00",
+  "error": null,
+  "retry_count": 0
+}

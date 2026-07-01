@@ -1,0 +1,63 @@
+{
+  "total_udb_params": 223,
+  "debug_spec_params": 8,
+  "total_llm_params_deduped": 210,
+  "raw_recall": 0.7758,
+  "adjusted_recall": 0.8047,
+  "adjusted_recall_pct": "80.5%",
+  "matched_udb_count": 173,
+  "matched_non_debug_count": 173,
+  "classification_accuracy": 0.8529,
+  "classification_accuracy_pct": "85.3%",
+  "exact_matches_evaluated": 102,
+  "class_correct": 87,
+  "confusion_matrix": {
+    "NORM_DIRECT": {
+      "NORM_CSR_WARL": 4,
+      "NORM_DIRECT": 45,
+      "NORM_CSR_RW": 4
+    },
+    "NORM_CSR_RW": {
+      "NORM_CSR_RW": 30,
+      "NORM_DIRECT": 3,
+      "NORM_CSR_WARL": 1
+    },
+    "NORM_CSR_WARL": {
+      "NORM_CSR_WARL": 10,
+      "NORM_CSR_RW": 3
+    },
+    "SW_RULE": {
+      "SW_RULE": 2
+    }
+  },
+  "per_class_recall": {
+    "NORM_DIRECT": {
+      "found": 97,
+      "total": 119
+    },
+    "NORM_CSR_WARL": {
+      "found": 14,
+      "total": 24
+    },
+    "NORM_CSR_RW": {
+      "found": 60,
+      "total": 70
+    },
+    "SW_RULE": {
+      "found": 2,
+      "total": 2
+    }
+  },
+  "confidence_distribution": {
+    "medium": 26,
+    "high": 178,
+    "low": 6
+  },
+  "new_params_by_class": {
+    "NORM_DIRECT": 53,
+    "NORM_CSR_RW": 24,
+    "NORM_CSR_WARL": 25,
+    "NON_ISA": 4
+  },
+  "new_params_total": 106
+}

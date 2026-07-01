@@ -1,0 +1,66 @@
+{
+  "chunk_id": "chunk_028",
+  "source_file": "priv-csrs.adoc",
+  "start_line": 1,
+  "end_line": 1273,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [
+    {
+      "excerpt": "an implementation may contain additional CSRs, accessible by some subset of the privilege levels using the CSR instructions described in Volume I.",
+      "line_number": 13,
+      "parameter_name": "ADDITIONAL_CSRS",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may contain additional CSRs",
+      "confidence": "medium",
+      "reasoning": "The spec says an implementation 'may contain additional CSRs', indicating an optional implementation choice to add non-standard CSRs. This is a design-time decision. Confidence is medium because the specific set of additional CSRs is not enumerable, but the binary choice (whether to add any) is a real implementer decision."
+    },
+    {
+      "excerpt": "Implementations are permitted but not required to raise an illegal-instruction exception if an instruction attempts to write a non-supported value to a *WLRL* field.",
+      "line_number": 1196,
+      "parameter_name": "TRAP_ON_ILLEGAL_WLRL",
+      "existing_udb_name": "TRAP_ON_ILLEGAL_WLRL",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "permitted but not required to raise an illegal-instruction exception",
+      "confidence": "high",
+      "reasoning": "The spec explicitly says implementations are 'permitted but not required' to raise an exception on illegal WLRL writes \u2014 a clear binary implementer choice. This matches the known UDB parameter TRAP_ON_ILLEGAL_WLRL."
+    }
+  ],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "The top two bits (csr[11:10]) indicate whether the register is read/write (`00`,`01`, or `10`) or read-only (`11`).",
+      "line_number": 30,
+      "reason": "This is a fixed architectural convention describing the CSR address encoding scheme \u2014 a statement of fact about how the address space is structured, not an implementer choice."
+    },
+    {
+      "excerpt": "Attempts to access a CSR without appropriate privilege level raise illegal-instruction exceptions or, as described in <<sec:hcauses>>, virtual-instruction exceptions.",
+      "line_number": 47,
+      "reason": "This is a fixed requirement ('raise ... exceptions') binding on all implementations \u2014 no implementer choice is present."
+    },
+    {
+      "excerpt": "For forward compatibility, implementations that do not furnish these fields must make them read-only zero.",
+      "line_number": 1163,
+      "reason": "This is a fixed requirement ('must make them read-only zero') for WPRI fields \u2014 no implementer choice, it applies to all implementations."
+    },
+    {
+      "excerpt": "Implementations will not raise an exception on writes of unsupported values to a *WARL* field.",
+      "line_number": 1210,
+      "reason": "This is a fixed requirement ('will not raise an exception') binding on all implementations \u2014 not an implementer choice."
+    },
+    {
+      "excerpt": "Implementations can return arbitrary bit patterns on the read of a *WLRL* field when the last write was of an illegal value, but the value returned should deterministically depend on the illegal written value and the value of the field prior to the write.",
+      "line_number": 1197,
+      "reason": "This describes unspecified behavior (arbitrary bit patterns) on illegal reads \u2014 it is an unspecified behavioral outcome, not a certifiable architectural parameter with enumerable legal values."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"an implementation may contain additional CSRs, accessible by some subset of the privilege levels using the CSR instructions described in Volume I.\",\n      \"line_number\": 13,\n      \"parameter_name\": \"ADDITIONAL_CSRS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may contain additional CSRs\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The spec says an implementation 'may contain additional CSRs', indicating an optional implementation choice to add non-standard CSRs. This is a design-time decision. Confidence is medium because the specific set of additional CSRs is not enumerable, but the binary choice (whether to add any) is a real implementer decision.\"\n    },\n    {\n      \"excerpt\": \"Implementations are permitted but not required to raise an illegal-instruction exception if an instruction attempts to write a non-supported value to a *WLRL* field.\",\n      \"line_number\": 1196,\n      \"parameter_name\": \"TRAP_ON_ILLEGAL_WLRL\",\n      \"existing_udb_name\": \"TRAP_ON_ILLEGAL_WLRL\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"permitted but not required to raise an illegal-instruction exception\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly says implementations are 'permitted but not required' to raise an exception on illegal WLRL writes \u2014 a clear binary implementer choice. This matches the known UDB parameter TRAP_ON_ILLEGAL_WLRL.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The top two bits (csr[11:10]) indicate whether the register is read/write (`00`,`01`, or `10`) or read-only (`11`).\",\n      \"line_number\": 30,\n      \"reason\": \"This is a fixed architectural convention describing the CSR address encoding scheme \u2014 a statement of fact about how the address space is structured, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Attempts to access a CSR without appropriate privilege level raise illegal-instruction exceptions or, as described in <<sec:hcauses>>, virtual-instruction exceptions.\",\n      \"line_number\": 47,\n      \"reason\": \"This is a fixed requirement ('raise ... exceptions') binding on all implementations \u2014 no implementer choice is present.\"\n    },\n    {\n      \"excerpt\": \"For forward compatibility, implementations that do not furnish these fields must make them read-only zero.\",\n      \"line_number\": 1163,\n      \"reason\": \"This is a fixed requirement ('must make them read-only zero') for WPRI fields \u2014 no implementer choice, it applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"Implementations will not raise an exception on writes of unsupported values to a *WARL* field.\",\n      \"line_number\": 1210,\n      \"reason\": \"This is a fixed requirement ('will not raise an exception') binding on all implementations \u2014 not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Implementations can return arbitrary bit patterns on the read of a *WLRL* field when the last write was of an illegal value, but the value returned should deterministically depend on the illegal written value and the value of the field prior to the write.\",\n      \"line_number\": 1197,\n      \"reason\": \"This describes unspecified behavior (arbitrary bit patterns) on illegal reads \u2014 it is an unspecified behavioral outcome, not a certifiable architectural parameter with enumerable legal values.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 22816,
+  "output_tokens": 899,
+  "latency_ms": 17432,
+  "timestamp": "2026-06-29T10:32:43.338057+00:00",
+  "error": null,
+  "retry_count": 0
+}

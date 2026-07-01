@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_064",
+  "source_file": "zacas.adoc",
+  "start_line": 1,
+  "end_line": 225,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "Just as for AMOs in the A extension, `AMOCAS.W/D/Q` requires that the address held in `rs1` be naturally aligned to the size of the operand (i.e., 16-byte aligned for _quadwords_, eight-byte aligned for _doublewords_, and four-byte aligned for _words_). And the same exception options apply if the address is not naturally aligned.",
+      "line_number": 155,
+      "reason": "This is a fixed requirement ('requires') with no implementer choice. The phrase 'the same exception options apply' refers to options defined in the A extension, not a new parameter defined here."
+    },
+    {
+      "excerpt": "The memory operation performed by an `AMOCAS.W/D/Q`, when successful, has acquire semantics if `aq` bit is 1 and has release semantics if `rl` bit is 1.",
+      "line_number": 161,
+      "reason": "This is a fixed behavioral description of how aq/rl bits work \u2014 a mandatory rule, not an implementer choice."
+    },
+    {
+      "excerpt": "The memory operation performed by an `AMOCAS.W/D/Q`, when not successful, has acquire semantics if `aq` bit is 1 but does not have release semantics, regardless of `rl`.",
+      "line_number": 163,
+      "reason": "Fixed behavioral requirement ('does not have release semantics') \u2014 no implementer choice here."
+    },
+    {
+      "excerpt": "An `AMOCAS.W/D/Q` instruction always requires write permissions.",
+      "line_number": 170,
+      "reason": "Fixed requirement ('always requires') \u2014 applies to all implementations with no choice."
+    },
+    {
+      "excerpt": "The instruction requires the first register in the pair to be even numbered; encodings with odd numbered registers specified in `rs2` and `rd` are reserved.",
+      "line_number": 44,
+      "reason": "Fixed requirement and reserved encoding fact \u2014 no implementer choice."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Just as for AMOs in the A extension, `AMOCAS.W/D/Q` requires that the address held in `rs1` be naturally aligned to the size of the operand (i.e., 16-byte aligned for _quadwords_, eight-byte aligned for _doublewords_, and four-byte aligned for _words_). And the same exception options apply if the address is not naturally aligned.\",\n      \"line_number\": 155,\n      \"reason\": \"This is a fixed requirement ('requires') with no implementer choice. The phrase 'the same exception options apply' refers to options defined in the A extension, not a new parameter defined here.\"\n    },\n    {\n      \"excerpt\": \"The memory operation performed by an `AMOCAS.W/D/Q`, when successful, has acquire semantics if `aq` bit is 1 and has release semantics if `rl` bit is 1.\",\n      \"line_number\": 161,\n      \"reason\": \"This is a fixed behavioral description of how aq/rl bits work \u2014 a mandatory rule, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The memory operation performed by an `AMOCAS.W/D/Q`, when not successful, has acquire semantics if `aq` bit is 1 but does not have release semantics, regardless of `rl`.\",\n      \"line_number\": 163,\n      \"reason\": \"Fixed behavioral requirement ('does not have release semantics') \u2014 no implementer choice here.\"\n    },\n    {\n      \"excerpt\": \"An `AMOCAS.W/D/Q` instruction always requires write permissions.\",\n      \"line_number\": 170,\n      \"reason\": \"Fixed requirement ('always requires') \u2014 applies to all implementations with no choice.\"\n    },\n    {\n      \"excerpt\": \"The instruction requires the first register in the pair to be even numbered; encodings with odd numbered registers specified in `rs2` and `rd` are reserved.\",\n      \"line_number\": 44,\n      \"reason\": \"Fixed requirement and reserved encoding fact \u2014 no implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13496,
+  "output_tokens": 526,
+  "latency_ms": 11444,
+  "timestamp": "2026-07-01T10:01:09.097651+00:00",
+  "error": null,
+  "retry_count": 0
+}

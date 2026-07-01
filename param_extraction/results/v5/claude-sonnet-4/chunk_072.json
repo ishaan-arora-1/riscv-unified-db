@@ -1,0 +1,43 @@
+{
+  "chunk_id": "chunk_072",
+  "source_file": "zicsr.adoc",
+  "start_line": 1,
+  "end_line": 254,
+  "content_start_line": 1,
+  "model": "claude-sonnet-4",
+  "parameters": [],
+  "skipped_non_parameters": [
+    {
+      "excerpt": "While CSRs are primarily used by the privileged architecture, there are several uses in unprivileged code including for counters and timers, and for floating-point status.",
+      "line_number": 9,
+      "reason": "This is inside a [NOTE] block and is non-normative. No architectural parameter is defined here."
+    },
+    {
+      "excerpt": "The hardware platform may define that accesses to certain CSRs are strongly ordered, as defined by the Memory-Ordering PMAs section in Volume II of this manual.",
+      "line_number": 237,
+      "reason": "Although 'may define' appears here, this is a platform-level memory ordering decision (NON_ISA), not an ISA-level architectural parameter. It describes a platform/EEI choice about memory ordering PMAs, not a hart-level ISA parameter."
+    },
+    {
+      "excerpt": "For any event or consequence that occurs due to a CSR having a particular value, if a write to the CSR gives it that value, the resulting event or consequence is said to be an _indirect effect_ of the write.",
+      "line_number": 131,
+      "reason": "This is a definitional/clarification statement with no optionality language. It defines terminology, not an implementation choice."
+    },
+    {
+      "excerpt": "Each RISC-V hart normally observes its own CSR accesses, including its implicit CSR accesses, as performed in program order.",
+      "line_number": 185,
+      "reason": "This is a fixed behavioral requirement ('normally observes ... in program order'), not an implementation choice. No optionality language is present."
+    },
+    {
+      "excerpt": "For the RVWMO memory consistency model, CSR accesses are weakly ordered by default, so other harts or devices may observe CSR accesses in an order different from program order.",
+      "line_number": 205,
+      "reason": "The 'may observe' here is a permission/possibility statement about observable behavior under RVWMO, not an implementer choice. This is a fixed rule of the memory model, not a parameter."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"While CSRs are primarily used by the privileged architecture, there are several uses in unprivileged code including for counters and timers, and for floating-point status.\",\n      \"line_number\": 9,\n      \"reason\": \"This is inside a [NOTE] block and is non-normative. No architectural parameter is defined here.\"\n    },\n    {\n      \"excerpt\": \"The hardware platform may define that accesses to certain CSRs are strongly ordered, as defined by the Memory-Ordering PMAs section in Volume II of this manual.\",\n      \"line_number\": 237,\n      \"reason\": \"Although 'may define' appears here, this is a platform-level memory ordering decision (NON_ISA), not an ISA-level architectural parameter. It describes a platform/EEI choice about memory ordering PMAs, not a hart-level ISA parameter.\"\n    },\n    {\n      \"excerpt\": \"For any event or consequence that occurs due to a CSR having a particular value, if a write to the CSR gives it that value, the resulting event or consequence is said to be an _indirect effect_ of the write.\",\n      \"line_number\": 131,\n      \"reason\": \"This is a definitional/clarification statement with no optionality language. It defines terminology, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"Each RISC-V hart normally observes its own CSR accesses, including its implicit CSR accesses, as performed in program order.\",\n      \"line_number\": 185,\n      \"reason\": \"This is a fixed behavioral requirement ('normally observes ... in program order'), not an implementation choice. No optionality language is present.\"\n    },\n    {\n      \"excerpt\": \"For the RVWMO memory consistency model, CSR accesses are weakly ordered by default, so other harts or devices may observe CSR accesses in an order different from program order.\",\n      \"line_number\": 205,\n      \"reason\": \"The 'may observe' here is a permission/possibility statement about observable behavior under RVWMO, not an implementer choice. This is a fixed rule of the memory model, not a parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13262,
+  "output_tokens": 540,
+  "latency_ms": 12522,
+  "timestamp": "2026-07-01T10:03:26.020708+00:00",
+  "error": null,
+  "retry_count": 0
+}
