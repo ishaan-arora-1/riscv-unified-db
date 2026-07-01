@@ -3,11 +3,12 @@ SPDX-FileCopyrightText: 2026 Contributors to the RISCV UnifiedDB <https://github
 SPDX-License-Identifier: BSD-3-Clause-Clear
 -->
 
-# Parameter Inclusion Criteria — Final Ruleset (V1–V4)
+# Parameter Inclusion Criteria
 
 The complete set of rules for deciding whether a spec excerpt is a real,
 certifiable architectural **parameter**. Consolidated from the whole project:
-the original taxonomy, both expert reviews, and the V4 LLM-adjudication pass.
+the original taxonomy, the expert reviews (mentor + Umer), and the LLM
+adjudication pass. The "first learned" column records where each rule came from.
 
 ## 0. Definition
 
