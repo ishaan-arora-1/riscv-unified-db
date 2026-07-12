@@ -10,29 +10,29 @@
     {
       "excerpt": "Furthermore, if the Zkt extension is implemented, this instruction's timing is independent of the data values in _rs1_ and _rs2_.",
       "line_number": 50,
-      "reason": "This is a fixed behavioral requirement ('is independent') conditional on Zkt being implemented \u2014 not an implementer choice. There is no optionality language granting the implementer a choice about timing behavior."
+      "reason": "This is a fixed behavioral requirement ('is independent') conditional on Zkt being implemented \u2014 not an implementer choice. It describes a mandatory property of the instruction when Zkt is present, not an optional parameter."
     },
     {
       "excerpt": "If _rs2_ contains the value zero, this instruction writes the value zero to _rd_. Otherwise, this instruction copies the contents of _rs1_ to _rd_.",
       "line_number": 44,
-      "reason": "This is a fixed behavioral specification of the czero.eqz instruction \u2014 a 'must' requirement describing what the instruction does. No implementer choice is involved."
+      "reason": "This is a fixed behavioral specification of the czero.eqz instruction \u2014 a 'must' requirement describing the instruction semantics. There is no implementer choice here."
     },
     {
       "excerpt": "If _rs2_ contains a nonzero value, this instruction writes the value zero to _rd_. Otherwise, this instruction copies the contents of _rs1_ to _rd_.",
       "line_number": 88,
-      "reason": "This is a fixed behavioral specification of the czero.nez instruction \u2014 a 'must' requirement describing what the instruction does. No implementer choice is involved."
+      "reason": "This is a fixed behavioral specification of the czero.nez instruction \u2014 a mandatory requirement describing the instruction semantics. There is no implementer choice here."
     },
     {
       "excerpt": "This instruction carries a syntactic dependency from both _rs1_ and _rs2_ to _rd_.",
       "line_number": 48,
-      "reason": "This is a fixed architectural requirement about data dependencies \u2014 not an implementer choice. 'Carries a syntactic dependency' is a normative fact, not an optional behavior."
+      "reason": "This is a fixed architectural requirement ('carries a syntactic dependency') \u2014 a mandatory property of the instruction, not an implementation choice."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Furthermore, if the Zkt extension is implemented, this instruction's timing is independent of the data values in _rs1_ and _rs2_.\",\n      \"line_number\": 50,\n      \"reason\": \"This is a fixed behavioral requirement ('is independent') conditional on Zkt being implemented \u2014 not an implementer choice. There is no optionality language granting the implementer a choice about timing behavior.\"\n    },\n    {\n      \"excerpt\": \"If _rs2_ contains the value zero, this instruction writes the value zero to _rd_. Otherwise, this instruction copies the contents of _rs1_ to _rd_.\",\n      \"line_number\": 44,\n      \"reason\": \"This is a fixed behavioral specification of the czero.eqz instruction \u2014 a 'must' requirement describing what the instruction does. No implementer choice is involved.\"\n    },\n    {\n      \"excerpt\": \"If _rs2_ contains a nonzero value, this instruction writes the value zero to _rd_. Otherwise, this instruction copies the contents of _rs1_ to _rd_.\",\n      \"line_number\": 88,\n      \"reason\": \"This is a fixed behavioral specification of the czero.nez instruction \u2014 a 'must' requirement describing what the instruction does. No implementer choice is involved.\"\n    },\n    {\n      \"excerpt\": \"This instruction carries a syntactic dependency from both _rs1_ and _rs2_ to _rd_.\",\n      \"line_number\": 48,\n      \"reason\": \"This is a fixed architectural requirement about data dependencies \u2014 not an implementer choice. 'Carries a syntactic dependency' is a normative fact, not an optional behavior.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 11686,
-  "output_tokens": 423,
-  "latency_ms": 8481,
-  "timestamp": "2026-07-01T10:03:12.476119+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Furthermore, if the Zkt extension is implemented, this instruction's timing is independent of the data values in _rs1_ and _rs2_.\",\n      \"line_number\": 50,\n      \"reason\": \"This is a fixed behavioral requirement ('is independent') conditional on Zkt being implemented \u2014 not an implementer choice. It describes a mandatory property of the instruction when Zkt is present, not an optional parameter.\"\n    },\n    {\n      \"excerpt\": \"If _rs2_ contains the value zero, this instruction writes the value zero to _rd_. Otherwise, this instruction copies the contents of _rs1_ to _rd_.\",\n      \"line_number\": 44,\n      \"reason\": \"This is a fixed behavioral specification of the czero.eqz instruction \u2014 a 'must' requirement describing the instruction semantics. There is no implementer choice here.\"\n    },\n    {\n      \"excerpt\": \"If _rs2_ contains a nonzero value, this instruction writes the value zero to _rd_. Otherwise, this instruction copies the contents of _rs1_ to _rd_.\",\n      \"line_number\": 88,\n      \"reason\": \"This is a fixed behavioral specification of the czero.nez instruction \u2014 a mandatory requirement describing the instruction semantics. There is no implementer choice here.\"\n    },\n    {\n      \"excerpt\": \"This instruction carries a syntactic dependency from both _rs1_ and _rs2_ to _rd_.\",\n      \"line_number\": 48,\n      \"reason\": \"This is a fixed architectural requirement ('carries a syntactic dependency') \u2014 a mandatory property of the instruction, not an implementation choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12285,
+  "output_tokens": 414,
+  "latency_ms": 8262,
+  "timestamp": "2026-07-11T11:57:27.100219+00:00",
   "error": null,
   "retry_count": 0
 }

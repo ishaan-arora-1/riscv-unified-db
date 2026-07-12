@@ -10,34 +10,34 @@
     {
       "excerpt": "FLH and FSH are only guaranteed to execute atomically if the effective address is naturally aligned.",
       "line_number": 33,
-      "reason": "Fixed requirement/statement of fact about atomicity guarantee. No implementer choice \u2014 this is a behavioral rule that applies to all implementations."
+      "reason": "Fixed requirement/statement of fact about atomicity guarantee. No implementer choice \u2014 this is a behavioral rule that applies to all implementations. No optionality language."
+    },
+    {
+      "excerpt": "FLH and FSH do not modify the bits being transferred; in particular, the payloads of non-canonical NaNs are preserved.",
+      "line_number": 36,
+      "reason": "Fixed requirement ('do not modify'). This is a mandatory behavioral rule with no implementer choice."
+    },
+    {
+      "excerpt": "If the D extension is present, FCVT.D.H or FCVT.H.D converts a half-precision floating-point number to a double-precision floating-point number, or vice-versa, respectively.",
+      "line_number": 84,
+      "reason": "Conditional behavioral description \u2014 describes what instructions exist when D is present. No implementer choice; the behavior is fixed once D is present."
+    },
+    {
+      "excerpt": "The Zfhmin extension includes the following instructions from the Zfh extension: FLH, FSH, FMV.X.H, FMV.H.X, FCVT.S.H, and FCVT.H.S.",
+      "line_number": 148,
+      "reason": "Fixed definition of what Zfhmin includes. No optionality language \u2014 this is a mandatory specification of the extension's contents."
     },
     {
       "excerpt": "This extension primarily provides instructions that consume half-precision operands and produce half-precision results.",
       "line_number": 13,
-      "reason": "Inside a [NOTE] block \u2014 non-normative text. No parameters may be extracted from NOTE blocks."
-    },
-    {
-      "excerpt": "The half-precision floating-point computational instructions are defined analogously to their single-precision counterparts, but operate on half-precision operands and produce half-precision results.",
-      "line_number": 55,
-      "reason": "Descriptive statement of fact about instruction behavior. No optionality language; no implementer choice."
-    },
-    {
-      "excerpt": "FCVT.L[U].H and FCVT.H.L[U] are RV64-only instructions.",
-      "line_number": 74,
-      "reason": "Fixed architectural fact \u2014 these instructions are defined only for RV64. No implementer choice; 'only' is a constraint, not optionality."
-    },
-    {
-      "excerpt": "Zfhmin does not include the FSGNJ.H instruction, because it suffices to instead use the FSGNJ.S instruction to move half-precision values between floating-point registers.",
-      "line_number": 158,
-      "reason": "Inside a [NOTE] block \u2014 non-normative text. Also a statement of fact about the Zfhmin subset definition, not an implementer choice."
+      "reason": "Inside a [NOTE] block \u2014 non-normative informative text. Parameters must not be extracted from NOTE blocks."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"FLH and FSH are only guaranteed to execute atomically if the effective address is naturally aligned.\",\n      \"line_number\": 33,\n      \"reason\": \"Fixed requirement/statement of fact about atomicity guarantee. No implementer choice \u2014 this is a behavioral rule that applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"This extension primarily provides instructions that consume half-precision operands and produce half-precision results.\",\n      \"line_number\": 13,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative text. No parameters may be extracted from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"The half-precision floating-point computational instructions are defined analogously to their single-precision counterparts, but operate on half-precision operands and produce half-precision results.\",\n      \"line_number\": 55,\n      \"reason\": \"Descriptive statement of fact about instruction behavior. No optionality language; no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"FCVT.L[U].H and FCVT.H.L[U] are RV64-only instructions.\",\n      \"line_number\": 74,\n      \"reason\": \"Fixed architectural fact \u2014 these instructions are defined only for RV64. No implementer choice; 'only' is a constraint, not optionality.\"\n    },\n    {\n      \"excerpt\": \"Zfhmin does not include the FSGNJ.H instruction, because it suffices to instead use the FSGNJ.S instruction to move half-precision values between floating-point registers.\",\n      \"line_number\": 158,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative text. Also a statement of fact about the Zfhmin subset definition, not an implementer choice.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 12352,
-  "output_tokens": 457,
-  "latency_ms": 9644,
-  "timestamp": "2026-07-01T10:02:51.445858+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"FLH and FSH are only guaranteed to execute atomically if the effective address is naturally aligned.\",\n      \"line_number\": 33,\n      \"reason\": \"Fixed requirement/statement of fact about atomicity guarantee. No implementer choice \u2014 this is a behavioral rule that applies to all implementations. No optionality language.\"\n    },\n    {\n      \"excerpt\": \"FLH and FSH do not modify the bits being transferred; in particular, the payloads of non-canonical NaNs are preserved.\",\n      \"line_number\": 36,\n      \"reason\": \"Fixed requirement ('do not modify'). This is a mandatory behavioral rule with no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"If the D extension is present, FCVT.D.H or FCVT.H.D converts a half-precision floating-point number to a double-precision floating-point number, or vice-versa, respectively.\",\n      \"line_number\": 84,\n      \"reason\": \"Conditional behavioral description \u2014 describes what instructions exist when D is present. No implementer choice; the behavior is fixed once D is present.\"\n    },\n    {\n      \"excerpt\": \"The Zfhmin extension includes the following instructions from the Zfh extension: FLH, FSH, FMV.X.H, FMV.H.X, FCVT.S.H, and FCVT.H.S.\",\n      \"line_number\": 148,\n      \"reason\": \"Fixed definition of what Zfhmin includes. No optionality language \u2014 this is a mandatory specification of the extension's contents.\"\n    },\n    {\n      \"excerpt\": \"This extension primarily provides instructions that consume half-precision operands and produce half-precision results.\",\n      \"line_number\": 13,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative informative text. Parameters must not be extracted from NOTE blocks.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12951,
+  "output_tokens": 487,
+  "latency_ms": 10246,
+  "timestamp": "2026-07-11T11:57:06.742121+00:00",
   "error": null,
   "retry_count": 0
 }

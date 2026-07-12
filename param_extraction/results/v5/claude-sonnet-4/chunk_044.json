@@ -9,35 +9,35 @@
   "skipped_non_parameters": [
     {
       "excerpt": "This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.",
-      "line_number": 393,
-      "reason": "Fixed requirement using 'must always' \u2014 applies to every implementation with no choice. This is a mandatory constraint, not an implementer option."
+      "line_number": 358,
+      "reason": "Fixed requirement ('must always') applying to all implementations of this instruction. There is no implementer choice here \u2014 every implementation must satisfy this constraint. Not a parameter."
     },
     {
       "excerpt": "A core which implements `Zkn` must implement all of the above extensions.",
       "line_number": 278,
-      "reason": "Fixed requirement using 'must implement' \u2014 no implementer choice here. This is a mandatory rule for any core claiming Zkn support."
+      "reason": "Fixed requirement ('must implement') with no implementer choice. This is a normative rule, not a parameter."
+    },
+    {
+      "excerpt": "A core which implements `Zks` must implement all of the above extensions.",
+      "line_number": 296,
+      "reason": "Fixed requirement ('must implement') with no implementer choice. This is a normative rule, not a parameter."
+    },
+    {
+      "excerpt": "A core which implements `Zk` must implement all of the above extensions.",
+      "line_number": 314,
+      "reason": "Fixed requirement ('must implement') with no implementer choice. This is a normative rule, not a parameter."
     },
     {
       "excerpt": "Note that `rnum` must be in the range `0x0..0xA`. The values `0xB..0xF` are reserved.",
       "line_number": 762,
-      "reason": "Fixed requirement ('must be in range') and reserved encoding fact \u2014 no implementer choice. Reserved encodings are fixed facts, not parameters."
-    },
-    {
-      "excerpt": "The entropy source extension defines the `seed` CSR at address `0x015`. This CSR provides up to 16 physical `entropy` bits that can be used to seed cryptographic random bit generators.",
-      "line_number": 248,
-      "reason": "Factual description of the CSR address and function \u2014 no optionality language. This is a fixed architectural definition, not an implementer choice."
-    },
-    {
-      "excerpt": "A core which implements `Zk` must implement all of the above extensions.",
-      "line_number": 302,
-      "reason": "Fixed requirement using 'must implement' \u2014 mandatory rule for any core claiming Zk support, not an implementer choice."
+      "reason": "Fixed requirement ('must be in the range') and reserved fact. No implementer choice \u2014 these are fixed ISA constraints."
     }
   ],
-  "raw_response": "Looking at this specification text, I need to identify architectural parameters \u2014 places where the spec explicitly leaves a choice to the hardware implementer.\n\nAfter careful review, this file is primarily instruction descriptions for the scalar cryptography extension. The instruction descriptions contain many \"must always be implemented such that its execution latency does not depend on the data being operated on\" statements \u2014 these are fixed requirements, not parameters. The introductory sections are non-normative overview text.\n\nLet me check for any genuine optionality language...\n\nThe text contains no sentences with \"may\", \"optional\", \"implementation-defined\", \"may or may not\", \"need not\", \"is not required to\", or similar optionality signals that would indicate an architectural parameter. All normative statements use \"must\" (fixed requirements).\n\n```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 393,\n      \"reason\": \"Fixed requirement using 'must always' \u2014 applies to every implementation with no choice. This is a mandatory constraint, not an implementer option.\"\n    },\n    {\n      \"excerpt\": \"A core which implements `Zkn` must implement all of the above extensions.\",\n      \"line_number\": 278,\n      \"reason\": \"Fixed requirement using 'must implement' \u2014 no implementer choice here. This is a mandatory rule for any core claiming Zkn support.\"\n    },\n    {\n      \"excerpt\": \"Note that `rnum` must be in the range `0x0..0xA`. The values `0xB..0xF` are reserved.\",\n      \"line_number\": 762,\n      \"reason\": \"Fixed requirement ('must be in range') and reserved encoding fact \u2014 no implementer choice. Reserved encodings are fixed facts, not parameters.\"\n    },\n    {\n      \"excerpt\": \"The entropy source extension defines the `seed` CSR at address `0x015`. This CSR provides up to 16 physical `entropy` bits that can be used to seed cryptographic random bit generators.\",\n      \"line_number\": 248,\n      \"reason\": \"Factual description of the CSR address and function \u2014 no optionality language. This is a fixed architectural definition, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"A core which implements `Zk` must implement all of the above extensions.\",\n      \"line_number\": 302,\n      \"reason\": \"Fixed requirement using 'must implement' \u2014 mandatory rule for any core claiming Zk support, not an implementer choice.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 39276,
-  "output_tokens": 616,
-  "latency_ms": 15036,
-  "timestamp": "2026-06-29T10:34:48.325318+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"This instruction must _always_ be implemented such that its execution latency does not depend on the data being operated on.\",\n      \"line_number\": 358,\n      \"reason\": \"Fixed requirement ('must always') applying to all implementations of this instruction. There is no implementer choice here \u2014 every implementation must satisfy this constraint. Not a parameter.\"\n    },\n    {\n      \"excerpt\": \"A core which implements `Zkn` must implement all of the above extensions.\",\n      \"line_number\": 278,\n      \"reason\": \"Fixed requirement ('must implement') with no implementer choice. This is a normative rule, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"A core which implements `Zks` must implement all of the above extensions.\",\n      \"line_number\": 296,\n      \"reason\": \"Fixed requirement ('must implement') with no implementer choice. This is a normative rule, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"A core which implements `Zk` must implement all of the above extensions.\",\n      \"line_number\": 314,\n      \"reason\": \"Fixed requirement ('must implement') with no implementer choice. This is a normative rule, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"Note that `rnum` must be in the range `0x0..0xA`. The values `0xB..0xF` are reserved.\",\n      \"line_number\": 762,\n      \"reason\": \"Fixed requirement ('must be in the range') and reserved fact. No implementer choice \u2014 these are fixed ISA constraints.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 39875,
+  "output_tokens": 407,
+  "latency_ms": 9495,
+  "timestamp": "2026-07-11T11:46:28.949985+00:00",
   "error": null,
   "retry_count": 0
 }

@@ -8,36 +8,36 @@
   "parameters": [],
   "skipped_non_parameters": [
     {
+      "excerpt": "This instruction zero-extends the least-significant halfword of the source to XLEN by inserting 0's into all of the bits more significant than 15.",
+      "line_number": 3397,
+      "reason": "Describes fixed instruction behavior \u2014 no implementer choice, no optionality language."
+    },
+    {
       "excerpt": "The *zext.h* mnemonic corresponds to different instruction encodings in RV32 and RV64.",
       "line_number": 3408,
-      "reason": "This is inside a [NOTE] block and is therefore non-normative. It is a factual statement about encoding differences, not an implementer choice."
+      "reason": "Inside a [NOTE] block \u2014 non-normative. Also merely states a fact about encoding differences, not an implementer choice."
     },
     {
       "excerpt": "This instruction is available only on RV32.",
-      "line_number": 3452,
-      "reason": "This is a fixed requirement/fact about the instruction's availability \u2014 it applies to all implementations and contains no optionality language. Not an implementer choice."
+      "line_number": 3453,
+      "reason": "Fixed architectural constraint ('only on RV32') \u2014 no implementer choice, no optionality language."
     },
     {
       "excerpt": "This instruction is useful for implementing the SHA3 cryptographic hash function on a 32-bit architecture, as it implements the bit-interleaving operation used to speed up the 64-bit rotations directly.",
-      "line_number": 3474,
-      "reason": "This is inside a [NOTE] block (Software Hint) and is therefore non-normative. It is a software usage hint, not an architectural parameter."
+      "line_number": 3476,
+      "reason": "Inside a [NOTE, caption='SH'] (Software Hint) block \u2014 non-normative informational text, not an architectural parameter."
     },
     {
       "excerpt": "This instruction gathers bits from the high and low halves of the source word into odd/even bit positions in the destination word.",
-      "line_number": 3448,
-      "reason": "This is a fixed behavioral description of the zip instruction \u2014 no optionality language, no implementer choice."
-    },
-    {
-      "excerpt": "This instruction zero-extends the least-significant halfword of the source to XLEN by inserting 0's into all of the bits more significant than 15.",
-      "line_number": 3397,
-      "reason": "Fixed behavioral description of zext.h with no optionality language. Not an implementer choice."
+      "line_number": 3450,
+      "reason": "Describes fixed instruction behavior \u2014 no implementer choice, no optionality language."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The *zext.h* mnemonic corresponds to different instruction encodings in RV32 and RV64.\",\n      \"line_number\": 3408,\n      \"reason\": \"This is inside a [NOTE] block and is therefore non-normative. It is a factual statement about encoding differences, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"This instruction is available only on RV32.\",\n      \"line_number\": 3452,\n      \"reason\": \"This is a fixed requirement/fact about the instruction's availability \u2014 it applies to all implementations and contains no optionality language. Not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"This instruction is useful for implementing the SHA3 cryptographic hash function on a 32-bit architecture, as it implements the bit-interleaving operation used to speed up the 64-bit rotations directly.\",\n      \"line_number\": 3474,\n      \"reason\": \"This is inside a [NOTE] block (Software Hint) and is therefore non-normative. It is a software usage hint, not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"This instruction gathers bits from the high and low halves of the source word into odd/even bit positions in the destination word.\",\n      \"line_number\": 3448,\n      \"reason\": \"This is a fixed behavioral description of the zip instruction \u2014 no optionality language, no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"This instruction zero-extends the least-significant halfword of the source to XLEN by inserting 0's into all of the bits more significant than 15.\",\n      \"line_number\": 3397,\n      \"reason\": \"Fixed behavioral description of zext.h with no optionality language. Not an implementer choice.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 10427,
-  "output_tokens": 459,
-  "latency_ms": 8869,
-  "timestamp": "2026-06-29T10:24:37.846599+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"This instruction zero-extends the least-significant halfword of the source to XLEN by inserting 0's into all of the bits more significant than 15.\",\n      \"line_number\": 3397,\n      \"reason\": \"Describes fixed instruction behavior \u2014 no implementer choice, no optionality language.\"\n    },\n    {\n      \"excerpt\": \"The *zext.h* mnemonic corresponds to different instruction encodings in RV32 and RV64.\",\n      \"line_number\": 3408,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative. Also merely states a fact about encoding differences, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"This instruction is available only on RV32.\",\n      \"line_number\": 3453,\n      \"reason\": \"Fixed architectural constraint ('only on RV32') \u2014 no implementer choice, no optionality language.\"\n    },\n    {\n      \"excerpt\": \"This instruction is useful for implementing the SHA3 cryptographic hash function on a 32-bit architecture, as it implements the bit-interleaving operation used to speed up the 64-bit rotations directly.\",\n      \"line_number\": 3476,\n      \"reason\": \"Inside a [NOTE, caption='SH'] (Software Hint) block \u2014 non-normative informational text, not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"This instruction gathers bits from the high and low halves of the source word into odd/even bit positions in the destination word.\",\n      \"line_number\": 3450,\n      \"reason\": \"Describes fixed instruction behavior \u2014 no implementer choice, no optionality language.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11026,
+  "output_tokens": 432,
+  "latency_ms": 6790,
+  "timestamp": "2026-07-11T11:36:11.318406+00:00",
   "error": null,
   "retry_count": 0
 }

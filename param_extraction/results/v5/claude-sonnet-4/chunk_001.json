@@ -15,7 +15,7 @@
       "value_type": "enum",
       "modal_signal": "can register an arbitrarily large reservation set",
       "confidence": "high",
-      "reasoning": "The implementation chooses the size and shape of the reservation set for LR instructions. The spec says 'can register an arbitrarily large reservation set', indicating a design-time choice. This matches the known UDB parameter LRSC_RESERVATION_STRATEGY."
+      "reasoning": "The implementation chooses the size and shape of the reservation set for LR instructions. The spec says 'can register an arbitrarily large reservation set', signaling an implementation choice. This maps to the known LRSC_RESERVATION_STRATEGY parameter."
     },
     {
       "excerpt": "An SC may succeed only if no store from another hart to the reservation set can be observed to have occurred between the LR and the SC, and if there is no other SC between the LR and itself in program order.",
@@ -26,85 +26,74 @@
       "value_type": "binary",
       "modal_signal": "An SC may succeed only if",
       "confidence": "medium",
-      "reasoning": "The 'may succeed only if' phrasing defines necessary conditions for success but leaves open whether the SC may also fail for other implementation-specific reasons (e.g., address mismatch within the reservation set). This matches the known UDB parameter LRSC_FAIL_ON_NON_EXACT_LRSC."
+      "reasoning": "The 'may succeed only if' phrasing defines necessary conditions for success but leaves open whether the SC may also fail for other implementation-specific reasons (e.g., address not exactly matching). This is the standard LRSC_FAIL_ON_NON_EXACT_LRSC parameter."
     },
     {
       "excerpt": "An SC may succeed only if no write from a device other than a hart to the bytes accessed by the LR instruction can be observed to have occurred between the LR and SC.",
-      "line_number": 153,
+      "line_number": 152,
       "parameter_name": "LRSC_FAIL_ON_DEVICE_WRITE",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
       "value_type": "binary",
       "modal_signal": "An SC may succeed only if",
       "confidence": "medium",
-      "reasoning": "The 'may succeed only if' phrasing indicates a necessary condition for success but leaves open whether the SC may also fail for other implementation-specific reasons when a device writes to the reservation set but not the exact bytes accessed by the LR. The parenthetical '(If such a device writes the reservation set but does not write the bytes accessed by the LR, the SC may or may not fail.)' confirms this is an implementation choice."
+      "reasoning": "The 'may succeed only if' phrasing indicates a necessary condition for SC success regarding device writes. This is a separate implementation-defined condition from hart-to-hart interference, defining when device writes cause SC failure."
     },
     {
       "excerpt": "(If such a device writes the reservation set but does not write the bytes accessed by the LR, the SC may or may not fail.)",
-      "line_number": 162,
-      "parameter_name": "LRSC_FAIL_ON_DEVICE_WRITE_OUTSIDE_LR_BYTES",
+      "line_number": 160,
+      "parameter_name": "LRSC_FAIL_ON_RESERVATION_SET_DEVICE_WRITE",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
       "value_type": "binary",
       "modal_signal": "may or may not fail",
       "confidence": "high",
-      "reasoning": "The spec explicitly says 'may or may not fail' when a device writes to the reservation set but not the bytes accessed by the LR. This is a clear binary implementation choice."
+      "reasoning": "The spec explicitly says 'may or may not fail' when a device writes the reservation set but not the bytes accessed by the LR. This is a clear implementation choice about SC failure conditions."
     },
     {
-      "excerpt": "The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement.",
+      "excerpt": "The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement. If present, the misaligned atomicity granule PMA specifies the size of a misaligned atomicity granule, a power-of-two number of bytes.",
       "line_number": 393,
       "parameter_name": "MISALIGNED_AMO",
       "existing_udb_name": "MISALIGNED_AMO",
       "class": "NORM_DIRECT",
       "value_type": "binary",
-      "modal_signal": "optionally relaxes",
+      "modal_signal": "optionally relaxes this alignment requirement",
       "confidence": "high",
-      "reasoning": "The misaligned atomicity granule PMA is optional ('optionally relaxes'). Whether an implementation supports misaligned AMOs via this PMA is a design-time choice. This matches the known UDB parameter MISALIGNED_AMO."
-    },
-    {
-      "excerpt": "If present, the misaligned atomicity granule PMA specifies the size of a misaligned atomicity granule, a power-of-two number of bytes.",
-      "line_number": 395,
-      "parameter_name": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
-      "existing_udb_name": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
-      "class": "NORM_DIRECT",
-      "value_type": "range",
-      "modal_signal": "specifies the size of a misaligned atomicity granule",
-      "confidence": "high",
-      "reasoning": "When the misaligned atomicity granule PMA is present, the implementation chooses the granule size (a power-of-two number of bytes). This is a design-time value choice matching the known UDB parameter MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE."
+      "reasoning": "The misaligned atomicity granule PMA is optional ('optionally relaxes'). Whether an implementation supports misaligned AMOs via this PMA is an implementation choice. Maps to the known MISALIGNED_AMO parameter."
     }
   ],
   "skipped_non_parameters": [
     {
-      "excerpt": "but it is UNSPECIFIED whether any side effects of implicit address translation and protection memory accesses (such as setting a page-table entry D bit) occur on a failed SC.W.",
+      "excerpt": "No SC.W instruction shall retire unless it passes memory permission checks",
       "line_number": 68,
-      "reason": "This describes an unspecified behavior/outcome (side effects on failed SC.W), not an enumerable implementation choice. Per the hard exclusion rules, 'unspecified behavior' is not a parameter."
+      "reason": "Fixed requirement ('shall') binding on all implementations \u2014 no implementer choice, not a parameter."
+    },
+    {
+      "excerpt": "but it is UNSPECIFIED whether any side effects of implicit address translation and protection memory accesses (such as setting a page-table entry D bit) occur on a failed SC.W.",
+      "line_number": 69,
+      "reason": "Unspecified behavior (not an unspecified value/width/number). Per the hard exclusion rules, unspecified behavior is intentionally unconstrained and cannot be certified as a parameter."
     },
     {
       "excerpt": "The SC must fail if the address is not within the reservation set of the most recent LR in program order.",
-      "line_number": 158,
-      "reason": "This is a fixed requirement ('must fail') binding on all implementations \u2014 there is no implementer choice here."
+      "line_number": 163,
+      "reason": "Fixed requirement ('must fail') \u2014 no implementer choice. This is a mandatory rule, not a parameter."
     },
     {
-      "excerpt": "The SC must fail if a store to the reservation set from another hart can be observed to occur between the LR and SC.",
-      "line_number": 159,
-      "reason": "Fixed requirement ('must fail') \u2014 no implementer choice, applies to all implementations."
+      "excerpt": "If a hart H enters a constrained LR/SC loop, the execution environment must guarantee that one of the following events eventually occurs",
+      "line_number": 290,
+      "reason": "Fixed requirement ('must guarantee') on the execution environment \u2014 not an implementer choice about ISA behavior, and describes a mandatory liveness guarantee."
     },
     {
-      "excerpt": "An SC must fail if there is another SC (to any address) between the LR and the SC in program order.",
-      "line_number": 162,
-      "reason": "Fixed requirement ('must fail') \u2014 no implementer choice, applies to all implementations."
-    },
-    {
-      "excerpt": "LR/SC sequences that do not lie within constrained LR/SC loops are unconstrained. Unconstrained LR/SC sequences might succeed on some attempts on some implementations, but might never succeed on other implementations.",
-      "line_number": 278,
-      "reason": "This is a behavioral description/clarification about unconstrained LR/SC sequences, not a normative implementation choice. The 'might' here describes possible outcomes, not an enumerable parameter the implementer sets."
+      "excerpt": "For AMOs, the Zaamo extension requires that the address held in rs1 be naturally aligned to the size of the operand (i.e., eight-byte aligned for doublewords and four-byte aligned for words).",
+      "line_number": 383,
+      "reason": "Fixed requirement ('requires') \u2014 mandatory alignment rule for all implementations. The optional relaxation via misaligned atomicity granule PMA is captured separately."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"An implementation can register an arbitrarily large reservation set on each LR, provided the reservation set includes all bytes of the addressed data word or doubleword.\",\n      \"line_number\": 148,\n      \"parameter_name\": \"LRSC_RESERVATION_STRATEGY\",\n      \"existing_udb_name\": \"LRSC_RESERVATION_STRATEGY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"can register an arbitrarily large reservation set\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses the size and shape of the reservation set for LR instructions. The spec says 'can register an arbitrarily large reservation set', indicating a design-time choice. This matches the known UDB parameter LRSC_RESERVATION_STRATEGY.\"\n    },\n    {\n      \"excerpt\": \"An SC may succeed only if no store from another hart to the reservation set can be observed to have occurred between the LR and the SC, and if there is no other SC between the LR and itself in program order.\",\n      \"line_number\": 150,\n      \"parameter_name\": \"LRSC_FAIL_ON_NON_EXACT_LRSC\",\n      \"existing_udb_name\": \"LRSC_FAIL_ON_NON_EXACT_LRSC\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"An SC may succeed only if\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The 'may succeed only if' phrasing defines necessary conditions for success but leaves open whether the SC may also fail for other implementation-specific reasons (e.g., address mismatch within the reservation set). This matches the known UDB parameter LRSC_FAIL_ON_NON_EXACT_LRSC.\"\n    },\n    {\n      \"excerpt\": \"An SC may succeed only if no write from a device other than a hart to the bytes accessed by the LR instruction can be observed to have occurred between the LR and SC.\",\n      \"line_number\": 153,\n      \"parameter_name\": \"LRSC_FAIL_ON_DEVICE_WRITE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"An SC may succeed only if\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The 'may succeed only if' phrasing indicates a necessary condition for success but leaves open whether the SC may also fail for other implementation-specific reasons when a device writes to the reservation set but not the exact bytes accessed by the LR. The parenthetical '(If such a device writes the reservation set but does not write the bytes accessed by the LR, the SC may or may not fail.)' confirms this is an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"(If such a device writes the reservation set but does not write the bytes accessed by the LR, the SC may or may not fail.)\",\n      \"line_number\": 162,\n      \"parameter_name\": \"LRSC_FAIL_ON_DEVICE_WRITE_OUTSIDE_LR_BYTES\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may or may not fail\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly says 'may or may not fail' when a device writes to the reservation set but not the bytes accessed by the LR. This is a clear binary implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement.\",\n      \"line_number\": 393,\n      \"parameter_name\": \"MISALIGNED_AMO\",\n      \"existing_udb_name\": \"MISALIGNED_AMO\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"optionally relaxes\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The misaligned atomicity granule PMA is optional ('optionally relaxes'). Whether an implementation supports misaligned AMOs via this PMA is a design-time choice. This matches the known UDB parameter MISALIGNED_AMO.\"\n    },\n    {\n      \"excerpt\": \"If present, the misaligned atomicity granule PMA specifies the size of a misaligned atomicity granule, a power-of-two number of bytes.\",\n      \"line_number\": 395,\n      \"parameter_name\": \"MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE\",\n      \"existing_udb_name\": \"MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"specifies the size of a misaligned atomicity granule\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"When the misaligned atomicity granule PMA is present, the implementation chooses the granule size (a power-of-two number of bytes). This is a design-time value choice matching the known UDB parameter MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"but it is UNSPECIFIED whether any side effects of implicit address translation and protection memory accesses (such as setting a page-table entry D bit) occur on a failed SC.W.\",\n      \"line_number\": 68,\n      \"reason\": \"This describes an unspecified behavior/outcome (side effects on failed SC.W), not an enumerable implementation choice. Per the hard exclusion rules, 'unspecified behavior' is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The SC must fail if the address is not within the reservation set of the most recent LR in program order.\",\n      \"line_number\": 158,\n      \"reason\": \"This is a fixed requirement ('must fail') binding on all implementations \u2014 there is no implementer choice here.\"\n    },\n    {\n      \"excerpt\": \"The SC must fail if a store to the reservation set from another hart can be observed to occur between the LR and SC.\",\n      \"line_number\": 159,\n      \"reason\": \"Fixed requirement ('must fail') \u2014 no implementer choice, applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"An SC must fail if there is another SC (to any address) between the LR and the SC in program order.\",\n      \"line_number\": 162,\n      \"reason\": \"Fixed requirement ('must fail') \u2014 no implementer choice, applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"LR/SC sequences that do not lie within constrained LR/SC loops are unconstrained. Unconstrained LR/SC sequences might succeed on some attempts on some implementations, but might never succeed on other implementations.\",\n      \"line_number\": 278,\n      \"reason\": \"This is a behavioral description/clarification about unconstrained LR/SC sequences, not a normative implementation choice. The 'might' here describes possible outcomes, not an enumerable parameter the implementer sets.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 16196,
-  "output_tokens": 1785,
-  "latency_ms": 30122,
-  "timestamp": "2026-06-29T10:24:15.652622+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"An implementation can register an arbitrarily large reservation set on each LR, provided the reservation set includes all bytes of the addressed data word or doubleword.\",\n      \"line_number\": 148,\n      \"parameter_name\": \"LRSC_RESERVATION_STRATEGY\",\n      \"existing_udb_name\": \"LRSC_RESERVATION_STRATEGY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"can register an arbitrarily large reservation set\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses the size and shape of the reservation set for LR instructions. The spec says 'can register an arbitrarily large reservation set', signaling an implementation choice. This maps to the known LRSC_RESERVATION_STRATEGY parameter.\"\n    },\n    {\n      \"excerpt\": \"An SC may succeed only if no store from another hart to the reservation set can be observed to have occurred between the LR and the SC, and if there is no other SC between the LR and itself in program order.\",\n      \"line_number\": 150,\n      \"parameter_name\": \"LRSC_FAIL_ON_NON_EXACT_LRSC\",\n      \"existing_udb_name\": \"LRSC_FAIL_ON_NON_EXACT_LRSC\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"An SC may succeed only if\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The 'may succeed only if' phrasing defines necessary conditions for success but leaves open whether the SC may also fail for other implementation-specific reasons (e.g., address not exactly matching). This is the standard LRSC_FAIL_ON_NON_EXACT_LRSC parameter.\"\n    },\n    {\n      \"excerpt\": \"An SC may succeed only if no write from a device other than a hart to the bytes accessed by the LR instruction can be observed to have occurred between the LR and SC.\",\n      \"line_number\": 152,\n      \"parameter_name\": \"LRSC_FAIL_ON_DEVICE_WRITE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"An SC may succeed only if\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The 'may succeed only if' phrasing indicates a necessary condition for SC success regarding device writes. This is a separate implementation-defined condition from hart-to-hart interference, defining when device writes cause SC failure.\"\n    },\n    {\n      \"excerpt\": \"(If such a device writes the reservation set but does not write the bytes accessed by the LR, the SC may or may not fail.)\",\n      \"line_number\": 160,\n      \"parameter_name\": \"LRSC_FAIL_ON_RESERVATION_SET_DEVICE_WRITE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may or may not fail\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly says 'may or may not fail' when a device writes the reservation set but not the bytes accessed by the LR. This is a clear implementation choice about SC failure conditions.\"\n    },\n    {\n      \"excerpt\": \"The misaligned atomicity granule PMA, defined in Volume II of this manual, optionally relaxes this alignment requirement. If present, the misaligned atomicity granule PMA specifies the size of a misaligned atomicity granule, a power-of-two number of bytes.\",\n      \"line_number\": 393,\n      \"parameter_name\": \"MISALIGNED_AMO\",\n      \"existing_udb_name\": \"MISALIGNED_AMO\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"optionally relaxes this alignment requirement\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The misaligned atomicity granule PMA is optional ('optionally relaxes'). Whether an implementation supports misaligned AMOs via this PMA is an implementation choice. Maps to the known MISALIGNED_AMO parameter.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"No SC.W instruction shall retire unless it passes memory permission checks\",\n      \"line_number\": 68,\n      \"reason\": \"Fixed requirement ('shall') binding on all implementations \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"but it is UNSPECIFIED whether any side effects of implicit address translation and protection memory accesses (such as setting a page-table entry D bit) occur on a failed SC.W.\",\n      \"line_number\": 69,\n      \"reason\": \"Unspecified behavior (not an unspecified value/width/number). Per the hard exclusion rules, unspecified behavior is intentionally unconstrained and cannot be certified as a parameter.\"\n    },\n    {\n      \"excerpt\": \"The SC must fail if the address is not within the reservation set of the most recent LR in program order.\",\n      \"line_number\": 163,\n      \"reason\": \"Fixed requirement ('must fail') \u2014 no implementer choice. This is a mandatory rule, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"If a hart H enters a constrained LR/SC loop, the execution environment must guarantee that one of the following events eventually occurs\",\n      \"line_number\": 290,\n      \"reason\": \"Fixed requirement ('must guarantee') on the execution environment \u2014 not an implementer choice about ISA behavior, and describes a mandatory liveness guarantee.\"\n    },\n    {\n      \"excerpt\": \"For AMOs, the Zaamo extension requires that the address held in rs1 be naturally aligned to the size of the operand (i.e., eight-byte aligned for doublewords and four-byte aligned for words).\",\n      \"line_number\": 383,\n      \"reason\": \"Fixed requirement ('requires') \u2014 mandatory alignment rule for all implementations. The optional relaxation via misaligned atomicity granule PMA is captured separately.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 16795,
+  "output_tokens": 1521,
+  "latency_ms": 28504,
+  "timestamp": "2026-07-11T11:35:50.531946+00:00",
   "error": null,
   "retry_count": 0
 }

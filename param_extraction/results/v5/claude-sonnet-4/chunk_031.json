@@ -7,15 +7,15 @@
   "model": "claude-sonnet-4",
   "parameters": [
     {
-      "excerpt": "Implementations might provide anywhere from 1 to 3 privilege modes trading off reduced isolation for lower implementation cost",
+      "excerpt": "Implementations might provide anywhere from 1 to 3 privilege modes trading off reduced isolation for lower implementation cost, as shown in <<norm:priv-combs-tbl>>.",
       "line_number": 148,
       "parameter_name": "NUM_PRIVILEGE_MODES",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
-      "value_type": "range",
+      "value_type": "enum",
       "modal_signal": "might provide anywhere from 1 to 3 privilege modes",
       "confidence": "high",
-      "reasoning": "The number of privilege modes (1, 2, or 3) is an explicit implementation choice signaled by 'might provide anywhere from 1 to 3'. The implementer selects which combination of M, U, S modes to support at design time."
+      "reasoning": "The number of privilege modes (1, 2, or 3) is an explicit implementation choice signaled by 'might provide anywhere from 1 to 3'. The supported combinations are M only, M+U, or M+S+U. This is a design-time architectural parameter."
     },
     {
       "excerpt": "Implementations may also include a debug mode to support off-chip debugging and/or manufacturing test.",
@@ -26,41 +26,41 @@
       "value_type": "binary",
       "modal_signal": "may also include a debug mode",
       "confidence": "high",
-      "reasoning": "Debug mode is optional ('may also include'), making its presence or absence an implementation choice. This is a binary parameter: debug mode is either implemented or not."
+      "reasoning": "Whether debug mode (D-mode) is implemented is an optional implementation choice, signaled by 'may also include'. This is a design-time binary parameter (debug mode present or absent)."
     }
   ],
   "skipped_non_parameters": [
     {
-      "excerpt": "At any time, a RISC-V hardware thread (_hart_) is running at some privilege level encoded as a mode in one or more CSRs (control and status registers).",
-      "line_number": 91,
-      "reason": "This is a fixed architectural fact describing how privilege levels work, not an implementation choice. No optionality language present."
+      "excerpt": "Commentary on our design decisions is formatted as in this paragraph, and can be skipped if the reader is only interested in the specification itself.",
+      "line_number": 11,
+      "reason": "This is inside a [NOTE] block and is non-normative introductory text. No architectural parameter is defined here."
     },
     {
       "excerpt": "The machine level has the highest privileges and is the only mandatory privilege level for a RISC-V hardware platform.",
-      "line_number": 130,
-      "reason": "This is a fixed requirement ('mandatory') \u2014 M-mode must always be present. There is no implementer choice here."
+      "line_number": 131,
+      "reason": "This is a fixed requirement ('only mandatory privilege level') \u2014 it applies to all implementations with no implementer choice. Not a parameter."
     },
     {
       "excerpt": "All hardware implementations must provide M-mode, as this is the only mode that has unfettered access to the whole machine.",
-      "line_number": 155,
-      "reason": "Fixed requirement using 'must' \u2014 applies to all implementations. Not a parameter."
+      "line_number": 158,
+      "reason": "Fixed requirement using 'must provide' \u2014 applies to every implementation. No implementer choice, so not a parameter."
     },
     {
       "excerpt": "attempts to perform operations not permitted by the current privilege mode will cause an exception to be raised.",
       "line_number": 113,
-      "reason": "This is a fixed behavioral rule ('will cause'), not an implementation choice. No optionality language."
+      "reason": "This is a fixed behavioral requirement ('will cause an exception'), not an implementation choice. No optionality language present."
     },
     {
-      "excerpt": "Commentary on our design decisions is formatted as in this paragraph, and can be skipped if the reader is only interested in the specification itself.",
-      "line_number": 11,
-      "reason": "This is inside a [NOTE] block and is non-normative introductory text. Parameters are never extracted from NOTE blocks."
+      "excerpt": "Debug mode reserves a few CSR addresses that are only accessible in D-mode, and may also reserve some portions of the physical address space on a platform.",
+      "line_number": 203,
+      "reason": "The 'may also reserve some portions of the physical address space' refers to a platform-level physical address space reservation (NON_ISA), not an ISA-level architectural parameter. The CSR address reservation is a fixed fact, not a choice."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Implementations might provide anywhere from 1 to 3 privilege modes trading off reduced isolation for lower implementation cost\",\n      \"line_number\": 148,\n      \"parameter_name\": \"NUM_PRIVILEGE_MODES\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"might provide anywhere from 1 to 3 privilege modes\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of privilege modes (1, 2, or 3) is an explicit implementation choice signaled by 'might provide anywhere from 1 to 3'. The implementer selects which combination of M, U, S modes to support at design time.\"\n    },\n    {\n      \"excerpt\": \"Implementations may also include a debug mode to support off-chip debugging and/or manufacturing test.\",\n      \"line_number\": 196,\n      \"parameter_name\": \"DEBUG_MODE_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may also include a debug mode\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Debug mode is optional ('may also include'), making its presence or absence an implementation choice. This is a binary parameter: debug mode is either implemented or not.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"At any time, a RISC-V hardware thread (_hart_) is running at some privilege level encoded as a mode in one or more CSRs (control and status registers).\",\n      \"line_number\": 91,\n      \"reason\": \"This is a fixed architectural fact describing how privilege levels work, not an implementation choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"The machine level has the highest privileges and is the only mandatory privilege level for a RISC-V hardware platform.\",\n      \"line_number\": 130,\n      \"reason\": \"This is a fixed requirement ('mandatory') \u2014 M-mode must always be present. There is no implementer choice here.\"\n    },\n    {\n      \"excerpt\": \"All hardware implementations must provide M-mode, as this is the only mode that has unfettered access to the whole machine.\",\n      \"line_number\": 155,\n      \"reason\": \"Fixed requirement using 'must' \u2014 applies to all implementations. Not a parameter.\"\n    },\n    {\n      \"excerpt\": \"attempts to perform operations not permitted by the current privilege mode will cause an exception to be raised.\",\n      \"line_number\": 113,\n      \"reason\": \"This is a fixed behavioral rule ('will cause'), not an implementation choice. No optionality language.\"\n    },\n    {\n      \"excerpt\": \"Commentary on our design decisions is formatted as in this paragraph, and can be skipped if the reader is only interested in the specification itself.\",\n      \"line_number\": 11,\n      \"reason\": \"This is inside a [NOTE] block and is non-normative introductory text. Parameters are never extracted from NOTE blocks.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 11996,
-  "output_tokens": 765,
-  "latency_ms": 13575,
-  "timestamp": "2026-06-29T10:32:57.937161+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Implementations might provide anywhere from 1 to 3 privilege modes trading off reduced isolation for lower implementation cost, as shown in <<norm:priv-combs-tbl>>.\",\n      \"line_number\": 148,\n      \"parameter_name\": \"NUM_PRIVILEGE_MODES\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"might provide anywhere from 1 to 3 privilege modes\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of privilege modes (1, 2, or 3) is an explicit implementation choice signaled by 'might provide anywhere from 1 to 3'. The supported combinations are M only, M+U, or M+S+U. This is a design-time architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"Implementations may also include a debug mode to support off-chip debugging and/or manufacturing test.\",\n      \"line_number\": 196,\n      \"parameter_name\": \"DEBUG_MODE_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may also include a debug mode\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether debug mode (D-mode) is implemented is an optional implementation choice, signaled by 'may also include'. This is a design-time binary parameter (debug mode present or absent).\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Commentary on our design decisions is formatted as in this paragraph, and can be skipped if the reader is only interested in the specification itself.\",\n      \"line_number\": 11,\n      \"reason\": \"This is inside a [NOTE] block and is non-normative introductory text. No architectural parameter is defined here.\"\n    },\n    {\n      \"excerpt\": \"The machine level has the highest privileges and is the only mandatory privilege level for a RISC-V hardware platform.\",\n      \"line_number\": 131,\n      \"reason\": \"This is a fixed requirement ('only mandatory privilege level') \u2014 it applies to all implementations with no implementer choice. Not a parameter.\"\n    },\n    {\n      \"excerpt\": \"All hardware implementations must provide M-mode, as this is the only mode that has unfettered access to the whole machine.\",\n      \"line_number\": 158,\n      \"reason\": \"Fixed requirement using 'must provide' \u2014 applies to every implementation. No implementer choice, so not a parameter.\"\n    },\n    {\n      \"excerpt\": \"attempts to perform operations not permitted by the current privilege mode will cause an exception to be raised.\",\n      \"line_number\": 113,\n      \"reason\": \"This is a fixed behavioral requirement ('will cause an exception'), not an implementation choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"Debug mode reserves a few CSR addresses that are only accessible in D-mode, and may also reserve some portions of the physical address space on a platform.\",\n      \"line_number\": 203,\n      \"reason\": \"The 'may also reserve some portions of the physical address space' refers to a platform-level physical address space reservation (NON_ISA), not an ISA-level architectural parameter. The CSR address reservation is a fixed fact, not a choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12595,
+  "output_tokens": 830,
+  "latency_ms": 14232,
+  "timestamp": "2026-07-11T11:44:34.458192+00:00",
   "error": null,
   "retry_count": 0
 }

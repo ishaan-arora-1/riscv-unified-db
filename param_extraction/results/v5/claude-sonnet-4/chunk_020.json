@@ -15,32 +15,43 @@
       "value_type": "binary",
       "modal_signal": "a value of zero can be returned to indicate the `misa` register has not been implemented",
       "confidence": "high",
-      "reasoning": "The implementation chooses whether misa is implemented or returns zero. 'can be returned' signals an implementer choice."
+      "reasoning": "The implementation chooses whether misa is implemented or returns zero. This is a binary design-time choice signaled by 'can be returned to indicate ... has not been implemented'."
+    },
+    {
+      "excerpt": "The `misa` CSR is MXLEN bits wide.",
+      "line_number": 44,
+      "parameter_name": "MXLEN",
+      "existing_udb_name": "MXLEN",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "implementer sets the base integer ISA width (MXLEN)",
+      "confidence": "high",
+      "reasoning": "MXLEN is an implementation-chosen width (32 or 64) encoded in misa.MXL. The spec declares the CSR is MXLEN bits wide, which is a declared architectural width parameter per pattern 6. The MXL encoding table shows values 1=32, 2=64."
     },
     {
       "excerpt": "The Extensions field is a *WARL* field that can contain writable bits where the implementation allows the supported ISA to be modified.",
-      "line_number": 65,
-      "parameter_name": "MUTABLE_MISA_A",
-      "existing_udb_name": "MUTABLE_MISA_A",
+      "line_number": 68,
+      "parameter_name": "MUTABLE_MISA_EXTENSIONS",
+      "existing_udb_name": null,
       "class": "NORM_CSR_WARL",
       "value_type": "bitmask",
       "modal_signal": "can contain writable bits where the implementation allows the supported ISA to be modified",
       "confidence": "high",
-      "reasoning": "The Extensions field is WARL and which bits are writable is an implementation choice. This covers all the MUTABLE_MISA_x parameters (A, B, C, D, F, H, M, Q, S, U, V, etc.)."
+      "reasoning": "The Extensions field is WARL and which bits are writable (i.e., which extensions can be dynamically enabled/disabled) is an implementation choice. This covers the general WARL nature; individual extension mutability parameters (MUTABLE_MISA_A, etc.) are known UDB parameters but this sentence is the general declaration."
     },
     {
       "excerpt": "An implementation may impose additional constraints on the collective setting of two or more `misa` fields, in which case they function collectively as a single *WARL* field.",
-      "line_number": 155,
+      "line_number": 161,
       "parameter_name": "MISA_COLLECTIVE_WARL_CONSTRAINTS",
       "existing_udb_name": null,
       "class": "NORM_CSR_WARL",
       "value_type": "set",
       "modal_signal": "An implementation may impose additional constraints",
-      "confidence": "high",
-      "reasoning": "The implementation may choose to impose additional constraints on combinations of misa fields, making them collectively WARL. This is an implementation-defined choice about legal value combinations."
+      "confidence": "medium",
+      "reasoning": "The implementation may choose to impose additional constraints on combinations of misa extension bits, making them collectively WARL. This is an implementation-defined choice about which combinations of misa fields are legal."
     },
     {
-      "excerpt": "a value of 0 can be returned to indicate the field is not implemented or that this is a non-commercial implementation.",
+      "excerpt": "This register must be readable in any implementation, but a value of 0 can be returned to indicate the field is not implemented or that this is a non-commercial implementation.",
       "line_number": 196,
       "parameter_name": "VENDOR_ID_BANK",
       "existing_udb_name": "VENDOR_ID_BANK",
@@ -48,10 +59,21 @@
       "value_type": "value",
       "modal_signal": "a value of 0 can be returned to indicate the field is not implemented",
       "confidence": "high",
-      "reasoning": "The mvendorid value (Bank and Offset fields) is an implementation-defined value. The spec says 0 can be returned, implying the implementation sets this value."
+      "reasoning": "The mvendorid register holds an implementation-chosen JEDEC manufacturer ID encoded in Bank and Offset fields. The Bank field value is chosen by the implementer (pattern 5 \u2014 implementation-chosen ID value). Emitting VENDOR_ID_BANK as the value parameter."
     },
     {
-      "excerpt": "This register must be readable in any implementation, but a value of 0 can be returned to indicate the field is not implemented.",
+      "excerpt": "This register must be readable in any implementation, but a value of 0 can be returned to indicate the field is not implemented or that this is a non-commercial implementation.",
+      "line_number": 196,
+      "parameter_name": "VENDOR_ID_OFFSET",
+      "existing_udb_name": "VENDOR_ID_OFFSET",
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "a value of 0 can be returned to indicate the field is not implemented",
+      "confidence": "high",
+      "reasoning": "The mvendorid Offset field encodes the final JEDEC byte (discarding parity). This is an implementation-chosen value per pattern 5. Emitting VENDOR_ID_OFFSET as the value parameter."
+    },
+    {
+      "excerpt": "The `marchid` CSR is an MXLEN-bit read-only register encoding the base microarchitecture of the hart. This register must be readable in any implementation, but a value of 0 can be returned to indicate the field is not implemented.",
       "line_number": 222,
       "parameter_name": "MARCHID_IMPLEMENTED",
       "existing_udb_name": "MARCHID_IMPLEMENTED",
@@ -59,230 +81,230 @@
       "value_type": "binary",
       "modal_signal": "a value of 0 can be returned to indicate the field is not implemented",
       "confidence": "high",
-      "reasoning": "The implementation chooses whether to return a real architecture ID or 0 to indicate not implemented. Binary choice."
+      "reasoning": "Whether marchid is implemented (non-zero) or returns 0 is an implementation choice. Binary parameter per pattern 5."
     },
     {
-      "excerpt": "This register must be readable in any implementation, but a value of 0 can be returned to indicate that the field is not implemented.",
-      "line_number": 243,
+      "excerpt": "The `marchid` CSR is an MXLEN-bit read-only register encoding the base microarchitecture of the hart.",
+      "line_number": 222,
+      "parameter_name": "ARCH_ID_VALUE",
+      "existing_udb_name": "ARCH_ID_VALUE",
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "implementer chooses the architecture ID value encoding the base microarchitecture",
+      "confidence": "high",
+      "reasoning": "marchid encodes an implementation-chosen architecture ID value. Per pattern 5, the chosen value itself is a parameter separate from whether the register is implemented."
+    },
+    {
+      "excerpt": "The `mimpid` CSR provides a unique encoding of the version of the processor implementation. This register must be readable in any implementation, but a value of 0 can be returned to indicate that the field is not implemented.",
+      "line_number": 248,
       "parameter_name": "MIMPID_IMPLEMENTED",
       "existing_udb_name": "MIMPID_IMPLEMENTED",
       "class": "NORM_DIRECT",
       "value_type": "binary",
       "modal_signal": "a value of 0 can be returned to indicate that the field is not implemented",
       "confidence": "high",
-      "reasoning": "The implementation chooses whether to return a real implementation ID or 0. Binary choice about whether mimpid is implemented."
+      "reasoning": "Whether mimpid is implemented (non-zero) or returns 0 is an implementation choice. Binary parameter per pattern 5."
     },
     {
-      "excerpt": "an implementation may make SXL be a read-only field whose value always ensures that SXLEN=MXLEN.",
-      "line_number": 393,
-      "parameter_name": "SXLEN",
-      "existing_udb_name": "SXLEN",
-      "class": "NORM_CSR_RW",
-      "value_type": "binary",
-      "modal_signal": "an implementation may make SXL be a read-only field",
-      "confidence": "high",
-      "reasoning": "The implementation may make SXL read-only (fixing SXLEN=MXLEN) or writable. This is a NORM_CSR_RW parameter about whether the SXL field is read-only or writable."
-    },
-    {
-      "excerpt": "an implementation may make UXL be a read-only field whose value always ensures that UXLEN=MXLEN or UXLEN=SXLEN.",
-      "line_number": 398,
-      "parameter_name": "UXLEN",
-      "existing_udb_name": "UXLEN",
-      "class": "NORM_CSR_RW",
-      "value_type": "binary",
-      "modal_signal": "an implementation may make UXL be a read-only field",
-      "confidence": "high",
-      "reasoning": "The implementation may make UXL read-only (fixing UXLEN=MXLEN or UXLEN=SXLEN) or writable. This is a NORM_CSR_RW parameter."
-    },
-    {
-      "excerpt": "If S-mode is supported, an implementation may make SBE be a read-only copy of MBE.",
-      "line_number": 571,
-      "parameter_name": "S_MODE_ENDIANNESS",
-      "existing_udb_name": "S_MODE_ENDIANNESS",
-      "class": "NORM_CSR_RW",
-      "value_type": "enum",
-      "modal_signal": "an implementation may make SBE be a read-only copy of MBE",
-      "confidence": "high",
-      "reasoning": "The implementation chooses whether SBE is writable or a read-only copy of MBE. This controls the RO/RW nature of the SBE field."
-    },
-    {
-      "excerpt": "If U-mode is supported, an implementation may make UBE be a read-only copy of either MBE or SBE.",
-      "line_number": 573,
-      "parameter_name": "U_MODE_ENDIANNESS",
-      "existing_udb_name": "U_MODE_ENDIANNESS",
-      "class": "NORM_CSR_RW",
-      "value_type": "enum",
-      "modal_signal": "an implementation may make UBE be a read-only copy of either MBE or SBE",
-      "confidence": "high",
-      "reasoning": "The implementation chooses whether UBE is writable or a read-only copy of MBE or SBE. This is a NORM_CSR_RW parameter."
-    },
-    {
-      "excerpt": "An implementation may have WFI always raise an illegal-instruction exception in modes less privileged than M when TW=1, even if there are pending globally-disabled interrupts when the instruction is executed.",
-      "line_number": 638,
-      "parameter_name": "MSTATUS_TVM_IMPLEMENTED",
-      "existing_udb_name": "MSTATUS_TVM_IMPLEMENTED",
+      "excerpt": "The `mimpid` CSR provides a unique encoding of the version of the processor implementation.",
+      "line_number": 248,
+      "parameter_name": "IMP_ID_VALUE",
+      "existing_udb_name": "IMP_ID_VALUE",
       "class": "NORM_DIRECT",
-      "value_type": "binary",
-      "modal_signal": "An implementation may have WFI always raise an illegal-instruction exception",
-      "confidence": "medium",
-      "reasoning": "The implementation may choose to always raise an illegal-instruction exception for WFI when TW=1, regardless of pending interrupts. This is an implementation choice about WFI behavior when TW=1."
+      "value_type": "value",
+      "modal_signal": "implementer chooses the unique encoding of the version of the processor implementation",
+      "confidence": "high",
+      "reasoning": "mimpid holds an implementation-chosen version encoding. Per pattern 5, the chosen value itself is a parameter."
     },
     {
       "excerpt": "If S-mode is implemented but the F extension is not, FS may optionally be read-only zero.",
-      "line_number": 762,
+      "line_number": 697,
       "parameter_name": "MSTATUS_FS_LEGAL_VALUES",
       "existing_udb_name": "MSTATUS_FS_LEGAL_VALUES",
       "class": "NORM_CSR_RW",
       "value_type": "binary",
       "modal_signal": "may optionally be read-only zero",
       "confidence": "high",
-      "reasoning": "When S-mode is implemented but F extension is not, the implementation may choose to make FS read-only zero or not. This is a NORM_CSR_RW parameter about whether FS is read-only zero."
+      "reasoning": "When S-mode is implemented but F is not, the implementation chooses whether FS is read-only zero or writable. This is a binary RO/RW choice for the FS field."
     },
     {
       "excerpt": "If S-mode is implemented but the `v` registers are not, VS may optionally be read-only zero.",
-      "line_number": 773,
+      "line_number": 714,
       "parameter_name": "MSTATUS_VS_LEGAL_VALUES",
       "existing_udb_name": "MSTATUS_VS_LEGAL_VALUES",
       "class": "NORM_CSR_RW",
       "value_type": "binary",
       "modal_signal": "may optionally be read-only zero",
       "confidence": "high",
-      "reasoning": "When S-mode is implemented but V registers are not, the implementation may choose to make VS read-only zero or not. This is a NORM_CSR_RW parameter."
+      "reasoning": "When S-mode is implemented but V registers are not, the implementation chooses whether VS is read-only zero or writable. Binary RO/RW choice."
     },
     {
       "excerpt": "Implementations may choose to track the dirtiness of the floating-point register state imprecisely by reporting the state to be dirty even when it has not been modified. On some implementations, some instructions that do not mutate the floating-point state may cause the state to transition from Initial or Clean to Dirty.",
-      "line_number": 826,
+      "line_number": 773,
       "parameter_name": "HW_MSTATUS_FS_DIRTY_UPDATE",
       "existing_udb_name": "HW_MSTATUS_FS_DIRTY_UPDATE",
       "class": "SW_RULE",
       "value_type": "enum",
       "modal_signal": "Implementations may choose to track the dirtiness of the floating-point register state imprecisely",
       "confidence": "high",
-      "reasoning": "Whether hardware updates mstatus.FS to Dirty imprecisely is implementation-defined. The implementation chooses the dirtiness tracking strategy."
+      "reasoning": "Whether hardware tracks FS dirtiness precisely or imprecisely is an implementation choice ('may choose to track ... imprecisely'). This matches the known UDB parameter HW_MSTATUS_FS_DIRTY_UPDATE."
     },
     {
       "excerpt": "If an instruction explicitly or implicitly writes a floating-point register or the `fcsr` but does not alter its contents, and FS=Initial or FS=Clean, it is implementation-defined whether FS transitions to Dirty.",
-      "line_number": 835,
+      "line_number": 782,
       "parameter_name": "HW_MSTATUS_FS_DIRTY_UPDATE",
       "existing_udb_name": "HW_MSTATUS_FS_DIRTY_UPDATE",
       "class": "SW_RULE",
-      "value_type": "binary",
+      "value_type": "enum",
       "modal_signal": "it is implementation-defined whether FS transitions to Dirty",
       "confidence": "high",
-      "reasoning": "Whether FS transitions to Dirty when a no-op write occurs is implementation-defined. This is the same parameter as above but with explicit 'implementation-defined' language."
+      "reasoning": "Explicitly states 'implementation-defined whether FS transitions to Dirty' when a no-op write occurs. This is the same parameter as above (HW_MSTATUS_FS_DIRTY_UPDATE) \u2014 the no-change-dirty variant."
     },
     {
       "excerpt": "Implementations may choose to track the dirtiness of the vector register state in an analogous imprecise fashion, including possibly setting VS to Dirty when software attempts to set VS=Initial or VS=Clean.",
-      "line_number": 839,
+      "line_number": 786,
       "parameter_name": "HW_MSTATUS_VS_DIRTY_UPDATE",
       "existing_udb_name": "HW_MSTATUS_VS_DIRTY_UPDATE",
       "class": "SW_RULE",
       "value_type": "enum",
       "modal_signal": "Implementations may choose to track the dirtiness of the vector register state in an analogous imprecise fashion",
       "confidence": "high",
-      "reasoning": "Whether hardware updates mstatus.VS to Dirty imprecisely is implementation-defined. The implementation chooses the VS dirtiness tracking strategy."
+      "reasoning": "Whether hardware tracks VS dirtiness precisely or imprecisely is an implementation choice ('may choose to track ... imprecise fashion'). Matches known UDB parameter HW_MSTATUS_VS_DIRTY_UPDATE."
     },
     {
       "excerpt": "When VS=Initial or VS=Clean, it is implementation-defined whether an instruction that writes a vector register or vector CSR but does not alter its contents causes VS to transition to Dirty.",
-      "line_number": 841,
+      "line_number": 788,
       "parameter_name": "HW_MSTATUS_VS_DIRTY_UPDATE",
       "existing_udb_name": "HW_MSTATUS_VS_DIRTY_UPDATE",
       "class": "SW_RULE",
-      "value_type": "binary",
-      "modal_signal": "it is implementation-defined whether an instruction that writes a vector register or vector CSR but does not alter its contents causes VS to transition to Dirty",
+      "value_type": "enum",
+      "modal_signal": "it is implementation-defined whether an instruction ... causes VS to transition to Dirty",
       "confidence": "high",
-      "reasoning": "Whether VS transitions to Dirty on a no-op write is implementation-defined. Same parameter as above with explicit language."
+      "reasoning": "Explicitly states 'implementation-defined' for VS dirty transition on no-change write. Same parameter as above."
+    },
+    {
+      "excerpt": "an implementation may make SXL be a read-only field whose value always ensures that SXLEN=MXLEN.",
+      "line_number": 432,
+      "parameter_name": "SXLEN",
+      "existing_udb_name": "SXLEN",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "an implementation may make SXL be a read-only field",
+      "confidence": "high",
+      "reasoning": "The implementation may make SXL read-only (fixing SXLEN=MXLEN) or writable. This is a binary RO/RW choice for the SXL field controlling SXLEN."
+    },
+    {
+      "excerpt": "an implementation may make UXL be a read-only field whose value always ensures that UXLEN=MXLEN or UXLEN=SXLEN.",
+      "line_number": 438,
+      "parameter_name": "UXLEN",
+      "existing_udb_name": "UXLEN",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "an implementation may make UXL be a read-only field",
+      "confidence": "high",
+      "reasoning": "The implementation may make UXL read-only (fixing UXLEN=MXLEN or UXLEN=SXLEN) or writable. Binary RO/RW choice for the UXL field controlling UXLEN."
+    },
+    {
+      "excerpt": "If S-mode is supported, an implementation may make SBE be a read-only copy of MBE.",
+      "line_number": 567,
+      "parameter_name": "S_MODE_ENDIANNESS",
+      "existing_udb_name": "S_MODE_ENDIANNESS",
+      "class": "NORM_CSR_RW",
+      "value_type": "enum",
+      "modal_signal": "an implementation may make SBE be a read-only copy of MBE",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether SBE is independently writable or a read-only copy of MBE. This controls S-mode endianness configurability."
+    },
+    {
+      "excerpt": "If U-mode is supported, an implementation may make UBE be a read-only copy of either MBE or SBE.",
+      "line_number": 569,
+      "parameter_name": "U_MODE_ENDIANNESS",
+      "existing_udb_name": "U_MODE_ENDIANNESS",
+      "class": "NORM_CSR_RW",
+      "value_type": "enum",
+      "modal_signal": "an implementation may make UBE be a read-only copy of either MBE or SBE",
+      "confidence": "high",
+      "reasoning": "The implementation chooses whether UBE is independently writable or a read-only copy of MBE or SBE. Controls U-mode endianness configurability."
     },
     {
       "excerpt": "The `mtvec` register must always be implemented, but can contain a read-only value.",
-      "line_number": 912,
+      "line_number": 870,
       "parameter_name": "MTVEC_ACCESS",
       "existing_udb_name": "MTVEC_ACCESS",
       "class": "NORM_CSR_RW",
       "value_type": "binary",
       "modal_signal": "can contain a read-only value",
       "confidence": "high",
-      "reasoning": "The implementation chooses whether mtvec is read-only or read-write. Binary choice about mutability."
+      "reasoning": "The implementation chooses whether mtvec is read-only or read-write. Binary RO/RW choice."
     },
     {
       "excerpt": "If `mtvec` is writable, the set of values the register may hold can vary by implementation.",
-      "line_number": 913,
+      "line_number": 871,
       "parameter_name": "MTVEC_MODES",
       "existing_udb_name": "MTVEC_MODES",
       "class": "NORM_CSR_WARL",
       "value_type": "set",
       "modal_signal": "the set of values the register may hold can vary by implementation",
       "confidence": "high",
-      "reasoning": "The set of legal values for mtvec (including which MODE values are supported) varies by implementation. This is a NORM_CSR_WARL parameter."
+      "reasoning": "The set of legal mtvec values (including MODE field values) varies by implementation. This is a WARL parameter for the mtvec register."
     },
     {
       "excerpt": "the MODE setting may impose additional alignment constraints on the value in the BASE field.",
-      "line_number": 916,
+      "line_number": 873,
       "parameter_name": "MTVEC_BASE_ALIGNMENT_VECTORED",
       "existing_udb_name": "MTVEC_BASE_ALIGNMENT_VECTORED",
       "class": "NORM_CSR_WARL",
       "value_type": "range",
       "modal_signal": "may impose additional alignment constraints",
       "confidence": "high",
-      "reasoning": "The MODE setting may impose additional alignment constraints on BASE, meaning the implementation defines what alignment is required for each MODE. This is a WARL constraint on the BASE field."
+      "reasoning": "The MODE setting (particularly Vectored) may impose additional alignment constraints on BASE beyond the mandatory 4-byte alignment. The specific alignment is implementation-defined."
     },
     {
       "excerpt": "implementations can provide individual read/write bits within `medeleg` and `mideleg` to indicate that certain exceptions and interrupts should be processed directly by a lower privilege level.",
-      "line_number": 952,
+      "line_number": 912,
       "parameter_name": "MEDELEG_MIDELEG_IMPLEMENTED",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
       "value_type": "binary",
       "modal_signal": "implementations can provide individual read/write bits",
       "confidence": "high",
-      "reasoning": "The implementation chooses whether to provide read/write bits in medeleg/mideleg for trap delegation. This is an implementation choice."
+      "reasoning": "Whether medeleg/mideleg are implemented with writable bits is an implementation choice ('can provide'). In harts with S-mode they must exist, but the subset of delegatable traps is implementation-defined."
     },
     {
       "excerpt": "An implementation can choose to subset the delegatable traps, with the supported delegatable bits found by writing one to every bit location, then reading back the value in `medeleg` or `mideleg` to see which bit positions hold a one.",
-      "line_number": 975,
-      "parameter_name": "MEDELEG_MIDELEG_WARL_BITS",
+      "line_number": 935,
+      "parameter_name": "MEDELEG_DELEGATABLE_TRAPS",
       "existing_udb_name": null,
       "class": "NORM_CSR_WARL",
       "value_type": "bitmask",
       "modal_signal": "An implementation can choose to subset the delegatable traps",
       "confidence": "high",
-      "reasoning": "The implementation chooses which trap delegation bits are writable in medeleg/mideleg. This is a WARL parameter about which bits are read-write vs read-only-zero."
+      "reasoning": "Which bits of medeleg/mideleg are writable (i.e., which traps can be delegated) is an implementation choice. The WARL nature means the legal set of delegatable traps varies by implementation."
     },
     {
       "excerpt": "may do so for lower-level interrupts",
-      "line_number": 982,
-      "parameter_name": "MIDELEG_LOWER_LEVEL_RO1_BITS",
+      "line_number": 942,
+      "parameter_name": "MIDELEG_LOWER_LEVEL_READONLY1",
       "existing_udb_name": null,
       "class": "NORM_CSR_WARL",
       "value_type": "bitmask",
       "modal_signal": "may do so for lower-level interrupts",
       "confidence": "medium",
-      "reasoning": "The implementation may fix as read-only one bits of mideleg corresponding to lower-level interrupts. This is an implementation choice about which mideleg bits are read-only-one."
-    },
-    {
-      "excerpt": "Each individual bit in register `mip` may be writable or may be read-only.",
-      "line_number": 1046,
-      "parameter_name": "MIP_WRITABLE_BITS",
-      "existing_udb_name": null,
-      "class": "NORM_CSR_RW",
-      "value_type": "bitmask",
-      "modal_signal": "may be writable or may be read-only",
-      "confidence": "high",
-      "reasoning": "Each bit in mip may be writable or read-only, which is an implementation choice. This is a NORM_CSR_RW parameter about which bits are writable."
+      "reasoning": "The implementation may fix lower-level interrupt delegation bits as read-only one in mideleg. This is an implementation choice about which mideleg bits are hardwired to 1."
     },
     {
       "excerpt": "If a system has only one hart, or if a platform standard supports the delivery of machine-level interprocessor interrupts through external interrupts (MEI) instead, then `mip`.MSIP and `mie`.MSIE may both be read-only zeros.",
-      "line_number": 1083,
-      "parameter_name": "MIP_MSIP_MIE_MSIE_RO_ZERO",
+      "line_number": 1063,
+      "parameter_name": "MIP_MSIP_READONLY_ZERO",
       "existing_udb_name": null,
       "class": "NORM_CSR_RW",
       "value_type": "binary",
       "modal_signal": "may both be read-only zeros",
       "confidence": "high",
-      "reasoning": "Under certain conditions, mip.MSIP and mie.MSIE may be read-only zeros. This is an implementation choice about whether these bits are writable."
+      "reasoning": "Under certain conditions (single hart or MEI delivery), mip.MSIP and mie.MSIE may be read-only zero. This is an implementation choice about the RO/RW nature of these bits."
     },
     {
-      "excerpt": "a legal implementation is to make both the counter and its corresponding event selector be read-only 0.",
+      "excerpt": "All counters should be implemented, but a legal implementation is to make both the counter and its corresponding event selector be read-only 0.",
       "line_number": 1148,
       "parameter_name": "HPM_COUNTER_EN",
       "existing_udb_name": "HPM_COUNTER_EN",
@@ -290,348 +312,260 @@
       "value_type": "bitmask",
       "modal_signal": "a legal implementation is to make both the counter and its corresponding event selector be read-only 0",
       "confidence": "high",
-      "reasoning": "The implementation may make any HPM counter and its event selector read-only zero, indicating which counters are implemented. This is a NORM_CSR_RW parameter."
+      "reasoning": "Which HPM counters are implemented (non-zero) vs read-only zero is an implementation choice. Per-counter binary choice forming a bitmask."
+    },
+    {
+      "excerpt": "The `mhpmevent__n__` CSRs are provided only if the Sscofpmf extension is implemented.",
+      "line_number": 1161,
+      "parameter_name": "MHPMEVENTH_PRESENCE",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "provided only if the Sscofpmf extension is implemented",
+      "confidence": "high",
+      "reasoning": "Whether mhpmevent_n_h CSRs exist depends on whether Sscofpmf is implemented. This is a binary implementation choice."
     },
     {
       "excerpt": "In harts with U-mode, the `mcounteren` must be implemented, but all fields are *WARL* and may be read-only zero, indicating reads to the corresponding counter will cause an illegal-instruction exception when executing in a less-privileged mode.",
-      "line_number": 1185,
+      "line_number": 1205,
       "parameter_name": "MCOUNTENABLE_EN",
       "existing_udb_name": "MCOUNTENABLE_EN",
       "class": "NORM_CSR_RW",
       "value_type": "bitmask",
       "modal_signal": "may be read-only zero",
       "confidence": "high",
-      "reasoning": "Which bits of mcounteren are writable vs read-only-zero is an implementation choice. This is a NORM_CSR_RW parameter about which counter-enable bits are implemented."
+      "reasoning": "Which bits of mcounteren are writable vs read-only zero is an implementation choice. This is a per-bit WARL/RO choice forming a bitmask parameter."
     },
     {
-      "excerpt": "The counter-inhibit register `mcountinhibit` is a 32-bit *WARL* register that controls which of the hardware performance-monitoring counters increment.",
-      "line_number": 1199,
-      "parameter_name": "COUNTINHIBIT_EN",
-      "existing_udb_name": "COUNTINHIBIT_EN",
-      "class": "NORM_CSR_RW",
-      "value_type": "bitmask",
-      "modal_signal": "WARL register that controls which of the hardware performance-monitoring counters increment",
+      "excerpt": "The `mcycle` CSR may be shared between harts on the same core, in which case writes to `mcycle` will be visible to those harts.",
+      "line_number": 1133,
+      "parameter_name": "MCYCLE_SHARED",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "may be shared between harts on the same core",
       "confidence": "high",
-      "reasoning": "mcountinhibit is WARL, meaning which bits are writable (i.e., which counters can be inhibited) is implementation-defined. This is a NORM_CSR_RW parameter."
+      "reasoning": "Whether mcycle is shared between harts on the same core is an implementation choice ('may be shared'). Binary design-time decision."
     },
     {
-      "excerpt": "If the `mcountinhibit` register is not implemented, the implementation behaves as though the register were set to zero.",
-      "line_number": 1215,
+      "excerpt": "The `mcountinhibit` register is not implemented, the implementation behaves as though the register were set to zero.",
+      "line_number": 1237,
       "parameter_name": "MCOUNTINHIBIT_IMPLEMENTED",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
       "value_type": "binary",
       "modal_signal": "If the `mcountinhibit` register is not implemented",
       "confidence": "high",
-      "reasoning": "The implementation may choose not to implement mcountinhibit. This is a binary implementation choice."
-    },
-    {
-      "excerpt": "The low bit of `mepc` (`mepc[0]`) is always zero. On implementations that support only IALIGN=32, the two low bits (`mepc[1:0]`) are always zero.",
-      "line_number": 1258,
-      "parameter_name": "MEPC_IALIGN32_BITS",
-      "existing_udb_name": null,
-      "class": "NORM_DIRECT",
-      "value_type": "binary",
-      "modal_signal": "On implementations that support only IALIGN=32",
-      "confidence": "medium",
-      "reasoning": "Whether the implementation supports only IALIGN=32 (fixing mepc[1:0]=0) or also IALIGN=16 is an implementation choice. This affects the WARL behavior of mepc."
-    },
-    {
-      "excerpt": "Prior to writing `mepc`, implementations may convert an invalid address into some other invalid address that `mepc` is capable of holding.",
-      "line_number": 1268,
-      "parameter_name": "MEPC_INVALID_ADDR_CONVERSION",
-      "existing_udb_name": null,
-      "class": "NORM_CSR_WARL",
-      "value_type": "binary",
-      "modal_signal": "implementations may convert an invalid address into some other invalid address",
-      "confidence": "medium",
-      "reasoning": "The implementation may choose to convert invalid addresses written to mepc. This is a WARL behavior choice about how invalid addresses are handled."
-    },
-    {
-      "excerpt": "The priority of any custom synchronous exceptions is implementation-defined.",
-      "line_number": 1310,
-      "parameter_name": "CUSTOM_EXCEPTION_PRIORITY",
-      "existing_udb_name": null,
-      "class": "NORM_DIRECT",
-      "value_type": "enum",
-      "modal_signal": "implementation-defined",
-      "confidence": "medium",
-      "reasoning": "The priority of custom synchronous exceptions relative to standard ones is implementation-defined. This is a NORM_DIRECT parameter."
-    },
-    {
-      "excerpt": "Load/store/AMO address-misaligned exceptions may have either higher or lower priority than load/store/AMO page-fault and access-fault exceptions.",
-      "line_number": 1358,
-      "parameter_name": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
-      "existing_udb_name": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
-      "class": "NORM_DIRECT",
-      "value_type": "binary",
-      "modal_signal": "may have either higher or lower priority",
-      "confidence": "high",
-      "reasoning": "The relative priority of misaligned address exceptions vs page-fault/access-fault exceptions is an implementation choice. Binary choice between higher or lower priority."
-    },
-    {
-      "excerpt": "The `mtval` register can optionally also be used to return the faulting instruction bits on an illegal-instruction exception (`mepc` points to the faulting instruction in memory).",
-      "line_number": 1399,
-      "parameter_name": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
-      "existing_udb_name": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
-      "class": "NORM_DIRECT",
-      "value_type": "binary",
-      "modal_signal": "can optionally also be used to return the faulting instruction bits",
-      "confidence": "high",
-      "reasoning": "Whether mtval reports the faulting instruction encoding on illegal-instruction exceptions is optional. No CSR field controls this; it is a design-time choice."
-    },
-    {
-      "excerpt": "If `mtval` is not read-only zero, it is a *WARL* register that must be able to hold all valid virtual addresses and the value zero.",
-      "line_number": 1424,
-      "parameter_name": "MTVAL_WIDTH",
-      "existing_udb_name": "MTVAL_WIDTH",
-      "class": "NORM_CSR_WARL",
-      "value_type": "range",
-      "modal_signal": "If `mtval` is not read-only zero, it is a *WARL* register",
-      "confidence": "high",
-      "reasoning": "mtval is WARL and must hold valid virtual addresses. The width and legal values are implementation-defined. The 'if not read-only zero' also implies the implementation may make it read-only zero."
-    },
-    {
-      "excerpt": "If the hardware platform specifies that no exceptions set `mtval` to a nonzero value, then `mtval` is read-only zero.",
-      "line_number": 1381,
-      "parameter_name": "MTVAL_READONLY_ZERO",
-      "existing_udb_name": null,
-      "class": "NORM_CSR_RW",
-      "value_type": "binary",
-      "modal_signal": "then `mtval` is read-only zero",
-      "confidence": "high",
-      "reasoning": "The hardware platform specifies whether mtval is read-only zero or writable. This is a NORM_CSR_RW parameter about the mutability of mtval."
-    },
-    {
-      "excerpt": "it may be zero to indicate the configuration data structure does not exist or that an alternative mechanism must be used to locate it.",
-      "line_number": 1449,
-      "parameter_name": "CONFIG_PTR_ADDRESS",
-      "existing_udb_name": "CONFIG_PTR_ADDRESS",
-      "class": "NORM_DIRECT",
-      "value_type": "value",
-      "modal_signal": "it may be zero to indicate the configuration data structure does not exist",
-      "confidence": "high",
-      "reasoning": "The value of mconfigptr is implementation-defined. The implementation sets this to a physical address or zero. This is a NORM_DIRECT value parameter."
-    },
-    {
-      "excerpt": "If S-mode is not supported, or if `satp`.MODE is read-only zero (always Bare), the implementation may make FIOM read-only zero.",
-      "line_number": 1476,
-      "parameter_name": "MENVCFG_FIOM_READONLY_ZERO",
-      "existing_udb_name": null,
-      "class": "NORM_CSR_RW",
-      "value_type": "binary",
-      "modal_signal": "the implementation may make FIOM read-only zero",
-      "confidence": "high",
-      "reasoning": "Under certain conditions, the implementation may make the FIOM bit in menvcfg read-only zero. This is a NORM_CSR_RW parameter."
+      "reasoning": "Whether mcountinhibit is implemented is an implementation choice. The spec explicitly allows it to not be implemented."
     },
     {
       "excerpt": "The `pc` is set to an implementation-defined reset vector.",
-      "line_number": 1614,
+      "line_number": 1310,
       "parameter_name": "RESET_VECTOR",
       "existing_udb_name": null,
       "class": "NON_ISA",
       "value_type": "value",
       "modal_signal": "implementation-defined reset vector",
       "confidence": "high",
-      "reasoning": "The reset vector is implementation-defined but is a platform/physical-design choice outside the ISA scope (NON_ISA). It is the address the PC is set to on reset, which is a platform specification."
+      "reasoning": "The reset vector address is implementation-defined, but this is a platform/physical-design choice outside the ISA scope (NON_ISA). The reset vector is a platform specification item, not an ISA architectural parameter."
     },
     {
-      "excerpt": "The `mcause` register is set to a value indicating the cause of the reset.",
-      "line_number": 1615,
-      "parameter_name": "MCAUSE_RESET_VALUE",
-      "existing_udb_name": null,
-      "class": "NORM_DIRECT",
-      "value_type": "value",
-      "modal_signal": "set to a value indicating the cause of the reset",
-      "confidence": "medium",
-      "reasoning": "The value written to mcause on reset is implementation-specific (confirmed by later text 'implementation-specific interpretation'). The implementation chooses what value to report."
-    },
-    {
-      "excerpt": "The `mcause` values after reset have implementation-specific interpretation, but the value 0 should be returned on implementations that do not distinguish different reset conditions.",
-      "line_number": 1624,
+      "excerpt": "The `mcause` register is set to a value indicating the cause of the reset. ... The `mcause` values after reset have implementation-specific interpretation",
+      "line_number": 1316,
       "parameter_name": "MCAUSE_RESET_VALUE",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
       "value_type": "value",
       "modal_signal": "implementation-specific interpretation",
-      "confidence": "high",
-      "reasoning": "The mcause value after reset has implementation-specific interpretation. The implementation chooses what reset cause values to report."
-    },
-    {
-      "excerpt": "cause an immediate jump to an implementation-defined NMI vector running in M-mode regardless of the state of a hart's interrupt enable bits.",
-      "line_number": 1636,
-      "parameter_name": "NMI_VECTOR",
-      "existing_udb_name": null,
-      "class": "NON_ISA",
-      "value_type": "value",
-      "modal_signal": "implementation-defined NMI vector",
-      "confidence": "high",
-      "reasoning": "The NMI vector address is implementation-defined but is a platform/physical-design choice (NON_ISA), as noted in the negative examples."
-    },
-    {
-      "excerpt": "The values written to `mcause` on an NMI are implementation-defined.",
-      "line_number": 1640,
-      "parameter_name": "NMI_MCAUSE_VALUE",
-      "existing_udb_name": null,
-      "class": "NORM_DIRECT",
-      "value_type": "value",
-      "modal_signal": "implementation-defined",
-      "confidence": "high",
-      "reasoning": "The values written to mcause on an NMI are implementation-defined. The implementation chooses what cause values to report for NMIs."
-    },
-    {
-      "excerpt": "Where the attributes are run-time configurable, platform-specific memory-mapped control registers can be provided to specify these attributes at a granularity appropriate to each region on the platform.",
-      "line_number": 1672,
-      "parameter_name": "PMA_GRANULARITY",
-      "existing_udb_name": "PMA_GRANULARITY",
-      "class": "NORM_DIRECT",
-      "value_type": "range",
-      "modal_signal": "can be provided to specify these attributes at a granularity appropriate to each region",
       "confidence": "medium",
-      "reasoning": "The granularity of PMA configuration is platform-specific and implementation-defined. The implementation chooses the granularity of PMA regions."
+      "reasoning": "The value written to mcause on reset is implementation-specific. The implementation chooses which reset cause codes to use. This is a design-time choice about the reset cause encoding."
+    },
+    {
+      "excerpt": "The `mtval` register can optionally also be used to return the faulting instruction bits on an illegal-instruction exception (`mepc` points to the faulting instruction in memory).",
+      "line_number": 1476,
+      "parameter_name": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+      "existing_udb_name": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "can optionally also be used to return the faulting instruction bits",
+      "confidence": "high",
+      "reasoning": "Whether mtval reports the faulting instruction encoding on illegal-instruction exceptions is optional ('can optionally'). No CSR field controls this; it is a design-time choice."
+    },
+    {
+      "excerpt": "If the hardware platform specifies that no exceptions set `mtval` to a nonzero value, then `mtval` is read-only zero.",
+      "line_number": 1455,
+      "parameter_name": "MTVAL_WIDTH",
+      "existing_udb_name": "MTVAL_WIDTH",
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "then `mtval` is read-only zero",
+      "confidence": "high",
+      "reasoning": "Whether mtval is read-only zero or writable depends on the hardware platform specification. This is a binary RO/RW choice for the mtval register."
+    },
+    {
+      "excerpt": "The `mconfigptr` register must be implemented, but it may be zero to indicate the configuration data structure does not exist or that an alternative mechanism must be used to locate it.",
+      "line_number": 1527,
+      "parameter_name": "CONFIG_PTR_ADDRESS",
+      "existing_udb_name": "CONFIG_PTR_ADDRESS",
+      "class": "NORM_DIRECT",
+      "value_type": "value",
+      "modal_signal": "it may be zero to indicate the configuration data structure does not exist",
+      "confidence": "high",
+      "reasoning": "The value held in mconfigptr (the physical address of the configuration data structure, or zero) is an implementation-chosen value. Per pattern 5, this is a value parameter."
+    },
+    {
+      "excerpt": "If S-mode is not supported, or if `satp`.MODE is read-only zero (always Bare), the implementation may make FIOM read-only zero.",
+      "line_number": 1558,
+      "parameter_name": "MENVCFG_FIOM_READONLY_ZERO",
+      "existing_udb_name": null,
+      "class": "NORM_CSR_RW",
+      "value_type": "binary",
+      "modal_signal": "the implementation may make FIOM read-only zero",
+      "confidence": "high",
+      "reasoning": "Under certain conditions (no S-mode or satp.MODE always Bare), the implementation may make FIOM read-only zero. Binary RO/RW choice for the FIOM field."
     },
     {
       "excerpt": "The granularity of PMP access control settings are platform-specific, but the standard PMP encoding supports regions as small as four bytes.",
-      "line_number": 1762,
+      "line_number": 1726,
       "parameter_name": "PMP_GRANULARITY",
       "existing_udb_name": "PMP_GRANULARITY",
       "class": "NORM_DIRECT",
       "value_type": "range",
-      "modal_signal": "are platform-specific",
+      "modal_signal": "platform-specific",
       "confidence": "high",
-      "reasoning": "The granularity of PMP access control is platform-specific. The implementation chooses the minimum PMP region size (which must be at least 4 bytes)."
+      "reasoning": "The PMP granularity is platform-specific (implementation-defined). The minimum is 4 bytes but the actual granularity varies by implementation."
     },
     {
       "excerpt": "Optionally, PMP checks may additionally apply to M-mode accesses, in which case the PMP registers themselves are locked, so that even M-mode software cannot change them until the hart is reset.",
-      "line_number": 1771,
+      "line_number": 1733,
       "parameter_name": "PMP_MMODE_LOCKING",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
       "value_type": "binary",
       "modal_signal": "Optionally, PMP checks may additionally apply to M-mode accesses",
       "confidence": "high",
-      "reasoning": "Whether PMP checks apply to M-mode accesses is optional. The implementation chooses whether to support M-mode PMP locking."
+      "reasoning": "Whether PMP checks apply to M-mode accesses is optional ('Optionally'). This is a binary design-time implementation choice."
     },
     {
       "excerpt": "The size of these naturally aligned power-of-2 regions is implementation-defined, but, for systems with page-based virtual memory, must not exceed the smallest supported page size.",
-      "line_number": 1836,
-      "parameter_name": "PMA_IDEMPOTENT_IMPLICIT_READ_SIZE",
-      "existing_udb_name": null,
+      "line_number": 1714,
+      "parameter_name": "PMA_GRANULARITY",
+      "existing_udb_name": "PMA_GRANULARITY",
       "class": "NORM_DIRECT",
       "value_type": "range",
-      "modal_signal": "is implementation-defined",
+      "modal_signal": "implementation-defined",
       "confidence": "high",
-      "reasoning": "The size of naturally aligned power-of-2 regions for implicit reads in non-idempotent regions is implementation-defined. The implementation chooses this size within the stated constraints."
+      "reasoning": "The size of naturally aligned power-of-2 regions for non-idempotent implicit accesses is implementation-defined. This is a design-time choice bounded by the smallest supported page size."
     },
     {
-      "excerpt": "Implementations are permitted to resume execution for any reason, even if an enabled interrupt has not become pending. Hence, a legal implementation is to simply implement the WFI instruction as a NOP.",
-      "line_number": 1590,
-      "parameter_name": "WFI_NOP_BEHAVIOR",
-      "existing_udb_name": null,
-      "class": "NORM_DIRECT",
-      "value_type": "binary",
-      "modal_signal": "Implementations are permitted to resume execution for any reason",
-      "confidence": "high",
-      "reasoning": "The implementation may choose to implement WFI as a NOP or as an actual wait. This is an implementation choice about WFI behavior."
-    },
-    {
-      "excerpt": "WFI is available in all privileged modes, and optionally available to U-mode.",
-      "line_number": 1572,
-      "parameter_name": "WFI_U_MODE_AVAILABLE",
+      "excerpt": "optionally available to U-mode.",
+      "line_number": 1280,
+      "parameter_name": "WFI_U_MODE",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
       "value_type": "binary",
       "modal_signal": "optionally available to U-mode",
       "confidence": "high",
-      "reasoning": "Whether WFI is available in U-mode is optional. The implementation chooses whether to support WFI in U-mode."
+      "reasoning": "Whether WFI is available in U-mode is optional ('optionally available to U-mode'). Binary implementation choice."
     },
     {
       "excerpt": "If the A extension is supported, the __x__RET instruction is allowed to clear any outstanding LR address reservation but is not required to.",
-      "line_number": 1563,
+      "line_number": 1271,
       "parameter_name": "XRET_CLEARS_LR_RESERVATION",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
       "value_type": "binary",
       "modal_signal": "is allowed to clear any outstanding LR address reservation but is not required to",
       "confidence": "high",
-      "reasoning": "Whether xRET clears LR reservations is an implementation choice. The implementation may or may not clear the reservation on xRET."
+      "reasoning": "Whether xRET clears LR reservations is an implementation choice ('allowed to ... but is not required to'). Binary design-time decision."
     },
     {
-      "excerpt": "When such a HINT is executed with XLEN < MXLEN and bits MXLEN..XLEN of the destination register not all equal to bit XLEN-1, it is implementation-defined whether bits MXLEN..XLEN of the destination register are unchanged or are overwritten with copies of bit XLEN-1.",
-      "line_number": 408,
-      "parameter_name": "HINT_XLEN_REDUCTION_BEHAVIOR",
+      "excerpt": "The `mhpmevent__n__` event selector CSRs, `mhpmevent3`-`mhpmevent31`, are 64-bit *WARL* registers that control which event causes the corresponding counter to increment.",
+      "line_number": 1143,
+      "parameter_name": "HPM_EVENTS",
+      "existing_udb_name": "HPM_EVENTS",
+      "class": "NORM_CSR_WARL",
+      "value_type": "set",
+      "modal_signal": "WARL registers",
+      "confidence": "high",
+      "reasoning": "The mhpmevent CSRs are WARL, meaning the set of legal event selector values is implementation-defined. The implementation chooses which events are supported."
+    },
+    {
+      "excerpt": "The values written to `mcause` on an NMI are implementation-defined.",
+      "line_number": 1330,
+      "parameter_name": "NMI_MCAUSE_VALUE",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
-      "value_type": "binary",
-      "modal_signal": "it is implementation-defined whether bits MXLEN..XLEN of the destination register are unchanged or are overwritten",
+      "value_type": "value",
+      "modal_signal": "implementation-defined",
       "confidence": "high",
-      "reasoning": "When a HINT is executed with XLEN < MXLEN, the behavior of upper bits is implementation-defined. The implementation chooses whether to sign-extend or leave unchanged."
+      "reasoning": "The mcause values written on NMI are explicitly implementation-defined. The implementation chooses which cause codes to use for NMI sources."
     },
     {
-      "excerpt": "Prior to writing `mtval`, implementations may convert an invalid address into some other invalid address that `mtval` is capable of holding.",
-      "line_number": 1426,
-      "parameter_name": "MTVAL_INVALID_ADDR_CONVERSION",
-      "existing_udb_name": null,
-      "class": "NORM_CSR_WARL",
+      "excerpt": "Load/store/AMO address-misaligned exceptions may have either higher or lower priority than load/store/AMO page-fault and access-fault exceptions.",
+      "line_number": 1415,
+      "parameter_name": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
+      "existing_udb_name": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
+      "class": "NORM_DIRECT",
       "value_type": "binary",
-      "modal_signal": "implementations may convert an invalid address into some other invalid address",
-      "confidence": "medium",
-      "reasoning": "The implementation may choose to convert invalid addresses written to mtval. This is a WARL behavior choice."
+      "modal_signal": "may have either higher or lower priority",
+      "confidence": "high",
+      "reasoning": "The relative priority of misaligned address exceptions vs page-fault/access-fault exceptions is an implementation choice ('may have either higher or lower priority')."
     },
     {
       "excerpt": "Implementations may raise access-fault exceptions instead of address-misaligned exceptions for some misaligned accesses, indicating the instruction should not be emulated by a trap handler.",
-      "line_number": 1812,
-      "parameter_name": "PMA_MAG_EXCEPTION_TYPE",
+      "line_number": 1693,
+      "parameter_name": "MISALIGNED_AMO_EXCEPTION_TYPE",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
       "value_type": "binary",
       "modal_signal": "Implementations may raise access-fault exceptions instead of address-misaligned exceptions",
       "confidence": "high",
-      "reasoning": "The implementation may choose to raise access-fault instead of address-misaligned exceptions for some misaligned accesses. This is an implementation choice."
+      "reasoning": "Whether misaligned accesses raise access-fault or address-misaligned exceptions is an implementation choice ('may raise access-fault exceptions instead of address-misaligned exceptions')."
     }
   ],
   "skipped_non_parameters": [
     {
       "excerpt": "M-mode is used for low-level access to a hardware platform and is the first mode entered at reset.",
       "line_number": 6,
-      "reason": "Fixed fact/requirement about M-mode behavior. No implementer choice; 'is' describes a fixed property."
+      "reason": "Fixed requirement/statement of fact about M-mode behavior. No implementer choice \u2014 every implementation must enter M-mode at reset. Not a parameter."
     },
     {
-      "excerpt": "The MXL field is read-only.",
-      "line_number": 30,
-      "reason": "Fixed requirement ('is read-only') \u2014 not an implementer choice. Every implementation must have MXL read-only."
+      "excerpt": "The `mtvec` register must always be implemented.",
+      "line_number": 870,
+      "reason": "Fixed 'must' requirement binding on all implementations. No implementer choice about whether mtvec exists \u2014 it is mandatory. Not a parameter."
     },
     {
-      "excerpt": "All bits that are reserved for future use must return zero when read.",
-      "line_number": 100,
-      "reason": "Fixed requirement ('must return zero') \u2014 not an implementer choice. Applies to all implementations."
+      "excerpt": "In harts with S-mode, the `medeleg` and `mideleg` registers must exist.",
+      "line_number": 921,
+      "reason": "Fixed 'must' requirement. When S-mode is present, medeleg/mideleg are mandatory. No implementer choice about their existence in that case."
     },
     {
-      "excerpt": "Hart IDs might not necessarily be numbered contiguously in a multiprocessor system, but one hart must have a hart ID of zero.",
-      "line_number": 271,
-      "reason": "Fixed requirement ('must have a hart ID of zero') \u2014 not an implementer choice. The 'might not necessarily be contiguous' is a statement of fact, not a parameter."
-    },
-    {
-      "excerpt": "If supervisor mode is not implemented, then SIE and SPIE are read-only 0.",
-      "line_number": 322,
-      "reason": "Fixed requirement conditional on S-mode not being implemented. Not an implementer choice about whether to make them read-only; it is a mandatory rule."
-    },
-    {
-      "excerpt": "MEIP is read-only in `mip`, and is set and cleared by a platform-specific interrupt controller.",
-      "line_number": 1063,
-      "reason": "Fixed fact that MEIP is read-only in mip. Not an implementer choice \u2014 this is a fixed architectural property."
+      "excerpt": "The `mtime` register will wrap around if the count overflows.",
+      "line_number": 1349,
+      "reason": "Statement of fixed behavior \u2014 mtime always wraps on overflow. No implementer choice; this is a mandatory behavioral specification."
     },
     {
       "excerpt": "PMP violations are always trapped precisely at the processor.",
-      "line_number": 1773,
-      "reason": "Fixed requirement ('always trapped precisely') \u2014 not an implementer choice. Applies to all implementations."
+      "line_number": 1735,
+      "reason": "Fixed 'always' requirement. PMP violations must be precisely trapped \u2014 no implementer choice. Not a parameter."
+    },
+    {
+      "excerpt": "Reset and NMI vector locations are given in a platform specification.",
+      "line_number": 893,
+      "reason": "NON_ISA \u2014 this is inside a NOTE block and refers to platform-level specification of reset/NMI vectors, which are outside ISA scope."
+    },
+    {
+      "excerpt": "When a trap is taken into M-mode, `mepc` is written with the virtual address of the instruction that was interrupted or that encountered the exception.",
+      "line_number": 1258,
+      "reason": "Fixed behavioral description of what happens on trap. No implementer choice \u2014 mepc is always written with the faulting VA. Not a parameter."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"a value of zero can be returned to indicate the `misa` register has not been implemented, requiring that CPU capabilities be determined through a separate non-standard mechanism.\",\n      \"line_number\": 21,\n      \"parameter_name\": \"MISA_CSR_IMPLEMENTED\",\n      \"existing_udb_name\": \"MISA_CSR_IMPLEMENTED\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"a value of zero can be returned to indicate the `misa` register has not been implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether misa is implemented or returns zero. 'can be returned' signals an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The Extensions field is a *WARL* field that can contain writable bits where the implementation allows the supported ISA to be modified.\",\n      \"line_number\": 65,\n      \"parameter_name\": \"MUTABLE_MISA_A\",\n      \"existing_udb_name\": \"MUTABLE_MISA_A\",\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"can contain writable bits where the implementation allows the supported ISA to be modified\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The Extensions field is WARL and which bits are writable is an implementation choice. This covers all the MUTABLE_MISA_x parameters (A, B, C, D, F, H, M, Q, S, U, V, etc.).\"\n    },\n    {\n      \"excerpt\": \"An implementation may impose additional constraints on the collective setting of two or more `misa` fields, in which case they function collectively as a single *WARL* field.\",\n      \"line_number\": 155,\n      \"parameter_name\": \"MISA_COLLECTIVE_WARL_CONSTRAINTS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"An implementation may impose additional constraints\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may choose to impose additional constraints on combinations of misa fields, making them collectively WARL. This is an implementation-defined choice about legal value combinations.\"\n    },\n    {\n      \"excerpt\": \"a value of 0 can be returned to indicate the field is not implemented or that this is a non-commercial implementation.\",\n      \"line_number\": 196,\n      \"parameter_name\": \"VENDOR_ID_BANK\",\n      \"existing_udb_name\": \"VENDOR_ID_BANK\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"a value of 0 can be returned to indicate the field is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The mvendorid value (Bank and Offset fields) is an implementation-defined value. The spec says 0 can be returned, implying the implementation sets this value.\"\n    },\n    {\n      \"excerpt\": \"This register must be readable in any implementation, but a value of 0 can be returned to indicate the field is not implemented.\",\n      \"line_number\": 222,\n      \"parameter_name\": \"MARCHID_IMPLEMENTED\",\n      \"existing_udb_name\": \"MARCHID_IMPLEMENTED\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"a value of 0 can be returned to indicate the field is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to return a real architecture ID or 0 to indicate not implemented. Binary choice.\"\n    },\n    {\n      \"excerpt\": \"This register must be readable in any implementation, but a value of 0 can be returned to indicate that the field is not implemented.\",\n      \"line_number\": 243,\n      \"parameter_name\": \"MIMPID_IMPLEMENTED\",\n      \"existing_udb_name\": \"MIMPID_IMPLEMENTED\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"a value of 0 can be returned to indicate that the field is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to return a real implementation ID or 0. Binary choice about whether mimpid is implemented.\"\n    },\n    {\n      \"excerpt\": \"an implementation may make SXL be a read-only field whose value always ensures that SXLEN=MXLEN.\",\n      \"line_number\": 393,\n      \"parameter_name\": \"SXLEN\",\n      \"existing_udb_name\": \"SXLEN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"an implementation may make SXL be a read-only field\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may make SXL read-only (fixing SXLEN=MXLEN) or writable. This is a NORM_CSR_RW parameter about whether the SXL field is read-only or writable.\"\n    },\n    {\n      \"excerpt\": \"an implementation may make UXL be a read-only field whose value always ensures that UXLEN=MXLEN or UXLEN=SXLEN.\",\n      \"line_number\": 398,\n      \"parameter_name\": \"UXLEN\",\n      \"existing_udb_name\": \"UXLEN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"an implementation may make UXL be a read-only field\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may make UXL read-only (fixing UXLEN=MXLEN or UXLEN=SXLEN) or writable. This is a NORM_CSR_RW parameter.\"\n    },\n    {\n      \"excerpt\": \"If S-mode is supported, an implementation may make SBE be a read-only copy of MBE.\",\n      \"line_number\": 571,\n      \"parameter_name\": \"S_MODE_ENDIANNESS\",\n      \"existing_udb_name\": \"S_MODE_ENDIANNESS\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"an implementation may make SBE be a read-only copy of MBE\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether SBE is writable or a read-only copy of MBE. This controls the RO/RW nature of the SBE field.\"\n    },\n    {\n      \"excerpt\": \"If U-mode is supported, an implementation may make UBE be a read-only copy of either MBE or SBE.\",\n      \"line_number\": 573,\n      \"parameter_name\": \"U_MODE_ENDIANNESS\",\n      \"existing_udb_name\": \"U_MODE_ENDIANNESS\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"an implementation may make UBE be a read-only copy of either MBE or SBE\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether UBE is writable or a read-only copy of MBE or SBE. This is a NORM_CSR_RW parameter.\"\n    },\n    {\n      \"excerpt\": \"An implementation may have WFI always raise an illegal-instruction exception in modes less privileged than M when TW=1, even if there are pending globally-disabled interrupts when the instruction is executed.\",\n      \"line_number\": 638,\n      \"parameter_name\": \"MSTATUS_TVM_IMPLEMENTED\",\n      \"existing_udb_name\": \"MSTATUS_TVM_IMPLEMENTED\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"An implementation may have WFI always raise an illegal-instruction exception\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The implementation may choose to always raise an illegal-instruction exception for WFI when TW=1, regardless of pending interrupts. This is an implementation choice about WFI behavior when TW=1.\"\n    },\n    {\n      \"excerpt\": \"If S-mode is implemented but the F extension is not, FS may optionally be read-only zero.\",\n      \"line_number\": 762,\n      \"parameter_name\": \"MSTATUS_FS_LEGAL_VALUES\",\n      \"existing_udb_name\": \"MSTATUS_FS_LEGAL_VALUES\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may optionally be read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"When S-mode is implemented but F extension is not, the implementation may choose to make FS read-only zero or not. This is a NORM_CSR_RW parameter about whether FS is read-only zero.\"\n    },\n    {\n      \"excerpt\": \"If S-mode is implemented but the `v` registers are not, VS may optionally be read-only zero.\",\n      \"line_number\": 773,\n      \"parameter_name\": \"MSTATUS_VS_LEGAL_VALUES\",\n      \"existing_udb_name\": \"MSTATUS_VS_LEGAL_VALUES\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may optionally be read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"When S-mode is implemented but V registers are not, the implementation may choose to make VS read-only zero or not. This is a NORM_CSR_RW parameter.\"\n    },\n    {\n      \"excerpt\": \"Implementations may choose to track the dirtiness of the floating-point register state imprecisely by reporting the state to be dirty even when it has not been modified. On some implementations, some instructions that do not mutate the floating-point state may cause the state to transition from Initial or Clean to Dirty.\",\n      \"line_number\": 826,\n      \"parameter_name\": \"HW_MSTATUS_FS_DIRTY_UPDATE\",\n      \"existing_udb_name\": \"HW_MSTATUS_FS_DIRTY_UPDATE\",\n      \"class\": \"SW_RULE\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"Implementations may choose to track the dirtiness of the floating-point register state imprecisely\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether hardware updates mstatus.FS to Dirty imprecisely is implementation-defined. The implementation chooses the dirtiness tracking strategy.\"\n    },\n    {\n      \"excerpt\": \"If an instruction explicitly or implicitly writes a floating-point register or the `fcsr` but does not alter its contents, and FS=Initial or FS=Clean, it is implementation-defined whether FS transitions to Dirty.\",\n      \"line_number\": 835,\n      \"parameter_name\": \"HW_MSTATUS_FS_DIRTY_UPDATE\",\n      \"existing_udb_name\": \"HW_MSTATUS_FS_DIRTY_UPDATE\",\n      \"class\": \"SW_RULE\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"it is implementation-defined whether FS transitions to Dirty\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether FS transitions to Dirty when a no-op write occurs is implementation-defined. This is the same parameter as above but with explicit 'implementation-defined' language.\"\n    },\n    {\n      \"excerpt\": \"Implementations may choose to track the dirtiness of the vector register state in an analogous imprecise fashion, including possibly setting VS to Dirty when software attempts to set VS=Initial or VS=Clean.\",\n      \"line_number\": 839,\n      \"parameter_name\": \"HW_MSTATUS_VS_DIRTY_UPDATE\",\n      \"existing_udb_name\": \"HW_MSTATUS_VS_DIRTY_UPDATE\",\n      \"class\": \"SW_RULE\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"Implementations may choose to track the dirtiness of the vector register state in an analogous imprecise fashion\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether hardware updates mstatus.VS to Dirty imprecisely is implementation-defined. The implementation chooses the VS dirtiness tracking strategy.\"\n    },\n    {\n      \"excerpt\": \"When VS=Initial or VS=Clean, it is implementation-defined whether an instruction that writes a vector register or vector CSR but does not alter its contents causes VS to transition to Dirty.\",\n      \"line_number\": 841,\n      \"parameter_name\": \"HW_MSTATUS_VS_DIRTY_UPDATE\",\n      \"existing_udb_name\": \"HW_MSTATUS_VS_DIRTY_UPDATE\",\n      \"class\": \"SW_RULE\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"it is implementation-defined whether an instruction that writes a vector register or vector CSR but does not alter its contents causes VS to transition to Dirty\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether VS transitions to Dirty on a no-op write is implementation-defined. Same parameter as above with explicit language.\"\n    },\n    {\n      \"excerpt\": \"The `mtvec` register must always be implemented, but can contain a read-only value.\",\n      \"line_number\": 912,\n      \"parameter_name\": \"MTVEC_ACCESS\",\n      \"existing_udb_name\": \"MTVEC_ACCESS\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"can contain a read-only value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether mtvec is read-only or read-write. Binary choice about mutability.\"\n    },\n    {\n      \"excerpt\": \"If `mtvec` is writable, the set of values the register may hold can vary by implementation.\",\n      \"line_number\": 913,\n      \"parameter_name\": \"MTVEC_MODES\",\n      \"existing_udb_name\": \"MTVEC_MODES\",\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"the set of values the register may hold can vary by implementation\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The set of legal values for mtvec (including which MODE values are supported) varies by implementation. This is a NORM_CSR_WARL parameter.\"\n    },\n    {\n      \"excerpt\": \"the MODE setting may impose additional alignment constraints on the value in the BASE field.\",\n      \"line_number\": 916,\n      \"parameter_name\": \"MTVEC_BASE_ALIGNMENT_VECTORED\",\n      \"existing_udb_name\": \"MTVEC_BASE_ALIGNMENT_VECTORED\",\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"may impose additional alignment constraints\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The MODE setting may impose additional alignment constraints on BASE, meaning the implementation defines what alignment is required for each MODE. This is a WARL constraint on the BASE field.\"\n    },\n    {\n      \"excerpt\": \"implementations can provide individual read/write bits within `medeleg` and `mideleg` to indicate that certain exceptions and interrupts should be processed directly by a lower privilege level.\",\n      \"line_number\": 952,\n      \"parameter_name\": \"MEDELEG_MIDELEG_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"implementations can provide individual read/write bits\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether to provide read/write bits in medeleg/mideleg for trap delegation. This is an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"An implementation can choose to subset the delegatable traps, with the supported delegatable bits found by writing one to every bit location, then reading back the value in `medeleg` or `mideleg` to see which bit positions hold a one.\",\n      \"line_number\": 975,\n      \"parameter_name\": \"MEDELEG_MIDELEG_WARL_BITS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"An implementation can choose to subset the delegatable traps\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses which trap delegation bits are writable in medeleg/mideleg. This is a WARL parameter about which bits are read-write vs read-only-zero.\"\n    },\n    {\n      \"excerpt\": \"may do so for lower-level interrupts\",\n      \"line_number\": 982,\n      \"parameter_name\": \"MIDELEG_LOWER_LEVEL_RO1_BITS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"may do so for lower-level interrupts\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The implementation may fix as read-only one bits of mideleg corresponding to lower-level interrupts. This is an implementation choice about which mideleg bits are read-only-one.\"\n    },\n    {\n      \"excerpt\": \"Each individual bit in register `mip` may be writable or may be read-only.\",\n      \"line_number\": 1046,\n      \"parameter_name\": \"MIP_WRITABLE_BITS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"may be writable or may be read-only\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Each bit in mip may be writable or read-only, which is an implementation choice. This is a NORM_CSR_RW parameter about which bits are writable.\"\n    },\n    {\n      \"excerpt\": \"If a system has only one hart, or if a platform standard supports the delivery of machine-level interprocessor interrupts through external interrupts (MEI) instead, then `mip`.MSIP and `mie`.MSIE may both be read-only zeros.\",\n      \"line_number\": 1083,\n      \"parameter_name\": \"MIP_MSIP_MIE_MSIE_RO_ZERO\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may both be read-only zeros\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Under certain conditions, mip.MSIP and mie.MSIE may be read-only zeros. This is an implementation choice about whether these bits are writable.\"\n    },\n    {\n      \"excerpt\": \"a legal implementation is to make both the counter and its corresponding event selector be read-only 0.\",\n      \"line_number\": 1148,\n      \"parameter_name\": \"HPM_COUNTER_EN\",\n      \"existing_udb_name\": \"HPM_COUNTER_EN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"a legal implementation is to make both the counter and its corresponding event selector be read-only 0\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may make any HPM counter and its event selector read-only zero, indicating which counters are implemented. This is a NORM_CSR_RW parameter.\"\n    },\n    {\n      \"excerpt\": \"In harts with U-mode, the `mcounteren` must be implemented, but all fields are *WARL* and may be read-only zero, indicating reads to the corresponding counter will cause an illegal-instruction exception when executing in a less-privileged mode.\",\n      \"line_number\": 1185,\n      \"parameter_name\": \"MCOUNTENABLE_EN\",\n      \"existing_udb_name\": \"MCOUNTENABLE_EN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"may be read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Which bits of mcounteren are writable vs read-only-zero is an implementation choice. This is a NORM_CSR_RW parameter about which counter-enable bits are implemented.\"\n    },\n    {\n      \"excerpt\": \"The counter-inhibit register `mcountinhibit` is a 32-bit *WARL* register that controls which of the hardware performance-monitoring counters increment.\",\n      \"line_number\": 1199,\n      \"parameter_name\": \"COUNTINHIBIT_EN\",\n      \"existing_udb_name\": \"COUNTINHIBIT_EN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"WARL register that controls which of the hardware performance-monitoring counters increment\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"mcountinhibit is WARL, meaning which bits are writable (i.e., which counters can be inhibited) is implementation-defined. This is a NORM_CSR_RW parameter.\"\n    },\n    {\n      \"excerpt\": \"If the `mcountinhibit` register is not implemented, the implementation behaves as though the register were set to zero.\",\n      \"line_number\": 1215,\n      \"parameter_name\": \"MCOUNTINHIBIT_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"If the `mcountinhibit` register is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may choose not to implement mcountinhibit. This is a binary implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The low bit of `mepc` (`mepc[0]`) is always zero. On implementations that support only IALIGN=32, the two low bits (`mepc[1:0]`) are always zero.\",\n      \"line_number\": 1258,\n      \"parameter_name\": \"MEPC_IALIGN32_BITS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"On implementations that support only IALIGN=32\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"Whether the implementation supports only IALIGN=32 (fixing mepc[1:0]=0) or also IALIGN=16 is an implementation choice. This affects the WARL behavior of mepc.\"\n    },\n    {\n      \"excerpt\": \"Prior to writing `mepc`, implementations may convert an invalid address into some other invalid address that `mepc` is capable of holding.\",\n      \"line_number\": 1268,\n      \"parameter_name\": \"MEPC_INVALID_ADDR_CONVERSION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"implementations may convert an invalid address into some other invalid address\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The implementation may choose to convert invalid addresses written to mepc. This is a WARL behavior choice about how invalid addresses are handled.\"\n    },\n    {\n      \"excerpt\": \"The priority of any custom synchronous exceptions is implementation-defined.\",\n      \"line_number\": 1310,\n      \"parameter_name\": \"CUSTOM_EXCEPTION_PRIORITY\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"implementation-defined\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The priority of custom synchronous exceptions relative to standard ones is implementation-defined. This is a NORM_DIRECT parameter.\"\n    },\n    {\n      \"excerpt\": \"Load/store/AMO address-misaligned exceptions may have either higher or lower priority than load/store/AMO page-fault and access-fault exceptions.\",\n      \"line_number\": 1358,\n      \"parameter_name\": \"MISALIGNED_LDST_EXCEPTION_PRIORITY\",\n      \"existing_udb_name\": \"MISALIGNED_LDST_EXCEPTION_PRIORITY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may have either higher or lower priority\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The relative priority of misaligned address exceptions vs page-fault/access-fault exceptions is an implementation choice. Binary choice between higher or lower priority.\"\n    },\n    {\n      \"excerpt\": \"The `mtval` register can optionally also be used to return the faulting instruction bits on an illegal-instruction exception (`mepc` points to the faulting instruction in memory).\",\n      \"line_number\": 1399,\n      \"parameter_name\": \"REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION\",\n      \"existing_udb_name\": \"REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"can optionally also be used to return the faulting instruction bits\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether mtval reports the faulting instruction encoding on illegal-instruction exceptions is optional. No CSR field controls this; it is a design-time choice.\"\n    },\n    {\n      \"excerpt\": \"If `mtval` is not read-only zero, it is a *WARL* register that must be able to hold all valid virtual addresses and the value zero.\",\n      \"line_number\": 1424,\n      \"parameter_name\": \"MTVAL_WIDTH\",\n      \"existing_udb_name\": \"MTVAL_WIDTH\",\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"If `mtval` is not read-only zero, it is a *WARL* register\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"mtval is WARL and must hold valid virtual addresses. The width and legal values are implementation-defined. The 'if not read-only zero' also implies the implementation may make it read-only zero.\"\n    },\n    {\n      \"excerpt\": \"If the hardware platform specifies that no exceptions set `mtval` to a nonzero value, then `mtval` is read-only zero.\",\n      \"line_number\": 1381,\n      \"parameter_name\": \"MTVAL_READONLY_ZERO\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"then `mtval` is read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The hardware platform specifies whether mtval is read-only zero or writable. This is a NORM_CSR_RW parameter about the mutability of mtval.\"\n    },\n    {\n      \"excerpt\": \"it may be zero to indicate the configuration data structure does not exist or that an alternative mechanism must be used to locate it.\",\n      \"line_number\": 1449,\n      \"parameter_name\": \"CONFIG_PTR_ADDRESS\",\n      \"existing_udb_name\": \"CONFIG_PTR_ADDRESS\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"it may be zero to indicate the configuration data structure does not exist\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The value of mconfigptr is implementation-defined. The implementation sets this to a physical address or zero. This is a NORM_DIRECT value parameter.\"\n    },\n    {\n      \"excerpt\": \"If S-mode is not supported, or if `satp`.MODE is read-only zero (always Bare), the implementation may make FIOM read-only zero.\",\n      \"line_number\": 1476,\n      \"parameter_name\": \"MENVCFG_FIOM_READONLY_ZERO\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"the implementation may make FIOM read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Under certain conditions, the implementation may make the FIOM bit in menvcfg read-only zero. This is a NORM_CSR_RW parameter.\"\n    },\n    {\n      \"excerpt\": \"The `pc` is set to an implementation-defined reset vector.\",\n      \"line_number\": 1614,\n      \"parameter_name\": \"RESET_VECTOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation-defined reset vector\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The reset vector is implementation-defined but is a platform/physical-design choice outside the ISA scope (NON_ISA). It is the address the PC is set to on reset, which is a platform specification.\"\n    },\n    {\n      \"excerpt\": \"The `mcause` register is set to a value indicating the cause of the reset.\",\n      \"line_number\": 1615,\n      \"parameter_name\": \"MCAUSE_RESET_VALUE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"set to a value indicating the cause of the reset\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The value written to mcause on reset is implementation-specific (confirmed by later text 'implementation-specific interpretation'). The implementation chooses what value to report.\"\n    },\n    {\n      \"excerpt\": \"The `mcause` values after reset have implementation-specific interpretation, but the value 0 should be returned on implementations that do not distinguish different reset conditions.\",\n      \"line_number\": 1624,\n      \"parameter_name\": \"MCAUSE_RESET_VALUE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation-specific interpretation\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The mcause value after reset has implementation-specific interpretation. The implementation chooses what reset cause values to report.\"\n    },\n    {\n      \"excerpt\": \"cause an immediate jump to an implementation-defined NMI vector running in M-mode regardless of the state of a hart's interrupt enable bits.\",\n      \"line_number\": 1636,\n      \"parameter_name\": \"NMI_VECTOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation-defined NMI vector\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The NMI vector address is implementation-defined but is a platform/physical-design choice (NON_ISA), as noted in the negative examples.\"\n    },\n    {\n      \"excerpt\": \"The values written to `mcause` on an NMI are implementation-defined.\",\n      \"line_number\": 1640,\n      \"parameter_name\": \"NMI_MCAUSE_VALUE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation-defined\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The values written to mcause on an NMI are implementation-defined. The implementation chooses what cause values to report for NMIs.\"\n    },\n    {\n      \"excerpt\": \"Where the attributes are run-time configurable, platform-specific memory-mapped control registers can be provided to specify these attributes at a granularity appropriate to each region on the platform.\",\n      \"line_number\": 1672,\n      \"parameter_name\": \"PMA_GRANULARITY\",\n      \"existing_udb_name\": \"PMA_GRANULARITY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"can be provided to specify these attributes at a granularity appropriate to each region\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The granularity of PMA configuration is platform-specific and implementation-defined. The implementation chooses the granularity of PMA regions.\"\n    },\n    {\n      \"excerpt\": \"The granularity of PMP access control settings are platform-specific, but the standard PMP encoding supports regions as small as four bytes.\",\n      \"line_number\": 1762,\n      \"parameter_name\": \"PMP_GRANULARITY\",\n      \"existing_udb_name\": \"PMP_GRANULARITY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"are platform-specific\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The granularity of PMP access control is platform-specific. The implementation chooses the minimum PMP region size (which must be at least 4 bytes).\"\n    },\n    {\n      \"excerpt\": \"Optionally, PMP checks may additionally apply to M-mode accesses, in which case the PMP registers themselves are locked, so that even M-mode software cannot change them until the hart is reset.\",\n      \"line_number\": 1771,\n      \"parameter_name\": \"PMP_MMODE_LOCKING\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"Optionally, PMP checks may additionally apply to M-mode accesses\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether PMP checks apply to M-mode accesses is optional. The implementation chooses whether to support M-mode PMP locking.\"\n    },\n    {\n      \"excerpt\": \"The size of these naturally aligned power-of-2 regions is implementation-defined, but, for systems with page-based virtual memory, must not exceed the smallest supported page size.\",\n      \"line_number\": 1836,\n      \"parameter_name\": \"PMA_IDEMPOTENT_IMPLICIT_READ_SIZE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"is implementation-defined\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The size of naturally aligned power-of-2 regions for implicit reads in non-idempotent regions is implementation-defined. The implementation chooses this size within the stated constraints.\"\n    },\n    {\n      \"excerpt\": \"Implementations are permitted to resume execution for any reason, even if an enabled interrupt has not become pending. Hence, a legal implementation is to simply implement the WFI instruction as a NOP.\",\n      \"line_number\": 1590,\n      \"parameter_name\": \"WFI_NOP_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"Implementations are permitted to resume execution for any reason\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may choose to implement WFI as a NOP or as an actual wait. This is an implementation choice about WFI behavior.\"\n    },\n    {\n      \"excerpt\": \"WFI is available in all privileged modes, and optionally available to U-mode.\",\n      \"line_number\": 1572,\n      \"parameter_name\": \"WFI_U_MODE_AVAILABLE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"optionally available to U-mode\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether WFI is available in U-mode is optional. The implementation chooses whether to support WFI in U-mode.\"\n    },\n    {\n      \"excerpt\": \"If the A extension is supported, the __x__RET instruction is allowed to clear any outstanding LR address reservation but is not required to.\",\n      \"line_number\": 1563,\n      \"parameter_name\": \"XRET_CLEARS_LR_RESERVATION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"is allowed to clear any outstanding LR address reservation but is not required to\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether xRET clears LR reservations is an implementation choice. The implementation may or may not clear the reservation on xRET.\"\n    },\n    {\n      \"excerpt\": \"When such a HINT is executed with XLEN < MXLEN and bits MXLEN..XLEN of the destination register not all equal to bit XLEN-1, it is implementation-defined whether bits MXLEN..XLEN of the destination register are unchanged or are overwritten with copies of bit XLEN-1.\",\n      \"line_number\": 408,\n      \"parameter_name\": \"HINT_XLEN_REDUCTION_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"it is implementation-defined whether bits MXLEN..XLEN of the destination register are unchanged or are overwritten\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"When a HINT is executed with XLEN < MXLEN, the behavior of upper bits is implementation-defined. The implementation chooses whether to sign-extend or leave unchanged.\"\n    },\n    {\n      \"excerpt\": \"Prior to writing `mtval`, implementations may convert an invalid address into some other invalid address that `mtval` is capable of holding.\",\n      \"line_number\": 1426,\n      \"parameter_name\": \"MTVAL_INVALID_ADDR_CONVERSION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"implementations may convert an invalid address into some other invalid address\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The implementation may choose to convert invalid addresses written to mtval. This is a WARL behavior choice.\"\n    },\n    {\n      \"excerpt\": \"Implementations may raise access-fault exceptions instead of address-misaligned exceptions for some misaligned accesses, indicating the instruction should not be emulated by a trap handler.\",\n      \"line_number\": 1812,\n      \"parameter_name\": \"PMA_MAG_EXCEPTION_TYPE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"Implementations may raise access-fault exceptions instead of address-misaligned exceptions\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may choose to raise access-fault instead of address-misaligned exceptions for some misaligned accesses. This is an implementation choice.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"M-mode is used for low-level access to a hardware platform and is the first mode entered at reset.\",\n      \"line_number\": 6,\n      \"reason\": \"Fixed fact/requirement about M-mode behavior. No implementer choice; 'is' describes a fixed property.\"\n    },\n    {\n      \"excerpt\": \"The MXL field is read-only.\",\n      \"line_number\": 30,\n      \"reason\": \"Fixed requirement ('is read-only') \u2014 not an implementer choice. Every implementation must have MXL read-only.\"\n    },\n    {\n      \"excerpt\": \"All bits that are reserved for future use must return zero when read.\",\n      \"line_number\": 100,\n      \"reason\": \"Fixed requirement ('must return zero') \u2014 not an implementer choice. Applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"Hart IDs might not necessarily be numbered contiguously in a multiprocessor system, but one hart must have a hart ID of zero.\",\n      \"line_number\": 271,\n      \"reason\": \"Fixed requirement ('must have a hart ID of zero') \u2014 not an implementer choice. The 'might not necessarily be contiguous' is a statement of fact, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"If supervisor mode is not implemented, then SIE and SPIE are read-only 0.\",\n      \"line_number\": 322,\n      \"reason\": \"Fixed requirement conditional on S-mode not being implemented. Not an implementer choice about whether to make them read-only; it is a mandatory rule.\"\n    },\n    {\n      \"excerpt\": \"MEIP is read-only in `mip`, and is set and cleared by a platform-specific interrupt controller.\",\n      \"line_number\": 1063,\n      \"reason\": \"Fixed fact that MEIP is read-only in mip. Not an implementer choice \u2014 this is a fixed architectural property.\"\n    },\n    {\n      \"excerpt\": \"PMP violations are always trapped precisely at the processor.\",\n      \"line_number\": 1773,\n      \"reason\": \"Fixed requirement ('always trapped precisely') \u2014 not an implementer choice. Applies to all implementations.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 56024,
-  "output_tokens": 10402,
-  "latency_ms": 148694,
-  "timestamp": "2026-06-29T10:31:23.297909+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"a value of zero can be returned to indicate the `misa` register has not been implemented, requiring that CPU capabilities be determined through a separate non-standard mechanism.\",\n      \"line_number\": 21,\n      \"parameter_name\": \"MISA_CSR_IMPLEMENTED\",\n      \"existing_udb_name\": \"MISA_CSR_IMPLEMENTED\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"a value of zero can be returned to indicate the `misa` register has not been implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether misa is implemented or returns zero. This is a binary design-time choice signaled by 'can be returned to indicate ... has not been implemented'.\"\n    },\n    {\n      \"excerpt\": \"The `misa` CSR is MXLEN bits wide.\",\n      \"line_number\": 44,\n      \"parameter_name\": \"MXLEN\",\n      \"existing_udb_name\": \"MXLEN\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"implementer sets the base integer ISA width (MXLEN)\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"MXLEN is an implementation-chosen width (32 or 64) encoded in misa.MXL. The spec declares the CSR is MXLEN bits wide, which is a declared architectural width parameter per pattern 6. The MXL encoding table shows values 1=32, 2=64.\"\n    },\n    {\n      \"excerpt\": \"The Extensions field is a *WARL* field that can contain writable bits where the implementation allows the supported ISA to be modified.\",\n      \"line_number\": 68,\n      \"parameter_name\": \"MUTABLE_MISA_EXTENSIONS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"can contain writable bits where the implementation allows the supported ISA to be modified\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The Extensions field is WARL and which bits are writable (i.e., which extensions can be dynamically enabled/disabled) is an implementation choice. This covers the general WARL nature; individual extension mutability parameters (MUTABLE_MISA_A, etc.) are known UDB parameters but this sentence is the general declaration.\"\n    },\n    {\n      \"excerpt\": \"An implementation may impose additional constraints on the collective setting of two or more `misa` fields, in which case they function collectively as a single *WARL* field.\",\n      \"line_number\": 161,\n      \"parameter_name\": \"MISA_COLLECTIVE_WARL_CONSTRAINTS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"An implementation may impose additional constraints\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The implementation may choose to impose additional constraints on combinations of misa extension bits, making them collectively WARL. This is an implementation-defined choice about which combinations of misa fields are legal.\"\n    },\n    {\n      \"excerpt\": \"This register must be readable in any implementation, but a value of 0 can be returned to indicate the field is not implemented or that this is a non-commercial implementation.\",\n      \"line_number\": 196,\n      \"parameter_name\": \"VENDOR_ID_BANK\",\n      \"existing_udb_name\": \"VENDOR_ID_BANK\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"a value of 0 can be returned to indicate the field is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The mvendorid register holds an implementation-chosen JEDEC manufacturer ID encoded in Bank and Offset fields. The Bank field value is chosen by the implementer (pattern 5 \u2014 implementation-chosen ID value). Emitting VENDOR_ID_BANK as the value parameter.\"\n    },\n    {\n      \"excerpt\": \"This register must be readable in any implementation, but a value of 0 can be returned to indicate the field is not implemented or that this is a non-commercial implementation.\",\n      \"line_number\": 196,\n      \"parameter_name\": \"VENDOR_ID_OFFSET\",\n      \"existing_udb_name\": \"VENDOR_ID_OFFSET\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"a value of 0 can be returned to indicate the field is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The mvendorid Offset field encodes the final JEDEC byte (discarding parity). This is an implementation-chosen value per pattern 5. Emitting VENDOR_ID_OFFSET as the value parameter.\"\n    },\n    {\n      \"excerpt\": \"The `marchid` CSR is an MXLEN-bit read-only register encoding the base microarchitecture of the hart. This register must be readable in any implementation, but a value of 0 can be returned to indicate the field is not implemented.\",\n      \"line_number\": 222,\n      \"parameter_name\": \"MARCHID_IMPLEMENTED\",\n      \"existing_udb_name\": \"MARCHID_IMPLEMENTED\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"a value of 0 can be returned to indicate the field is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether marchid is implemented (non-zero) or returns 0 is an implementation choice. Binary parameter per pattern 5.\"\n    },\n    {\n      \"excerpt\": \"The `marchid` CSR is an MXLEN-bit read-only register encoding the base microarchitecture of the hart.\",\n      \"line_number\": 222,\n      \"parameter_name\": \"ARCH_ID_VALUE\",\n      \"existing_udb_name\": \"ARCH_ID_VALUE\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementer chooses the architecture ID value encoding the base microarchitecture\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"marchid encodes an implementation-chosen architecture ID value. Per pattern 5, the chosen value itself is a parameter separate from whether the register is implemented.\"\n    },\n    {\n      \"excerpt\": \"The `mimpid` CSR provides a unique encoding of the version of the processor implementation. This register must be readable in any implementation, but a value of 0 can be returned to indicate that the field is not implemented.\",\n      \"line_number\": 248,\n      \"parameter_name\": \"MIMPID_IMPLEMENTED\",\n      \"existing_udb_name\": \"MIMPID_IMPLEMENTED\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"a value of 0 can be returned to indicate that the field is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether mimpid is implemented (non-zero) or returns 0 is an implementation choice. Binary parameter per pattern 5.\"\n    },\n    {\n      \"excerpt\": \"The `mimpid` CSR provides a unique encoding of the version of the processor implementation.\",\n      \"line_number\": 248,\n      \"parameter_name\": \"IMP_ID_VALUE\",\n      \"existing_udb_name\": \"IMP_ID_VALUE\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementer chooses the unique encoding of the version of the processor implementation\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"mimpid holds an implementation-chosen version encoding. Per pattern 5, the chosen value itself is a parameter.\"\n    },\n    {\n      \"excerpt\": \"If S-mode is implemented but the F extension is not, FS may optionally be read-only zero.\",\n      \"line_number\": 697,\n      \"parameter_name\": \"MSTATUS_FS_LEGAL_VALUES\",\n      \"existing_udb_name\": \"MSTATUS_FS_LEGAL_VALUES\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may optionally be read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"When S-mode is implemented but F is not, the implementation chooses whether FS is read-only zero or writable. This is a binary RO/RW choice for the FS field.\"\n    },\n    {\n      \"excerpt\": \"If S-mode is implemented but the `v` registers are not, VS may optionally be read-only zero.\",\n      \"line_number\": 714,\n      \"parameter_name\": \"MSTATUS_VS_LEGAL_VALUES\",\n      \"existing_udb_name\": \"MSTATUS_VS_LEGAL_VALUES\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may optionally be read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"When S-mode is implemented but V registers are not, the implementation chooses whether VS is read-only zero or writable. Binary RO/RW choice.\"\n    },\n    {\n      \"excerpt\": \"Implementations may choose to track the dirtiness of the floating-point register state imprecisely by reporting the state to be dirty even when it has not been modified. On some implementations, some instructions that do not mutate the floating-point state may cause the state to transition from Initial or Clean to Dirty.\",\n      \"line_number\": 773,\n      \"parameter_name\": \"HW_MSTATUS_FS_DIRTY_UPDATE\",\n      \"existing_udb_name\": \"HW_MSTATUS_FS_DIRTY_UPDATE\",\n      \"class\": \"SW_RULE\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"Implementations may choose to track the dirtiness of the floating-point register state imprecisely\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether hardware tracks FS dirtiness precisely or imprecisely is an implementation choice ('may choose to track ... imprecisely'). This matches the known UDB parameter HW_MSTATUS_FS_DIRTY_UPDATE.\"\n    },\n    {\n      \"excerpt\": \"If an instruction explicitly or implicitly writes a floating-point register or the `fcsr` but does not alter its contents, and FS=Initial or FS=Clean, it is implementation-defined whether FS transitions to Dirty.\",\n      \"line_number\": 782,\n      \"parameter_name\": \"HW_MSTATUS_FS_DIRTY_UPDATE\",\n      \"existing_udb_name\": \"HW_MSTATUS_FS_DIRTY_UPDATE\",\n      \"class\": \"SW_RULE\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"it is implementation-defined whether FS transitions to Dirty\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Explicitly states 'implementation-defined whether FS transitions to Dirty' when a no-op write occurs. This is the same parameter as above (HW_MSTATUS_FS_DIRTY_UPDATE) \u2014 the no-change-dirty variant.\"\n    },\n    {\n      \"excerpt\": \"Implementations may choose to track the dirtiness of the vector register state in an analogous imprecise fashion, including possibly setting VS to Dirty when software attempts to set VS=Initial or VS=Clean.\",\n      \"line_number\": 786,\n      \"parameter_name\": \"HW_MSTATUS_VS_DIRTY_UPDATE\",\n      \"existing_udb_name\": \"HW_MSTATUS_VS_DIRTY_UPDATE\",\n      \"class\": \"SW_RULE\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"Implementations may choose to track the dirtiness of the vector register state in an analogous imprecise fashion\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether hardware tracks VS dirtiness precisely or imprecisely is an implementation choice ('may choose to track ... imprecise fashion'). Matches known UDB parameter HW_MSTATUS_VS_DIRTY_UPDATE.\"\n    },\n    {\n      \"excerpt\": \"When VS=Initial or VS=Clean, it is implementation-defined whether an instruction that writes a vector register or vector CSR but does not alter its contents causes VS to transition to Dirty.\",\n      \"line_number\": 788,\n      \"parameter_name\": \"HW_MSTATUS_VS_DIRTY_UPDATE\",\n      \"existing_udb_name\": \"HW_MSTATUS_VS_DIRTY_UPDATE\",\n      \"class\": \"SW_RULE\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"it is implementation-defined whether an instruction ... causes VS to transition to Dirty\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Explicitly states 'implementation-defined' for VS dirty transition on no-change write. Same parameter as above.\"\n    },\n    {\n      \"excerpt\": \"an implementation may make SXL be a read-only field whose value always ensures that SXLEN=MXLEN.\",\n      \"line_number\": 432,\n      \"parameter_name\": \"SXLEN\",\n      \"existing_udb_name\": \"SXLEN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"an implementation may make SXL be a read-only field\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may make SXL read-only (fixing SXLEN=MXLEN) or writable. This is a binary RO/RW choice for the SXL field controlling SXLEN.\"\n    },\n    {\n      \"excerpt\": \"an implementation may make UXL be a read-only field whose value always ensures that UXLEN=MXLEN or UXLEN=SXLEN.\",\n      \"line_number\": 438,\n      \"parameter_name\": \"UXLEN\",\n      \"existing_udb_name\": \"UXLEN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"an implementation may make UXL be a read-only field\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may make UXL read-only (fixing UXLEN=MXLEN or UXLEN=SXLEN) or writable. Binary RO/RW choice for the UXL field controlling UXLEN.\"\n    },\n    {\n      \"excerpt\": \"If S-mode is supported, an implementation may make SBE be a read-only copy of MBE.\",\n      \"line_number\": 567,\n      \"parameter_name\": \"S_MODE_ENDIANNESS\",\n      \"existing_udb_name\": \"S_MODE_ENDIANNESS\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"an implementation may make SBE be a read-only copy of MBE\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether SBE is independently writable or a read-only copy of MBE. This controls S-mode endianness configurability.\"\n    },\n    {\n      \"excerpt\": \"If U-mode is supported, an implementation may make UBE be a read-only copy of either MBE or SBE.\",\n      \"line_number\": 569,\n      \"parameter_name\": \"U_MODE_ENDIANNESS\",\n      \"existing_udb_name\": \"U_MODE_ENDIANNESS\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"an implementation may make UBE be a read-only copy of either MBE or SBE\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether UBE is independently writable or a read-only copy of MBE or SBE. Controls U-mode endianness configurability.\"\n    },\n    {\n      \"excerpt\": \"The `mtvec` register must always be implemented, but can contain a read-only value.\",\n      \"line_number\": 870,\n      \"parameter_name\": \"MTVEC_ACCESS\",\n      \"existing_udb_name\": \"MTVEC_ACCESS\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"can contain a read-only value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether mtvec is read-only or read-write. Binary RO/RW choice.\"\n    },\n    {\n      \"excerpt\": \"If `mtvec` is writable, the set of values the register may hold can vary by implementation.\",\n      \"line_number\": 871,\n      \"parameter_name\": \"MTVEC_MODES\",\n      \"existing_udb_name\": \"MTVEC_MODES\",\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"the set of values the register may hold can vary by implementation\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The set of legal mtvec values (including MODE field values) varies by implementation. This is a WARL parameter for the mtvec register.\"\n    },\n    {\n      \"excerpt\": \"the MODE setting may impose additional alignment constraints on the value in the BASE field.\",\n      \"line_number\": 873,\n      \"parameter_name\": \"MTVEC_BASE_ALIGNMENT_VECTORED\",\n      \"existing_udb_name\": \"MTVEC_BASE_ALIGNMENT_VECTORED\",\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"may impose additional alignment constraints\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The MODE setting (particularly Vectored) may impose additional alignment constraints on BASE beyond the mandatory 4-byte alignment. The specific alignment is implementation-defined.\"\n    },\n    {\n      \"excerpt\": \"implementations can provide individual read/write bits within `medeleg` and `mideleg` to indicate that certain exceptions and interrupts should be processed directly by a lower privilege level.\",\n      \"line_number\": 912,\n      \"parameter_name\": \"MEDELEG_MIDELEG_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"implementations can provide individual read/write bits\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether medeleg/mideleg are implemented with writable bits is an implementation choice ('can provide'). In harts with S-mode they must exist, but the subset of delegatable traps is implementation-defined.\"\n    },\n    {\n      \"excerpt\": \"An implementation can choose to subset the delegatable traps, with the supported delegatable bits found by writing one to every bit location, then reading back the value in `medeleg` or `mideleg` to see which bit positions hold a one.\",\n      \"line_number\": 935,\n      \"parameter_name\": \"MEDELEG_DELEGATABLE_TRAPS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"An implementation can choose to subset the delegatable traps\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Which bits of medeleg/mideleg are writable (i.e., which traps can be delegated) is an implementation choice. The WARL nature means the legal set of delegatable traps varies by implementation.\"\n    },\n    {\n      \"excerpt\": \"may do so for lower-level interrupts\",\n      \"line_number\": 942,\n      \"parameter_name\": \"MIDELEG_LOWER_LEVEL_READONLY1\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"may do so for lower-level interrupts\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The implementation may fix lower-level interrupt delegation bits as read-only one in mideleg. This is an implementation choice about which mideleg bits are hardwired to 1.\"\n    },\n    {\n      \"excerpt\": \"If a system has only one hart, or if a platform standard supports the delivery of machine-level interprocessor interrupts through external interrupts (MEI) instead, then `mip`.MSIP and `mie`.MSIE may both be read-only zeros.\",\n      \"line_number\": 1063,\n      \"parameter_name\": \"MIP_MSIP_READONLY_ZERO\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may both be read-only zeros\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Under certain conditions (single hart or MEI delivery), mip.MSIP and mie.MSIE may be read-only zero. This is an implementation choice about the RO/RW nature of these bits.\"\n    },\n    {\n      \"excerpt\": \"All counters should be implemented, but a legal implementation is to make both the counter and its corresponding event selector be read-only 0.\",\n      \"line_number\": 1148,\n      \"parameter_name\": \"HPM_COUNTER_EN\",\n      \"existing_udb_name\": \"HPM_COUNTER_EN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"a legal implementation is to make both the counter and its corresponding event selector be read-only 0\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Which HPM counters are implemented (non-zero) vs read-only zero is an implementation choice. Per-counter binary choice forming a bitmask.\"\n    },\n    {\n      \"excerpt\": \"The `mhpmevent__n__` CSRs are provided only if the Sscofpmf extension is implemented.\",\n      \"line_number\": 1161,\n      \"parameter_name\": \"MHPMEVENTH_PRESENCE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"provided only if the Sscofpmf extension is implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether mhpmevent_n_h CSRs exist depends on whether Sscofpmf is implemented. This is a binary implementation choice.\"\n    },\n    {\n      \"excerpt\": \"In harts with U-mode, the `mcounteren` must be implemented, but all fields are *WARL* and may be read-only zero, indicating reads to the corresponding counter will cause an illegal-instruction exception when executing in a less-privileged mode.\",\n      \"line_number\": 1205,\n      \"parameter_name\": \"MCOUNTENABLE_EN\",\n      \"existing_udb_name\": \"MCOUNTENABLE_EN\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"may be read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Which bits of mcounteren are writable vs read-only zero is an implementation choice. This is a per-bit WARL/RO choice forming a bitmask parameter.\"\n    },\n    {\n      \"excerpt\": \"The `mcycle` CSR may be shared between harts on the same core, in which case writes to `mcycle` will be visible to those harts.\",\n      \"line_number\": 1133,\n      \"parameter_name\": \"MCYCLE_SHARED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may be shared between harts on the same core\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether mcycle is shared between harts on the same core is an implementation choice ('may be shared'). Binary design-time decision.\"\n    },\n    {\n      \"excerpt\": \"The `mcountinhibit` register is not implemented, the implementation behaves as though the register were set to zero.\",\n      \"line_number\": 1237,\n      \"parameter_name\": \"MCOUNTINHIBIT_IMPLEMENTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"If the `mcountinhibit` register is not implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether mcountinhibit is implemented is an implementation choice. The spec explicitly allows it to not be implemented.\"\n    },\n    {\n      \"excerpt\": \"The `pc` is set to an implementation-defined reset vector.\",\n      \"line_number\": 1310,\n      \"parameter_name\": \"RESET_VECTOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation-defined reset vector\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The reset vector address is implementation-defined, but this is a platform/physical-design choice outside the ISA scope (NON_ISA). The reset vector is a platform specification item, not an ISA architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"The `mcause` register is set to a value indicating the cause of the reset. ... The `mcause` values after reset have implementation-specific interpretation\",\n      \"line_number\": 1316,\n      \"parameter_name\": \"MCAUSE_RESET_VALUE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation-specific interpretation\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The value written to mcause on reset is implementation-specific. The implementation chooses which reset cause codes to use. This is a design-time choice about the reset cause encoding.\"\n    },\n    {\n      \"excerpt\": \"The `mtval` register can optionally also be used to return the faulting instruction bits on an illegal-instruction exception (`mepc` points to the faulting instruction in memory).\",\n      \"line_number\": 1476,\n      \"parameter_name\": \"REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION\",\n      \"existing_udb_name\": \"REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"can optionally also be used to return the faulting instruction bits\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether mtval reports the faulting instruction encoding on illegal-instruction exceptions is optional ('can optionally'). No CSR field controls this; it is a design-time choice.\"\n    },\n    {\n      \"excerpt\": \"If the hardware platform specifies that no exceptions set `mtval` to a nonzero value, then `mtval` is read-only zero.\",\n      \"line_number\": 1455,\n      \"parameter_name\": \"MTVAL_WIDTH\",\n      \"existing_udb_name\": \"MTVAL_WIDTH\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"then `mtval` is read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether mtval is read-only zero or writable depends on the hardware platform specification. This is a binary RO/RW choice for the mtval register.\"\n    },\n    {\n      \"excerpt\": \"The `mconfigptr` register must be implemented, but it may be zero to indicate the configuration data structure does not exist or that an alternative mechanism must be used to locate it.\",\n      \"line_number\": 1527,\n      \"parameter_name\": \"CONFIG_PTR_ADDRESS\",\n      \"existing_udb_name\": \"CONFIG_PTR_ADDRESS\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"it may be zero to indicate the configuration data structure does not exist\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The value held in mconfigptr (the physical address of the configuration data structure, or zero) is an implementation-chosen value. Per pattern 5, this is a value parameter.\"\n    },\n    {\n      \"excerpt\": \"If S-mode is not supported, or if `satp`.MODE is read-only zero (always Bare), the implementation may make FIOM read-only zero.\",\n      \"line_number\": 1558,\n      \"parameter_name\": \"MENVCFG_FIOM_READONLY_ZERO\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"the implementation may make FIOM read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Under certain conditions (no S-mode or satp.MODE always Bare), the implementation may make FIOM read-only zero. Binary RO/RW choice for the FIOM field.\"\n    },\n    {\n      \"excerpt\": \"The granularity of PMP access control settings are platform-specific, but the standard PMP encoding supports regions as small as four bytes.\",\n      \"line_number\": 1726,\n      \"parameter_name\": \"PMP_GRANULARITY\",\n      \"existing_udb_name\": \"PMP_GRANULARITY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"platform-specific\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The PMP granularity is platform-specific (implementation-defined). The minimum is 4 bytes but the actual granularity varies by implementation.\"\n    },\n    {\n      \"excerpt\": \"Optionally, PMP checks may additionally apply to M-mode accesses, in which case the PMP registers themselves are locked, so that even M-mode software cannot change them until the hart is reset.\",\n      \"line_number\": 1733,\n      \"parameter_name\": \"PMP_MMODE_LOCKING\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"Optionally, PMP checks may additionally apply to M-mode accesses\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether PMP checks apply to M-mode accesses is optional ('Optionally'). This is a binary design-time implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The size of these naturally aligned power-of-2 regions is implementation-defined, but, for systems with page-based virtual memory, must not exceed the smallest supported page size.\",\n      \"line_number\": 1714,\n      \"parameter_name\": \"PMA_GRANULARITY\",\n      \"existing_udb_name\": \"PMA_GRANULARITY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"implementation-defined\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The size of naturally aligned power-of-2 regions for non-idempotent implicit accesses is implementation-defined. This is a design-time choice bounded by the smallest supported page size.\"\n    },\n    {\n      \"excerpt\": \"optionally available to U-mode.\",\n      \"line_number\": 1280,\n      \"parameter_name\": \"WFI_U_MODE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"optionally available to U-mode\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether WFI is available in U-mode is optional ('optionally available to U-mode'). Binary implementation choice.\"\n    },\n    {\n      \"excerpt\": \"If the A extension is supported, the __x__RET instruction is allowed to clear any outstanding LR address reservation but is not required to.\",\n      \"line_number\": 1271,\n      \"parameter_name\": \"XRET_CLEARS_LR_RESERVATION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"is allowed to clear any outstanding LR address reservation but is not required to\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether xRET clears LR reservations is an implementation choice ('allowed to ... but is not required to'). Binary design-time decision.\"\n    },\n    {\n      \"excerpt\": \"The `mhpmevent__n__` event selector CSRs, `mhpmevent3`-`mhpmevent31`, are 64-bit *WARL* registers that control which event causes the corresponding counter to increment.\",\n      \"line_number\": 1143,\n      \"parameter_name\": \"HPM_EVENTS\",\n      \"existing_udb_name\": \"HPM_EVENTS\",\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"WARL registers\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The mhpmevent CSRs are WARL, meaning the set of legal event selector values is implementation-defined. The implementation chooses which events are supported.\"\n    },\n    {\n      \"excerpt\": \"The values written to `mcause` on an NMI are implementation-defined.\",\n      \"line_number\": 1330,\n      \"parameter_name\": \"NMI_MCAUSE_VALUE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"implementation-defined\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The mcause values written on NMI are explicitly implementation-defined. The implementation chooses which cause codes to use for NMI sources.\"\n    },\n    {\n      \"excerpt\": \"Load/store/AMO address-misaligned exceptions may have either higher or lower priority than load/store/AMO page-fault and access-fault exceptions.\",\n      \"line_number\": 1415,\n      \"parameter_name\": \"MISALIGNED_LDST_EXCEPTION_PRIORITY\",\n      \"existing_udb_name\": \"MISALIGNED_LDST_EXCEPTION_PRIORITY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may have either higher or lower priority\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The relative priority of misaligned address exceptions vs page-fault/access-fault exceptions is an implementation choice ('may have either higher or lower priority').\"\n    },\n    {\n      \"excerpt\": \"Implementations may raise access-fault exceptions instead of address-misaligned exceptions for some misaligned accesses, indicating the instruction should not be emulated by a trap handler.\",\n      \"line_number\": 1693,\n      \"parameter_name\": \"MISALIGNED_AMO_EXCEPTION_TYPE\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"Implementations may raise access-fault exceptions instead of address-misaligned exceptions\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether misaligned accesses raise access-fault or address-misaligned exceptions is an implementation choice ('may raise access-fault exceptions instead of address-misaligned exceptions').\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"M-mode is used for low-level access to a hardware platform and is the first mode entered at reset.\",\n      \"line_number\": 6,\n      \"reason\": \"Fixed requirement/statement of fact about M-mode behavior. No implementer choice \u2014 every implementation must enter M-mode at reset. Not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The `mtvec` register must always be implemented.\",\n      \"line_number\": 870,\n      \"reason\": \"Fixed 'must' requirement binding on all implementations. No implementer choice about whether mtvec exists \u2014 it is mandatory. Not a parameter.\"\n    },\n    {\n      \"excerpt\": \"In harts with S-mode, the `medeleg` and `mideleg` registers must exist.\",\n      \"line_number\": 921,\n      \"reason\": \"Fixed 'must' requirement. When S-mode is present, medeleg/mideleg are mandatory. No implementer choice about their existence in that case.\"\n    },\n    {\n      \"excerpt\": \"The `mtime` register will wrap around if the count overflows.\",\n      \"line_number\": 1349,\n      \"reason\": \"Statement of fixed behavior \u2014 mtime always wraps on overflow. No implementer choice; this is a mandatory behavioral specification.\"\n    },\n    {\n      \"excerpt\": \"PMP violations are always trapped precisely at the processor.\",\n      \"line_number\": 1735,\n      \"reason\": \"Fixed 'always' requirement. PMP violations must be precisely trapped \u2014 no implementer choice. Not a parameter.\"\n    },\n    {\n      \"excerpt\": \"Reset and NMI vector locations are given in a platform specification.\",\n      \"line_number\": 893,\n      \"reason\": \"NON_ISA \u2014 this is inside a NOTE block and refers to platform-level specification of reset/NMI vectors, which are outside ISA scope.\"\n    },\n    {\n      \"excerpt\": \"When a trap is taken into M-mode, `mepc` is written with the virtual address of the instruction that was interrupted or that encountered the exception.\",\n      \"line_number\": 1258,\n      \"reason\": \"Fixed behavioral description of what happens on trap. No implementer choice \u2014 mepc is always written with the faulting VA. Not a parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 56623,
+  "output_tokens": 9487,
+  "latency_ms": 137030,
+  "timestamp": "2026-07-11T11:42:58.638292+00:00",
   "error": null,
   "retry_count": 0
 }

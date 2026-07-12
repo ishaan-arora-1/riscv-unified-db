@@ -10,34 +10,34 @@
     {
       "excerpt": "All memory operations are single-copy atomic: they can never be observed in a partially complete state.",
       "line_number": 72,
-      "reason": "Fixed requirement ('can never be observed in a partially complete state') \u2014 no implementer choice, this is a universal rule binding all RVWMO implementations."
+      "reason": "Fixed requirement ('can never be observed in a partially complete state') \u2014 no implementer choice, this is a mandatory property of all RVWMO implementations."
     },
     {
       "excerpt": "A misaligned load or store instruction may be decomposed into a set of component memory operations of any granularity.",
       "line_number": 97,
-      "reason": "Although 'may be decomposed' sounds like optionality, this is a behavioral description of what the memory model permits (the decomposition is allowed), not an implementer choice that can be certified as a parameter. The 'may' here is permission for the model, not an implementation-defined choice with enumerable values."
+      "reason": "Although 'may be decomposed' sounds like optionality, this is a behavioral description of what the memory model permits for misaligned accesses \u2014 it describes the model's rules, not an implementer design-time choice. The actual implementation parameter for misaligned handling is defined elsewhere (MISALIGNED_LDST). This sentence is a model rule, not a parameter definition."
+    },
+    {
+      "excerpt": "The atomics extension \"A\" does not require execution environments to support misaligned atomic instructions at all.",
+      "line_number": 103,
+      "reason": "This is a clarification about what the 'A' extension requires of execution environments \u2014 it is a statement about the extension's requirements, not a direct definition of an implementation parameter. The actual misaligned atomics parameter (MISALIGNED_AMO) is defined elsewhere with more specific wording."
     },
     {
       "excerpt": "if misaligned atomics are supported via the misaligned atomicity granule PMA, then AMOs within an atomicity granule are not decomposed, nor are loads and stores defined in the base ISAs, nor are loads and stores of no more than XLEN bits defined in the F, D, and Q extensions.",
-      "line_number": 103,
-      "reason": "This is a conditional fixed requirement ('are not decomposed') \u2014 it describes what must happen when misaligned atomics are supported via PMA. The PMA support itself is defined elsewhere; this sentence is a behavioral rule, not a new parameter."
+      "line_number": 104,
+      "reason": "This is a conditional behavioral rule ('if ... then ... are not decomposed') \u2014 it describes what must happen when a specific PMA is configured, not an independent implementer choice. It is a fixed requirement conditional on a platform-level PMA setting."
     },
     {
       "excerpt": "The complete list of conditions determining whether an SC must succeed, may succeed, or must fail is defined in <<sec:lrsc>>.",
-      "line_number": 116,
-      "reason": "This is a cross-reference clarification pointing to another section where the SC success/failure conditions are defined. It is not itself a parameter definition."
-    },
-    {
-      "excerpt": "No memory operation may be preceded in the global memory order by an infinite sequence of other memory operations.",
-      "line_number": 358,
-      "reason": "Fixed requirement (progress axiom) \u2014 'may be preceded' here is a prohibition ('No ... may'), not an implementer choice. This is a universal rule binding all RVWMO implementations."
+      "line_number": 115,
+      "reason": "This is a cross-reference pointing to another section where the SC success/failure conditions are defined. It is a clarification, not a parameter definition itself. The actual parameters (LRSC_FAIL_ON_NON_EXACT_LRSC, etc.) are defined in the referenced section."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"All memory operations are single-copy atomic: they can never be observed in a partially complete state.\",\n      \"line_number\": 72,\n      \"reason\": \"Fixed requirement ('can never be observed in a partially complete state') \u2014 no implementer choice, this is a universal rule binding all RVWMO implementations.\"\n    },\n    {\n      \"excerpt\": \"A misaligned load or store instruction may be decomposed into a set of component memory operations of any granularity.\",\n      \"line_number\": 97,\n      \"reason\": \"Although 'may be decomposed' sounds like optionality, this is a behavioral description of what the memory model permits (the decomposition is allowed), not an implementer choice that can be certified as a parameter. The 'may' here is permission for the model, not an implementation-defined choice with enumerable values.\"\n    },\n    {\n      \"excerpt\": \"if misaligned atomics are supported via the misaligned atomicity granule PMA, then AMOs within an atomicity granule are not decomposed, nor are loads and stores defined in the base ISAs, nor are loads and stores of no more than XLEN bits defined in the F, D, and Q extensions.\",\n      \"line_number\": 103,\n      \"reason\": \"This is a conditional fixed requirement ('are not decomposed') \u2014 it describes what must happen when misaligned atomics are supported via PMA. The PMA support itself is defined elsewhere; this sentence is a behavioral rule, not a new parameter.\"\n    },\n    {\n      \"excerpt\": \"The complete list of conditions determining whether an SC must succeed, may succeed, or must fail is defined in <<sec:lrsc>>.\",\n      \"line_number\": 116,\n      \"reason\": \"This is a cross-reference clarification pointing to another section where the SC success/failure conditions are defined. It is not itself a parameter definition.\"\n    },\n    {\n      \"excerpt\": \"No memory operation may be preceded in the global memory order by an infinite sequence of other memory operations.\",\n      \"line_number\": 358,\n      \"reason\": \"Fixed requirement (progress axiom) \u2014 'may be preceded' here is a prohibition ('No ... may'), not an implementer choice. This is a universal rule binding all RVWMO implementations.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 19703,
-  "output_tokens": 560,
-  "latency_ms": 14040,
-  "timestamp": "2026-06-29T10:34:32.261499+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"All memory operations are single-copy atomic: they can never be observed in a partially complete state.\",\n      \"line_number\": 72,\n      \"reason\": \"Fixed requirement ('can never be observed in a partially complete state') \u2014 no implementer choice, this is a mandatory property of all RVWMO implementations.\"\n    },\n    {\n      \"excerpt\": \"A misaligned load or store instruction may be decomposed into a set of component memory operations of any granularity.\",\n      \"line_number\": 97,\n      \"reason\": \"Although 'may be decomposed' sounds like optionality, this is a behavioral description of what the memory model permits for misaligned accesses \u2014 it describes the model's rules, not an implementer design-time choice. The actual implementation parameter for misaligned handling is defined elsewhere (MISALIGNED_LDST). This sentence is a model rule, not a parameter definition.\"\n    },\n    {\n      \"excerpt\": \"The atomics extension \\\"A\\\" does not require execution environments to support misaligned atomic instructions at all.\",\n      \"line_number\": 103,\n      \"reason\": \"This is a clarification about what the 'A' extension requires of execution environments \u2014 it is a statement about the extension's requirements, not a direct definition of an implementation parameter. The actual misaligned atomics parameter (MISALIGNED_AMO) is defined elsewhere with more specific wording.\"\n    },\n    {\n      \"excerpt\": \"if misaligned atomics are supported via the misaligned atomicity granule PMA, then AMOs within an atomicity granule are not decomposed, nor are loads and stores defined in the base ISAs, nor are loads and stores of no more than XLEN bits defined in the F, D, and Q extensions.\",\n      \"line_number\": 104,\n      \"reason\": \"This is a conditional behavioral rule ('if ... then ... are not decomposed') \u2014 it describes what must happen when a specific PMA is configured, not an independent implementer choice. It is a fixed requirement conditional on a platform-level PMA setting.\"\n    },\n    {\n      \"excerpt\": \"The complete list of conditions determining whether an SC must succeed, may succeed, or must fail is defined in <<sec:lrsc>>.\",\n      \"line_number\": 115,\n      \"reason\": \"This is a cross-reference pointing to another section where the SC success/failure conditions are defined. It is a clarification, not a parameter definition itself. The actual parameters (LRSC_FAIL_ON_NON_EXACT_LRSC, etc.) are defined in the referenced section.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 20302,
+  "output_tokens": 633,
+  "latency_ms": 16896,
+  "timestamp": "2026-07-11T11:46:18.427641+00:00",
   "error": null,
   "retry_count": 0
 }

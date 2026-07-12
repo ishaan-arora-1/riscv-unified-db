@@ -14,30 +14,30 @@
     },
     {
       "excerpt": "In the event that a trap is taken on the target instruction, implementations are discouraged from applying the NTL to the first instruction in the trap handler. Instead, implementations are recommended to ignore the HINT in this case.",
-      "line_number": 163,
-      "reason": "'Discouraged' and 'recommended' are advisory/non-normative guidance, not a normative implementer choice. This is a recommendation, not an architectural parameter with enumerable legal values."
+      "line_number": 170,
+      "reason": "This is a recommendation/suggestion ('discouraged', 'recommended'), not a normative implementer choice. It describes preferred behavior but does not define an architectural parameter with enumerable legal values."
     },
     {
       "excerpt": "If the C or Zca extension is provided, compressed variants of these HINTs are also provided: C.NTL.P1 is encoded as C.ADD _x0, x2_; C.NTL.PALL is encoded as C.ADD _x0, x3_; C.NTL.S1 is encoded as C.ADD _x0, x4_; and C.NTL.ALL is encoded as C.ADD _x0, x5_.",
       "line_number": 88,
-      "reason": "This is a fixed encoding rule conditional on the C/Zca extension being present \u2014 no implementer choice about the encoding itself."
+      "reason": "This is a fixed encoding rule conditional on the C/Zca extension being present \u2014 no implementer choice about the encoding itself. Whether C/Zca is implemented is a separate parameter defined elsewhere."
+    },
+    {
+      "excerpt": "Software is discouraged from following an NTL instruction with an instruction that does not explicitly access memory. Nonadherence to this recommendation might reduce performance but otherwise has no architecturally visible effect.",
+      "line_number": 164,
+      "reason": "This is a software recommendation ('discouraged'), not an architectural parameter. It describes software behavior guidance, not an implementer choice."
     },
     {
       "excerpt": "The NTL instructions affect all memory-access instructions except the cache-management instructions in the Zicbom extension.",
       "line_number": 93,
-      "reason": "Fixed normative rule about which instructions are affected \u2014 no implementer choice, no optionality language."
-    },
-    {
-      "excerpt": "When an NTL instruction is applied to a prefetch hint in the Zicbop extension, it indicates that a cache line should be prefetched into a cache that is _outer_ from the level specified by the NTL.",
-      "line_number": 148,
-      "reason": "Fixed behavioral definition of NTL applied to prefetch hints \u2014 no implementer choice, no optionality language."
+      "reason": "Fixed normative rule ('affect all ... except') \u2014 no implementer choice. This is a behavioral requirement, not a parameter."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The NTL instructions do not change architectural state, nor do they alter the architecturally visible effects of the target instruction.\",\n      \"line_number\": 7,\n      \"reason\": \"Fixed requirement/statement of fact about NTL instruction behavior \u2014 no implementer choice, no optionality language.\"\n    },\n    {\n      \"excerpt\": \"In the event that a trap is taken on the target instruction, implementations are discouraged from applying the NTL to the first instruction in the trap handler. Instead, implementations are recommended to ignore the HINT in this case.\",\n      \"line_number\": 163,\n      \"reason\": \"'Discouraged' and 'recommended' are advisory/non-normative guidance, not a normative implementer choice. This is a recommendation, not an architectural parameter with enumerable legal values.\"\n    },\n    {\n      \"excerpt\": \"If the C or Zca extension is provided, compressed variants of these HINTs are also provided: C.NTL.P1 is encoded as C.ADD _x0, x2_; C.NTL.PALL is encoded as C.ADD _x0, x3_; C.NTL.S1 is encoded as C.ADD _x0, x4_; and C.NTL.ALL is encoded as C.ADD _x0, x5_.\",\n      \"line_number\": 88,\n      \"reason\": \"This is a fixed encoding rule conditional on the C/Zca extension being present \u2014 no implementer choice about the encoding itself.\"\n    },\n    {\n      \"excerpt\": \"The NTL instructions affect all memory-access instructions except the cache-management instructions in the Zicbom extension.\",\n      \"line_number\": 93,\n      \"reason\": \"Fixed normative rule about which instructions are affected \u2014 no implementer choice, no optionality language.\"\n    },\n    {\n      \"excerpt\": \"When an NTL instruction is applied to a prefetch hint in the Zicbop extension, it indicates that a cache line should be prefetched into a cache that is _outer_ from the level specified by the NTL.\",\n      \"line_number\": 148,\n      \"reason\": \"Fixed behavioral definition of NTL applied to prefetch hints \u2014 no implementer choice, no optionality language.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 12466,
-  "output_tokens": 570,
-  "latency_ms": 11497,
-  "timestamp": "2026-07-01T10:03:52.987398+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The NTL instructions do not change architectural state, nor do they alter the architecturally visible effects of the target instruction.\",\n      \"line_number\": 7,\n      \"reason\": \"Fixed requirement/statement of fact about NTL instruction behavior \u2014 no implementer choice, no optionality language.\"\n    },\n    {\n      \"excerpt\": \"In the event that a trap is taken on the target instruction, implementations are discouraged from applying the NTL to the first instruction in the trap handler. Instead, implementations are recommended to ignore the HINT in this case.\",\n      \"line_number\": 170,\n      \"reason\": \"This is a recommendation/suggestion ('discouraged', 'recommended'), not a normative implementer choice. It describes preferred behavior but does not define an architectural parameter with enumerable legal values.\"\n    },\n    {\n      \"excerpt\": \"If the C or Zca extension is provided, compressed variants of these HINTs are also provided: C.NTL.P1 is encoded as C.ADD _x0, x2_; C.NTL.PALL is encoded as C.ADD _x0, x3_; C.NTL.S1 is encoded as C.ADD _x0, x4_; and C.NTL.ALL is encoded as C.ADD _x0, x5_.\",\n      \"line_number\": 88,\n      \"reason\": \"This is a fixed encoding rule conditional on the C/Zca extension being present \u2014 no implementer choice about the encoding itself. Whether C/Zca is implemented is a separate parameter defined elsewhere.\"\n    },\n    {\n      \"excerpt\": \"Software is discouraged from following an NTL instruction with an instruction that does not explicitly access memory. Nonadherence to this recommendation might reduce performance but otherwise has no architecturally visible effect.\",\n      \"line_number\": 164,\n      \"reason\": \"This is a software recommendation ('discouraged'), not an architectural parameter. It describes software behavior guidance, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The NTL instructions affect all memory-access instructions except the cache-management instructions in the Zicbom extension.\",\n      \"line_number\": 93,\n      \"reason\": \"Fixed normative rule ('affect all ... except') \u2014 no implementer choice. This is a behavioral requirement, not a parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13065,
+  "output_tokens": 581,
+  "latency_ms": 11568,
+  "timestamp": "2026-07-11T11:58:12.470707+00:00",
   "error": null,
   "retry_count": 0
 }

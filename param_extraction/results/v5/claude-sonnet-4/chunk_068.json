@@ -10,7 +10,7 @@
     {
       "excerpt": "If the D extension is implemented, FLI.D performs the analogous operation, but loads a double-precision value into floating-point register _rd_.",
       "line_number": 68,
-      "reason": "This is a fixed conditional requirement ('if the D extension is implemented ... performs'), not an implementation choice. It describes mandatory behavior when D is present, with no optionality language for the implementer."
+      "reason": "This is a conditional behavioral description ('if the D extension is implemented'), not an implementation choice. The D extension being implemented is a separate parameter defined elsewhere; this sentence merely describes what FLI.D does when D is present."
     },
     {
       "excerpt": "The FLI._fmt_ instructions never set any floating-point exception flags.",
@@ -18,26 +18,26 @@
       "reason": "Fixed behavioral requirement ('never set') \u2014 no implementer choice, not a parameter."
     },
     {
-      "excerpt": "It is encoded like FCVT.W.D, but with the rs2 field set to 8 and the _rm_ field set to 1 (RTZ). Other _rm_ values are _reserved_.",
-      "line_number": 175,
-      "reason": "'Reserved' is a fixed fact about encoding space, not an implementer choice. No optionality language present."
-    },
-    {
       "excerpt": "The FMINM.S and FMAXM.S instructions are defined like the FMIN.S and FMAX.S instructions, except that if either input is NaN, the result is the canonical NaN.",
       "line_number": 97,
       "reason": "Fixed behavioral specification ('the result is the canonical NaN') \u2014 no implementer choice, not a parameter."
     },
     {
-      "excerpt": "The FLEQ.S and FLTQ.S instructions are defined like the FLE.S and FLT.S instructions, except that quiet NaN inputs do not cause the invalid operation exception flag to be set.",
-      "line_number": 233,
-      "reason": "Fixed behavioral requirement ('do not cause') \u2014 no implementer choice, not a parameter."
+      "excerpt": "It is encoded like FCVT.W.D, but with the rs2 field set to 8 and the _rm_ field set to 1 (RTZ). Other _rm_ values are _reserved_.",
+      "line_number": 175,
+      "reason": "'Other _rm_ values are reserved' is a fixed fact about encoding \u2014 reserved encodings are not implementer choices, not a parameter."
+    },
+    {
+      "excerpt": "For RV32 only, if the D extension is implemented, the FMVH.X.D instruction moves bits 63:32 of floating-point register _rs1_ into integer register _rd_.",
+      "line_number": 184,
+      "reason": "Conditional behavioral description contingent on RV32 and D extension being implemented. No implementer choice is expressed here; the conditions are fixed constraints."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"If the D extension is implemented, FLI.D performs the analogous operation, but loads a double-precision value into floating-point register _rd_.\",\n      \"line_number\": 68,\n      \"reason\": \"This is a fixed conditional requirement ('if the D extension is implemented ... performs'), not an implementation choice. It describes mandatory behavior when D is present, with no optionality language for the implementer.\"\n    },\n    {\n      \"excerpt\": \"The FLI._fmt_ instructions never set any floating-point exception flags.\",\n      \"line_number\": 91,\n      \"reason\": \"Fixed behavioral requirement ('never set') \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"It is encoded like FCVT.W.D, but with the rs2 field set to 8 and the _rm_ field set to 1 (RTZ). Other _rm_ values are _reserved_.\",\n      \"line_number\": 175,\n      \"reason\": \"'Reserved' is a fixed fact about encoding space, not an implementer choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"The FMINM.S and FMAXM.S instructions are defined like the FMIN.S and FMAX.S instructions, except that if either input is NaN, the result is the canonical NaN.\",\n      \"line_number\": 97,\n      \"reason\": \"Fixed behavioral specification ('the result is the canonical NaN') \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The FLEQ.S and FLTQ.S instructions are defined like the FLE.S and FLT.S instructions, except that quiet NaN inputs do not cause the invalid operation exception flag to be set.\",\n      \"line_number\": 233,\n      \"reason\": \"Fixed behavioral requirement ('do not cause') \u2014 no implementer choice, not a parameter.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 13674,
-  "output_tokens": 491,
-  "latency_ms": 18820,
-  "timestamp": "2026-07-01T10:02:40.776761+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"If the D extension is implemented, FLI.D performs the analogous operation, but loads a double-precision value into floating-point register _rd_.\",\n      \"line_number\": 68,\n      \"reason\": \"This is a conditional behavioral description ('if the D extension is implemented'), not an implementation choice. The D extension being implemented is a separate parameter defined elsewhere; this sentence merely describes what FLI.D does when D is present.\"\n    },\n    {\n      \"excerpt\": \"The FLI._fmt_ instructions never set any floating-point exception flags.\",\n      \"line_number\": 91,\n      \"reason\": \"Fixed behavioral requirement ('never set') \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The FMINM.S and FMAXM.S instructions are defined like the FMIN.S and FMAX.S instructions, except that if either input is NaN, the result is the canonical NaN.\",\n      \"line_number\": 97,\n      \"reason\": \"Fixed behavioral specification ('the result is the canonical NaN') \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"It is encoded like FCVT.W.D, but with the rs2 field set to 8 and the _rm_ field set to 1 (RTZ). Other _rm_ values are _reserved_.\",\n      \"line_number\": 175,\n      \"reason\": \"'Other _rm_ values are reserved' is a fixed fact about encoding \u2014 reserved encodings are not implementer choices, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"For RV32 only, if the D extension is implemented, the FMVH.X.D instruction moves bits 63:32 of floating-point register _rs1_ into integer register _rd_.\",\n      \"line_number\": 184,\n      \"reason\": \"Conditional behavioral description contingent on RV32 and D extension being implemented. No implementer choice is expressed here; the conditions are fixed constraints.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 14273,
+  "output_tokens": 515,
+  "latency_ms": 10189,
+  "timestamp": "2026-07-11T11:56:55.464254+00:00",
   "error": null,
   "retry_count": 0
 }

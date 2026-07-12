@@ -8,36 +8,36 @@
   "parameters": [],
   "skipped_non_parameters": [
     {
-      "excerpt": "[NOTE]\n.Note to software developers\n====\nThe first 16 SEW-sized words of the message schedule come from the _message block_\nin big-endian byte order. Since this instruction treats all words as little endian,\nsoftware is required to endian swap these words.\n====",
-      "line_number": 3395,
-      "reason": "NOTE block \u2014 non-normative. Also describes a software requirement, not an implementation choice."
-    },
-    {
       "excerpt": "[NOTE]\n====\nPreventing overlap between `vd` and `vs1` or `vs2` simplifies implementation with `VLEN < EGW`.\nThis restriction does not have any coding impact since proper implementation of the algorithm requires\nthat `vd`, `vs1` and `vs2` each contain different portions of the message schedule.\n====",
       "line_number": 3430,
-      "reason": "NOTE block \u2014 non-normative. Explains rationale for a fixed encoding restriction, not an implementation choice."
+      "reason": "This is inside a [NOTE] block and is therefore non-normative. It explains a rationale for a restriction, not an architectural parameter."
     },
     {
-      "excerpt": "* [#norm:vsha2ms-vv_Zvknha_sewn32_rsv]#`zvknha`: `SEW` is any value other than 32#",
+      "excerpt": "* [#norm:vsha2ms-vv_Zvknha_sewn32_rsv]#`zvknha`: `SEW` is any value other than 32#\n* [#norm:vsha2ms-vv_Zvknhb_sewn32or64_rsv]#`zvknhb`: `SEW` is any value other than 32 or 64#",
       "line_number": 3356,
-      "reason": "Fixed reserved encoding constraint \u2014 not an implementation choice. All implementations must treat these as reserved."
+      "reason": "These are reserved encoding statements \u2014 fixed requirements that apply to all implementations. There is no implementer choice; these are mandatory restrictions."
     },
     {
-      "excerpt": "[NOTE]\n====\nImplementation Hint\n\nThe round constants (CK) can be generated on the fly fairly cheaply.\nIf the bytes of the constants are assigned an incrementing index from 0 to 127, the value of each byte is equal to its index multiplied by 7 modulo 256.\n====",
-      "line_number": 3762,
-      "reason": "NOTE block \u2014 non-normative implementation hint. Not an architectural parameter."
+      "excerpt": "* [#norm:vsm3c-vi_sewn32_rsv]#`SEW` is any value other than 32#\n* [#norm:vsm3c-vi_vdoverlapvs2_rsv]#The `vd` register group overlaps with the `vs2` register group#",
+      "line_number": 3530,
+      "reason": "Reserved encoding facts \u2014 fixed requirements binding on all implementations, not implementation choices."
     },
     {
-      "excerpt": "[NOTE]\n====\nIn SM4, encryption and decryption are identical except that decryption consumes the round keys in the reverse order.\n====",
-      "line_number": 3843,
-      "reason": "NOTE block \u2014 non-normative informational note about the SM4 algorithm. Not an implementation choice."
+      "excerpt": "[#norm:vsm3c-vi_op_rnd]#The round number is provided by the 5-bit `rnds` unsigned immediate. Legal values are 0 - 31 and indicate which group of two rounds are being performed.",
+      "line_number": 3566,
+      "reason": "This is a fixed behavioral description of how the instruction operates. There is no implementer choice here \u2014 the legal values are fixed by the spec."
+    },
+    {
+      "excerpt": "[#norm:vwsll_op]#The elements in `vs2` are zero-extended to 2*`SEW` bits, then shifted left by the shift amount specified by either the corresponding elements of `vs1` (vector-vector), integer register `rs1` (vector-scalar), or an immediate value (vector-immediate). Only the low log2(2*`SEW`) bits of the shift-amount value are used, all other bits are ignored.#",
+      "line_number": 3780,
+      "reason": "This is a fixed behavioral description of the vwsll instruction operation. There is no implementer choice \u2014 the behavior is fully specified."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"[NOTE]\\n.Note to software developers\\n====\\nThe first 16 SEW-sized words of the message schedule come from the _message block_\\nin big-endian byte order. Since this instruction treats all words as little endian,\\nsoftware is required to endian swap these words.\\n====\",\n      \"line_number\": 3395,\n      \"reason\": \"NOTE block \u2014 non-normative. Also describes a software requirement, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"[NOTE]\\n====\\nPreventing overlap between `vd` and `vs1` or `vs2` simplifies implementation with `VLEN < EGW`.\\nThis restriction does not have any coding impact since proper implementation of the algorithm requires\\nthat `vd`, `vs1` and `vs2` each contain different portions of the message schedule.\\n====\",\n      \"line_number\": 3430,\n      \"reason\": \"NOTE block \u2014 non-normative. Explains rationale for a fixed encoding restriction, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"* [#norm:vsha2ms-vv_Zvknha_sewn32_rsv]#`zvknha`: `SEW` is any value other than 32#\",\n      \"line_number\": 3356,\n      \"reason\": \"Fixed reserved encoding constraint \u2014 not an implementation choice. All implementations must treat these as reserved.\"\n    },\n    {\n      \"excerpt\": \"[NOTE]\\n====\\nImplementation Hint\\n\\nThe round constants (CK) can be generated on the fly fairly cheaply.\\nIf the bytes of the constants are assigned an incrementing index from 0 to 127, the value of each byte is equal to its index multiplied by 7 modulo 256.\\n====\",\n      \"line_number\": 3762,\n      \"reason\": \"NOTE block \u2014 non-normative implementation hint. Not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"[NOTE]\\n====\\nIn SM4, encryption and decryption are identical except that decryption consumes the round keys in the reverse order.\\n====\",\n      \"line_number\": 3843,\n      \"reason\": \"NOTE block \u2014 non-normative informational note about the SM4 algorithm. Not an implementation choice.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 36545,
-  "output_tokens": 582,
-  "latency_ms": 16924,
-  "timestamp": "2026-07-01T10:00:44.275007+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"[NOTE]\\n====\\nPreventing overlap between `vd` and `vs1` or `vs2` simplifies implementation with `VLEN < EGW`.\\nThis restriction does not have any coding impact since proper implementation of the algorithm requires\\nthat `vd`, `vs1` and `vs2` each contain different portions of the message schedule.\\n====\",\n      \"line_number\": 3430,\n      \"reason\": \"This is inside a [NOTE] block and is therefore non-normative. It explains a rationale for a restriction, not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"* [#norm:vsha2ms-vv_Zvknha_sewn32_rsv]#`zvknha`: `SEW` is any value other than 32#\\n* [#norm:vsha2ms-vv_Zvknhb_sewn32or64_rsv]#`zvknhb`: `SEW` is any value other than 32 or 64#\",\n      \"line_number\": 3356,\n      \"reason\": \"These are reserved encoding statements \u2014 fixed requirements that apply to all implementations. There is no implementer choice; these are mandatory restrictions.\"\n    },\n    {\n      \"excerpt\": \"* [#norm:vsm3c-vi_sewn32_rsv]#`SEW` is any value other than 32#\\n* [#norm:vsm3c-vi_vdoverlapvs2_rsv]#The `vd` register group overlaps with the `vs2` register group#\",\n      \"line_number\": 3530,\n      \"reason\": \"Reserved encoding facts \u2014 fixed requirements binding on all implementations, not implementation choices.\"\n    },\n    {\n      \"excerpt\": \"[#norm:vsm3c-vi_op_rnd]#The round number is provided by the 5-bit `rnds` unsigned immediate. Legal values are 0 - 31 and indicate which group of two rounds are being performed.\",\n      \"line_number\": 3566,\n      \"reason\": \"This is a fixed behavioral description of how the instruction operates. There is no implementer choice here \u2014 the legal values are fixed by the spec.\"\n    },\n    {\n      \"excerpt\": \"[#norm:vwsll_op]#The elements in `vs2` are zero-extended to 2*`SEW` bits, then shifted left by the shift amount specified by either the corresponding elements of `vs1` (vector-vector), integer register `rs1` (vector-scalar), or an immediate value (vector-immediate). Only the low log2(2*`SEW`) bits of the shift-amount value are used, all other bits are ignored.#\",\n      \"line_number\": 3780,\n      \"reason\": \"This is a fixed behavioral description of the vwsll instruction operation. There is no implementer choice \u2014 the behavior is fully specified.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 37144,
+  "output_tokens": 722,
+  "latency_ms": 17700,
+  "timestamp": "2026-07-11T11:55:14.072613+00:00",
   "error": null,
   "retry_count": 0
 }

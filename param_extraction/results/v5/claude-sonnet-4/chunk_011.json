@@ -13,54 +13,65 @@
       "existing_udb_name": "HPM_COUNTER_EN",
       "class": "NORM_DIRECT",
       "value_type": "bitmask",
-      "modal_signal": "are platform-specific",
+      "modal_signal": "platform-specific",
       "confidence": "high",
-      "reasoning": "The number of implemented HPM counters (hpmcounter3\u2013hpmcounter31) is platform-specific, meaning the implementer chooses which counters are present. This maps to HPM_COUNTER_EN (which counters are implemented)."
+      "reasoning": "The number of implemented HPM counters (hpmcounter3\u2013hpmcounter31) is an implementation choice, signaled by 'platform-specific'. This maps to the known UDB parameter HPM_COUNTER_EN which tracks which HPM counters are implemented."
+    },
+    {
+      "excerpt": "The implemented number and width of these additional counters, and the set of events they count, are platform-specific.",
+      "line_number": 210,
+      "parameter_name": "HPM_EVENTS",
+      "existing_udb_name": "HPM_EVENTS",
+      "class": "NORM_DIRECT",
+      "value_type": "set",
+      "modal_signal": "platform-specific",
+      "confidence": "high",
+      "reasoning": "The set of events counted by each HPM counter is an implementation choice, signaled by 'platform-specific'. This maps to the known UDB parameter HPM_EVENTS."
     },
     {
       "excerpt": "Accessing an unimplemented counter may cause an illegal-instruction exception or may return a constant value.",
-      "line_number": 211,
-      "parameter_name": "UNIMPLEMENTED_HPM_COUNTER_ACCESS_BEHAVIOR",
+      "line_number": 212,
+      "parameter_name": "UNIMPLEMENTED_HPM_COUNTER_BEHAVIOR",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
       "value_type": "enum",
       "modal_signal": "may cause an illegal-instruction exception or may return a constant value",
       "confidence": "high",
-      "reasoning": "The spec explicitly gives two options for what happens when an unimplemented HPM counter is accessed: raise an illegal-instruction exception, or return a constant value. The 'may ... or may' phrasing signals an implementation choice between these two behaviors."
+      "reasoning": "The behavior when accessing an unimplemented HPM counter is an implementation choice between two options: raising an illegal-instruction exception or returning a constant value. The 'may ... or may' phrasing signals an implementer choice."
     }
   ],
   "skipped_non_parameters": [
     {
       "excerpt": "We recommend provision of these basic counters in implementations as they are essential for basic performance analysis, adaptive and dynamic optimization, and to allow an application to work with real-time streams.",
-      "line_number": 17,
+      "line_number": 16,
       "reason": "This is inside a [NOTE] block and is therefore non-normative. Parameters must not be extracted from NOTE/TIP/WARNING/IMPORTANT blocks."
     },
     {
       "excerpt": "The real-time clocks of all harts must be synchronized to within one tick of the real-time clock.",
       "line_number": 143,
-      "reason": "This is a fixed requirement ('must be synchronized') binding on all implementations \u2014 there is no implementer choice here, so it is not a parameter."
+      "reason": "This is a fixed requirement ('must be synchronized') binding on all implementations \u2014 there is no implementer choice, so it is not a parameter."
     },
     {
       "excerpt": "If the configuration used to select the events counted by a counter is misconfigured, the counter may return a constant value.",
-      "line_number": 212,
-      "reason": "This describes behavior when a counter is 'misconfigured' \u2014 an untestable/unspecified outcome that cannot be certified as a parameter (falls under the 'misconfigured / untestable outcomes' hard exclusion)."
+      "line_number": 213,
+      "reason": "This describes behavior under a misconfigured state, which is an untestable/unspecified outcome (hard exclusion #2). The 'may' here describes what happens when software misconfigures the counter, not an implementer architectural choice with enumerable options."
     },
     {
       "excerpt": "The rate at which the cycle counter advances will depend on the implementation and operating environment.",
       "line_number": 60,
-      "reason": "This is a statement of fact about implementation variability in the cycle counter rate, not an architectural parameter with enumerable legal values. It describes a physical/platform property, not an ISA-level choice."
+      "reason": "This describes a runtime/platform-level property (clock frequency) that is an execution-environment concern, not an ISA-level architectural parameter. It is also non-normative in nature (no enumerable legal values)."
     },
     {
       "excerpt": "The execution environment should provide a means to determine the number and width of the implemented counters, and an interface to configure the events to be counted by each counter.",
-      "line_number": 214,
-      "reason": "'Should provide a means' is a recommendation aimed at the execution environment (software/platform), not a normative implementer choice about an ISA-level architectural parameter."
+      "line_number": 215,
+      "reason": "This is a recommendation ('should provide') aimed at the execution environment/software interface, not an ISA-level architectural parameter for the hardware implementer."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The implemented number and width of these additional counters, and the set of events they count, are platform-specific.\",\n      \"line_number\": 210,\n      \"parameter_name\": \"HPM_COUNTER_EN\",\n      \"existing_udb_name\": \"HPM_COUNTER_EN\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"are platform-specific\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of implemented HPM counters (hpmcounter3\u2013hpmcounter31) is platform-specific, meaning the implementer chooses which counters are present. This maps to HPM_COUNTER_EN (which counters are implemented).\"\n    },\n    {\n      \"excerpt\": \"Accessing an unimplemented counter may cause an illegal-instruction exception or may return a constant value.\",\n      \"line_number\": 211,\n      \"parameter_name\": \"UNIMPLEMENTED_HPM_COUNTER_ACCESS_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"may cause an illegal-instruction exception or may return a constant value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly gives two options for what happens when an unimplemented HPM counter is accessed: raise an illegal-instruction exception, or return a constant value. The 'may ... or may' phrasing signals an implementation choice between these two behaviors.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"We recommend provision of these basic counters in implementations as they are essential for basic performance analysis, adaptive and dynamic optimization, and to allow an application to work with real-time streams.\",\n      \"line_number\": 17,\n      \"reason\": \"This is inside a [NOTE] block and is therefore non-normative. Parameters must not be extracted from NOTE/TIP/WARNING/IMPORTANT blocks.\"\n    },\n    {\n      \"excerpt\": \"The real-time clocks of all harts must be synchronized to within one tick of the real-time clock.\",\n      \"line_number\": 143,\n      \"reason\": \"This is a fixed requirement ('must be synchronized') binding on all implementations \u2014 there is no implementer choice here, so it is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"If the configuration used to select the events counted by a counter is misconfigured, the counter may return a constant value.\",\n      \"line_number\": 212,\n      \"reason\": \"This describes behavior when a counter is 'misconfigured' \u2014 an untestable/unspecified outcome that cannot be certified as a parameter (falls under the 'misconfigured / untestable outcomes' hard exclusion).\"\n    },\n    {\n      \"excerpt\": \"The rate at which the cycle counter advances will depend on the implementation and operating environment.\",\n      \"line_number\": 60,\n      \"reason\": \"This is a statement of fact about implementation variability in the cycle counter rate, not an architectural parameter with enumerable legal values. It describes a physical/platform property, not an ISA-level choice.\"\n    },\n    {\n      \"excerpt\": \"The execution environment should provide a means to determine the number and width of the implemented counters, and an interface to configure the events to be counted by each counter.\",\n      \"line_number\": 214,\n      \"reason\": \"'Should provide a means' is a recommendation aimed at the execution environment (software/platform), not a normative implementer choice about an ISA-level architectural parameter.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 12970,
-  "output_tokens": 880,
-  "latency_ms": 18481,
-  "timestamp": "2026-06-29T10:26:06.984401+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The implemented number and width of these additional counters, and the set of events they count, are platform-specific.\",\n      \"line_number\": 210,\n      \"parameter_name\": \"HPM_COUNTER_EN\",\n      \"existing_udb_name\": \"HPM_COUNTER_EN\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"bitmask\",\n      \"modal_signal\": \"platform-specific\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of implemented HPM counters (hpmcounter3\u2013hpmcounter31) is an implementation choice, signaled by 'platform-specific'. This maps to the known UDB parameter HPM_COUNTER_EN which tracks which HPM counters are implemented.\"\n    },\n    {\n      \"excerpt\": \"The implemented number and width of these additional counters, and the set of events they count, are platform-specific.\",\n      \"line_number\": 210,\n      \"parameter_name\": \"HPM_EVENTS\",\n      \"existing_udb_name\": \"HPM_EVENTS\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"platform-specific\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The set of events counted by each HPM counter is an implementation choice, signaled by 'platform-specific'. This maps to the known UDB parameter HPM_EVENTS.\"\n    },\n    {\n      \"excerpt\": \"Accessing an unimplemented counter may cause an illegal-instruction exception or may return a constant value.\",\n      \"line_number\": 212,\n      \"parameter_name\": \"UNIMPLEMENTED_HPM_COUNTER_BEHAVIOR\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"may cause an illegal-instruction exception or may return a constant value\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The behavior when accessing an unimplemented HPM counter is an implementation choice between two options: raising an illegal-instruction exception or returning a constant value. The 'may ... or may' phrasing signals an implementer choice.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"We recommend provision of these basic counters in implementations as they are essential for basic performance analysis, adaptive and dynamic optimization, and to allow an application to work with real-time streams.\",\n      \"line_number\": 16,\n      \"reason\": \"This is inside a [NOTE] block and is therefore non-normative. Parameters must not be extracted from NOTE/TIP/WARNING/IMPORTANT blocks.\"\n    },\n    {\n      \"excerpt\": \"The real-time clocks of all harts must be synchronized to within one tick of the real-time clock.\",\n      \"line_number\": 143,\n      \"reason\": \"This is a fixed requirement ('must be synchronized') binding on all implementations \u2014 there is no implementer choice, so it is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"If the configuration used to select the events counted by a counter is misconfigured, the counter may return a constant value.\",\n      \"line_number\": 213,\n      \"reason\": \"This describes behavior under a misconfigured state, which is an untestable/unspecified outcome (hard exclusion #2). The 'may' here describes what happens when software misconfigures the counter, not an implementer architectural choice with enumerable options.\"\n    },\n    {\n      \"excerpt\": \"The rate at which the cycle counter advances will depend on the implementation and operating environment.\",\n      \"line_number\": 60,\n      \"reason\": \"This describes a runtime/platform-level property (clock frequency) that is an execution-environment concern, not an ISA-level architectural parameter. It is also non-normative in nature (no enumerable legal values).\"\n    },\n    {\n      \"excerpt\": \"The execution environment should provide a means to determine the number and width of the implemented counters, and an interface to configure the events to be counted by each counter.\",\n      \"line_number\": 215,\n      \"reason\": \"This is a recommendation ('should provide') aimed at the execution environment/software interface, not an ISA-level architectural parameter for the hardware implementer.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13569,
+  "output_tokens": 1046,
+  "latency_ms": 18535,
+  "timestamp": "2026-07-11T11:37:33.113885+00:00",
   "error": null,
   "retry_count": 0
 }

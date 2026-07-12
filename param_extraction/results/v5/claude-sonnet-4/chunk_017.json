@@ -9,46 +9,46 @@
     {
       "excerpt": "`miselect` is a WARL register.",
       "line_number": 72,
-      "parameter_name": "MISELECT_WARL",
+      "parameter_name": "MISELECT_WARL_LEGAL_VALUES",
       "existing_udb_name": null,
       "class": "NORM_CSR_WARL",
       "value_type": "range",
       "modal_signal": "WARL",
       "confidence": "high",
-      "reasoning": "miselect is declared WARL, meaning the set of legal values is implementation-defined (determined by which extensions are implemented). The implementer chooses which select values are legal."
+      "reasoning": "miselect is declared WARL, meaning the set of legal values is implementation-defined. The legal range depends on which extensions utilizing miselect/mireg* are implemented."
     },
     {
       "excerpt": "The `miselect` register implements at least enough bits to support all implemented `miselect` values (corresponding to the implemented extensions that utilize `miselect`/`mireg*` to indirectly access register state). The `miselect` register may be read-only zero if there are no extensions implemented that utilize it.",
-      "line_number": 73,
+      "line_number": 74,
       "parameter_name": "MISELECT_WIDTH",
       "existing_udb_name": null,
       "class": "NORM_CSR_RW",
       "value_type": "binary",
       "modal_signal": "may be read-only zero if there are no extensions implemented that utilize it",
       "confidence": "high",
-      "reasoning": "The spec says miselect 'may be read-only zero' when no extensions use it, giving the implementer a choice between read-only zero and a writable register. This is a NORM_CSR_RW parameter about the mutability of the register."
+      "reasoning": "The implementation chooses whether miselect is read-only zero (when no extensions use it) or a writable register with enough bits to support all implemented miselect values. This is a RO vs RW choice for the register."
     },
     {
       "excerpt": "The `siselect` register will support the value range 0..0xFFF at a minimum. A future extension may define a value range outside of this minimum range. Only if such an extension is implemented will `siselect` be required to support larger values.",
-      "line_number": 138,
+      "line_number": 143,
       "parameter_name": "SISELECT_WIDTH",
       "existing_udb_name": null,
       "class": "NORM_CSR_WARL",
       "value_type": "range",
       "modal_signal": "Only if such an extension is implemented will `siselect` be required to support larger values",
       "confidence": "high",
-      "reasoning": "The number of bits implemented in siselect (and thus the range of legal values) is implementation-defined based on which extensions are implemented. The minimum is 0..0xFFF but larger ranges are optional, making this a WARL parameter."
+      "reasoning": "The number of bits implemented in siselect is an implementation choice \u2014 at minimum it must support 0..0xFFF, but may support larger ranges if extensions requiring them are implemented. This is a WARL field width parameter."
     },
     {
       "excerpt": "The `vsiselect` register will support the value range 0..0xFFF at a minimum. A future extension may define a value range outside of this minimum range. Only if such an extension is implemented will `vsiselect` be required to support larger values.",
-      "line_number": 213,
+      "line_number": 218,
       "parameter_name": "VSISELECT_WIDTH",
       "existing_udb_name": null,
       "class": "NORM_CSR_WARL",
       "value_type": "range",
       "modal_signal": "Only if such an extension is implemented will `vsiselect` be required to support larger values",
       "confidence": "high",
-      "reasoning": "The number of bits implemented in vsiselect (and thus the range of legal values) is implementation-defined based on which extensions are implemented. The minimum is 0..0xFFF but larger ranges are optional, making this a WARL parameter."
+      "reasoning": "The number of bits implemented in vsiselect is an implementation choice \u2014 at minimum it must support 0..0xFFF, but may support larger ranges if extensions requiring them are implemented. This is a WARL field width parameter."
     },
     {
       "excerpt": "If extension Smstateen is implemented together with Smcsrind, bit 60 of state-enable register `mstateen0` controls access to `siselect`, `sireg*`, `vsiselect`, and `vsireg*`. When `mstateen0`[60]=0, an attempt to access one of these CSRs from a privilege mode less privileged than M-mode results in an illegal-instruction exception.",
@@ -59,7 +59,7 @@
       "value_type": "binary",
       "modal_signal": "If extension Smstateen is implemented together with Smcsrind",
       "confidence": "high",
-      "reasoning": "Whether bit 60 of mstateen0 is implemented (read-write) depends on whether both Smstateen and Smcsrind are implemented. This is a NORM_CSR_RW parameter about whether the bit is writable or read-only-zero."
+      "reasoning": "Whether mstateen0[60] is implemented (read-write) depends on whether both Smstateen and Smcsrind are implemented. This is the MSTATEEN_CSRIND_TYPE parameter controlling whether bit 60 of mstateen0 is writable or read-only-zero."
     },
     {
       "excerpt": "If the hypervisor extension is implemented, the same bit is defined also in hypervisor CSR `hstateen0`, but controls access to only `siselect` and `sireg*` (really `vsiselect` and `vsireg*`), which is the state potentially accessible to a virtual machine executing in VS or VU-mode.",
@@ -70,41 +70,41 @@
       "value_type": "binary",
       "modal_signal": "If the hypervisor extension is implemented",
       "confidence": "high",
-      "reasoning": "Whether bit 60 of hstateen0 is implemented (read-write) depends on whether both the hypervisor extension and Smcsrind are implemented. This is a NORM_CSR_RW parameter about whether the bit is writable or read-only-zero."
+      "reasoning": "Whether hstateen0[60] is implemented (read-write) depends on whether both the hypervisor extension and Smcsrind are implemented. This is the HSTATEEN_CSRIND_TYPE parameter controlling whether bit 60 of hstateen0 is writable or read-only-zero."
     }
   ],
   "skipped_non_parameters": [
     {
       "excerpt": "The behavior upon accessing `mireg*` from M-mode, while `miselect` holds a value that is not implemented, is UNSPECIFIED.",
       "line_number": 87,
-      "reason": "This describes unspecified behavior (an outcome), not an implementation-defined parameter with enumerable values. Per the hard exclusion rules, unspecified behavior is not a parameter."
+      "reason": "This describes unspecified behavior (an outcome), not an implementation-defined parameter with enumerable legal values. Per the hard exclusion rules, unspecified behavior is not a parameter."
     },
     {
-      "excerpt": "The behavior upon accessing `sireg*` from M-mode or S-mode, while `siselect` holds a value that is not implemented at supervisor level, is UNSPECIFIED.",
-      "line_number": 160,
-      "reason": "This describes unspecified behavior (an outcome), not an implementation-defined parameter. Per the hard exclusion rules, unspecified behavior is not a parameter."
+      "excerpt": "A virtual-instruction exception is raised for attempts from VS-mode or VU-mode to directly access `vsiselect` or `vsireg*`, or attempts from VU-mode to access `siselect` or `sireg*`.",
+      "line_number": 258,
+      "reason": "This is a fixed normative requirement ('is raised') \u2014 there is no implementer choice here. All implementations must raise a virtual-instruction exception in these cases."
     },
     {
       "excerpt": "The behavior upon accessing `vsireg*` from M-mode or HS-mode, or accessing `sireg*` (really `vsireg*`) from VS-mode, while `vsiselect` holds a value that is not implemented at HS level, is UNSPECIFIED.",
-      "line_number": 249,
+      "line_number": 263,
       "reason": "This describes unspecified behavior (an outcome), not an implementation-defined parameter. Per the hard exclusion rules, unspecified behavior is not a parameter."
     },
     {
       "excerpt": "The CSRs in the table above are required if S-mode is implemented.",
-      "line_number": 134,
-      "reason": "This is a fixed requirement ('required if'), not an implementation choice. There is no optionality for the implementer here."
+      "line_number": 139,
+      "reason": "This is a fixed conditional requirement ('are required if') \u2014 there is no implementer choice. If S-mode is implemented, these CSRs must be present."
     },
     {
-      "excerpt": "A virtual-instruction exception is raised for attempts from VS-mode or VU-mode to directly access `vsiselect` or `vsireg*`, or attempts from VU-mode to access `siselect` or `sireg*`.",
-      "line_number": 244,
-      "reason": "This is a fixed behavioral requirement ('is raised'), not an implementation choice. The behavior is mandated for all implementations."
+      "excerpt": "Note that the widths of `siselect` and `sireg*` are always the current XLEN rather than SXLEN.",
+      "line_number": 185,
+      "reason": "This is a fixed statement of fact about register widths \u2014 'always the current XLEN' is a fixed requirement, not an implementation choice. No optionality language is present."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"`miselect` is a WARL register.\",\n      \"line_number\": 72,\n      \"parameter_name\": \"MISELECT_WARL\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"WARL\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"miselect is declared WARL, meaning the set of legal values is implementation-defined (determined by which extensions are implemented). The implementer chooses which select values are legal.\"\n    },\n    {\n      \"excerpt\": \"The `miselect` register implements at least enough bits to support all implemented `miselect` values (corresponding to the implemented extensions that utilize `miselect`/`mireg*` to indirectly access register state). The `miselect` register may be read-only zero if there are no extensions implemented that utilize it.\",\n      \"line_number\": 73,\n      \"parameter_name\": \"MISELECT_WIDTH\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may be read-only zero if there are no extensions implemented that utilize it\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec says miselect 'may be read-only zero' when no extensions use it, giving the implementer a choice between read-only zero and a writable register. This is a NORM_CSR_RW parameter about the mutability of the register.\"\n    },\n    {\n      \"excerpt\": \"The `siselect` register will support the value range 0..0xFFF at a minimum. A future extension may define a value range outside of this minimum range. Only if such an extension is implemented will `siselect` be required to support larger values.\",\n      \"line_number\": 138,\n      \"parameter_name\": \"SISELECT_WIDTH\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"Only if such an extension is implemented will `siselect` be required to support larger values\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of bits implemented in siselect (and thus the range of legal values) is implementation-defined based on which extensions are implemented. The minimum is 0..0xFFF but larger ranges are optional, making this a WARL parameter.\"\n    },\n    {\n      \"excerpt\": \"The `vsiselect` register will support the value range 0..0xFFF at a minimum. A future extension may define a value range outside of this minimum range. Only if such an extension is implemented will `vsiselect` be required to support larger values.\",\n      \"line_number\": 213,\n      \"parameter_name\": \"VSISELECT_WIDTH\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"Only if such an extension is implemented will `vsiselect` be required to support larger values\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of bits implemented in vsiselect (and thus the range of legal values) is implementation-defined based on which extensions are implemented. The minimum is 0..0xFFF but larger ranges are optional, making this a WARL parameter.\"\n    },\n    {\n      \"excerpt\": \"If extension Smstateen is implemented together with Smcsrind, bit 60 of state-enable register `mstateen0` controls access to `siselect`, `sireg*`, `vsiselect`, and `vsireg*`. When `mstateen0`[60]=0, an attempt to access one of these CSRs from a privilege mode less privileged than M-mode results in an illegal-instruction exception.\",\n      \"line_number\": 285,\n      \"parameter_name\": \"MSTATEEN_CSRIND_TYPE\",\n      \"existing_udb_name\": \"MSTATEEN_CSRIND_TYPE\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"If extension Smstateen is implemented together with Smcsrind\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether bit 60 of mstateen0 is implemented (read-write) depends on whether both Smstateen and Smcsrind are implemented. This is a NORM_CSR_RW parameter about whether the bit is writable or read-only-zero.\"\n    },\n    {\n      \"excerpt\": \"If the hypervisor extension is implemented, the same bit is defined also in hypervisor CSR `hstateen0`, but controls access to only `siselect` and `sireg*` (really `vsiselect` and `vsireg*`), which is the state potentially accessible to a virtual machine executing in VS or VU-mode.\",\n      \"line_number\": 300,\n      \"parameter_name\": \"HSTATEEN_CSRIND_TYPE\",\n      \"existing_udb_name\": \"HSTATEEN_CSRIND_TYPE\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"If the hypervisor extension is implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether bit 60 of hstateen0 is implemented (read-write) depends on whether both the hypervisor extension and Smcsrind are implemented. This is a NORM_CSR_RW parameter about whether the bit is writable or read-only-zero.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The behavior upon accessing `mireg*` from M-mode, while `miselect` holds a value that is not implemented, is UNSPECIFIED.\",\n      \"line_number\": 87,\n      \"reason\": \"This describes unspecified behavior (an outcome), not an implementation-defined parameter with enumerable values. Per the hard exclusion rules, unspecified behavior is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The behavior upon accessing `sireg*` from M-mode or S-mode, while `siselect` holds a value that is not implemented at supervisor level, is UNSPECIFIED.\",\n      \"line_number\": 160,\n      \"reason\": \"This describes unspecified behavior (an outcome), not an implementation-defined parameter. Per the hard exclusion rules, unspecified behavior is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The behavior upon accessing `vsireg*` from M-mode or HS-mode, or accessing `sireg*` (really `vsireg*`) from VS-mode, while `vsiselect` holds a value that is not implemented at HS level, is UNSPECIFIED.\",\n      \"line_number\": 249,\n      \"reason\": \"This describes unspecified behavior (an outcome), not an implementation-defined parameter. Per the hard exclusion rules, unspecified behavior is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The CSRs in the table above are required if S-mode is implemented.\",\n      \"line_number\": 134,\n      \"reason\": \"This is a fixed requirement ('required if'), not an implementation choice. There is no optionality for the implementer here.\"\n    },\n    {\n      \"excerpt\": \"A virtual-instruction exception is raised for attempts from VS-mode or VU-mode to directly access `vsiselect` or `vsireg*`, or attempts from VU-mode to access `siselect` or `sireg*`.\",\n      \"line_number\": 244,\n      \"reason\": \"This is a fixed behavioral requirement ('is raised'), not an implementation choice. The behavior is mandated for all implementations.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 14656,
-  "output_tokens": 1941,
-  "latency_ms": 25964,
-  "timestamp": "2026-06-29T10:28:21.927661+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"`miselect` is a WARL register.\",\n      \"line_number\": 72,\n      \"parameter_name\": \"MISELECT_WARL_LEGAL_VALUES\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"WARL\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"miselect is declared WARL, meaning the set of legal values is implementation-defined. The legal range depends on which extensions utilizing miselect/mireg* are implemented.\"\n    },\n    {\n      \"excerpt\": \"The `miselect` register implements at least enough bits to support all implemented `miselect` values (corresponding to the implemented extensions that utilize `miselect`/`mireg*` to indirectly access register state). The `miselect` register may be read-only zero if there are no extensions implemented that utilize it.\",\n      \"line_number\": 74,\n      \"parameter_name\": \"MISELECT_WIDTH\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may be read-only zero if there are no extensions implemented that utilize it\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses whether miselect is read-only zero (when no extensions use it) or a writable register with enough bits to support all implemented miselect values. This is a RO vs RW choice for the register.\"\n    },\n    {\n      \"excerpt\": \"The `siselect` register will support the value range 0..0xFFF at a minimum. A future extension may define a value range outside of this minimum range. Only if such an extension is implemented will `siselect` be required to support larger values.\",\n      \"line_number\": 143,\n      \"parameter_name\": \"SISELECT_WIDTH\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"Only if such an extension is implemented will `siselect` be required to support larger values\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of bits implemented in siselect is an implementation choice \u2014 at minimum it must support 0..0xFFF, but may support larger ranges if extensions requiring them are implemented. This is a WARL field width parameter.\"\n    },\n    {\n      \"excerpt\": \"The `vsiselect` register will support the value range 0..0xFFF at a minimum. A future extension may define a value range outside of this minimum range. Only if such an extension is implemented will `vsiselect` be required to support larger values.\",\n      \"line_number\": 218,\n      \"parameter_name\": \"VSISELECT_WIDTH\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"Only if such an extension is implemented will `vsiselect` be required to support larger values\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of bits implemented in vsiselect is an implementation choice \u2014 at minimum it must support 0..0xFFF, but may support larger ranges if extensions requiring them are implemented. This is a WARL field width parameter.\"\n    },\n    {\n      \"excerpt\": \"If extension Smstateen is implemented together with Smcsrind, bit 60 of state-enable register `mstateen0` controls access to `siselect`, `sireg*`, `vsiselect`, and `vsireg*`. When `mstateen0`[60]=0, an attempt to access one of these CSRs from a privilege mode less privileged than M-mode results in an illegal-instruction exception.\",\n      \"line_number\": 285,\n      \"parameter_name\": \"MSTATEEN_CSRIND_TYPE\",\n      \"existing_udb_name\": \"MSTATEEN_CSRIND_TYPE\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"If extension Smstateen is implemented together with Smcsrind\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether mstateen0[60] is implemented (read-write) depends on whether both Smstateen and Smcsrind are implemented. This is the MSTATEEN_CSRIND_TYPE parameter controlling whether bit 60 of mstateen0 is writable or read-only-zero.\"\n    },\n    {\n      \"excerpt\": \"If the hypervisor extension is implemented, the same bit is defined also in hypervisor CSR `hstateen0`, but controls access to only `siselect` and `sireg*` (really `vsiselect` and `vsireg*`), which is the state potentially accessible to a virtual machine executing in VS or VU-mode.\",\n      \"line_number\": 300,\n      \"parameter_name\": \"HSTATEEN_CSRIND_TYPE\",\n      \"existing_udb_name\": \"HSTATEEN_CSRIND_TYPE\",\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"If the hypervisor extension is implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether hstateen0[60] is implemented (read-write) depends on whether both the hypervisor extension and Smcsrind are implemented. This is the HSTATEEN_CSRIND_TYPE parameter controlling whether bit 60 of hstateen0 is writable or read-only-zero.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The behavior upon accessing `mireg*` from M-mode, while `miselect` holds a value that is not implemented, is UNSPECIFIED.\",\n      \"line_number\": 87,\n      \"reason\": \"This describes unspecified behavior (an outcome), not an implementation-defined parameter with enumerable legal values. Per the hard exclusion rules, unspecified behavior is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"A virtual-instruction exception is raised for attempts from VS-mode or VU-mode to directly access `vsiselect` or `vsireg*`, or attempts from VU-mode to access `siselect` or `sireg*`.\",\n      \"line_number\": 258,\n      \"reason\": \"This is a fixed normative requirement ('is raised') \u2014 there is no implementer choice here. All implementations must raise a virtual-instruction exception in these cases.\"\n    },\n    {\n      \"excerpt\": \"The behavior upon accessing `vsireg*` from M-mode or HS-mode, or accessing `sireg*` (really `vsireg*`) from VS-mode, while `vsiselect` holds a value that is not implemented at HS level, is UNSPECIFIED.\",\n      \"line_number\": 263,\n      \"reason\": \"This describes unspecified behavior (an outcome), not an implementation-defined parameter. Per the hard exclusion rules, unspecified behavior is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The CSRs in the table above are required if S-mode is implemented.\",\n      \"line_number\": 139,\n      \"reason\": \"This is a fixed conditional requirement ('are required if') \u2014 there is no implementer choice. If S-mode is implemented, these CSRs must be present.\"\n    },\n    {\n      \"excerpt\": \"Note that the widths of `siselect` and `sireg*` are always the current XLEN rather than SXLEN.\",\n      \"line_number\": 185,\n      \"reason\": \"This is a fixed statement of fact about register widths \u2014 'always the current XLEN' is a fixed requirement, not an implementation choice. No optionality language is present.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 15255,
+  "output_tokens": 1960,
+  "latency_ms": 29151,
+  "timestamp": "2026-07-11T11:40:04.021274+00:00",
   "error": null,
   "retry_count": 0
 }

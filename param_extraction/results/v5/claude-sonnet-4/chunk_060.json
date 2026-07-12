@@ -8,36 +8,36 @@
   "parameters": [],
   "skipped_non_parameters": [
     {
-      "excerpt": "All _cryptography-specific_ instructions defined in this Vector Crypto specification (i.e., those in <<zvkned>>, <<zvknh,Zvknh[ab]>>, <<Zvkg>>, <<Zvksed>> and <<zvksh>> but _not_ <<zvbb>>,<<zvkb>>, or <<zvbc>>) shall be executed with data-independent execution latency as defined in the <<#crypto_scalar_instructions,RISC-V Scalar Cryptography Extensions specification>>.",
-      "line_number": 388,
-      "reason": "Fixed requirement ('shall be executed') binding on all implementations \u2014 no implementer choice, not a parameter."
+      "excerpt": "For all of the vector crypto instructions in this specification, `EEW`=`SEW`.",
+      "line_number": 175,
+      "reason": "Fixed requirement \u2014 states a mandatory equality for all implementations, no implementer choice."
+    },
+    {
+      "excerpt": "Since `vl` and `vstart` refer to elements, Vector Crypto instructions that use elements groups (See <<crypto-vector-element-groups>>) require that these values are an integer multiple of the Element Group Size (`EGS`).",
+      "line_number": 213,
+      "reason": "Fixed requirement ('require') binding on all implementations \u2014 no implementer choice."
     },
     {
       "excerpt": "For element-group instructions, `LMUL`*`VLEN` must always be at least as large as `EGW`, otherwise an _illegal-instruction exception_ is raised, even if `vl`=0.",
-      "line_number": 213,
-      "reason": "Fixed requirement ('must always be') \u2014 no implementer choice, describes a mandatory constraint."
-    },
-    {
-      "excerpt": "Since `vl` and `vstart` refer to elements, Vector Crypto instructions that use elements groups require that these values are an integer multiple of the Element Group Size (`EGS`).",
-      "line_number": 199,
-      "reason": "Fixed requirement \u2014 no implementer choice, mandatory constraint on vl and vstart."
+      "line_number": 222,
+      "reason": "Fixed requirement ('must always') \u2014 no implementer choice."
     },
     {
       "excerpt": "These instructions are only defined for `SEW`=64.",
-      "line_number": 449,
-      "reason": "Fixed fact/requirement about the Zvbc extension \u2014 not an implementer choice, all other SEW values are reserved."
+      "line_number": 388,
+      "reason": "Fixed requirement \u2014 states a mandatory constraint for all implementations, no implementer choice."
     },
     {
-      "excerpt": "Implementations may choose to fuse these two instructions to improve performance on GHASH code that doesn't use the add-multiply form of the `vghsh.vv` instruction.",
-      "line_number": 2793,
-      "reason": "Inside a [NOTE] block \u2014 non-normative text. Parameters must not be extracted from NOTE blocks."
+      "excerpt": "All _cryptography-specific_ instructions defined in this Vector Crypto specification ... shall be executed with data-independent execution latency as defined in the RISC-V Scalar Cryptography Extensions specification.",
+      "line_number": 449,
+      "reason": "Fixed requirement ('shall') \u2014 mandatory for all implementations, no implementer choice."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"All _cryptography-specific_ instructions defined in this Vector Crypto specification (i.e., those in <<zvkned>>, <<zvknh,Zvknh[ab]>>, <<Zvkg>>, <<Zvksed>> and <<zvksh>> but _not_ <<zvbb>>,<<zvkb>>, or <<zvbc>>) shall be executed with data-independent execution latency as defined in the <<#crypto_scalar_instructions,RISC-V Scalar Cryptography Extensions specification>>.\",\n      \"line_number\": 388,\n      \"reason\": \"Fixed requirement ('shall be executed') binding on all implementations \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"For element-group instructions, `LMUL`*`VLEN` must always be at least as large as `EGW`, otherwise an _illegal-instruction exception_ is raised, even if `vl`=0.\",\n      \"line_number\": 213,\n      \"reason\": \"Fixed requirement ('must always be') \u2014 no implementer choice, describes a mandatory constraint.\"\n    },\n    {\n      \"excerpt\": \"Since `vl` and `vstart` refer to elements, Vector Crypto instructions that use elements groups require that these values are an integer multiple of the Element Group Size (`EGS`).\",\n      \"line_number\": 199,\n      \"reason\": \"Fixed requirement \u2014 no implementer choice, mandatory constraint on vl and vstart.\"\n    },\n    {\n      \"excerpt\": \"These instructions are only defined for `SEW`=64.\",\n      \"line_number\": 449,\n      \"reason\": \"Fixed fact/requirement about the Zvbc extension \u2014 not an implementer choice, all other SEW values are reserved.\"\n    },\n    {\n      \"excerpt\": \"Implementations may choose to fuse these two instructions to improve performance on GHASH code that doesn't use the add-multiply form of the `vghsh.vv` instruction.\",\n      \"line_number\": 2793,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative text. Parameters must not be extracted from NOTE blocks.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 43665,
-  "output_tokens": 536,
-  "latency_ms": 13800,
-  "timestamp": "2026-07-01T10:00:02.439323+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"For all of the vector crypto instructions in this specification, `EEW`=`SEW`.\",\n      \"line_number\": 175,\n      \"reason\": \"Fixed requirement \u2014 states a mandatory equality for all implementations, no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Since `vl` and `vstart` refer to elements, Vector Crypto instructions that use elements groups (See <<crypto-vector-element-groups>>) require that these values are an integer multiple of the Element Group Size (`EGS`).\",\n      \"line_number\": 213,\n      \"reason\": \"Fixed requirement ('require') binding on all implementations \u2014 no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"For element-group instructions, `LMUL`*`VLEN` must always be at least as large as `EGW`, otherwise an _illegal-instruction exception_ is raised, even if `vl`=0.\",\n      \"line_number\": 222,\n      \"reason\": \"Fixed requirement ('must always') \u2014 no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"These instructions are only defined for `SEW`=64.\",\n      \"line_number\": 388,\n      \"reason\": \"Fixed requirement \u2014 states a mandatory constraint for all implementations, no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"All _cryptography-specific_ instructions defined in this Vector Crypto specification ... shall be executed with data-independent execution latency as defined in the RISC-V Scalar Cryptography Extensions specification.\",\n      \"line_number\": 449,\n      \"reason\": \"Fixed requirement ('shall') \u2014 mandatory for all implementations, no implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 44264,
+  "output_tokens": 428,
+  "latency_ms": 10040,
+  "timestamp": "2026-07-11T11:54:33.037560+00:00",
   "error": null,
   "retry_count": 0
 }

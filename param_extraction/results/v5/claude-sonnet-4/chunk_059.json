@@ -7,82 +7,82 @@
   "model": "claude-sonnet-4",
   "parameters": [
     {
+      "excerpt": "A node where one input is derived only from elements masked-off or beyond the active vector length may either treat that input as the additive identity of the appropriate EEW or simply copy the other input to its output.",
+      "line_number": 3960,
+      "parameter_name": "VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR",
+      "existing_udb_name": "VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "may either treat that input as the additive identity ... or simply copy the other input",
+      "confidence": "high",
+      "reasoning": "The spec explicitly gives the implementation a choice between two behaviors for inactive/masked-off node inputs in the vfredusum reduction tree. This is an implementation-defined parameter with two enumerated options."
+    },
+    {
+      "excerpt": "A different floating-point range and precision may be chosen for the result of each operator.",
+      "line_number": 3956,
+      "parameter_name": "VFREDUSUM_NODE_ROUNDING_BEHAVIOR",
+      "existing_udb_name": "VFREDUSUM_NODE_ROUNDING_BEHAVIOR",
+      "class": "NORM_DIRECT",
+      "value_type": "enum",
+      "modal_signal": "may be chosen for the result of each operator",
+      "confidence": "high",
+      "reasoning": "The implementation may choose different floating-point range and precision for each operator node in the reduction tree. This is an explicit implementation choice signaled by 'may be chosen'."
+    },
+    {
       "excerpt": "An implementation is allowed to add an additional additive identity to the final result.",
-      "line_number": 3697,
+      "line_number": 3963,
       "parameter_name": "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR",
       "existing_udb_name": "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR",
       "class": "NORM_DIRECT",
       "value_type": "binary",
       "modal_signal": "is allowed to add an additional additive identity",
       "confidence": "high",
-      "reasoning": "The implementation may or may not add an additional additive identity to the final vfredusum result. This is an explicit implementer choice signaled by 'is allowed to'."
+      "reasoning": "The implementation may or may not add an extra additive identity to the final result of vfredusum. This is an explicit binary implementation choice signaled by 'is allowed to'."
     },
     {
-      "excerpt": "A node where one input is derived only from elements masked-off or beyond the active vector length may either treat that input as the additive identity of the appropriate EEW or simply copy the other input to its output.",
-      "line_number": 3688,
-      "parameter_name": "VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR",
-      "existing_udb_name": "VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR",
+      "excerpt": "EGSMAX is the largest EGS supported by the implementation. When AVL > VLMAX, the value of `vl` must be set to either VLMAX or a positive integer multiple of EGSMAX.",
+      "line_number": 5310,
+      "parameter_name": "EGSMAX",
+      "existing_udb_name": null,
       "class": "NORM_DIRECT",
-      "value_type": "binary",
-      "modal_signal": "may either treat that input as the additive identity ... or simply copy the other input",
+      "value_type": "value",
+      "modal_signal": "the largest EGS supported by the implementation",
       "confidence": "high",
-      "reasoning": "The implementation chooses how to handle masked-off or out-of-range inputs in the vfredusum reduction tree: treat as additive identity or copy the other input. This is a binary implementer choice."
-    },
-    {
-      "excerpt": "A different floating-point range and precision may be chosen for the result of each operator.",
-      "line_number": 3685,
-      "parameter_name": "VFREDUSUM_NODE_ROUNDING_BEHAVIOR",
-      "existing_udb_name": "VFREDUSUM_NODE_ROUNDING_BEHAVIOR",
-      "class": "NORM_DIRECT",
-      "value_type": "binary",
-      "modal_signal": "may be chosen for the result of each operator",
-      "confidence": "high",
-      "reasoning": "The implementation may choose different floating-point range and precision for each node in the vfredusum reduction tree. This is an explicit implementer choice."
-    },
-    {
-      "excerpt": "The reduction tree structure must be deterministic for a given value in `vtype` and `vl`.",
-      "line_number": 3700,
-      "parameter_name": "VFREDUSUM_REDTREE",
-      "existing_udb_name": "VFREDUSUM_REDTREE",
-      "class": "NORM_DIRECT",
-      "value_type": "binary",
-      "modal_signal": "must be deterministic for a given value in `vtype` and `vl`",
-      "confidence": "low",
-      "reasoning": "This is a fixed requirement ('must be deterministic'), not an implementer choice. The tree structure itself is chosen by the implementer, but this sentence only constrains it to be deterministic. This is NOT a parameter \u2014 it is a fixed rule. Moving to skipped."
+      "reasoning": "EGSMAX is an implementation-defined value \u2014 the largest element group size supported. The implementation selects this value at design time, and it affects vl-setting behavior. The phrase 'supported by the implementation' is the optionality signal."
     }
   ],
   "skipped_non_parameters": [
     {
+      "excerpt": "The `vfredosum` instruction must sum the floating-point values in element order, starting with the scalar in `vs1[0]`",
+      "line_number": 3930,
+      "reason": "Fixed requirement ('must sum ... in element order'). No implementer choice \u2014 every implementation must follow this ordering. Not a parameter."
+    },
+    {
       "excerpt": "The reduction tree structure must be deterministic for a given value in `vtype` and `vl`.",
-      "line_number": 3700,
-      "reason": "Fixed requirement ('must be deterministic') \u2014 no implementer choice here; every implementation must satisfy this constraint."
-    },
-    {
-      "excerpt": "Traps on vector reduction instructions are always reported with a `vstart` of 0.",
-      "line_number": 3648,
-      "reason": "Fixed requirement ('always reported') \u2014 no implementer choice; this is a mandatory behavioral rule."
-    },
-    {
-      "excerpt": "Vector reduction operations raise an illegal-instruction exception if `vstart` is non-zero.",
-      "line_number": 3649,
-      "reason": "Fixed requirement ('raise an illegal-instruction exception') \u2014 no implementer choice; this is a mandatory rule."
+      "line_number": 3966,
+      "reason": "Fixed requirement ('must be deterministic'). This is a constraint on all implementations, not an implementation choice. Not a parameter."
     },
     {
       "excerpt": "The V vector extension has precise traps.",
-      "line_number": 5218,
-      "reason": "Fixed requirement \u2014 no implementer choice; the V extension mandates precise traps."
+      "line_number": 5230,
+      "reason": "Fixed requirement \u2014 all V extension implementations must have precise traps. No implementer choice here."
     },
     {
-      "excerpt": "All Zve* extensions have precise traps.",
-      "line_number": 5107,
-      "reason": "Fixed requirement ('have precise traps') \u2014 no implementer choice; all Zve* extensions must provide precise traps."
+      "excerpt": "Traps on vector reduction instructions are always reported with a `vstart` of 0.",
+      "line_number": 3893,
+      "reason": "Fixed requirement ('always reported'). This is a mandatory behavior for all implementations, not an implementation choice."
+    },
+    {
+      "excerpt": "The `vmsbf.m` instruction takes a mask register as input and writes results to a mask register. The instruction writes a 1 to all active mask elements before the first active source element that is a 1, then writes a 0 to that element and all following active elements.",
+      "line_number": 4530,
+      "reason": "Behavioral description of a fixed instruction semantics. No implementer choice \u2014 this is what the instruction must do."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"An implementation is allowed to add an additional additive identity to the final result.\",\n      \"line_number\": 3697,\n      \"parameter_name\": \"VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR\",\n      \"existing_udb_name\": \"VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"is allowed to add an additional additive identity\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may or may not add an additional additive identity to the final vfredusum result. This is an explicit implementer choice signaled by 'is allowed to'.\"\n    },\n    {\n      \"excerpt\": \"A node where one input is derived only from elements masked-off or beyond the active vector length may either treat that input as the additive identity of the appropriate EEW or simply copy the other input to its output.\",\n      \"line_number\": 3688,\n      \"parameter_name\": \"VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR\",\n      \"existing_udb_name\": \"VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may either treat that input as the additive identity ... or simply copy the other input\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation chooses how to handle masked-off or out-of-range inputs in the vfredusum reduction tree: treat as additive identity or copy the other input. This is a binary implementer choice.\"\n    },\n    {\n      \"excerpt\": \"A different floating-point range and precision may be chosen for the result of each operator.\",\n      \"line_number\": 3685,\n      \"parameter_name\": \"VFREDUSUM_NODE_ROUNDING_BEHAVIOR\",\n      \"existing_udb_name\": \"VFREDUSUM_NODE_ROUNDING_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may be chosen for the result of each operator\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may choose different floating-point range and precision for each node in the vfredusum reduction tree. This is an explicit implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The reduction tree structure must be deterministic for a given value in `vtype` and `vl`.\",\n      \"line_number\": 3700,\n      \"parameter_name\": \"VFREDUSUM_REDTREE\",\n      \"existing_udb_name\": \"VFREDUSUM_REDTREE\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"must be deterministic for a given value in `vtype` and `vl`\",\n      \"confidence\": \"low\",\n      \"reasoning\": \"This is a fixed requirement ('must be deterministic'), not an implementer choice. The tree structure itself is chosen by the implementer, but this sentence only constrains it to be deterministic. This is NOT a parameter \u2014 it is a fixed rule. Moving to skipped.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The reduction tree structure must be deterministic for a given value in `vtype` and `vl`.\",\n      \"line_number\": 3700,\n      \"reason\": \"Fixed requirement ('must be deterministic') \u2014 no implementer choice here; every implementation must satisfy this constraint.\"\n    },\n    {\n      \"excerpt\": \"Traps on vector reduction instructions are always reported with a `vstart` of 0.\",\n      \"line_number\": 3648,\n      \"reason\": \"Fixed requirement ('always reported') \u2014 no implementer choice; this is a mandatory behavioral rule.\"\n    },\n    {\n      \"excerpt\": \"Vector reduction operations raise an illegal-instruction exception if `vstart` is non-zero.\",\n      \"line_number\": 3649,\n      \"reason\": \"Fixed requirement ('raise an illegal-instruction exception') \u2014 no implementer choice; this is a mandatory rule.\"\n    },\n    {\n      \"excerpt\": \"The V vector extension has precise traps.\",\n      \"line_number\": 5218,\n      \"reason\": \"Fixed requirement \u2014 no implementer choice; the V extension mandates precise traps.\"\n    },\n    {\n      \"excerpt\": \"All Zve* extensions have precise traps.\",\n      \"line_number\": 5107,\n      \"reason\": \"Fixed requirement ('have precise traps') \u2014 no implementer choice; all Zve* extensions must provide precise traps.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 38482,
-  "output_tokens": 1161,
-  "latency_ms": 20257,
-  "timestamp": "2026-07-01T09:59:47.612540+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"A node where one input is derived only from elements masked-off or beyond the active vector length may either treat that input as the additive identity of the appropriate EEW or simply copy the other input to its output.\",\n      \"line_number\": 3960,\n      \"parameter_name\": \"VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR\",\n      \"existing_udb_name\": \"VFREDUSUM_INACTIVE_NODE_ELEMENT_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"may either treat that input as the additive identity ... or simply copy the other input\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly gives the implementation a choice between two behaviors for inactive/masked-off node inputs in the vfredusum reduction tree. This is an implementation-defined parameter with two enumerated options.\"\n    },\n    {\n      \"excerpt\": \"A different floating-point range and precision may be chosen for the result of each operator.\",\n      \"line_number\": 3956,\n      \"parameter_name\": \"VFREDUSUM_NODE_ROUNDING_BEHAVIOR\",\n      \"existing_udb_name\": \"VFREDUSUM_NODE_ROUNDING_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"may be chosen for the result of each operator\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may choose different floating-point range and precision for each operator node in the reduction tree. This is an explicit implementation choice signaled by 'may be chosen'.\"\n    },\n    {\n      \"excerpt\": \"An implementation is allowed to add an additional additive identity to the final result.\",\n      \"line_number\": 3963,\n      \"parameter_name\": \"VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR\",\n      \"existing_udb_name\": \"VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"is allowed to add an additional additive identity\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The implementation may or may not add an extra additive identity to the final result of vfredusum. This is an explicit binary implementation choice signaled by 'is allowed to'.\"\n    },\n    {\n      \"excerpt\": \"EGSMAX is the largest EGS supported by the implementation. When AVL > VLMAX, the value of `vl` must be set to either VLMAX or a positive integer multiple of EGSMAX.\",\n      \"line_number\": 5310,\n      \"parameter_name\": \"EGSMAX\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"value\",\n      \"modal_signal\": \"the largest EGS supported by the implementation\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"EGSMAX is an implementation-defined value \u2014 the largest element group size supported. The implementation selects this value at design time, and it affects vl-setting behavior. The phrase 'supported by the implementation' is the optionality signal.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The `vfredosum` instruction must sum the floating-point values in element order, starting with the scalar in `vs1[0]`\",\n      \"line_number\": 3930,\n      \"reason\": \"Fixed requirement ('must sum ... in element order'). No implementer choice \u2014 every implementation must follow this ordering. Not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The reduction tree structure must be deterministic for a given value in `vtype` and `vl`.\",\n      \"line_number\": 3966,\n      \"reason\": \"Fixed requirement ('must be deterministic'). This is a constraint on all implementations, not an implementation choice. Not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The V vector extension has precise traps.\",\n      \"line_number\": 5230,\n      \"reason\": \"Fixed requirement \u2014 all V extension implementations must have precise traps. No implementer choice here.\"\n    },\n    {\n      \"excerpt\": \"Traps on vector reduction instructions are always reported with a `vstart` of 0.\",\n      \"line_number\": 3893,\n      \"reason\": \"Fixed requirement ('always reported'). This is a mandatory behavior for all implementations, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The `vmsbf.m` instruction takes a mask register as input and writes results to a mask register. The instruction writes a 1 to all active mask elements before the first active source element that is a 1, then writes a 0 to that element and all following active elements.\",\n      \"line_number\": 4530,\n      \"reason\": \"Behavioral description of a fixed instruction semantics. No implementer choice \u2014 this is what the instruction must do.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 39081,
+  "output_tokens": 1235,
+  "latency_ms": 25581,
+  "timestamp": "2026-07-11T11:54:21.966439+00:00",
   "error": null,
   "retry_count": 0
 }

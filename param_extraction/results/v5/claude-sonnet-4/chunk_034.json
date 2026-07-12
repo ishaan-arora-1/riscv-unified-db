@@ -10,34 +10,34 @@
     {
       "excerpt": "The floating-point registers are now extended to hold either a single, double, or quad-precision floating-point value (FLEN=128).",
       "line_number": 7,
-      "reason": "This is a fixed requirement/statement of fact for the Q extension \u2014 FLEN=128 is mandated, not an implementer choice. No optionality language present."
+      "reason": "This is a fixed requirement for the Q extension \u2014 FLEN=128 is mandated, not an implementation choice. No optionality language present."
     },
     {
       "excerpt": "FLQ and FSQ are only guaranteed to execute atomically if the effective address is naturally aligned and XLEN=128.",
       "line_number": 24,
-      "reason": "This is a fixed behavioral rule describing the atomicity guarantee condition. No optionality language; it is a normative requirement, not an implementer choice."
+      "reason": "This is a fixed behavioral rule (a guarantee condition), not an implementation choice. No optionality language; 'only guaranteed' is a constraint on the guarantee, not a parameter."
     },
     {
       "excerpt": "FLQ and FSQ do not modify the bits being transferred; in particular, the payloads of non-canonical NaNs are preserved.",
       "line_number": 27,
-      "reason": "Fixed requirement ('do not modify'). This is a mandatory behavioral rule applying to all implementations, not an implementer choice."
-    },
-    {
-      "excerpt": "FMV.X.Q and FMV.Q.X instructions are not provided in RV32 or RV64, so quad-precision bit patterns must be moved to the integer registers via memory.",
-      "line_number": 88,
-      "reason": "Statement of fact about which instructions are not provided. No optionality language; this is a fixed architectural rule, not an implementer choice."
+      "reason": "Fixed requirement ('do not modify') binding on all implementations. No implementer choice here."
     },
     {
       "excerpt": "FCVT.L[U].Q and FCVT.Q.L[U] are RV64-only instructions.",
       "line_number": 63,
-      "reason": "Fixed architectural rule specifying which ISA base these instructions belong to. No optionality language; not an implementer choice."
+      "reason": "Statement of fact about which ISA base these instructions belong to. No implementer choice; this is a fixed ISA rule."
+    },
+    {
+      "excerpt": "FMV.X.Q and FMV.Q.X instructions are not provided in RV32 or RV64, so quad-precision bit patterns must be moved to the integer registers via memory.",
+      "line_number": 91,
+      "reason": "Fixed ISA rule \u2014 these instructions are absent in RV32/RV64. No implementer choice; 'must' is a software requirement following from the absence of the instructions."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The floating-point registers are now extended to hold either a single, double, or quad-precision floating-point value (FLEN=128).\",\n      \"line_number\": 7,\n      \"reason\": \"This is a fixed requirement/statement of fact for the Q extension \u2014 FLEN=128 is mandated, not an implementer choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"FLQ and FSQ are only guaranteed to execute atomically if the effective address is naturally aligned and XLEN=128.\",\n      \"line_number\": 24,\n      \"reason\": \"This is a fixed behavioral rule describing the atomicity guarantee condition. No optionality language; it is a normative requirement, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"FLQ and FSQ do not modify the bits being transferred; in particular, the payloads of non-canonical NaNs are preserved.\",\n      \"line_number\": 27,\n      \"reason\": \"Fixed requirement ('do not modify'). This is a mandatory behavioral rule applying to all implementations, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"FMV.X.Q and FMV.Q.X instructions are not provided in RV32 or RV64, so quad-precision bit patterns must be moved to the integer registers via memory.\",\n      \"line_number\": 88,\n      \"reason\": \"Statement of fact about which instructions are not provided. No optionality language; this is a fixed architectural rule, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"FCVT.L[U].Q and FCVT.Q.L[U] are RV64-only instructions.\",\n      \"line_number\": 63,\n      \"reason\": \"Fixed architectural rule specifying which ISA base these instructions belong to. No optionality language; not an implementer choice.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 11390,
-  "output_tokens": 485,
-  "latency_ms": 8082,
-  "timestamp": "2026-06-29T10:33:07.047147+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The floating-point registers are now extended to hold either a single, double, or quad-precision floating-point value (FLEN=128).\",\n      \"line_number\": 7,\n      \"reason\": \"This is a fixed requirement for the Q extension \u2014 FLEN=128 is mandated, not an implementation choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"FLQ and FSQ are only guaranteed to execute atomically if the effective address is naturally aligned and XLEN=128.\",\n      \"line_number\": 24,\n      \"reason\": \"This is a fixed behavioral rule (a guarantee condition), not an implementation choice. No optionality language; 'only guaranteed' is a constraint on the guarantee, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"FLQ and FSQ do not modify the bits being transferred; in particular, the payloads of non-canonical NaNs are preserved.\",\n      \"line_number\": 27,\n      \"reason\": \"Fixed requirement ('do not modify') binding on all implementations. No implementer choice here.\"\n    },\n    {\n      \"excerpt\": \"FCVT.L[U].Q and FCVT.Q.L[U] are RV64-only instructions.\",\n      \"line_number\": 63,\n      \"reason\": \"Statement of fact about which ISA base these instructions belong to. No implementer choice; this is a fixed ISA rule.\"\n    },\n    {\n      \"excerpt\": \"FMV.X.Q and FMV.Q.X instructions are not provided in RV32 or RV64, so quad-precision bit patterns must be moved to the integer registers via memory.\",\n      \"line_number\": 91,\n      \"reason\": \"Fixed ISA rule \u2014 these instructions are absent in RV32/RV64. No implementer choice; 'must' is a software requirement following from the absence of the instructions.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 11989,
+  "output_tokens": 489,
+  "latency_ms": 10258,
+  "timestamp": "2026-07-11T11:44:45.748098+00:00",
   "error": null,
   "retry_count": 0
 }

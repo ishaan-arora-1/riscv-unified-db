@@ -8,59 +8,59 @@
   "parameters": [
     {
       "excerpt": "The bits 1:0 of `ssp` are read-only zero. If the UXLEN or SXLEN may never be 32, then the bit 2 is also read-only zero.",
-      "line_number": 530,
+      "line_number": 499,
       "parameter_name": "SSP_BIT2_READ_ONLY_ZERO",
       "existing_udb_name": null,
       "class": "NORM_CSR_RW",
       "value_type": "binary",
       "modal_signal": "may never be 32",
       "confidence": "high",
-      "reasoning": "Whether bit 2 of the ssp CSR is read-only zero depends on whether UXLEN or SXLEN may ever be 32. This is an implementation choice about the mutability of a CSR field, making it a NORM_CSR_RW parameter."
+      "reasoning": "Whether bit 2 of the ssp CSR is read-only zero depends on whether UXLEN or SXLEN may ever be 32. This is an implementation choice about the mutability of a CSR bit, conditioned on the supported XLEN values. This is a NORM_CSR_RW parameter."
     },
     {
       "excerpt": "Just as for AMOs in the A extension, `SSAMOSWAP.W/D` requires that the address held in `rs1` be naturally aligned to the size of the operand (i.e., eight-byte aligned for __doublewords__, and four-byte aligned for __words__). The same exception options apply if the address is not naturally aligned.",
-      "line_number": 826,
+      "line_number": 793,
       "parameter_name": "MISALIGNED_AMO",
       "existing_udb_name": "MISALIGNED_AMO",
       "class": "NORM_DIRECT",
       "value_type": "enum",
       "modal_signal": "The same exception options apply if the address is not naturally aligned",
       "confidence": "medium",
-      "reasoning": "The phrase 'The same exception options apply' references the AMO misalignment exception options defined elsewhere in the spec, indicating the implementation has a choice of how to handle misaligned SSAMOSWAP addresses (raise exception, or handle). This matches the known MISALIGNED_AMO parameter."
+      "reasoning": "The phrase 'the same exception options apply' references the AMO misalignment handling options defined in the A extension (raise exception, or handle without exception). This is an implementation choice about how misaligned SSAMOSWAP accesses are handled, matching the known UDB parameter MISALIGNED_AMO."
     }
   ],
   "skipped_non_parameters": [
     {
       "excerpt": "The `LPAD` instruction (See <<LP_INST>>) is encoded using the `AUIPC` major opcode with _rd_=`x0`.",
       "line_number": 74,
-      "reason": "Fixed encoding requirement \u2014 no implementer choice. This is a statement of fact about the instruction encoding."
+      "reason": "Fixed encoding requirement \u2014 describes a mandatory encoding, not an implementation choice. No optionality language."
     },
     {
       "excerpt": "The `ELP` state is initialized to `NO_LP_EXPECTED` by the hart upon reset.",
       "line_number": 163,
-      "reason": "Fixed requirement ('is initialized') \u2014 no implementer choice. Every implementation must initialize ELP to NO_LP_EXPECTED on reset."
+      "reason": "Fixed requirement ('is initialized to') describing mandatory reset behavior. No implementer choice."
     },
     {
       "excerpt": "The Zicfiss extension depends on the Zicsr, Zimop and Zaamo extensions.",
       "line_number": 393,
-      "reason": "Statement of dependency fact, not an implementer choice. No optionality language present."
+      "reason": "Statement of dependency fact, not an implementation choice. No optionality language."
     },
     {
       "excerpt": "The `ssp` CSR is an unprivileged read-write (URW) CSR that reads and writes `XLEN` low order bits of the shadow stack pointer (`ssp`).",
-      "line_number": 527,
-      "reason": "Fixed architectural definition of the ssp CSR \u2014 no implementer choice. This is a normative statement of fact about the CSR's properties."
+      "line_number": 496,
+      "reason": "Fixed architectural definition of the ssp CSR. No optionality language \u2014 this is a mandatory specification of the register's behavior."
     },
     {
-      "excerpt": "When `ELP` is set to `LP_EXPECTED`, if the next instruction in the instruction stream is not 4-byte aligned, or is not `LPAD`, or if the landing pad label encoded in `LPAD` is not zero and does not match the expected landing pad label in bits 31:12 of the `x7` register, then a software-check exception (cause=18) with `__x__tval` set to \"landing pad fault (code=2)\" is raised else the `ELP` is updated to `NO_LP_EXPECTED`.",
-      "line_number": 228,
-      "reason": "Fixed behavioral requirement describing what happens when ELP=LP_EXPECTED. No implementer choice \u2014 this is a 'must' rule for all implementations."
+      "excerpt": "If the value loaded from the address in `ssp` does not match the value in `rs1`, a software-check exception (cause=18) is raised with `__x__tval` set to \"shadow stack fault (code=3)\".",
+      "line_number": 660,
+      "reason": "Fixed behavioral requirement ('is raised') describing mandatory exception behavior. No implementer choice."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The bits 1:0 of `ssp` are read-only zero. If the UXLEN or SXLEN may never be 32, then the bit 2 is also read-only zero.\",\n      \"line_number\": 530,\n      \"parameter_name\": \"SSP_BIT2_READ_ONLY_ZERO\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may never be 32\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether bit 2 of the ssp CSR is read-only zero depends on whether UXLEN or SXLEN may ever be 32. This is an implementation choice about the mutability of a CSR field, making it a NORM_CSR_RW parameter.\"\n    },\n    {\n      \"excerpt\": \"Just as for AMOs in the A extension, `SSAMOSWAP.W/D` requires that the address held in `rs1` be naturally aligned to the size of the operand (i.e., eight-byte aligned for __doublewords__, and four-byte aligned for __words__). The same exception options apply if the address is not naturally aligned.\",\n      \"line_number\": 826,\n      \"parameter_name\": \"MISALIGNED_AMO\",\n      \"existing_udb_name\": \"MISALIGNED_AMO\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"The same exception options apply if the address is not naturally aligned\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The phrase 'The same exception options apply' references the AMO misalignment exception options defined elsewhere in the spec, indicating the implementation has a choice of how to handle misaligned SSAMOSWAP addresses (raise exception, or handle). This matches the known MISALIGNED_AMO parameter.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The `LPAD` instruction (See <<LP_INST>>) is encoded using the `AUIPC` major opcode with _rd_=`x0`.\",\n      \"line_number\": 74,\n      \"reason\": \"Fixed encoding requirement \u2014 no implementer choice. This is a statement of fact about the instruction encoding.\"\n    },\n    {\n      \"excerpt\": \"The `ELP` state is initialized to `NO_LP_EXPECTED` by the hart upon reset.\",\n      \"line_number\": 163,\n      \"reason\": \"Fixed requirement ('is initialized') \u2014 no implementer choice. Every implementation must initialize ELP to NO_LP_EXPECTED on reset.\"\n    },\n    {\n      \"excerpt\": \"The Zicfiss extension depends on the Zicsr, Zimop and Zaamo extensions.\",\n      \"line_number\": 393,\n      \"reason\": \"Statement of dependency fact, not an implementer choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"The `ssp` CSR is an unprivileged read-write (URW) CSR that reads and writes `XLEN` low order bits of the shadow stack pointer (`ssp`).\",\n      \"line_number\": 527,\n      \"reason\": \"Fixed architectural definition of the ssp CSR \u2014 no implementer choice. This is a normative statement of fact about the CSR's properties.\"\n    },\n    {\n      \"excerpt\": \"When `ELP` is set to `LP_EXPECTED`, if the next instruction in the instruction stream is not 4-byte aligned, or is not `LPAD`, or if the landing pad label encoded in `LPAD` is not zero and does not match the expected landing pad label in bits 31:12 of the `x7` register, then a software-check exception (cause=18) with `__x__tval` set to \\\"landing pad fault (code=2)\\\" is raised else the `ELP` is updated to `NO_LP_EXPECTED`.\",\n      \"line_number\": 228,\n      \"reason\": \"Fixed behavioral requirement describing what happens when ELP=LP_EXPECTED. No implementer choice \u2014 this is a 'must' rule for all implementations.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 21754,
-  "output_tokens": 1040,
-  "latency_ms": 21088,
-  "timestamp": "2026-06-29T10:40:25.955266+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The bits 1:0 of `ssp` are read-only zero. If the UXLEN or SXLEN may never be 32, then the bit 2 is also read-only zero.\",\n      \"line_number\": 499,\n      \"parameter_name\": \"SSP_BIT2_READ_ONLY_ZERO\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may never be 32\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether bit 2 of the ssp CSR is read-only zero depends on whether UXLEN or SXLEN may ever be 32. This is an implementation choice about the mutability of a CSR bit, conditioned on the supported XLEN values. This is a NORM_CSR_RW parameter.\"\n    },\n    {\n      \"excerpt\": \"Just as for AMOs in the A extension, `SSAMOSWAP.W/D` requires that the address held in `rs1` be naturally aligned to the size of the operand (i.e., eight-byte aligned for __doublewords__, and four-byte aligned for __words__). The same exception options apply if the address is not naturally aligned.\",\n      \"line_number\": 793,\n      \"parameter_name\": \"MISALIGNED_AMO\",\n      \"existing_udb_name\": \"MISALIGNED_AMO\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"The same exception options apply if the address is not naturally aligned\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The phrase 'the same exception options apply' references the AMO misalignment handling options defined in the A extension (raise exception, or handle without exception). This is an implementation choice about how misaligned SSAMOSWAP accesses are handled, matching the known UDB parameter MISALIGNED_AMO.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The `LPAD` instruction (See <<LP_INST>>) is encoded using the `AUIPC` major opcode with _rd_=`x0`.\",\n      \"line_number\": 74,\n      \"reason\": \"Fixed encoding requirement \u2014 describes a mandatory encoding, not an implementation choice. No optionality language.\"\n    },\n    {\n      \"excerpt\": \"The `ELP` state is initialized to `NO_LP_EXPECTED` by the hart upon reset.\",\n      \"line_number\": 163,\n      \"reason\": \"Fixed requirement ('is initialized to') describing mandatory reset behavior. No implementer choice.\"\n    },\n    {\n      \"excerpt\": \"The Zicfiss extension depends on the Zicsr, Zimop and Zaamo extensions.\",\n      \"line_number\": 393,\n      \"reason\": \"Statement of dependency fact, not an implementation choice. No optionality language.\"\n    },\n    {\n      \"excerpt\": \"The `ssp` CSR is an unprivileged read-write (URW) CSR that reads and writes `XLEN` low order bits of the shadow stack pointer (`ssp`).\",\n      \"line_number\": 496,\n      \"reason\": \"Fixed architectural definition of the ssp CSR. No optionality language \u2014 this is a mandatory specification of the register's behavior.\"\n    },\n    {\n      \"excerpt\": \"If the value loaded from the address in `ssp` does not match the value in `rs1`, a software-check exception (cause=18) is raised with `__x__tval` set to \\\"shadow stack fault (code=3)\\\".\",\n      \"line_number\": 660,\n      \"reason\": \"Fixed behavioral requirement ('is raised') describing mandatory exception behavior. No implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 22353,
+  "output_tokens": 948,
+  "latency_ms": 18721,
+  "timestamp": "2026-07-11T11:52:37.516190+00:00",
   "error": null,
   "retry_count": 0
 }

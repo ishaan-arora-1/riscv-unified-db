@@ -13,31 +13,31 @@
       "reason": "This is inside a [NOTE] block and is purely definitional/informative. No parameters may be extracted from NOTE blocks."
     },
     {
-      "excerpt": "Without the Smepmp extension, it is not possible for a PMP rule to be *enforced* only on non-Machine modes and *denied* on Machine mode, in order to allow access to a memory region solely by less-privileged modes.",
-      "line_number": 38,
-      "reason": "This is a statement of fact about the behavior without the extension \u2014 no implementer choice is being described. It is also part of the threat model rationale section."
+      "excerpt": "So for any physical memory region which is not protected with a Locked rule, Machine mode has unlimited access, including the ability to execute it.",
+      "line_number": 42,
+      "reason": "This is a statement of fact describing behavior without Smepmp \u2014 no implementer choice is presented. It is a fixed behavioral description, not a parameter."
     },
     {
-      "excerpt": "This extension introduces the `RLB`, `MMWP`, and `MML` fields in the `mseccfg` CSR and their associated rules.",
+      "excerpt": "this extension introduces the `RLB`, `MMWP`, and `MML` fields in the `mseccfg` CSR and their associated rules.",
       "line_number": 52,
-      "reason": "This is a fixed statement of what the extension defines \u2014 no optionality language. The fields are required by the extension, not optional."
+      "reason": "This is a normative statement of what the extension mandates (introduces specific fields). It is a fixed requirement, not an implementer choice. No optionality language is present."
     },
     {
       "excerpt": "It is expected that BootROM will set ``mseccfg.MMWP`` and/or ``mseccfg.MML`` during early boot, before jumping to the firmware, so that the firmware will be able to determine the presence of Smepmp by reading ``mseccfg``.",
       "line_number": 74,
-      "reason": "This describes expected software/firmware behavior (BootROM actions), not an architectural parameter. It is a software/platform convention, not an implementer ISA choice."
+      "reason": "This describes expected software/firmware behavior ('It is expected that BootROM will set...'). It is a software/platform convention, not an ISA architectural parameter. Also falls under NON_ISA / SW_RULE territory with no enumerable implementer choice."
     },
     {
       "excerpt": "Since all fields defined in ``mseccfg`` as part of this extension are locked when set (``MMWP``/``MML``) or locked when cleared (``RLB``), software can't poll them for determining the presence of Smepmp.",
       "line_number": 73,
-      "reason": "This is a fixed behavioral statement about how the fields work \u2014 no implementer choice is presented. It is a clarification for software, not a parameter."
+      "reason": "This is a fixed behavioral statement about how the mseccfg fields work (locking behavior). No implementer choice is presented \u2014 it is a mandatory rule applying to all Smepmp implementations."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Terms: * *PMP Entry*: A pair of ``pmpcfg[i]`` / ``pmpaddr[i]`` registers. * *PMP Rule*: The contents of a pmpcfg register and its associated pmpaddr register(s)...\",\n      \"line_number\": 16,\n      \"reason\": \"This is inside a [NOTE] block and is purely definitional/informative. No parameters may be extracted from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"Without the Smepmp extension, it is not possible for a PMP rule to be *enforced* only on non-Machine modes and *denied* on Machine mode, in order to allow access to a memory region solely by less-privileged modes.\",\n      \"line_number\": 38,\n      \"reason\": \"This is a statement of fact about the behavior without the extension \u2014 no implementer choice is being described. It is also part of the threat model rationale section.\"\n    },\n    {\n      \"excerpt\": \"This extension introduces the `RLB`, `MMWP`, and `MML` fields in the `mseccfg` CSR and their associated rules.\",\n      \"line_number\": 52,\n      \"reason\": \"This is a fixed statement of what the extension defines \u2014 no optionality language. The fields are required by the extension, not optional.\"\n    },\n    {\n      \"excerpt\": \"It is expected that BootROM will set ``mseccfg.MMWP`` and/or ``mseccfg.MML`` during early boot, before jumping to the firmware, so that the firmware will be able to determine the presence of Smepmp by reading ``mseccfg``.\",\n      \"line_number\": 74,\n      \"reason\": \"This describes expected software/firmware behavior (BootROM actions), not an architectural parameter. It is a software/platform convention, not an implementer ISA choice.\"\n    },\n    {\n      \"excerpt\": \"Since all fields defined in ``mseccfg`` as part of this extension are locked when set (``MMWP``/``MML``) or locked when cleared (``RLB``), software can't poll them for determining the presence of Smepmp.\",\n      \"line_number\": 73,\n      \"reason\": \"This is a fixed behavioral statement about how the fields work \u2014 no implementer choice is presented. It is a clarification for software, not a parameter.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 11606,
-  "output_tokens": 601,
-  "latency_ms": 9879,
-  "timestamp": "2026-06-29T10:37:37.603763+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Terms: * *PMP Entry*: A pair of ``pmpcfg[i]`` / ``pmpaddr[i]`` registers. * *PMP Rule*: The contents of a pmpcfg register and its associated pmpaddr register(s)...\",\n      \"line_number\": 16,\n      \"reason\": \"This is inside a [NOTE] block and is purely definitional/informative. No parameters may be extracted from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"So for any physical memory region which is not protected with a Locked rule, Machine mode has unlimited access, including the ability to execute it.\",\n      \"line_number\": 42,\n      \"reason\": \"This is a statement of fact describing behavior without Smepmp \u2014 no implementer choice is presented. It is a fixed behavioral description, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"this extension introduces the `RLB`, `MMWP`, and `MML` fields in the `mseccfg` CSR and their associated rules.\",\n      \"line_number\": 52,\n      \"reason\": \"This is a normative statement of what the extension mandates (introduces specific fields). It is a fixed requirement, not an implementer choice. No optionality language is present.\"\n    },\n    {\n      \"excerpt\": \"It is expected that BootROM will set ``mseccfg.MMWP`` and/or ``mseccfg.MML`` during early boot, before jumping to the firmware, so that the firmware will be able to determine the presence of Smepmp by reading ``mseccfg``.\",\n      \"line_number\": 74,\n      \"reason\": \"This describes expected software/firmware behavior ('It is expected that BootROM will set...'). It is a software/platform convention, not an ISA architectural parameter. Also falls under NON_ISA / SW_RULE territory with no enumerable implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Since all fields defined in ``mseccfg`` as part of this extension are locked when set (``MMWP``/``MML``) or locked when cleared (``RLB``), software can't poll them for determining the presence of Smepmp.\",\n      \"line_number\": 73,\n      \"reason\": \"This is a fixed behavioral statement about how the mseccfg fields work (locking behavior). No implementer choice is presented \u2014 it is a mandatory rule applying to all Smepmp implementations.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12205,
+  "output_tokens": 617,
+  "latency_ms": 12464,
+  "timestamp": "2026-07-11T11:49:31.223313+00:00",
   "error": null,
   "retry_count": 0
 }

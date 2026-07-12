@@ -5,39 +5,51 @@
   "end_line": 254,
   "content_start_line": 1,
   "model": "claude-sonnet-4",
-  "parameters": [],
-  "skipped_non_parameters": [
-    {
-      "excerpt": "While CSRs are primarily used by the privileged architecture, there are several uses in unprivileged code including for counters and timers, and for floating-point status.",
-      "line_number": 9,
-      "reason": "This is inside a [NOTE] block and is non-normative. No architectural parameter is defined here."
-    },
+  "parameters": [
     {
       "excerpt": "The hardware platform may define that accesses to certain CSRs are strongly ordered, as defined by the Memory-Ordering PMAs section in Volume II of this manual.",
-      "line_number": 237,
-      "reason": "Although 'may define' appears here, this is a platform-level memory ordering decision (NON_ISA), not an ISA-level architectural parameter. It describes a platform/EEI choice about memory ordering PMAs, not a hart-level ISA parameter."
-    },
-    {
-      "excerpt": "For any event or consequence that occurs due to a CSR having a particular value, if a write to the CSR gives it that value, the resulting event or consequence is said to be an _indirect effect_ of the write.",
-      "line_number": 131,
-      "reason": "This is a definitional/clarification statement with no optionality language. It defines terminology, not an implementation choice."
-    },
-    {
-      "excerpt": "Each RISC-V hart normally observes its own CSR accesses, including its implicit CSR accesses, as performed in program order.",
-      "line_number": 185,
-      "reason": "This is a fixed behavioral requirement ('normally observes ... in program order'), not an implementation choice. No optionality language is present."
-    },
-    {
-      "excerpt": "For the RVWMO memory consistency model, CSR accesses are weakly ordered by default, so other harts or devices may observe CSR accesses in an order different from program order.",
-      "line_number": 205,
-      "reason": "The 'may observe' here is a permission/possibility statement about observable behavior under RVWMO, not an implementer choice. This is a fixed rule of the memory model, not a parameter."
+      "line_number": 243,
+      "parameter_name": "STRONGLY_ORDERED_CSRS",
+      "existing_udb_name": null,
+      "class": "NON_ISA",
+      "value_type": "set",
+      "modal_signal": "may define that accesses to certain CSRs are strongly ordered",
+      "confidence": "medium",
+      "reasoning": "The hardware platform may define certain CSRs as strongly ordered \u2014 this is a platform-level memory ordering choice. While there is clear optionality ('may define'), this is a platform/PMA-level decision rather than a pure ISA architectural parameter, making it NON_ISA. However, it does affect observable ISA behavior, so it is borderline. Classifying as NON_ISA because it is explicitly tied to the Memory-Ordering PMAs platform definition."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"While CSRs are primarily used by the privileged architecture, there are several uses in unprivileged code including for counters and timers, and for floating-point status.\",\n      \"line_number\": 9,\n      \"reason\": \"This is inside a [NOTE] block and is non-normative. No architectural parameter is defined here.\"\n    },\n    {\n      \"excerpt\": \"The hardware platform may define that accesses to certain CSRs are strongly ordered, as defined by the Memory-Ordering PMAs section in Volume II of this manual.\",\n      \"line_number\": 237,\n      \"reason\": \"Although 'may define' appears here, this is a platform-level memory ordering decision (NON_ISA), not an ISA-level architectural parameter. It describes a platform/EEI choice about memory ordering PMAs, not a hart-level ISA parameter.\"\n    },\n    {\n      \"excerpt\": \"For any event or consequence that occurs due to a CSR having a particular value, if a write to the CSR gives it that value, the resulting event or consequence is said to be an _indirect effect_ of the write.\",\n      \"line_number\": 131,\n      \"reason\": \"This is a definitional/clarification statement with no optionality language. It defines terminology, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"Each RISC-V hart normally observes its own CSR accesses, including its implicit CSR accesses, as performed in program order.\",\n      \"line_number\": 185,\n      \"reason\": \"This is a fixed behavioral requirement ('normally observes ... in program order'), not an implementation choice. No optionality language is present.\"\n    },\n    {\n      \"excerpt\": \"For the RVWMO memory consistency model, CSR accesses are weakly ordered by default, so other harts or devices may observe CSR accesses in an order different from program order.\",\n      \"line_number\": 205,\n      \"reason\": \"The 'may observe' here is a permission/possibility statement about observable behavior under RVWMO, not an implementer choice. This is a fixed rule of the memory model, not a parameter.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 13262,
-  "output_tokens": 540,
-  "latency_ms": 12522,
-  "timestamp": "2026-07-01T10:03:26.020708+00:00",
+  "skipped_non_parameters": [
+    {
+      "excerpt": "If _rd_=`x0`, then the instruction shall not read the CSR and shall not cause any of the side effects that might occur on a CSR read.",
+      "line_number": 31,
+      "reason": "Fixed requirement ('shall not') binding on all implementations \u2014 no implementer choice here, just a behavioral rule."
+    },
+    {
+      "excerpt": "For both CSRRS and CSRRC, if _rs1_=`x0`, then the instruction will not write to the CSR at all, and so shall not cause any of the side effects that might otherwise occur on a CSR write, nor raise illegal-instruction exceptions on accesses to read-only CSRs.",
+      "line_number": 62,
+      "reason": "Fixed behavioral rule ('shall not') \u2014 describes mandatory behavior for all implementations, not an implementer choice."
+    },
+    {
+      "excerpt": "Some CSRs, such as the instructions-retired counter, `instret`, may be modified as side effects of instruction execution.",
+      "line_number": 163,
+      "reason": "The word 'may' here is used as permission/possibility describing a class of CSRs, not as optionality for the implementer. This is a factual description of how certain CSRs behave, not an implementation choice."
+    },
+    {
+      "excerpt": "For the RVWMO memory consistency model (<<memorymodel>>), CSR accesses are weakly ordered by default, so other harts or devices may observe CSR accesses in an order different from program order.",
+      "line_number": 218,
+      "reason": "This is a fixed architectural rule about the RVWMO memory model \u2014 'may observe' is describing possible observable outcomes under the model, not an implementer choice. No optionality for the implementer."
+    },
+    {
+      "excerpt": "To enforce ordering in all other cases, software should execute a FENCE instruction between the relevant accesses.",
+      "line_number": 224,
+      "reason": "This is a software requirement/recommendation ('software should'), not an implementer architectural parameter."
+    }
+  ],
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"The hardware platform may define that accesses to certain CSRs are strongly ordered, as defined by the Memory-Ordering PMAs section in Volume II of this manual.\",\n      \"line_number\": 243,\n      \"parameter_name\": \"STRONGLY_ORDERED_CSRS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NON_ISA\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"may define that accesses to certain CSRs are strongly ordered\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The hardware platform may define certain CSRs as strongly ordered \u2014 this is a platform-level memory ordering choice. While there is clear optionality ('may define'), this is a platform/PMA-level decision rather than a pure ISA architectural parameter, making it NON_ISA. However, it does affect observable ISA behavior, so it is borderline. Classifying as NON_ISA because it is explicitly tied to the Memory-Ordering PMAs platform definition.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"If _rd_=`x0`, then the instruction shall not read the CSR and shall not cause any of the side effects that might occur on a CSR read.\",\n      \"line_number\": 31,\n      \"reason\": \"Fixed requirement ('shall not') binding on all implementations \u2014 no implementer choice here, just a behavioral rule.\"\n    },\n    {\n      \"excerpt\": \"For both CSRRS and CSRRC, if _rs1_=`x0`, then the instruction will not write to the CSR at all, and so shall not cause any of the side effects that might otherwise occur on a CSR write, nor raise illegal-instruction exceptions on accesses to read-only CSRs.\",\n      \"line_number\": 62,\n      \"reason\": \"Fixed behavioral rule ('shall not') \u2014 describes mandatory behavior for all implementations, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Some CSRs, such as the instructions-retired counter, `instret`, may be modified as side effects of instruction execution.\",\n      \"line_number\": 163,\n      \"reason\": \"The word 'may' here is used as permission/possibility describing a class of CSRs, not as optionality for the implementer. This is a factual description of how certain CSRs behave, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"For the RVWMO memory consistency model (<<memorymodel>>), CSR accesses are weakly ordered by default, so other harts or devices may observe CSR accesses in an order different from program order.\",\n      \"line_number\": 218,\n      \"reason\": \"This is a fixed architectural rule about the RVWMO memory model \u2014 'may observe' is describing possible observable outcomes under the model, not an implementer choice. No optionality for the implementer.\"\n    },\n    {\n      \"excerpt\": \"To enforce ordering in all other cases, software should execute a FENCE instruction between the relevant accesses.\",\n      \"line_number\": 224,\n      \"reason\": \"This is a software requirement/recommendation ('software should'), not an implementer architectural parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13861,
+  "output_tokens": 782,
+  "latency_ms": 16336,
+  "timestamp": "2026-07-11T11:57:44.470496+00:00",
   "error": null,
   "retry_count": 0
 }

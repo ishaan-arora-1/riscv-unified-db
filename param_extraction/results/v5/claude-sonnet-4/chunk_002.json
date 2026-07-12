@@ -10,34 +10,34 @@
     {
       "excerpt": "The bitmanip extensions are defined for RV32 and RV64.",
       "line_number": 11,
-      "reason": "Fixed statement of fact about which base ISAs the extensions are defined for. No optionality language \u2014 this is a normative requirement, not an implementer choice."
+      "reason": "Fixed statement of fact about which base ISAs the extensions apply to. No optionality language \u2014 this is a normative requirement, not an implementer choice."
     },
     {
       "excerpt": "For RV32, the encodings corresponding to shamt[5]=1 are reserved.",
-      "line_number": 558,
-      "reason": "Fixed requirement \u2014 'are reserved' is a statement of fact about encoding space, not an implementer choice. Every RV32 implementation must treat these encodings as reserved."
+      "line_number": 617,
+      "reason": "Fixed requirement \u2014 'reserved' encodings are permanently fixed facts, not implementer choices. Applies identically to bclri, bexti, binvi, bseti, and rori."
+    },
+    {
+      "excerpt": "The Logical with Negate instructions can be implemented by inverting the _rs2_ inputs to the base-required AND, OR, and XOR logic instructions. In some implementations, the inverter on rs2 used for subtraction can be reused for this purpose.",
+      "line_number": 196,
+      "reason": "This is inside a [NOTE] block (Implementation Hint). Non-normative text \u2014 parameters must not be extracted from NOTE/TIP/WARNING/IMPORTANT blocks."
     },
     {
       "excerpt": "The B standard extension comprises instructions provided by the Zba, Zbb, and Zbs extensions.",
-      "line_number": 96,
-      "reason": "Fixed normative definition of the B extension composition. No optionality \u2014 this is a requirement, not a choice."
+      "line_number": 100,
+      "reason": "Fixed normative statement defining the composition of the B extension. No implementer choice \u2014 this is a requirement, not a parameter."
     },
     {
       "excerpt": "This instruction is available only on RV32.",
       "line_number": 3218,
-      "reason": "Fixed statement of fact about instruction availability. No implementer choice \u2014 the unzip instruction is simply not defined for RV64."
-    },
-    {
-      "excerpt": "The Logical with Negate instructions can be implemented by inverting the rs2 inputs to the base-required AND, OR, and XOR logic instructions. In some implementations, the inverter on rs2 used for subtraction can be reused for this purpose.",
-      "line_number": 163,
-      "reason": "This is inside a [NOTE] block (Implementation Hint). Non-normative text \u2014 parameters must not be extracted from NOTE/TIP/WARNING/IMPORTANT blocks."
+      "reason": "Fixed statement of fact about instruction availability. No optionality language \u2014 this is a fixed architectural constraint, not an implementer choice."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The bitmanip extensions are defined for RV32 and RV64.\",\n      \"line_number\": 11,\n      \"reason\": \"Fixed statement of fact about which base ISAs the extensions are defined for. No optionality language \u2014 this is a normative requirement, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"For RV32, the encodings corresponding to shamt[5]=1 are reserved.\",\n      \"line_number\": 558,\n      \"reason\": \"Fixed requirement \u2014 'are reserved' is a statement of fact about encoding space, not an implementer choice. Every RV32 implementation must treat these encodings as reserved.\"\n    },\n    {\n      \"excerpt\": \"The B standard extension comprises instructions provided by the Zba, Zbb, and Zbs extensions.\",\n      \"line_number\": 96,\n      \"reason\": \"Fixed normative definition of the B extension composition. No optionality \u2014 this is a requirement, not a choice.\"\n    },\n    {\n      \"excerpt\": \"This instruction is available only on RV32.\",\n      \"line_number\": 3218,\n      \"reason\": \"Fixed statement of fact about instruction availability. No implementer choice \u2014 the unzip instruction is simply not defined for RV64.\"\n    },\n    {\n      \"excerpt\": \"The Logical with Negate instructions can be implemented by inverting the rs2 inputs to the base-required AND, OR, and XOR logic instructions. In some implementations, the inverter on rs2 used for subtraction can be reused for this purpose.\",\n      \"line_number\": 163,\n      \"reason\": \"This is inside a [NOTE] block (Implementation Hint). Non-normative text \u2014 parameters must not be extracted from NOTE/TIP/WARNING/IMPORTANT blocks.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 39416,
-  "output_tokens": 456,
-  "latency_ms": 11271,
-  "timestamp": "2026-06-29T10:24:27.953056+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The bitmanip extensions are defined for RV32 and RV64.\",\n      \"line_number\": 11,\n      \"reason\": \"Fixed statement of fact about which base ISAs the extensions apply to. No optionality language \u2014 this is a normative requirement, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"For RV32, the encodings corresponding to shamt[5]=1 are reserved.\",\n      \"line_number\": 617,\n      \"reason\": \"Fixed requirement \u2014 'reserved' encodings are permanently fixed facts, not implementer choices. Applies identically to bclri, bexti, binvi, bseti, and rori.\"\n    },\n    {\n      \"excerpt\": \"The Logical with Negate instructions can be implemented by inverting the _rs2_ inputs to the base-required AND, OR, and XOR logic instructions. In some implementations, the inverter on rs2 used for subtraction can be reused for this purpose.\",\n      \"line_number\": 196,\n      \"reason\": \"This is inside a [NOTE] block (Implementation Hint). Non-normative text \u2014 parameters must not be extracted from NOTE/TIP/WARNING/IMPORTANT blocks.\"\n    },\n    {\n      \"excerpt\": \"The B standard extension comprises instructions provided by the Zba, Zbb, and Zbs extensions.\",\n      \"line_number\": 100,\n      \"reason\": \"Fixed normative statement defining the composition of the B extension. No implementer choice \u2014 this is a requirement, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"This instruction is available only on RV32.\",\n      \"line_number\": 3218,\n      \"reason\": \"Fixed statement of fact about instruction availability. No optionality language \u2014 this is a fixed architectural constraint, not an implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 40015,
+  "output_tokens": 465,
+  "latency_ms": 11944,
+  "timestamp": "2026-07-11T11:36:03.501087+00:00",
   "error": null,
   "retry_count": 0
 }

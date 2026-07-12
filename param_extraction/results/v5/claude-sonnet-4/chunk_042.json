@@ -10,34 +10,34 @@
     {
       "excerpt": "RV64I widens the integer registers and supported user address space to 64 bits (XLEN=64 in <<gprs>>).",
       "line_number": 11,
-      "reason": "This is a fixed statement of fact defining RV64I \u2014 XLEN=64 is a fixed requirement for RV64I, not an implementer choice. There is no optionality language."
+      "reason": "This is a fixed architectural fact for RV64I \u2014 XLEN is defined to be 64 for this ISA variant. There is no implementer choice here; it is a fixed requirement, not a parameter."
     },
     {
       "excerpt": "These \"*W\" instructions ignore the upper 32 bits of their inputs and always produce 32-bit signed values, sign-extending them to 64 bits, i.e. bits XLEN-1 through 31 are equal.",
       "line_number": 18,
-      "reason": "Fixed behavioral description of instruction semantics ('always produce'). No implementer choice."
+      "reason": "Fixed behavioral description of how *W instructions operate. 'Always' signals a fixed requirement with no implementer choice."
     },
     {
       "excerpt": "SLLIW, SRLIW, and SRAIW encodings with _imm[5] {ne} 0_ are reserved.",
       "line_number": 68,
-      "reason": "A reserved encoding is a fixed fact, not an implementer choice. 'Reserved' is a hard exclusion."
+      "reason": "A reserved encoding is a fixed fact, not an implementer choice. 'Reserved' is a hard exclusion per the rules."
     },
     {
       "excerpt": "The execution environment will define what portions of the address space are legal to access.",
       "line_number": 121,
-      "reason": "This is a platform/EEI-level statement (NON_ISA), not an ISA architectural parameter. It describes execution environment behavior, not a hardware implementation choice."
+      "reason": "This is a statement about the execution environment (EEI), not an ISA-level architectural parameter. It is a NON_ISA platform-level concern."
     },
     {
-      "excerpt": "91% of the HINT space is reserved for standard HINTs. The remainder of the HINT space is designated for custom HINTs; no standard HINTs will ever be defined in this subspace.",
-      "line_number": 138,
-      "reason": "This is a fixed allocation of encoding space, not an implementer choice. 'Reserved' and 'designated' describe fixed spec decisions."
+      "excerpt": "All instructions that are microarchitectural HINTs in RV32I (see <<rv32>>) are also HINTs in RV64I.",
+      "line_number": 133,
+      "reason": "Fixed requirement ('are also HINTs') with no implementer choice. This is a normative rule, not a parameter."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"RV64I widens the integer registers and supported user address space to 64 bits (XLEN=64 in <<gprs>>).\",\n      \"line_number\": 11,\n      \"reason\": \"This is a fixed statement of fact defining RV64I \u2014 XLEN=64 is a fixed requirement for RV64I, not an implementer choice. There is no optionality language.\"\n    },\n    {\n      \"excerpt\": \"These \\\"*W\\\" instructions ignore the upper 32 bits of their inputs and always produce 32-bit signed values, sign-extending them to 64 bits, i.e. bits XLEN-1 through 31 are equal.\",\n      \"line_number\": 18,\n      \"reason\": \"Fixed behavioral description of instruction semantics ('always produce'). No implementer choice.\"\n    },\n    {\n      \"excerpt\": \"SLLIW, SRLIW, and SRAIW encodings with _imm[5] {ne} 0_ are reserved.\",\n      \"line_number\": 68,\n      \"reason\": \"A reserved encoding is a fixed fact, not an implementer choice. 'Reserved' is a hard exclusion.\"\n    },\n    {\n      \"excerpt\": \"The execution environment will define what portions of the address space are legal to access.\",\n      \"line_number\": 121,\n      \"reason\": \"This is a platform/EEI-level statement (NON_ISA), not an ISA architectural parameter. It describes execution environment behavior, not a hardware implementation choice.\"\n    },\n    {\n      \"excerpt\": \"91% of the HINT space is reserved for standard HINTs. The remainder of the HINT space is designated for custom HINTs; no standard HINTs will ever be defined in this subspace.\",\n      \"line_number\": 138,\n      \"reason\": \"This is a fixed allocation of encoding space, not an implementer choice. 'Reserved' and 'designated' describe fixed spec decisions.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 13465,
-  "output_tokens": 501,
-  "latency_ms": 10764,
-  "timestamp": "2026-06-29T10:34:17.195006+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"RV64I widens the integer registers and supported user address space to 64 bits (XLEN=64 in <<gprs>>).\",\n      \"line_number\": 11,\n      \"reason\": \"This is a fixed architectural fact for RV64I \u2014 XLEN is defined to be 64 for this ISA variant. There is no implementer choice here; it is a fixed requirement, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"These \\\"*W\\\" instructions ignore the upper 32 bits of their inputs and always produce 32-bit signed values, sign-extending them to 64 bits, i.e. bits XLEN-1 through 31 are equal.\",\n      \"line_number\": 18,\n      \"reason\": \"Fixed behavioral description of how *W instructions operate. 'Always' signals a fixed requirement with no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"SLLIW, SRLIW, and SRAIW encodings with _imm[5] {ne} 0_ are reserved.\",\n      \"line_number\": 68,\n      \"reason\": \"A reserved encoding is a fixed fact, not an implementer choice. 'Reserved' is a hard exclusion per the rules.\"\n    },\n    {\n      \"excerpt\": \"The execution environment will define what portions of the address space are legal to access.\",\n      \"line_number\": 121,\n      \"reason\": \"This is a statement about the execution environment (EEI), not an ISA-level architectural parameter. It is a NON_ISA platform-level concern.\"\n    },\n    {\n      \"excerpt\": \"All instructions that are microarchitectural HINTs in RV32I (see <<rv32>>) are also HINTs in RV64I.\",\n      \"line_number\": 133,\n      \"reason\": \"Fixed requirement ('are also HINTs') with no implementer choice. This is a normative rule, not a parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 14064,
+  "output_tokens": 499,
+  "latency_ms": 12237,
+  "timestamp": "2026-07-11T11:46:00.503413+00:00",
   "error": null,
   "retry_count": 0
 }

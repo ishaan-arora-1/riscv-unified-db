@@ -10,29 +10,29 @@
     {
       "excerpt": "This appendix presents a non-normative example to help explain where compilers can make good use of the fractional LMUL feature.",
       "line_number": 3,
-      "reason": "Explicitly non-normative introductory/overview text. No architectural parameter is defined here."
+      "reason": "Explicitly non-normative introductory text. No architectural parameter is defined here."
     },
     {
       "excerpt": "Without fractional LMUL, the compiler would be forced to use LMUL=1 for the 8-bit computation and LMUL=8 for the 64-bit computation(s), to have equal number of elements on all computations within the same loop iteration.",
-      "line_number": 32,
-      "reason": "This is a non-normative explanatory statement describing compiler behavior, not an implementation choice. No optionality language present."
+      "line_number": 31,
+      "reason": "This is a descriptive/explanatory statement about compiler behavior in a non-normative appendix. No implementer choice is defined."
     },
     {
       "excerpt": "If instead of using LMUL=1 for the 8-bit computation, the compiler is allowed to use a fractional LMUL=1/2, then the 64-bit computations can be performed using LMUL=4",
       "line_number": 113,
-      "reason": "Non-normative example text describing compiler usage of fractional LMUL. This is a software/compiler behavior description, not an architectural parameter."
+      "reason": "This is a non-normative compiler usage example explaining the benefit of fractional LMUL. No architectural parameter is defined; it describes software/compiler behavior."
     },
     {
       "excerpt": "vsetvli s1, zero, e8,mf2,ta,mu // LMUL=1/2 !",
       "line_number": 124,
-      "reason": "Assembly code in a non-normative example. Not a normative specification statement at all."
+      "reason": "This is assembly code in a non-normative example. It illustrates fractional LMUL usage but does not define any architectural parameter."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"This appendix presents a non-normative example to help explain where compilers can make good use of the fractional LMUL feature.\",\n      \"line_number\": 3,\n      \"reason\": \"Explicitly non-normative introductory/overview text. No architectural parameter is defined here.\"\n    },\n    {\n      \"excerpt\": \"Without fractional LMUL, the compiler would be forced to use LMUL=1 for the 8-bit computation and LMUL=8 for the 64-bit computation(s), to have equal number of elements on all computations within the same loop iteration.\",\n      \"line_number\": 32,\n      \"reason\": \"This is a non-normative explanatory statement describing compiler behavior, not an implementation choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"If instead of using LMUL=1 for the 8-bit computation, the compiler is allowed to use a fractional LMUL=1/2, then the 64-bit computations can be performed using LMUL=4\",\n      \"line_number\": 113,\n      \"reason\": \"Non-normative example text describing compiler usage of fractional LMUL. This is a software/compiler behavior description, not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"vsetvli s1, zero, e8,mf2,ta,mu // LMUL=1/2 !\",\n      \"line_number\": 124,\n      \"reason\": \"Assembly code in a non-normative example. Not a normative specification statement at all.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 12340,
-  "output_tokens": 419,
-  "latency_ms": 9589,
-  "timestamp": "2026-06-29T10:26:42.768693+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"This appendix presents a non-normative example to help explain where compilers can make good use of the fractional LMUL feature.\",\n      \"line_number\": 3,\n      \"reason\": \"Explicitly non-normative introductory text. No architectural parameter is defined here.\"\n    },\n    {\n      \"excerpt\": \"Without fractional LMUL, the compiler would be forced to use LMUL=1 for the 8-bit computation and LMUL=8 for the 64-bit computation(s), to have equal number of elements on all computations within the same loop iteration.\",\n      \"line_number\": 31,\n      \"reason\": \"This is a descriptive/explanatory statement about compiler behavior in a non-normative appendix. No implementer choice is defined.\"\n    },\n    {\n      \"excerpt\": \"If instead of using LMUL=1 for the 8-bit computation, the compiler is allowed to use a fractional LMUL=1/2, then the 64-bit computations can be performed using LMUL=4\",\n      \"line_number\": 113,\n      \"reason\": \"This is a non-normative compiler usage example explaining the benefit of fractional LMUL. No architectural parameter is defined; it describes software/compiler behavior.\"\n    },\n    {\n      \"excerpt\": \"vsetvli s1, zero, e8,mf2,ta,mu // LMUL=1/2 !\",\n      \"line_number\": 124,\n      \"reason\": \"This is assembly code in a non-normative example. It illustrates fractional LMUL usage but does not define any architectural parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12939,
+  "output_tokens": 433,
+  "latency_ms": 8442,
+  "timestamp": "2026-07-11T11:38:17.177071+00:00",
   "error": null,
   "retry_count": 0
 }

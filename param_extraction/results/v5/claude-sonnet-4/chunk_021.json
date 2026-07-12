@@ -7,15 +7,26 @@
   "model": "claude-sonnet-4",
   "parameters": [
     {
-      "excerpt": "Up to 64 PMP entries are supported. Implementations may implement zero, 16, or 64 PMP entries; the lowest-numbered PMP entries must be implemented first.",
+      "excerpt": "Optionally, PMP checks may additionally apply to M-mode accesses, in which case the PMP registers themselves are locked, so that even M-mode software cannot change them until the hart is reset.",
+      "line_number": 3352,
+      "parameter_name": "PMP_MMODE_ENFORCEMENT",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "Optionally, PMP checks may additionally apply to M-mode accesses",
+      "confidence": "high",
+      "reasoning": "The spec explicitly says 'Optionally' \u2014 the implementation chooses whether PMP checks also apply to M-mode accesses. This is a design-time binary choice not controlled by any CSR field value."
+    },
+    {
+      "excerpt": "Implementations may implement zero, 16, or 64 PMP entries; the lowest-numbered PMP entries must be implemented first.",
       "line_number": 3368,
       "parameter_name": "NUM_PMP_ENTRIES",
       "existing_udb_name": "NUM_PMP_ENTRIES",
       "class": "NORM_DIRECT",
-      "value_type": "enum",
-      "modal_signal": "may implement zero, 16, or 64 PMP entries",
+      "value_type": "range",
+      "modal_signal": "may implement zero, 16, or 64",
       "confidence": "high",
-      "reasoning": "The number of PMP entries is an explicit implementation choice among three values (0, 16, 64), signaled by 'may implement'. This is a design-time choice not controlled by any CSR field."
+      "reasoning": "The number of PMP entries is an explicit implementation choice among {0, 16, 64}, signaled by 'may implement'. This is a design-time parameter not controlled by any CSR field."
     },
     {
       "excerpt": "All PMP CSR fields are *WARL* and may be read-only zero.",
@@ -26,85 +37,85 @@
       "value_type": "binary",
       "modal_signal": "may be read-only zero",
       "confidence": "high",
-      "reasoning": "The spec explicitly states PMP CSR fields 'may be read-only zero', meaning the implementation chooses whether each field is writable or read-only zero. This is a per-field RO/RW choice."
+      "reasoning": "The spec says PMP CSR fields 'may be read-only zero', meaning the implementation chooses whether each field is writable or read-only zero. This is a per-field RO/RW choice signaled by 'may be read-only zero'."
     },
     {
       "excerpt": "Not all physical address bits may be implemented, and so the `pmpaddr` registers are *WARL*.",
-      "line_number": 3408,
-      "parameter_name": "PMPADDR_IMPLEMENTED_BITS",
-      "existing_udb_name": null,
+      "line_number": 3407,
+      "parameter_name": "PMP_GRANULARITY",
+      "existing_udb_name": "PMP_GRANULARITY",
       "class": "NORM_CSR_WARL",
       "value_type": "range",
       "modal_signal": "Not all physical address bits may be implemented",
       "confidence": "high",
-      "reasoning": "The pmpaddr registers are WARL because not all physical address bits need to be implemented. The set of implemented (writable) bits is an implementation choice, making this a NORM_CSR_WARL parameter."
-    },
-    {
-      "excerpt": "The R, W, and X fields form a collective *WARL* field for which the combinations with R=0 and W=1 are reserved.",
-      "line_number": 3427,
-      "parameter_name": "PMP_RWX_WARL_LEGAL_VALUES",
-      "existing_udb_name": null,
-      "class": "NORM_CSR_WARL",
-      "value_type": "set",
-      "modal_signal": "form a collective *WARL* field",
-      "confidence": "high",
-      "reasoning": "The R, W, X fields of pmpcfg are declared WARL with the constraint that R=0,W=1 combinations are reserved. The set of legal values is implementation-defined within the WARL constraint."
+      "reasoning": "The pmpaddr registers are WARL because not all physical address bits need be implemented. The number of implemented address bits (and thus the PMP granularity) is an implementation choice, signaled by 'Not all physical address bits may be implemented'."
     },
     {
       "excerpt": "Although the PMP mechanism supports regions as small as four bytes, platforms may specify coarser PMP regions. In general, the PMP grain is 2^G+2^ bytes and must be the same across all PMP regions.",
-      "line_number": 3510,
+      "line_number": 3497,
       "parameter_name": "PMP_GRANULARITY",
       "existing_udb_name": "PMP_GRANULARITY",
       "class": "NORM_DIRECT",
       "value_type": "range",
       "modal_signal": "platforms may specify coarser PMP regions",
       "confidence": "high",
-      "reasoning": "The PMP granularity G is a platform-level implementation choice. The spec says platforms 'may specify coarser PMP regions', and the grain is 2^(G+2) bytes. This is a design-time parameter not controlled by a CSR field."
+      "reasoning": "The PMP grain G is a platform-level implementation choice ('platforms may specify coarser PMP regions'). The grain value 2^(G+2) bytes is chosen at design time and determines which address-matching modes are available."
     },
     {
-      "excerpt": "Optionally, PMP checks may additionally apply to M-mode accesses, in which case the PMP registers themselves are locked, so that even M-mode software cannot change them until the hart is reset.",
-      "line_number": 3352,
-      "parameter_name": "PMP_MMODE_LOCKING_SUPPORTED",
+      "excerpt": "On some implementations, misaligned loads, stores, and instruction fetches may be decomposed into multiple memory operations, some of which may succeed before an access-fault exception occurs, as described in the RVWMO specification.",
+      "line_number": 3548,
+      "parameter_name": "MISALIGNED_LDST",
+      "existing_udb_name": "MISALIGNED_LDST",
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "On some implementations, misaligned loads, stores, and instruction fetches may be decomposed into multiple memory operations",
+      "confidence": "high",
+      "reasoning": "Whether misaligned accesses are decomposed into multiple memory operations is an implementation choice ('On some implementations ... may be decomposed'). This is a design-time NORM_DIRECT parameter."
+    },
+    {
+      "excerpt": "Implementations with virtual memory are permitted to perform address translations speculatively and earlier than required by an explicit memory access, and are permitted to cache them in address translation cache structures\u2014including possibly caching the identity mappings from effective address to physical address used in Bare translation modes and M-mode.",
+      "line_number": 3607,
+      "parameter_name": "PMP_SPECULATIVE_TRANSLATION",
       "existing_udb_name": null,
       "class": "NORM_DIRECT",
       "value_type": "binary",
-      "modal_signal": "Optionally, PMP checks may additionally apply to M-mode accesses",
+      "modal_signal": "are permitted to perform address translations speculatively",
       "confidence": "high",
-      "reasoning": "Whether PMP checks can be applied to M-mode accesses (via the L bit locking mechanism) is explicitly optional ('Optionally'). This is a design-time implementation choice."
+      "reasoning": "The spec says implementations 'are permitted to' perform speculative address translations and cache them. This is an implementation choice about microarchitectural behavior (speculative translation caching), signaled by 'are permitted to'."
     }
   ],
   "skipped_non_parameters": [
     {
       "excerpt": "PMP violations are always trapped precisely at the processor.",
-      "line_number": 3358,
-      "reason": "Fixed requirement ('always trapped precisely') \u2014 no implementer choice, applies to all implementations."
+      "line_number": 3360,
+      "reason": "Fixed requirement ('always') applying to all implementations \u2014 no implementer choice, not a parameter."
     },
     {
-      "excerpt": "PMP checks are applied to all accesses whose effective privilege mode is S or U, including instruction fetches and data accesses in S and U mode, and data accesses in M-mode when the MPRV bit in `mstatus` is set and the MPP field in `mstatus` contains S or U.",
-      "line_number": 3347,
-      "reason": "Fixed behavioral requirement describing when PMP checks apply \u2014 no implementer choice, this is a mandatory rule."
+      "excerpt": "PMP entries are statically prioritized. The lowest-numbered PMP entry that matches any byte of a memory operation determines whether that operation succeeds or fails.",
+      "line_number": 3555,
+      "reason": "Fixed behavioral rule ('are statically prioritized') \u2014 no implementer choice, applies to all implementations."
+    },
+    {
+      "excerpt": "The matching PMP entry must match all bytes of a memory operation, or the operation fails, irrespective of the L, R, W, and X bits.",
+      "line_number": 3558,
+      "reason": "Fixed requirement ('must match all bytes') \u2014 no implementer choice, applies to all implementations."
     },
     {
       "excerpt": "Locked PMP entries remain locked until the hart is reset.",
-      "line_number": 3533,
-      "reason": "Fixed requirement ('remain locked until reset') \u2014 states a mandatory behavior with no implementer choice."
+      "line_number": 3519,
+      "reason": "Fixed behavioral fact \u2014 no implementer choice. All implementations must behave this way."
     },
     {
-      "excerpt": "If no PMP entry matches an M-mode memory operation, the operation succeeds. If no PMP entry matches an S-mode or U-mode memory operation, but at least one PMP entry is implemented, the operation fails.",
-      "line_number": 3591,
-      "reason": "Fixed behavioral rule describing default PMP behavior when no entry matches \u2014 mandatory requirement, not an implementer choice."
-    },
-    {
-      "excerpt": "Software may determine the PMP granularity by writing zero to `pmp0cfg`, then writing all ones to `pmpaddr0`, then reading back `pmpaddr0`.",
-      "line_number": 3527,
-      "reason": "Inside a NOTE block (non-normative), and 'may' here is permission for software, not an implementer optionality signal."
+      "excerpt": "When paging is enabled, instructions that access virtual memory may result in multiple physical-memory accesses, including implicit references to the page tables. The PMP checks apply to all of these accesses.",
+      "line_number": 3601,
+      "reason": "Fixed requirement that PMP checks apply to all physical-memory accesses including page-table walks \u2014 'may result in multiple' describes the nature of virtual memory, not an implementation choice. The PMP check requirement is mandatory ('apply to all')."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Up to 64 PMP entries are supported. Implementations may implement zero, 16, or 64 PMP entries; the lowest-numbered PMP entries must be implemented first.\",\n      \"line_number\": 3368,\n      \"parameter_name\": \"NUM_PMP_ENTRIES\",\n      \"existing_udb_name\": \"NUM_PMP_ENTRIES\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"enum\",\n      \"modal_signal\": \"may implement zero, 16, or 64 PMP entries\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of PMP entries is an explicit implementation choice among three values (0, 16, 64), signaled by 'may implement'. This is a design-time choice not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"All PMP CSR fields are *WARL* and may be read-only zero.\",\n      \"line_number\": 3370,\n      \"parameter_name\": \"PMP_CSR_FIELDS_RO_ZERO\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may be read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly states PMP CSR fields 'may be read-only zero', meaning the implementation chooses whether each field is writable or read-only zero. This is a per-field RO/RW choice.\"\n    },\n    {\n      \"excerpt\": \"Not all physical address bits may be implemented, and so the `pmpaddr` registers are *WARL*.\",\n      \"line_number\": 3408,\n      \"parameter_name\": \"PMPADDR_IMPLEMENTED_BITS\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"Not all physical address bits may be implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The pmpaddr registers are WARL because not all physical address bits need to be implemented. The set of implemented (writable) bits is an implementation choice, making this a NORM_CSR_WARL parameter.\"\n    },\n    {\n      \"excerpt\": \"The R, W, and X fields form a collective *WARL* field for which the combinations with R=0 and W=1 are reserved.\",\n      \"line_number\": 3427,\n      \"parameter_name\": \"PMP_RWX_WARL_LEGAL_VALUES\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"set\",\n      \"modal_signal\": \"form a collective *WARL* field\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The R, W, X fields of pmpcfg are declared WARL with the constraint that R=0,W=1 combinations are reserved. The set of legal values is implementation-defined within the WARL constraint.\"\n    },\n    {\n      \"excerpt\": \"Although the PMP mechanism supports regions as small as four bytes, platforms may specify coarser PMP regions. In general, the PMP grain is 2^G+2^ bytes and must be the same across all PMP regions.\",\n      \"line_number\": 3510,\n      \"parameter_name\": \"PMP_GRANULARITY\",\n      \"existing_udb_name\": \"PMP_GRANULARITY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"platforms may specify coarser PMP regions\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The PMP granularity G is a platform-level implementation choice. The spec says platforms 'may specify coarser PMP regions', and the grain is 2^(G+2) bytes. This is a design-time parameter not controlled by a CSR field.\"\n    },\n    {\n      \"excerpt\": \"Optionally, PMP checks may additionally apply to M-mode accesses, in which case the PMP registers themselves are locked, so that even M-mode software cannot change them until the hart is reset.\",\n      \"line_number\": 3352,\n      \"parameter_name\": \"PMP_MMODE_LOCKING_SUPPORTED\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"Optionally, PMP checks may additionally apply to M-mode accesses\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether PMP checks can be applied to M-mode accesses (via the L bit locking mechanism) is explicitly optional ('Optionally'). This is a design-time implementation choice.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"PMP violations are always trapped precisely at the processor.\",\n      \"line_number\": 3358,\n      \"reason\": \"Fixed requirement ('always trapped precisely') \u2014 no implementer choice, applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"PMP checks are applied to all accesses whose effective privilege mode is S or U, including instruction fetches and data accesses in S and U mode, and data accesses in M-mode when the MPRV bit in `mstatus` is set and the MPP field in `mstatus` contains S or U.\",\n      \"line_number\": 3347,\n      \"reason\": \"Fixed behavioral requirement describing when PMP checks apply \u2014 no implementer choice, this is a mandatory rule.\"\n    },\n    {\n      \"excerpt\": \"Locked PMP entries remain locked until the hart is reset.\",\n      \"line_number\": 3533,\n      \"reason\": \"Fixed requirement ('remain locked until reset') \u2014 states a mandatory behavior with no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"If no PMP entry matches an M-mode memory operation, the operation succeeds. If no PMP entry matches an S-mode or U-mode memory operation, but at least one PMP entry is implemented, the operation fails.\",\n      \"line_number\": 3591,\n      \"reason\": \"Fixed behavioral rule describing default PMP behavior when no entry matches \u2014 mandatory requirement, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Software may determine the PMP granularity by writing zero to `pmp0cfg`, then writing all ones to `pmpaddr0`, then reading back `pmpaddr0`.\",\n      \"line_number\": 3527,\n      \"reason\": \"Inside a NOTE block (non-normative), and 'may' here is permission for software, not an implementer optionality signal.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 14710,
-  "output_tokens": 1663,
-  "latency_ms": 28988,
-  "timestamp": "2026-06-29T10:31:53.329027+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Optionally, PMP checks may additionally apply to M-mode accesses, in which case the PMP registers themselves are locked, so that even M-mode software cannot change them until the hart is reset.\",\n      \"line_number\": 3352,\n      \"parameter_name\": \"PMP_MMODE_ENFORCEMENT\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"Optionally, PMP checks may additionally apply to M-mode accesses\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec explicitly says 'Optionally' \u2014 the implementation chooses whether PMP checks also apply to M-mode accesses. This is a design-time binary choice not controlled by any CSR field value.\"\n    },\n    {\n      \"excerpt\": \"Implementations may implement zero, 16, or 64 PMP entries; the lowest-numbered PMP entries must be implemented first.\",\n      \"line_number\": 3368,\n      \"parameter_name\": \"NUM_PMP_ENTRIES\",\n      \"existing_udb_name\": \"NUM_PMP_ENTRIES\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"may implement zero, 16, or 64\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The number of PMP entries is an explicit implementation choice among {0, 16, 64}, signaled by 'may implement'. This is a design-time parameter not controlled by any CSR field.\"\n    },\n    {\n      \"excerpt\": \"All PMP CSR fields are *WARL* and may be read-only zero.\",\n      \"line_number\": 3370,\n      \"parameter_name\": \"PMP_CSR_FIELDS_RO_ZERO\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_CSR_RW\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"may be read-only zero\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec says PMP CSR fields 'may be read-only zero', meaning the implementation chooses whether each field is writable or read-only zero. This is a per-field RO/RW choice signaled by 'may be read-only zero'.\"\n    },\n    {\n      \"excerpt\": \"Not all physical address bits may be implemented, and so the `pmpaddr` registers are *WARL*.\",\n      \"line_number\": 3407,\n      \"parameter_name\": \"PMP_GRANULARITY\",\n      \"existing_udb_name\": \"PMP_GRANULARITY\",\n      \"class\": \"NORM_CSR_WARL\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"Not all physical address bits may be implemented\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The pmpaddr registers are WARL because not all physical address bits need be implemented. The number of implemented address bits (and thus the PMP granularity) is an implementation choice, signaled by 'Not all physical address bits may be implemented'.\"\n    },\n    {\n      \"excerpt\": \"Although the PMP mechanism supports regions as small as four bytes, platforms may specify coarser PMP regions. In general, the PMP grain is 2^G+2^ bytes and must be the same across all PMP regions.\",\n      \"line_number\": 3497,\n      \"parameter_name\": \"PMP_GRANULARITY\",\n      \"existing_udb_name\": \"PMP_GRANULARITY\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"range\",\n      \"modal_signal\": \"platforms may specify coarser PMP regions\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The PMP grain G is a platform-level implementation choice ('platforms may specify coarser PMP regions'). The grain value 2^(G+2) bytes is chosen at design time and determines which address-matching modes are available.\"\n    },\n    {\n      \"excerpt\": \"On some implementations, misaligned loads, stores, and instruction fetches may be decomposed into multiple memory operations, some of which may succeed before an access-fault exception occurs, as described in the RVWMO specification.\",\n      \"line_number\": 3548,\n      \"parameter_name\": \"MISALIGNED_LDST\",\n      \"existing_udb_name\": \"MISALIGNED_LDST\",\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"On some implementations, misaligned loads, stores, and instruction fetches may be decomposed into multiple memory operations\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"Whether misaligned accesses are decomposed into multiple memory operations is an implementation choice ('On some implementations ... may be decomposed'). This is a design-time NORM_DIRECT parameter.\"\n    },\n    {\n      \"excerpt\": \"Implementations with virtual memory are permitted to perform address translations speculatively and earlier than required by an explicit memory access, and are permitted to cache them in address translation cache structures\u2014including possibly caching the identity mappings from effective address to physical address used in Bare translation modes and M-mode.\",\n      \"line_number\": 3607,\n      \"parameter_name\": \"PMP_SPECULATIVE_TRANSLATION\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"are permitted to perform address translations speculatively\",\n      \"confidence\": \"high\",\n      \"reasoning\": \"The spec says implementations 'are permitted to' perform speculative address translations and cache them. This is an implementation choice about microarchitectural behavior (speculative translation caching), signaled by 'are permitted to'.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"PMP violations are always trapped precisely at the processor.\",\n      \"line_number\": 3360,\n      \"reason\": \"Fixed requirement ('always') applying to all implementations \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"PMP entries are statically prioritized. The lowest-numbered PMP entry that matches any byte of a memory operation determines whether that operation succeeds or fails.\",\n      \"line_number\": 3555,\n      \"reason\": \"Fixed behavioral rule ('are statically prioritized') \u2014 no implementer choice, applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"The matching PMP entry must match all bytes of a memory operation, or the operation fails, irrespective of the L, R, W, and X bits.\",\n      \"line_number\": 3558,\n      \"reason\": \"Fixed requirement ('must match all bytes') \u2014 no implementer choice, applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"Locked PMP entries remain locked until the hart is reset.\",\n      \"line_number\": 3519,\n      \"reason\": \"Fixed behavioral fact \u2014 no implementer choice. All implementations must behave this way.\"\n    },\n    {\n      \"excerpt\": \"When paging is enabled, instructions that access virtual memory may result in multiple physical-memory accesses, including implicit references to the page tables. The PMP checks apply to all of these accesses.\",\n      \"line_number\": 3601,\n      \"reason\": \"Fixed requirement that PMP checks apply to all physical-memory accesses including page-table walks \u2014 'may result in multiple' describes the nature of virtual memory, not an implementation choice. The PMP check requirement is mandatory ('apply to all').\"\n    }\n  ]\n}\n```",
+  "input_tokens": 15309,
+  "output_tokens": 1859,
+  "latency_ms": 30807,
+  "timestamp": "2026-07-11T11:43:30.484385+00:00",
   "error": null,
   "retry_count": 0
 }

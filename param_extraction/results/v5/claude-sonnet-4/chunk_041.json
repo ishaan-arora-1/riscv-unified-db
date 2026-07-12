@@ -10,17 +10,17 @@
     {
       "excerpt": "RV32E and RV64E reduce the integer register count to 16 general-purpose registers, (`x0-x15`), where `x0` is a dedicated zero register.",
       "line_number": 22,
-      "reason": "Fixed requirement \u2014 the number of registers in RV32E/RV64E is fixed at 16, not an implementation choice. No optionality language present."
+      "reason": "Fixed requirement \u2014 the number of registers is mandated to be 16 for RV32E/RV64E. There is no implementer choice here; this is a defining characteristic of the ISA variant, not a parameter."
     },
     {
       "excerpt": "All encodings specifying the other registers `x16-x31` are reserved.",
       "line_number": 36,
-      "reason": "Statement of fact about reserved encodings. 'Reserved' is a fixed rule, not an implementer choice."
+      "reason": "Statement of fact \u2014 'are reserved' is a fixed rule applying to all RV32E/RV64E implementations. No implementer choice exists; reserved encodings are not parameters."
     },
     {
       "excerpt": "RV32E was designed to provide an even smaller base core for embedded microcontrollers. There is also interest in RV64E for microcontrollers within large SoC designs, and to reduce context state for highly threaded 64-bit processors.",
       "line_number": 12,
-      "reason": "Inside a [NOTE] block \u2014 non-normative introductory/overview text. No parameters may be extracted from NOTE blocks."
+      "reason": "Inside a [NOTE] block \u2014 non-normative introductory/rationale text. Parameters are never extracted from NOTE blocks."
     },
     {
       "excerpt": "Unless otherwise stated, standard extensions compatible with RV32I and RV64I are also compatible with RV32E and RV64E, respectively.",
@@ -30,14 +30,14 @@
     {
       "excerpt": "The previous draft of this chapter made all encodings using the `x16-x31` registers available as custom. This version takes a more conservative approach, making these reserved so that they can be allocated between custom space or new standard encodings at a later date.",
       "line_number": 40,
-      "reason": "Inside a [NOTE] block \u2014 non-normative rationale text explaining a design decision. Not an architectural parameter."
+      "reason": "Inside a [NOTE] block \u2014 non-normative historical/rationale text explaining why encodings are reserved. Not an architectural parameter."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"RV32E and RV64E reduce the integer register count to 16 general-purpose registers, (`x0-x15`), where `x0` is a dedicated zero register.\",\n      \"line_number\": 22,\n      \"reason\": \"Fixed requirement \u2014 the number of registers in RV32E/RV64E is fixed at 16, not an implementation choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"All encodings specifying the other registers `x16-x31` are reserved.\",\n      \"line_number\": 36,\n      \"reason\": \"Statement of fact about reserved encodings. 'Reserved' is a fixed rule, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"RV32E was designed to provide an even smaller base core for embedded microcontrollers. There is also interest in RV64E for microcontrollers within large SoC designs, and to reduce context state for highly threaded 64-bit processors.\",\n      \"line_number\": 12,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative introductory/overview text. No parameters may be extracted from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"Unless otherwise stated, standard extensions compatible with RV32I and RV64I are also compatible with RV32E and RV64E, respectively.\",\n      \"line_number\": 17,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative clarification about extension compatibility. Not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"The previous draft of this chapter made all encodings using the `x16-x31` registers available as custom. This version takes a more conservative approach, making these reserved so that they can be allocated between custom space or new standard encodings at a later date.\",\n      \"line_number\": 40,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative rationale text explaining a design decision. Not an architectural parameter.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 10319,
-  "output_tokens": 505,
-  "latency_ms": 8202,
-  "timestamp": "2026-06-29T10:34:05.401741+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"RV32E and RV64E reduce the integer register count to 16 general-purpose registers, (`x0-x15`), where `x0` is a dedicated zero register.\",\n      \"line_number\": 22,\n      \"reason\": \"Fixed requirement \u2014 the number of registers is mandated to be 16 for RV32E/RV64E. There is no implementer choice here; this is a defining characteristic of the ISA variant, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"All encodings specifying the other registers `x16-x31` are reserved.\",\n      \"line_number\": 36,\n      \"reason\": \"Statement of fact \u2014 'are reserved' is a fixed rule applying to all RV32E/RV64E implementations. No implementer choice exists; reserved encodings are not parameters.\"\n    },\n    {\n      \"excerpt\": \"RV32E was designed to provide an even smaller base core for embedded microcontrollers. There is also interest in RV64E for microcontrollers within large SoC designs, and to reduce context state for highly threaded 64-bit processors.\",\n      \"line_number\": 12,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative introductory/rationale text. Parameters are never extracted from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"Unless otherwise stated, standard extensions compatible with RV32I and RV64I are also compatible with RV32E and RV64E, respectively.\",\n      \"line_number\": 17,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative clarification about extension compatibility. Not an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"The previous draft of this chapter made all encodings using the `x16-x31` registers available as custom. This version takes a more conservative approach, making these reserved so that they can be allocated between custom space or new standard encodings at a later date.\",\n      \"line_number\": 40,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative historical/rationale text explaining why encodings are reserved. Not an architectural parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 10918,
+  "output_tokens": 540,
+  "latency_ms": 8544,
+  "timestamp": "2026-07-11T11:45:47.232795+00:00",
   "error": null,
   "retry_count": 0
 }

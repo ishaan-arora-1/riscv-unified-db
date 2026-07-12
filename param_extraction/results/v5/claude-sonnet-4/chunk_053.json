@@ -10,34 +10,34 @@
     {
       "excerpt": "The Ssdbltrp extension addresses a double trap (See <<machine-double-trap>>) privilege modes lower than M.",
       "line_number": 4,
-      "reason": "This is an introductory/overview statement describing the purpose of the extension. No optionality language is present; it is a factual description, not an implementer choice."
+      "reason": "This is an introductory/overview statement describing the purpose of the extension. It contains no optionality language and makes no implementer choice \u2014 it is a factual description of what the extension does."
     },
     {
       "excerpt": "It enables HS-mode to invoke a critical error handler in a virtual machine on a double trap in VS-mode.",
       "line_number": 5,
-      "reason": "This is a normative behavioral description of what the extension does, not an implementer choice. No optionality language ('may', 'optional', 'implementation-defined') is present."
+      "reason": "This is a normative behavioral description of what the extension enables, not an implementer choice. No optionality language ('may', 'optional', 'implementation-defined') is present."
     },
     {
       "excerpt": "It also allows M-mode to invoke a critical error handler in the OS/Hypervisor on a double trap in S/HS-mode.",
       "line_number": 6,
-      "reason": "This describes a fixed capability of the extension. 'Allows' here is a permission granted to software/hardware, not an implementer optionality signal. No architectural parameter is defined."
+      "reason": "This is a behavioral description of what the extension allows at runtime. 'Allows' here refers to a capability granted by the extension, not an implementer choice. No optionality language for an architectural parameter."
     },
     {
       "excerpt": "The Ssdbltrp extension adds the `menvcfg`.DTE (See <<sec:menvcfg>>) and the `sstatus`.SDT fields (See <<sstatus>>).",
       "line_number": 9,
-      "reason": "This is a fixed requirement stating which fields the extension adds. No optionality language; it is a mandatory feature of the extension, not an implementer choice."
+      "reason": "This is a fixed statement of fact about what fields the extension adds. It is a requirement ('adds'), not an implementer choice. No optionality language present."
     },
     {
       "excerpt": "If the hypervisor extension is additionally implemented, then the extension adds the `henvcfg`.DTE (See <<sec:henvcfg>>) and the `vsstatus`.SDT fields (See <<vsstatus>>).",
       "line_number": 11,
-      "reason": "This is a conditional fixed requirement (if H-extension is present, these fields are added). The condition is on whether H-extension is implemented, but the addition of the fields is mandatory given that condition \u2014 no implementer choice about whether to add them."
+      "reason": "This is a conditional fixed requirement \u2014 if the hypervisor extension is present, these fields are added. It is a 'shall' requirement conditioned on another feature, not an implementer choice about whether to add these fields. No optionality language for a parameter."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The Ssdbltrp extension addresses a double trap (See <<machine-double-trap>>) privilege modes lower than M.\",\n      \"line_number\": 4,\n      \"reason\": \"This is an introductory/overview statement describing the purpose of the extension. No optionality language is present; it is a factual description, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"It enables HS-mode to invoke a critical error handler in a virtual machine on a double trap in VS-mode.\",\n      \"line_number\": 5,\n      \"reason\": \"This is a normative behavioral description of what the extension does, not an implementer choice. No optionality language ('may', 'optional', 'implementation-defined') is present.\"\n    },\n    {\n      \"excerpt\": \"It also allows M-mode to invoke a critical error handler in the OS/Hypervisor on a double trap in S/HS-mode.\",\n      \"line_number\": 6,\n      \"reason\": \"This describes a fixed capability of the extension. 'Allows' here is a permission granted to software/hardware, not an implementer optionality signal. No architectural parameter is defined.\"\n    },\n    {\n      \"excerpt\": \"The Ssdbltrp extension adds the `menvcfg`.DTE (See <<sec:menvcfg>>) and the `sstatus`.SDT fields (See <<sstatus>>).\",\n      \"line_number\": 9,\n      \"reason\": \"This is a fixed requirement stating which fields the extension adds. No optionality language; it is a mandatory feature of the extension, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"If the hypervisor extension is additionally implemented, then the extension adds the `henvcfg`.DTE (See <<sec:henvcfg>>) and the `vsstatus`.SDT fields (See <<vsstatus>>).\",\n      \"line_number\": 11,\n      \"reason\": \"This is a conditional fixed requirement (if H-extension is present, these fields are added). The condition is on whether H-extension is implemented, but the addition of the fields is mandatory given that condition \u2014 no implementer choice about whether to add them.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 10082,
-  "output_tokens": 558,
-  "latency_ms": 9539,
-  "timestamp": "2026-06-29T10:38:35.324278+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The Ssdbltrp extension addresses a double trap (See <<machine-double-trap>>) privilege modes lower than M.\",\n      \"line_number\": 4,\n      \"reason\": \"This is an introductory/overview statement describing the purpose of the extension. It contains no optionality language and makes no implementer choice \u2014 it is a factual description of what the extension does.\"\n    },\n    {\n      \"excerpt\": \"It enables HS-mode to invoke a critical error handler in a virtual machine on a double trap in VS-mode.\",\n      \"line_number\": 5,\n      \"reason\": \"This is a normative behavioral description of what the extension enables, not an implementer choice. No optionality language ('may', 'optional', 'implementation-defined') is present.\"\n    },\n    {\n      \"excerpt\": \"It also allows M-mode to invoke a critical error handler in the OS/Hypervisor on a double trap in S/HS-mode.\",\n      \"line_number\": 6,\n      \"reason\": \"This is a behavioral description of what the extension allows at runtime. 'Allows' here refers to a capability granted by the extension, not an implementer choice. No optionality language for an architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"The Ssdbltrp extension adds the `menvcfg`.DTE (See <<sec:menvcfg>>) and the `sstatus`.SDT fields (See <<sstatus>>).\",\n      \"line_number\": 9,\n      \"reason\": \"This is a fixed statement of fact about what fields the extension adds. It is a requirement ('adds'), not an implementer choice. No optionality language present.\"\n    },\n    {\n      \"excerpt\": \"If the hypervisor extension is additionally implemented, then the extension adds the `henvcfg`.DTE (See <<sec:henvcfg>>) and the `vsstatus`.SDT fields (See <<vsstatus>>).\",\n      \"line_number\": 11,\n      \"reason\": \"This is a conditional fixed requirement \u2014 if the hypervisor extension is present, these fields are added. It is a 'shall' requirement conditioned on another feature, not an implementer choice about whether to add these fields. No optionality language for a parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 10681,
+  "output_tokens": 573,
+  "latency_ms": 9309,
+  "timestamp": "2026-07-11T11:50:54.006147+00:00",
   "error": null,
   "retry_count": 0
 }

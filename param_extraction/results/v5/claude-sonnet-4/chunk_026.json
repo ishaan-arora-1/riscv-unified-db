@@ -10,34 +10,34 @@
     {
       "excerpt": "The RISC-V ISA is designed to support a wide variety of implementations with various experimental instruction-set extensions. We have found that an organized naming scheme simplifies software tools and documentation.",
       "line_number": 9,
-      "reason": "This is inside a [NOTE] block and is non-normative introductory text. No optionality language for an implementer choice."
+      "reason": "This is inside a [NOTE] block and is non-normative introductory text. No implementer choice is described."
     },
     {
-      "excerpt": "Standard ISA extensions are given a name consisting of a single letter.",
-      "line_number": 22,
-      "reason": "This is a fixed naming rule/requirement, not an implementer choice. No optionality language."
+      "excerpt": "RISC-V ISA strings begin with either RV32I, RV32E, RV64I, or RV64E, indicating the supported address space size in bits for the base integer ISA.",
+      "line_number": 18,
+      "reason": "This is a fixed naming convention rule, not an implementer choice. It describes what the naming strings must look like, not a parameter the implementer selects."
     },
     {
       "excerpt": "Underscores \"_\" may be used to separate ISA extensions to improve readability and to provide disambiguation, e.g., \"RV32I2_M2_A2\".",
       "line_number": 46,
-      "reason": "Here 'may be used' is permission for the person writing the ISA name string (a documentation/naming convention), not an architectural parameter that an implementer chooses at design time. This is a naming convention rule, not an ISA architectural parameter."
+      "reason": "The word 'may' here is a permission granted to the person writing the ISA name string (a documentation/naming convention choice), not an architectural parameter left to the hardware implementer."
     },
     {
       "excerpt": "Non-standard extensions are named by using a single \"X\" followed by the alphanumeric name.",
-      "line_number": 103,
-      "reason": "This is a fixed naming convention rule with no implementer architectural choice. It describes how to name non-standard extensions, not a hardware design parameter."
+      "line_number": 107,
+      "reason": "This is a fixed naming convention rule for non-standard extensions. It describes a required naming format, not an implementer architectural choice."
     },
     {
       "excerpt": "Changes in major version numbers imply a loss of backwards compatibility, whereas changes in only the minor version number must be backwards-compatible.",
-      "line_number": 148,
-      "reason": "This is a fixed definitional rule about version number semantics, not an implementer architectural choice. 'Must' signals a requirement, not a parameter."
+      "line_number": 143,
+      "reason": "This is a fixed definitional rule about version number semantics, not an implementer choice. 'Must' signals a requirement, not a parameter."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The RISC-V ISA is designed to support a wide variety of implementations with various experimental instruction-set extensions. We have found that an organized naming scheme simplifies software tools and documentation.\",\n      \"line_number\": 9,\n      \"reason\": \"This is inside a [NOTE] block and is non-normative introductory text. No optionality language for an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"Standard ISA extensions are given a name consisting of a single letter.\",\n      \"line_number\": 22,\n      \"reason\": \"This is a fixed naming rule/requirement, not an implementer choice. No optionality language.\"\n    },\n    {\n      \"excerpt\": \"Underscores \\\"_\\\" may be used to separate ISA extensions to improve readability and to provide disambiguation, e.g., \\\"RV32I2_M2_A2\\\".\",\n      \"line_number\": 46,\n      \"reason\": \"Here 'may be used' is permission for the person writing the ISA name string (a documentation/naming convention), not an architectural parameter that an implementer chooses at design time. This is a naming convention rule, not an ISA architectural parameter.\"\n    },\n    {\n      \"excerpt\": \"Non-standard extensions are named by using a single \\\"X\\\" followed by the alphanumeric name.\",\n      \"line_number\": 103,\n      \"reason\": \"This is a fixed naming convention rule with no implementer architectural choice. It describes how to name non-standard extensions, not a hardware design parameter.\"\n    },\n    {\n      \"excerpt\": \"Changes in major version numbers imply a loss of backwards compatibility, whereas changes in only the minor version number must be backwards-compatible.\",\n      \"line_number\": 148,\n      \"reason\": \"This is a fixed definitional rule about version number semantics, not an implementer architectural choice. 'Must' signals a requirement, not a parameter.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 12044,
-  "output_tokens": 482,
-  "latency_ms": 10651,
-  "timestamp": "2026-06-29T10:32:05.004695+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The RISC-V ISA is designed to support a wide variety of implementations with various experimental instruction-set extensions. We have found that an organized naming scheme simplifies software tools and documentation.\",\n      \"line_number\": 9,\n      \"reason\": \"This is inside a [NOTE] block and is non-normative introductory text. No implementer choice is described.\"\n    },\n    {\n      \"excerpt\": \"RISC-V ISA strings begin with either RV32I, RV32E, RV64I, or RV64E, indicating the supported address space size in bits for the base integer ISA.\",\n      \"line_number\": 18,\n      \"reason\": \"This is a fixed naming convention rule, not an implementer choice. It describes what the naming strings must look like, not a parameter the implementer selects.\"\n    },\n    {\n      \"excerpt\": \"Underscores \\\"_\\\" may be used to separate ISA extensions to improve readability and to provide disambiguation, e.g., \\\"RV32I2_M2_A2\\\".\",\n      \"line_number\": 46,\n      \"reason\": \"The word 'may' here is a permission granted to the person writing the ISA name string (a documentation/naming convention choice), not an architectural parameter left to the hardware implementer.\"\n    },\n    {\n      \"excerpt\": \"Non-standard extensions are named by using a single \\\"X\\\" followed by the alphanumeric name.\",\n      \"line_number\": 107,\n      \"reason\": \"This is a fixed naming convention rule for non-standard extensions. It describes a required naming format, not an implementer architectural choice.\"\n    },\n    {\n      \"excerpt\": \"Changes in major version numbers imply a loss of backwards compatibility, whereas changes in only the minor version number must be backwards-compatible.\",\n      \"line_number\": 143,\n      \"reason\": \"This is a fixed definitional rule about version number semantics, not an implementer choice. 'Must' signals a requirement, not a parameter.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12643,
+  "output_tokens": 505,
+  "latency_ms": 10839,
+  "timestamp": "2026-07-11T11:43:42.359459+00:00",
   "error": null,
   "retry_count": 0
 }

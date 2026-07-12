@@ -10,34 +10,34 @@
     {
       "excerpt": "MUL performs an XLEN-bit\u00d7XLEN-bit multiplication of `rs1` by `rs2` and places the lower XLEN bits in the destination register.",
       "line_number": 23,
-      "reason": "Fixed behavioral description of the MUL instruction. No optionality language \u2014 this is a mandatory requirement, not an implementation choice."
+      "reason": "Fixed behavioral description of the MUL instruction. No implementer choice \u2014 this is a mandatory requirement for all M-extension implementations."
+    },
+    {
+      "excerpt": "DIV and DIVU perform an XLEN bits by XLEN bits signed and unsigned integer division of `rs1` by `rs2`, rounding towards zero.",
+      "line_number": 63,
+      "reason": "Fixed behavioral requirement ('perform ... rounding towards zero'). No optionality language; this is a mandatory instruction semantic."
     },
     {
       "excerpt": "The quotient of division by zero has all bits set, and the remainder of division by zero equals the dividend.",
-      "line_number": 95,
-      "reason": "Fixed requirement ('has all bits set', 'equals the dividend') \u2014 no implementer choice. This is a normative rule that applies to all implementations."
+      "line_number": 91,
+      "reason": "Fixed requirement for division-by-zero semantics. 'Has all bits set' and 'equals the dividend' are mandatory behaviors, not implementation choices."
     },
     {
       "excerpt": "Signed division overflow occurs only when the most-negative integer is divided by \u22121. The quotient of a signed division with overflow is equal to the dividend, and the remainder is zero.",
-      "line_number": 97,
-      "reason": "Fixed behavioral requirement with no optionality language. All implementations must behave this way."
+      "line_number": 93,
+      "reason": "Fixed requirement for signed division overflow semantics. No optionality language; this is a mandatory behavioral rule for all M-extension implementations."
     },
     {
       "excerpt": "We separate integer multiply and divide out from the base to simplify low-end implementations, or for applications where integer multiply and divide operations are either infrequent or better handled in attached accelerators.",
       "line_number": 9,
       "reason": "Inside a [NOTE] block \u2014 non-normative rationale text. Parameters must not be extracted from NOTE blocks."
-    },
-    {
-      "excerpt": "The `Zmmul` extension enables low-cost implementations that require multiplication operations but not division.",
-      "line_number": 143,
-      "reason": "Inside a [NOTE] block \u2014 non-normative explanatory text. No architectural parameter is defined here."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"MUL performs an XLEN-bit\u00d7XLEN-bit multiplication of `rs1` by `rs2` and places the lower XLEN bits in the destination register.\",\n      \"line_number\": 23,\n      \"reason\": \"Fixed behavioral description of the MUL instruction. No optionality language \u2014 this is a mandatory requirement, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"The quotient of division by zero has all bits set, and the remainder of division by zero equals the dividend.\",\n      \"line_number\": 95,\n      \"reason\": \"Fixed requirement ('has all bits set', 'equals the dividend') \u2014 no implementer choice. This is a normative rule that applies to all implementations.\"\n    },\n    {\n      \"excerpt\": \"Signed division overflow occurs only when the most-negative integer is divided by \u22121. The quotient of a signed division with overflow is equal to the dividend, and the remainder is zero.\",\n      \"line_number\": 97,\n      \"reason\": \"Fixed behavioral requirement with no optionality language. All implementations must behave this way.\"\n    },\n    {\n      \"excerpt\": \"We separate integer multiply and divide out from the base to simplify low-end implementations, or for applications where integer multiply and divide operations are either infrequent or better handled in attached accelerators.\",\n      \"line_number\": 9,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative rationale text. Parameters must not be extracted from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"The `Zmmul` extension enables low-cost implementations that require multiplication operations but not division.\",\n      \"line_number\": 143,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative explanatory text. No architectural parameter is defined here.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 11770,
-  "output_tokens": 458,
-  "latency_ms": 7910,
-  "timestamp": "2026-06-29T10:28:53.575929+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"MUL performs an XLEN-bit\u00d7XLEN-bit multiplication of `rs1` by `rs2` and places the lower XLEN bits in the destination register.\",\n      \"line_number\": 23,\n      \"reason\": \"Fixed behavioral description of the MUL instruction. No implementer choice \u2014 this is a mandatory requirement for all M-extension implementations.\"\n    },\n    {\n      \"excerpt\": \"DIV and DIVU perform an XLEN bits by XLEN bits signed and unsigned integer division of `rs1` by `rs2`, rounding towards zero.\",\n      \"line_number\": 63,\n      \"reason\": \"Fixed behavioral requirement ('perform ... rounding towards zero'). No optionality language; this is a mandatory instruction semantic.\"\n    },\n    {\n      \"excerpt\": \"The quotient of division by zero has all bits set, and the remainder of division by zero equals the dividend.\",\n      \"line_number\": 91,\n      \"reason\": \"Fixed requirement for division-by-zero semantics. 'Has all bits set' and 'equals the dividend' are mandatory behaviors, not implementation choices.\"\n    },\n    {\n      \"excerpt\": \"Signed division overflow occurs only when the most-negative integer is divided by \u22121. The quotient of a signed division with overflow is equal to the dividend, and the remainder is zero.\",\n      \"line_number\": 93,\n      \"reason\": \"Fixed requirement for signed division overflow semantics. No optionality language; this is a mandatory behavioral rule for all M-extension implementations.\"\n    },\n    {\n      \"excerpt\": \"We separate integer multiply and divide out from the base to simplify low-end implementations, or for applications where integer multiply and divide operations are either infrequent or better handled in attached accelerators.\",\n      \"line_number\": 9,\n      \"reason\": \"Inside a [NOTE] block \u2014 non-normative rationale text. Parameters must not be extracted from NOTE blocks.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12369,
+  "output_tokens": 488,
+  "latency_ms": 12263,
+  "timestamp": "2026-07-11T11:40:40.574620+00:00",
   "error": null,
   "retry_count": 0
 }

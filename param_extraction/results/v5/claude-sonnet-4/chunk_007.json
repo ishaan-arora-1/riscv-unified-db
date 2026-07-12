@@ -8,36 +8,36 @@
   "parameters": [],
   "skipped_non_parameters": [
     {
-      "excerpt": "For RV32C, _shamt[5]_ must be zero; the code points with _shamt[5]_=1 are designated for custom extensions.",
-      "line_number": 412,
-      "reason": "'must be zero' is a fixed requirement binding on every RV32C implementation \u2014 there is no implementer choice. The designation of code points for custom extensions is informative, not an architectural parameter of the base ISA."
-    },
-    {
       "excerpt": "A 16-bit instruction with all bits zero is permanently reserved as an illegal instruction.",
-      "line_number": 748,
-      "reason": "'permanently reserved' is a fixed fact true of every implementation. A reserved encoding is not chosen by the implementer, so it is not a parameter."
+      "line_number": 793,
+      "reason": "'Permanently reserved' is a fixed fact true of every implementation \u2014 there is no implementer choice. This is a hard requirement, not a parameter."
     },
     {
-      "excerpt": "HINTs are executed as no-ops on implementations that ignore them.",
-      "line_number": 800,
-      "reason": "This is inside a normative description but describes a fixed behavioral rule for HINT handling \u2014 there is no implementer choice about whether to treat HINTs as no-ops when ignored. Also, the surrounding context is descriptive of the HINT mechanism, not an optional feature."
+      "excerpt": "For RV32C, _shamt[5]_ must be zero; the code points with _shamt[5]_=1 are designated for custom extensions.",
+      "line_number": 612,
+      "reason": "'Must be zero' is a fixed requirement binding on every RV32C implementation. The mention of custom extensions is informative. No implementer choice exists here."
     },
     {
       "excerpt": "With the addition of the C extension, no instructions can raise instruction-address-misaligned exceptions.",
-      "line_number": 26,
-      "reason": "This is a fixed requirement/consequence of implementing the C extension (IALIGN=16), not an implementer choice. Every C-extension implementation must satisfy this."
+      "line_number": 27,
+      "reason": "This is a fixed behavioral consequence of implementing the C extension \u2014 a mandatory rule, not an implementer choice."
     },
     {
-      "excerpt": "If the C extension is implemented, the appropriate compressed floating-point load and store instructions must be provided whenever the relevant standard floating-point extension (F and/or D) is also implemented.",
-      "line_number": 43,
-      "reason": "'must be provided' is a fixed requirement \u2014 no implementer choice here. This is a mandatory co-implementation rule, not a parameter."
+      "excerpt": "C.LWSP is valid only when _rd_\u2260`x0`; the code points with _rd_=`x0` are reserved.",
+      "line_number": 330,
+      "reason": "'Are reserved' is a fixed fact \u2014 reserved encodings are not chosen by the implementer. This is a mandatory encoding rule, not a parameter."
+    },
+    {
+      "excerpt": "HINTs are executed as no-ops on implementations that ignore them.",
+      "line_number": 843,
+      "reason": "This describes a fixed behavioral rule for HINT instructions \u2014 implementations that ignore HINTs must treat them as no-ops. It is a requirement, not an implementer choice about whether to support HINTs."
     }
   ],
-  "raw_response": "Looking at the specification text, I need to identify architectural parameters \u2014 places where the spec explicitly leaves a choice to the hardware implementer.\n\nLet me scan for optionality language: \"may\", \"optional\", \"implementation-defined\", \"can be\", \"need not\", etc.\n\nAfter careful review, this chapter is primarily a description of the C extension instruction encodings, behaviors, and fixed requirements. Most sentences use \"must\", \"is\", \"expands to\", \"is reserved\", etc. \u2014 fixed requirements or facts, not implementer choices.\n\nThe only candidate I see with genuine optionality language is the HINT execution behavior (\"HINTs are executed as no-ops on implementations that ignore them\"), but this is in a NOTE block and describes software-visible behavior, not an architectural parameter.\n\nThe `shamt[5]` sentences use \"must be zero\" \u2014 fixed requirements, not parameters.\n\nThe \"permanently reserved as an illegal instruction\" is a fixed fact.\n\nLet me check for any subtle parameters... The register fields listed (from bytefield diagrams) are all fixed encodings with no WARL or optional language in this section.\n\n```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"For RV32C, _shamt[5]_ must be zero; the code points with _shamt[5]_=1 are designated for custom extensions.\",\n      \"line_number\": 412,\n      \"reason\": \"'must be zero' is a fixed requirement binding on every RV32C implementation \u2014 there is no implementer choice. The designation of code points for custom extensions is informative, not an architectural parameter of the base ISA.\"\n    },\n    {\n      \"excerpt\": \"A 16-bit instruction with all bits zero is permanently reserved as an illegal instruction.\",\n      \"line_number\": 748,\n      \"reason\": \"'permanently reserved' is a fixed fact true of every implementation. A reserved encoding is not chosen by the implementer, so it is not a parameter.\"\n    },\n    {\n      \"excerpt\": \"HINTs are executed as no-ops on implementations that ignore them.\",\n      \"line_number\": 800,\n      \"reason\": \"This is inside a normative description but describes a fixed behavioral rule for HINT handling \u2014 there is no implementer choice about whether to treat HINTs as no-ops when ignored. Also, the surrounding context is descriptive of the HINT mechanism, not an optional feature.\"\n    },\n    {\n      \"excerpt\": \"With the addition of the C extension, no instructions can raise instruction-address-misaligned exceptions.\",\n      \"line_number\": 26,\n      \"reason\": \"This is a fixed requirement/consequence of implementing the C extension (IALIGN=16), not an implementer choice. Every C-extension implementation must satisfy this.\"\n    },\n    {\n      \"excerpt\": \"If the C extension is implemented, the appropriate compressed floating-point load and store instructions must be provided whenever the relevant standard floating-point extension (F and/or D) is also implemented.\",\n      \"line_number\": 43,\n      \"reason\": \"'must be provided' is a fixed requirement \u2014 no implementer choice here. This is a mandatory co-implementation rule, not a parameter.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 22843,
-  "output_tokens": 740,
-  "latency_ms": 17869,
-  "timestamp": "2026-06-29T10:25:09.098519+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"A 16-bit instruction with all bits zero is permanently reserved as an illegal instruction.\",\n      \"line_number\": 793,\n      \"reason\": \"'Permanently reserved' is a fixed fact true of every implementation \u2014 there is no implementer choice. This is a hard requirement, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"For RV32C, _shamt[5]_ must be zero; the code points with _shamt[5]_=1 are designated for custom extensions.\",\n      \"line_number\": 612,\n      \"reason\": \"'Must be zero' is a fixed requirement binding on every RV32C implementation. The mention of custom extensions is informative. No implementer choice exists here.\"\n    },\n    {\n      \"excerpt\": \"With the addition of the C extension, no instructions can raise instruction-address-misaligned exceptions.\",\n      \"line_number\": 27,\n      \"reason\": \"This is a fixed behavioral consequence of implementing the C extension \u2014 a mandatory rule, not an implementer choice.\"\n    },\n    {\n      \"excerpt\": \"C.LWSP is valid only when _rd_\u2260`x0`; the code points with _rd_=`x0` are reserved.\",\n      \"line_number\": 330,\n      \"reason\": \"'Are reserved' is a fixed fact \u2014 reserved encodings are not chosen by the implementer. This is a mandatory encoding rule, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"HINTs are executed as no-ops on implementations that ignore them.\",\n      \"line_number\": 843,\n      \"reason\": \"This describes a fixed behavioral rule for HINT instructions \u2014 implementations that ignore HINTs must treat them as no-ops. It is a requirement, not an implementer choice about whether to support HINTs.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 23442,
+  "output_tokens": 454,
+  "latency_ms": 13956,
+  "timestamp": "2026-07-11T11:36:38.834732+00:00",
   "error": null,
   "retry_count": 0
 }

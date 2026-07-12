@@ -8,36 +8,36 @@
   "parameters": [],
   "skipped_non_parameters": [
     {
-      "excerpt": "The Zfinx extension adds all of the instructions that the F extension adds, _except_ for the transfer instructions FLW, FSW, FMV.W.X, FMV.X.W, C.FLW[SP], and C.FSW[SP].",
-      "line_number": 26,
-      "reason": "Fixed requirement describing which instructions are included. No implementer choice \u2014 every Zfinx implementation must include exactly these instructions."
-    },
-    {
       "excerpt": "In the standard privileged architecture defined in Volume II, the `mstatus` field FS is hardwired to 0 if the Zfinx extension is implemented, and FS no longer affects the trapping behavior of floating-point instructions or `fcsr` accesses.",
-      "line_number": 140,
-      "reason": "Fixed requirement ('hardwired to 0') \u2014 not an implementer choice. Every Zfinx implementation must hardwire mstatus.FS to 0. This is a 'shall/must' rule, not a parameter."
+      "line_number": 143,
+      "reason": "This is a fixed requirement ('hardwired to 0') that applies to all Zfinx implementations \u2014 there is no implementer choice. 'Hardwired' is a statement of fact, not an optionality signal."
     },
     {
       "excerpt": "The `misa` bits F, D, and Q are hardwired to 0 when the Zfinx extension is implemented.",
-      "line_number": 146,
-      "reason": "Fixed requirement ('hardwired to 0') \u2014 not an implementer choice. Every Zfinx implementation must hardwire these misa bits to 0."
+      "line_number": 149,
+      "reason": "Again, 'hardwired to 0' is a fixed requirement with no implementer choice. This is a normative rule, not a parameter."
     },
     {
       "excerpt": "Double-precision operands in RV32Zdinx are held in aligned `x`-register pairs, i.e., register numbers must be even. Use of misaligned (odd-numbered) registers for double-width floating-point operands is _reserved_.",
       "line_number": 80,
-      "reason": "Fixed requirement ('must be even') and reserved encoding fact. No implementer choice here."
+      "reason": "'Must be even' and 'reserved' are fixed requirements \u2014 no implementer choice exists here."
     },
     {
       "excerpt": "Floating-point operations that produce _w_ < XLEN-bit results fill bits XLEN-1: _w_ with copies of bit _w_-1 (the sign bit).",
       "line_number": 50,
-      "reason": "Fixed behavioral requirement \u2014 all Zfinx implementations must sign-extend narrow results. No implementer choice."
+      "reason": "This is a fixed behavioral requirement ('fill bits ... with copies of bit w-1'). No optionality language; all Zfinx implementations must do this."
+    },
+    {
+      "excerpt": "The Zfinx extension adds all of the instructions that the F extension adds, _except_ for the transfer instructions FLW, FSW, FMV.W.X, FMV.X.W, C.FLW[SP], and C.FSW[SP].",
+      "line_number": 26,
+      "reason": "This is a fixed normative rule defining which instructions are included in Zfinx. No implementer choice \u2014 all Zfinx implementations must include exactly these instructions."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"The Zfinx extension adds all of the instructions that the F extension adds, _except_ for the transfer instructions FLW, FSW, FMV.W.X, FMV.X.W, C.FLW[SP], and C.FSW[SP].\",\n      \"line_number\": 26,\n      \"reason\": \"Fixed requirement describing which instructions are included. No implementer choice \u2014 every Zfinx implementation must include exactly these instructions.\"\n    },\n    {\n      \"excerpt\": \"In the standard privileged architecture defined in Volume II, the `mstatus` field FS is hardwired to 0 if the Zfinx extension is implemented, and FS no longer affects the trapping behavior of floating-point instructions or `fcsr` accesses.\",\n      \"line_number\": 140,\n      \"reason\": \"Fixed requirement ('hardwired to 0') \u2014 not an implementer choice. Every Zfinx implementation must hardwire mstatus.FS to 0. This is a 'shall/must' rule, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"The `misa` bits F, D, and Q are hardwired to 0 when the Zfinx extension is implemented.\",\n      \"line_number\": 146,\n      \"reason\": \"Fixed requirement ('hardwired to 0') \u2014 not an implementer choice. Every Zfinx implementation must hardwire these misa bits to 0.\"\n    },\n    {\n      \"excerpt\": \"Double-precision operands in RV32Zdinx are held in aligned `x`-register pairs, i.e., register numbers must be even. Use of misaligned (odd-numbered) registers for double-width floating-point operands is _reserved_.\",\n      \"line_number\": 80,\n      \"reason\": \"Fixed requirement ('must be even') and reserved encoding fact. No implementer choice here.\"\n    },\n    {\n      \"excerpt\": \"Floating-point operations that produce _w_ < XLEN-bit results fill bits XLEN-1: _w_ with copies of bit _w_-1 (the sign bit).\",\n      \"line_number\": 50,\n      \"reason\": \"Fixed behavioral requirement \u2014 all Zfinx implementations must sign-extend narrow results. No implementer choice.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 11766,
-  "output_tokens": 581,
-  "latency_ms": 10502,
-  "timestamp": "2026-07-01T10:03:02.968751+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"In the standard privileged architecture defined in Volume II, the `mstatus` field FS is hardwired to 0 if the Zfinx extension is implemented, and FS no longer affects the trapping behavior of floating-point instructions or `fcsr` accesses.\",\n      \"line_number\": 143,\n      \"reason\": \"This is a fixed requirement ('hardwired to 0') that applies to all Zfinx implementations \u2014 there is no implementer choice. 'Hardwired' is a statement of fact, not an optionality signal.\"\n    },\n    {\n      \"excerpt\": \"The `misa` bits F, D, and Q are hardwired to 0 when the Zfinx extension is implemented.\",\n      \"line_number\": 149,\n      \"reason\": \"Again, 'hardwired to 0' is a fixed requirement with no implementer choice. This is a normative rule, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"Double-precision operands in RV32Zdinx are held in aligned `x`-register pairs, i.e., register numbers must be even. Use of misaligned (odd-numbered) registers for double-width floating-point operands is _reserved_.\",\n      \"line_number\": 80,\n      \"reason\": \"'Must be even' and 'reserved' are fixed requirements \u2014 no implementer choice exists here.\"\n    },\n    {\n      \"excerpt\": \"Floating-point operations that produce _w_ < XLEN-bit results fill bits XLEN-1: _w_ with copies of bit _w_-1 (the sign bit).\",\n      \"line_number\": 50,\n      \"reason\": \"This is a fixed behavioral requirement ('fill bits ... with copies of bit w-1'). No optionality language; all Zfinx implementations must do this.\"\n    },\n    {\n      \"excerpt\": \"The Zfinx extension adds all of the instructions that the F extension adds, _except_ for the transfer instructions FLW, FSW, FMV.W.X, FMV.X.W, C.FLW[SP], and C.FSW[SP].\",\n      \"line_number\": 26,\n      \"reason\": \"This is a fixed normative rule defining which instructions are included in Zfinx. No implementer choice \u2014 all Zfinx implementations must include exactly these instructions.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 12365,
+  "output_tokens": 601,
+  "latency_ms": 10031,
+  "timestamp": "2026-07-11T11:57:17.804994+00:00",
   "error": null,
   "retry_count": 0
 }

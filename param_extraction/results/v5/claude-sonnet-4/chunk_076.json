@@ -5,39 +5,51 @@
   "end_line": 315,
   "content_start_line": 1,
   "model": "claude-sonnet-4",
-  "parameters": [],
-  "skipped_non_parameters": [
+  "parameters": [
     {
       "excerpt": "Even if naturally aligned, the memory access might not be performed atomically.",
       "line_number": 36,
-      "reason": "This is a fixed behavioral statement (a fact about what the spec does NOT guarantee), not an implementer choice. There is no optionality language giving the implementer a choice here."
-    },
+      "parameter_name": "ZILSD_ALIGNED_ACCESS_ATOMICITY",
+      "existing_udb_name": null,
+      "class": "NORM_DIRECT",
+      "value_type": "binary",
+      "modal_signal": "might not be performed atomically",
+      "confidence": "medium",
+      "reasoning": "The spec says that even naturally aligned (8-byte) accesses 'might not be performed atomically', indicating the implementation may or may not perform the 64-bit access atomically. This is an implementation choice about atomicity of the memory access."
+    }
+  ],
+  "skipped_non_parameters": [
     {
       "excerpt": "If the effective address is a multiple of 4, then each word access is required to be performed atomically.",
       "line_number": 38,
-      "reason": "This is a fixed requirement ('is required to be performed atomically') binding on all implementations \u2014 no implementer choice, not a parameter."
+      "reason": "Fixed requirement ('is required to be performed atomically') \u2014 no implementer choice here. Every implementation must guarantee word-level atomicity for 4-byte-aligned accesses."
     },
     {
       "excerpt": "To ensure resumable trap handling is possible for the load instructions, the base register must have its original value if a trap is taken.",
-      "line_number": 48,
-      "reason": "This is a fixed requirement ('must have its original value') \u2014 no implementer choice, not a parameter."
+      "line_number": 47,
+      "reason": "Fixed requirement ('must have its original value') \u2014 this is a mandatory behavioral rule, not an implementation choice."
     },
     {
       "excerpt": "If an implementation performs a doubleword load access atomically and the register file implements write-back for even/odd register pairs, the mentioned atomicity requirements are inherently fulfilled.",
-      "line_number": 53,
-      "reason": "This is inside a [NOTE] block and is therefore non-normative. Even if it were normative, it describes a conditional fact, not an implementer choice with optionality language."
+      "line_number": 52,
+      "reason": "This is inside a [NOTE] block \u2014 non-normative text. Parameters must not be extracted from NOTE blocks."
+    },
+    {
+      "excerpt": "LD instructions with destination `x0` are processed as any other load, but the result is discarded entirely and x1 is not written.",
+      "line_number": 87,
+      "reason": "Fixed behavioral rule describing what must happen when x0 is the destination \u2014 no implementer choice."
     },
     {
       "excerpt": "For the purposes of RVWMO and exception handling, LD and SD instructions are considered to be misaligned loads and stores",
       "line_number": 100,
-      "reason": "This is a fixed definitional rule ('are considered to be') applying to all implementations \u2014 no implementer choice, not a parameter."
+      "reason": "Fixed normative rule about how these instructions are classified for RVWMO and exception handling \u2014 no implementer choice."
     }
   ],
-  "raw_response": "```json\n{\n  \"parameters\": [],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"Even if naturally aligned, the memory access might not be performed atomically.\",\n      \"line_number\": 36,\n      \"reason\": \"This is a fixed behavioral statement (a fact about what the spec does NOT guarantee), not an implementer choice. There is no optionality language giving the implementer a choice here.\"\n    },\n    {\n      \"excerpt\": \"If the effective address is a multiple of 4, then each word access is required to be performed atomically.\",\n      \"line_number\": 38,\n      \"reason\": \"This is a fixed requirement ('is required to be performed atomically') binding on all implementations \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"To ensure resumable trap handling is possible for the load instructions, the base register must have its original value if a trap is taken.\",\n      \"line_number\": 48,\n      \"reason\": \"This is a fixed requirement ('must have its original value') \u2014 no implementer choice, not a parameter.\"\n    },\n    {\n      \"excerpt\": \"If an implementation performs a doubleword load access atomically and the register file implements write-back for even/odd register pairs, the mentioned atomicity requirements are inherently fulfilled.\",\n      \"line_number\": 53,\n      \"reason\": \"This is inside a [NOTE] block and is therefore non-normative. Even if it were normative, it describes a conditional fact, not an implementer choice with optionality language.\"\n    },\n    {\n      \"excerpt\": \"For the purposes of RVWMO and exception handling, LD and SD instructions are considered to be misaligned loads and stores\",\n      \"line_number\": 100,\n      \"reason\": \"This is a fixed definitional rule ('are considered to be') applying to all implementations \u2014 no implementer choice, not a parameter.\"\n    }\n  ]\n}\n```",
-  "input_tokens": 13372,
-  "output_tokens": 457,
-  "latency_ms": 10654,
-  "timestamp": "2026-07-01T10:04:15.315280+00:00",
+  "raw_response": "```json\n{\n  \"parameters\": [\n    {\n      \"excerpt\": \"Even if naturally aligned, the memory access might not be performed atomically.\",\n      \"line_number\": 36,\n      \"parameter_name\": \"ZILSD_ALIGNED_ACCESS_ATOMICITY\",\n      \"existing_udb_name\": null,\n      \"class\": \"NORM_DIRECT\",\n      \"value_type\": \"binary\",\n      \"modal_signal\": \"might not be performed atomically\",\n      \"confidence\": \"medium\",\n      \"reasoning\": \"The spec says that even naturally aligned (8-byte) accesses 'might not be performed atomically', indicating the implementation may or may not perform the 64-bit access atomically. This is an implementation choice about atomicity of the memory access.\"\n    }\n  ],\n  \"skipped_non_parameters\": [\n    {\n      \"excerpt\": \"If the effective address is a multiple of 4, then each word access is required to be performed atomically.\",\n      \"line_number\": 38,\n      \"reason\": \"Fixed requirement ('is required to be performed atomically') \u2014 no implementer choice here. Every implementation must guarantee word-level atomicity for 4-byte-aligned accesses.\"\n    },\n    {\n      \"excerpt\": \"To ensure resumable trap handling is possible for the load instructions, the base register must have its original value if a trap is taken.\",\n      \"line_number\": 47,\n      \"reason\": \"Fixed requirement ('must have its original value') \u2014 this is a mandatory behavioral rule, not an implementation choice.\"\n    },\n    {\n      \"excerpt\": \"If an implementation performs a doubleword load access atomically and the register file implements write-back for even/odd register pairs, the mentioned atomicity requirements are inherently fulfilled.\",\n      \"line_number\": 52,\n      \"reason\": \"This is inside a [NOTE] block \u2014 non-normative text. Parameters must not be extracted from NOTE blocks.\"\n    },\n    {\n      \"excerpt\": \"LD instructions with destination `x0` are processed as any other load, but the result is discarded entirely and x1 is not written.\",\n      \"line_number\": 87,\n      \"reason\": \"Fixed behavioral rule describing what must happen when x0 is the destination \u2014 no implementer choice.\"\n    },\n    {\n      \"excerpt\": \"For the purposes of RVWMO and exception handling, LD and SD instructions are considered to be misaligned loads and stores\",\n      \"line_number\": 100,\n      \"reason\": \"Fixed normative rule about how these instructions are classified for RVWMO and exception handling \u2014 no implementer choice.\"\n    }\n  ]\n}\n```",
+  "input_tokens": 13971,
+  "output_tokens": 623,
+  "latency_ms": 14805,
+  "timestamp": "2026-07-11T11:58:38.501955+00:00",
   "error": null,
   "retry_count": 0
 }
