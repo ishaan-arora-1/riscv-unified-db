@@ -1,0 +1,2358 @@
+{
+ "ours": [
+  {
+   "parameter_name": "CSR_STRONGLY_ORDERED",
+   "anchor": "norm:csr_strongly_ordered",
+   "rules": [
+    "zicsr_strongly_ordered"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "CTRTARGET_MISP_IMPLEMENTED",
+   "anchor": "norm:ctrtarget_misp",
+   "rules": [
+    "ctrtarget_misp"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "CTR_CCE_WIDTH",
+   "anchor": "norm:ccounter_impl",
+   "rules": [
+    "ccounter"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "CTR_CTRDATA_TYPE_IMPLEMENTED",
+   "anchor": "norm:ctrdata_sz_acc",
+   "rules": [
+    "ctrdata_sz_acc"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "CTR_CYCLE_COUNTING_SUPPORTED",
+   "anchor": "norm:ctrdata_cc_supported_param",
+   "rules": [
+    "ctrdata_cc_supported"
+   ],
+   "rule_kinds": [
+    "parameter"
+   ]
+  },
+  {
+   "parameter_name": "DELEGATABLE_EXCEPTIONS",
+   "anchor": "norm:medeleg_mideleg_warl",
+   "rules": [],
+   "rule_kinds": []
+  },
+  {
+   "parameter_name": "HGATP_PPN_LOWER_BITS_RO",
+   "anchor": "norm:hgatp-ppn_op",
+   "rules": [
+    "hgatp-ppn_op"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "HINT_SXLEN_DEST_REG_BEHAVIOR",
+   "anchor": "norm:hint_sxlen_param",
+   "rules": [
+    "hint_sxlen"
+   ],
+   "rule_kinds": [
+    "parameter"
+   ]
+  },
+  {
+   "parameter_name": "HINT_XLEN_REDUCTION_BEHAVIOR",
+   "anchor": "norm:xlen_reduction_hint_op1",
+   "rules": [
+    "xlen_reduction_hint_op"
+   ],
+   "rule_kinds": [
+    "parameter"
+   ]
+  },
+  {
+   "parameter_name": "HIP_BIT_WRITABLE",
+   "anchor": "norm:hip_acc",
+   "rules": [
+    "hip_acc"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "HPM_MISCONFIGURED_BEHAVIOR",
+   "anchor": "norm:hpm_misconfigured_event_behavior",
+   "rules": [
+    "hpm_misconfigured_event_behavior"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR",
+   "anchor": "norm:hpm_unimplemented_counter_access",
+   "rules": [
+    "hpm_unimplemented_counter_access"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "HTVAL_LEGAL_VALUES",
+   "anchor": "norm:htval_val",
+   "rules": [
+    "htval_val",
+    "htval_warl"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "MCYCLE_SHARED",
+   "anchor": "norm:mcycle_shared",
+   "rules": [
+    "mcycle_shared"
+   ],
+   "rule_kinds": [
+    "parameter"
+   ]
+  },
+  {
+   "parameter_name": "MENVCFG_FIOM_READONLY",
+   "anchor": "norm:menvcfg_fiom_rdonly0_ok",
+   "rules": [
+    "menvcfg_fiom_rdonly0_ok"
+   ],
+   "rule_kinds": [
+    "parameter"
+   ]
+  },
+  {
+   "parameter_name": "MIP_WRITABLE_BITS",
+   "anchor": "norm:mip_bits_wr_or_rdonly",
+   "rules": [
+    "mip_bits_wr_or_rdonly"
+   ],
+   "rule_kinds": [
+    "parameter"
+   ]
+  },
+  {
+   "parameter_name": "MNEPC_INVALID_ADDRESS_CONVERSION",
+   "anchor": "norm:mnepc_invalid_convert",
+   "rules": [
+    "mnepc_invalid_convert"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "MSECCFG_SEED_BITS_RW",
+   "anchor": null,
+   "rules": [],
+   "rule_kinds": []
+  },
+  {
+   "parameter_name": "MSTATEEN_BIT63_TYPE",
+   "anchor": "norm:mstateen-bit-63_roz",
+   "rules": [
+    "mstateen-bit-63_roz"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "MTVAL2_LEGAL_VALUES",
+   "anchor": "norm:mtval2_val",
+   "rules": [
+    "mtval2_val",
+    "mtval2_warl"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "PMA_IDEMPOTENT_IMPLICIT_READ_SIZE",
+   "anchor": "norm:pma_idp_implicit_sz",
+   "rules": [
+    "pma_idp_implicit_sz"
+   ],
+   "rule_kinds": [
+    "parameter"
+   ]
+  },
+  {
+   "parameter_name": "PMPADDR_WARL_MASK",
+   "anchor": "norm:pmp_addr_warl",
+   "rules": [
+    "pmp_addr_warl"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "SCTRDEPTH_SUPPORTED_VALUES",
+   "anchor": "norm:sctrdepth-depth_param",
+   "rules": [
+    "CTR_DEPTH",
+    "sctrdepth",
+    "sctrdepth-depth"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "SENVCFG_FIOM_ACCESS",
+   "anchor": "norm:senvcfg-fiom_acc",
+   "rules": [
+    "senvcfg-fiom_acc"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "SEPC_INVALID_ADDR_BEHAVIOR",
+   "anchor": "norm:sepc_acc_invalid_addr",
+   "rules": [
+    "sepc_acc_invalid_addr",
+    "sepc_acc_invalid_warl"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "SIP_BITS_ACCESS",
+   "anchor": "norm:sip_acc",
+   "rules": [
+    "sip_acc"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "SISELECT_WIDTH",
+   "anchor": "norm:siselect_min_range",
+   "rules": [
+    "siselect_min_range"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "SSTATUS_UBE_ACCESS",
+   "anchor": "norm:sstatus-ube",
+   "rules": [
+    "sstatus-ube_warl"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "SSTATUS_UXL_ACCESS",
+   "anchor": "norm:sstatus-uxl_sz",
+   "rules": [
+    "sstatus-uxl_sz",
+    "sstatus-uxl_warl"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "STANDARD_INTERRUPT_SUPPORT",
+   "anchor": "norm:sip_sie_unimpl",
+   "rules": [
+    "sip_unimpl_warl"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "STATEEN_IMPLICIT_UPDATE_EXCEPTION",
+   "anchor": "norm:smstateen_implicit_state_update",
+   "rules": [
+    "smstateen_implicit_state_update"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "VSISELECT_WIDTH",
+   "anchor": "norm:vsiselect_min_range",
+   "rules": [
+    "vsiselect_min_range"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  },
+  {
+   "parameter_name": "VSSTATUS_UBE_PARAM",
+   "anchor": "norm:vsstatus-ube_param",
+   "rules": [
+    "vsstatus-ube"
+   ],
+   "rule_kinds": [
+    "parameter"
+   ]
+  },
+  {
+   "parameter_name": "VSXL_RO_PARAM",
+   "anchor": "norm:vsxl_ro_param",
+   "rules": [
+    "vsxl_ro"
+   ],
+   "rule_kinds": [
+    "parameter"
+   ]
+  },
+  {
+   "parameter_name": "VTW_VIRTINSTR_PARAM",
+   "anchor": "norm:vtw_virtinstr_param",
+   "rules": [
+    "vtw_virtinstr"
+   ],
+   "rule_kinds": [
+    "parameter"
+   ]
+  },
+  {
+   "parameter_name": "WFI_TW_ALWAYS_ILLEGAL",
+   "anchor": "norm:mstatus_tw_always_illegal",
+   "rules": [
+    "mstatus_tw_always_illegal"
+   ],
+   "rule_kinds": [
+    "parameter"
+   ]
+  },
+  {
+   "parameter_name": "XRET_CLEARS_LR_RESERVATION",
+   "anchor": "norm:xret_clr_lr_resv",
+   "rules": [],
+   "rule_kinds": []
+  },
+  {
+   "parameter_name": "ZALASR_MISALIGNED_ATOMICITY_GRANULE",
+   "anchor": "norm:zalasr_misaligned_pma_relax",
+   "rules": [
+    "zalasr_misaligned_pma_relax"
+   ],
+   "rule_kinds": [
+    "(none)"
+   ]
+  }
+ ],
+ "james": [
+  {
+   "name": "LRSC_ALIGNMENT",
+   "kind": "param",
+   "impl": [
+    "LR_SC_ALIGNMENT"
+   ],
+   "tags": [
+    "norm:lr_sc_alignment"
+   ]
+  },
+  {
+   "name": "LRSC_RESERVATION_STRATEGY",
+   "kind": "param",
+   "impl": [
+    "LR_RESERVATION_SET_SIZE"
+   ],
+   "tags": [
+    "norm:lr_reservation_set_size"
+   ]
+  },
+  {
+   "name": "CACHE_BLOCK_SIZE",
+   "kind": "param",
+   "impl": [
+    "CACHE_BLOCK_SIZE"
+   ],
+   "tags": []
+  },
+  {
+   "name": "HPM_READ_BEHAVIOR",
+   "kind": "param",
+   "impl": [
+    "HPM_PLATFORM_SPECIFIC_IMPL",
+    "HPM_UNIMPLEMENTED_COUNTER_ACCESS"
+   ],
+   "tags": [
+    "norm:hpm_platform_specific_impl",
+    "norm:hpm_unimplemented_counter_access"
+   ]
+  },
+  {
+   "name": "TIME_CSR_HW_SUPPORT",
+   "kind": "param",
+   "impl": [
+    "EE_IMPL_FLEX"
+   ],
+   "tags": []
+  },
+  {
+   "name": "HSXLEN",
+   "kind": "param",
+   "impl": [
+    "HSXLEN"
+   ],
+   "tags": [
+    "norm:hsxlen_param"
+   ]
+  },
+  {
+   "name": "VSXLEN",
+   "kind": "param",
+   "impl": [
+    "VSXLEN"
+   ],
+   "tags": [
+    "norm:vsxlen_param"
+   ]
+  },
+  {
+   "name": "VTW_VIRTINSTR",
+   "kind": "param",
+   "impl": [
+    "VTW_VIRTINSTR"
+   ],
+   "tags": [
+    "norm:vtw_virtinstr_param"
+   ]
+  },
+  {
+   "name": "GEILEN",
+   "kind": "param",
+   "impl": [
+    "GEILEN"
+   ],
+   "tags": [
+    "norm:geilen_param"
+   ]
+  },
+  {
+   "name": "HTVAL_GUEST_PAGE_FAULT_TRAPVAL",
+   "kind": "param",
+   "impl": [
+    "HTVAL_TRAPVAL"
+   ],
+   "tags": [
+    "norm:htval_trapval_param"
+   ]
+  },
+  {
+   "name": "VMIDLEN",
+   "kind": "param",
+   "impl": [
+    "HGATP_VMID"
+   ],
+   "tags": [
+    "norm:hgatp-vmid_param"
+   ]
+  },
+  {
+   "name": "VSSTATUS_UBE",
+   "kind": "param",
+   "impl": [
+    "VSSTATUS_UBE"
+   ],
+   "tags": [
+    "norm:vsstatus-ube_param"
+   ]
+  },
+  {
+   "name": "MTVAL2_TRAPVAL",
+   "kind": "param",
+   "impl": [
+    "MTVAL2_TRAPVAL"
+   ],
+   "tags": [
+    "norm:mtval2_trapval_param"
+   ]
+  },
+  {
+   "name": "MXLEN",
+   "kind": "param",
+   "impl": [
+    "MXLEN"
+   ],
+   "tags": [
+    "norm:misa_mxl_op_nz",
+    "norm:xlen_le_mxlen"
+   ]
+  },
+  {
+   "name": "MVENDOR_ID_BANK",
+   "kind": "param",
+   "impl": [
+    "VENDOR_ID_BANK"
+   ],
+   "tags": [
+    "norm:mvendorid_sz_acc_op"
+   ]
+  },
+  {
+   "name": "MVENDOR_ID_OFFSET",
+   "kind": "param",
+   "impl": [
+    "VENDOR_ID_OFFSET"
+   ],
+   "tags": [
+    "norm:mvendorid_sz_acc_op"
+   ]
+  },
+  {
+   "name": "MARCHID",
+   "kind": "param",
+   "impl": [
+    "ARCH_ID"
+   ],
+   "tags": [
+    "norm:marchid_sz_acc_op"
+   ]
+  },
+  {
+   "name": "MIPMPID",
+   "kind": "param",
+   "impl": [
+    "IMP_ID"
+   ],
+   "tags": [
+    "norm:mimpid_op"
+   ]
+  },
+  {
+   "name": "MHARTID",
+   "kind": "param",
+   "impl": [
+    "HART_ID"
+   ],
+   "tags": [
+    "norm:mhartid_sz_acc_op"
+   ]
+  },
+  {
+   "name": "MSTATUS_SBE_ROCOPY",
+   "kind": "param",
+   "impl": [
+    "MSTATUS_SBE_ROCOPY"
+   ],
+   "tags": [
+    "norm:mstatus_sbe_rocopy"
+   ]
+  },
+  {
+   "name": "MSTATUS_UBE_ROCOPY",
+   "kind": "param",
+   "impl": [
+    "MSTATUS_UBE_ROCOPY"
+   ],
+   "tags": [
+    "norm:mstatus_ube_rocopy"
+   ]
+  },
+  {
+   "name": "MSTATUS_TW_TIME_LIMIT",
+   "kind": "param",
+   "impl": [
+    "MSTATUS_TW_TIME_LIMIT"
+   ],
+   "tags": [
+    "norm:mstatus_tw_op"
+   ]
+  },
+  {
+   "name": "MSTATUS_TW_ALWAYS_ILLEGAL",
+   "kind": "param",
+   "impl": [
+    "MSTATUS_TW_ALWAYS_ILLEGAL"
+   ],
+   "tags": [
+    "norm:mstatus_tw_always_illegal"
+   ]
+  },
+  {
+   "name": "MSTATUS_FS_IMPRECISE",
+   "kind": "param",
+   "impl": [
+    "MSTATUS_FS_IMPRECISE",
+    "MSTATUS_FS_NO_DIRTY_TRACK"
+   ],
+   "tags": [
+    "norm:mstatus_fs_imprecise",
+    "norm:mstatus_fs_no_dirty_track"
+   ]
+  },
+  {
+   "name": "MSTATUS_FS_NO_CHANGE_DIRTY",
+   "kind": "param",
+   "impl": [
+    "MSTATUS_FS_NO_CHANGE_DIRTY"
+   ],
+   "tags": [
+    "norm:mstatus_fs_no_change_dirty"
+   ]
+  },
+  {
+   "name": "MSTATUS_VS_SW_DIRTY_UPDATE",
+   "kind": "param",
+   "impl": [
+    "MSTATUS_VS_IMPRECISE"
+   ],
+   "tags": [
+    "norm:mstatus_fs_imprecise",
+    "norm:mstatus_vs_imprecise"
+   ]
+  },
+  {
+   "name": "MSTATUS_VS_NO_CHANGE_DIRTY",
+   "kind": "param",
+   "impl": [
+    "MSTATUS_VS_NO_CHANGE_DIRTY"
+   ],
+   "tags": [
+    "norm:mstatus_vs_no_change_dirty"
+   ]
+  },
+  {
+   "name": "MTVEC_RDONLY",
+   "kind": "param",
+   "impl": [
+    "MTVEC_RDONLY"
+   ],
+   "tags": [
+    "norm:mtvec_mandatory",
+    "norm:mtvec_rdonly"
+   ]
+  },
+  {
+   "name": "MSIP_UPDATE_MAX_TIME",
+   "kind": "param",
+   "impl": [
+    "MSIP_UPDATE_MAX_TIME"
+   ],
+   "tags": [
+    "norm:msip_update_max_time"
+   ]
+  },
+  {
+   "name": "MCYCLE_SHARED",
+   "kind": "param",
+   "impl": [
+    "MCYCLE_SHARED"
+   ],
+   "tags": [
+    "norm:mcycle_shared"
+   ]
+  },
+  {
+   "name": "MEPC_INV_ADDR_CONV",
+   "kind": "param",
+   "impl": [
+    "MEPC_INV_ADDR_CONV"
+   ],
+   "tags": [
+    "norm:mepc_inv_addr_conv"
+   ]
+  },
+  {
+   "name": "MCAUSE_EXCCODE_MISALIGNED_VS_FAULT_PRI",
+   "kind": "param",
+   "impl": [
+    "MCAUSE_EXCCODE_MISALIGNED_VS_FAULT_PRI"
+   ],
+   "tags": []
+  },
+  {
+   "name": "MTVAL_PER_EXC_BEHAVIOR",
+   "kind": "param",
+   "impl": [
+    "MTVAL_PER_EXC_BEHAVIOR"
+   ],
+   "tags": [
+    "norm:mtval_per_exc_behavior"
+   ]
+  },
+  {
+   "name": "MTVAL_INV_ADDR_CONV",
+   "kind": "param",
+   "impl": [
+    "MTVAL_INV_ADDR_CONV"
+   ],
+   "tags": [
+    "norm:mtval_inv_addr_conv"
+   ]
+  },
+  {
+   "name": "MCONFIGPTR_VAL",
+   "kind": "param",
+   "impl": [
+    "MCONFIGPTR_VAL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "MENVCFG_FIOM_RDONLY0_OK",
+   "kind": "param",
+   "impl": [
+    "MENVCFG_FIOM_RDONLY0_OK"
+   ],
+   "tags": [
+    "norm:menvcfg_fiom_rdonly0_ok"
+   ]
+  },
+  {
+   "name": "MTIME_TICK_PERIOD",
+   "kind": "param",
+   "impl": [
+    "MTIME_TICK_PERIOD"
+   ],
+   "tags": [
+    "norm:mtime_tick_period"
+   ]
+  },
+  {
+   "name": "MRET_CLR_LR_RESV",
+   "kind": "param",
+   "impl": [
+    "MRET_CLR_LR_RESV"
+   ],
+   "tags": []
+  },
+  {
+   "name": "SRET_CLR_LR_RESV",
+   "kind": "param",
+   "impl": [
+    "SRET_CLR_LR_RESV"
+   ],
+   "tags": []
+  },
+  {
+   "name": "WFI_OPT_U_MODE",
+   "kind": "param",
+   "impl": [
+    "WFI_OPT_U_MODE"
+   ],
+   "tags": [
+    "norm:wfi_opt_U-mode"
+   ]
+  },
+  {
+   "name": "WFI_RESUME_REASON",
+   "kind": "param",
+   "impl": [
+    "WFI_RESUME_REASON"
+   ],
+   "tags": [
+    "norm:wfi_resume_reason"
+   ]
+  },
+  {
+   "name": "MCAUSE_RST_VAL",
+   "kind": "param",
+   "impl": [
+    "MCAUSE_RST_VAL"
+   ],
+   "tags": [
+    "norm:mcause_rst1_val",
+    "norm:mcause_rst2_val"
+   ]
+  },
+  {
+   "name": "PMP_A_L_RST",
+   "kind": "param",
+   "impl": [
+    "PMP_A_L_RST"
+   ],
+   "tags": [
+    "norm:pmp_A_L_rst"
+   ]
+  },
+  {
+   "name": "MSECCFG_MML_MMWP_RLB_RST",
+   "kind": "param",
+   "impl": [
+    "MSECCFG_MML_MMWP_RLB_RST"
+   ],
+   "tags": [
+    "norm:mseccfg_mml_mmwp_rlb_rst"
+   ]
+  },
+  {
+   "name": "MSECCFG_USEED_SSEED_RST",
+   "kind": "param",
+   "impl": [
+    "MSECCFG_USEED_SSEED_RST"
+   ],
+   "tags": [
+    "norm:mseccfg_useed_sseed_rst"
+   ]
+  },
+  {
+   "name": "MCAUSE_RST_ALIAS_OK",
+   "kind": "param",
+   "impl": [
+    "MCAUSE_RST_ALIAS_OK"
+   ],
+   "tags": [
+    "norm:mcause_rst_alias_ok"
+   ]
+  },
+  {
+   "name": "PMA_MM_IFETCH",
+   "kind": "param",
+   "impl": [
+    "PMA_MM_IFETCH"
+   ],
+   "tags": [
+    "norm:pma_mm_ifetch",
+    "norm:pma_mm_rw"
+   ]
+  },
+  {
+   "name": "PMA_CACHE_MM_ALL_ATOMICS",
+   "kind": "param",
+   "impl": [
+    "PMA_CACHE_MM_ALL_ATOMICS"
+   ],
+   "tags": [
+    "norm:pma_cache_mm_all_atomics"
+   ]
+  },
+  {
+   "name": "PMA_MAG_OP_LDST",
+   "kind": "param",
+   "impl": [
+    "PMA_MAG_OP_LDST"
+   ],
+   "tags": [
+    "norm:pma_mag_op_amo",
+    "norm:pma_mag_op_ldst"
+   ]
+  },
+  {
+   "name": "PMA_MAG_EXC",
+   "kind": "param",
+   "impl": [
+    "PMA_MAG_EXC"
+   ],
+   "tags": [
+    "norm:pma_mag_exc"
+   ]
+  },
+  {
+   "name": "PMA_MO_DYN",
+   "kind": "param",
+   "impl": [
+    "PMA_MO_DYN"
+   ],
+   "tags": [
+    "norm:pma_mo_dyn"
+   ]
+  },
+  {
+   "name": "PMA_IDP_IMPLICIT_SZ",
+   "kind": "param",
+   "impl": [
+    "PMA_IDP_IMPLICIT_SZ"
+   ],
+   "tags": [
+    "norm:pma_idp_implicit_ok",
+    "norm:pma_idp_implicit_sz"
+   ]
+  },
+  {
+   "name": "CRITICAL_ERROR",
+   "kind": "param",
+   "impl": [
+    "CRITICAL_ERROR"
+   ],
+   "tags": [
+    "norm:critical-error"
+   ]
+  },
+  {
+   "name": "NMI_MCAUSE_VAL",
+   "kind": "param",
+   "impl": [
+    "NMI_MCAUSE_VAL"
+   ],
+   "tags": [
+    "norm:nmi_mcause_val1",
+    "norm:nmi_mcause_val2"
+   ]
+  },
+  {
+   "name": "SXLEN",
+   "kind": "param",
+   "impl": [],
+   "tags": []
+  },
+  {
+   "name": "UXLEN",
+   "kind": "param",
+   "impl": [],
+   "tags": []
+  },
+  {
+   "name": "XLEN_REDUCTION_HINT_OP",
+   "kind": "param",
+   "impl": [
+    "XLEN_REDUCTION_HINT_OP"
+   ],
+   "tags": [
+    "norm:xlen_reduction_hint_op1",
+    "norm:xlen_reduction_hint_op2"
+   ]
+  },
+  {
+   "name": "RST_ADDR",
+   "kind": "param",
+   "impl": [],
+   "tags": []
+  },
+  {
+   "name": "NMI_ADDR",
+   "kind": "param",
+   "impl": [],
+   "tags": []
+  },
+  {
+   "name": "PMP_GRANULARITY",
+   "kind": "param",
+   "impl": [
+    "PMP_GRANULARITY"
+   ],
+   "tags": []
+  },
+  {
+   "name": "PMP_ENTRY_COUNT",
+   "kind": "param",
+   "impl": [
+    "PMP_ENTRY_COUNT"
+   ],
+   "tags": [
+    "norm:pmp_entry_count"
+   ]
+  },
+  {
+   "name": "MISALIGNED_LDST_HW_SUPPORT",
+   "kind": "param",
+   "impl": [
+    "MISALIGNED_LDST_HW_SUPPORT"
+   ],
+   "tags": []
+  },
+  {
+   "name": "MISALIGNED_LDST_EXC_TYPE",
+   "kind": "param",
+   "impl": [
+    "MISALIGNED_LDST_EXC_TYPE"
+   ],
+   "tags": []
+  },
+  {
+   "name": "CTRDATA_CC_SUPPORTED",
+   "kind": "param",
+   "impl": [
+    "CTRDATA_CC_SUPPORTED"
+   ],
+   "tags": [
+    "norm:ctrdata_cc_supported_param"
+   ]
+  },
+  {
+   "name": "CTR_CCOUNTER_IMPL",
+   "kind": "param",
+   "impl": [
+    "CTR_CCOUNTER_IMPL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "SCTRDEPTH_DEPTH",
+   "kind": "param",
+   "impl": [
+    "SCTRDEPTH_DEPTH"
+   ],
+   "tags": [
+    "norm:sctrdepth-depth_op0",
+    "norm:sctrdepth-depth_op1",
+    "norm:sctrdepth-depth_param"
+   ]
+  },
+  {
+   "name": "HINT_SXLEN",
+   "kind": "param",
+   "impl": [
+    "HINT_SXLEN"
+   ],
+   "tags": [
+    "norm:hint_sxlen_param"
+   ]
+  },
+  {
+   "name": "SEI_INTR_IMPL",
+   "kind": "param",
+   "impl": [
+    "SEI_INTR_IMPL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "STI_INTR_IMPL",
+   "kind": "param",
+   "impl": [
+    "STI_INTR_IMPL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "SSI_INTR_IMPL",
+   "kind": "param",
+   "impl": [
+    "SSI_INTR_IMPL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "LCOFI_INTR_IMPL",
+   "kind": "param",
+   "impl": [
+    "LCOFI_INTR_IMPL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "ASIDLEN",
+   "kind": "param",
+   "impl": [
+    "ASIDLEN"
+   ],
+   "tags": []
+  },
+  {
+   "name": "SATP_MODE_ROZ_SFENCE_ILLEGAL",
+   "kind": "param",
+   "impl": [
+    "SATP_MODE_ROZ_SFENCE_ILLEGAL"
+   ],
+   "tags": [
+    "norm:satp-mode_roz_sfence_illegal_param"
+   ]
+  },
+  {
+   "name": "ELEN",
+   "kind": "param",
+   "impl": [
+    "ELEN"
+   ],
+   "tags": [
+    "norm:elen_param"
+   ]
+  },
+  {
+   "name": "VLEN",
+   "kind": "param",
+   "impl": [
+    "VLEN"
+   ],
+   "tags": [
+    "norm:vlen_param"
+   ]
+  },
+  {
+   "name": "MSTATUS_VS_HW_DIRTY_UPDATE",
+   "kind": "param",
+   "impl": [
+    "HW_MSTATUS_VS_DIRTY_UPDATE"
+   ],
+   "tags": [
+    "norm:hw_mstatus_vs_dirty_update_param"
+   ]
+  },
+  {
+   "name": "VSETVL_WITH_NEW_RATIO_SETS_VILL",
+   "kind": "param",
+   "impl": [
+    "RESERVED_VILL_SET"
+   ],
+   "tags": [
+    "norm:reserved_vill_set_param"
+   ]
+  },
+  {
+   "name": "VSETVL_WITH_VILL_1_STAY_1",
+   "kind": "param",
+   "impl": [
+    "RESERVED_VILL_SET"
+   ],
+   "tags": [
+    "norm:reserved_vill_set_param"
+   ]
+  },
+  {
+   "name": "MSTATUS_VS_EXISTS",
+   "kind": "param",
+   "impl": [
+    "MSTATUS_VS_EXISTS"
+   ],
+   "tags": [
+    "norm:mstatus_vs_exists_param"
+   ]
+  },
+  {
+   "name": "VSSTATUS_VS_EXISTS",
+   "kind": "param",
+   "impl": [
+    "VSSTATUS_VS_EXISTS"
+   ],
+   "tags": [
+    "norm:vsstatus_vs_exists_param"
+   ]
+  },
+  {
+   "name": "VECTOR_LS_VSTART",
+   "kind": "param",
+   "impl": [
+    "VECTOR_LS_VSTART"
+   ],
+   "tags": [
+    "norm:vector_ls_vstart_param"
+   ]
+  },
+  {
+   "name": "VECTOR_LS_CONSTANT_STRIDE_X0",
+   "kind": "param",
+   "impl": [
+    "VECTOR_LS_CONSTANT_STRIDE_X0"
+   ],
+   "tags": [
+    "norm:vector_ls_constant-stride_x0"
+   ]
+  },
+  {
+   "name": "VECTOR_LS_OVERWRITE_PAST_TRAP",
+   "kind": "param",
+   "impl": [
+    "VECTOR_LS_OVERWRITE_PAST_TRAP"
+   ],
+   "tags": [
+    "norm:vector_ls_overwrite_past_trap_param"
+   ]
+  },
+  {
+   "name": "VECTOR_FF_PAST_TRAP",
+   "kind": "param",
+   "impl": [
+    "VECTOR_FF_PAST_TRAP"
+   ],
+   "tags": [
+    "norm:vector_ff_past_trap_param"
+   ]
+  },
+  {
+   "name": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+   "kind": "param",
+   "impl": [
+    "VECTOR_LS_SEG_PARTIAL_ACCESS"
+   ],
+   "tags": [
+    "norm:vector_ls_seg_partial_access_param"
+   ]
+  },
+  {
+   "name": "VECTOR_FF_SEG_SUBSET_EXC_ON_ZEROTH",
+   "kind": "param",
+   "impl": [
+    "VECTOR_FF_SEG_PARTIAL_ACCESS"
+   ],
+   "tags": [
+    "norm:vector_ff_seg_partial_access_param"
+   ]
+  },
+  {
+   "name": "VECTOR_FF_SEG_SUBSET_EXC_PAST_ZEROTH",
+   "kind": "param",
+   "impl": [
+    "VECTOR_FF_SEG_PARTIAL_ACCESS"
+   ],
+   "tags": [
+    "norm:vector_ff_seg_partial_access_param"
+   ]
+  },
+  {
+   "name": "VECTOR_LS_SEG_FF_OVERLOAD",
+   "kind": "param",
+   "impl": [
+    "VECTOR_LS_SEG_FF_OVERLOAD"
+   ],
+   "tags": [
+    "norm:vector_ls_seg_ff_overload_param"
+   ]
+  },
+  {
+   "name": "VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION",
+   "kind": "param",
+   "impl": [
+    "VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION"
+   ],
+   "tags": [
+    "norm:vector_ls_wholereg_missaligned_exception_param"
+   ]
+  },
+  {
+   "name": "VECTOR_LS_MISSALIGNED_EXCEPTION",
+   "kind": "param",
+   "impl": [
+    "VECTOR_LS_MISSALIGNED_EXCEPTION"
+   ],
+   "tags": [
+    "norm:vector_ls_missaligned_exception_param"
+   ]
+  },
+  {
+   "name": "INTERRUPTS_ALLOWED_IN_PUSHPOP",
+   "kind": "param",
+   "impl": [
+    "INTERRUPTS_ALLOWED_IN_PUSHPOP"
+   ],
+   "tags": [
+    "norm:interrupts_allowed_in_pushpop_param"
+   ]
+  },
+  {
+   "name": "NTL_TRAP_BEHAVIOR",
+   "kind": "param",
+   "impl": [
+    "NTL_TRAP_BEHAVIOR"
+   ],
+   "tags": [
+    "norm:NTL-trap_behavior"
+   ]
+  },
+  {
+   "name": "ZILSD_ALIGN8_ATOMIC",
+   "kind": "param",
+   "impl": [
+    "ZILSD_ALIGN8_ATOMIC"
+   ],
+   "tags": [
+    "norm:Zilsd_align8_atomic"
+   ]
+  },
+  {
+   "name": "hstatus.VSXL",
+   "kind": "csr",
+   "impl": [
+    "HSTATUS_VSXL_64_WARL",
+    "VSXL_RO"
+   ],
+   "tags": [
+    "norm:hstatus-vsxl_64",
+    "norm:vsxl_ro_param"
+   ]
+  },
+  {
+   "name": "hstatus.VGEIN",
+   "kind": "csr",
+   "impl": [
+    "HSTATUS_VGEIN_WLRL"
+   ],
+   "tags": [
+    "norm:hstatus-vgein_op"
+   ]
+  },
+  {
+   "name": "hstatus.VSBE",
+   "kind": "csr",
+   "impl": [
+    "HSTATUS_VSBE_WARL"
+   ],
+   "tags": [
+    "norm:hstatus-vsbe_op"
+   ]
+  },
+  {
+   "name": "hedeleg.None",
+   "kind": "csr",
+   "impl": [
+    "HEDELEG_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "hideleg.None",
+   "kind": "csr",
+   "impl": [
+    "HIDELEG_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "hvip.None",
+   "kind": "csr",
+   "impl": [
+    "HVIP_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "hip.None",
+   "kind": "csr",
+   "impl": [
+    "HIP_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "hie.None",
+   "kind": "csr",
+   "impl": [
+    "HIE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "hgeie.None",
+   "kind": "csr",
+   "impl": [
+    "HGEIE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "hcounteren.None",
+   "kind": "csr",
+   "impl": [
+    "HCOUNTEREN_WARL"
+   ],
+   "tags": [
+    "norm:hcounteren_warl"
+   ]
+  },
+  {
+   "name": "htval.None",
+   "kind": "csr",
+   "impl": [
+    "HTVAL_WARL"
+   ],
+   "tags": [
+    "norm:htval_val"
+   ]
+  },
+  {
+   "name": "htinst.None",
+   "kind": "csr",
+   "impl": [
+    "HTINST_WARL"
+   ],
+   "tags": [
+    "norm:htinst_val"
+   ]
+  },
+  {
+   "name": "hgainp.MODE",
+   "kind": "csr",
+   "impl": [
+    "HGATP_MODE_WARL"
+   ],
+   "tags": [
+    "norm:hgatp-mode_warl"
+   ]
+  },
+  {
+   "name": "vsstatus.UXL",
+   "kind": "csr",
+   "impl": [
+    "VSSTATUS_UXL_WARL"
+   ],
+   "tags": [
+    "norm:vsstatus-uxl_op"
+   ]
+  },
+  {
+   "name": "vsip.None",
+   "kind": "csr",
+   "impl": [
+    "VSIP_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "vsie.None",
+   "kind": "csr",
+   "impl": [
+    "VSIE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "vstvec.MODE",
+   "kind": "csr",
+   "impl": [
+    "VSTVEC_MODE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "vstvec.BASE",
+   "kind": "csr",
+   "impl": [
+    "VSTVEC_BASE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "vsepc.None",
+   "kind": "csr",
+   "impl": [
+    "VSEPC_WARL"
+   ],
+   "tags": [
+    "norm:vsepc_warl"
+   ]
+  },
+  {
+   "name": "vscause.None",
+   "kind": "csr",
+   "impl": [
+    "VSCAUSE_WLRL"
+   ],
+   "tags": [
+    "norm:vscause_wlrl"
+   ]
+  },
+  {
+   "name": "vstval.None",
+   "kind": "csr",
+   "impl": [
+    "VSTVAL_WARL"
+   ],
+   "tags": [
+    "norm:vstval_warl"
+   ]
+  },
+  {
+   "name": "vsatp.MODE",
+   "kind": "csr",
+   "impl": [
+    "VSATP_MODE_UNSUPPORTED_V0_WARL"
+   ],
+   "tags": [
+    "norm:vsatp_mode_unsupported_v0"
+   ]
+  },
+  {
+   "name": "mtval2.None",
+   "kind": "csr",
+   "impl": [
+    "MTVAL2_WARL"
+   ],
+   "tags": [
+    "norm:mtval2_val"
+   ]
+  },
+  {
+   "name": "mtinst.None",
+   "kind": "csr",
+   "impl": [
+    "MTINST_WARL"
+   ],
+   "tags": [
+    "norm:mtinst_val"
+   ]
+  },
+  {
+   "name": "henvcfg.CBIE",
+   "kind": "csr",
+   "impl": [
+    "HENVCFG_CBIE_WARL"
+   ],
+   "tags": [
+    "norm:henvcfg-cbie"
+   ]
+  },
+  {
+   "name": "miselect.None",
+   "kind": "csr",
+   "impl": [
+    "MISELECT_WARL"
+   ],
+   "tags": [
+    "norm:miselect_WARL"
+   ]
+  },
+  {
+   "name": "misa.MXL",
+   "kind": "csr",
+   "impl": [
+    "MISA_WARL",
+    "MISA_CSR_IMPLEMENTED"
+   ],
+   "tags": [
+    "norm:misa_acc",
+    "norm:misa_csr_implemented"
+   ]
+  },
+  {
+   "name": "misa.EXTENSIONS",
+   "kind": "csr",
+   "impl": [
+    "MISA_WARL",
+    "MISA_EXTENSIONS_WARL",
+    "MISA_CSR_IMPLEMENTED",
+    "MISA_EXTENSIONS_WRITABLE_BITS",
+    "MUTABLE_MISA_V"
+   ],
+   "tags": [
+    "norm:misa_acc",
+    "norm:misa_csr_implemented",
+    "norm:misa_extensions_warl_op",
+    "norm:mutable_misa_v_param"
+   ]
+  },
+  {
+   "name": "mstatus.MPP",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_XPP_WARL"
+   ],
+   "tags": [
+    "norm:mstatus_xpp_warl"
+   ]
+  },
+  {
+   "name": "mstatus.SPP",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_XPP_WARL"
+   ],
+   "tags": [
+    "norm:mstatus_xpp_warl"
+   ]
+  },
+  {
+   "name": "mstatus.MDT",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_MDT_WARL"
+   ],
+   "tags": [
+    "norm:mstatus_mdt_sz_warl"
+   ]
+  },
+  {
+   "name": "mstatus.SXL",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_SXL_WARL",
+    "MSTATUS_SXL_RDONLY_MXLEN64"
+   ],
+   "tags": [
+    "norm:mstatus_sxl_rdonly_mxlen64"
+   ]
+  },
+  {
+   "name": "mstatus.UXL",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_UXL_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "mstatus.MBE",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_MBE_WARL",
+    "MSTATUSH_MBE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "mstatus.SBE",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_SBE_WARL",
+    "MSTATUSH_SBE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "mstatus.UBE",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_UBE_WARL",
+    "MSTATUSH_UBE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "mstatus.TVM",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_TVM_WARL"
+   ],
+   "tags": [
+    "norm:mstatus_tvm_warl_op"
+   ]
+  },
+  {
+   "name": "mstatus.TW",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_TW_WARL"
+   ],
+   "tags": [
+    "norm:mstatus_tw_warl"
+   ]
+  },
+  {
+   "name": "mstatus.TSR",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_TSR_WARL"
+   ],
+   "tags": [
+    "norm:mstatus_tsr_warl"
+   ]
+  },
+  {
+   "name": "mstatus.FS",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_FS_WARL",
+    "MSTATUS_FS_RDONLY0_S_NO_F"
+   ],
+   "tags": [
+    "norm:mstatus_fs_rdonly0_s-no-f"
+   ]
+  },
+  {
+   "name": "mstatus.VS",
+   "kind": "csr",
+   "impl": [
+    "MSTATUS_VS_WARL",
+    "MSTATUS_VS_RDONLY0_S_NO_V"
+   ],
+   "tags": [
+    "norm:mstatus_vs_rdonly0_s-no-v"
+   ]
+  },
+  {
+   "name": "mtvec.MODE",
+   "kind": "csr",
+   "impl": [
+    "MTVEC_WARL"
+   ],
+   "tags": [
+    "norm:mtvec_sz_warl_acc"
+   ]
+  },
+  {
+   "name": "mtvec.BASE",
+   "kind": "csr",
+   "impl": [
+    "MTVEC_WARL",
+    "MTVEC_BASE_ALIGN_FUNC_MODE"
+   ],
+   "tags": [
+    "norm:mtvec_base_align_func_mode",
+    "norm:mtvec_sz_warl_acc"
+   ]
+  },
+  {
+   "name": "mip.None",
+   "kind": "csr",
+   "impl": [
+    "MIP_WARL",
+    "MIP_BITS_WR_OR_RDONLY"
+   ],
+   "tags": [
+    "norm:mip_bits_wr_or_rdonly"
+   ]
+  },
+  {
+   "name": "mie.None",
+   "kind": "csr",
+   "impl": [
+    "MIE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "medeleg.None",
+   "kind": "csr",
+   "impl": [
+    "MEDELEG_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "mideleg.None",
+   "kind": "csr",
+   "impl": [
+    "MIDELEG_WARL",
+    "MIDELEG_RD1_LOWER_LEVEL"
+   ],
+   "tags": [
+    "norm:mideleg_rd1_lower_level"
+   ]
+  },
+  {
+   "name": "mhpmcounter.None",
+   "kind": "csr",
+   "impl": [
+    "MHPMCOUNTER_WARL",
+    "MHPMEVENT_N_RDONLY0"
+   ],
+   "tags": [
+    "norm:mhpmcounter_warl"
+   ]
+  },
+  {
+   "name": "mhpmevent.None",
+   "kind": "csr",
+   "impl": [
+    "MHPMEVENT_WARL",
+    "MHPMEVENT_N_RDONLY0"
+   ],
+   "tags": [
+    "norm:mhpmevent_sz_warl_op"
+   ]
+  },
+  {
+   "name": "mcounteren.None",
+   "kind": "csr",
+   "impl": [
+    "MCOUNTEREN_FLDS_WARL",
+    "MCOUNTEREN_CY_RDONLY0",
+    "MCOUNTEREN_TM_RDONLY0",
+    "MCOUNTEREN_IR_RDONLY0",
+    "MCOUNTEREN_HPM_N_RDONLY0"
+   ],
+   "tags": [
+    "norm:mcounteren_flds_mandatory_warl"
+   ]
+  },
+  {
+   "name": "mcountinhibit.None",
+   "kind": "csr",
+   "impl": [
+    "MCOUNTINHIBIT_WARL"
+   ],
+   "tags": [
+    "norm:mcountinhibit_sz_warl_op1"
+   ]
+  },
+  {
+   "name": "mepc.None",
+   "kind": "csr",
+   "impl": [
+    "MEPC_WARL"
+   ],
+   "tags": [
+    "norm:mepc_warl"
+   ]
+  },
+  {
+   "name": "mcause.EXCCODE",
+   "kind": "csr",
+   "impl": [
+    "MCAUSE_EXCCODE_WLRL"
+   ],
+   "tags": [
+    "norm:mcause_exccode_wlrl"
+   ]
+  },
+  {
+   "name": "mtval.None",
+   "kind": "csr",
+   "impl": [
+    "MTVAL_WARL",
+    "MTVAL_RDONLY0"
+   ],
+   "tags": [
+    "norm:mtval_rdonly0",
+    "norm:mtval_warl"
+   ]
+  },
+  {
+   "name": "menvcfg.CBIE",
+   "kind": "csr",
+   "impl": [
+    "MENVCFG_CBIE_WARL"
+   ],
+   "tags": [
+    "norm:menvcfg_cbie_warl_op"
+   ]
+  },
+  {
+   "name": "menvcfg.PMM",
+   "kind": "csr",
+   "impl": [
+    "MENVCFG_PMM_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "mseccfg.RLB",
+   "kind": "csr",
+   "impl": [
+    "MSECCFG_RLB_WARL"
+   ],
+   "tags": [
+    "norm:mseccfg_rlb_op_warl"
+   ]
+  },
+  {
+   "name": "mseccfg.MMWP",
+   "kind": "csr",
+   "impl": [
+    "MSECCFG_MMWP_WARL"
+   ],
+   "tags": [
+    "norm:mseccfg_mmwp_op_warl"
+   ]
+  },
+  {
+   "name": "mseccfg.MML",
+   "kind": "csr",
+   "impl": [
+    "MSECCFG_MML_WARL"
+   ],
+   "tags": [
+    "norm:mseccfg_mml_warl"
+   ]
+  },
+  {
+   "name": "mseccfg.PMM",
+   "kind": "csr",
+   "impl": [
+    "MSECCFG_PMM_WARL"
+   ],
+   "tags": [
+    "norm:mseccfg_pmm_enc"
+   ]
+  },
+  {
+   "name": "pmpcfgN.pmpMcfg",
+   "kind": "csr",
+   "impl": [
+    "PMPCFG_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "pmpaddrN.None",
+   "kind": "csr",
+   "impl": [
+    "PMPADDR_WARL"
+   ],
+   "tags": [
+    "norm:pmp_addr_warl"
+   ]
+  },
+  {
+   "name": "mnepc.None",
+   "kind": "csr",
+   "impl": [
+    "MNEPC_WARL"
+   ],
+   "tags": [
+    "norm:mnepc_warl"
+   ]
+  },
+  {
+   "name": "mncause.None",
+   "kind": "csr",
+   "impl": [
+    "MNCAUSE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "mnstatus.None",
+   "kind": "csr",
+   "impl": [
+    "MNSTATUS_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "sctrdepth.DEPTH",
+   "kind": "csr",
+   "impl": [
+    "SCTRDEPTH_DEPTH_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "sctrstatus.WRPTR",
+   "kind": "csr",
+   "impl": [
+    "SCTRSTATUS_WRPTR_WARL"
+   ],
+   "tags": [
+    "norm:sctrstatus-wrptr"
+   ]
+  },
+  {
+   "name": "ctrsource.None",
+   "kind": "csr",
+   "impl": [
+    "CTRSOURCE_WARL"
+   ],
+   "tags": [
+    "norm:Ssctr_ctrsource_sz_acc_op"
+   ]
+  },
+  {
+   "name": "ctrtarget.None",
+   "kind": "csr",
+   "impl": [
+    "CTRTARGET_WARL"
+   ],
+   "tags": [
+    "norm:ctrtarget_sz_acc"
+   ]
+  },
+  {
+   "name": "['mstateen0', 'mstateen1', 'mstateen2', 'mstateen3'].None",
+   "kind": "csr",
+   "impl": [
+    "STATEEN_WARL_ACCESS"
+   ],
+   "tags": [
+    "norm:stateen_warl_access"
+   ]
+  },
+  {
+   "name": "['sstateen0', 'sstateen1', 'sstateen2', 'sstateen3'].None",
+   "kind": "csr",
+   "impl": [
+    "STATEEN_WARL_ACCESS"
+   ],
+   "tags": [
+    "norm:stateen_warl_access"
+   ]
+  },
+  {
+   "name": "['hstateen0', 'hstateen1', 'hstateen2', 'hstateen3'].None",
+   "kind": "csr",
+   "impl": [
+    "STATEEN_WARL_ACCESS"
+   ],
+   "tags": [
+    "norm:stateen_warl_access"
+   ]
+  },
+  {
+   "name": "sstatus.UXL",
+   "kind": "csr",
+   "impl": [
+    "SSTATUS_UXL_WARL"
+   ],
+   "tags": [
+    "norm:sstatus-uxl_sz"
+   ]
+  },
+  {
+   "name": "sstatus.UBE",
+   "kind": "csr",
+   "impl": [
+    "SSTATUS_UBE_WARL"
+   ],
+   "tags": [
+    "norm:sstatus-ube"
+   ]
+  },
+  {
+   "name": "sstatus.SDT",
+   "kind": "csr",
+   "impl": [
+    "SSTATUS_SDT_WARL"
+   ],
+   "tags": [
+    "norm:sstatus-sdt"
+   ]
+  },
+  {
+   "name": "stvec.MODE",
+   "kind": "csr",
+   "impl": [
+    "STVEC_MODE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "stvec.BASE",
+   "kind": "csr",
+   "impl": [
+    "STVEC_BASE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "sip.None",
+   "kind": "csr",
+   "impl": [
+    "SIP_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "sie.None",
+   "kind": "csr",
+   "impl": [
+    "SIE_WARL"
+   ],
+   "tags": []
+  },
+  {
+   "name": "scounteren.None",
+   "kind": "csr",
+   "impl": [
+    "SCOUNTEREN_WARL"
+   ],
+   "tags": [
+    "norm:scounteren_acc"
+   ]
+  },
+  {
+   "name": "sepc.None",
+   "kind": "csr",
+   "impl": [
+    "SEPC_ACC_INVALID_WARL"
+   ],
+   "tags": [
+    "norm:sepc_acc_invalid_addr"
+   ]
+  },
+  {
+   "name": "scause.EXCEPTION_CODE",
+   "kind": "csr",
+   "impl": [
+    "SCAUSE_EXCEPTION_CODE_ACC"
+   ],
+   "tags": [
+    "norm:scause-exception_code_acc"
+   ]
+  },
+  {
+   "name": "stval.None",
+   "kind": "csr",
+   "impl": [
+    "STVAL_WARL"
+   ],
+   "tags": [
+    "norm:stval_acc"
+   ]
+  },
+  {
+   "name": "senvcfg.CBIE",
+   "kind": "csr",
+   "impl": [
+    "SENVCFG_CBIE_WARL"
+   ],
+   "tags": [
+    "norm:senvcfg-cbie"
+   ]
+  },
+  {
+   "name": "jvt.BASE",
+   "kind": "csr",
+   "impl": [
+    "JVT_WARL"
+   ],
+   "tags": [
+    "norm:jvt_reg"
+   ]
+  },
+  {
+   "name": "jvt.MODE",
+   "kind": "csr",
+   "impl": [
+    "JVT_MODE_WARL"
+   ],
+   "tags": [
+    "norm:jvt_mode_acc"
+   ]
+  }
+ ],
+ "joined": [
+  {
+   "ours": "CTR_CYCLE_COUNTING_SUPPORTED",
+   "anchor": "norm:ctrdata_cc_supported_param",
+   "james": [
+    "CTRDATA_CC_SUPPORTED"
+   ]
+  },
+  {
+   "ours": "HINT_SXLEN_DEST_REG_BEHAVIOR",
+   "anchor": "norm:hint_sxlen_param",
+   "james": [
+    "HINT_SXLEN"
+   ]
+  },
+  {
+   "ours": "HINT_XLEN_REDUCTION_BEHAVIOR",
+   "anchor": "norm:xlen_reduction_hint_op1",
+   "james": [
+    "XLEN_REDUCTION_HINT_OP"
+   ]
+  },
+  {
+   "ours": "HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR",
+   "anchor": "norm:hpm_unimplemented_counter_access",
+   "james": [
+    "HPM_READ_BEHAVIOR"
+   ]
+  },
+  {
+   "ours": "HTVAL_LEGAL_VALUES",
+   "anchor": "norm:htval_val",
+   "james": [
+    "htval.None"
+   ]
+  },
+  {
+   "ours": "MCYCLE_SHARED",
+   "anchor": "norm:mcycle_shared",
+   "james": [
+    "MCYCLE_SHARED"
+   ]
+  },
+  {
+   "ours": "MENVCFG_FIOM_READONLY",
+   "anchor": "norm:menvcfg_fiom_rdonly0_ok",
+   "james": [
+    "MENVCFG_FIOM_RDONLY0_OK"
+   ]
+  },
+  {
+   "ours": "MIP_WRITABLE_BITS",
+   "anchor": "norm:mip_bits_wr_or_rdonly",
+   "james": [
+    "mip.None"
+   ]
+  },
+  {
+   "ours": "MTVAL2_LEGAL_VALUES",
+   "anchor": "norm:mtval2_val",
+   "james": [
+    "mtval2.None"
+   ]
+  },
+  {
+   "ours": "PMA_IDEMPOTENT_IMPLICIT_READ_SIZE",
+   "anchor": "norm:pma_idp_implicit_sz",
+   "james": [
+    "PMA_IDP_IMPLICIT_SZ"
+   ]
+  },
+  {
+   "ours": "PMPADDR_WARL_MASK",
+   "anchor": "norm:pmp_addr_warl",
+   "james": [
+    "pmpaddrN.None"
+   ]
+  },
+  {
+   "ours": "SCTRDEPTH_SUPPORTED_VALUES",
+   "anchor": "norm:sctrdepth-depth_param",
+   "james": [
+    "SCTRDEPTH_DEPTH"
+   ]
+  },
+  {
+   "ours": "SEPC_INVALID_ADDR_BEHAVIOR",
+   "anchor": "norm:sepc_acc_invalid_addr",
+   "james": [
+    "sepc.None"
+   ]
+  },
+  {
+   "ours": "SSTATUS_UBE_ACCESS",
+   "anchor": "norm:sstatus-ube",
+   "james": [
+    "sstatus.UBE"
+   ]
+  },
+  {
+   "ours": "SSTATUS_UXL_ACCESS",
+   "anchor": "norm:sstatus-uxl_sz",
+   "james": [
+    "sstatus.UXL"
+   ]
+  },
+  {
+   "ours": "VSSTATUS_UBE_PARAM",
+   "anchor": "norm:vsstatus-ube_param",
+   "james": [
+    "VSSTATUS_UBE"
+   ]
+  },
+  {
+   "ours": "VSXL_RO_PARAM",
+   "anchor": "norm:vsxl_ro_param",
+   "james": [
+    "hstatus.VSXL"
+   ]
+  },
+  {
+   "ours": "VTW_VIRTINSTR_PARAM",
+   "anchor": "norm:vtw_virtinstr_param",
+   "james": [
+    "VTW_VIRTINSTR"
+   ]
+  },
+  {
+   "ours": "WFI_TW_ALWAYS_ILLEGAL",
+   "anchor": "norm:mstatus_tw_always_illegal",
+   "james": [
+    "MSTATUS_TW_ALWAYS_ILLEGAL"
+   ]
+  }
+ ],
+ "only_ours": [
+  {
+   "ours": "CSR_STRONGLY_ORDERED",
+   "anchor": "norm:csr_strongly_ordered",
+   "james": []
+  },
+  {
+   "ours": "CTRTARGET_MISP_IMPLEMENTED",
+   "anchor": "norm:ctrtarget_misp",
+   "james": []
+  },
+  {
+   "ours": "CTR_CCE_WIDTH",
+   "anchor": "norm:ccounter_impl",
+   "james": []
+  },
+  {
+   "ours": "CTR_CTRDATA_TYPE_IMPLEMENTED",
+   "anchor": "norm:ctrdata_sz_acc",
+   "james": []
+  },
+  {
+   "ours": "DELEGATABLE_EXCEPTIONS",
+   "anchor": "norm:medeleg_mideleg_warl",
+   "james": []
+  },
+  {
+   "ours": "HGATP_PPN_LOWER_BITS_RO",
+   "anchor": "norm:hgatp-ppn_op",
+   "james": []
+  },
+  {
+   "ours": "HIP_BIT_WRITABLE",
+   "anchor": "norm:hip_acc",
+   "james": []
+  },
+  {
+   "ours": "HPM_MISCONFIGURED_BEHAVIOR",
+   "anchor": "norm:hpm_misconfigured_event_behavior",
+   "james": []
+  },
+  {
+   "ours": "MNEPC_INVALID_ADDRESS_CONVERSION",
+   "anchor": "norm:mnepc_invalid_convert",
+   "james": []
+  },
+  {
+   "ours": "MSECCFG_SEED_BITS_RW",
+   "anchor": null,
+   "james": []
+  },
+  {
+   "ours": "MSTATEEN_BIT63_TYPE",
+   "anchor": "norm:mstateen-bit-63_roz",
+   "james": []
+  },
+  {
+   "ours": "SENVCFG_FIOM_ACCESS",
+   "anchor": "norm:senvcfg-fiom_acc",
+   "james": []
+  },
+  {
+   "ours": "SIP_BITS_ACCESS",
+   "anchor": "norm:sip_acc",
+   "james": []
+  },
+  {
+   "ours": "SISELECT_WIDTH",
+   "anchor": "norm:siselect_min_range",
+   "james": []
+  },
+  {
+   "ours": "STANDARD_INTERRUPT_SUPPORT",
+   "anchor": "norm:sip_sie_unimpl",
+   "james": []
+  },
+  {
+   "ours": "STATEEN_IMPLICIT_UPDATE_EXCEPTION",
+   "anchor": "norm:smstateen_implicit_state_update",
+   "james": []
+  },
+  {
+   "ours": "VSISELECT_WIDTH",
+   "anchor": "norm:vsiselect_min_range",
+   "james": []
+  },
+  {
+   "ours": "XRET_CLEARS_LR_RESERVATION",
+   "anchor": "norm:xret_clr_lr_resv",
+   "james": []
+  },
+  {
+   "ours": "ZALASR_MISALIGNED_ATOMICITY_GRANULE",
+   "anchor": "norm:zalasr_misaligned_pma_relax",
+   "james": []
+  }
+ ],
+ "stats": {
+  "ours_total": 38,
+  "ours_with_anchor": 37,
+  "ours_anchor_to_rule": 35,
+  "james_total": 179,
+  "james_tag_resolved": 135,
+  "joined": 19
+ }
+}
