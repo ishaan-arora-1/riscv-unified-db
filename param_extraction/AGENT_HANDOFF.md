@@ -43,6 +43,7 @@ calls in this environment. Use absolute paths, or re-`cd` in the same command.
 | `param_extraction/README.md` | Phase-by-phase pipeline run guide |
 | `param_extraction/RECALL_IMPROVEMENT.md` | What the last session changed and measured |
 | `param_extraction/taxonomy.md` | Parameter class definitions |
+| `param_extraction/WORK_DESCRIPTION.md` | Describes our work + lists for an *external* agent comparing our params against someone else's (no pipeline commands) |
 
 **The single most important rule: WARL behavior IS a parameter, not a duplicate.**
 A whole version's WARL findings were once wrongly discarded. Do not repeat that.
@@ -189,30 +190,36 @@ blind spots:
 
 ## 5. The deliverables and the Excel files
 
-### `/Users/ashish/Downloads/params_for_review (1) (1).xlsx` — the mentor review sheet
-One sheet, `params_for_review`, **52 data rows**, columns (read **by header
+### `/Users/ashish/Downloads/params_for_review (1) (1) (1).xlsx` — the current review sheet
+One sheet, `params_for_review`, **51 data rows**, **16** columns (read **by header
 name, never by position** — we once shifted columns by reading positionally):
 
 `section, parameter_name, class, value_type, modal_signal, adoc_file,
 line_number, tagged, norm_tag, refers_to_csr_field_value, refers_to_warl,
-in_intro_section, cross_chapter_dup, excerpt, mentor_comment`
+in_intro_section, cross_chapter_dup, excerpt, mentor_comment, our assessment`
 
 Sections, newest on top:
 | Section | Rows | Status |
 |---|---|---|
-| `V5 - for review (improved-recall pipeline)` | 5 | **Awaiting mentor review** |
-| `0. NEW - genuinely new` / `- likely duplicate/replication` / `- likely NOT a param` | 3 / 5 / 1 | **Awaiting mentor review** |
-| `1. V4 - for review` | 14 | Mentor reviewed |
-| `2. Mentor-confirmed (V3)` | 24 | Mentor reviewed |
+| `V5 - for review (improved-recall pipeline)` | 8 | **Still awaiting mentor verdicts** |
+| `0. NEW - likely duplicate/replication` | 5 | **Still awaiting mentor verdicts** |
+| `1. V4 - for review` | 14 | Mentor reviewed (9 confirmed, 3 hedged, 2 rejected) |
+| `2. Mentor-confirmed (V3)` | 24 | Mentor reviewed — all confirmed |
 
-> 🚩 **CRITICAL NUANCE — the `mentor_comment` column holds TWO voices.**
-> - Rows whose comment starts with **"OUR ASSESSMENT:"** were written by **us**,
->   not the mentor. That covers **all V5 rows and all "0. NEW" rows**.
-> - The terse verdicts — *"parameter !"*, *"duplicate"*, *"WARL behavior"*,
->   *"possibly a parameter; depends…"* — are **the actual mentor**, and appear
->   **only on the V3 and V4 sections**.
+Changes in this revision vs the earlier `(1) (1).xlsx`: a dedicated
+**`our assessment`** column was added and our "OUR ASSESSMENT:" text moved into
+it; the three `0. NEW - genuinely new` rows were merged into the V5 section
+(V5 is now 8 rows); and `ZCMP_PUSH_BUS_FAULT_HANDLING` was removed.
+
+> 🚩 **CRITICAL — the two voices are now in two separate columns.**
+> - **`mentor_comment`** = the mentor's own verdict (*"parameter !"*,
+>   *"duplicate"*, *"WARL behavior"*, *"possibly a parameter; depends…"*).
+> - **`our assessment`** = **our** opinion, prefixed "OUR ASSESSMENT:".
 >
-> Never present an "OUR ASSESSMENT" row as mentor-confirmed.
+> **Verified as of this revision: all 8 V5 rows and all 5 "0. NEW" rows have an
+> EMPTY `mentor_comment`.** Despite the file being circulated as "reviewed", the
+> mentor has **not** recorded verdicts on V5. Never present an
+> `our assessment` row as mentor-confirmed.
 
 Two reviewer-flag columns are frequently misread — they map to exclusion rules:
 - **`cross_chapter_dup`** → rule 11. The spec repeats normative statements across
