@@ -147,48 +147,68 @@ Practical implications for you:
 
 Our entries are **not all equally certain.** Treat these as distinct tiers.
 
-### File A — `params_for_review (1) (1) (1).xlsx` (the working review sheet)
-One sheet, `params_for_review`, **51 data rows**, 16 columns.
+### File A — `params_for_review (2).xlsx`, sheet **`abaum,umer-review`** (authoritative)
+**51 data rows**, 16 columns. This workbook has two sheets — the other one
+(`params_for_review`, 39 rows) is an older snapshot. **Always use the
+`abaum,umer-review` sheet**; it carries the complete expert review by Allen Baum
+and Umer, including the V5 batch.
 
-| Section | Rows | Status |
+| Section | Rows | Review outcome |
 |---|---|---|
-| `V5 - for review (improved-recall pipeline)` | 8 | **Candidate — NOT yet mentor-reviewed** |
-| `0. NEW - likely duplicate/replication` | 5 | **Candidate — flagged by us as probably duplicates; not mentor-reviewed** |
-| `1. V4 - for review` | 14 | Mentor reviewed (9 confirmed, 3 hedged, 2 rejected) |
-| `2. Mentor-confirmed (V3)` | 24 | Mentor reviewed — all confirmed |
+| `V5 - for review (improved-recall pipeline)` | 8 | 7 confirmed, 1 needs clarification |
+| `0. NEW - likely duplicate/replication` | 5 | 4 confirmed, 1 hedged — **the expert overruled our duplicate guess on most of these** |
+| `1. V4 - for review` | 14 | 10 confirmed, 2 hedged, 2 rejected |
+| `2. Mentor-confirmed (V3)` | 24 | All confirmed |
 
 > 🚩 **Two voices live in this sheet, in two separate columns:**
-> - **`mentor_comment`** — the mentor's own verdict. Terse and opinionated:
->   *"parameter !"*, *"duplicate"*, *"WARL behavior"*, *"possibly a parameter;
->   depends…"*. **Only the V3 and V4 sections have these.**
-> - **`our assessment`** — **our** analysis, prefixed "OUR ASSESSMENT:". This is
->   the project team's opinion, **not** expert confirmation.
+> - **`mentor_comment`** — the expert's own verdict. Terse and opinionated:
+>   *"WARL"*, *"good find! parameter !"*, *"duplicate … so not a parameter"*,
+>   *"possibly a parameter; needs investigation"*.
+> - **`our assessment`** — **our** analysis, prefixed "OUR ASSESSMENT:". The
+>   project team's opinion, **not** expert confirmation.
 >
-> **All 8 V5 rows and all 5 "0. NEW" rows currently have an EMPTY
-> `mentor_comment`.** They carry only our assessment. Do **not** treat them as
-> confirmed parameters.
+> Where the two disagree, **the expert's verdict wins.** That happened
+> repeatedly: we flagged `SISELECT_WIDTH`, `VSISELECT_WIDTH`,
+> `SEPC_INVALID_ADDR_BEHAVIOR` and `CTR_CTRDATA_TYPE_IMPLEMENTED` as "likely
+> duplicate/replication" and the expert confirmed all four as real parameters.
 
-### File B — `parameter list.xlsx` / `confirmed_parameters.xlsx` (the clean output)
-Sheet `confirmed_parameters`, **32 parameters** — the mentor-confirmed set
-(24 from V3 + 9 from V4, minus one that appears in both). Columns:
-`parameter_name, class, value_type, adoc_file, line_number, excerpt,
-mentor_verdict, review_batch`.
+### File B — `confirmed_parameters_v2.xlsx` (the clean output)
+Sheet `confirmed_parameters`, **44 parameters** — every entry the expert
+affirmed. Columns: `parameter_name, class, value_type, adoc_file, line_number,
+excerpt, mentor_verdict, verdict_summary, review_batch`.
 
-**This is the authoritative "these are real" list.** It deliberately excludes:
-- **3 hedged** entries where the mentor said "possibly"/"arguably" rather than
-  confirming: `CTR_MISP_IMPLEMENTED`, `CTR_CYCLE_COUNT_IMPLEMENTED`,
-  `CTR_RASEMU_IMPLEMENTED`.
-- **2 rejected as duplicates:** `WFI_U_MODE`, and the V4 copy of
-  `SENVCFG_FIOM_ACCESS`.
-- **All V5 and "0. NEW" rows** — not yet reviewed.
+**This is the authoritative "these are real" list.**
+(An older `parameter list.xlsx` / `confirmed_parameters.xlsx` with **32** rows
+predates the V5 review — superseded, do not use.)
+
+It deliberately excludes:
+- **4 hedged / unresolved:**
+  - `WFI_NOP_BEHAVIOR` — expert wrote *"untestable parameter"*, which conflicts
+    with the observable-and-testable master test. Needs clarification.
+  - `LCOFI_MIDELEG_HIDELEG_WRITABLE` — WARL behaviour, but *"may be a duplicate"*.
+  - `CTR_MISP_IMPLEMENTED` — *"arguably WARL"*; needs clarification.
+  - `CTR_CYCLE_COUNT_IMPLEMENTED` — *"possibly a parameter; needs investigation"*.
+- **2 rejected:** `WFI_U_MODE` (*"duplicate … so not a parameter"*) and the V4
+  copy of `SENVCFG_FIOM_ACCESS` (the V3 row stands and is confirmed).
 
 ### Status summary
 | Tier | Count | How to treat it |
 |---|---|---|
-| **Mentor-confirmed** | **32** | High confidence. Real parameters. |
-| Hedged by mentor | 3 | Plausible, unresolved |
-| Awaiting mentor review (V5 + flagged-duplicate) | 13 | Our candidates only |
-| Rejected as duplicate | 2 | Not new |
+| **Expert-confirmed** | **44** (24 V3 + 9 V4 + 7 V5 + 4 previously-dup-flagged) | High confidence. Real parameters. |
+| Hedged / needs clarification | 4 | Plausible, unresolved |
+| Rejected | 2 | Not new / not a parameter |
+
+### Caveats the expert attached to specific confirmations
+Carry these into any comparison — they qualify the entry without withdrawing it:
+- `MSTATEEN_BIT63_TYPE` — confirmed as a parameter, but he **questions whether it
+  is genuinely new** ("seems to have a tag — not in UDB?").
+- `MCYCLE_SHARED` — a parameter, but hard to test without a multihart harness.
+- `XRET_CLEARS_LR_RESERVATION` — a parameter, but possibly non-deterministic;
+  he advises tests should not check it.
+- `MENVCFG_FIOM_READONLY` — confirmed, but may be duplicated in the S-mode chapter.
+- `HTVAL_LEGAL_VALUES` — his general rule: **"IF it is WARL, it is automatically a
+  parameter."** The care needed is to avoid labelling the same thing twice, and
+  such entries must be tagged in the spec.
 
 ---
 
@@ -321,8 +341,9 @@ requirement), `UNKNOWN`.
 
 | Path | What it is |
 |---|---|
-| `/Users/ashish/Downloads/params_for_review (1) (1) (1).xlsx` | Working review sheet, 51 rows, all tiers |
-| `/Users/ashish/Downloads/parameter list.xlsx` | The 32 mentor-confirmed parameters (clean output) |
+| `/Users/ashish/Downloads/params_for_review (2).xlsx` → sheet **`abaum,umer-review`** | **Authoritative** review sheet, 51 rows, all tiers, full expert verdicts |
+| `/Users/ashish/Downloads/confirmed_parameters_v2.xlsx` | **The 44 expert-confirmed parameters** (clean output) |
+| ~~`parameter list.xlsx` / `confirmed_parameters.xlsx`~~ | Superseded 32-row version (pre-V5 review) — do not use |
 | `param_extraction/INCLUSION_CRITERIA.md` | The authoritative ruleset (rules 0–15) |
 | `param_extraction/data/ground_truth.json` | The 223 parameters UDB already has |
 | `param_extraction/taxonomy.md` | Class definitions |

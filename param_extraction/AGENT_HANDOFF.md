@@ -190,8 +190,9 @@ blind spots:
 
 ## 5. The deliverables and the Excel files
 
-### `/Users/ashish/Downloads/params_for_review (1) (1) (1).xlsx` — the current review sheet
-One sheet, `params_for_review`, **51 data rows**, **16** columns (read **by header
+### `/Users/ashish/Downloads/params_for_review (2).xlsx` → sheet `abaum,umer-review`
+**Authoritative.** That workbook has two sheets; the other (`params_for_review`,
+39 rows) is an older snapshot. **51 data rows**, **16** columns (read **by header
 name, never by position** — we once shifted columns by reading positionally):
 
 `section, parameter_name, class, value_type, modal_signal, adoc_file,
@@ -199,27 +200,30 @@ line_number, tagged, norm_tag, refers_to_csr_field_value, refers_to_warl,
 in_intro_section, cross_chapter_dup, excerpt, mentor_comment, our assessment`
 
 Sections, newest on top:
-| Section | Rows | Status |
+| Section | Rows | Review outcome |
 |---|---|---|
-| `V5 - for review (improved-recall pipeline)` | 8 | **Still awaiting mentor verdicts** |
-| `0. NEW - likely duplicate/replication` | 5 | **Still awaiting mentor verdicts** |
-| `1. V4 - for review` | 14 | Mentor reviewed (9 confirmed, 3 hedged, 2 rejected) |
-| `2. Mentor-confirmed (V3)` | 24 | Mentor reviewed — all confirmed |
+| `V5 - for review (improved-recall pipeline)` | 8 | 7 confirmed, 1 needs clarification |
+| `0. NEW - likely duplicate/replication` | 5 | 4 confirmed, 1 hedged (expert overruled our duplicate guess) |
+| `1. V4 - for review` | 14 | 10 confirmed, 2 hedged, 2 rejected |
+| `2. Mentor-confirmed (V3)` | 24 | All confirmed |
 
-Changes in this revision vs the earlier `(1) (1).xlsx`: a dedicated
-**`our assessment`** column was added and our "OUR ASSESSMENT:" text moved into
-it; the three `0. NEW - genuinely new` rows were merged into the V5 section
-(V5 is now 8 rows); and `ZCMP_PUSH_BUS_FAULT_HANDLING` was removed.
+**V5 is now fully reviewed** (by Allen Baum + Umer). Net result: **44
+expert-confirmed parameters**, up from 32. See
+`/Users/ashish/Downloads/confirmed_parameters_v2.xlsx`.
 
-> 🚩 **CRITICAL — the two voices are now in two separate columns.**
-> - **`mentor_comment`** = the mentor's own verdict (*"parameter !"*,
->   *"duplicate"*, *"WARL behavior"*, *"possibly a parameter; depends…"*).
+> 🚩 **CRITICAL — two voices, two separate columns.**
+> - **`mentor_comment`** = the expert's verdict (*"WARL"*, *"good find!
+>   parameter !"*, *"duplicate … so not a parameter"*, *"needs investigation"*).
 > - **`our assessment`** = **our** opinion, prefixed "OUR ASSESSMENT:".
 >
-> **Verified as of this revision: all 8 V5 rows and all 5 "0. NEW" rows have an
-> EMPTY `mentor_comment`.** Despite the file being circulated as "reviewed", the
-> mentor has **not** recorded verdicts on V5. Never present an
-> `our assessment` row as mentor-confirmed.
+> Where they disagree the expert wins — and he **overruled us repeatedly**,
+> confirming `SISELECT_WIDTH`, `VSISELECT_WIDTH`, `SEPC_INVALID_ADDR_BEHAVIOR`
+> and `CTR_CTRDATA_TYPE_IMPLEMENTED`, all of which we had flagged as likely
+> duplicates. Never present an `our assessment` row as expert-confirmed.
+>
+> Key rule he stated: **"IF it is WARL, it is automatically a parameter"** — the
+> only care needed is to avoid labelling the same thing twice, and confirmed
+> entries must be tagged in the spec.
 
 Two reviewer-flag columns are frequently misread — they map to exclusion rules:
 - **`cross_chapter_dup`** → rule 11. The spec repeats normative statements across
