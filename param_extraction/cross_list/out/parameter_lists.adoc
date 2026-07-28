@@ -1,0 +1,379 @@
+//
+// SPDX-FileCopyrightText: 2026 Contributors to the RISCV UnifiedDB
+// SPDX-License-Identifier: BSD-3-Clause-Clear
+//
+// GENERATED FILE -- do not edit by hand.
+// Regenerate: uv run --python 3.13 --with pyyaml python \
+//   param_extraction/cross_list/scripts/generate_asciidoc.py
+//
+// Pinned sources:
+//   James' param_defs : 213450b8671a513ed94cd62fc87a836f8a839a10 (2026-04-03)
+//   ISA manual        : 7fc198f13ad89e9608e9404be1c7a8119c14c13b (2026-02-15)
+//
+
+= Architectural Parameter Lists
+:toc:
+:toclevels: 2
+
+Two independently produced candidate parameter lists, normalised to a
+common shape: *Name*, *Domain* (the set of values an implementation may
+choose from) and *Source* (where the claim comes from in the ISA manual).
+
+IMPORTANT: The two lists have different scope and different standing.
+Ours contains only parameters believed *missing* from UDB, and every entry
+was reviewed individually by Allen Baum and Umer. James' list re-derives
+the parameter space from normative-rule tags and includes parameters UDB
+already has; he describes it as an initial individual effort, not SIG
+consensus. Counts are therefore not comparable head-to-head.
+
+A Domain of `TBD` means the source has not yet fixed the legal-value set.
+It is left blank rather than guessed.
+
+== List A -- our pipeline (expert-reviewed)
+
+44 reviewed rows reduce to *38*
+distinct parameters (36 confirmed, 2 flagged):
+4 rows were the same spec sentence recorded twice
+under two names, and 2 were already defined in UDB.
+See <<corrections>>.
+
+[cols="26,24,26,24",options="header"]
+|===
+| Name | Domain | Source (normative tag) | Status
+| `CSR_STRONGLY_ORDERED` | TBD (shape: set) | `norm:csr_strongly_ordered` +
+zicsr.adoc:244 | expert-confirmed (Allen Baum + Umer)
+| `CTRTARGET_MISP_IMPLEMENTED` | {read-write, read-only-0} | `norm:ctrtarget_misp` +
+smctr.adoc:319 | expert-confirmed (Allen Baum + Umer)
+| `CTR_CCE_WIDTH` | TBD (shape: range) | `norm:ccounter_impl` +
+smctr.adoc:654 | expert-confirmed (Allen Baum + Umer)
+| `CTR_CTRDATA_TYPE_IMPLEMENTED` | {read-write, read-only-0} | `norm:ctrdata_sz_acc` +
+smctr.adoc:339 | expert-confirmed (Allen Baum + Umer)
+| `CTR_CYCLE_COUNTING_SUPPORTED` | {true, false} | `norm:ctrdata_cc_supported_param` +
+smctr.adoc:636 | expert-confirmed (Allen Baum + Umer)
+| `DELEGATABLE_EXCEPTIONS` | per bit: {true, false} | `norm:medeleg_mideleg_warl` +
+machine.adoc:1313 | expert-confirmed (Allen Baum + Umer)
+| `HGATP_PPN_LOWER_BITS_RO` | {read-write, read-only-0} | `norm:hgatp-ppn_op` +
+hypervisor.adoc:1083 | expert-confirmed (Allen Baum + Umer)
+| `HINT_SXLEN_DEST_REG_BEHAVIOR` | {true, false} | `norm:hint_sxlen_param` +
+supervisor.adoc:163 | expert-confirmed (Allen Baum + Umer)
+| `HINT_XLEN_REDUCTION_BEHAVIOR` | {true, false} | `norm:xlen_reduction_hint_op1` +
+machine.adoc:615 | expert-confirmed (Allen Baum + Umer)
+| `HIP_BIT_WRITABLE` | per bit: {read-write, read-only-0} | `norm:hip_acc` +
+hypervisor.adoc:533 | expert-confirmed (Allen Baum + Umer)
+| `HPM_MISCONFIGURED_BEHAVIOR` | {true, false} | `norm:hpm_misconfigured_event_behavior` +
+counters.adoc:214 | expert-confirmed (Allen Baum + Umer)
+| `HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR` | TBD (shape: enum) | `norm:hpm_unimplemented_counter_access` +
+counters.adoc:212 | expert-confirmed (Allen Baum + Umer)
+| `HTVAL_LEGAL_VALUES` | TBD (shape: set) | `norm:htval_val` +
+hypervisor.adoc:957 | expert-confirmed (Allen Baum + Umer)
+| `MCYCLE_SHARED` | {true, false} | `norm:mcycle_shared` +
+machine.adoc:1573 | expert-confirmed (Allen Baum + Umer)
+| `MENVCFG_FIOM_READONLY` | {read-write, read-only-0} | `norm:menvcfg_fiom_rdonly0_ok` +
+machine.adoc:2194 | expert-confirmed (Allen Baum + Umer)
+| `MIP_WRITABLE_BITS` | per bit: {read-write, read-only-0} | `norm:mip_bits_wr_or_rdonly` +
+machine.adoc:1413 | expert-confirmed (Allen Baum + Umer)
+| `MNEPC_INVALID_ADDRESS_CONVERSION` | {true, false} | `norm:mnepc_invalid_convert` +
+rnmi.adoc:64 | expert-confirmed (Allen Baum + Umer)
+| `MSECCFG_SEED_BITS_RW` | {read-write, read-only-0} | `(untagged)` +
+scalar-crypto.adoc:3772 | expert-confirmed (Allen Baum + Umer)
+| `MSTATEEN_BIT63_TYPE` | {read-write, read-only-0} | `norm:mstateen-bit-63_roz` +
+smstateen.adoc:175 | flagged, needs ruling
+| `MTVAL2_LEGAL_VALUES` | TBD (shape: set) | `norm:mtval2_val` +
+hypervisor.adoc:1843 | expert-confirmed (Allen Baum + Umer)
+| `PMA_IDEMPOTENT_IMPLICIT_READ_SIZE` | TBD (shape: range) | `norm:pma_idp_implicit_sz` +
+machine.adoc:3318 | expert-confirmed (Allen Baum + Umer)
+| `PMPADDR_WARL_MASK` | per bit: {true, false} | `norm:pmp_addr_warl` +
+machine.adoc:3401 | expert-confirmed (Allen Baum + Umer)
+| `SCTRDEPTH_SUPPORTED_VALUES` | TBD (shape: set) | `norm:sctrdepth-depth_param` +
+smctr.adoc:215 | expert-confirmed (Allen Baum + Umer)
+| `SENVCFG_FIOM_ACCESS` | {read-write, read-only-0} | `norm:senvcfg-fiom_acc` +
+supervisor.adoc:840 | expert-confirmed (Allen Baum + Umer)
+| `SEPC_INVALID_ADDR_BEHAVIOR` | {true, false} | `norm:sepc_acc_invalid_addr` +
+supervisor.adoc:559 | expert-confirmed (Allen Baum + Umer)
+| `SIP_BITS_ACCESS` | per bit: {read-write, read-only-0} | `norm:sip_acc` +
+supervisor.adoc:400 | expert-confirmed (Allen Baum + Umer)
+| `SISELECT_WIDTH` | TBD (shape: range) | `norm:siselect_min_range` +
+indirect-csr.adoc:148 | expert-confirmed (Allen Baum + Umer)
+| `SSTATUS_UBE_ACCESS` | {read-write, read-only-0} | `norm:sstatus-ube` +
+supervisor.adoc:227 | expert-confirmed (Allen Baum + Umer)
+| `SSTATUS_UXL_ACCESS` | {read-write, read-only-0} | `norm:sstatus-uxl_sz` +
+supervisor.adoc:143 | expert-confirmed (Allen Baum + Umer)
+| `STANDARD_INTERRUPT_SUPPORT` | per bit: {read-write, read-only-0} | `norm:sip_sie_unimpl` +
+supervisor.adoc:465 | expert-confirmed (Allen Baum + Umer)
+| `STATEEN_IMPLICIT_UPDATE_EXCEPTION` | {true, false} | `norm:smstateen_implicit_state_update` +
+smstateen.adoc:100 | expert-confirmed (Allen Baum + Umer)
+| `VSISELECT_WIDTH` | TBD (shape: range) | `norm:vsiselect_min_range` +
+indirect-csr.adoc:239 | expert-confirmed (Allen Baum + Umer)
+| `VSSTATUS_UBE_PARAM` | {read-write, read-only-0} | `norm:vsstatus-ube_param` +
+hypervisor.adoc:1223 | expert-confirmed (Allen Baum + Umer)
+| `VSXL_RO_PARAM` | {read-write, read-only-0} | `norm:vsxl_ro_param` +
+hypervisor.adoc:227 | expert-confirmed (Allen Baum + Umer)
+| `VTW_VIRTINSTR_PARAM` | {true, false} | `norm:vtw_virtinstr_param` +
+hypervisor.adoc:245 | expert-confirmed (Allen Baum + Umer)
+| `WFI_TW_ALWAYS_ILLEGAL` | {true, false} | `norm:mstatus_tw_always_illegal` +
+machine.adoc:798 | expert-confirmed (Allen Baum + Umer)
+| `XRET_CLEARS_LR_RESERVATION` | {true, false} | `norm:xret_clr_lr_resv` +
+machine.adoc:2704 | expert-confirmed (Allen Baum + Umer)
+| `ZALASR_MISALIGNED_ATOMICITY_GRANULE` | {true, false} | `norm:zalasr_misaligned_pma_relax` +
+zalasr.adoc:26 | flagged, needs ruling
+|===
+
+== List B -- James Ball's list
+
+*179* entries: 93 from `parameter_definitions` and
+86 from `csr_definitions`. The latter are counted as parameters
+here (a WARL field behaviour is a parameter), with register-level and
+field-level entries distinguished in the Granularity column.
+
+[cols="24,20,22,16,18",options="header"]
+|===
+| Name | Domain | Source (normative rule) | Granularity | Chapter
+| `LRSC_ALIGNMENT` | {AlwaysMisalignedExc, AlwaysAccessFaultExc, Other} | `LR_SC_ALIGNMENT` | n/a | A Extension
+| `LRSC_RESERVATION_STRATEGY` | {Exact, 2B, 4B, 8B, 16B, 32B, 64B, 128B, 256B, 512B, 1024B, 2048B, 4096B, Other} | `LR_RESERVATION_SET_SIZE` | n/a | A Extension
+| `CACHE_BLOCK_SIZE` | TBD | `CACHE_BLOCK_SIZE` +
+[.small]#unresolved in pinned manual# | n/a | Cache Manage Ops
+| `HPM_READ_BEHAVIOR` | {AlwaysValue, AlwaysIllegalInstExc, Other} | `HPM_PLATFORM_SPECIFIC_IMPL`, `HPM_UNIMPLEMENTED_COUNTER_ACCESS` | n/a | Counters
+| `TIME_CSR_HW_SUPPORT` | {true, false} | `EE_IMPL_FLEX` +
+[.small]#unresolved in pinned manual# | n/a | Counters
+| `GEILEN` | [0..64] | `GEILEN` | n/a | H Extension
+| `HSXLEN` | {32, 64} | `HSXLEN` | n/a | H Extension
+| `HTVAL_GUEST_PAGE_FAULT_TRAPVAL` | {WrZero, WrGuestPA, Other} | `HTVAL_TRAPVAL` | n/a | H Extension
+| `MTVAL2_TRAPVAL` | {WrZero, WrGuestPA, Other} | `MTVAL2_TRAPVAL` | n/a | H Extension
+| `VMIDLEN` | [0..14] | `HGATP_VMID` | n/a | H Extension
+| `VSSTATUS_UBE` | {true, false} | `VSSTATUS_UBE` | n/a | H Extension
+| `VSXLEN` | {32, 64} | `VSXLEN` | n/a | H Extension
+| `VTW_VIRTINSTR` | {true, false} | `VTW_VIRTINSTR` | n/a | H Extension
+| `hcounteren` | TBD | `HCOUNTEREN_WARL` | register-level | H Extension
+| `hedeleg` | TBD | `HEDELEG_WARL` +
+[.small]#unresolved in pinned manual# | register-level | H Extension
+| `henvcfg.CBIE` | TBD | `HENVCFG_CBIE_WARL` | field-level | H Extension
+| `hgainp.MODE` | TBD | `HGATP_MODE_WARL` | field-level | H Extension
+| `hgeie` | TBD | `HGEIE_WARL` +
+[.small]#unresolved in pinned manual# | register-level | H Extension
+| `hideleg` | TBD | `HIDELEG_WARL` +
+[.small]#unresolved in pinned manual# | register-level | H Extension
+| `hie` | TBD | `HIE_WARL` +
+[.small]#unresolved in pinned manual# | register-level | H Extension
+| `hip` | TBD | `HIP_WARL` +
+[.small]#unresolved in pinned manual# | register-level | H Extension
+| `hstatus.VGEIN` | TBD | `HSTATUS_VGEIN_WLRL` | field-level | H Extension
+| `hstatus.VSBE` | TBD | `HSTATUS_VSBE_WARL` | field-level | H Extension
+| `hstatus.VSXL` | per bit: constant mask | `HSTATUS_VSXL_64_WARL`, `VSXL_RO` | field-level | H Extension
+| `htinst` | TBD | `HTINST_WARL` | register-level | H Extension
+| `htval` | TBD | `HTVAL_WARL` | register-level | H Extension
+| `hvip` | TBD | `HVIP_WARL` +
+[.small]#unresolved in pinned manual# | register-level | H Extension
+| `mtinst` | TBD | `MTINST_WARL` | register-level | H Extension
+| `mtval2` | TBD | `MTVAL2_WARL` | register-level | H Extension
+| `vsatp.MODE` | TBD | `VSATP_MODE_UNSUPPORTED_V0_WARL` | field-level | H Extension
+| `vscause` | TBD | `VSCAUSE_WLRL` | register-level | H Extension
+| `vsepc` | TBD | `VSEPC_WARL` | register-level | H Extension
+| `vsie` | TBD | `VSIE_WARL` +
+[.small]#unresolved in pinned manual# | register-level | H Extension
+| `vsip` | TBD | `VSIP_WARL` +
+[.small]#unresolved in pinned manual# | register-level | H Extension
+| `vsstatus.UXL` | TBD | `VSSTATUS_UXL_WARL` | field-level | H Extension
+| `vstval` | TBD | `VSTVAL_WARL` | register-level | H Extension
+| `vstvec.BASE` | TBD | `VSTVEC_BASE_WARL` +
+[.small]#unresolved in pinned manual# | field-level | H Extension
+| `vstvec.MODE` | TBD | `VSTVEC_MODE_WARL` +
+[.small]#unresolved in pinned manual# | field-level | H Extension
+| `miselect` | TBD | `MISELECT_WARL` | register-level | Indirect CSR
+| `CRITICAL_ERROR` | {ResetHart, ResetPlatform, Other} | `CRITICAL_ERROR` | n/a | Machine Mode
+| `MARCHID` | TBD | `ARCH_ID` | n/a | Machine Mode
+| `MCAUSE_EXCCODE_MISALIGNED_VS_FAULT_PRI` | {MisalignedAlwaysHigher, MisalignedAlwaysLower, Other} | `MCAUSE_EXCCODE_MISALIGNED_VS_FAULT_PRI` +
+[.small]#unresolved in pinned manual# | n/a | Machine Mode
+| `MCAUSE_RST_ALIAS_OK` | {true, false} | `MCAUSE_RST_ALIAS_OK` | n/a | Machine Mode
+| `MCAUSE_RST_VAL` | TBD | `MCAUSE_RST_VAL` | n/a | Machine Mode
+| `MCONFIGPTR_VAL` | {true, false} | `MCONFIGPTR_VAL` +
+[.small]#unresolved in pinned manual# | n/a | Machine Mode
+| `MCYCLE_SHARED` | {true, false} | `MCYCLE_SHARED` | n/a | Machine Mode
+| `MENVCFG_FIOM_RDONLY0_OK` | {true, false} | `MENVCFG_FIOM_RDONLY0_OK` | n/a | Machine Mode
+| `MEPC_INV_ADDR_CONV` | {NoInvAddrConv, Other} | `MEPC_INV_ADDR_CONV` | n/a | Machine Mode
+| `MHARTID` | TBD | `HART_ID` | n/a | Machine Mode
+| `MIPMPID` | TBD | `IMP_ID` | n/a | Machine Mode
+| `MRET_CLR_LR_RESV` | {true, false} | `MRET_CLR_LR_RESV` +
+[.small]#unresolved in pinned manual# | n/a | Machine Mode
+| `MSECCFG_MML_MMWP_RLB_RST` | {true, false} | `MSECCFG_MML_MMWP_RLB_RST` | n/a | Machine Mode
+| `MSECCFG_USEED_SSEED_RST` | {true, false} | `MSECCFG_USEED_SSEED_RST` | n/a | Machine Mode
+| `MSIP_UPDATE_MAX_TIME` | TBD | `MSIP_UPDATE_MAX_TIME` | n/a | Machine Mode
+| `MSTATUS_FS_IMPRECISE` | {PreciseDirty, Other} | `MSTATUS_FS_IMPRECISE`, `MSTATUS_FS_NO_DIRTY_TRACK` | n/a | Machine Mode
+| `MSTATUS_FS_NO_CHANGE_DIRTY` | {true, false} | `MSTATUS_FS_NO_CHANGE_DIRTY` | n/a | Machine Mode
+| `MSTATUS_SBE_ROCOPY` | {true, false} | `MSTATUS_SBE_ROCOPY` | n/a | Machine Mode
+| `MSTATUS_TW_ALWAYS_ILLEGAL` | {true, false} | `MSTATUS_TW_ALWAYS_ILLEGAL` | n/a | Machine Mode
+| `MSTATUS_TW_TIME_LIMIT` | TBD | `MSTATUS_TW_TIME_LIMIT` | n/a | Machine Mode
+| `MSTATUS_UBE_ROCOPY` | {ROCopyOfMBE, ROCopyOfSBE, Other} | `MSTATUS_UBE_ROCOPY` | n/a | Machine Mode
+| `MSTATUS_VS_NO_CHANGE_DIRTY` | {true, false} | `MSTATUS_VS_NO_CHANGE_DIRTY` | n/a | Machine Mode
+| `MSTATUS_VS_SW_DIRTY_UPDATE` | {DirtyWhenInitOrClean, Other} | `MSTATUS_VS_IMPRECISE` | n/a | Machine Mode
+| `MTIME_TICK_PERIOD` | TBD | `MTIME_TICK_PERIOD` | n/a | Machine Mode
+| `MTVAL_INV_ADDR_CONV` | {NoInvAddrConv, Other} | `MTVAL_INV_ADDR_CONV` | n/a | Machine Mode
+| `MTVAL_PER_EXC_BEHAVIOR` | {Informative, Zero, Other} | `MTVAL_PER_EXC_BEHAVIOR` | n/a | Machine Mode
+| `MTVEC_RDONLY` | {true, false} | `MTVEC_RDONLY` | n/a | Machine Mode
+| `MVENDOR_ID_BANK` | TBD | `VENDOR_ID_BANK` | n/a | Machine Mode
+| `MVENDOR_ID_OFFSET` | TBD | `VENDOR_ID_OFFSET` | n/a | Machine Mode
+| `MXLEN` | {32, 64} | `MXLEN` | n/a | Machine Mode
+| `NMI_ADDR` | TBD | (none) +
+[.small]#unresolved in pinned manual# | n/a | Machine Mode
+| `NMI_MCAUSE_VAL` | {true, false} | `NMI_MCAUSE_VAL` | n/a | Machine Mode
+| `PMA_CACHE_MM_ALL_ATOMICS` | {true, false} | `PMA_CACHE_MM_ALL_ATOMICS` | n/a | Machine Mode
+| `PMA_IDP_IMPLICIT_SZ` | {true, false} | `PMA_IDP_IMPLICIT_SZ` | n/a | Machine Mode
+| `PMA_MAG_EXC` | {true, false} | `PMA_MAG_EXC` | n/a | Machine Mode
+| `PMA_MAG_OP_LDST` | {true, false} | `PMA_MAG_OP_LDST` | n/a | Machine Mode
+| `PMA_MM_IFETCH` | {true, false} | `PMA_MM_IFETCH` | n/a | Machine Mode
+| `PMA_MO_DYN` | {true, false} | `PMA_MO_DYN` | n/a | Machine Mode
+| `PMP_A_L_RST` | {true, false} | `PMP_A_L_RST` | n/a | Machine Mode
+| `PMP_ENTRY_COUNT` | TBD | `PMP_ENTRY_COUNT` | n/a | Machine Mode
+| `PMP_GRANULARITY` | TBD | `PMP_GRANULARITY` +
+[.small]#unresolved in pinned manual# | n/a | Machine Mode
+| `RST_ADDR` | TBD | (none) +
+[.small]#unresolved in pinned manual# | n/a | Machine Mode
+| `SRET_CLR_LR_RESV` | {true, false} | `SRET_CLR_LR_RESV` +
+[.small]#unresolved in pinned manual# | n/a | Machine Mode
+| `SXLEN` | {32, 64} | (none) +
+[.small]#unresolved in pinned manual# | n/a | Machine Mode
+| `UXLEN` | {32, 64} | (none) +
+[.small]#unresolved in pinned manual# | n/a | Machine Mode
+| `WFI_OPT_U_MODE` | {true, false} | `WFI_OPT_U_MODE` | n/a | Machine Mode
+| `WFI_RESUME_REASON` | {true, false} | `WFI_RESUME_REASON` | n/a | Machine Mode
+| `XLEN_REDUCTION_HINT_OP` | {true, false} | `XLEN_REDUCTION_HINT_OP` | n/a | Machine Mode
+| `mcause.EXCCODE` | TBD (legal enum) | `MCAUSE_EXCCODE_WLRL` | field-level | Machine Mode
+| `mcounteren` | per bit: constant mask | `MCOUNTEREN_FLDS_WARL`, `MCOUNTEREN_CY_RDONLY0`, `MCOUNTEREN_TM_RDONLY0`, `MCOUNTEREN_IR_RDONLY0`, `MCOUNTEREN_HPM_N_RDONLY0` | register-level | Machine Mode
+| `mcountinhibit` | per bit: constant mask | `MCOUNTINHIBIT_WARL` | register-level | Machine Mode
+| `medeleg` | per bit: constant mask | `MEDELEG_WARL` +
+[.small]#unresolved in pinned manual# | register-level | Machine Mode
+| `menvcfg.CBIE` | TBD (legal enum) | `MENVCFG_CBIE_WARL` | field-level | Machine Mode
+| `menvcfg.PMM` | TBD (legal enum) | `MENVCFG_PMM_WARL` +
+[.small]#unresolved in pinned manual# | field-level | Machine Mode
+| `mepc` | per bit: constant mask | `MEPC_WARL` | register-level | Machine Mode
+| `mhpmcounter` | per bit: constant mask | `MHPMCOUNTER_WARL`, `MHPMEVENT_N_RDONLY0` | register-level | Machine Mode
+| `mhpmevent` | per bit: constant mask | `MHPMEVENT_WARL`, `MHPMEVENT_N_RDONLY0` | register-level | Machine Mode
+| `mideleg` | per bit: constant mask | `MIDELEG_WARL`, `MIDELEG_RD1_LOWER_LEVEL` | register-level | Machine Mode
+| `mie` | per bit: constant mask | `MIE_WARL` +
+[.small]#unresolved in pinned manual# | register-level | Machine Mode
+| `mip` | per bit: constant mask | `MIP_WARL`, `MIP_BITS_WR_OR_RDONLY` | register-level | Machine Mode
+| `misa.EXTENSIONS` | per bit: constant mask | `MISA_WARL`, `MISA_EXTENSIONS_WARL`, `MISA_CSR_IMPLEMENTED`, `MISA_EXTENSIONS_WRITABLE_BITS`, `MUTABLE_MISA_V` | field-level | Machine Mode
+| `misa.MXL` | per bit: constant mask | `MISA_WARL`, `MISA_CSR_IMPLEMENTED` | field-level | Machine Mode
+| `mseccfg.MML` | per bit: constant mask | `MSECCFG_MML_WARL` | field-level | Machine Mode
+| `mseccfg.MMWP` | per bit: constant mask | `MSECCFG_MMWP_WARL` | field-level | Machine Mode
+| `mseccfg.PMM` | TBD (legal enum) | `MSECCFG_PMM_WARL` | field-level | Machine Mode
+| `mseccfg.RLB` | per bit: constant mask | `MSECCFG_RLB_WARL` | field-level | Machine Mode
+| `mstatus.FS` | per bit: constant mask | `MSTATUS_FS_WARL`, `MSTATUS_FS_RDONLY0_S_NO_F` | field-level | Machine Mode
+| `mstatus.MBE` | per bit: constant mask | `MSTATUS_MBE_WARL`, `MSTATUSH_MBE_WARL` +
+[.small]#unresolved in pinned manual# | field-level | Machine Mode
+| `mstatus.MDT` | per bit: constant mask | `MSTATUS_MDT_WARL` | field-level | Machine Mode
+| `mstatus.MPP` | TBD (legal enum) | `MSTATUS_XPP_WARL` | field-level | Machine Mode
+| `mstatus.SBE` | per bit: constant mask | `MSTATUS_SBE_WARL`, `MSTATUSH_SBE_WARL` +
+[.small]#unresolved in pinned manual# | field-level | Machine Mode
+| `mstatus.SPP` | TBD (legal enum) | `MSTATUS_XPP_WARL` | field-level | Machine Mode
+| `mstatus.SXL` | per bit: constant mask | `MSTATUS_SXL_WARL`, `MSTATUS_SXL_RDONLY_MXLEN64` | field-level | Machine Mode
+| `mstatus.TSR` | per bit: constant mask | `MSTATUS_TSR_WARL` | field-level | Machine Mode
+| `mstatus.TVM` | per bit: constant mask | `MSTATUS_TVM_WARL` | field-level | Machine Mode
+| `mstatus.TW` | per bit: constant mask | `MSTATUS_TW_WARL` | field-level | Machine Mode
+| `mstatus.UBE` | per bit: constant mask | `MSTATUS_UBE_WARL`, `MSTATUSH_UBE_WARL` +
+[.small]#unresolved in pinned manual# | field-level | Machine Mode
+| `mstatus.UXL` | per bit: constant mask | `MSTATUS_UXL_WARL` +
+[.small]#unresolved in pinned manual# | field-level | Machine Mode
+| `mstatus.VS` | per bit: constant mask | `MSTATUS_VS_WARL`, `MSTATUS_VS_RDONLY0_S_NO_V` | field-level | Machine Mode
+| `mtval` | per bit: constant mask | `MTVAL_WARL`, `MTVAL_RDONLY0` | register-level | Machine Mode
+| `mtvec.BASE` | per bit: constant mask | `MTVEC_WARL`, `MTVEC_BASE_ALIGN_FUNC_MODE` | field-level | Machine Mode
+| `mtvec.MODE` | TBD (legal enum) | `MTVEC_WARL` | field-level | Machine Mode
+| `pmpaddrN` | per bit: constant mask | `PMPADDR_WARL` | register-level | Machine Mode
+| `pmpcfgN.pmpMcfg` | TBD | `PMPCFG_WARL` +
+[.small]#unresolved in pinned manual# | field-level | Machine Mode
+| `mncause` | TBD | `MNCAUSE_WARL` +
+[.small]#unresolved in pinned manual# | register-level | Smrnmi Extension for Resumable Non-Maskable Interrupts
+| `mnepc` | TBD | `MNEPC_WARL` | register-level | Smrnmi Extension for Resumable Non-Maskable Interrupts
+| `mnstatus` | TBD | `MNSTATUS_WARL` +
+[.small]#unresolved in pinned manual# | register-level | Smrnmi Extension for Resumable Non-Maskable Interrupts
+| `MISALIGNED_LDST_EXC_TYPE` | {AlwaysMisalignedExc, AlwaysAccessFaultExc, AccessFaultExcDontEmulate, Other} | `MISALIGNED_LDST_EXC_TYPE` +
+[.small]#unresolved in pinned manual# | n/a | RV32I Base ISA
+| `MISALIGNED_LDST_HW_SUPPORT` | {true, false} | `MISALIGNED_LDST_HW_SUPPORT` +
+[.small]#unresolved in pinned manual# | n/a | RV32I Base ISA
+| `CTRDATA_CC_SUPPORTED` | {true, false} | `CTRDATA_CC_SUPPORTED` | n/a | SmCtr (Ctrl Xfer Records)
+| `CTR_CCOUNTER_IMPL` | [0..4] | `CTR_CCOUNTER_IMPL` +
+[.small]#unresolved in pinned manual# | n/a | SmCtr (Ctrl Xfer Records)
+| `SCTRDEPTH_DEPTH` | [0..4] | `SCTRDEPTH_DEPTH` | n/a | SmCtr (Ctrl Xfer Records)
+| `ctrsource` | TBD | `CTRSOURCE_WARL` | register-level | SmCtr (Ctrl Xfer Records)
+| `ctrtarget` | TBD | `CTRTARGET_WARL` | register-level | SmCtr (Ctrl Xfer Records)
+| `sctrdepth.DEPTH` | TBD | `SCTRDEPTH_DEPTH_WARL` +
+[.small]#unresolved in pinned manual# | field-level | SmCtr (Ctrl Xfer Records)
+| `sctrstatus.WRPTR` | TBD | `SCTRSTATUS_WRPTR_WARL` | field-level | SmCtr (Ctrl Xfer Records)
+| `hstateen0/hstateen1/hstateen2/hstateen3` | per bit: constant mask | `STATEEN_WARL_ACCESS` | register-level | State Enable Extension
+| `mstateen0/mstateen1/mstateen2/mstateen3` | per bit: constant mask | `STATEEN_WARL_ACCESS` | register-level | State Enable Extension
+| `sstateen0/sstateen1/sstateen2/sstateen3` | per bit: constant mask | `STATEEN_WARL_ACCESS` | register-level | State Enable Extension
+| `ASIDLEN` | [0..16] | `ASIDLEN` +
+[.small]#unresolved in pinned manual# | n/a | Supervisor Mode
+| `HINT_SXLEN` | {AlwaysUnchanged, AlwaysOverwritten, Other} | `HINT_SXLEN` | n/a | Supervisor Mode
+| `LCOFI_INTR_IMPL` | {true, false} | `LCOFI_INTR_IMPL` +
+[.small]#unresolved in pinned manual# | n/a | Supervisor Mode
+| `SATP_MODE_ROZ_SFENCE_ILLEGAL` | {AlwaysIllegalInstExc, NeverIllegalInstExc, Other} | `SATP_MODE_ROZ_SFENCE_ILLEGAL` | n/a | Supervisor Mode
+| `SEI_INTR_IMPL` | {true, false} | `SEI_INTR_IMPL` +
+[.small]#unresolved in pinned manual# | n/a | Supervisor Mode
+| `SSI_INTR_IMPL` | {true, false} | `SSI_INTR_IMPL` +
+[.small]#unresolved in pinned manual# | n/a | Supervisor Mode
+| `STI_INTR_IMPL` | {true, false} | `STI_INTR_IMPL` +
+[.small]#unresolved in pinned manual# | n/a | Supervisor Mode
+| `scause.EXCEPTION_CODE` | TBD | `SCAUSE_EXCEPTION_CODE_ACC` | field-level | Supervisor Mode
+| `scounteren` | TBD | `SCOUNTEREN_WARL` | register-level | Supervisor Mode
+| `senvcfg.CBIE` | TBD | `SENVCFG_CBIE_WARL` | field-level | Supervisor Mode
+| `sepc` | TBD | `SEPC_ACC_INVALID_WARL` | register-level | Supervisor Mode
+| `sie` | TBD | `SIE_WARL` +
+[.small]#unresolved in pinned manual# | register-level | Supervisor Mode
+| `sip` | TBD | `SIP_WARL` +
+[.small]#unresolved in pinned manual# | register-level | Supervisor Mode
+| `sstatus.SDT` | TBD | `SSTATUS_SDT_WARL` | field-level | Supervisor Mode
+| `sstatus.UBE` | TBD | `SSTATUS_UBE_WARL` | field-level | Supervisor Mode
+| `sstatus.UXL` | TBD | `SSTATUS_UXL_WARL` | field-level | Supervisor Mode
+| `stval` | TBD | `STVAL_WARL` | register-level | Supervisor Mode
+| `stvec.BASE` | TBD | `STVEC_BASE_WARL` +
+[.small]#unresolved in pinned manual# | field-level | Supervisor Mode
+| `stvec.MODE` | TBD | `STVEC_MODE_WARL` +
+[.small]#unresolved in pinned manual# | field-level | Supervisor Mode
+| `ELEN` | {8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536} | `ELEN` | n/a | V Extension
+| `MSTATUS_VS_EXISTS` | {true, false} | `MSTATUS_VS_EXISTS` | n/a | V Extension
+| `MSTATUS_VS_HW_DIRTY_UPDATE` | {PreciseDirty, Other} | `HW_MSTATUS_VS_DIRTY_UPDATE` | n/a | V Extension
+| `VECTOR_FF_PAST_TRAP` | {Always, Never, Other} | `VECTOR_FF_PAST_TRAP` | n/a | V Extension
+| `VECTOR_FF_SEG_SUBSET_EXC_ON_ZEROTH` | {Always, Never, Other} | `VECTOR_FF_SEG_PARTIAL_ACCESS` | n/a | V Extension
+| `VECTOR_FF_SEG_SUBSET_EXC_PAST_ZEROTH` | {Always, Never, Other} | `VECTOR_FF_SEG_PARTIAL_ACCESS` | n/a | V Extension
+| `VECTOR_LS_CONSTANT_STRIDE_X0` | {Always, Never, Other} | `VECTOR_LS_CONSTANT_STRIDE_X0` | n/a | V Extension
+| `VECTOR_LS_MISSALIGNED_EXCEPTION` | {MisalignedExc, Transfer, Other} | `VECTOR_LS_MISSALIGNED_EXCEPTION` | n/a | V Extension
+| `VECTOR_LS_OVERWRITE_PAST_TRAP` | {Always, Never, Other} | `VECTOR_LS_OVERWRITE_PAST_TRAP` | n/a | V Extension
+| `VECTOR_LS_SEG_FF_OVERLOAD` | {AlwaysAfterTrap, AlwaysAfterVLTrimmed, NeverOverwrite, Other} | `VECTOR_LS_SEG_FF_OVERLOAD` | n/a | V Extension
+| `VECTOR_LS_SEG_PARTIAL_ACCESS` | {Always, Never, Other} | `VECTOR_LS_SEG_PARTIAL_ACCESS` | n/a | V Extension
+| `VECTOR_LS_VSTART` | {Always, Never, Other} | `VECTOR_LS_VSTART` | n/a | V Extension
+| `VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION` | {Always, Never, Other} | `VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION` | n/a | V Extension
+| `VLEN` | {8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536} | `VLEN` | n/a | V Extension
+| `VSETVL_WITH_NEW_RATIO_SETS_VILL` | {Always, Never, Other} | `RESERVED_VILL_SET` | n/a | V Extension
+| `VSETVL_WITH_VILL_1_STAY_1` | {Always, Never, Other} | `RESERVED_VILL_SET` | n/a | V Extension
+| `VSSTATUS_VS_EXISTS` | {true, false} | `VSSTATUS_VS_EXISTS` | n/a | V Extension
+| `INTERRUPTS_ALLOWED_IN_PUSHPOP` | {true, false} | `INTERRUPTS_ALLOWED_IN_PUSHPOP` | n/a | Zc Extension
+| `jvt.BASE` | per bit: constant mask | `JVT_WARL` | field-level | Zc Extension
+| `jvt.MODE` | TBD (legal enum) | `JVT_MODE_WARL` | field-level | Zc Extension
+| `NTL_TRAP_BEHAVIOR` | {true, false} | `NTL_TRAP_BEHAVIOR` | n/a | Zihintntl (Non-tmp Hint)
+| `ZILSD_ALIGN8_ATOMIC` | {true, false} | `ZILSD_ALIGN8_ATOMIC` | n/a | Zilsd (RV32 ld/st dbl)
+|===
+
+[[corrections]]
+== Corrections applied to List A
+
+Recorded so the changes are auditable rather than silent.
+
+=== Merged (one spec sentence, two names)
+
+Each of these sentences occurs exactly once in the manual, so the pair
+is one parameter named twice, not the m/s/vs replication pattern.
+
+* `HINT_SXLEN_BEHAVIOR` merged into `HINT_SXLEN_DEST_REG_BEHAVIOR`
+* `CTR_SUPPORTED_DEPTHS` merged into `SCTRDEPTH_SUPPORTED_VALUES`
+* `SSEED_USEED_WRITABLE` merged into `MSECCFG_SEED_BITS_RW`
+* `VTW_WFI_ALWAYS_TRAP` merged into `VTW_VIRTINSTR_PARAM`
+
+=== Dropped (already defined in UDB)
+
+* `CTR_RASEMU_SUPPORTED` -- Already in UDB as MCTRCTL_RASEMU_IMPLEMENTED ('Whether or not mctrctl.RASEMU is implemented. When not implemented mctrctl.RASEMU will be read-only-zero'), whose csr_references cover sctrctl and vsctrctl. True field-level duplicate.
+* `CTR_RASEMU_IMPLEMENTED` -- Duplicate of CTR_RASEMU_SUPPORTED (identical excerpt, one spec sentence) AND already in UDB as MCTRCTL_RASEMU_IMPLEMENTED.
+
+=== Flagged (kept, needs a ruling)
+
+* `MSTATEEN_BIT63_TYPE` -- Mentor asked whether this is genuinely new. Verified: it IS new. The spec tag exists ([#norm:mstateen-bit-63_roz]) but UDB has only six MSTATEEN_*_TYPE params (ENVCFG/IMSIC/AIA/CONTEXT/CSRIND/JVT) and none for bit 63.
+* `ZALASR_MISALIGNED_ATOMICITY_GRANULE` -- Overlaps existing UDB MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE. The Zalasr sentence points at the misaligned-atomicity-granule PMA rather than defining it, which reads like the 'clarification referencing a parameter defined elsewhere' exclusion. Needs a ruling.
