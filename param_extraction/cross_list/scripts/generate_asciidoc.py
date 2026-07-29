@@ -42,6 +42,7 @@ NRD = REPO / "ext/riscv-isa-manual/normative_rule_defs"
 OUTDIR = BASE / "out"
 
 JAMES_SHA = "213450b8671a513ed94cd62fc87a836f8a839a10"
+LAST_ONLY_JAMES: list = []
 MANUAL_SHA = "7fc198f13ad89e9608e9404be1c7a8119c14c13b"
 
 
@@ -421,6 +422,120 @@ def write_lists(ours, james, meta):
     return "\n".join(L)
 
 
+ADJ = json.loads(
+    (Path(__file__).resolve().parents[3]
+     / "param_extraction/cross_list/data/james_vs_udb_adjudication.json"
+     ).read_text()
+)
+
+VERDICT_ORDER = [
+    ("in_udb", "Already in UDB",
+     "UDB already defines this parameter, sometimes under a different name. "
+     "Our list excludes anything already in UDB by design, so these are a "
+     "scope difference and not a gap in our work."),
+    ("in_udb_partial", "Overlaps UDB, not one-to-one",
+     "The concept exists in UDB but the granularity or the aspect differs -- "
+     "typically one register-level entry of his against several field-level "
+     "UDB parameters, or vice versa."),
+    ("new_candidate", "No UDB counterpart found",
+     "The substance of his contribution. These are candidate new parameters "
+     "on the same footing as ours, except that they have not been through "
+     "expert review."),
+    ("out_of_scope", "Outside the ISA parameter space",
+     "Platform integration or quantities with no architectural units. These "
+     "fail our observable-and-testable test, so we would exclude them; that "
+     "is a definition difference, not a defect in his list."),
+    ("internal_dup", "Duplicated within his own list",
+     "Recorded twice in his files."),
+]
+
+
+def write_only_james(only_james):
+    by_name = {r["name"]: r for r in only_james}
+    V = ADJ["verdicts"]
+    base = ADJ["udb_baseline"]
+
+    L = ["== Only on James' list", "",
+         f"{len(only_james)} entries. Reporting that as a single number would be",
+         "misleading, because it mixes parameters UDB already has (our list",
+         "excludes those by design), things outside the ISA parameter space, and",
+         "genuinely new candidates. Each entry below was adjudicated by hand.",
+         "",
+         "CAUTION: These verdicts are a *proposed* segmentation, not a reviewed",
+         "one. Names could not be used as the key here either -- his names and",
+         "UDB's differ -- so the evidence was UDB's `csr_references`, which carry",
+         "the CSR and field each parameter controls, plus exact and normalised",
+         "name matching, with a hand check on every row. The reason for each",
+         "verdict is given so it can be challenged individually.",
+         "",
+         f"NOTE: UDB baseline is the union of our {base['ours_snapshot']}-parameter",
+         f"snapshot and the {base['jordan_snapshot']} names in Jordan's",
+         f"`sail_udb_config_mapping.md`, giving *{base['union']}* distinct UDB",
+         "parameters -- which matches the count James reports. The two snapshots",
+         "disagree slightly: "
+         + ", ".join(f"`{n}`" for n in base["only_in_newer"])
+         + " appear only in the newer one, and "
+         + ", ".join(f"`{n}`" for n in base["only_in_ours"])
+         + " only in ours. Verdicts are checked against the union.",
+         "",
+         '[cols="60,40",options="header"]', "|===", "| Segment | Count"]
+    for key, title, _ in VERDICT_ORDER:
+        n = sum(1 for r in only_james if V[r["name"]]["verdict"] == key)
+        L.append(f"| {title} | {n}")
+    L += ["|===", ""]
+
+    for key, title, blurb in VERDICT_ORDER:
+        rows = [r for r in only_james if V[r["name"]]["verdict"] == key]
+        if not rows:
+            continue
+        L += [f"=== {title} ({len(rows)})", "", blurb, ""]
+        wide = key in ("in_udb", "in_udb_partial")
+        if wide:
+            L += ['[cols="22,26,52",options="header"]', "|===",
+                  "| James' entry | UDB parameter(s) | Basis"]
+        else:
+            L += ['[cols="22,20,58",options="header"]', "|===",
+                  "| James' entry | Domain | Basis"]
+        for r in sorted(rows, key=lambda x: (x["file"], x["name"] or "")):
+            v = V[r["name"]]
+            if wide:
+                udb = ", ".join(f"`{n}`" for n in v["udb"][:6])
+                if len(v["udb"]) > 6:
+                    udb += f", ... ({len(v['udb'])} total)"
+                L.append(f"| `{esc(r['name'])}` | {udb} | {esc(v['reason'])}")
+            else:
+                L.append(f"| `{esc(r['name'])}` | {esc(r['domain'])} "
+                         f"| {esc(v['reason'])}")
+        L += ["|===", ""]
+
+    news = [r for r in only_james if V[r["name"]]["verdict"] == "new_candidate"]
+    L += ["=== What the new candidates cluster into", "",
+          "Grouping them shows they are not scattered. Four families account for",
+          "most of the list, and each is a category neither UDB nor our own",
+          "pipeline covers:",
+          "",
+          "* *Interrupt and delegation bit masks* -- `hedeleg`, `hideleg`, `hie`,",
+          "  `hvip`, `hgeie`, `vsie`, `vsip`, `mie`, `sie`. UDB models the `mip`",
+          "  side only, and our list has the `mip`/`sip` pair. Nobody has the rest.",
+          "* *Trap CSR WARL behaviour* -- `mepc`, `vsepc`, `mcause`, `scause`,",
+          "  `vscause`, `mncause`, `mnstatus`, `vstval`. Our list has the `sepc`",
+          "  sibling; UDB has widths for `mtval`/`stval` only.",
+          "* *CSR reset values* -- `MCAUSE_RST_VAL`, `PMP_A_L_RST`,",
+          "  `MSECCFG_*_RST`, `NMI_MCAUSE_VAL`. UDB models no reset values at",
+          "  all. This is the clearest whole category he adds.",
+          "* *PMA attributes* -- `PMA_MM_IFETCH`, `PMA_CACHE_MM_ALL_ATOMICS`,",
+          "  `PMA_MO_DYN`. Jordan records the same gap from the Sail side.",
+          "",
+          "Two entries need a mentor ruling rather than a verdict:",
+          "",
+          f"* `WFI_OPT_U_MODE` -- {esc(V['WFI_OPT_U_MODE']['reason'])}",
+          "* `INTERRUPTS_ALLOWED_IN_PUSHPOP` -- our pipeline found this and held",
+          "  it back under rule 1, because the sentence sits in a `NOTE` block.",
+          "  He includes it. Whichever way it goes, the two lists should agree.",
+          ""]
+    return L
+
+
 def write_comparison(ours, james, meta):
     j_by_tag = {}
     j_by_name = {}
@@ -460,6 +575,7 @@ def write_comparison(ours, james, meta):
     only_james = [r for r in james
                   if not (set(r["tags"]) & ours_tags)
                   and r["name"] not in claimed]
+    LAST_ONLY_JAMES[:] = [r["name"] for r in only_james]
 
     L = [HDR, "= Parameter List Comparison", ":toc:", ":toclevels: 2", ""]
     L += [
@@ -566,21 +682,7 @@ def write_comparison(ours, james, meta):
                  f"| {esc(adj)}")
     L += ["|===", ""]
 
-    L += ["== Only on James' list", "",
-          "Expected: his list re-derives the whole parameter space including",
-          "parameters UDB already has, while ours is restricted to parameters",
-          "believed missing from UDB. Most entries here are therefore a scope",
-          "difference, not a gap in our work.",
-          "",
-          '[cols="26,24,20,30",options="header"]', "|===",
-          "| Name | Domain | Granularity | Source"]
-    for r in sorted(only_james, key=lambda x: (x["file"], x["name"] or "")):
-        impl = ", ".join(f"`{i}`" for i in r["impl_defs"]) or "(none)"
-        if not r["tags"]:
-            impl += " +\n[.small]#unresolved in pinned manual#"
-        L.append(f"| `{esc(r['name'])}` | {esc(r['domain'])} | {r['granularity']} "
-                 f"| {impl}")
-    L += ["|===", ""]
+    L += write_only_james(only_james)
 
     # findings that are useful to the manual maintainers.
     # NOTE: scoped over ALL our parameters, not only the unmatched ones. The
@@ -674,6 +776,9 @@ def main() -> int:
     (OUTDIR / "parameter_lists.adoc").write_text(write_lists(ours, james, meta))
     (OUTDIR / "list_comparison.adoc").write_text(
         write_comparison(ours, james, meta))
+    # the "only on James' list" set, for downstream segmentation against UDB
+    (BASE / "data/only_james.json").write_text(
+        json.dumps(sorted(LAST_ONLY_JAMES), indent=1) + "\n")
 
     print(f"ours   : {len(ours)}")
     print(f"james  : {len(james)}")

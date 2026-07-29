@@ -1,0 +1,4511 @@
+{
+ "count": 144,
+ "rows": [
+  {
+   "name": "LRSC_ALIGNMENT",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "a-st-ext.yaml",
+   "impl": "LR_SC_ALIGNMENT",
+   "desc": "Defines the behavior when a load-reserved/store-conditional (LR/SC) instruction is executed with a misaligned address: [%autowidth] !=== ! Value ! Definition ! AlwaysMisalignedExc ! Implementation alw",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "LRSC_FAIL_ON_NON_EXACT_LRSC",
+      "shared": [
+       "address",
+       "conditional",
+       "load",
+       "lrsc"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_STORE_AMO_ADDRESS_MISALIGNED",
+      "shared": [
+       "address",
+       "instruction",
+       "misaligned",
+       "store"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_LOAD_ADDRESS_MISALIGNED",
+      "shared": [
+       "address",
+       "instruction",
+       "load",
+       "misaligned"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_VSTVAL_ON_STORE_AMO_MISALIGNED",
+      "shared": [
+       "address",
+       "instruction",
+       "misaligned",
+       "store"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_VSTVAL_ON_LOAD_MISALIGNED",
+      "shared": [
+       "address",
+       "instruction",
+       "load",
+       "misaligned"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "LRSC_RESERVATION_STRATEGY",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "a-st-ext.yaml",
+   "impl": "LR_RESERVATION_SET_SIZE",
+   "desc": "Defines the reservation strategy for load-reserved/store-conditional (LR/SC) atomic instructions: [%autowidth] !=== ! Value ! Definition ! Exact ! Reservation set is exactly enough to cover the access",
+   "evidence": {
+    "exact": "LRSC_RESERVATION_STRATEGY",
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "LRSC_FAIL_ON_NON_EXACT_LRSC",
+      "shared": [
+       "conditional",
+       "exact",
+       "exactly",
+       "load"
+      ]
+     },
+     {
+      "udb": "LRSC_RESERVATION_STRATEGY",
+      "shared": [
+       "access",
+       "cover",
+       "enough",
+       "exactly"
+      ]
+     },
+     {
+      "udb": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+      "shared": [
+       "access",
+       "load",
+       "set",
+       "size"
+      ]
+     },
+     {
+      "udb": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
+      "shared": [
+       "access",
+       "load",
+       "size",
+       "store"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+      "shared": [
+       "exact",
+       "instructions",
+       "load"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "CACHE_BLOCK_SIZE",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "cmo.yaml",
+   "impl": "CACHE_BLOCK_SIZE",
+   "desc": "The observable size of a cache block, in bytes.",
+   "evidence": {
+    "exact": "CACHE_BLOCK_SIZE",
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "CACHE_BLOCK_SIZE",
+      "shared": [
+       "block",
+       "bytes",
+       "cache",
+       "observable"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL",
+      "shared": [
+       "bytes",
+       "size"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "TIME_CSR_HW_SUPPORT",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "counters.yaml",
+   "impl": "EE_IMPL_FLEX",
+   "desc": "Implementation supports reading of all unprivileged time-related CSRs without triggering an exception. For RV32I the `time` and `timeh` CSRs are the unprivileged time-related CSRs. For RV64I the `time",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "TIME_CSR_IMPLEMENTED",
+      "shared": [
+       "exception",
+       "time",
+       "timeh"
+      ]
+     },
+     {
+      "udb": "TRAP_ON_ECALL_FROM_VS",
+      "shared": [
+       "exception",
+       "without"
+      ]
+     },
+     {
+      "udb": "TRAP_ON_ECALL_FROM_U",
+      "shared": [
+       "exception",
+       "without"
+      ]
+     },
+     {
+      "udb": "TRAP_ON_ECALL_FROM_S",
+      "shared": [
+       "exception",
+       "without"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "HSXLEN",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "HSXLEN",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "VSXLEN",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "VSXLEN",
+   "desc": "",
+   "evidence": {
+    "exact": "VSXLEN",
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "GEILEN",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "GEILEN",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "HTVAL_GUEST_PAGE_FAULT_TRAPVAL",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "HTVAL_TRAPVAL",
+   "desc": "When a guest-page-fault trap is taken into HS-mode, htval is written with either zero or the shifted guest physical address that faulted (shifted means right by 2 bits here). [%autowidth] !=== ! Value",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT",
+      "shared": [
+       "address",
+       "fault",
+       "guest",
+       "htval"
+      ]
+     },
+     {
+      "udb": "REPORT_GPA_IN_TVAL_ON_INTERMEDIATE_GUEST_PAGE_FAULT",
+      "shared": [
+       "fault",
+       "guest",
+       "htval",
+       "into"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_STORE_AMO_PAGE_FAULT",
+      "shared": [
+       "fault",
+       "into",
+       "mode",
+       "page"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_LOAD_PAGE_FAULT",
+      "shared": [
+       "fault",
+       "into",
+       "mode",
+       "page"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_FINAL_STORE_AMO_GUEST_PAGE_FAULT",
+      "shared": [
+       "fault",
+       "guest",
+       "htval",
+       "into"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VMIDLEN",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "HGATP_VMID",
+   "desc": "The number of implemented VMID bits",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VMID_WIDTH",
+      "shared": [
+       "hgatp",
+       "number",
+       "vmid"
+      ]
+     },
+     {
+      "udb": "STVAL_WIDTH",
+      "shared": [
+       "implemented",
+       "number"
+      ]
+     },
+     {
+      "udb": "NUM_PMP_ENTRIES",
+      "shared": [
+       "implemented",
+       "number"
+      ]
+     },
+     {
+      "udb": "MTVAL_WIDTH",
+      "shared": [
+       "implemented",
+       "number"
+      ]
+     },
+     {
+      "udb": "ASID_WIDTH",
+      "shared": [
+       "implemented",
+       "number"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MTVAL2_TRAPVAL",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "MTVAL2_TRAPVAL",
+   "desc": "Same as HTVAL_GUEST_PAGE_FAULT_TRAPVAL except for `mtval2` and trap into M-mode",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "REPORT_GPA_IN_TVAL_ON_INTERMEDIATE_GUEST_PAGE_FAULT",
+      "shared": [
+       "fault",
+       "guest",
+       "htval",
+       "into"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_FINAL_STORE_AMO_GUEST_PAGE_FAULT",
+      "shared": [
+       "fault",
+       "guest",
+       "htval",
+       "into"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_FINAL_LOAD_GUEST_PAGE_FAULT",
+      "shared": [
+       "fault",
+       "guest",
+       "htval",
+       "into"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_FINAL_INSTRUCTION_GUEST_PAGE_FAULT",
+      "shared": [
+       "fault",
+       "guest",
+       "htval",
+       "into"
+      ]
+     },
+     {
+      "udb": "REPORT_GPA_IN_TVAL_ON_STORE_AMO_GUEST_PAGE_FAULT",
+      "shared": [
+       "fault",
+       "guest",
+       "htval",
+       "into"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "hstatus.VGEIN",
+   "section": "csr_definitions",
+   "reg": "hstatus",
+   "field": "VGEIN",
+   "file": "hypervisor.yaml",
+   "impl": "HSTATUS_VGEIN_WLRL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "NUM_EXTERNAL_GUEST_INTERRUPTS"
+    ],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "hstatus.VSBE",
+   "section": "csr_definitions",
+   "reg": "hstatus",
+   "field": "VSBE",
+   "file": "hypervisor.yaml",
+   "impl": "HSTATUS_VSBE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "VS_MODE_ENDIANNESS"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VS_MODE_ENDIANNESS",
+      "shared": [
+       "hstatus",
+       "vsbe"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "hedeleg",
+   "section": "csr_definitions",
+   "reg": "hedeleg",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "HEDELEG_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "hideleg",
+   "section": "csr_definitions",
+   "reg": "hideleg",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "HIDELEG_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "hvip",
+   "section": "csr_definitions",
+   "reg": "hvip",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "HVIP_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "hie",
+   "section": "csr_definitions",
+   "reg": "hie",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "HIE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "hgeie",
+   "section": "csr_definitions",
+   "reg": "hgeie",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "HGEIE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "hcounteren",
+   "section": "csr_definitions",
+   "reg": "hcounteren",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "HCOUNTEREN_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "HCOUNTENABLE_EN"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "htinst",
+   "section": "csr_definitions",
+   "reg": "htinst",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "HTINST_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "TINST_VALUE_ON_BREAKPOINT",
+     "TINST_VALUE_ON_FINAL_INSTRUCTION_GUEST_PAGE_FAULT",
+     "TINST_VALUE_ON_FINAL_LOAD_GUEST_PAGE_FAULT",
+     "TINST_VALUE_ON_FINAL_STORE_AMO_GUEST_PAGE_FAULT",
+     "TINST_VALUE_ON_INSTRUCTION_ADDRESS_MISALIGNED",
+     "TINST_VALUE_ON_LOAD_ACCESS_FAULT",
+     "TINST_VALUE_ON_LOAD_ADDRESS_MISALIGNED",
+     "TINST_VALUE_ON_LOAD_PAGE_FAULT"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "hgainp.MODE",
+   "section": "csr_definitions",
+   "reg": "hgainp",
+   "field": "MODE",
+   "file": "hypervisor.yaml",
+   "impl": "HGATP_MODE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "GSTAGE_MODE_BARE",
+      "shared": [
+       "hgatp",
+       "mode"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "vsstatus.UXL",
+   "section": "csr_definitions",
+   "reg": "vsstatus",
+   "field": "UXL",
+   "file": "hypervisor.yaml",
+   "impl": "VSSTATUS_UXL_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "VUXLEN"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VUXLEN",
+      "shared": [
+       "uxl",
+       "vsstatus"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "vsip",
+   "section": "csr_definitions",
+   "reg": "vsip",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "VSIP_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "vsie",
+   "section": "csr_definitions",
+   "reg": "vsie",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "VSIE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "vstvec.MODE",
+   "section": "csr_definitions",
+   "reg": "vstvec",
+   "field": "MODE",
+   "file": "hypervisor.yaml",
+   "impl": "VSTVEC_MODE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "VSTVEC_MODE_DIRECT",
+     "VSTVEC_MODE_VECTORED"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VSTVEC_MODE_VECTORED",
+      "shared": [
+       "mode",
+       "vstvec"
+      ]
+     },
+     {
+      "udb": "VSTVEC_MODE_DIRECT",
+      "shared": [
+       "mode",
+       "vstvec"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "vstvec.BASE",
+   "section": "csr_definitions",
+   "reg": "vstvec",
+   "field": "BASE",
+   "file": "hypervisor.yaml",
+   "impl": "VSTVEC_BASE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "VSTVEC_MODE_DIRECT",
+     "VSTVEC_MODE_VECTORED"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "vsepc",
+   "section": "csr_definitions",
+   "reg": "vsepc",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "VSEPC_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "vscause",
+   "section": "csr_definitions",
+   "reg": "vscause",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "VSCAUSE_WLRL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "vstval",
+   "section": "csr_definitions",
+   "reg": "vstval",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "VSTVAL_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "vsatp.MODE",
+   "section": "csr_definitions",
+   "reg": "vsatp",
+   "field": "MODE",
+   "file": "hypervisor.yaml",
+   "impl": "VSATP_MODE_UNSUPPORTED_V0_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "IGNORE_INVALID_VSATP_MODE_WRITES_WHEN_V_EQ_ZERO"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VSSTAGE_MODE_BARE",
+      "shared": [
+       "mode",
+       "vsatp"
+      ]
+     },
+     {
+      "udb": "IGNORE_INVALID_VSATP_MODE_WRITES_WHEN_V_EQ_ZERO",
+      "shared": [
+       "mode",
+       "vsatp"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "mtinst",
+   "section": "csr_definitions",
+   "reg": "mtinst",
+   "field": null,
+   "file": "hypervisor.yaml",
+   "impl": "MTINST_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "TINST_VALUE_ON_BREAKPOINT",
+     "TINST_VALUE_ON_FINAL_INSTRUCTION_GUEST_PAGE_FAULT",
+     "TINST_VALUE_ON_FINAL_LOAD_GUEST_PAGE_FAULT",
+     "TINST_VALUE_ON_FINAL_STORE_AMO_GUEST_PAGE_FAULT",
+     "TINST_VALUE_ON_INSTRUCTION_ADDRESS_MISALIGNED",
+     "TINST_VALUE_ON_LOAD_ACCESS_FAULT",
+     "TINST_VALUE_ON_LOAD_ADDRESS_MISALIGNED",
+     "TINST_VALUE_ON_LOAD_PAGE_FAULT"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "henvcfg.CBIE",
+   "section": "csr_definitions",
+   "reg": "henvcfg",
+   "field": "CBIE",
+   "file": "hypervisor.yaml",
+   "impl": "HENVCFG_CBIE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "miselect",
+   "section": "csr_definitions",
+   "reg": "miselect",
+   "field": null,
+   "file": "indirect-csr.yaml",
+   "impl": "MISELECT_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "MXLEN",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MXLEN",
+   "desc": "Effective XLEN in M-mode",
+   "evidence": {
+    "exact": "MXLEN",
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "MXLEN",
+      "shared": [
+       "mode",
+       "mxlen",
+       "xlen"
+      ]
+     },
+     {
+      "udb": "NUM_PMP_ENTRIES",
+      "shared": [
+       "mode",
+       "xlen"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MVENDOR_ID_BANK",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "VENDOR_ID_BANK",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VENDOR_ID_BANK",
+      "shared": [
+       "bank",
+       "vendor"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MVENDOR_ID_OFFSET",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "VENDOR_ID_OFFSET",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VENDOR_ID_OFFSET",
+      "shared": [
+       "offset",
+       "vendor"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MARCHID",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "ARCH_ID",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "MARCHID_IMPLEMENTED",
+      "shared": [
+       "arch",
+       "marchid"
+      ]
+     },
+     {
+      "udb": "ARCH_ID_VALUE",
+      "shared": [
+       "arch",
+       "marchid"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MIPMPID",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "IMP_ID",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "MHARTID",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "HART_ID",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "MSTATUS_SBE_ROCOPY",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MSTATUS_SBE_ROCOPY",
+   "desc": "Does implementation make `mstatus.SBE` a read-only copy of `mstatus.MBE`?",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "S_MODE_ENDIANNESS",
+      "shared": [
+       "mstatus",
+       "sbe"
+      ]
+     },
+     {
+      "udb": "M_MODE_ENDIANNESS",
+      "shared": [
+       "mbe",
+       "mstatus"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MSTATUS_UBE_ROCOPY",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MSTATUS_UBE_ROCOPY",
+   "desc": "Does implementation make `mstatus.UBE` a read-only copy of `mstatus.MBE` or `mstatus.SBE`? [%autowidth] !=== ! Value ! Definition ! ROCopyOfMBE ! mstatus.UBE` is a read-only copy of `mstatus.MBE` ! RO",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "U_MODE_ENDIANNESS",
+      "shared": [
+       "mstatus",
+       "ube"
+      ]
+     },
+     {
+      "udb": "S_MODE_ENDIANNESS",
+      "shared": [
+       "mstatus",
+       "sbe"
+      ]
+     },
+     {
+      "udb": "M_MODE_ENDIANNESS",
+      "shared": [
+       "mbe",
+       "mstatus"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MSTATUS_TW_TIME_LIMIT",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MSTATUS_TW_TIME_LIMIT",
+   "desc": "If `mstatus.TW`=1 and WFI is executed in any less-privileged mode than M-mode the WFI instruction causes an illegal-instruction exception if MSTATUS_TW_TIME_LIMIT cycles have passed since the WFI inst",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "TRAP_ON_SFENCE_VMA_WHEN_SATP_MODE_IS_READ_ONLY",
+      "shared": [
+       "exception",
+       "illegal",
+       "instruction",
+       "mode"
+      ]
+     },
+     {
+      "udb": "TIME_CSR_IMPLEMENTED",
+      "shared": [
+       "exception",
+       "mode",
+       "privileged",
+       "time"
+      ]
+     },
+     {
+      "udb": "REPORT_ENCODING_IN_VSTVAL_ON_ILLEGAL_INSTRUCTION",
+      "shared": [
+       "causes",
+       "exception",
+       "illegal",
+       "instruction"
+      ]
+     },
+     {
+      "udb": "REPORT_ENCODING_IN_STVAL_ON_ILLEGAL_INSTRUCTION",
+      "shared": [
+       "causes",
+       "exception",
+       "illegal",
+       "instruction"
+      ]
+     },
+     {
+      "udb": "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+      "shared": [
+       "causes",
+       "exception",
+       "illegal",
+       "instruction"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MSTATUS_FS_IMPRECISE",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": [
+    "MSTATUS_FS_IMPRECISE",
+    "MSTATUS_FS_NO_DIRTY_TRACK"
+   ],
+   "desc": "[%autowidth] !=== ! Value ! Definition ! PreciseDirty ! Only set `mstatus.FS`` to Dirty only when floating-point state is changed ! NoDirtyTracking ! Dirtiness isn't tracked so the only valid FS state",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "HW_MSTATUS_VS_DIRTY_UPDATE",
+      "shared": [
+       "dirty",
+       "imprecise",
+       "mstatus",
+       "state"
+      ]
+     },
+     {
+      "udb": "HW_MSTATUS_FS_DIRTY_UPDATE",
+      "shared": [
+       "dirty",
+       "imprecise",
+       "mstatus",
+       "state"
+      ]
+     },
+     {
+      "udb": "UXLEN",
+      "shared": [
+       "changed",
+       "mstatus",
+       "set"
+      ]
+     },
+     {
+      "udb": "SXLEN",
+      "shared": [
+       "changed",
+       "mstatus",
+       "set"
+      ]
+     },
+     {
+      "udb": "VUXLEN",
+      "shared": [
+       "changed",
+       "set"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MSTATUS_FS_NO_CHANGE_DIRTY",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MSTATUS_FS_NO_CHANGE_DIRTY",
+   "desc": "When an instruction explicitly or implicitly writes a floating-point register or the fcsr but does not alter its contents and FS=Initial or FS=Clean, does the implementation transition `mstatus.FS` to",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "HW_MSTATUS_VS_DIRTY_UPDATE",
+      "shared": [
+       "dirty",
+       "mstatus",
+       "writes"
+      ]
+     },
+     {
+      "udb": "HW_MSTATUS_FS_DIRTY_UPDATE",
+      "shared": [
+       "dirty",
+       "mstatus",
+       "writes"
+      ]
+     },
+     {
+      "udb": "VFREDUSUM_NODE_ROUNDING_BEHAVIOR",
+      "shared": [
+       "floating",
+       "point"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "shared": [
+       "but",
+       "contents"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MSTATUS_VS_SW_DIRTY_UPDATE",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MSTATUS_VS_IMPRECISE",
+   "desc": "[%autowidth] !=== ! Value ! Definition ! DirtyWhenInitOrClean ! Implementation sets `mstatus.VS` to Dirty when software attempts to set VS to Initial or Clean ! Other ! Unpredictable behavior !===",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "HW_MSTATUS_VS_DIRTY_UPDATE",
+      "shared": [
+       "dirty",
+       "imprecise",
+       "mstatus",
+       "unpredictable"
+      ]
+     },
+     {
+      "udb": "HW_MSTATUS_FS_DIRTY_UPDATE",
+      "shared": [
+       "dirty",
+       "imprecise",
+       "mstatus",
+       "unpredictable"
+      ]
+     },
+     {
+      "udb": "MSTATUS_VS_LEGAL_VALUES",
+      "shared": [
+       "mstatus",
+       "set",
+       "software"
+      ]
+     },
+     {
+      "udb": "LRSC_RESERVATION_STRATEGY",
+      "shared": [
+       "behavior",
+       "sets",
+       "unpredictable"
+      ]
+     },
+     {
+      "udb": "VILL_SET_ON_RESERVED_VTYPE",
+      "shared": [
+       "set",
+       "software"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MSTATUS_VS_NO_CHANGE_DIRTY",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MSTATUS_VS_NO_CHANGE_DIRTY",
+   "desc": "When an instruction that writes a vector register or vector CSR but does not alter its contents and VS=Initial or VS=Clean, does the implementation transition `mstatus.VS` to Dirty?",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "HW_MSTATUS_VS_DIRTY_UPDATE",
+      "shared": [
+       "dirty",
+       "mstatus",
+       "vector",
+       "writes"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "shared": [
+       "but",
+       "contents",
+       "vector"
+      ]
+     },
+     {
+      "udb": "HW_MSTATUS_FS_DIRTY_UPDATE",
+      "shared": [
+       "dirty",
+       "mstatus",
+       "writes"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_MISALIGNED_LEGAL",
+      "shared": [
+       "instruction",
+       "vector"
+      ]
+     },
+     {
+      "udb": "RESERVED_VSET_X0X0_VLMAX_CHANGE",
+      "shared": [
+       "change",
+       "vector"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MTVEC_RDONLY",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MTVEC_RDONLY",
+   "desc": "Is the `mtvec` CSR read-only?",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "MSIP_UPDATE_MAX_TIME",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MSIP_UPDATE_MAX_TIME",
+   "desc": "Maximum time in cycles for a store to memory-mapped register `msip` to be reflected in `mip.MSIP`.",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_LS_INDEX_MAX_EEW",
+      "shared": [
+       "max",
+       "maximum",
+       "store"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "shared": [
+       "memory",
+       "update"
+      ]
+     },
+     {
+      "udb": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+      "shared": [
+       "max",
+       "store"
+      ]
+     },
+     {
+      "udb": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
+      "shared": [
+       "max",
+       "store"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MEPC_INV_ADDR_CONV",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MEPC_INV_ADDR_CONV",
+   "desc": "`mepc` can hold all valid virtual addresses but not necessarily all invalid virtual addresses. If an implementation needs to convert an invalid address into some other value that `mepc` can hold, how ",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "MTVAL_WIDTH",
+      "shared": [
+       "addr",
+       "address",
+       "into"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_VIRTUAL_INSTRUCTION",
+      "shared": [
+       "into",
+       "virtual"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_STORE_AMO_ADDRESS_MISALIGNED",
+      "shared": [
+       "address",
+       "into"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_LOAD_ADDRESS_MISALIGNED",
+      "shared": [
+       "address",
+       "into"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_INSTRUCTION_ADDRESS_MISALIGNED",
+      "shared": [
+       "address",
+       "into"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MCAUSE_EXCCODE_MISALIGNED_VS_FAULT_PRI",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MCAUSE_EXCCODE_MISALIGNED_VS_FAULT_PRI",
+   "desc": "An implementation may treat address-misaligned exceptions with higher or lower priority than page-fault/access-fault exceptions. [%autowidth] !=== ! Value ! Definition ! MisalignedAlwaysHigher ! Addre",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
+      "shared": [
+       "access",
+       "address",
+       "exceptions",
+       "fault"
+      ]
+     },
+     {
+      "udb": "LRSC_MISALIGNED_BEHAVIOR",
+      "shared": [
+       "access",
+       "address",
+       "fault",
+       "misaligned"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_VSTVAL_ON_STORE_AMO_PAGE_FAULT",
+      "shared": [
+       "address",
+       "fault",
+       "page"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_VSTVAL_ON_STORE_AMO_ACCESS_FAULT",
+      "shared": [
+       "access",
+       "address",
+       "fault"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_VSTVAL_ON_LOAD_PAGE_FAULT",
+      "shared": [
+       "address",
+       "fault",
+       "page"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MTVAL_PER_EXC_BEHAVIOR",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MTVAL_PER_EXC_BEHAVIOR",
+   "desc": "Specifies on a per-exception code basis whether `mtval` holds an \"informative\" value such as the faulting address, sets it to zero, or some other unknown behavior. [%autowidth] !=== ! Value ! Definiti",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "TRAP_ON_SFENCE_VMA_WHEN_SATP_MODE_IS_READ_ONLY",
+      "shared": [
+       "exception",
+       "whether",
+       "zero"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_STORE_AMO_ADDRESS_MISALIGNED",
+      "shared": [
+       "address",
+       "exception",
+       "zero"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_LOAD_ADDRESS_MISALIGNED",
+      "shared": [
+       "address",
+       "exception",
+       "zero"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_INSTRUCTION_ADDRESS_MISALIGNED",
+      "shared": [
+       "address",
+       "exception",
+       "zero"
+      ]
+     },
+     {
+      "udb": "REPORT_CAUSE_IN_MTVAL_ON_SHADOW_STACK_SOFTWARE_CHECK",
+      "shared": [
+       "code",
+       "exception",
+       "mtval"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MTVAL_INV_ADDR_CONV",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MTVAL_INV_ADDR_CONV",
+   "desc": "`mtval` can hold all valid virtual addresses but not necessarily all invalid virtual addresses. If an implementation needs to convert an invalid address into some other value that `mtval` can hold, ho",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "MTVAL_WIDTH",
+      "shared": [
+       "addr",
+       "address",
+       "into",
+       "mtval"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_MTVAL_ON_STORE_AMO_PAGE_FAULT",
+      "shared": [
+       "address",
+       "mtval",
+       "virtual"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_MTVAL_ON_STORE_AMO_MISALIGNED",
+      "shared": [
+       "address",
+       "mtval",
+       "virtual"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_MTVAL_ON_STORE_AMO_ACCESS_FAULT",
+      "shared": [
+       "address",
+       "mtval",
+       "virtual"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_MTVAL_ON_LOAD_PAGE_FAULT",
+      "shared": [
+       "address",
+       "mtval",
+       "virtual"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MCONFIGPTR_VAL",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MCONFIGPTR_VAL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "MTIME_TICK_PERIOD",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MTIME_TICK_PERIOD",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "WFI_OPT_U_MODE",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "WFI_OPT_U_MODE",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "WFI_RESUME_REASON",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "WFI_RESUME_REASON",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "MCAUSE_RST_VAL",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MCAUSE_RST_VAL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "PMP_A_L_RST",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "PMP_A_L_RST",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "MSECCFG_MML_MMWP_RLB_RST",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MSECCFG_MML_MMWP_RLB_RST",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "MSECCFG_USEED_SSEED_RST",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MSECCFG_USEED_SSEED_RST",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "MCAUSE_RST_ALIAS_OK",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MCAUSE_RST_ALIAS_OK",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "PMA_MM_IFETCH",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "PMA_MM_IFETCH",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "PMA_CACHE_MM_ALL_ATOMICS",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "PMA_CACHE_MM_ALL_ATOMICS",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "PMA_MO_DYN",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "PMA_MO_DYN",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "CRITICAL_ERROR",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "CRITICAL_ERROR",
+   "desc": "When a critical error is detected, what does the implementation do? [%autowidth] !=== ! Value ! Definition ! ResetHart ! The implementation resets the current hart ! ResetPlatform ! The implementation",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+      "shared": [
+       "does",
+       "hart"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "NMI_MCAUSE_VAL",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "NMI_MCAUSE_VAL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "SXLEN",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": null,
+   "desc": "Effective XLEN in S-mode",
+   "evidence": {
+    "exact": "SXLEN",
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "UXLEN",
+      "shared": [
+       "mode",
+       "sxlen"
+      ]
+     },
+     {
+      "udb": "SXLEN",
+      "shared": [
+       "mode",
+       "sxlen"
+      ]
+     },
+     {
+      "udb": "NUM_PMP_ENTRIES",
+      "shared": [
+       "mode",
+       "xlen"
+      ]
+     },
+     {
+      "udb": "MXLEN",
+      "shared": [
+       "mode",
+       "xlen"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "UXLEN",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": null,
+   "desc": "Effective XLEN in U-mode",
+   "evidence": {
+    "exact": "UXLEN",
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "UXLEN",
+      "shared": [
+       "mode",
+       "uxlen"
+      ]
+     },
+     {
+      "udb": "NUM_PMP_ENTRIES",
+      "shared": [
+       "mode",
+       "xlen"
+      ]
+     },
+     {
+      "udb": "MXLEN",
+      "shared": [
+       "mode",
+       "xlen"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "RST_ADDR",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": null,
+   "desc": "Base address of the reset vector.",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL",
+      "shared": [
+       "address",
+       "base",
+       "vector"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+      "shared": [
+       "none",
+       "vector"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_MISALIGNED_LEGAL",
+      "shared": [
+       "address",
+       "vector"
+      ]
+     },
+     {
+      "udb": "PHYS_ADDR_WIDTH",
+      "shared": [
+       "addr",
+       "address"
+      ]
+     },
+     {
+      "udb": "MTVAL_WIDTH",
+      "shared": [
+       "addr",
+       "address"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "NMI_ADDR",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": null,
+   "desc": "Base address of the non-maskable interrupt vector.",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL",
+      "shared": [
+       "address",
+       "base",
+       "vector"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+      "shared": [
+       "none",
+       "vector"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_MISALIGNED_LEGAL",
+      "shared": [
+       "address",
+       "vector"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "shared": [
+       "non",
+       "vector"
+      ]
+     },
+     {
+      "udb": "PHYS_ADDR_WIDTH",
+      "shared": [
+       "addr",
+       "address"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "PMP_GRANULARITY",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "PMP_GRANULARITY",
+   "desc": "Minimum PMP region granularity supported by the platform",
+   "evidence": {
+    "exact": "PMP_GRANULARITY",
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "PMP_GRANULARITY",
+      "shared": [
+       "granularity",
+       "pmp",
+       "region"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "PMP_ENTRY_COUNT",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "PMP_ENTRY_COUNT",
+   "desc": "PMP supports up to 64 entries with allowed implementation counts and ordering rules",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "NUM_PMP_ENTRIES",
+      "shared": [
+       "entries",
+       "pmp"
+      ]
+     },
+     {
+      "udb": "HPM_COUNTER_EN",
+      "shared": [
+       "entries",
+       "entry"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "misa.MXL",
+   "section": "csr_definitions",
+   "reg": "misa",
+   "field": "MXL",
+   "file": "machine.yaml",
+   "impl": [
+    "MISA_WARL",
+    "MISA_CSR_IMPLEMENTED"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "MXLEN"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "MISA_CSR_IMPLEMENTED",
+      "shared": [
+       "implemented",
+       "misa"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "misa.EXTENSIONS",
+   "section": "csr_definitions",
+   "reg": "misa",
+   "field": "EXTENSIONS",
+   "file": "machine.yaml",
+   "impl": [
+    "MISA_WARL",
+    "MISA_EXTENSIONS_WARL",
+    "MISA_CSR_IMPLEMENTED",
+    "MISA_EXTENSIONS_WRITABLE_BITS",
+    "MUTABLE_MISA_V"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "MUTABLE_MISA_A",
+     "MUTABLE_MISA_B",
+     "MUTABLE_MISA_C",
+     "MUTABLE_MISA_D",
+     "MUTABLE_MISA_F",
+     "MUTABLE_MISA_H",
+     "MUTABLE_MISA_M",
+     "MUTABLE_MISA_Q"
+    ],
+    "tokens": [
+     {
+      "udb": "MUTABLE_MISA_A",
+      "shared": [
+       "extensions",
+       "misa",
+       "mutable"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_VSTVAL_ON_INSTRUCTION_MISALIGNED",
+      "shared": [
+       "extensions",
+       "implemented"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_STVAL_ON_INSTRUCTION_MISALIGNED",
+      "shared": [
+       "extensions",
+       "implemented"
+      ]
+     },
+     {
+      "udb": "MUTABLE_MISA_V",
+      "shared": [
+       "misa",
+       "mutable"
+      ]
+     },
+     {
+      "udb": "MUTABLE_MISA_U",
+      "shared": [
+       "misa",
+       "mutable"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "mstatus.MPP",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "MPP",
+   "file": "machine.yaml",
+   "impl": "MSTATUS_XPP_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "HW_MSTATUS_FS_DIRTY_UPDATE",
+     "HW_MSTATUS_VS_DIRTY_UPDATE",
+     "MISA_CSR_IMPLEMENTED",
+     "MSTATUS_FS_LEGAL_VALUES",
+     "MSTATUS_TVM_IMPLEMENTED",
+     "MSTATUS_VS_LEGAL_VALUES",
+     "M_MODE_ENDIANNESS",
+     "SXLEN"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mstatus.SPP",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "SPP",
+   "file": "machine.yaml",
+   "impl": "MSTATUS_XPP_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "HW_MSTATUS_FS_DIRTY_UPDATE",
+     "HW_MSTATUS_VS_DIRTY_UPDATE",
+     "MISA_CSR_IMPLEMENTED",
+     "MSTATUS_FS_LEGAL_VALUES",
+     "MSTATUS_TVM_IMPLEMENTED",
+     "MSTATUS_VS_LEGAL_VALUES",
+     "M_MODE_ENDIANNESS",
+     "SXLEN"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mstatus.MDT",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "MDT",
+   "file": "machine.yaml",
+   "impl": "MSTATUS_MDT_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "HW_MSTATUS_FS_DIRTY_UPDATE",
+     "HW_MSTATUS_VS_DIRTY_UPDATE",
+     "MISA_CSR_IMPLEMENTED",
+     "MSTATUS_FS_LEGAL_VALUES",
+     "MSTATUS_TVM_IMPLEMENTED",
+     "MSTATUS_VS_LEGAL_VALUES",
+     "M_MODE_ENDIANNESS",
+     "SXLEN"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mstatus.SXL",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "SXL",
+   "file": "machine.yaml",
+   "impl": [
+    "MSTATUS_SXL_WARL",
+    "MSTATUS_SXL_RDONLY_MXLEN64"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "SXLEN"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "SXLEN",
+      "shared": [
+       "mstatus",
+       "sxl"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "mstatus.UXL",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "UXL",
+   "file": "machine.yaml",
+   "impl": "MSTATUS_UXL_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "UXLEN"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "UXLEN",
+      "shared": [
+       "mstatus",
+       "uxl"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "mstatus.MBE",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "MBE",
+   "file": "machine.yaml",
+   "impl": [
+    "MSTATUS_MBE_WARL",
+    "MSTATUSH_MBE_WARL"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "M_MODE_ENDIANNESS"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "M_MODE_ENDIANNESS",
+      "shared": [
+       "mbe",
+       "mstatus"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "mstatus.SBE",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "SBE",
+   "file": "machine.yaml",
+   "impl": [
+    "MSTATUS_SBE_WARL",
+    "MSTATUSH_SBE_WARL"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "S_MODE_ENDIANNESS"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "S_MODE_ENDIANNESS",
+      "shared": [
+       "mstatus",
+       "sbe"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "mstatus.UBE",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "UBE",
+   "file": "machine.yaml",
+   "impl": [
+    "MSTATUS_UBE_WARL",
+    "MSTATUSH_UBE_WARL"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "U_MODE_ENDIANNESS"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "U_MODE_ENDIANNESS",
+      "shared": [
+       "mstatus",
+       "ube"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "mstatus.TVM",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "TVM",
+   "file": "machine.yaml",
+   "impl": "MSTATUS_TVM_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "MSTATUS_TVM_IMPLEMENTED"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "MSTATUS_TVM_IMPLEMENTED",
+      "shared": [
+       "mstatus",
+       "tvm"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "mstatus.TW",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "TW",
+   "file": "machine.yaml",
+   "impl": "MSTATUS_TW_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "HW_MSTATUS_FS_DIRTY_UPDATE",
+     "HW_MSTATUS_VS_DIRTY_UPDATE",
+     "MISA_CSR_IMPLEMENTED",
+     "MSTATUS_FS_LEGAL_VALUES",
+     "MSTATUS_TVM_IMPLEMENTED",
+     "MSTATUS_VS_LEGAL_VALUES",
+     "M_MODE_ENDIANNESS",
+     "SXLEN"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mstatus.TSR",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "TSR",
+   "file": "machine.yaml",
+   "impl": "MSTATUS_TSR_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "HW_MSTATUS_FS_DIRTY_UPDATE",
+     "HW_MSTATUS_VS_DIRTY_UPDATE",
+     "MISA_CSR_IMPLEMENTED",
+     "MSTATUS_FS_LEGAL_VALUES",
+     "MSTATUS_TVM_IMPLEMENTED",
+     "MSTATUS_VS_LEGAL_VALUES",
+     "M_MODE_ENDIANNESS",
+     "SXLEN"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mstatus.FS",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "FS",
+   "file": "machine.yaml",
+   "impl": [
+    "MSTATUS_FS_WARL",
+    "MSTATUS_FS_RDONLY0_S_NO_F"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "MISA_CSR_IMPLEMENTED",
+     "MSTATUS_FS_LEGAL_VALUES"
+    ],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mstatus.VS",
+   "section": "csr_definitions",
+   "reg": "mstatus",
+   "field": "VS",
+   "file": "machine.yaml",
+   "impl": [
+    "MSTATUS_VS_WARL",
+    "MSTATUS_VS_RDONLY0_S_NO_V"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "MISA_CSR_IMPLEMENTED",
+     "MSTATUS_VS_LEGAL_VALUES"
+    ],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mtvec.MODE",
+   "section": "csr_definitions",
+   "reg": "mtvec",
+   "field": "MODE",
+   "file": "machine.yaml",
+   "impl": "MTVEC_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "MTVEC_ACCESS",
+     "MTVEC_ILLEGAL_WRITE_BEHAVIOR",
+     "MTVEC_MODES"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "MTVEC_MODES",
+      "shared": [
+       "mode",
+       "mtvec"
+      ]
+     },
+     {
+      "udb": "MTVEC_ILLEGAL_WRITE_BEHAVIOR",
+      "shared": [
+       "mode",
+       "mtvec"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "mtvec.BASE",
+   "section": "csr_definitions",
+   "reg": "mtvec",
+   "field": "BASE",
+   "file": "machine.yaml",
+   "impl": [
+    "MTVEC_WARL",
+    "MTVEC_BASE_ALIGN_FUNC_MODE"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "MTVEC_ACCESS",
+     "MTVEC_ILLEGAL_WRITE_BEHAVIOR",
+     "MTVEC_MODES"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "MTVEC_MODES",
+      "shared": [
+       "base",
+       "mode",
+       "mtvec"
+      ]
+     },
+     {
+      "udb": "MTVEC_ILLEGAL_WRITE_BEHAVIOR",
+      "shared": [
+       "base",
+       "mode",
+       "mtvec"
+      ]
+     },
+     {
+      "udb": "MTVEC_BASE_ALIGNMENT_VECTORED",
+      "shared": [
+       "base",
+       "mtvec"
+      ]
+     },
+     {
+      "udb": "MTVEC_BASE_ALIGNMENT_DIRECT",
+      "shared": [
+       "base",
+       "mtvec"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "mie",
+   "section": "csr_definitions",
+   "reg": "mie",
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MIE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mhpmcounter",
+   "section": "csr_definitions",
+   "reg": "mhpmcounter",
+   "field": null,
+   "file": "machine.yaml",
+   "impl": [
+    "MHPMCOUNTER_WARL",
+    "MHPMEVENT_N_RDONLY0"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mhpmevent",
+   "section": "csr_definitions",
+   "reg": "mhpmevent",
+   "field": null,
+   "file": "machine.yaml",
+   "impl": [
+    "MHPMEVENT_WARL",
+    "MHPMEVENT_N_RDONLY0"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mcounteren",
+   "section": "csr_definitions",
+   "reg": "mcounteren",
+   "field": null,
+   "file": "machine.yaml",
+   "impl": [
+    "MCOUNTEREN_FLDS_WARL",
+    "MCOUNTEREN_CY_RDONLY0",
+    "MCOUNTEREN_TM_RDONLY0",
+    "MCOUNTEREN_IR_RDONLY0",
+    "MCOUNTEREN_HPM_N_RDONLY0"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "MCOUNTENABLE_EN"
+    ],
+    "tokens": [
+     {
+      "udb": "MCOUNTENABLE_EN",
+      "shared": [
+       "hpm",
+       "mcounteren"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "mcountinhibit",
+   "section": "csr_definitions",
+   "reg": "mcountinhibit",
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MCOUNTINHIBIT_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "COUNTINHIBIT_EN"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mepc",
+   "section": "csr_definitions",
+   "reg": "mepc",
+   "field": null,
+   "file": "machine.yaml",
+   "impl": "MEPC_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mcause.EXCCODE",
+   "section": "csr_definitions",
+   "reg": "mcause",
+   "field": "EXCCODE",
+   "file": "machine.yaml",
+   "impl": "MCAUSE_EXCCODE_WLRL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mtval",
+   "section": "csr_definitions",
+   "reg": "mtval",
+   "field": null,
+   "file": "machine.yaml",
+   "impl": [
+    "MTVAL_WARL",
+    "MTVAL_RDONLY0"
+   ],
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "menvcfg.CBIE",
+   "section": "csr_definitions",
+   "reg": "menvcfg",
+   "field": "CBIE",
+   "file": "machine.yaml",
+   "impl": "MENVCFG_CBIE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "FORCE_UPGRADE_CBO_INVAL_TO_FLUSH"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "FORCE_UPGRADE_CBO_INVAL_TO_FLUSH",
+      "shared": [
+       "cbie",
+       "menvcfg"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "menvcfg.PMM",
+   "section": "csr_definitions",
+   "reg": "menvcfg",
+   "field": "PMM",
+   "file": "machine.yaml",
+   "impl": "MENVCFG_PMM_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "FORCE_UPGRADE_CBO_INVAL_TO_FLUSH"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mseccfg.RLB",
+   "section": "csr_definitions",
+   "reg": "mseccfg",
+   "field": "RLB",
+   "file": "machine.yaml",
+   "impl": "MSECCFG_RLB_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mseccfg.MMWP",
+   "section": "csr_definitions",
+   "reg": "mseccfg",
+   "field": "MMWP",
+   "file": "machine.yaml",
+   "impl": "MSECCFG_MMWP_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mseccfg.MML",
+   "section": "csr_definitions",
+   "reg": "mseccfg",
+   "field": "MML",
+   "file": "machine.yaml",
+   "impl": "MSECCFG_MML_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mseccfg.PMM",
+   "section": "csr_definitions",
+   "reg": "mseccfg",
+   "field": "PMM",
+   "file": "machine.yaml",
+   "impl": "MSECCFG_PMM_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "pmpcfgN.pmpMcfg",
+   "section": "csr_definitions",
+   "reg": "pmpcfgN",
+   "field": "pmpMcfg",
+   "file": "machine.yaml",
+   "impl": "PMPCFG_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "NUM_PMP_ENTRIES",
+      "shared": [
+       "pmpcfg",
+       "pmpcfgn"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "mncause",
+   "section": "csr_definitions",
+   "reg": "mncause",
+   "field": null,
+   "file": "rnmi.yaml",
+   "impl": "MNCAUSE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "mnstatus",
+   "section": "csr_definitions",
+   "reg": "mnstatus",
+   "field": null,
+   "file": "rnmi.yaml",
+   "impl": "MNSTATUS_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "MISALIGNED_LDST_HW_SUPPORT",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "rv32.yaml",
+   "impl": "MISALIGNED_LDST_HW_SUPPORT",
+   "desc": "Hardware support for misaligned integer and floating-point load/store instructions. [%autowidth] !=== ! Value ! Definition ! False ! No hardware support for misaligned load/store instructions ! True !",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "REPORT_VA_IN_VSTVAL_ON_STORE_AMO_MISALIGNED",
+      "shared": [
+       "false",
+       "ldst",
+       "misaligned",
+       "store"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_VSTVAL_ON_LOAD_MISALIGNED",
+      "shared": [
+       "false",
+       "ldst",
+       "load",
+       "misaligned"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_STVAL_ON_STORE_AMO_MISALIGNED",
+      "shared": [
+       "false",
+       "ldst",
+       "misaligned",
+       "store"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_STVAL_ON_LOAD_MISALIGNED",
+      "shared": [
+       "false",
+       "ldst",
+       "load",
+       "misaligned"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_MTVAL_ON_STORE_AMO_MISALIGNED",
+      "shared": [
+       "false",
+       "misaligned",
+       "store",
+       "true"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MISALIGNED_LDST_EXC_TYPE",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "rv32.yaml",
+   "impl": "MISALIGNED_LDST_EXC_TYPE",
+   "desc": "Type of exception raised by a misaligned integer/float load/store instruction when an implementation raises an exception due to misalignment. [%autowidth] !=== ! Value ! Definition ! AlwaysMisalignedE",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
+      "shared": [
+       "exception",
+       "ldst",
+       "load",
+       "misaligned"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_MISALIGNED_LEGAL",
+      "shared": [
+       "exception",
+       "instruction",
+       "misaligned",
+       "raised"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_STORE_AMO_ADDRESS_MISALIGNED",
+      "shared": [
+       "exception",
+       "instruction",
+       "misaligned",
+       "store"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_LOAD_ADDRESS_MISALIGNED",
+      "shared": [
+       "exception",
+       "instruction",
+       "load",
+       "misaligned"
+      ]
+     },
+     {
+      "udb": "REPORT_VA_IN_VSTVAL_ON_STORE_AMO_MISALIGNED",
+      "shared": [
+       "instruction",
+       "ldst",
+       "misaligned",
+       "store"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "sctrdepth.DEPTH",
+   "section": "csr_definitions",
+   "reg": "sctrdepth",
+   "field": "DEPTH",
+   "file": "smctr.yaml",
+   "impl": "SCTRDEPTH_DEPTH_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "sctrstatus.WRPTR",
+   "section": "csr_definitions",
+   "reg": "sctrstatus",
+   "field": "WRPTR",
+   "file": "smctr.yaml",
+   "impl": "SCTRSTATUS_WRPTR_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "ctrsource",
+   "section": "csr_definitions",
+   "reg": "ctrsource",
+   "field": null,
+   "file": "smctr.yaml",
+   "impl": "CTRSOURCE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "sstateen0/sstateen1/sstateen2/sstateen3",
+   "section": "csr_definitions",
+   "reg": "sstateen0/sstateen1/sstateen2/sstateen3",
+   "field": null,
+   "file": "smstateen.yaml",
+   "impl": "STATEEN_WARL_ACCESS",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "hstateen0/hstateen1/hstateen2/hstateen3",
+   "section": "csr_definitions",
+   "reg": "hstateen0/hstateen1/hstateen2/hstateen3",
+   "field": null,
+   "file": "smstateen.yaml",
+   "impl": "STATEEN_WARL_ACCESS",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "ASIDLEN",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "supervisor.yaml",
+   "impl": "ASIDLEN",
+   "desc": "The number of bits in the ASID field of the `satp` CSR",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "ASID_WIDTH",
+      "shared": [
+       "asid",
+       "number"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "SATP_MODE_ROZ_SFENCE_ILLEGAL",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "supervisor.yaml",
+   "impl": "SATP_MODE_ROZ_SFENCE_ILLEGAL",
+   "desc": "For implementations that only support the Bare mode, will an SFENCE.VMA instruction raise an illegal-instruction exception? [%autowidth] !=== ! Value ! Definition ! AlwaysIllegalInstExc ! Implementati",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "TRAP_ON_SFENCE_VMA_WHEN_SATP_MODE_IS_READ_ONLY",
+      "shared": [
+       "bare",
+       "exception",
+       "illegal",
+       "instruction"
+      ]
+     },
+     {
+      "udb": "TRAP_ON_UNIMPLEMENTED_INSTRUCTION",
+      "shared": [
+       "exception",
+       "instruction",
+       "will"
+      ]
+     },
+     {
+      "udb": "TRAP_ON_UNIMPLEMENTED_CSR",
+      "shared": [
+       "exception",
+       "instruction",
+       "will"
+      ]
+     },
+     {
+      "udb": "TRAP_ON_RESERVED_INSTRUCTION",
+      "shared": [
+       "exception",
+       "instruction",
+       "will"
+      ]
+     },
+     {
+      "udb": "TRAP_ON_ILLEGAL_WLRL",
+      "shared": [
+       "exception",
+       "illegal",
+       "will"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "sstatus.SDT",
+   "section": "csr_definitions",
+   "reg": "sstatus",
+   "field": "SDT",
+   "file": "supervisor.yaml",
+   "impl": "SSTATUS_SDT_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "stvec.MODE",
+   "section": "csr_definitions",
+   "reg": "stvec",
+   "field": "MODE",
+   "file": "supervisor.yaml",
+   "impl": "STVEC_MODE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "STVEC_MODE_DIRECT",
+     "STVEC_MODE_VECTORED"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VSTVEC_MODE_VECTORED",
+      "shared": [
+       "mode",
+       "stvec"
+      ]
+     },
+     {
+      "udb": "STVEC_MODE_VECTORED",
+      "shared": [
+       "mode",
+       "stvec"
+      ]
+     },
+     {
+      "udb": "STVEC_MODE_DIRECT",
+      "shared": [
+       "mode",
+       "stvec"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "stvec.BASE",
+   "section": "csr_definitions",
+   "reg": "stvec",
+   "field": "BASE",
+   "file": "supervisor.yaml",
+   "impl": "STVEC_BASE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "STVEC_MODE_DIRECT",
+     "STVEC_MODE_VECTORED"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "sie",
+   "section": "csr_definitions",
+   "reg": "sie",
+   "field": null,
+   "file": "supervisor.yaml",
+   "impl": "SIE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "scounteren",
+   "section": "csr_definitions",
+   "reg": "scounteren",
+   "field": null,
+   "file": "supervisor.yaml",
+   "impl": "SCOUNTEREN_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [
+     "SCOUNTENABLE_EN"
+    ],
+    "tokens": []
+   }
+  },
+  {
+   "name": "scause.EXCEPTION_CODE",
+   "section": "csr_definitions",
+   "reg": "scause",
+   "field": "EXCEPTION_CODE",
+   "file": "supervisor.yaml",
+   "impl": "SCAUSE_EXCEPTION_CODE_ACC",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "REPORT_CAUSE_IN_VSTVAL_ON_SHADOW_STACK_SOFTWARE_CHECK",
+      "shared": [
+       "code",
+       "exception"
+      ]
+     },
+     {
+      "udb": "REPORT_CAUSE_IN_VSTVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "shared": [
+       "code",
+       "exception"
+      ]
+     },
+     {
+      "udb": "REPORT_CAUSE_IN_STVAL_ON_SHADOW_STACK_SOFTWARE_CHECK",
+      "shared": [
+       "code",
+       "exception"
+      ]
+     },
+     {
+      "udb": "REPORT_CAUSE_IN_STVAL_ON_LANDING_PAD_SOFTWARE_CHECK",
+      "shared": [
+       "code",
+       "exception"
+      ]
+     },
+     {
+      "udb": "REPORT_CAUSE_IN_MTVAL_ON_SHADOW_STACK_SOFTWARE_CHECK",
+      "shared": [
+       "code",
+       "exception"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "stval",
+   "section": "csr_definitions",
+   "reg": "stval",
+   "field": null,
+   "file": "supervisor.yaml",
+   "impl": "STVAL_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "senvcfg.CBIE",
+   "section": "csr_definitions",
+   "reg": "senvcfg",
+   "field": "CBIE",
+   "file": "supervisor.yaml",
+   "impl": "SENVCFG_CBIE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "ELEN",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "ELEN",
+   "desc": "Maximum size of vector element in bits",
+   "evidence": {
+    "exact": "ELEN",
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "ELEN",
+      "shared": [
+       "element",
+       "elen",
+       "maximum",
+       "size"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL",
+      "shared": [
+       "maximum",
+       "size",
+       "vector"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_MISALIGNED_LEGAL",
+      "shared": [
+       "element",
+       "size",
+       "vector"
+      ]
+     },
+     {
+      "udb": "SEW_MIN",
+      "shared": [
+       "element",
+       "elen",
+       "vector"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+      "shared": [
+       "element",
+       "vector"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VLEN",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "VLEN",
+   "desc": "Maximum size of vector register in bits",
+   "evidence": {
+    "exact": "VLEN",
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL",
+      "shared": [
+       "maximum",
+       "size",
+       "vector"
+      ]
+     },
+     {
+      "udb": "ELEN",
+      "shared": [
+       "maximum",
+       "size",
+       "vector"
+      ]
+     },
+     {
+      "udb": "VLEN",
+      "shared": [
+       "vector",
+       "vlen"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_MISALIGNED_LEGAL",
+      "shared": [
+       "size",
+       "vector"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_INDEX_MAX_EEW",
+      "shared": [
+       "maximum",
+       "vector"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MSTATUS_VS_HW_DIRTY_UPDATE",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "HW_MSTATUS_VS_DIRTY_UPDATE",
+   "desc": "Implementations can change mstatus.VS or vsstatus.VS from Initial or Clean to Dirty at any time [%autowidth] !=== ! Value ! Definition ! PreciseDirty ! Only set mstatus.VS or vsstatus.VS to Dirty only",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "HW_MSTATUS_VS_DIRTY_UPDATE",
+      "shared": [
+       "dirty",
+       "mstatus",
+       "update"
+      ]
+     },
+     {
+      "udb": "HW_MSTATUS_FS_DIRTY_UPDATE",
+      "shared": [
+       "dirty",
+       "mstatus",
+       "update"
+      ]
+     },
+     {
+      "udb": "VUXLEN",
+      "shared": [
+       "set",
+       "vsstatus"
+      ]
+     },
+     {
+      "udb": "UXLEN",
+      "shared": [
+       "mstatus",
+       "set"
+      ]
+     },
+     {
+      "udb": "SXLEN",
+      "shared": [
+       "mstatus",
+       "set"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VSETVL_WITH_NEW_RATIO_SETS_VILL",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "RESERVED_VILL_SET",
+   "desc": "Will `vsetvl`/`vsetvli` instructions executed with a new SEW/LMUL ratio that changes VLMAX set `vcsr.VILL` to 1? [%autowidth] !=== ! Value ! Definition ! Always ! Always set `vcsr.VILL` set to 1 in th",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "RESERVED_VSET_X0X0_VLMAX_CHANGE",
+      "shared": [
+       "instructions",
+       "lmul",
+       "new",
+       "ratio"
+      ]
+     },
+     {
+      "udb": "VILL_SET_ON_RESERVED_VTYPE",
+      "shared": [
+       "lmul",
+       "reserved",
+       "set",
+       "sew"
+      ]
+     },
+     {
+      "udb": "RESERVED_VSET_X0X0_VILL_SET",
+      "shared": [
+       "instructions",
+       "reserved",
+       "set",
+       "vill"
+      ]
+     },
+     {
+      "udb": "FOLLOW_VTYPE_RESET_RECOMMENDATION",
+      "shared": [
+       "set",
+       "vill",
+       "will"
+      ]
+     },
+     {
+      "udb": "VSXLEN",
+      "shared": [
+       "always",
+       "set"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VSETVL_WITH_VILL_1_STAY_1",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "RESERVED_VILL_SET",
+   "desc": "Will `vsetvl`/`vsetvli` instructions executed when `vcsr.VILL` bit is already 1 keep it set to 1? [%autowidth] !=== ! Value ! Definition ! Always ! Always keep `vcsr.VILL` set to 1 in this case ! Neve",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "RESERVED_VSET_X0X0_VLMAX_CHANGE",
+      "shared": [
+       "case",
+       "instructions",
+       "reserved",
+       "set"
+      ]
+     },
+     {
+      "udb": "RESERVED_VSET_X0X0_VILL_SET",
+      "shared": [
+       "instructions",
+       "reserved",
+       "set",
+       "vill"
+      ]
+     },
+     {
+      "udb": "VILL_SET_ON_RESERVED_VTYPE",
+      "shared": [
+       "reserved",
+       "set",
+       "vill"
+      ]
+     },
+     {
+      "udb": "FOLLOW_VTYPE_RESET_RECOMMENDATION",
+      "shared": [
+       "set",
+       "vill",
+       "will"
+      ]
+     },
+     {
+      "udb": "VSXLEN",
+      "shared": [
+       "always",
+       "set"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "MSTATUS_VS_EXISTS",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "MSTATUS_VS_EXISTS",
+   "desc": "Does the `mstatus.VS` field exist even if the `misa.V` bit is hardwired to 0?",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VSSTATUS_VS_EXISTS",
+      "shared": [
+       "even",
+       "exists",
+       "misa"
+      ]
+     },
+     {
+      "udb": "TIME_CSR_IMPLEMENTED",
+      "shared": [
+       "does",
+       "exist",
+       "exists"
+      ]
+     },
+     {
+      "udb": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+      "shared": [
+       "does",
+       "even"
+      ]
+     },
+     {
+      "udb": "LRSC_FAIL_ON_VA_SYNONYM",
+      "shared": [
+       "does",
+       "even"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VSSTATUS_VS_EXISTS",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "VSSTATUS_VS_EXISTS",
+   "desc": "Does the `vsstatus.VS` field exist even if the `misa.V` bit is hardwired to 0?",
+   "evidence": {
+    "exact": "VSSTATUS_VS_EXISTS",
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VSSTATUS_VS_EXISTS",
+      "shared": [
+       "even",
+       "exists",
+       "misa",
+       "vsstatus"
+      ]
+     },
+     {
+      "udb": "TIME_CSR_IMPLEMENTED",
+      "shared": [
+       "does",
+       "exist",
+       "exists"
+      ]
+     },
+     {
+      "udb": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+      "shared": [
+       "does",
+       "even"
+      ]
+     },
+     {
+      "udb": "LRSC_FAIL_ON_VA_SYNONYM",
+      "shared": [
+       "does",
+       "even"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VECTOR_LS_VSTART",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "VECTOR_LS_VSTART",
+   "desc": "Does a vector load instruction overwrite the faulting element and subsequent elements when an exception occurs? [%autowidth] !=== ! Value ! Definition ! Always ! Always overwrites ! Never ! Never over",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_FF_NO_EXCEPTION_TRIM",
+      "shared": [
+       "element",
+       "elements",
+       "exception",
+       "occurs"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_PAST_TRAP",
+      "shared": [
+       "element",
+       "elements",
+       "load",
+       "overwrite"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD",
+      "shared": [
+       "exception",
+       "load",
+       "occurs",
+       "subsequent"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_MISALIGNED_LEGAL",
+      "shared": [
+       "element",
+       "exception",
+       "instruction",
+       "vector"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+      "shared": [
+       "elements",
+       "load",
+       "overwrite",
+       "vector"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VECTOR_LS_CONSTANT_STRIDE_X0",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "VECTOR_LS_CONSTANT_STRIDE_X0",
+   "desc": "Do vector load/store constant stride instructions with `rs2` = `x0` perform fewer memory operations than the number of active elements? [%autowidth] !=== ! Value ! Definition ! Always ! Always perform",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "shared": [
+       "active",
+       "elements",
+       "instructions",
+       "load"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_PAST_TRAP",
+      "shared": [
+       "active",
+       "elements",
+       "instructions",
+       "load"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_INDEX_MAX_EEW",
+      "shared": [
+       "load",
+       "store",
+       "than",
+       "vector"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+      "shared": [
+       "elements",
+       "instructions",
+       "load",
+       "vector"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_NO_EXCEPTION_TRIM",
+      "shared": [
+       "elements",
+       "fewer",
+       "than",
+       "vector"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VECTOR_LS_OVERWRITE_PAST_TRAP",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "VECTOR_LS_OVERWRITE_PAST_TRAP",
+   "desc": "Do vector unit-stride fault-only-first load instructions overwrite active destination vector register group elements past the element index at which the trap is reported? [%autowidth] !=== ! Value ! D",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_LOAD_PAST_TRAP",
+      "shared": [
+       "active",
+       "destination",
+       "element",
+       "elements"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+      "shared": [
+       "destination",
+       "elements",
+       "fault",
+       "first"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "shared": [
+       "active",
+       "destination",
+       "elements",
+       "fault"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD",
+      "shared": [
+       "fault",
+       "first",
+       "index",
+       "load"
+      ]
+     },
+     {
+      "udb": "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR",
+      "shared": [
+       "active",
+       "element",
+       "elements"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VECTOR_FF_PAST_TRAP",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "VECTOR_FF_PAST_TRAP",
+   "desc": "Do fault-only-first vector load instructions update active destination elements past the element that causes trimming of the vector length (but not past the original vector length)? [%autowidth] !=== ",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "shared": [
+       "active",
+       "but",
+       "causes",
+       "destination"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_PAST_TRAP",
+      "shared": [
+       "active",
+       "destination",
+       "element",
+       "elements"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+      "shared": [
+       "destination",
+       "elements",
+       "fault",
+       "first"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD",
+      "shared": [
+       "fault",
+       "first",
+       "load",
+       "trap"
+      ]
+     },
+     {
+      "udb": "VFREDUSUM_FINAL_NODE_ELEMENT_BEHAVIOR",
+      "shared": [
+       "active",
+       "element",
+       "elements"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+   "desc": "Can a trap occurring during a vector load/store access to a segment cause some subset of the segment accesses be performed before the trap is taken? [%autowidth] !=== ! Value ! Definition ! Always ! A",
+   "evidence": {
+    "exact": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+      "shared": [
+       "access",
+       "accesses",
+       "before",
+       "during"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD",
+      "shared": [
+       "before",
+       "load",
+       "partial",
+       "seg"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+      "shared": [
+       "load",
+       "seg",
+       "segment",
+       "trap"
+      ]
+     },
+     {
+      "udb": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
+      "shared": [
+       "access",
+       "always",
+       "load",
+       "store"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_INDEX_MAX_EEW",
+      "shared": [
+       "load",
+       "store",
+       "vector"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VECTOR_FF_SEG_SUBSET_EXC_ON_ZEROTH",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "VECTOR_FF_SEG_PARTIAL_ACCESS",
+   "desc": "When an exception is detected partway through accessing the zeroth segment of a fault-only-first segment load and a trap is taken, does the implementation load a subset of the segment? [%autowidth] !=",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD",
+      "shared": [
+       "exception",
+       "fault",
+       "first",
+       "load"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+      "shared": [
+       "access",
+       "partial",
+       "seg",
+       "segment"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+      "shared": [
+       "fault",
+       "first",
+       "load",
+       "seg"
+      ]
+     },
+     {
+      "udb": "TIME_CSR_IMPLEMENTED",
+      "shared": [
+       "access",
+       "accessing",
+       "does",
+       "exception"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "shared": [
+       "fault",
+       "first",
+       "load",
+       "vector"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VECTOR_FF_SEG_SUBSET_EXC_PAST_ZEROTH",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "VECTOR_FF_SEG_PARTIAL_ACCESS",
+   "desc": "When an exception is detected partway through accessing past the zeroth segment of a fault-only-first segment load and a trap is taken, does the implementation load a subset of the segment? [%autowidt",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD",
+      "shared": [
+       "exception",
+       "fault",
+       "first",
+       "load"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+      "shared": [
+       "access",
+       "partial",
+       "seg",
+       "segment"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+      "shared": [
+       "fault",
+       "first",
+       "load",
+       "seg"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "shared": [
+       "fault",
+       "first",
+       "load",
+       "past"
+      ]
+     },
+     {
+      "udb": "TIME_CSR_IMPLEMENTED",
+      "shared": [
+       "access",
+       "accessing",
+       "does",
+       "exception"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VECTOR_LS_SEG_FF_OVERLOAD",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "VECTOR_LS_SEG_FF_OVERLOAD",
+   "desc": "Do fault-only-first segment load instructions overwrite destination vector register group elements past the point at which a trap is reported or past the point at which vector length is trimmed? [%aut",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT",
+      "shared": [
+       "destination",
+       "elements",
+       "fault",
+       "first"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_PAST_TRAP",
+      "shared": [
+       "destination",
+       "elements",
+       "group",
+       "instructions"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_UPDATE_PAST_TRIM",
+      "shared": [
+       "destination",
+       "elements",
+       "fault",
+       "first"
+      ]
+     },
+     {
+      "udb": "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD",
+      "shared": [
+       "fault",
+       "first",
+       "load",
+       "seg"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+      "shared": [
+       "seg",
+       "segment",
+       "trap",
+       "vector"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION",
+   "desc": "Does the implementation raise a misaligned address exception on whole register vector loads and stores if the base address is not naturally aligned to the larger of the size of the encoded EEW in byte",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL",
+      "shared": [
+       "address",
+       "aligned",
+       "base",
+       "eew"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_MISALIGNED_LEGAL",
+      "shared": [
+       "address",
+       "aligned",
+       "exception",
+       "misaligned"
+      ]
+     },
+     {
+      "udb": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+      "shared": [
+       "aligned",
+       "does",
+       "exception",
+       "misaligned"
+      ]
+     },
+     {
+      "udb": "MISALIGNED_LDST",
+      "shared": [
+       "does",
+       "exception",
+       "loads",
+       "misaligned"
+      ]
+     },
+     {
+      "udb": "MISALIGNED_LDST_EXCEPTION_PRIORITY",
+      "shared": [
+       "address",
+       "exception",
+       "misaligned",
+       "size"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "VECTOR_LS_MISSALIGNED_EXCEPTION",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "v-st-ext.yaml",
+   "impl": "VECTOR_LS_MISSALIGNED_EXCEPTION",
+   "desc": "Does the implementation raise a misaligned address exception if an element accessed by a vector memory instruction is not naturally aligned to the size of the element or does it transfer the element s",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_LS_MISALIGNED_LEGAL",
+      "shared": [
+       "accessed",
+       "address",
+       "aligned",
+       "element"
+      ]
+     },
+     {
+      "udb": "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL",
+      "shared": [
+       "address",
+       "aligned",
+       "exception",
+       "misaligned"
+      ]
+     },
+     {
+      "udb": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+      "shared": [
+       "aligned",
+       "does",
+       "exception",
+       "misaligned"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_STORE_AMO_ADDRESS_MISALIGNED",
+      "shared": [
+       "address",
+       "exception",
+       "instruction",
+       "misaligned"
+      ]
+     },
+     {
+      "udb": "TINST_VALUE_ON_LOAD_ADDRESS_MISALIGNED",
+      "shared": [
+       "address",
+       "exception",
+       "instruction",
+       "misaligned"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "INTERRUPTS_ALLOWED_IN_PUSHPOP",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "zc.yaml",
+   "impl": "INTERRUPTS_ALLOWED_IN_PUSHPOP",
+   "desc": "Can interrupts be taken during the execution of a push/pop instruction?",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+      "shared": [
+       "during",
+       "taken"
+      ]
+     },
+     {
+      "udb": "REPORT_CAUSE_IN_VSTVAL_ON_SHADOW_STACK_SOFTWARE_CHECK",
+      "shared": [
+       "instruction",
+       "pop"
+      ]
+     },
+     {
+      "udb": "REPORT_CAUSE_IN_STVAL_ON_SHADOW_STACK_SOFTWARE_CHECK",
+      "shared": [
+       "instruction",
+       "pop"
+      ]
+     },
+     {
+      "udb": "REPORT_CAUSE_IN_MTVAL_ON_SHADOW_STACK_SOFTWARE_CHECK",
+      "shared": [
+       "instruction",
+       "pop"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "jvt.BASE",
+   "section": "csr_definitions",
+   "reg": "jvt",
+   "field": "BASE",
+   "file": "zc.yaml",
+   "impl": "JVT_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "JVT_BASE_MASK",
+     "JVT_BASE_TYPE",
+     "JVT_READ_ONLY"
+    ],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "JVT_BASE_TYPE",
+      "shared": [
+       "base",
+       "jvt"
+      ]
+     },
+     {
+      "udb": "JVT_BASE_MASK",
+      "shared": [
+       "base",
+       "jvt"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "jvt.MODE",
+   "section": "csr_definitions",
+   "reg": "jvt",
+   "field": "MODE",
+   "file": "zc.yaml",
+   "impl": "JVT_MODE_WARL",
+   "desc": "",
+   "evidence": {
+    "exact": null,
+    "csr_field": [
+     "JVT_READ_ONLY"
+    ],
+    "csr_any": [],
+    "tokens": []
+   }
+  },
+  {
+   "name": "NTL_TRAP_BEHAVIOR",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "zihintntl.yaml",
+   "impl": "NTL_TRAP_BEHAVIOR",
+   "desc": "Does the implementation ignore the NTL hint when the target instruction causes a trap?",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "TRAP_ON_UNIMPLEMENTED_INSTRUCTION",
+      "shared": [
+       "behavior",
+       "causes",
+       "instruction",
+       "trap"
+      ]
+     },
+     {
+      "udb": "TRAP_ON_RESERVED_INSTRUCTION",
+      "shared": [
+       "behavior",
+       "causes",
+       "instruction",
+       "trap"
+      ]
+     },
+     {
+      "udb": "TRAP_ON_UNIMPLEMENTED_CSR",
+      "shared": [
+       "behavior",
+       "instruction",
+       "trap"
+      ]
+     },
+     {
+      "udb": "TRAP_ON_ILLEGAL_WLRL",
+      "shared": [
+       "behavior",
+       "causes",
+       "trap"
+      ]
+     },
+     {
+      "udb": "VECTOR_LOAD_PAST_TRAP",
+      "shared": [
+       "behavior",
+       "trap"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "ZILSD_ALIGN8_ATOMIC",
+   "section": "parameter_definitions",
+   "reg": null,
+   "field": null,
+   "file": "zilsd.yaml",
+   "impl": "ZILSD_ALIGN8_ATOMIC",
+   "desc": "Does the implementation perform the 8-byte memory access atomically?",
+   "evidence": {
+    "exact": null,
+    "csr_field": [],
+    "csr_any": [],
+    "tokens": [
+     {
+      "udb": "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE",
+      "shared": [
+       "access",
+       "atomically",
+       "does",
+       "perform"
+      ]
+     },
+     {
+      "udb": "MISALIGNED_LDST",
+      "shared": [
+       "atomic",
+       "does",
+       "memory",
+       "perform"
+      ]
+     },
+     {
+      "udb": "TIME_CSR_IMPLEMENTED",
+      "shared": [
+       "access",
+       "does"
+      ]
+     },
+     {
+      "udb": "LRSC_RESERVATION_STRATEGY",
+      "shared": [
+       "access",
+       "byte"
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

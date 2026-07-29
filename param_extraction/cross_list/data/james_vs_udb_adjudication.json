@@ -1,0 +1,950 @@
+{
+ "note": "Proposed segmentation of the 144 entries that appear only on James list. Verdicts are hand-adjudicated and need review; the evidence for each is in the reason field. UDB baseline is the union of our 223-param snapshot and the 228 names in Jordan sail_udb_config_mapping.md, giving 229 distinct UDB parameters, which matches the count James reports.",
+ "udb_baseline": {
+  "ours_snapshot": 223,
+  "jordan_snapshot": 228,
+  "union": 229,
+  "only_in_newer": [
+   "MCOUNTINHIBIT_IMPLEMENTED",
+   "NUM_USABLE_PMP_ENTRIES",
+   "PMP_NA4_SUPPORTED",
+   "PMP_NAPOT_SUPPORTED",
+   "PMP_TOR_SUPPORTED",
+   "ZAWRS_NTO_IS_NOP"
+  ],
+  "only_in_ours": [
+   "MSTATUS_TVM_IMPLEMENTED"
+  ]
+ },
+ "verdicts": {
+  "ASIDLEN": {
+   "verdict": "in_udb",
+   "udb": [
+    "ASID_WIDTH"
+   ],
+   "reason": "Same quantity, renamed."
+  },
+  "CACHE_BLOCK_SIZE": {
+   "verdict": "in_udb",
+   "udb": [
+    "CACHE_BLOCK_SIZE"
+   ],
+   "reason": "Exact name match."
+  },
+  "CRITICAL_ERROR": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Critical-error signalling behaviour. UDB has no equivalent."
+  },
+  "ELEN": {
+   "verdict": "in_udb",
+   "udb": [
+    "ELEN"
+   ],
+   "reason": "Exact name match."
+  },
+  "GEILEN": {
+   "verdict": "in_udb",
+   "udb": [
+    "NUM_EXTERNAL_GUEST_INTERRUPTS"
+   ],
+   "reason": "Same quantity: number of supported guest external interrupts."
+  },
+  "HSXLEN": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "SXLEN"
+   ],
+   "reason": "HS-mode XLEN. UDB models SXLEN, and separately VSXLEN/VUXLEN, without a distinct HSXLEN."
+  },
+  "HTVAL_GUEST_PAGE_FAULT_TRAPVAL": {
+   "verdict": "in_udb",
+   "udb": [
+    "REPORT_GPA_IN_HTVAL_ON_GUEST_PAGE_FAULT"
+   ],
+   "reason": "Same htval-on-guest-page-fault reporting choice."
+  },
+  "INTERRUPTS_ALLOWED_IN_PUSHPOP": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Whether interrupts may be taken during Zcmp push/pop sequences. UDB has no equivalent. Our pipeline saw this and held it back under rule 1 (NOTE block)."
+  },
+  "LRSC_ALIGNMENT": {
+   "verdict": "in_udb",
+   "udb": [
+    "LRSC_MISALIGNED_BEHAVIOR"
+   ],
+   "reason": "His enum {AlwaysMisalignedExc, AlwaysAccessFaultExc, Other} is the same choice; Jordan maps Sail memory.misaligned.exceptions.lrsc to this UDB param."
+  },
+  "LRSC_RESERVATION_STRATEGY": {
+   "verdict": "in_udb",
+   "udb": [
+    "LRSC_RESERVATION_STRATEGY"
+   ],
+   "reason": "Exact name match."
+  },
+  "MARCHID": {
+   "verdict": "in_udb",
+   "udb": [
+    "ARCH_ID_VALUE",
+    "MARCHID_IMPLEMENTED"
+   ],
+   "reason": "Same marchid value/presence."
+  },
+  "MCAUSE_EXCCODE_MISALIGNED_VS_FAULT_PRI": {
+   "verdict": "in_udb",
+   "udb": [
+    "MISALIGNED_LDST_EXCEPTION_PRIORITY"
+   ],
+   "reason": "Same misaligned-vs-fault exception priority choice."
+  },
+  "MCAUSE_RST_ALIAS_OK": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Whether the mcause reset value may alias a defined cause. UDB models no CSR reset values."
+  },
+  "MCAUSE_RST_VAL": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Reset value of mcause. UDB models no CSR reset values."
+  },
+  "MCONFIGPTR_VAL": {
+   "verdict": "in_udb",
+   "udb": [
+    "CONFIG_PTR_ADDRESS"
+   ],
+   "reason": "Same mconfigptr value."
+  },
+  "MEPC_INV_ADDR_CONV": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Invalid-address conversion on writes to mepc. UDB has no such parameter; our MNEPC_INVALID_ADDRESS_CONVERSION is the RNMI sibling."
+  },
+  "MHARTID": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "mhartid value. Jordan records platform.hartid as having no UDB parameter. Arguably platform rather than ISA; flagged rather than assumed."
+  },
+  "MIPMPID": {
+   "verdict": "in_udb",
+   "udb": [
+    "IMP_ID_VALUE",
+    "MIMPID_IMPLEMENTED"
+   ],
+   "reason": "Same mimpid value/presence."
+  },
+  "MISALIGNED_LDST_EXC_TYPE": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "MISALIGNED_LDST_EXCEPTION_PRIORITY"
+   ],
+   "reason": "Related but not identical: his is which exception type, UDB's is priority."
+  },
+  "MISALIGNED_LDST_HW_SUPPORT": {
+   "verdict": "in_udb",
+   "udb": [
+    "MISALIGNED_LDST"
+   ],
+   "reason": "Same hardware-support boolean."
+  },
+  "MSECCFG_MML_MMWP_RLB_RST": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Reset value of mseccfg MML/MMWP/RLB. UDB models no CSR reset values."
+  },
+  "MSECCFG_USEED_SSEED_RST": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Reset value of the seed bits. Sail has Zkr.sseed_reset_value/useed_reset_value; Jordan records UDB as having neither."
+  },
+  "MSIP_UPDATE_MAX_TIME": {
+   "verdict": "out_of_scope",
+   "udb": [],
+   "reason": "A maximum time with no architectural units. Excluded by our rule on implementation-defined quantities with no testable units."
+  },
+  "MSTATUS_FS_IMPRECISE": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "HW_MSTATUS_FS_DIRTY_UPDATE"
+   ],
+   "reason": "Adjacent aspect of the same FS dirty-tracking behaviour."
+  },
+  "MSTATUS_FS_NO_CHANGE_DIRTY": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "HW_MSTATUS_FS_DIRTY_UPDATE"
+   ],
+   "reason": "Adjacent aspect of the same FS dirty-tracking behaviour."
+  },
+  "MSTATUS_SBE_ROCOPY": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "mstatus.SBE as a read-only copy of MBE. This is the read-only-mirrors-another-bit WARL shape our own list treats as a parameter (cf. SSTATUS_UBE_ACCESS); UDB models only the endianness value."
+  },
+  "MSTATUS_TW_TIME_LIMIT": {
+   "verdict": "out_of_scope",
+   "udb": [],
+   "reason": "The WFI 'bounded time limit'. The spec gives no units, so it fails the observable-and-testable master test. This is the exact example our INCLUSION_CRITERIA uses."
+  },
+  "MSTATUS_UBE_ROCOPY": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "mstatus.UBE as a read-only copy of MBE. Same shape as MSTATUS_SBE_ROCOPY."
+  },
+  "MSTATUS_VS_EXISTS": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Whether mstatus.VS exists when misa.V is clear. UDB has the VS-mode sibling VSSTATUS_VS_EXISTS but not the M-mode one."
+  },
+  "MSTATUS_VS_HW_DIRTY_UPDATE": {
+   "verdict": "in_udb",
+   "udb": [
+    "HW_MSTATUS_VS_DIRTY_UPDATE"
+   ],
+   "reason": "Same parameter, word order differs."
+  },
+  "MSTATUS_VS_NO_CHANGE_DIRTY": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "HW_MSTATUS_VS_DIRTY_UPDATE"
+   ],
+   "reason": "Adjacent aspect of the same VS dirty-tracking behaviour."
+  },
+  "MSTATUS_VS_SW_DIRTY_UPDATE": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "HW_MSTATUS_VS_DIRTY_UPDATE"
+   ],
+   "reason": "Adjacent aspect of the same VS dirty-tracking behaviour."
+  },
+  "MTIME_TICK_PERIOD": {
+   "verdict": "out_of_scope",
+   "udb": [],
+   "reason": "Platform timing. Jordan records platform.clock_frequency and instructions_per_tick as having no UDB parameter."
+  },
+  "MTVAL2_TRAPVAL": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT",
+    "REPORT_GPA_IN_TVAL_ON_LOAD_GUEST_PAGE_FAULT",
+    "REPORT_GPA_IN_TVAL_ON_STORE_AMO_GUEST_PAGE_FAULT"
+   ],
+   "reason": "UDB splits by faulting operation; his is one entry."
+  },
+  "MTVAL_INV_ADDR_CONV": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Invalid-address conversion on writes to mtval. UDB has no such parameter."
+  },
+  "MTVAL_PER_EXC_BEHAVIOR": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "REPORT_VA_IN_MTVAL_ON_BREAKPOINT",
+    "REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION",
+    "REPORT_VA_IN_MTVAL_ON_LOAD_PAGE_FAULT"
+   ],
+   "reason": "UDB has 14 REPORT_*_IN_MTVAL_ON_* parameters; his is one per-exception umbrella. 1-to-many."
+  },
+  "MTVEC_RDONLY": {
+   "verdict": "in_udb",
+   "udb": [
+    "MTVEC_ACCESS"
+   ],
+   "reason": "UDB's MTVEC_ACCESS enumerates read-only vs writable."
+  },
+  "MVENDOR_ID_BANK": {
+   "verdict": "in_udb",
+   "udb": [
+    "VENDOR_ID_BANK"
+   ],
+   "reason": "Same JEDEC bank field."
+  },
+  "MVENDOR_ID_OFFSET": {
+   "verdict": "in_udb",
+   "udb": [
+    "VENDOR_ID_OFFSET"
+   ],
+   "reason": "Same JEDEC offset field."
+  },
+  "MXLEN": {
+   "verdict": "in_udb",
+   "udb": [
+    "MXLEN"
+   ],
+   "reason": "Exact name match."
+  },
+  "NMI_ADDR": {
+   "verdict": "out_of_scope",
+   "udb": [],
+   "reason": "NMI vector address. Platform integration rather than an ISA parameter."
+  },
+  "NMI_MCAUSE_VAL": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "mcause value on NMI. UDB models no NMI cause value."
+  },
+  "NTL_TRAP_BEHAVIOR": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Trap behaviour for NTL hints. UDB has TRAP_ON_RESERVED_INSTRUCTION but nothing NTL-specific."
+  },
+  "PMA_CACHE_MM_ALL_ATOMICS": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Whether cacheable main memory supports all atomics. Same PMA gap."
+  },
+  "PMA_MM_IFETCH": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Whether main-memory regions support instruction fetch. UDB has PMA_GRANULARITY only; Jordan records UDB as having no per-region PMA attributes."
+  },
+  "PMA_MO_DYN": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Whether memory-ordering PMAs are dynamically configurable. Same PMA gap."
+  },
+  "PMP_A_L_RST": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Reset value of pmpcfg A and L fields. UDB models no CSR reset values."
+  },
+  "PMP_ENTRY_COUNT": {
+   "verdict": "in_udb",
+   "udb": [
+    "NUM_PMP_ENTRIES"
+   ],
+   "reason": "Same quantity, renamed."
+  },
+  "PMP_GRANULARITY": {
+   "verdict": "in_udb",
+   "udb": [
+    "PMP_GRANULARITY"
+   ],
+   "reason": "Exact name match. Note Jordan flags a units transform vs Sail (G vs G+2)."
+  },
+  "RST_ADDR": {
+   "verdict": "out_of_scope",
+   "udb": [],
+   "reason": "Reset vector address. Platform integration rather than an ISA parameter."
+  },
+  "SATP_MODE_ROZ_SFENCE_ILLEGAL": {
+   "verdict": "in_udb",
+   "udb": [
+    "TRAP_ON_SFENCE_VMA_WHEN_SATP_MODE_IS_READ_ONLY"
+   ],
+   "reason": "Same concept; Jordan maps the Sail equivalent to this UDB param."
+  },
+  "SXLEN": {
+   "verdict": "in_udb",
+   "udb": [
+    "SXLEN"
+   ],
+   "reason": "Exact name match."
+  },
+  "TIME_CSR_HW_SUPPORT": {
+   "verdict": "in_udb",
+   "udb": [
+    "TIME_CSR_IMPLEMENTED"
+   ],
+   "reason": "Same question: does a real hardware time CSR exist."
+  },
+  "UXLEN": {
+   "verdict": "in_udb",
+   "udb": [
+    "UXLEN"
+   ],
+   "reason": "Exact name match."
+  },
+  "VECTOR_FF_PAST_TRAP": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "VECTOR_FF_UPDATE_PAST_TRIM"
+   ],
+   "reason": "Adjacent fault-only-first aspect."
+  },
+  "VECTOR_FF_SEG_SUBSET_EXC_ON_ZEROTH": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD"
+   ],
+   "reason": "He splits the zeroth-element case out; UDB has one parameter."
+  },
+  "VECTOR_FF_SEG_SUBSET_EXC_PAST_ZEROTH": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD"
+   ],
+   "reason": "He splits the past-zeroth case out; UDB has one parameter."
+  },
+  "VECTOR_LS_CONSTANT_STRIDE_X0": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Constant-stride vector load/store with rs2=x0. UDB has no equivalent."
+  },
+  "VECTOR_LS_MISSALIGNED_EXCEPTION": {
+   "verdict": "in_udb",
+   "udb": [
+    "VECTOR_LS_MISALIGNED_LEGAL"
+   ],
+   "reason": "Same choice (note his spelling MISSALIGNED)."
+  },
+  "VECTOR_LS_OVERWRITE_PAST_TRAP": {
+   "verdict": "in_udb",
+   "udb": [
+    "VECTOR_LOAD_PAST_TRAP"
+   ],
+   "reason": "Same overwrite-past-trap choice."
+  },
+  "VECTOR_LS_SEG_FF_OVERLOAD": {
+   "verdict": "in_udb",
+   "udb": [
+    "VECTOR_LOAD_SEG_FF_OVERWRITE_ELEMENTS_AFTER_FAULT"
+   ],
+   "reason": "Same segment fault-only-first overwrite choice."
+  },
+  "VECTOR_LS_SEG_PARTIAL_ACCESS": {
+   "verdict": "in_udb",
+   "udb": [
+    "VECTOR_LS_SEG_PARTIAL_ACCESS"
+   ],
+   "reason": "Exact name match."
+  },
+  "VECTOR_LS_VSTART": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "LEGAL_VSTART"
+   ],
+   "reason": "UDB enumerates legal vstart values; his is the load/store-specific rule."
+  },
+  "VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION": {
+   "verdict": "in_udb",
+   "udb": [
+    "VECTOR_LS_WHOLEREG_MISALIGNED_LEGAL"
+   ],
+   "reason": "Same choice (note his spelling MISSALIGNED)."
+  },
+  "VLEN": {
+   "verdict": "in_udb",
+   "udb": [
+    "VLEN"
+   ],
+   "reason": "Exact name match."
+  },
+  "VMIDLEN": {
+   "verdict": "in_udb",
+   "udb": [
+    "VMID_WIDTH"
+   ],
+   "reason": "Same quantity, hgatp.VMID width."
+  },
+  "VSETVL_WITH_NEW_RATIO_SETS_VILL": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "VILL_SET_ON_RESERVED_VTYPE"
+   ],
+   "reason": "Overlapping vill-setting behaviour."
+  },
+  "VSETVL_WITH_VILL_1_STAY_1": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "RESERVED_VSET_X0X0_VILL_SET",
+    "VILL_SET_ON_RESERVED_VTYPE"
+   ],
+   "reason": "Overlapping vill-setting behaviour."
+  },
+  "VSSTATUS_VS_EXISTS": {
+   "verdict": "in_udb",
+   "udb": [
+    "VSSTATUS_VS_EXISTS"
+   ],
+   "reason": "Exact name match."
+  },
+  "VSXLEN": {
+   "verdict": "in_udb",
+   "udb": [
+    "VSXLEN"
+   ],
+   "reason": "Exact name match."
+  },
+  "WFI_OPT_U_MODE": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Whether WFI is available in U-mode. Jordan records platform.wfi_available_to_user_mode as having no UDB parameter. NOTE: our own WFI_U_MODE was rejected by the mentor as a duplicate, so this needs his ruling."
+  },
+  "WFI_RESUME_REASON": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "What may cause WFI to resume. UDB has no WFI resume parameter."
+  },
+  "ZILSD_ALIGN8_ATOMIC": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Whether 8-byte-aligned Zilsd accesses are atomic. UDB has no equivalent."
+  },
+  "ctrsource": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of ctrsource. UDB has MCTRCTL_* field parameters but nothing for the entry registers."
+  },
+  "hcounteren": {
+   "verdict": "in_udb",
+   "udb": [
+    "HCOUNTENABLE_EN"
+   ],
+   "reason": "csr_references match on hcounteren."
+  },
+  "hedeleg": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Delegatable-bit mask of hedeleg. UDB has no delegatable-bits parameter for any deleg register; Jordan records the same gap for medeleg/mideleg against Sail."
+  },
+  "henvcfg.CBIE": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "FORCE_UPGRADE_CBO_INVAL_TO_FLUSH"
+   ],
+   "reason": "UDB's param controls CBIE=0b11 only; Jordan notes it is related but not the same as the reserved 0b10 behaviour."
+  },
+  "hgainp.MODE": {
+   "verdict": "in_udb",
+   "udb": [
+    "GSTAGE_MODE_BARE"
+   ],
+   "reason": "hgatp.MODE (his reg-name is a typo). UDB also carries SV*X4_TRANSLATION for the other modes."
+  },
+  "hgeie": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Writable-bit mask of hgeie. UDB has no hgeie parameter."
+  },
+  "hideleg": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Delegatable-bit mask of hideleg. Same gap as hedeleg."
+  },
+  "hie": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Writable-bit mask of hie. UDB has no hie parameter."
+  },
+  "hstateen0/hstateen1/hstateen2/hstateen3": {
+   "verdict": "in_udb",
+   "udb": [
+    "HSTATEEN_AIA_TYPE",
+    "HSTATEEN_CONTEXT_TYPE",
+    "HSTATEEN_CSRIND_TYPE",
+    "HSTATEEN_ENVCFG_TYPE",
+    "HSTATEEN_IMSIC_TYPE",
+    "HSTATEEN_JVT_TYPE"
+   ],
+   "reason": "UDB models one parameter per named hstateen bit."
+  },
+  "hstatus.VGEIN": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "NUM_EXTERNAL_GUEST_INTERRUPTS"
+   ],
+   "reason": "VGEIN's legal range is bounded by GEILEN, which UDB models as a count rather than a field constraint."
+  },
+  "hstatus.VSBE": {
+   "verdict": "in_udb",
+   "udb": [
+    "VS_MODE_ENDIANNESS"
+   ],
+   "reason": "csr_references match on hstatus.VSBE."
+  },
+  "htinst": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "TINST_VALUE_ON_BREAKPOINT",
+    "TINST_VALUE_ON_LOAD_PAGE_FAULT",
+    "TINST_VALUE_ON_VIRTUAL_INSTRUCTION"
+   ],
+   "reason": "UDB has 14 TINST_VALUE_ON_* parameters, one per exception; his is one register-level WARL entry. 1-to-many."
+  },
+  "hvip": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Writable-bit mask of hvip. UDB models mip writability but not hvip."
+  },
+  "jvt.BASE": {
+   "verdict": "in_udb",
+   "udb": [
+    "JVT_BASE_MASK",
+    "JVT_BASE_TYPE"
+   ],
+   "reason": "csr_references match on jvt.BASE."
+  },
+  "jvt.MODE": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "JVT_READ_ONLY"
+   ],
+   "reason": "UDB captures jvt writability but not the MODE legal-value set."
+  },
+  "mcause.EXCCODE": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WLRL legal exception codes of mcause. UDB has no cause-code legal-value parameter."
+  },
+  "mcounteren": {
+   "verdict": "in_udb",
+   "udb": [
+    "MCOUNTENABLE_EN"
+   ],
+   "reason": "csr_references match on mcounteren."
+  },
+  "mcountinhibit": {
+   "verdict": "in_udb",
+   "udb": [
+    "COUNTINHIBIT_EN",
+    "MCOUNTINHIBIT_IMPLEMENTED"
+   ],
+   "reason": "csr_references match on mcountinhibit."
+  },
+  "menvcfg.CBIE": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "FORCE_UPGRADE_CBO_INVAL_TO_FLUSH"
+   ],
+   "reason": "Same partial relationship as henvcfg.CBIE."
+  },
+  "menvcfg.PMM": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "PMLEN"
+   ],
+   "reason": "UDB models PMLEN as a configured integer rather than per-CSR PMM field legal values."
+  },
+  "mepc": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of mepc. UDB has no mepc parameter; our SEPC_INVALID_ADDR_BEHAVIOR is the sepc sibling."
+  },
+  "mhpmcounter": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "HPM_COUNTER_EN"
+   ],
+   "reason": "UDB models which counters exist as a bit vector; his is the register-level WARL."
+  },
+  "mhpmevent": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "HPM_EVENTS"
+   ],
+   "reason": "UDB enumerates legal event numbers; his is the register-level WARL."
+  },
+  "mie": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Writable-bit mask of mie. UDB has MIP-side coverage only; our MIP_WRITABLE_BITS is the mip sibling."
+  },
+  "misa.EXTENSIONS": {
+   "verdict": "in_udb",
+   "udb": [
+    "MUTABLE_MISA_A",
+    "MUTABLE_MISA_B",
+    "MUTABLE_MISA_C",
+    "MUTABLE_MISA_D",
+    "MUTABLE_MISA_F",
+    "MUTABLE_MISA_H",
+    "MUTABLE_MISA_M",
+    "MUTABLE_MISA_Q",
+    "MUTABLE_MISA_S",
+    "MUTABLE_MISA_U",
+    "MUTABLE_MISA_V"
+   ],
+   "reason": "UDB splits misa writability into one boolean per extension bit."
+  },
+  "misa.MXL": {
+   "verdict": "in_udb",
+   "udb": [
+    "MXLEN"
+   ],
+   "reason": "csr_references match on misa.MXL."
+  },
+  "miselect": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Supported value range of miselect. UDB has no iselect parameter; our SISELECT_WIDTH and VSISELECT_WIDTH are the s/vs siblings."
+  },
+  "mncause": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of mncause (RNMI). UDB has no mncause parameter."
+  },
+  "mnstatus": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of mnstatus (RNMI). UDB has no mnstatus parameter."
+  },
+  "mseccfg.MML": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of mseccfg.MML. UDB has no mseccfg field parameters."
+  },
+  "mseccfg.MMWP": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of mseccfg.MMWP. UDB has no mseccfg field parameters."
+  },
+  "mseccfg.PMM": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "PMLEN"
+   ],
+   "reason": "Same partial relationship as menvcfg.PMM."
+  },
+  "mseccfg.RLB": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of mseccfg.RLB. UDB has no mseccfg field parameters."
+  },
+  "mstatus.FS": {
+   "verdict": "in_udb",
+   "udb": [
+    "MSTATUS_FS_LEGAL_VALUES"
+   ],
+   "reason": "csr_references match on mstatus.FS."
+  },
+  "mstatus.MBE": {
+   "verdict": "in_udb",
+   "udb": [
+    "M_MODE_ENDIANNESS"
+   ],
+   "reason": "csr_references match on mstatus.MBE."
+  },
+  "mstatus.MDT": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of mstatus.MDT (Smdbltrp). UDB has no MDT parameter."
+  },
+  "mstatus.MPP": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Legal values of mstatus.MPP. UDB models no MPP legal-value set."
+  },
+  "mstatus.SBE": {
+   "verdict": "in_udb",
+   "udb": [
+    "S_MODE_ENDIANNESS"
+   ],
+   "reason": "csr_references match on mstatus.SBE."
+  },
+  "mstatus.SPP": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Legal values of mstatus.SPP. UDB models no SPP legal-value set."
+  },
+  "mstatus.SXL": {
+   "verdict": "in_udb",
+   "udb": [
+    "SXLEN"
+   ],
+   "reason": "csr_references match on mstatus.SXL."
+  },
+  "mstatus.TSR": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of mstatus.TSR. UDB has MSTATUS_TVM_IMPLEMENTED but no TSR equivalent."
+  },
+  "mstatus.TVM": {
+   "verdict": "in_udb",
+   "udb": [
+    "MSTATUS_TVM_IMPLEMENTED"
+   ],
+   "reason": "csr_references match on mstatus.TVM."
+  },
+  "mstatus.TW": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of mstatus.TW. UDB has MSTATUS_TVM_IMPLEMENTED but no TW equivalent."
+  },
+  "mstatus.UBE": {
+   "verdict": "in_udb",
+   "udb": [
+    "U_MODE_ENDIANNESS"
+   ],
+   "reason": "csr_references match on mstatus.UBE."
+  },
+  "mstatus.UXL": {
+   "verdict": "in_udb",
+   "udb": [
+    "UXLEN"
+   ],
+   "reason": "csr_references match on mstatus.UXL."
+  },
+  "mstatus.VS": {
+   "verdict": "in_udb",
+   "udb": [
+    "MSTATUS_VS_LEGAL_VALUES"
+   ],
+   "reason": "csr_references match on mstatus.VS."
+  },
+  "mtinst": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "TINST_VALUE_ON_BREAKPOINT",
+    "TINST_VALUE_ON_LOAD_PAGE_FAULT",
+    "TINST_VALUE_ON_VIRTUAL_INSTRUCTION"
+   ],
+   "reason": "Same 1-to-many relationship as htinst."
+  },
+  "mtval": {
+   "verdict": "in_udb",
+   "udb": [
+    "MTVAL_WIDTH"
+   ],
+   "reason": "Implemented-bit mask of mtval is UDB's MTVAL_WIDTH."
+  },
+  "mtvec.BASE": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "MTVEC_BASE_ALIGNMENT_DIRECT",
+    "MTVEC_BASE_ALIGNMENT_VECTORED"
+   ],
+   "reason": "UDB splits BASE alignment by mode."
+  },
+  "mtvec.MODE": {
+   "verdict": "in_udb",
+   "udb": [
+    "MTVEC_MODES"
+   ],
+   "reason": "csr_references match on mtvec.MODE."
+  },
+  "pmpcfgN.pmpMcfg": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "PMP_TOR_SUPPORTED",
+    "PMP_NA4_SUPPORTED",
+    "PMP_NAPOT_SUPPORTED"
+   ],
+   "reason": "UDB splits pmpcfg.A legal values into per-mode booleans."
+  },
+  "scause.EXCEPTION_CODE": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WLRL legal exception codes of scause. UDB has no cause-code legal-value parameter."
+  },
+  "scounteren": {
+   "verdict": "in_udb",
+   "udb": [
+    "SCOUNTENABLE_EN"
+   ],
+   "reason": "csr_references match on scounteren."
+  },
+  "sctrdepth.DEPTH": {
+   "verdict": "internal_dup",
+   "udb": [],
+   "reason": "Duplicates his own SCTRDEPTH_DEPTH parameter_definition (same field, recorded once in each section). That parameter already matches our SCTRDEPTH_SUPPORTED_VALUES."
+  },
+  "sctrstatus.WRPTR": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of sctrstatus.WRPTR. UDB has no sctrstatus parameter."
+  },
+  "senvcfg.CBIE": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "FORCE_UPGRADE_CBO_INVAL_TO_FLUSH"
+   ],
+   "reason": "Same partial relationship as henvcfg.CBIE."
+  },
+  "sie": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Writable-bit mask of sie. UDB has no sie parameter; our SIP_BITS_ACCESS is the sip sibling."
+  },
+  "sstateen0/sstateen1/sstateen2/sstateen3": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "SSTATEEN_JVT_TYPE"
+   ],
+   "reason": "UDB models only the JVT bit at S level, while mstateen/hstateen have six each."
+  },
+  "sstatus.SDT": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of sstatus.SDT (Ssdbltrp). UDB has no SDT parameter."
+  },
+  "stval": {
+   "verdict": "in_udb",
+   "udb": [
+    "STVAL_WIDTH"
+   ],
+   "reason": "Implemented-bit mask of stval is UDB's STVAL_WIDTH."
+  },
+  "stvec.BASE": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "BASE alignment of stvec. Jordan records explicitly that UDB has no STVEC base-alignment parameter while Sail does."
+  },
+  "stvec.MODE": {
+   "verdict": "in_udb",
+   "udb": [
+    "STVEC_MODE_DIRECT",
+    "STVEC_MODE_VECTORED"
+   ],
+   "reason": "UDB splits MODE into one boolean per legal mode."
+  },
+  "vsatp.MODE": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "VSSTAGE_MODE_BARE",
+    "SV39_VSMODE_TRANSLATION",
+    "SV48_VSMODE_TRANSLATION",
+    "IGNORE_INVALID_VSATP_MODE_WRITES_WHEN_V_EQ_ZERO"
+   ],
+   "reason": "UDB splits vsatp.MODE across per-mode booleans plus an illegal-write behaviour."
+  },
+  "vscause": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WLRL legal exception codes of vscause. UDB has no cause-code legal-value parameter."
+  },
+  "vsepc": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "WARL behaviour of vsepc. UDB has no vsepc parameter; our SEPC_INVALID_ADDR_BEHAVIOR is the sepc sibling."
+  },
+  "vsie": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Writable-bit mask of vsie. UDB has no vsie parameter."
+  },
+  "vsip": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Writable-bit mask of vsip. UDB has no vsip parameter."
+  },
+  "vsstatus.UXL": {
+   "verdict": "in_udb",
+   "udb": [
+    "VUXLEN"
+   ],
+   "reason": "csr_references match on vsstatus.UXL."
+  },
+  "vstval": {
+   "verdict": "new_candidate",
+   "udb": [],
+   "reason": "Implemented-bit width of vstval. UDB has MTVAL_WIDTH and STVAL_WIDTH but no VSTVAL_WIDTH."
+  },
+  "vstvec.BASE": {
+   "verdict": "in_udb_partial",
+   "udb": [
+    "VSTVEC_MODE_DIRECT",
+    "VSTVEC_MODE_VECTORED"
+   ],
+   "reason": "UDB has no vstvec BASE-alignment parameter; Jordan records the same gap for stvec."
+  },
+  "vstvec.MODE": {
+   "verdict": "in_udb",
+   "udb": [
+    "VSTVEC_MODE_DIRECT",
+    "VSTVEC_MODE_VECTORED"
+   ],
+   "reason": "UDB splits the MODE field into one boolean per legal mode."
+  }
+ }
+}
