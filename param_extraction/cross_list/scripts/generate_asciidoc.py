@@ -182,6 +182,32 @@ ARGUABLE_MATCHES = {
     ),
 }
 
+# Parameters confirmed absent from James' list, where he nonetheless has a
+# *neighbouring* entry. Recorded so "only ours" is not read as "he has nothing
+# nearby" -- the distinction matters when merging the lists.
+ADJACENT = {
+    "CTR_CTRDATA_TYPE_IMPLEMENTED":
+        "He has `ctrsource` and `ctrtarget` as WARL registers but no "
+        "`ctrdata` register entry at all; his only `ctrdata` reference is "
+        "the cycle-count field. Gap in his own CSR coverage.",
+    "MSECCFG_SEED_BITS_RW":
+        "He has `MSECCFG_USEED_SSEED_RST`, which is the *reset value* of "
+        "the seed bits. Ours is whether they are writable or a read-only "
+        "constant zero -- a different axis. Sail treats these as two "
+        "settings too (`Zkr.sseed_reset_value` vs `Zkr.sseed_read_only_zero`).",
+    "SENVCFG_FIOM_ACCESS":
+        "He has the M-mode sibling `MENVCFG_FIOM_RDONLY0_OK` but not the "
+        "S-mode one; his only `senvcfg` entry is CBIE. Textbook per-CSR "
+        "replication gap. Note Jordan's mapping shows UDB has no FIOM "
+        "writability parameter either, while Sail does "
+        "(`base.writable_fiom`), so this is a gap in two of the three lists.",
+    "SISELECT_WIDTH":
+        "He has the `miselect` sibling but not `siselect`.",
+    "VSISELECT_WIDTH":
+        "He has the `miselect` sibling but not `vsiselect`.",
+}
+
+
 # Where both lists agree the parameter exists but disagree on its domain.
 TYPE_CONFLICTS = {
     "PMA_IDEMPOTENT_IMPLICIT_READ_SIZE":
@@ -515,23 +541,29 @@ def write_comparison(ours, james, meta):
     L += ["|===", ""]
 
     L += ["== Only on our list", "",
-          "Verified by hand against James' full file set: no entry of his covers",
-          "these, by tag, by register, by field or by concept. Candidates for",
-          "adding to his list and to the ISA manual metadata.",
+          "Each of these was verified individually against James' complete file",
+          "set: by normative tag, by register name, by field name and by keyword",
+          "sweep across all fifteen of his YAML files. None is covered by any",
+          "entry of his.",
           "",
-          '[cols="24,28,22,26",options="header"]', "|===",
-          "| Name | Domain | Tag | Tag status in the manual"]
+          "The *Nearest entry he has* column matters when merging: most of these",
+          "are not blank areas of his list but a missing sibling or a missing",
+          "axis next to something he does have.",
+          "",
+          '[cols="20,22,18,40",options="header"]', "|===",
+          "| Name | Domain | Tag status | Nearest entry he has"]
     for r in only_ours:
-        tag = r["tags"][0] if r["tags"] else "(untagged)"
         if not r["tags"]:
-            why = "normative text carries no anchor"
+            why = "no anchor"
         elif not r["rules"]:
-            why = "anchor exists, no rule entry"
+            why = "anchor, no rule entry"
         elif "parameter" not in r["rule_kinds"]:
-            why = "rule exists, not marked `kind: parameter`"
+            why = "rule not marked `kind: parameter`"
         else:
             why = "rule marked `kind: parameter`"
-        L.append(f"| `{esc(r['name'])}` | {esc(r['domain'])} | `{tag}` | {why}")
+        adj = ADJACENT.get(r["name"], "Nothing adjacent in his files.")
+        L.append(f"| `{esc(r['name'])}` | {esc(r['domain'])} | {why} "
+                 f"| {esc(adj)}")
     L += ["|===", ""]
 
     L += ["== Only on James' list", "",
@@ -600,6 +632,18 @@ def write_comparison(ours, james, meta):
     for r in untag:
         L.append(f"* our `{r['name']}` ({r['file']}:{r['line']}) -- "
                  "normative text carrying no anchor")
+
+    L += ["", "=== Two defects noticed in James' files while verifying", "",
+          "Both found while confirming the *only on our list* section, and both",
+          "worth passing back to him.",
+          "",
+          "* `hypervisor.yaml:106` declares `reg-name: hgainp`, but its own",
+          "  `impl-def` is `HGATP_MODE_WARL`. `hgainp` is not a RISC-V CSR;",
+          "  this is a typo for `hgatp`.",
+          "* `smctr.yaml` covers `ctrsource` and `ctrtarget` as WARL registers",
+          "  but has no entry for `ctrdata`, even though the spec makes every",
+          "  field within `ctrdata` optional and read-only 0 when unimplemented.",
+          ""]
 
     L += ["", f"=== {len(unres)} of James' entries reference an unresolved tag", "",
           "These `impl-def` names have no matching normative rule in the pinned",

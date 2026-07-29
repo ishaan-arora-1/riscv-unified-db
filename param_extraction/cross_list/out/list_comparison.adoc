@@ -114,21 +114,26 @@ than a fact. Left unresolved deliberately.
 
 == Only on our list
 
-Verified by hand against James' full file set: no entry of his covers
-these, by tag, by register, by field or by concept. Candidates for
-adding to his list and to the ISA manual metadata.
+Each of these was verified individually against James' complete file
+set: by normative tag, by register name, by field name and by keyword
+sweep across all fifteen of his YAML files. None is covered by any
+entry of his.
 
-[cols="24,28,22,26",options="header"]
+The *Nearest entry he has* column matters when merging: most of these
+are not blank areas of his list but a missing sibling or a missing
+axis next to something he does have.
+
+[cols="20,22,18,40",options="header"]
 |===
-| Name | Domain | Tag | Tag status in the manual
-| `CSR_STRONGLY_ORDERED` | subset of the implemented CSRs (possibly empty) | `norm:csr_strongly_ordered` | rule exists, not marked `kind: parameter`
-| `CTR_CTRDATA_TYPE_IMPLEMENTED` | {read-write, read-only-0} | `norm:ctrdata_sz_acc` | rule exists, not marked `kind: parameter`
-| `HGATP_PPN_LOWER_BITS_RO` | {read-write, read-only-0} | `norm:hgatp-ppn_op` | rule exists, not marked `kind: parameter`
-| `MSECCFG_SEED_BITS_RW` | {read-write, read-only-0} | `(untagged)` | normative text carries no anchor
-| `SENVCFG_FIOM_ACCESS` | {read-write, read-only-0} | `norm:senvcfg-fiom_acc` | rule exists, not marked `kind: parameter`
-| `SISELECT_WIDTH` | supported range 0..N, N >= 0xFFF | `norm:siselect_min_range` | rule exists, not marked `kind: parameter`
-| `STATEEN_IMPLICIT_UPDATE_EXCEPTION` | {true, false} | `norm:smstateen_implicit_state_update` | rule exists, not marked `kind: parameter`
-| `VSISELECT_WIDTH` | supported range 0..N, N >= 0xFFF | `norm:vsiselect_min_range` | rule exists, not marked `kind: parameter`
+| Name | Domain | Tag status | Nearest entry he has
+| `CSR_STRONGLY_ORDERED` | subset of the implemented CSRs (possibly empty) | rule not marked `kind: parameter` | Nothing adjacent in his files.
+| `CTR_CTRDATA_TYPE_IMPLEMENTED` | {read-write, read-only-0} | rule not marked `kind: parameter` | He has `ctrsource` and `ctrtarget` as WARL registers but no `ctrdata` register entry at all; his only `ctrdata` reference is the cycle-count field. Gap in his own CSR coverage.
+| `HGATP_PPN_LOWER_BITS_RO` | {read-write, read-only-0} | rule not marked `kind: parameter` | Nothing adjacent in his files.
+| `MSECCFG_SEED_BITS_RW` | {read-write, read-only-0} | no anchor | He has `MSECCFG_USEED_SSEED_RST`, which is the *reset value* of the seed bits. Ours is whether they are writable or a read-only constant zero -- a different axis. Sail treats these as two settings too (`Zkr.sseed_reset_value` vs `Zkr.sseed_read_only_zero`).
+| `SENVCFG_FIOM_ACCESS` | {read-write, read-only-0} | rule not marked `kind: parameter` | He has the M-mode sibling `MENVCFG_FIOM_RDONLY0_OK` but not the S-mode one; his only `senvcfg` entry is CBIE. Textbook per-CSR replication gap. Note Jordan's mapping shows UDB has no FIOM writability parameter either, while Sail does (`base.writable_fiom`), so this is a gap in two of the three lists.
+| `SISELECT_WIDTH` | supported range 0..N, N >= 0xFFF | rule not marked `kind: parameter` | He has the `miselect` sibling but not `siselect`.
+| `STATEEN_IMPLICIT_UPDATE_EXCEPTION` | {true, false} | rule not marked `kind: parameter` | Nothing adjacent in his files.
+| `VSISELECT_WIDTH` | supported range 0..N, N >= 0xFFF | rule not marked `kind: parameter` | He has the `miselect` sibling but not `vsiselect`.
 |===
 
 == Only on James' list
@@ -380,6 +385,19 @@ account of the difference between the lists.
 === 1 confirmed parameter with no tag at all
 
 * our `MSECCFG_SEED_BITS_RW` (scalar-crypto.adoc:3772) -- normative text carrying no anchor
+
+=== Two defects noticed in James' files while verifying
+
+Both found while confirming the *only on our list* section, and both
+worth passing back to him.
+
+* `hypervisor.yaml:106` declares `reg-name: hgainp`, but its own
+  `impl-def` is `HGATP_MODE_WARL`. `hgainp` is not a RISC-V CSR;
+  this is a typo for `hgatp`.
+* `smctr.yaml` covers `ctrsource` and `ctrtarget` as WARL registers
+  but has no entry for `ctrdata`, even though the spec makes every
+  field within `ctrdata` optional and read-only 0 when unimplemented.
+
 
 === 44 of James' entries reference an unresolved tag
 
