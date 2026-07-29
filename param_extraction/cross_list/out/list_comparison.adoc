@@ -67,7 +67,7 @@ entry against a specific field rule).
 [cols="60,40",options="header"]
 |===
 | Measure | Count
-| Our parameters (expert-confirmed, de-duplicated) | 38
+| Ishaan's parameters (de-duplicated) | 38
 | James' entries | 179
 | On both lists | 26
 | ...matched by normative tag | 19
