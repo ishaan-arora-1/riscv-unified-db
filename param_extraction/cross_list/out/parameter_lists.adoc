@@ -40,11 +40,11 @@ See <<corrections>>.
 [cols="26,24,26,24",options="header"]
 |===
 | Name | Domain | Source (normative tag) | Status
-| `CSR_STRONGLY_ORDERED` | TBD (shape: set) | `norm:csr_strongly_ordered` +
+| `CSR_STRONGLY_ORDERED` | subset of the implemented CSRs (possibly empty) | `norm:csr_strongly_ordered` +
 zicsr.adoc:244 | expert-confirmed (Allen Baum + Umer)
 | `CTRTARGET_MISP_IMPLEMENTED` | {read-write, read-only-0} | `norm:ctrtarget_misp` +
 smctr.adoc:319 | expert-confirmed (Allen Baum + Umer)
-| `CTR_CCE_WIDTH` | TBD (shape: range) | `norm:ccounter_impl` +
+| `CTR_CCE_WIDTH` | integer [0..4] exponent bits | `norm:ccounter_impl` +
 smctr.adoc:654 | expert-confirmed (Allen Baum + Umer)
 | `CTR_CTRDATA_TYPE_IMPLEMENTED` | {read-write, read-only-0} | `norm:ctrdata_sz_acc` +
 smctr.adoc:339 | expert-confirmed (Allen Baum + Umer)
@@ -62,9 +62,9 @@ machine.adoc:615 | expert-confirmed (Allen Baum + Umer)
 hypervisor.adoc:533 | expert-confirmed (Allen Baum + Umer)
 | `HPM_MISCONFIGURED_BEHAVIOR` | {true, false} | `norm:hpm_misconfigured_event_behavior` +
 counters.adoc:214 | expert-confirmed (Allen Baum + Umer)
-| `HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR` | TBD (shape: enum) | `norm:hpm_unimplemented_counter_access` +
+| `HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR` | {raise illegal-instruction exception, return a constant value} | `norm:hpm_unimplemented_counter_access` +
 counters.adoc:212 | expert-confirmed (Allen Baum + Umer)
-| `HTVAL_LEGAL_VALUES` | TBD (shape: set) | `norm:htval_val` +
+| `HTVAL_LEGAL_VALUES` | {0} plus an implementation-chosen subset of 2-bit-shifted guest physical addresses | `norm:htval_val` +
 hypervisor.adoc:957 | expert-confirmed (Allen Baum + Umer)
 | `MCYCLE_SHARED` | {true, false} | `norm:mcycle_shared` +
 machine.adoc:1573 | expert-confirmed (Allen Baum + Umer)
@@ -78,13 +78,13 @@ rnmi.adoc:64 | expert-confirmed (Allen Baum + Umer)
 scalar-crypto.adoc:3772 | expert-confirmed (Allen Baum + Umer)
 | `MSTATEEN_BIT63_TYPE` | {read-write, read-only-0} | `norm:mstateen-bit-63_roz` +
 smstateen.adoc:175 | flagged, needs ruling
-| `MTVAL2_LEGAL_VALUES` | TBD (shape: set) | `norm:mtval2_val` +
+| `MTVAL2_LEGAL_VALUES` | {0} plus an implementation-chosen subset of 2-bit-shifted guest physical addresses | `norm:mtval2_val` +
 hypervisor.adoc:1843 | expert-confirmed (Allen Baum + Umer)
-| `PMA_IDEMPOTENT_IMPLICIT_READ_SIZE` | TBD (shape: range) | `norm:pma_idp_implicit_sz` +
+| `PMA_IDEMPOTENT_IMPLICIT_READ_SIZE` | power-of-2 bytes, not exceeding the smallest supported page size | `norm:pma_idp_implicit_sz` +
 machine.adoc:3318 | expert-confirmed (Allen Baum + Umer)
 | `PMPADDR_WARL_MASK` | per bit: {true, false} | `norm:pmp_addr_warl` +
 machine.adoc:3401 | expert-confirmed (Allen Baum + Umer)
-| `SCTRDEPTH_SUPPORTED_VALUES` | TBD (shape: set) | `norm:sctrdepth-depth_param` +
+| `SCTRDEPTH_SUPPORTED_VALUES` | non-empty subset of {0,1,2,3,4} = {16,32,64,128,256} entries | `norm:sctrdepth-depth_param` +
 smctr.adoc:215 | expert-confirmed (Allen Baum + Umer)
 | `SENVCFG_FIOM_ACCESS` | {read-write, read-only-0} | `norm:senvcfg-fiom_acc` +
 supervisor.adoc:840 | expert-confirmed (Allen Baum + Umer)
@@ -92,7 +92,7 @@ supervisor.adoc:840 | expert-confirmed (Allen Baum + Umer)
 supervisor.adoc:559 | expert-confirmed (Allen Baum + Umer)
 | `SIP_BITS_ACCESS` | per bit: {read-write, read-only-0} | `norm:sip_acc` +
 supervisor.adoc:400 | expert-confirmed (Allen Baum + Umer)
-| `SISELECT_WIDTH` | TBD (shape: range) | `norm:siselect_min_range` +
+| `SISELECT_WIDTH` | supported range 0..N, N >= 0xFFF | `norm:siselect_min_range` +
 indirect-csr.adoc:148 | expert-confirmed (Allen Baum + Umer)
 | `SSTATUS_UBE_ACCESS` | {read-write, read-only-0} | `norm:sstatus-ube` +
 supervisor.adoc:227 | expert-confirmed (Allen Baum + Umer)
@@ -102,7 +102,7 @@ supervisor.adoc:143 | expert-confirmed (Allen Baum + Umer)
 supervisor.adoc:465 | expert-confirmed (Allen Baum + Umer)
 | `STATEEN_IMPLICIT_UPDATE_EXCEPTION` | {true, false} | `norm:smstateen_implicit_state_update` +
 smstateen.adoc:100 | expert-confirmed (Allen Baum + Umer)
-| `VSISELECT_WIDTH` | TBD (shape: range) | `norm:vsiselect_min_range` +
+| `VSISELECT_WIDTH` | supported range 0..N, N >= 0xFFF | `norm:vsiselect_min_range` +
 indirect-csr.adoc:239 | expert-confirmed (Allen Baum + Umer)
 | `VSSTATUS_UBE_PARAM` | {read-write, read-only-0} | `norm:vsstatus-ube_param` +
 hypervisor.adoc:1223 | expert-confirmed (Allen Baum + Umer)

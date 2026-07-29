@@ -84,9 +84,9 @@ Candidates for adding to James' list and to the ISA manual metadata.
 [cols="26,30,20,24",options="header"]
 |===
 | Name | Domain | Tag | Why James' method missed it
-| `CSR_STRONGLY_ORDERED` | TBD (shape: set) | `norm:csr_strongly_ordered` | rule exists but is not marked `kind: parameter`
+| `CSR_STRONGLY_ORDERED` | subset of the implemented CSRs (possibly empty) | `norm:csr_strongly_ordered` | rule exists but is not marked `kind: parameter`
 | `CTRTARGET_MISP_IMPLEMENTED` | {read-write, read-only-0} | `norm:ctrtarget_misp` | rule exists but is not marked `kind: parameter`
-| `CTR_CCE_WIDTH` | TBD (shape: range) | `norm:ccounter_impl` | rule exists but is not marked `kind: parameter`
+| `CTR_CCE_WIDTH` | integer [0..4] exponent bits | `norm:ccounter_impl` | rule exists but is not marked `kind: parameter`
 | `CTR_CTRDATA_TYPE_IMPLEMENTED` | {read-write, read-only-0} | `norm:ctrdata_sz_acc` | rule exists but is not marked `kind: parameter`
 | `DELEGATABLE_EXCEPTIONS` | per bit: {true, false} | `norm:medeleg_mideleg_warl` | tagged, but no normative rule entry exists
 | `HGATP_PPN_LOWER_BITS_RO` | {read-write, read-only-0} | `norm:hgatp-ppn_op` | rule exists but is not marked `kind: parameter`
@@ -97,10 +97,10 @@ Candidates for adding to James' list and to the ISA manual metadata.
 | `MSTATEEN_BIT63_TYPE` | {read-write, read-only-0} | `norm:mstateen-bit-63_roz` | rule exists but is not marked `kind: parameter`
 | `SENVCFG_FIOM_ACCESS` | {read-write, read-only-0} | `norm:senvcfg-fiom_acc` | rule exists but is not marked `kind: parameter`
 | `SIP_BITS_ACCESS` | per bit: {read-write, read-only-0} | `norm:sip_acc` | rule exists but is not marked `kind: parameter`
-| `SISELECT_WIDTH` | TBD (shape: range) | `norm:siselect_min_range` | rule exists but is not marked `kind: parameter`
+| `SISELECT_WIDTH` | supported range 0..N, N >= 0xFFF | `norm:siselect_min_range` | rule exists but is not marked `kind: parameter`
 | `STANDARD_INTERRUPT_SUPPORT` | per bit: {read-write, read-only-0} | `norm:sip_sie_unimpl` | rule exists but is not marked `kind: parameter`
 | `STATEEN_IMPLICIT_UPDATE_EXCEPTION` | {true, false} | `norm:smstateen_implicit_state_update` | rule exists but is not marked `kind: parameter`
-| `VSISELECT_WIDTH` | TBD (shape: range) | `norm:vsiselect_min_range` | rule exists but is not marked `kind: parameter`
+| `VSISELECT_WIDTH` | supported range 0..N, N >= 0xFFF | `norm:vsiselect_min_range` | rule exists but is not marked `kind: parameter`
 | `XRET_CLEARS_LR_RESERVATION` | {true, false} | `norm:xret_clr_lr_resv` | tagged, but no normative rule entry exists
 | `ZALASR_MISALIGNED_ATOMICITY_GRANULE` | {true, false} | `norm:zalasr_misaligned_pma_relax` | rule exists but is not marked `kind: parameter`
 |===

@@ -72,9 +72,39 @@ def load_rules():
 
 
 # ----------------------------------------------------------- our domains ----
+# Domains that cannot be derived from class alone, read off the spec excerpt.
+# Kept as an explicit table so each one can be checked against the sentence it
+# came from rather than being buried in branching logic.
+EXPLICIT_DOMAINS = {
+    "CSR_STRONGLY_ORDERED":
+        "subset of the implemented CSRs (possibly empty)",
+    "CTR_CCE_WIDTH":
+        "integer [0..4] exponent bits",
+    "HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR":
+        "{raise illegal-instruction exception, return a constant value}",
+    "HTVAL_LEGAL_VALUES":
+        "{0} plus an implementation-chosen subset of "
+        "2-bit-shifted guest physical addresses",
+    "MTVAL2_LEGAL_VALUES":
+        "{0} plus an implementation-chosen subset of "
+        "2-bit-shifted guest physical addresses",
+    "PMA_IDEMPOTENT_IMPLICIT_READ_SIZE":
+        "power-of-2 bytes, not exceeding the smallest supported page size",
+    # value table taken from James' smctr.yaml, which enumerates the encoding
+    "SCTRDEPTH_SUPPORTED_VALUES":
+        "non-empty subset of {0,1,2,3,4} = {16,32,64,128,256} entries",
+    "SISELECT_WIDTH":
+        "supported range 0..N, N >= 0xFFF",
+    "VSISELECT_WIDTH":
+        "supported range 0..N, N >= 0xFFF",
+}
+
+
 def our_domain(rec):
-    """Derive a domain only where the class makes it unambiguous."""
-    cls, vt = rec["class"], rec["value_type"]
+    """Derive a domain only where the class or the excerpt fixes it."""
+    name, cls, vt = rec["parameter_name"], rec["class"], rec["value_type"]
+    if name in EXPLICIT_DOMAINS:
+        return EXPLICIT_DOMAINS[name], "read from excerpt"
     if cls == "NORM_CSR_RW" and vt == "binary":
         # the mentor's own repeated formulation for these rows
         return "{read-write, read-only-0}", "derived from class"
