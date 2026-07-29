@@ -53,11 +53,9 @@ reported below as corroboration where it happens, never as the join.
 IMPORTANT: The tag join alone is *not* sufficient, and an earlier draft of
 this document was wrong because of it. 44 of James' entries carry an
 `impl-def` that does not resolve against the pinned manual, and his
-`csr_definitions` are hand-authored per register, so wherever he covers a
+`csr_definitions` are authored per register, so wherever he covers a
 concept through an unresolved name a tag-only join reports it as ours
-alone. Every parameter the tag join left unmatched was therefore checked
-by hand against his full file set, by register, field and concept. That
-recovered seven further matches, listed with their evidence below.
+alone.
 
 Relationship vocabulary follows Jordan's `sail_udb_config_mapping.md`:
 *Exact* (one-to-one), *Partial* (concepts overlap but not one-to-one --
