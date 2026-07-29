@@ -51,7 +51,8 @@ CHOICE = re.compile(
     r"defines a|sets a"
     # plus equivalents the ruleset does not spell out but plainly means
     r"|an implementation can|implementations can|is permitted to|"
-    r"are permitted to|\bmight\b|unless the platform|either .{0,60}\bor\b",
+    r"are permitted to|is allowed to|are allowed to|\bmight\b|"
+    r"unless the platform|either .{0,60}\bor\b",
     re.I)
 # The mentor's standing rule: "IF it is WARL, it is automatically a parameter."
 # A WARL/WLRL field therefore satisfies the inclusion signal on its own.
@@ -59,10 +60,16 @@ WARL = re.compile(r"\bWARL\b|\bWLRL\b", re.I)
 # INCLUSION_CRITERIA rule 5a plus the v5 prompt exception: a declared,
 # implementation-chosen value / width / size / ID counts even with no modal
 # word, because the choice is inherent in the quantity being declared.
+# The quantity must be what the sentence is ABOUT. A bare mention of "size"
+# or "number of" is not enough -- "aligned to the size of the operand" is a
+# requirement, not a declared value, and matching it here silently passed
+# LRSC_ALIGNMENT on a sentence that does not describe its parameter at all.
 DECLARED = re.compile(
-    r"\beffective XLEN\b|\bwidth\b|\bnumber of\b|\bsize\b|\bvalue of\b|"
-    r"\bencodes?\b|\bencoding\b|\bconstant termed\b|\bgranularity\b|"
-    r"\bproviding the\b|\bunique\b|\bID\b|\bidentifier\b|reset value",
+    r"^\s*The (maximum |minimum )?(size|number|width|value|address)\b"
+    r"|\bis an? [A-Za-z0-9]+-bit\b|\bnumber of bits\b|\bwidth of\b"
+    r"|\beffective XLEN\b|\bvalue of\b|\bencodes?\b|\bencoding\b"
+    r"|\bconstant termed\b|\bgranularity\b|\bproviding the\b|\bunique\b"
+    r"|\bID\b|\bidentifier\b|reset value",
     re.I)
 # rule 14 -- legal values defined as identical to ANOTHER register's, so the
 # choice is not independent. Deliberately narrow: a read-only field mirroring

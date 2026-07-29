@@ -460,10 +460,10 @@ the check reports far more hits than are real:
 | His entries | 179
 | Spec text recoverable, so checkable | 135
 | *Not* recoverable -- unresolved tag, no check possible | 44
-| Flagged by at least one rule | 13
+| Flagged by at least one rule | 14
 |===
 
-Only 13 of the 135 checkable entries are
+Only 14 of the 135 checkable entries are
 flagged. That is the headline result of this section: *his list is
 largely consistent with our criteria even though it was not built to
 them*. Two independent methods, one tag-driven and one prose-driven,
@@ -478,6 +478,8 @@ The flagged entries, each verified by reading the spec text:
 [.small]#machine.adoc:553# | S1, 1 | no inclusion signal -- no optionality language, no WARL/WLRL and no declared value or width in the tagged text; rule 1 -- the tagged text sits in a NOTE/TIP/WARNING block
 | `INTERRUPTS_ALLOWED_IN_PUSHPOP` +
 [.small]#zc.adoc:1185# | 1 | rule 1 -- the tagged text sits in a NOTE/TIP/WARNING block
+| `LRSC_ALIGNMENT` +
+[.small]#a-st-ext.adoc:126# | S1 | no inclusion signal -- no optionality language, no WARL/WLRL and no declared value or width in the tagged text
 | `MCAUSE_RST_ALIAS_OK` +
 [.small]#machine.adoc:2848# | 1 | rule 1 -- the tagged text sits in a NOTE/TIP/WARNING block
 | `MSIP_UPDATE_MAX_TIME` +

@@ -9,7 +9,12 @@
    "tags": [
     "norm:lr_sc_alignment"
    ],
-   "hits": [],
+   "hits": [
+    {
+     "rule": "S1",
+     "why": "no optionality language, no WARL/WLRL and no declared value or width in the tagged text"
+    }
+   ],
    "evidence": [
     {
      "file": "a-st-ext.adoc",
