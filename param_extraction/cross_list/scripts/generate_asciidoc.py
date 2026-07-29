@@ -104,7 +104,7 @@ EXPLICIT_DOMAINS = {
 # ------------------------------------------------------- adjudication ------
 # The tag join alone is not sufficient. 44 of James' entries carry an
 # ``impl-def`` that does not resolve against the pinned manual, and his
-# ``csr_definitions`` are hand-authored per register, so wherever he covers a
+# ``csr_definitions`` are authored per register, so wherever he covers a
 # concept through an unresolved name the tag join wrongly reports it as ours
 # alone. These were found by checking all of our unmatched parameters against
 # his full file set by register, field and concept, then confirming each by
@@ -769,7 +769,7 @@ def write_comparison(ours, james, meta):
         "|===",
         "| | Ours | James'",
         "| Review status | Every entry reviewed individually by Allen Baum and "
-        "Umer | *Not reviewed by Allen or Umer.* He describes it as an initial "
+        "Umer | *Not reviewed by Allen or Umer.* described as an initial "
         "individual effort, explicitly not Parameter SIG consensus",
         "| Scope | Only parameters believed *missing* from UDB | The whole "
         "parameter space, including parameters UDB already has",
@@ -778,12 +778,6 @@ def write_comparison(ours, james, meta):
         "| Completeness | 38 entries | 179 entries, most `long-name` and many "
         "`type` fields still `TBD`",
         "|===",
-        "",
-        "So an entry appearing on his list is a *candidate*, at the same stage "
-        "ours were before review. An entry on ours has cleared expert review. "
-        "When this document says the two lists agree, that means an unreviewed "
-        "candidate coincides with a reviewed one, which is corroboration for "
-        "his entry rather than fresh support for ours.",
         "",
         "Judgement calls throughout are flagged rather than asserted, per rule "
         "15 of `INCLUSION_CRITERIA.md`: a normative rule whose parameter-ness "
@@ -812,11 +806,9 @@ def write_comparison(ours, james, meta):
         "IMPORTANT: The tag join alone is *not* sufficient, and an earlier draft of",
         "this document was wrong because of it. 44 of James' entries carry an",
         "`impl-def` that does not resolve against the pinned manual, and his",
-        "`csr_definitions` are hand-authored per register, so wherever he covers a",
+        "`csr_definitions` are authored per register, so wherever he covers a",
         "concept through an unresolved name a tag-only join reports it as ours",
-        "alone. Every parameter the tag join left unmatched was therefore checked",
-        "by hand against his full file set, by register, field and concept. That",
-        "recovered seven further matches, listed with their evidence below.",
+        "alone.",
         "",
         "Relationship vocabulary follows Jordan's `sail_udb_config_mapping.md`:",
         "*Exact* (one-to-one), *Partial* (concepts overlap but not one-to-one --",
@@ -828,7 +820,7 @@ def write_comparison(ours, james, meta):
         '[cols="60,40",options="header"]',
         "|===",
         "| Measure | Count",
-        f"| Our parameters (expert-confirmed, de-duplicated) | {len(ours)}",
+        f"| Ishaan's parameters (de-duplicated) | {len(ours)}",
         f"| James' entries | {len(james)}",
         f"| On both lists | {len(matched)}",
         f"| ...matched by normative tag | "
