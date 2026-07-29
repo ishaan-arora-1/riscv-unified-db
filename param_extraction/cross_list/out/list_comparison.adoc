@@ -25,7 +25,7 @@ against *19* that share a normative tag. A name-based comparison would
 report the two efforts as ~97% disjoint, which is an artefact of naming,
 not a real finding.
 
-The join is therefore the *normative tag* in the ISA manual:
+The primary join is therefore the *normative tag* in the ISA manual:
 
 * ours -- excerpt -> enclosing `[#norm:...]` anchor -> normative rule
 * James' -- `impl-def` -> normative rule -> its tag(s)
@@ -34,9 +34,19 @@ Coverage of that chain: 37 of our 38 sit in a norm anchor and 35 reach a
 rule entry; 135 of James' 179 entries resolve to a tag. Name equality is
 reported below as corroboration where it happens, never as the join.
 
+IMPORTANT: The tag join alone is *not* sufficient, and an earlier draft of
+this document was wrong because of it. 44 of James' entries carry an
+`impl-def` that does not resolve against the pinned manual, and his
+`csr_definitions` are hand-authored per register, so wherever he covers a
+concept through an unresolved name a tag-only join reports it as ours
+alone. Every parameter the tag join left unmatched was therefore checked
+by hand against his full file set, by register, field and concept. That
+recovered seven further matches, listed with their evidence below.
+
 Relationship vocabulary follows Jordan's `sail_udb_config_mapping.md`:
-*Exact* (one-to-one), *Partial* (concepts overlap but not one-to-one, for
-example one umbrella entry against several fine-grained ones).
+*Exact* (one-to-one), *Partial* (concepts overlap but not one-to-one --
+one umbrella entry against several fine-grained ones, or a register-level
+entry against a specific field rule).
 
 == Summary
 
@@ -45,64 +55,80 @@ example one umbrella entry against several fine-grained ones).
 | Measure | Count
 | Our parameters (expert-confirmed, de-duplicated) | 38
 | James' entries | 179
-| Shared a normative tag | 19
-| Only on our list | 19
-| Only on James' list | 160
+| On both lists | 26
+| ...matched by normative tag | 19
+| ...matched by concept, hand-verified | 7
+| Arguable -- overlap is a judgement call | 4
+| Only on our list | 8
+| Only on James' list | 144
 |===
 
 == Parameters on both lists
 
-[cols="24,24,16,36",options="header"]
+[cols="20,22,16,14,28",options="header"]
 |===
-| Our name | James' name(s) | Relationship | Shared tag / note
-| `CTR_CYCLE_COUNTING_SUPPORTED` | `CTRDATA_CC_SUPPORTED` | Exact | `norm:ctrdata_cc_supported_param`
-| `HINT_SXLEN_DEST_REG_BEHAVIOR` | `HINT_SXLEN` | Exact | `norm:hint_sxlen_param`
-| `HINT_XLEN_REDUCTION_BEHAVIOR` | `XLEN_REDUCTION_HINT_OP` | Exact | `norm:xlen_reduction_hint_op1`
-| `HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR` | `HPM_READ_BEHAVIOR` | Exact | `norm:hpm_unimplemented_counter_access`
-| `HTVAL_LEGAL_VALUES` | `htval` | Exact | `norm:htval_val`
-| `MCYCLE_SHARED` | `MCYCLE_SHARED` | Exact | `norm:mcycle_shared` +
+| Our name | James' name(s) | Relationship | Matched by | Evidence
+| `CTR_CCE_WIDTH` | `CTR_CCOUNTER_IMPL` | Exact | concept (hand-verified) | Same 0..4 exponent-bit choice in CCE. Missed only because his impl-def is `CTR_CCOUNTER_IMPL` while the rule is named `ccounter_impl`.
+| `CTR_CYCLE_COUNTING_SUPPORTED` | `CTRDATA_CC_SUPPORTED` | Exact | normative tag | `norm:ctrdata_cc_supported_param`
+| `DELEGATABLE_EXCEPTIONS` | `medeleg`, `mideleg` | Partial (1-to-2) | concept (hand-verified) | He records the delegatable-bit mask once per register (`MEDELEG_WARL`, `MIDELEG_WARL`, both unresolved); ours is the single statement covering both.
+| `HINT_SXLEN_DEST_REG_BEHAVIOR` | `HINT_SXLEN` | Exact | normative tag | `norm:hint_sxlen_param`
+| `HINT_XLEN_REDUCTION_BEHAVIOR` | `XLEN_REDUCTION_HINT_OP` | Exact | normative tag | `norm:xlen_reduction_hint_op1`
+| `HIP_BIT_WRITABLE` | `hip` | Partial (register-level) | concept (hand-verified) | His `hip` entry is a register-level WARL umbrella (`HIP_WARL`, unresolved); ours is the per-bit rule conditioned on `sie` bit i being read-only zero.
+| `HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR` | `HPM_READ_BEHAVIOR` | Exact | normative tag | `norm:hpm_unimplemented_counter_access`
+| `HTVAL_LEGAL_VALUES` | `htval` | Exact | normative tag | `norm:htval_val`
+| `MCYCLE_SHARED` | `MCYCLE_SHARED` | Exact | normative tag | `norm:mcycle_shared` +
 name also matches
-| `MENVCFG_FIOM_READONLY` | `MENVCFG_FIOM_RDONLY0_OK` | Exact | `norm:menvcfg_fiom_rdonly0_ok`
-| `MIP_WRITABLE_BITS` | `mip` | Exact | `norm:mip_bits_wr_or_rdonly`
-| `MTVAL2_LEGAL_VALUES` | `mtval2` | Exact | `norm:mtval2_val`
-| `PMA_IDEMPOTENT_IMPLICIT_READ_SIZE` | `PMA_IDP_IMPLICIT_SZ` | Exact | `norm:pma_idp_implicit_sz`
-| `PMPADDR_WARL_MASK` | `pmpaddrN` | Exact | `norm:pmp_addr_warl`
-| `SCTRDEPTH_SUPPORTED_VALUES` | `SCTRDEPTH_DEPTH` | Exact | `norm:sctrdepth-depth_param`
-| `SEPC_INVALID_ADDR_BEHAVIOR` | `sepc` | Exact | `norm:sepc_acc_invalid_addr`
-| `SSTATUS_UBE_ACCESS` | `sstatus.UBE` | Exact | `norm:sstatus-ube`
-| `SSTATUS_UXL_ACCESS` | `sstatus.UXL` | Exact | `norm:sstatus-uxl_sz`
-| `VSSTATUS_UBE_PARAM` | `VSSTATUS_UBE` | Exact | `norm:vsstatus-ube_param`
-| `VSXL_RO_PARAM` | `hstatus.VSXL` | Exact | `norm:vsxl_ro_param`
-| `VTW_VIRTINSTR_PARAM` | `VTW_VIRTINSTR` | Exact | `norm:vtw_virtinstr_param`
-| `WFI_TW_ALWAYS_ILLEGAL` | `MSTATUS_TW_ALWAYS_ILLEGAL` | Exact | `norm:mstatus_tw_always_illegal`
+| `MENVCFG_FIOM_READONLY` | `MENVCFG_FIOM_RDONLY0_OK` | Exact | normative tag | `norm:menvcfg_fiom_rdonly0_ok`
+| `MIP_WRITABLE_BITS` | `mip` | Exact | normative tag | `norm:mip_bits_wr_or_rdonly`
+| `MNEPC_INVALID_ADDRESS_CONVERSION` | `mnepc` | Partial (register-level) | concept (hand-verified) | His `mnepc` entry is register-level WARL (`MNEPC_WARL`, unresolved); ours is specifically the invalid-address conversion.
+| `MTVAL2_LEGAL_VALUES` | `mtval2` | Exact | normative tag | `norm:mtval2_val`
+| `PMA_IDEMPOTENT_IMPLICIT_READ_SIZE` | `PMA_IDP_IMPLICIT_SZ` | Exact | normative tag | `norm:pma_idp_implicit_sz` +
+Domain disagreement: ours is a power-of-2 byte size, his is typed `boolean`.
+| `PMPADDR_WARL_MASK` | `pmpaddrN` | Exact | normative tag | `norm:pmp_addr_warl`
+| `SCTRDEPTH_SUPPORTED_VALUES` | `SCTRDEPTH_DEPTH` | Exact | normative tag | `norm:sctrdepth-depth_param`
+| `SEPC_INVALID_ADDR_BEHAVIOR` | `sepc` | Exact | normative tag | `norm:sepc_acc_invalid_addr`
+| `SIP_BITS_ACCESS` | `sip` | Partial (register-level) | concept (hand-verified) | His `sip` entry is register-level WARL (`SIP_WARL`, unresolved); ours is the per-bit writable-or-read-only rule.
+| `SSTATUS_UBE_ACCESS` | `sstatus.UBE` | Exact | normative tag | `norm:sstatus-ube`
+| `SSTATUS_UXL_ACCESS` | `sstatus.UXL` | Exact | normative tag | `norm:sstatus-uxl_sz`
+| `STANDARD_INTERRUPT_SUPPORT` | `SEI_INTR_IMPL`, `STI_INTR_IMPL`, `SSI_INTR_IMPL`, `LCOFI_INTR_IMPL` | Partial (1-to-4) | concept (hand-verified) | He enumerates one parameter per standard interrupt type; ours is the single umbrella sentence naming all four.
+| `VSSTATUS_UBE_PARAM` | `VSSTATUS_UBE` | Exact | normative tag | `norm:vsstatus-ube_param`
+| `VSXL_RO_PARAM` | `hstatus.VSXL` | Exact | normative tag | `norm:vsxl_ro_param`
+| `VTW_VIRTINSTR_PARAM` | `VTW_VIRTINSTR` | Exact | normative tag | `norm:vtw_virtinstr_param`
+| `WFI_TW_ALWAYS_ILLEGAL` | `MSTATUS_TW_ALWAYS_ILLEGAL` | Exact | normative tag | `norm:mstatus_tw_always_illegal`
+| `XRET_CLEARS_LR_RESERVATION` | `MRET_CLR_LR_RESV`, `SRET_CLR_LR_RESV` | Partial (1-to-2) | concept (hand-verified) | He splits the `__x__RET` rule into MRET and SRET variants.
+|===
+
+== Arguable overlaps
+
+Concepts that overlap, where calling it a match is a judgement rather
+than a fact. Left unresolved deliberately.
+
+[cols="24,24,52",options="header"]
+|===
+| Our name | James' nearest | Why it is unresolved
+| `CTRTARGET_MISP_IMPLEMENTED` | `ctrtarget` | MISP is verified to be a field of `ctrtarget` (section at smctr.adoc:314, bitfield at :331), so the register is right. But his entry is a register-level WARL umbrella and says nothing about the optional MISP bit being read-only 0 when unimplemented.
+| `HPM_MISCONFIGURED_BEHAVIOR` | `HPM_READ_BEHAVIOR` | His `HPM_READ_BEHAVIOR` draws on `HPM_PLATFORM_SPECIFIC_IMPL` and `HPM_UNIMPLEMENTED_COUNTER_ACCESS`. Ours is misconfigured *event selection*, which is a different axis from counter read access; whether his entry is meant to span it is unclear.
+| `MSTATEEN_BIT63_TYPE` | `mstateen0/mstateen1/mstateen2/mstateen3` | He has one `ConstMask` entry covering all four `mstateen` registers, which arguably subsumes bit 63; it does not carry the condition (hypervisor absent and matching `sstateen` all read-only zero) that makes ours specific.
+| `ZALASR_MISALIGNED_ATOMICITY_GRANULE` | `PMA_MAG_OP_LDST`, `PMA_MAG_EXC` | He has misaligned-atomicity-granule PMA parameters in `machine.yaml`. Ours is the Zalasr-specific relaxation referring to that same PMA. Already flagged separately as overlapping UDB's `MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE`.
 |===
 
 == Only on our list
 
-Candidates for adding to James' list and to the ISA manual metadata.
+Verified by hand against James' full file set: no entry of his covers
+these, by tag, by register, by field or by concept. Candidates for
+adding to his list and to the ISA manual metadata.
 
-[cols="26,30,20,24",options="header"]
+[cols="24,28,22,26",options="header"]
 |===
-| Name | Domain | Tag | Why James' method missed it
-| `CSR_STRONGLY_ORDERED` | subset of the implemented CSRs (possibly empty) | `norm:csr_strongly_ordered` | rule exists but is not marked `kind: parameter`
-| `CTRTARGET_MISP_IMPLEMENTED` | {read-write, read-only-0} | `norm:ctrtarget_misp` | rule exists but is not marked `kind: parameter`
-| `CTR_CCE_WIDTH` | integer [0..4] exponent bits | `norm:ccounter_impl` | rule exists but is not marked `kind: parameter`
-| `CTR_CTRDATA_TYPE_IMPLEMENTED` | {read-write, read-only-0} | `norm:ctrdata_sz_acc` | rule exists but is not marked `kind: parameter`
-| `DELEGATABLE_EXCEPTIONS` | per bit: {true, false} | `norm:medeleg_mideleg_warl` | tagged, but no normative rule entry exists
-| `HGATP_PPN_LOWER_BITS_RO` | {read-write, read-only-0} | `norm:hgatp-ppn_op` | rule exists but is not marked `kind: parameter`
-| `HIP_BIT_WRITABLE` | per bit: {read-write, read-only-0} | `norm:hip_acc` | rule exists but is not marked `kind: parameter`
-| `HPM_MISCONFIGURED_BEHAVIOR` | {true, false} | `norm:hpm_misconfigured_event_behavior` | rule exists but is not marked `kind: parameter`
-| `MNEPC_INVALID_ADDRESS_CONVERSION` | {true, false} | `norm:mnepc_invalid_convert` | rule exists but is not marked `kind: parameter`
-| `MSECCFG_SEED_BITS_RW` | {read-write, read-only-0} | `(untagged)` | text carries no normative tag at all
-| `MSTATEEN_BIT63_TYPE` | {read-write, read-only-0} | `norm:mstateen-bit-63_roz` | rule exists but is not marked `kind: parameter`
-| `SENVCFG_FIOM_ACCESS` | {read-write, read-only-0} | `norm:senvcfg-fiom_acc` | rule exists but is not marked `kind: parameter`
-| `SIP_BITS_ACCESS` | per bit: {read-write, read-only-0} | `norm:sip_acc` | rule exists but is not marked `kind: parameter`
-| `SISELECT_WIDTH` | supported range 0..N, N >= 0xFFF | `norm:siselect_min_range` | rule exists but is not marked `kind: parameter`
-| `STANDARD_INTERRUPT_SUPPORT` | per bit: {read-write, read-only-0} | `norm:sip_sie_unimpl` | rule exists but is not marked `kind: parameter`
-| `STATEEN_IMPLICIT_UPDATE_EXCEPTION` | {true, false} | `norm:smstateen_implicit_state_update` | rule exists but is not marked `kind: parameter`
-| `VSISELECT_WIDTH` | supported range 0..N, N >= 0xFFF | `norm:vsiselect_min_range` | rule exists but is not marked `kind: parameter`
-| `XRET_CLEARS_LR_RESERVATION` | {true, false} | `norm:xret_clr_lr_resv` | tagged, but no normative rule entry exists
-| `ZALASR_MISALIGNED_ATOMICITY_GRANULE` | {true, false} | `norm:zalasr_misaligned_pma_relax` | rule exists but is not marked `kind: parameter`
+| Name | Domain | Tag | Tag status in the manual
+| `CSR_STRONGLY_ORDERED` | subset of the implemented CSRs (possibly empty) | `norm:csr_strongly_ordered` | rule exists, not marked `kind: parameter`
+| `CTR_CTRDATA_TYPE_IMPLEMENTED` | {read-write, read-only-0} | `norm:ctrdata_sz_acc` | rule exists, not marked `kind: parameter`
+| `HGATP_PPN_LOWER_BITS_RO` | {read-write, read-only-0} | `norm:hgatp-ppn_op` | rule exists, not marked `kind: parameter`
+| `MSECCFG_SEED_BITS_RW` | {read-write, read-only-0} | `(untagged)` | normative text carries no anchor
+| `SENVCFG_FIOM_ACCESS` | {read-write, read-only-0} | `norm:senvcfg-fiom_acc` | rule exists, not marked `kind: parameter`
+| `SISELECT_WIDTH` | supported range 0..N, N >= 0xFFF | `norm:siselect_min_range` | rule exists, not marked `kind: parameter`
+| `STATEEN_IMPLICIT_UPDATE_EXCEPTION` | {true, false} | `norm:smstateen_implicit_state_update` | rule exists, not marked `kind: parameter`
+| `VSISELECT_WIDTH` | supported range 0..N, N >= 0xFFF | `norm:vsiselect_min_range` | rule exists, not marked `kind: parameter`
 |===
 
 == Only on James' list
@@ -138,8 +164,6 @@ difference, not a gap in our work.
 [.small]#unresolved in pinned manual#
 | `hie` | TBD | register-level | `HIE_WARL` +
 [.small]#unresolved in pinned manual#
-| `hip` | TBD | register-level | `HIP_WARL` +
-[.small]#unresolved in pinned manual#
 | `hstatus.VGEIN` | TBD | field-level | `HSTATUS_VGEIN_WLRL`
 | `hstatus.VSBE` | TBD | field-level | `HSTATUS_VSBE_WARL`
 | `htinst` | TBD | register-level | `HTINST_WARL`
@@ -171,8 +195,6 @@ difference, not a gap in our work.
 | `MEPC_INV_ADDR_CONV` | {NoInvAddrConv, Other} | n/a | `MEPC_INV_ADDR_CONV`
 | `MHARTID` | TBD | n/a | `HART_ID`
 | `MIPMPID` | TBD | n/a | `IMP_ID`
-| `MRET_CLR_LR_RESV` | {true, false} | n/a | `MRET_CLR_LR_RESV` +
-[.small]#unresolved in pinned manual#
 | `MSECCFG_MML_MMWP_RLB_RST` | {true, false} | n/a | `MSECCFG_MML_MMWP_RLB_RST`
 | `MSECCFG_USEED_SSEED_RST` | {true, false} | n/a | `MSECCFG_USEED_SSEED_RST`
 | `MSIP_UPDATE_MAX_TIME` | TBD | n/a | `MSIP_UPDATE_MAX_TIME`
@@ -194,8 +216,6 @@ difference, not a gap in our work.
 [.small]#unresolved in pinned manual#
 | `NMI_MCAUSE_VAL` | {true, false} | n/a | `NMI_MCAUSE_VAL`
 | `PMA_CACHE_MM_ALL_ATOMICS` | {true, false} | n/a | `PMA_CACHE_MM_ALL_ATOMICS`
-| `PMA_MAG_EXC` | {true, false} | n/a | `PMA_MAG_EXC`
-| `PMA_MAG_OP_LDST` | {true, false} | n/a | `PMA_MAG_OP_LDST`
 | `PMA_MM_IFETCH` | {true, false} | n/a | `PMA_MM_IFETCH`
 | `PMA_MO_DYN` | {true, false} | n/a | `PMA_MO_DYN`
 | `PMP_A_L_RST` | {true, false} | n/a | `PMP_A_L_RST`
@@ -203,8 +223,6 @@ difference, not a gap in our work.
 | `PMP_GRANULARITY` | TBD | n/a | `PMP_GRANULARITY` +
 [.small]#unresolved in pinned manual#
 | `RST_ADDR` | TBD | n/a | (none) +
-[.small]#unresolved in pinned manual#
-| `SRET_CLR_LR_RESV` | {true, false} | n/a | `SRET_CLR_LR_RESV` +
 [.small]#unresolved in pinned manual#
 | `SXLEN` | {32, 64} | n/a | (none) +
 [.small]#unresolved in pinned manual#
@@ -215,15 +233,12 @@ difference, not a gap in our work.
 | `mcause.EXCCODE` | TBD (legal enum) | field-level | `MCAUSE_EXCCODE_WLRL`
 | `mcounteren` | per bit: constant mask | register-level | `MCOUNTEREN_FLDS_WARL`, `MCOUNTEREN_CY_RDONLY0`, `MCOUNTEREN_TM_RDONLY0`, `MCOUNTEREN_IR_RDONLY0`, `MCOUNTEREN_HPM_N_RDONLY0`
 | `mcountinhibit` | per bit: constant mask | register-level | `MCOUNTINHIBIT_WARL`
-| `medeleg` | per bit: constant mask | register-level | `MEDELEG_WARL` +
-[.small]#unresolved in pinned manual#
 | `menvcfg.CBIE` | TBD (legal enum) | field-level | `MENVCFG_CBIE_WARL`
 | `menvcfg.PMM` | TBD (legal enum) | field-level | `MENVCFG_PMM_WARL` +
 [.small]#unresolved in pinned manual#
 | `mepc` | per bit: constant mask | register-level | `MEPC_WARL`
 | `mhpmcounter` | per bit: constant mask | register-level | `MHPMCOUNTER_WARL`, `MHPMEVENT_N_RDONLY0`
 | `mhpmevent` | per bit: constant mask | register-level | `MHPMEVENT_WARL`, `MHPMEVENT_N_RDONLY0`
-| `mideleg` | per bit: constant mask | register-level | `MIDELEG_WARL`, `MIDELEG_RD1_LOWER_LEVEL`
 | `mie` | per bit: constant mask | register-level | `MIE_WARL` +
 [.small]#unresolved in pinned manual#
 | `misa.EXTENSIONS` | per bit: constant mask | field-level | `MISA_WARL`, `MISA_EXTENSIONS_WARL`, `MISA_CSR_IMPLEMENTED`, `MISA_EXTENSIONS_WRITABLE_BITS`, `MUTABLE_MISA_V`
@@ -256,40 +271,25 @@ difference, not a gap in our work.
 [.small]#unresolved in pinned manual#
 | `mncause` | TBD | register-level | `MNCAUSE_WARL` +
 [.small]#unresolved in pinned manual#
-| `mnepc` | TBD | register-level | `MNEPC_WARL`
 | `mnstatus` | TBD | register-level | `MNSTATUS_WARL` +
 [.small]#unresolved in pinned manual#
 | `MISALIGNED_LDST_EXC_TYPE` | {AlwaysMisalignedExc, AlwaysAccessFaultExc, AccessFaultExcDontEmulate, Other} | n/a | `MISALIGNED_LDST_EXC_TYPE` +
 [.small]#unresolved in pinned manual#
 | `MISALIGNED_LDST_HW_SUPPORT` | {true, false} | n/a | `MISALIGNED_LDST_HW_SUPPORT` +
 [.small]#unresolved in pinned manual#
-| `CTR_CCOUNTER_IMPL` | [0..4] | n/a | `CTR_CCOUNTER_IMPL` +
-[.small]#unresolved in pinned manual#
 | `ctrsource` | TBD | register-level | `CTRSOURCE_WARL`
-| `ctrtarget` | TBD | register-level | `CTRTARGET_WARL`
 | `sctrdepth.DEPTH` | TBD | field-level | `SCTRDEPTH_DEPTH_WARL` +
 [.small]#unresolved in pinned manual#
 | `sctrstatus.WRPTR` | TBD | field-level | `SCTRSTATUS_WRPTR_WARL`
 | `hstateen0/hstateen1/hstateen2/hstateen3` | per bit: constant mask | register-level | `STATEEN_WARL_ACCESS`
-| `mstateen0/mstateen1/mstateen2/mstateen3` | per bit: constant mask | register-level | `STATEEN_WARL_ACCESS`
 | `sstateen0/sstateen1/sstateen2/sstateen3` | per bit: constant mask | register-level | `STATEEN_WARL_ACCESS`
 | `ASIDLEN` | [0..16] | n/a | `ASIDLEN` +
 [.small]#unresolved in pinned manual#
-| `LCOFI_INTR_IMPL` | {true, false} | n/a | `LCOFI_INTR_IMPL` +
-[.small]#unresolved in pinned manual#
 | `SATP_MODE_ROZ_SFENCE_ILLEGAL` | {AlwaysIllegalInstExc, NeverIllegalInstExc, Other} | n/a | `SATP_MODE_ROZ_SFENCE_ILLEGAL`
-| `SEI_INTR_IMPL` | {true, false} | n/a | `SEI_INTR_IMPL` +
-[.small]#unresolved in pinned manual#
-| `SSI_INTR_IMPL` | {true, false} | n/a | `SSI_INTR_IMPL` +
-[.small]#unresolved in pinned manual#
-| `STI_INTR_IMPL` | {true, false} | n/a | `STI_INTR_IMPL` +
-[.small]#unresolved in pinned manual#
 | `scause.EXCEPTION_CODE` | TBD | field-level | `SCAUSE_EXCEPTION_CODE_ACC`
 | `scounteren` | TBD | register-level | `SCOUNTEREN_WARL`
 | `senvcfg.CBIE` | TBD | field-level | `SENVCFG_CBIE_WARL`
 | `sie` | TBD | register-level | `SIE_WARL` +
-[.small]#unresolved in pinned manual#
-| `sip` | TBD | register-level | `SIP_WARL` +
 [.small]#unresolved in pinned manual#
 | `sstatus.SDT` | TBD | field-level | `SSTATUS_SDT_WARL`
 | `stval` | TBD | register-level | `STVAL_WARL`
@@ -323,32 +323,54 @@ difference, not a gap in our work.
 
 == Findings for the ISA manual
 
-Fallout from the join that is directly actionable in the manual repo.
+Fallout from the comparison that is directly actionable in the manual
+repo. These are independent factual claims about the manual's
+metadata; they are deliberately *not* offered as an explanation of why
+the two lists differ (see <<why-not-causal>>).
 
-=== 16 tagged rules that are parameters but not marked as such
+=== 24 rules that are parameters but are not marked as such
 
-These carry a normative tag and a rule entry, but the rule is not
-marked `kind: parameter`. Since James' method selects on exactly that
-marking, this is why his list does not have them -- a metadata gap, not
-a difference of judgement. Each was individually confirmed as a real
-parameter by Allen Baum and Umer.
+Each carries a normative tag and has a rule entry in
+`normative_rule_defs/`, but the rule is not marked `kind: parameter`.
+Each was individually confirmed as a real parameter by Allen Baum and
+Umer, so the marking is missing. One-line fix per rule.
 
 * `norm:csr_strongly_ordered` -- our `CSR_STRONGLY_ORDERED` (zicsr.adoc:244)
 * `norm:ctrtarget_misp` -- our `CTRTARGET_MISP_IMPLEMENTED` (smctr.adoc:319)
-* `norm:ccounter_impl` -- our `CTR_CCE_WIDTH` (smctr.adoc:654)
+* `norm:ccounter_impl` -- our `CTR_CCE_WIDTH` (smctr.adoc:654) (James has this too)
 * `norm:ctrdata_sz_acc` -- our `CTR_CTRDATA_TYPE_IMPLEMENTED` (smctr.adoc:339)
 * `norm:hgatp-ppn_op` -- our `HGATP_PPN_LOWER_BITS_RO` (hypervisor.adoc:1083)
-* `norm:hip_acc` -- our `HIP_BIT_WRITABLE` (hypervisor.adoc:533)
+* `norm:hip_acc` -- our `HIP_BIT_WRITABLE` (hypervisor.adoc:533) (James has this too)
 * `norm:hpm_misconfigured_event_behavior` -- our `HPM_MISCONFIGURED_BEHAVIOR` (counters.adoc:214)
-* `norm:mnepc_invalid_convert` -- our `MNEPC_INVALID_ADDRESS_CONVERSION` (rnmi.adoc:64)
+* `norm:hpm_unimplemented_counter_access` -- our `HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR` (counters.adoc:212) (James has this too)
+* `norm:htval_val` -- our `HTVAL_LEGAL_VALUES` (hypervisor.adoc:957) (James has this too)
+* `norm:mnepc_invalid_convert` -- our `MNEPC_INVALID_ADDRESS_CONVERSION` (rnmi.adoc:64) (James has this too)
 * `norm:mstateen-bit-63_roz` -- our `MSTATEEN_BIT63_TYPE` (smstateen.adoc:175)
+* `norm:mtval2_val` -- our `MTVAL2_LEGAL_VALUES` (hypervisor.adoc:1843) (James has this too)
+* `norm:pmp_addr_warl` -- our `PMPADDR_WARL_MASK` (machine.adoc:3401) (James has this too)
+* `norm:sctrdepth-depth_param` -- our `SCTRDEPTH_SUPPORTED_VALUES` (smctr.adoc:215) (James has this too)
 * `norm:senvcfg-fiom_acc` -- our `SENVCFG_FIOM_ACCESS` (supervisor.adoc:840)
-* `norm:sip_acc` -- our `SIP_BITS_ACCESS` (supervisor.adoc:400)
+* `norm:sepc_acc_invalid_addr` -- our `SEPC_INVALID_ADDR_BEHAVIOR` (supervisor.adoc:559) (James has this too)
+* `norm:sip_acc` -- our `SIP_BITS_ACCESS` (supervisor.adoc:400) (James has this too)
 * `norm:siselect_min_range` -- our `SISELECT_WIDTH` (indirect-csr.adoc:148)
-* `norm:sip_sie_unimpl` -- our `STANDARD_INTERRUPT_SUPPORT` (supervisor.adoc:465)
+* `norm:sstatus-ube` -- our `SSTATUS_UBE_ACCESS` (supervisor.adoc:227) (James has this too)
+* `norm:sstatus-uxl_sz` -- our `SSTATUS_UXL_ACCESS` (supervisor.adoc:143) (James has this too)
+* `norm:sip_sie_unimpl` -- our `STANDARD_INTERRUPT_SUPPORT` (supervisor.adoc:465) (James has this too)
 * `norm:smstateen_implicit_state_update` -- our `STATEEN_IMPLICIT_UPDATE_EXCEPTION` (smstateen.adoc:100)
 * `norm:vsiselect_min_range` -- our `VSISELECT_WIDTH` (indirect-csr.adoc:239)
 * `norm:zalasr_misaligned_pma_relax` -- our `ZALASR_MISALIGNED_ATOMICITY_GRANULE` (zalasr.adoc:26)
+
+[[why-not-causal]]
+==== Why this is not the reason the lists differ
+
+An earlier draft of this document claimed the missing `kind: parameter`
+marking explained why James' list lacks these. The data does not
+support that: he has 13 of the 24 anyway. His method is
+not purely a selection on that marking -- he also hand-authors
+`csr_definitions` per register, which routes around it. The metadata
+gap is real and worth fixing on its own merits; it is not a causal
+account of the difference between the lists.
+
 
 === 2 anchors with no normative rule entry
 
@@ -365,5 +387,9 @@ These `impl-def` names have no matching normative rule in the pinned
 manual (7fc198f1, 2026-02-15). His definitions are about seven
 weeks newer, so some may already exist upstream and others are likely
 tags he is proposing. Worth confirming with him rather than assuming.
+
+This is not only a documentation gap. It is what made a tag-only join
+unsafe: seven of the matches above are invisible to the tag join purely
+because the counterpart entry resolves through one of these names.
 
 * `ASIDLEN`, `CACHE_BLOCK_SIZE`, `CTR_CCOUNTER_IMPL`, `EE_IMPL_FLEX`, `HEDELEG_WARL`, `HGEIE_WARL`, `HIDELEG_WARL`, `HIE_WARL`, `HIP_WARL`, `HVIP_WARL`, `LCOFI_INTR_IMPL`, `MCAUSE_EXCCODE_MISALIGNED_VS_FAULT_PRI`, `MCONFIGPTR_VAL`, `MEDELEG_WARL`, `MENVCFG_PMM_WARL`, `MIE_WARL`, `MISALIGNED_LDST_EXC_TYPE`, `MISALIGNED_LDST_HW_SUPPORT`, `MNCAUSE_WARL`, `MNSTATUS_WARL`, `MRET_CLR_LR_RESV`, `MSTATUSH_MBE_WARL`, `MSTATUSH_SBE_WARL`, `MSTATUSH_UBE_WARL`, `MSTATUS_MBE_WARL`, `MSTATUS_SBE_WARL`, `MSTATUS_UBE_WARL`, `MSTATUS_UXL_WARL`, `PMPCFG_WARL`, `PMP_GRANULARITY`, `SCTRDEPTH_DEPTH_WARL`, `SEI_INTR_IMPL`, `SIE_WARL`, `SIP_WARL`, `SRET_CLR_LR_RESV`, `SSI_INTR_IMPL`, `STI_INTR_IMPL`, `STVEC_BASE_WARL`, `STVEC_MODE_WARL`, `VSIE_WARL`, `VSIP_WARL`, `VSTVEC_BASE_WARL`, `VSTVEC_MODE_WARL`

@@ -100,6 +100,96 @@ EXPLICIT_DOMAINS = {
 }
 
 
+# ------------------------------------------------------- adjudication ------
+# The tag join alone is not sufficient. 44 of James' entries carry an
+# ``impl-def`` that does not resolve against the pinned manual, and his
+# ``csr_definitions`` are hand-authored per register, so wherever he covers a
+# concept through an unresolved name the tag join wrongly reports it as ours
+# alone. These were found by checking all of our unmatched parameters against
+# his full file set by register, field and concept, then confirming each by
+# hand. Recorded as a table so every one can be re-checked individually.
+MANUAL_MATCHES = {
+    "CTR_CCE_WIDTH": (
+        ["CTR_CCOUNTER_IMPL"], "Exact",
+        "Same 0..4 exponent-bit choice in CCE. Missed only because his "
+        "impl-def is `CTR_CCOUNTER_IMPL` while the rule is named "
+        "`ccounter_impl`.",
+    ),
+    "DELEGATABLE_EXCEPTIONS": (
+        ["medeleg", "mideleg"], "Partial (1-to-2)",
+        "He records the delegatable-bit mask once per register "
+        "(`MEDELEG_WARL`, `MIDELEG_WARL`, both unresolved); ours is the "
+        "single statement covering both.",
+    ),
+    "HIP_BIT_WRITABLE": (
+        ["hip"], "Partial (register-level)",
+        "His `hip` entry is a register-level WARL umbrella (`HIP_WARL`, "
+        "unresolved); ours is the per-bit rule conditioned on `sie` bit i "
+        "being read-only zero.",
+    ),
+    "MNEPC_INVALID_ADDRESS_CONVERSION": (
+        ["mnepc"], "Partial (register-level)",
+        "His `mnepc` entry is register-level WARL (`MNEPC_WARL`, "
+        "unresolved); ours is specifically the invalid-address conversion.",
+    ),
+    "SIP_BITS_ACCESS": (
+        ["sip"], "Partial (register-level)",
+        "His `sip` entry is register-level WARL (`SIP_WARL`, unresolved); "
+        "ours is the per-bit writable-or-read-only rule.",
+    ),
+    "STANDARD_INTERRUPT_SUPPORT": (
+        ["SEI_INTR_IMPL", "STI_INTR_IMPL", "SSI_INTR_IMPL", "LCOFI_INTR_IMPL"],
+        "Partial (1-to-4)",
+        "He enumerates one parameter per standard interrupt type; ours is "
+        "the single umbrella sentence naming all four.",
+    ),
+    "XRET_CLEARS_LR_RESERVATION": (
+        ["MRET_CLR_LR_RESV", "SRET_CLR_LR_RESV"], "Partial (1-to-2)",
+        "He splits the `__x__RET` rule into MRET and SRET variants.",
+    ),
+}
+
+# Concepts that overlap but where calling it a match is a judgement, not a
+# fact. Reported in their own section rather than silently resolved either way.
+ARGUABLE_MATCHES = {
+    "CTRTARGET_MISP_IMPLEMENTED": (
+        ["ctrtarget"],
+        "MISP is verified to be a field of `ctrtarget` (section at "
+        "smctr.adoc:314, bitfield at :331), so the register is right. But his "
+        "entry is a register-level WARL umbrella and says nothing about the "
+        "optional MISP bit being read-only 0 when unimplemented.",
+    ),
+    "MSTATEEN_BIT63_TYPE": (
+        ["mstateen0/mstateen1/mstateen2/mstateen3"],
+        "He has one `ConstMask` entry covering all four `mstateen` "
+        "registers, which arguably subsumes bit 63; it does not carry the "
+        "condition (hypervisor absent and matching `sstateen` all "
+        "read-only zero) that makes ours specific.",
+    ),
+    "HPM_MISCONFIGURED_BEHAVIOR": (
+        ["HPM_READ_BEHAVIOR"],
+        "His `HPM_READ_BEHAVIOR` draws on `HPM_PLATFORM_SPECIFIC_IMPL` and "
+        "`HPM_UNIMPLEMENTED_COUNTER_ACCESS`. Ours is misconfigured *event "
+        "selection*, which is a different axis from counter read access; "
+        "whether his entry is meant to span it is unclear.",
+    ),
+    "ZALASR_MISALIGNED_ATOMICITY_GRANULE": (
+        ["PMA_MAG_OP_LDST", "PMA_MAG_EXC"],
+        "He has misaligned-atomicity-granule PMA parameters in "
+        "`machine.yaml`. Ours is the Zalasr-specific relaxation referring to "
+        "that same PMA. Already flagged separately as overlapping UDB's "
+        "`MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE`.",
+    ),
+}
+
+# Where both lists agree the parameter exists but disagree on its domain.
+TYPE_CONFLICTS = {
+    "PMA_IDEMPOTENT_IMPLICIT_READ_SIZE":
+        "Domain disagreement: ours is a power-of-2 byte size, his is typed "
+        "`boolean`.",
+}
+
+
 def our_domain(rec):
     """Derive a domain only where the class or the excerpt fixes it."""
     name, cls, vt = rec["parameter_name"], rec["class"], rec["value_type"]
@@ -307,22 +397,43 @@ def write_lists(ours, james, meta):
 
 def write_comparison(ours, james, meta):
     j_by_tag = {}
+    j_by_name = {}
     for r in james:
+        j_by_name[r["name"]] = r
         for t in r["tags"]:
             j_by_tag.setdefault(t, []).append(r)
 
-    matched, only_ours = [], []
+    matched, arguable, only_ours = [], [], []
     for r in sorted(ours, key=lambda x: x["name"]):
         tag = r["tags"][0] if r["tags"] else None
         hits = j_by_tag.get(tag, []) if tag else []
+        name = r["name"]
+
         if hits:
-            matched.append((r, hits))
-        else:
-            only_ours.append(r)
+            rel = "Exact" if len(hits) == 1 else f"Partial (1-to-{len(hits)})"
+            note = TYPE_CONFLICTS.get(name, "")
+            matched.append((r, hits, rel, "normative tag", note))
+            continue
+
+        if name in MANUAL_MATCHES:
+            jnames, rel, why = MANUAL_MATCHES[name]
+            hits = [j_by_name.get(n, {"name": n}) for n in jnames]
+            matched.append((r, hits, rel, "concept (hand-verified)", why))
+            continue
+
+        if name in ARGUABLE_MATCHES:
+            jnames, why = ARGUABLE_MATCHES[name]
+            arguable.append((r, jnames, why))
+            continue
+
+        only_ours.append(r)
 
     ours_tags = {r["tags"][0] for r in ours if r["tags"]}
+    claimed = {h["name"] for _, hits, _, _, _ in matched for h in hits}
+    claimed |= {n for _, jn, _ in arguable for n in jn}
     only_james = [r for r in james
-                  if not (set(r["tags"]) & ours_tags)]
+                  if not (set(r["tags"]) & ours_tags)
+                  and r["name"] not in claimed]
 
     L = [HDR, "= Parameter List Comparison", ":toc:", ":toclevels: 2", ""]
     L += [
@@ -336,7 +447,7 @@ def write_comparison(ours, james, meta):
         "report the two efforts as ~97% disjoint, which is an artefact of naming,",
         "not a real finding.",
         "",
-        "The join is therefore the *normative tag* in the ISA manual:",
+        "The primary join is therefore the *normative tag* in the ISA manual:",
         "",
         "* ours -- excerpt -> enclosing `[#norm:...]` anchor -> normative rule",
         "* James' -- `impl-def` -> normative rule -> its tag(s)",
@@ -345,9 +456,19 @@ def write_comparison(ours, james, meta):
         "rule entry; 135 of James' 179 entries resolve to a tag. Name equality is",
         "reported below as corroboration where it happens, never as the join.",
         "",
+        "IMPORTANT: The tag join alone is *not* sufficient, and an earlier draft of",
+        "this document was wrong because of it. 44 of James' entries carry an",
+        "`impl-def` that does not resolve against the pinned manual, and his",
+        "`csr_definitions` are hand-authored per register, so wherever he covers a",
+        "concept through an unresolved name a tag-only join reports it as ours",
+        "alone. Every parameter the tag join left unmatched was therefore checked",
+        "by hand against his full file set, by register, field and concept. That",
+        "recovered seven further matches, listed with their evidence below.",
+        "",
         "Relationship vocabulary follows Jordan's `sail_udb_config_mapping.md`:",
-        "*Exact* (one-to-one), *Partial* (concepts overlap but not one-to-one, for",
-        "example one umbrella entry against several fine-grained ones).",
+        "*Exact* (one-to-one), *Partial* (concepts overlap but not one-to-one --",
+        "one umbrella entry against several fine-grained ones, or a register-level",
+        "entry against a specific field rule).",
         "",
         "== Summary",
         "",
@@ -356,7 +477,12 @@ def write_comparison(ours, james, meta):
         "| Measure | Count",
         f"| Our parameters (expert-confirmed, de-duplicated) | {len(ours)}",
         f"| James' entries | {len(james)}",
-        f"| Shared a normative tag | {len(matched)}",
+        f"| On both lists | {len(matched)}",
+        f"| ...matched by normative tag | "
+        f"{sum(1 for m in matched if m[3] == 'normative tag')}",
+        f"| ...matched by concept, hand-verified | "
+        f"{sum(1 for m in matched if m[3] != 'normative tag')}",
+        f"| Arguable -- overlap is a judgement call | {len(arguable)}",
         f"| Only on our list | {len(only_ours)}",
         f"| Only on James' list | {len(only_james)}",
         "|===",
@@ -364,33 +490,47 @@ def write_comparison(ours, james, meta):
     ]
 
     L += ["== Parameters on both lists", "",
-          '[cols="24,24,16,36",options="header"]', "|===",
-          "| Our name | James' name(s) | Relationship | Shared tag / note"]
-    for r, hits in matched:
+          '[cols="20,22,16,14,28",options="header"]', "|===",
+          "| Our name | James' name(s) | Relationship | Matched by | Evidence"]
+    for r, hits, rel, how, note in matched:
         jn = ", ".join(f"`{h['name']}`" for h in hits)
-        rel = "Exact" if len(hits) == 1 else "Partial (1-to-N)"
-        note = f"`{r['tags'][0]}`"
+        ev = f"`{r['tags'][0]}`" if how == "normative tag" else ""
+        if note:
+            ev = f"{ev} +\n{note}" if ev else note
         same = [h for h in hits if nz(h["name"]) == nz(r["name"])]
         if same:
-            note += " +\nname also matches"
-        L.append(f"| `{esc(r['name'])}` | {jn} | {rel} | {note}")
+            ev += " +\nname also matches"
+        L.append(f"| `{esc(r['name'])}` | {jn} | {rel} | {how} | {ev}")
+    L += ["|===", ""]
+
+    L += ["== Arguable overlaps", "",
+          "Concepts that overlap, where calling it a match is a judgement rather",
+          "than a fact. Left unresolved deliberately.",
+          "",
+          '[cols="24,24,52",options="header"]', "|===",
+          "| Our name | James' nearest | Why it is unresolved"]
+    for r, jn, why in arguable:
+        L.append(f"| `{esc(r['name'])}` | "
+                 f"{', '.join('`' + n + '`' for n in jn)} | {esc(why)}")
     L += ["|===", ""]
 
     L += ["== Only on our list", "",
-          "Candidates for adding to James' list and to the ISA manual metadata.",
+          "Verified by hand against James' full file set: no entry of his covers",
+          "these, by tag, by register, by field or by concept. Candidates for",
+          "adding to his list and to the ISA manual metadata.",
           "",
-          '[cols="26,30,20,24",options="header"]', "|===",
-          "| Name | Domain | Tag | Why James' method missed it"]
+          '[cols="24,28,22,26",options="header"]', "|===",
+          "| Name | Domain | Tag | Tag status in the manual"]
     for r in only_ours:
         tag = r["tags"][0] if r["tags"] else "(untagged)"
         if not r["tags"]:
-            why = "text carries no normative tag at all"
+            why = "normative text carries no anchor"
         elif not r["rules"]:
-            why = "tagged, but no normative rule entry exists"
+            why = "anchor exists, no rule entry"
         elif "parameter" not in r["rule_kinds"]:
-            why = "rule exists but is not marked `kind: parameter`"
+            why = "rule exists, not marked `kind: parameter`"
         else:
-            why = "rule is marked `kind: parameter` -- genuine gap"
+            why = "rule marked `kind: parameter`"
         L.append(f"| `{esc(r['name'])}` | {esc(r['domain'])} | `{tag}` | {why}")
     L += ["|===", ""]
 
@@ -410,32 +550,53 @@ def write_comparison(ours, james, meta):
                  f"| {impl}")
     L += ["|===", ""]
 
-    # findings that are useful to the manual maintainers
-    nokind = [r for r in only_ours if r["rules"]
+    # findings that are useful to the manual maintainers.
+    # NOTE: scoped over ALL our parameters, not only the unmatched ones. The
+    # missing-kind claim is about the manual's metadata and is independent of
+    # whether James happens to have the parameter.
+    nokind = [r for r in ours if r["rules"]
               and "parameter" not in r["rule_kinds"]]
-    norule = [r for r in only_ours if r["tags"] and not r["rules"]]
-    untag = [r for r in only_ours if not r["tags"]]
+    norule = [r for r in ours if r["tags"] and not r["rules"]]
+    untag = [r for r in ours if not r["tags"]]
     unres = [r for r in james if not r["tags"]]
+    matched_names = {m[0]["name"] for m in matched}
 
     L += ["== Findings for the ISA manual", "",
-          "Fallout from the join that is directly actionable in the manual repo.",
+          "Fallout from the comparison that is directly actionable in the manual",
+          "repo. These are independent factual claims about the manual's",
+          "metadata; they are deliberately *not* offered as an explanation of why",
+          "the two lists differ (see <<why-not-causal>>).",
           "",
-          f"=== {len(nokind)} tagged rules that are parameters but not marked as such",
+          f"=== {len(nokind)} rules that are parameters but are not marked as such",
           "",
-          "These carry a normative tag and a rule entry, but the rule is not",
-          "marked `kind: parameter`. Since James' method selects on exactly that",
-          "marking, this is why his list does not have them -- a metadata gap, not",
-          "a difference of judgement. Each was individually confirmed as a real",
-          "parameter by Allen Baum and Umer.",
+          "Each carries a normative tag and has a rule entry in",
+          "`normative_rule_defs/`, but the rule is not marked `kind: parameter`.",
+          "Each was individually confirmed as a real parameter by Allen Baum and",
+          "Umer, so the marking is missing. One-line fix per rule.",
           ""]
     for r in nokind:
-        L.append(f"* `{r['tags'][0]}` -- our `{r['name']}` ({r['file']}:{r['line']})")
+        also = " (James has this too)" if r["name"] in matched_names else ""
+        L.append(f"* `{r['tags'][0]}` -- our `{r['name']}` "
+                 f"({r['file']}:{r['line']}){also}")
+
+    n_have = sum(1 for r in nokind if r["name"] in matched_names)
+    L += ["", "[[why-not-causal]]",
+          "==== Why this is not the reason the lists differ", "",
+          "An earlier draft of this document claimed the missing `kind: parameter`",
+          "marking explained why James' list lacks these. The data does not",
+          f"support that: he has {n_have} of the {len(nokind)} anyway. His method is",
+          "not purely a selection on that marking -- he also hand-authors",
+          "`csr_definitions` per register, which routes around it. The metadata",
+          "gap is real and worth fixing on its own merits; it is not a causal",
+          "account of the difference between the lists.",
+          ""]
 
     L += ["", f"=== {len(norule)} anchors with no normative rule entry", ""]
     for r in norule:
         L.append(f"* `{r['tags'][0]}` -- our `{r['name']}` ({r['file']}:{r['line']})")
 
-    L += ["", f"=== {len(untag)} confirmed parameter with no tag at all", ""]
+    plural = "s" if len(untag) != 1 else ""
+    L += ["", f"=== {len(untag)} confirmed parameter{plural} with no tag at all", ""]
     for r in untag:
         L.append(f"* our `{r['name']}` ({r['file']}:{r['line']}) -- "
                  "normative text carrying no anchor")
@@ -445,6 +606,10 @@ def write_comparison(ours, james, meta):
           f"manual ({MANUAL_SHA[:8]}, 2026-02-15). His definitions are about seven",
           "weeks newer, so some may already exist upstream and others are likely",
           "tags he is proposing. Worth confirming with him rather than assuming.",
+          "",
+          "This is not only a documentation gap. It is what made a tag-only join",
+          "unsafe: seven of the matches above are invisible to the tag join purely",
+          "because the counterpart entry resolves through one of these names.",
           ""]
     seen = set()
     for r in unres:
