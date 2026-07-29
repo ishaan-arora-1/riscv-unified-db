@@ -15,7 +15,25 @@
 :toc:
 :toclevels: 2
 
-Comparison of our expert-reviewed parameter list against James Ball's.
+Comparison of our parameter list against James Ball's.
+
+== Standing of the two lists -- read before any count
+
+The two lists do not have equal standing, and no count below should be
+read as if they did.
+
+[cols="20,40,40",options="header"]
+|===
+| | Ours | James'
+| Review status | Every entry reviewed individually by Allen Baum and Umer | *Not reviewed by Allen or Umer.* He describes it as an initial individual effort, explicitly not Parameter SIG consensus
+| Scope | Only parameters believed *missing* from UDB | The whole parameter space, including parameters UDB already has
+| Evidence | A verbatim spec excerpt per entry, all located in the manual | An `impl-def` pointer to a normative rule; no excerpt
+| Completeness | 38 entries | 179 entries, most `long-name` and many `type` fields still `TBD`
+|===
+
+So an entry appearing on his list is a *candidate*, at the same stage ours were before review. An entry on ours has cleared expert review. When this document says the two lists agree, that means an unreviewed candidate coincides with a reviewed one, which is corroboration for his entry rather than fresh support for ours.
+
+Judgement calls throughout are flagged rather than asserted, per rule 15 of `INCLUSION_CRITERIA.md`: a normative rule whose parameter-ness needs the design rationale cannot be decided mechanically.
 
 == Method, and why not by name
 
@@ -326,7 +344,7 @@ The substance of his contribution. These are candidate new parameters on the sam
 | `stvec.BASE` | TBD | BASE alignment of stvec. Jordan records explicitly that UDB has no STVEC base-alignment parameter while Sail does.
 | `MSTATUS_VS_EXISTS` | {true, false} | Whether mstatus.VS exists when misa.V is clear. UDB has the VS-mode sibling VSSTATUS_VS_EXISTS but not the M-mode one.
 | `VECTOR_LS_CONSTANT_STRIDE_X0` | {Always, Never, Other} | Constant-stride vector load/store with rs2=x0. UDB has no equivalent.
-| `INTERRUPTS_ALLOWED_IN_PUSHPOP` | {true, false} | Whether interrupts may be taken during Zcmp push/pop sequences. UDB has no equivalent. Our pipeline saw this and held it back under rule 1 (NOTE block).
+| `INTERRUPTS_ALLOWED_IN_PUSHPOP` | {true, false} | Whether interrupts may be taken during Zcmp push/pop sequences. UDB has no equivalent. Our pipeline found this and held it back under rule 1, because the sentence sits in a NOTE block. He includes it.
 | `NTL_TRAP_BEHAVIOR` | {true, false} | Trap behaviour for NTL hints. UDB has TRAP_ON_RESERVED_INSTRUCTION but nothing NTL-specific.
 | `ZILSD_ALIGN8_ATOMIC` | {true, false} | Whether 8-byte-aligned Zilsd accesses are atomic. UDB has no equivalent.
 |===
@@ -338,11 +356,11 @@ Platform integration or quantities with no architectural units. These fail our o
 [cols="22,20,58",options="header"]
 |===
 | James' entry | Domain | Basis
-| `MSIP_UPDATE_MAX_TIME` | TBD | A maximum time with no architectural units. Excluded by our rule on implementation-defined quantities with no testable units.
-| `MSTATUS_TW_TIME_LIMIT` | TBD | The WFI 'bounded time limit'. The spec gives no units, so it fails the observable-and-testable master test. This is the exact example our INCLUSION_CRITERIA uses.
-| `MTIME_TICK_PERIOD` | TBD | Platform timing. Jordan records platform.clock_frequency and instructions_per_tick as having no UDB parameter.
-| `NMI_ADDR` | TBD | NMI vector address. Excluded as platform integration rather than ISA, not on testability grounds -- it is observable. Scope question for the mentor.
-| `RST_ADDR` | TBD | Reset vector address. Excluded as platform integration rather than ISA, not on testability grounds -- it is observable. Scope question for the mentor.
+| `MSIP_UPDATE_MAX_TIME` | TBD | A maximum time with no architectural units. Excluded by rule 6 (implementation-defined with no testable units or enumerable options).
+| `MSTATUS_TW_TIME_LIMIT` | TBD | The WFI bounded time limit. Excluded by INCLUSION_CRITERIA rule 6, which names "bounded time limit" as its literal example of an implementation-defined quantity with no testable units.
+| `MTIME_TICK_PERIOD` | TBD | Platform timing. Excluded by rule 4 (NON_ISA, outside ISA scope); Jordan records platform.clock_frequency and instructions_per_tick as having no UDB parameter either.
+| `NMI_ADDR` | TBD | NMI vector address. Excluded by rule 4 (NON_ISA, platform rather than ISA), not on testability grounds -- it is observable. Scope question for the mentor.
+| `RST_ADDR` | TBD | Reset vector address. Excluded by rule 4 (NON_ISA, platform rather than ISA), not on testability grounds -- it is observable. Scope question for the mentor.
 |===
 
 === Duplicated within his own list (1)
@@ -387,6 +405,169 @@ Two entries need a mentor ruling rather than a verdict:
 * `INTERRUPTS_ALLOWED_IN_PUSHPOP` -- our pipeline found this and held
   it back under rule 1, because the sentence sits in a `NOTE` block.
   He includes it. Whichever way it goes, the two lists should agree.
+
+== Applying our inclusion criteria to his list
+
+Everything above compares the two lists *as they stand*. But they were
+not built to the same standard. Our list was filtered through
+`param_extraction/INCLUSION_CRITERIA.md` at every stage; his was never
+held to that ruleset, because he was not working to it. Comparing raw
+counts therefore compares a filtered list against an unfiltered one.
+
+This section applies the mechanically checkable rules to his entries so
+both lists can be judged on the same footing.
+
+IMPORTANT: A rule hit is *not* a defect in his work. It means the entry
+would need review under our criteria, which until the mentor rules on it
+is a definition difference and nothing more. Several of these are cases
+where our rule may be the thing that is wrong.
+
+=== How the check was done
+
+His entries carry no excerpt, only an `impl-def` pointing at a normative
+rule, so the spec text had to be recovered first:
+
+  impl-def -> normative rule -> tag -> anchor text in the .adoc
+
+Rules 4, 10, 11, 12, 13 and 15 need judgement or UDB context and are not
+decided mechanically; rule 11 (duplicates) is already covered by the UDB
+segmentation above.
+
+Two allowances are built in, both from our own ruleset, without which
+the check reports far more hits than are real:
+
+* a *WARL* or *WLRL* field satisfies the inclusion signal on its own,
+  per the mentor's standing rule that WARL is automatically a parameter;
+* a declared value, width, size or ID counts even with no modal word,
+  per rule 5a. Without this, `MXLEN` itself would be flagged.
+
+=== Stage 1 -- before applying the criteria
+
+[cols="70,30",options="header"]
+|===
+| Measure | Count
+| His entries | 179
+| ...of which already in UDB | 56
+| ...overlapping UDB, not one-to-one | 30
+| ...*candidate new parameters* | 52
+|===
+
+=== Stage 2 -- what the criteria change
+
+[cols="70,30",options="header"]
+|===
+| Measure | Count
+| His entries | 179
+| Spec text recoverable, so checkable | 135
+| *Not* recoverable -- unresolved tag, no check possible | 44
+| Flagged by at least one rule | 13
+|===
+
+Only 13 of the 135 checkable entries are
+flagged. That is the headline result of this section: *his list is
+largely consistent with our criteria even though it was not built to
+them*. Two independent methods, one tag-driven and one prose-driven,
+converge on nearly the same standard.
+
+The flagged entries, each verified by reading the spec text:
+
+[cols="26,14,60",options="header"]
+|===
+| His entry | Rule | Why
+| `CRITICAL_ERROR` +
+[.small]#machine.adoc:553# | S1, 1 | no inclusion signal -- no optionality language, no WARL/WLRL and no declared value or width in the tagged text; rule 1 -- the tagged text sits in a NOTE/TIP/WARNING block
+| `INTERRUPTS_ALLOWED_IN_PUSHPOP` +
+[.small]#zc.adoc:1185# | 1 | rule 1 -- the tagged text sits in a NOTE/TIP/WARNING block
+| `MCAUSE_RST_ALIAS_OK` +
+[.small]#machine.adoc:2848# | 1 | rule 1 -- the tagged text sits in a NOTE/TIP/WARNING block
+| `MSIP_UPDATE_MAX_TIME` +
+[.small]#machine.adoc:1464# | S1 | no inclusion signal -- no optionality language, no WARL/WLRL and no declared value or width in the tagged text
+| `MSTATUS_TW_TIME_LIMIT` +
+[.small]#machine.adoc:792# | 6 | rule 6 -- no testable units, or 'misconfigured'
+| `MTIME_TICK_PERIOD` +
+[.small]#machine.adoc:2550# | S1, 2 | no inclusion signal -- no optionality language, no WARL/WLRL and no declared value or width in the tagged text; rule 2 -- a fixed requirement (must/shall/always) with no optionality
+| `MTVEC_RDONLY` +
+[.small]#machine.adoc:1217# | S1, 2 | no inclusion signal -- no optionality language, no WARL/WLRL and no declared value or width in the tagged text; rule 2 -- a fixed requirement (must/shall/always) with no optionality
+| `NTL_TRAP_BEHAVIOR` +
+[.small]#zihintntl.adoc:162# | S1 | no inclusion signal -- no optionality language, no WARL/WLRL and no declared value or width in the tagged text
+| `PMA_CACHE_MM_ALL_ATOMICS` +
+[.small]#machine.adoc:3023# | 1 | rule 1 -- the tagged text sits in a NOTE/TIP/WARNING block
+| `PMA_MM_IFETCH` +
+[.small]#machine.adoc:2986# | S1, 2 | no inclusion signal -- no optionality language, no WARL/WLRL and no declared value or width in the tagged text; rule 2 -- a fixed requirement (must/shall/always) with no optionality
+| `vscause` +
+[.small]#hypervisor.adoc:1356# | 14 | rule 14 -- legal values stated as identical to another register's, so possibly derived rather than an independent choice
+| `vsepc` +
+[.small]#hypervisor.adoc:1338# | 14 | rule 14 -- legal values stated as identical to another register's, so possibly derived rather than an independent choice
+| `vstval` +
+[.small]#hypervisor.adoc:1374# | 14 | rule 14 -- legal values stated as identical to another register's, so possibly derived rather than an independent choice
+|===
+
+=== Stage 3 -- the comparison after applying the criteria
+
+[cols="70,30",options="header"]
+|===
+| Measure | Count
+| His candidate new parameters, before | 52
+| ...flagged by our criteria | 9
+| *Surviving our criteria* | 43
+| ...of those, unverifiable (no reachable spec text) | 12
+|===
+
+So his genuinely new, criteria-passing contribution is about
+*43 parameters*, against our
+38. Both numbers carry caveats pointing in opposite directions: ours
+are expert-reviewed but were mined from prose and are known to be
+non-exhaustive; his are unreviewed, and 12 of
+them cannot be checked against spec text at all until the unresolved
+tags are settled.
+
+The nine flagged new candidates, and why each matters:
+
+* `CRITICAL_ERROR` (rule S1, 1) -- Critical-error signalling behaviour. UDB has no equivalent.
+* `INTERRUPTS_ALLOWED_IN_PUSHPOP` (rule 1) -- Whether interrupts may be taken during Zcmp push/pop sequences. UDB has no equivalent. Our pipeline found this and held it back under rule 1, because 
+* `MCAUSE_RST_ALIAS_OK` (rule 1) -- Whether the mcause reset value may alias a defined cause. UDB models no CSR reset values.
+* `NTL_TRAP_BEHAVIOR` (rule S1) -- Trap behaviour for NTL hints. UDB has TRAP_ON_RESERVED_INSTRUCTION but nothing NTL-specific.
+* `PMA_CACHE_MM_ALL_ATOMICS` (rule 1) -- Whether cacheable main memory supports all atomics. Same PMA gap.
+* `PMA_MM_IFETCH` (rule S1, 2) -- Whether main-memory regions support instruction fetch. UDB has PMA_GRANULARITY only; Jordan records UDB as having no per-region PMA attributes.
+* `vscause` (rule 14) -- WLRL legal exception codes of vscause. UDB has no cause-code legal-value parameter.
+* `vsepc` (rule 14) -- WARL behaviour of vsepc. UDB has no vsepc parameter; our SEPC_INVALID_ADDR_BEHAVIOR is the sepc sibling.
+* `vstval` (rule 14) -- Implemented-bit width of vstval. UDB has MTVAL_WIDTH and STVAL_WIDTH but no VSTVAL_WIDTH.
+
+Two are worth singling out:
+
+* `INTERRUPTS_ALLOWED_IN_PUSHPOP` is tagged as literally
+  `NOTE: It is implementation defined whether interrupts can also be
+  taken during the sequence execution.` Our pipeline found this and
+  held it back under rule 1. The audit independently confirms that
+  call -- and it is the clearest case where the two lists disagree
+  because of a rule, not because of what either of us saw.
+* `vsepc`, `vscause` and `vstval` are each spec'd as holding "the same
+  set of values that `sepc` / `scause` / `stval` can hold". Under rule
+  14 that is derived rather than an independent choice. Whether a
+  register that tracks another still deserves its own parameter is a
+  real question for the mentor, not something to settle here.
+
+=== Where our rule may be the problem, not his entry
+
+Three of the flags point at our ruleset rather than at his list:
+
+* Rule 1 excludes NOTE blocks outright. But
+  `INTERRUPTS_ALLOWED_IN_PUSHPOP` and `MCAUSE_RST_ALIAS_OK` are both
+  tagged `[#norm:...]` *inside* a NOTE. The manual's own authors
+  marked that text as normative. A blanket NOTE exclusion may be too
+  strong when the text carries a normative tag.
+* `MTVEC_RDONLY`, `MTIME_TICK_PERIOD` and `PMA_MM_IFETCH` are flagged
+  under rule 2 because the *tagged sentence* is a fixed requirement --
+  for example `MTVEC_RDONLY` points at "The `mtvec` register must
+  always be implemented", which says nothing about read-only. The
+  parameter may well be real; the tag is pointing at the wrong
+  sentence. That is a fixable defect in his source pointer, and it is
+  worth telling him.
+* Rule 6 catches `MSTATUS_TW_TIME_LIMIT`, the WFI bounded time limit.
+  Our own `INCLUSION_CRITERIA` names "bounded time limit" as its
+  example of an untestable quantity, so on our rules this is correctly
+  excluded -- but he independently judged it a parameter, which is a
+  second vote for revisiting that rule.
 
 == Findings for the ISA manual
 

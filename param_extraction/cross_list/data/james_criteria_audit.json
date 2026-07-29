@@ -1,0 +1,3121 @@
+{
+ "rows": [
+  {
+   "name": "LRSC_ALIGNMENT",
+   "section": "param",
+   "impl": "LR_SC_ALIGNMENT",
+   "file": "a-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:lr_sc_alignment"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "a-st-ext.adoc",
+     "line": 126,
+     "text": "For LR and SC, the Zalrsc extension requires that the address held in _rs1_ be naturally aligned to the size of the operand (i.e., eight-byte aligned for _doublewords_ and four-byte aligned for _words_). If the address is not naturally alig"
+    }
+   ]
+  },
+  {
+   "name": "LRSC_RESERVATION_STRATEGY",
+   "section": "param",
+   "impl": "LR_RESERVATION_SET_SIZE",
+   "file": "a-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:lr_reservation_set_size"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "a-st-ext.adoc",
+     "line": 143,
+     "text": "An implementation can register an arbitrarily large reservation set on each LR, provided the reservation set includes all bytes of the addressed data word or doubleword."
+    }
+   ]
+  },
+  {
+   "name": "CACHE_BLOCK_SIZE",
+   "section": "param",
+   "impl": "CACHE_BLOCK_SIZE",
+   "file": "cmo.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "HPM_READ_BEHAVIOR",
+   "section": "param",
+   "impl": [
+    "HPM_PLATFORM_SPECIFIC_IMPL",
+    "HPM_UNIMPLEMENTED_COUNTER_ACCESS"
+   ],
+   "file": "counters.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:hpm_platform_specific_impl",
+    "norm:hpm_unimplemented_counter_access"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "counters.adoc",
+     "line": 211,
+     "text": "The implemented number and width of these additional counters, and the set of events they count, are platform-specific."
+    },
+    {
+     "file": "counters.adoc",
+     "line": 212,
+     "text": "Accessing an unimplemented counter may cause an illegal-instruction exception or may return a constant value."
+    }
+   ]
+  },
+  {
+   "name": "TIME_CSR_HW_SUPPORT",
+   "section": "param",
+   "impl": "EE_IMPL_FLEX",
+   "file": "counters.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "HSXLEN",
+   "section": "param",
+   "impl": "HSXLEN",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:hsxlen_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 163,
+     "text": "we use the term _HSXLEN_ to refer to the effective XLEN when executing in HS-mode"
+    }
+   ]
+  },
+  {
+   "name": "VSXLEN",
+   "section": "param",
+   "impl": "VSXLEN",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vsxlen_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 164,
+     "text": "_VSXLEN_ to refer to the effective XLEN when executing in VS-mode."
+    }
+   ]
+  },
+  {
+   "name": "VTW_VIRTINSTR",
+   "section": "param",
+   "impl": "VTW_VIRTINSTR",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vtw_virtinstr_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 245,
+     "text": "An implementation may have WFI always raise a virtual-instruction exception in VS-mode when VTW=1 (and `mstatus`.TW=0), even if there are pending globally-disabled interrupts when the instruction is executed."
+    }
+   ]
+  },
+  {
+   "name": "GEILEN",
+   "section": "param",
+   "impl": "GEILEN",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:geilen_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 634,
+     "text": "The number of bits implemented in `hgeip` and `hgeie` for guest external interrupts is UNSPECIFIED and may be zero. This number is known as _GEILEN_. The least-significant bits are implemented first, apart from bit 0. Hence, if GEILEN is no"
+    }
+   ]
+  },
+  {
+   "name": "HTVAL_GUEST_PAGE_FAULT_TRAPVAL",
+   "section": "param",
+   "impl": "HTVAL_TRAPVAL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:htval_trapval_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 916,
+     "text": "When a guest-page-fault trap is taken into HS-mode, `htval` is written with either zero or the guest physical address that faulted, shifted right by 2 bits. For other traps, `htval` is set to zero, but a future standard or extension may red"
+    }
+   ]
+  },
+  {
+   "name": "VMIDLEN",
+   "section": "param",
+   "impl": "HGATP_VMID",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:hgatp-vmid_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 1087,
+     "text": "The number of VMID bits is UNSPECIFIED and may be zero."
+    }
+   ]
+  },
+  {
+   "name": "VSSTATUS_UBE",
+   "section": "param",
+   "impl": "VSSTATUS_UBE",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vsstatus-ube_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 1222,
+     "text": "An implementation may make field UBE be a read-only copy of `hstatus`.VSBE."
+    }
+   ]
+  },
+  {
+   "name": "MTVAL2_TRAPVAL",
+   "section": "param",
+   "impl": "MTVAL2_TRAPVAL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mtval2_trapval_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 1821,
+     "text": "When a guest-page-fault trap is taken into M-mode, `mtval2` is written with either zero or the guest physical address that faulted, shifted right by 2 bits. For other traps, `mtval2` is set to zero, but a future standard or extension may re"
+    }
+   ]
+  },
+  {
+   "name": "hstatus.VSXL",
+   "section": "csr",
+   "impl": [
+    "HSTATUS_VSXL_64_WARL",
+    "VSXL_RO"
+   ],
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:hstatus-vsxl_64",
+    "norm:vsxl_ro_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 225,
+     "text": "When HSXLEN=64, VSXL is a *WARL* field that is encoded the same as the MXL field of `misa`, shown in <<norm:misa_mxl_enc>>."
+    },
+    {
+     "file": "hypervisor.adoc",
+     "line": 227,
+     "text": "In particular, an implementation may make VSXL be a read-only field whose value always ensures that VSXLEN=HSXLEN."
+    }
+   ]
+  },
+  {
+   "name": "hstatus.VGEIN",
+   "section": "csr",
+   "impl": "HSTATUS_VGEIN_WLRL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:hstatus-vgein_op"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 253,
+     "text": "The VGEIN (Virtual Guest External Interrupt Number) field selects a guest external interrupt source for VS-level external interrupts. VGEIN is a *WLRL* field that must be able to hold values between zero and the maximum guest external inter"
+    }
+   ]
+  },
+  {
+   "name": "hstatus.VSBE",
+   "section": "csr",
+   "impl": "HSTATUS_VSBE_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:hstatus-vsbe_op"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 336,
+     "text": "The VSBE bit is a *WARL* field that controls the endianness of explicit memory accesses made from VS-mode. If VSBE=0, explicit load and store memory accesses made from VS-mode are little-endian, and if VSBE=1, they are big-endian. VSBE also"
+    }
+   ]
+  },
+  {
+   "name": "hedeleg",
+   "section": "csr",
+   "impl": "HEDELEG_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "hideleg",
+   "section": "csr",
+   "impl": "HIDELEG_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "hvip",
+   "section": "csr",
+   "impl": "HVIP_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "hip",
+   "section": "csr",
+   "impl": "HIP_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "hie",
+   "section": "csr",
+   "impl": "HIE_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "hgeie",
+   "section": "csr",
+   "impl": "HGEIE_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "hcounteren",
+   "section": "csr",
+   "impl": "HCOUNTEREN_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:hcounteren_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 873,
+     "text": "`hcounteren` must be implemented. However, any of the bits may be read-only zero, indicating reads to the corresponding counter will cause an exception when V=1. Hence, they are effectively *WARL* fields."
+    }
+   ]
+  },
+  {
+   "name": "htval",
+   "section": "csr",
+   "impl": "HTVAL_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:htval_val"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 956,
+     "text": "`htval` is a *WARL* register that must be able to hold zero and may be capable of holding only an arbitrary subset of other 2-bit-shifted guest physical addresses, if any."
+    }
+   ]
+  },
+  {
+   "name": "htinst",
+   "section": "csr",
+   "impl": "HTINST_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:htinst_val"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 982,
+     "text": "`htinst` is a *WARL* register that need only be able to hold the values that the implementation may automatically write to it on a trap."
+    }
+   ]
+  },
+  {
+   "name": "hgainp.MODE",
+   "section": "csr",
+   "impl": "HGATP_MODE_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:hgatp-mode_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 1073,
+     "text": "A write to `hgatp` with an unsupported MODE value is not ignored as it is for `satp`. Instead, the fields of `hgatp` are *WARL* in the normal way, when so indicated."
+    }
+   ]
+  },
+  {
+   "name": "vsstatus.UXL",
+   "section": "csr",
+   "impl": "VSSTATUS_UXL_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vsstatus-uxl_op"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 1180,
+     "text": "The UXL field controls the effective XLEN for VU-mode, which may differ from the XLEN for VS-mode (VSXLEN). When VSXLEN=32, the UXL field does not exist, and VU-mode XLEN=32. When VSXLEN=64, UXL is a *WARL* field that is encoded the same as"
+    }
+   ]
+  },
+  {
+   "name": "vsip",
+   "section": "csr",
+   "impl": "VSIP_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "vsie",
+   "section": "csr",
+   "impl": "VSIE_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "vstvec.MODE",
+   "section": "csr",
+   "impl": "VSTVEC_MODE_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "vstvec.BASE",
+   "section": "csr",
+   "impl": "VSTVEC_BASE_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "vsepc",
+   "section": "csr",
+   "impl": "VSEPC_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vsepc_warl"
+   ],
+   "hits": [
+    {
+     "rule": "14",
+     "why": "legal values stated as identical to another register's -- possibly derived, not independent"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 1338,
+     "text": "`vsepc` is a *WARL* register that must be able to hold the same set of values that `sepc` can hold."
+    }
+   ]
+  },
+  {
+   "name": "vscause",
+   "section": "csr",
+   "impl": "VSCAUSE_WLRL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vscause_wlrl"
+   ],
+   "hits": [
+    {
+     "rule": "14",
+     "why": "legal values stated as identical to another register's -- possibly derived, not independent"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 1356,
+     "text": "`vscause` is a *WLRL* register that must be able to hold the same set of values that `scause` can hold."
+    }
+   ]
+  },
+  {
+   "name": "vstval",
+   "section": "csr",
+   "impl": "VSTVAL_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vstval_warl"
+   ],
+   "hits": [
+    {
+     "rule": "14",
+     "why": "legal values stated as identical to another register's -- possibly derived, not independent"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 1374,
+     "text": "`vstval` is a *WARL* register that must be able to hold the same set of values that `stval` can hold."
+    }
+   ]
+  },
+  {
+   "name": "vsatp.MODE",
+   "section": "csr",
+   "impl": "VSATP_MODE_UNSUPPORTED_V0_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vsatp_mode_unsupported_v0"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 1415,
+     "text": "When V=0, a write to `vsatp` with an unsupported MODE value is either ignored as it is for `satp`, or the fields of `vsatp` are treated as *WARL* in the normal way."
+    }
+   ]
+  },
+  {
+   "name": "mtval2",
+   "section": "csr",
+   "impl": "MTVAL2_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mtval2_val"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 1842,
+     "text": "`mtval2` is a *WARL* register that must be able to hold zero and may be capable of holding only an arbitrary subset of other 2-bit-shifted guest physical addresses, if any."
+    }
+   ]
+  },
+  {
+   "name": "mtinst",
+   "section": "csr",
+   "impl": "MTINST_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mtinst_val"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 1865,
+     "text": "`mtinst` is a *WARL* register that need only be able to hold the values that the implementation may automatically write to it on a trap."
+    }
+   ]
+  },
+  {
+   "name": "henvcfg.CBIE",
+   "section": "csr",
+   "impl": "HENVCFG_CBIE_WARL",
+   "file": "hypervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:henvcfg-cbie"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "hypervisor.adoc",
+     "line": 772,
+     "text": "The Zicbom extension adds the `CBIE` (Cache Block Invalidate instruction Enable) WARL field to `henvcfg`. The `CBIE` field controls execution of the cache block invalidate instruction (`CBO.INVAL`) in privilege modes VS and VU. The encoding"
+    }
+   ]
+  },
+  {
+   "name": "miselect",
+   "section": "csr",
+   "impl": "MISELECT_WARL",
+   "file": "indirect-csr.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:miselect_WARL"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "indirect-csr.adoc",
+     "line": 73,
+     "text": "`miselect` is a WARL register."
+    }
+   ]
+  },
+  {
+   "name": "MXLEN",
+   "section": "param",
+   "impl": "MXLEN",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:misa_mxl_op_nz",
+    "norm:xlen_le_mxlen"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 32,
+     "text": "If `misa` is nonzero, the MXL field indicates the effective XLEN in M-mode, a constant termed _MXLEN_."
+    },
+    {
+     "file": "machine.adoc",
+     "line": 34,
+     "text": "XLEN is never greater than MXLEN, but XLEN might be smaller than MXLEN in less-privileged modes."
+    }
+   ]
+  },
+  {
+   "name": "MVENDOR_ID_BANK",
+   "section": "param",
+   "impl": "VENDOR_ID_BANK",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mvendorid_sz_acc_op"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 263,
+     "text": "The `mvendorid` CSR is a 32-bit read-only register providing the JEDEC manufacturer ID of the provider of the core."
+    }
+   ]
+  },
+  {
+   "name": "MVENDOR_ID_OFFSET",
+   "section": "param",
+   "impl": "VENDOR_ID_OFFSET",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mvendorid_sz_acc_op"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 263,
+     "text": "The `mvendorid` CSR is a 32-bit read-only register providing the JEDEC manufacturer ID of the provider of the core."
+    }
+   ]
+  },
+  {
+   "name": "MARCHID",
+   "section": "param",
+   "impl": "ARCH_ID",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:marchid_sz_acc_op"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 299,
+     "text": "The `marchid` CSR is an MXLEN-bit read-only register encoding the base microarchitecture of the hart."
+    }
+   ]
+  },
+  {
+   "name": "MIPMPID",
+   "section": "param",
+   "impl": "IMP_ID",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mimpid_op"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 337,
+     "text": "The `mimpid` CSR provides a unique encoding of the version of the processor implementation."
+    }
+   ]
+  },
+  {
+   "name": "MHARTID",
+   "section": "param",
+   "impl": "HART_ID",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mhartid_sz_acc_op"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 358,
+     "text": "The `mhartid` CSR is an MXLEN-bit read-only register containing the integer ID of the hardware thread running the code."
+    }
+   ]
+  },
+  {
+   "name": "MSTATUS_SBE_ROCOPY",
+   "section": "param",
+   "impl": "MSTATUS_SBE_ROCOPY",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_sbe_rocopy"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 716,
+     "text": "If S-mode is supported, an implementation may make SBE be a read-only copy of MBE."
+    }
+   ]
+  },
+  {
+   "name": "MSTATUS_UBE_ROCOPY",
+   "section": "param",
+   "impl": "MSTATUS_UBE_ROCOPY",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_ube_rocopy"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 718,
+     "text": "If U-mode is supported, an implementation may make UBE be a read-only copy of either MBE or SBE."
+    }
+   ]
+  },
+  {
+   "name": "MSTATUS_TW_TIME_LIMIT",
+   "section": "param",
+   "impl": "MSTATUS_TW_TIME_LIMIT",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_tw_op"
+   ],
+   "hits": [
+    {
+     "rule": "6",
+     "why": "no testable units / 'misconfigured'"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 792,
+     "text": "When TW=0, the WFI instruction may execute in modes less privileged than M when not prevented for some other reason. When TW=1, then if WFI is executed in any less-privileged mode, and it does not complete within an implementation-specific,"
+    }
+   ]
+  },
+  {
+   "name": "MSTATUS_TW_ALWAYS_ILLEGAL",
+   "section": "param",
+   "impl": "MSTATUS_TW_ALWAYS_ILLEGAL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_tw_always_illegal"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 798,
+     "text": "An implementation may have WFI always raise an illegal-instruction exception in modes less privileged than M when TW=1, even if there are pending globally-disabled interrupts when the instruction is executed."
+    }
+   ]
+  },
+  {
+   "name": "MSTATUS_FS_IMPRECISE",
+   "section": "param",
+   "impl": [
+    "MSTATUS_FS_IMPRECISE",
+    "MSTATUS_FS_NO_DIRTY_TRACK"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_fs_imprecise",
+    "norm:mstatus_fs_no_dirty_track"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 994,
+     "text": "Implementations may choose to track the dirtiness of the floating-point register state imprecisely by reporting the state to be dirty even when it has not been modified. On some implementations, some instructions that do not mutate the floa"
+    },
+    {
+     "file": "machine.adoc",
+     "line": 1001,
+     "text": "dirtiness might not be tracked at all, in which case the valid FS states are Off and Dirty, and an attempt to set FS to Initial or Clean causes it to be set to Dirty."
+    }
+   ]
+  },
+  {
+   "name": "MSTATUS_FS_NO_CHANGE_DIRTY",
+   "section": "param",
+   "impl": "MSTATUS_FS_NO_CHANGE_DIRTY",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_fs_no_change_dirty"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1012,
+     "text": "If an instruction explicitly or implicitly writes a floating-point register or the `fcsr` but does not alter its contents, and FS=Initial or FS=Clean, it is implementation-defined whether FS transitions to Dirty."
+    }
+   ]
+  },
+  {
+   "name": "MSTATUS_VS_SW_DIRTY_UPDATE",
+   "section": "param",
+   "impl": "MSTATUS_VS_IMPRECISE",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_fs_imprecise",
+    "norm:mstatus_vs_imprecise"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 994,
+     "text": "Implementations may choose to track the dirtiness of the floating-point register state imprecisely by reporting the state to be dirty even when it has not been modified. On some implementations, some instructions that do not mutate the floa"
+    },
+    {
+     "file": "machine.adoc",
+     "line": 1017,
+     "text": "Implementations may choose to track the dirtiness of the vector register state in an analogous imprecise fashion, including possibly setting VS to Dirty when software attempts to set VS=Initial or VS=Clean."
+    }
+   ]
+  },
+  {
+   "name": "MSTATUS_VS_NO_CHANGE_DIRTY",
+   "section": "param",
+   "impl": "MSTATUS_VS_NO_CHANGE_DIRTY",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_vs_no_change_dirty"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1020,
+     "text": "When VS=Initial or VS=Clean, it is implementation-defined whether an instruction that writes a vector register or vector CSR but does not alter its contents causes VS to transition to Dirty."
+    }
+   ]
+  },
+  {
+   "name": "MTVEC_RDONLY",
+   "section": "param",
+   "impl": "MTVEC_RDONLY",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mtvec_mandatory",
+    "norm:mtvec_rdonly"
+   ],
+   "hits": [
+    {
+     "rule": "S1",
+     "why": "no optionality language, no WARL/WLRL and no declared value or width in the tagged text"
+    },
+    {
+     "rule": "2",
+     "why": "fixed requirement with no optionality"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1217,
+     "text": "The `mtvec` register must always be implemented"
+    },
+    {
+     "file": "machine.adoc",
+     "line": 1218,
+     "text": "can contain a read-only value."
+    }
+   ]
+  },
+  {
+   "name": "MSIP_UPDATE_MAX_TIME",
+   "section": "param",
+   "impl": "MSIP_UPDATE_MAX_TIME",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:msip_update_max_time"
+   ],
+   "hits": [
+    {
+     "rule": "S1",
+     "why": "no optionality language, no WARL/WLRL and no declared value or width in the tagged text"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1464,
+     "text": "When the memory-mapped `msip` register changes, it is guaranteed to be reflected in `mip`.MSIP eventually, but not necessarily immediately."
+    }
+   ]
+  },
+  {
+   "name": "MCYCLE_SHARED",
+   "section": "param",
+   "impl": "MCYCLE_SHARED",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mcycle_shared"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1573,
+     "text": "The `mcycle` CSR may be shared between harts on the same core, in which case writes to `mcycle` will be visible to those harts."
+    }
+   ]
+  },
+  {
+   "name": "MEPC_INV_ADDR_CONV",
+   "section": "param",
+   "impl": "MEPC_INV_ADDR_CONV",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mepc_inv_addr_conv"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1739,
+     "text": "Prior to writing `mepc`, implementations may convert an invalid address into some other invalid address that `mepc` is capable of holding."
+    }
+   ]
+  },
+  {
+   "name": "MCAUSE_EXCCODE_MISALIGNED_VS_FAULT_PRI",
+   "section": "param",
+   "impl": "MCAUSE_EXCCODE_MISALIGNED_VS_FAULT_PRI",
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "MTVAL_PER_EXC_BEHAVIOR",
+   "section": "param",
+   "impl": "MTVAL_PER_EXC_BEHAVIOR",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mtval_per_exc_behavior"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2038,
+     "text": "The hardware platform will specify which exceptions must set `mtval` informatively, which may unconditionally set it to zero, and which may exhibit either behavior, depending on the underlying event that caused the exception."
+    }
+   ]
+  },
+  {
+   "name": "MTVAL_INV_ADDR_CONV",
+   "section": "param",
+   "impl": "MTVAL_INV_ADDR_CONV",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mtval_inv_addr_conv"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2130,
+     "text": "Prior to writing `mtval`, implementations may convert an invalid address into some other invalid address that `mtval` is capable of holding."
+    }
+   ]
+  },
+  {
+   "name": "MCONFIGPTR_VAL",
+   "section": "param",
+   "impl": "MCONFIGPTR_VAL",
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "MENVCFG_FIOM_RDONLY0_OK",
+   "section": "param",
+   "impl": "MENVCFG_FIOM_RDONLY0_OK",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:menvcfg_fiom_rdonly0_ok"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2194,
+     "text": "If S-mode is not supported, or if `satp`.MODE is read-only zero (always Bare), the implementation may make FIOM read-only zero."
+    }
+   ]
+  },
+  {
+   "name": "MTIME_TICK_PERIOD",
+   "section": "param",
+   "impl": "MTIME_TICK_PERIOD",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mtime_tick_period"
+   ],
+   "hits": [
+    {
+     "rule": "S1",
+     "why": "no optionality language, no WARL/WLRL and no declared value or width in the tagged text"
+    },
+    {
+     "rule": "2",
+     "why": "fixed requirement with no optionality"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2550,
+     "text": "the platform must provide a mechanism for determining the period of an `mtime` tick."
+    }
+   ]
+  },
+  {
+   "name": "MRET_CLR_LR_RESV",
+   "section": "param",
+   "impl": "MRET_CLR_LR_RESV",
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "SRET_CLR_LR_RESV",
+   "section": "param",
+   "impl": "SRET_CLR_LR_RESV",
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "WFI_OPT_U_MODE",
+   "section": "param",
+   "impl": "WFI_OPT_U_MODE",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:wfi_opt_U-mode"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2724,
+     "text": "optionally available to U-mode."
+    }
+   ]
+  },
+  {
+   "name": "WFI_RESUME_REASON",
+   "section": "param",
+   "impl": "WFI_RESUME_REASON",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:wfi_resume_reason"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2742,
+     "text": "Implementations are permitted to resume execution for any reason, even if an enabled interrupt has not become pending. Hence, a legal implementation is to simply implement the WFI instruction as a NOP."
+    }
+   ]
+  },
+  {
+   "name": "MCAUSE_RST_VAL",
+   "section": "param",
+   "impl": "MCAUSE_RST_VAL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mcause_rst1_val",
+    "norm:mcause_rst2_val"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2817,
+     "text": "The `mcause` register is set to a value indicating the cause of the reset."
+    },
+    {
+     "file": "machine.adoc",
+     "line": 2831,
+     "text": "The `mcause` values after reset have implementation-specific interpretation"
+    }
+   ]
+  },
+  {
+   "name": "PMP_A_L_RST",
+   "section": "param",
+   "impl": "PMP_A_L_RST",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:pmp_A_L_rst"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2818,
+     "text": "Writable PMP registers\u2019 A and L fields are set to 0, unless the platform mandates a different reset value for some PMP registers\u2019 A and L fields."
+    }
+   ]
+  },
+  {
+   "name": "MSECCFG_MML_MMWP_RLB_RST",
+   "section": "param",
+   "impl": "MSECCFG_MML_MMWP_RLB_RST",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mseccfg_mml_mmwp_rlb_rst"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2828,
+     "text": "The `MML`, `MMWP`, and `RLB` fields of the `mseccfg` register are set to 0, unless the platform mandates a different reset value."
+    }
+   ]
+  },
+  {
+   "name": "MSECCFG_USEED_SSEED_RST",
+   "section": "param",
+   "impl": "MSECCFG_USEED_SSEED_RST",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mseccfg_useed_sseed_rst"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2837,
+     "text": "The `USEED` and `SSEED` fields of the `mseccfg` CSR must have defined reset values. The system must not allow them to be in an undefined state after reset."
+    }
+   ]
+  },
+  {
+   "name": "MCAUSE_RST_ALIAS_OK",
+   "section": "param",
+   "impl": "MCAUSE_RST_ALIAS_OK",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mcause_rst_alias_ok"
+   ],
+   "hits": [
+    {
+     "rule": "1",
+     "why": "tagged text sits in a NOTE/TIP/WARNING block"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2848,
+     "text": "`mcause` reset values may alias `mcause` values following synchronous exceptions"
+    }
+   ]
+  },
+  {
+   "name": "PMA_MM_IFETCH",
+   "section": "param",
+   "impl": "PMA_MM_IFETCH",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:pma_mm_rw",
+    "norm:pma_mm_ifetch"
+   ],
+   "hits": [
+    {
+     "rule": "S1",
+     "why": "no optionality language, no WARL/WLRL and no declared value or width in the tagged text"
+    },
+    {
+     "rule": "2",
+     "why": "fixed requirement with no optionality"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2986,
+     "text": "Main memory regions always support read and write of all access widths required by the attached devices"
+    },
+    {
+     "file": "machine.adoc",
+     "line": 2987,
+     "text": "can specify whether instruction fetch is supported."
+    }
+   ]
+  },
+  {
+   "name": "PMA_CACHE_MM_ALL_ATOMICS",
+   "section": "param",
+   "impl": "PMA_CACHE_MM_ALL_ATOMICS",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:pma_cache_mm_all_atomics"
+   ],
+   "hits": [
+    {
+     "rule": "1",
+     "why": "tagged text sits in a NOTE/TIP/WARNING block"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 3023,
+     "text": "Some platforms might mandate that all of cacheable main memory support all atomic operations"
+    }
+   ]
+  },
+  {
+   "name": "PMA_MAG_OP_LDST",
+   "section": "param",
+   "impl": "PMA_MAG_OP_LDST",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:pma_mag_op_amo",
+    "norm:pma_mag_op_ldst"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 3122,
+     "text": "If a misaligned AMO accesses a region that does not specify a misaligned atomicity granule PMA, or if not all accessed bytes lie within the same misaligned atomicity granule, then an exception is raised."
+    },
+    {
+     "file": "machine.adoc",
+     "line": 3125,
+     "text": "For regular loads and stores that access such a region or for which not all accessed bytes lie within the same atomicity granule, then either an exception is raised, or the access proceeds but is not guaranteed to be atomic."
+    }
+   ]
+  },
+  {
+   "name": "PMA_MAG_EXC",
+   "section": "param",
+   "impl": "PMA_MAG_EXC",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:pma_mag_exc"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 3128,
+     "text": "Implementations may raise access-fault exceptions instead of address-misaligned exceptions for some misaligned accesses, indicating the instruction should not be emulated by a trap handler."
+    }
+   ]
+  },
+  {
+   "name": "PMA_MO_DYN",
+   "section": "param",
+   "impl": "PMA_MO_DYN",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:pma_mo_dyn"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 3184,
+     "text": "Systems might support dynamic configuration of ordering properties on each memory region."
+    }
+   ]
+  },
+  {
+   "name": "PMA_IDP_IMPLICIT_SZ",
+   "section": "param",
+   "impl": "PMA_IDP_IMPLICIT_SZ",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:pma_idp_implicit_ok",
+    "norm:pma_idp_implicit_sz"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 3307,
+     "text": "For non-idempotent regions, implicit reads and writes must not be performed early or speculatively, with the following exceptions. When a non-speculative implicit read is performed, an implementation is permitted to additionally read any of"
+    },
+    {
+     "file": "machine.adoc",
+     "line": 3318,
+     "text": "The size of these naturally aligned power-of-2 regions is implementation-defined, but, for systems with page-based virtual memory, must not exceed the smallest supported page size."
+    }
+   ]
+  },
+  {
+   "name": "CRITICAL_ERROR",
+   "section": "param",
+   "impl": "CRITICAL_ERROR",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:critical-error"
+   ],
+   "hits": [
+    {
+     "rule": "S1",
+     "why": "no optionality language, no WARL/WLRL and no declared value or width in the tagged text"
+    },
+    {
+     "rule": "1",
+     "why": "tagged text sits in a NOTE/TIP/WARNING block"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 553,
+     "text": "The actions performed by the platform when a hart asserts a `critical-error` signal are platform-specific. The range of possible actions include restarting the affected hart or restarting the entire platform, among others."
+    }
+   ]
+  },
+  {
+   "name": "NMI_MCAUSE_VAL",
+   "section": "param",
+   "impl": "NMI_MCAUSE_VAL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:nmi_mcause_val1",
+    "norm:nmi_mcause_val2"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2860,
+     "text": "`mcause` is set to a value indicating the source of the NMI."
+    },
+    {
+     "file": "machine.adoc",
+     "line": 2864,
+     "text": "The values written to `mcause` on an NMI are implementation-defined."
+    }
+   ]
+  },
+  {
+   "name": "SXLEN",
+   "section": "param",
+   "impl": null,
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "UXLEN",
+   "section": "param",
+   "impl": null,
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "XLEN_REDUCTION_HINT_OP",
+   "section": "param",
+   "impl": "XLEN_REDUCTION_HINT_OP",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:xlen_reduction_hint_op1",
+    "norm:xlen_reduction_hint_op2"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 611,
+     "text": "Some HINT instructions are encoded as integer computational instructions that overwrite their destination register with its current value, e.g., `c.addi x8, 0`. When such a HINT is executed with XLEN < MXLEN and bits MXLEN..XLEN of the dest"
+    },
+    {
+     "file": "machine.adoc",
+     "line": 620,
+     "text": "NOTE: This definition allows implementations to elide register write-back for some HINTs, while allowing them to execute other HINTs in the same manner as other integer computational instructions. The implementation choice is observable onl"
+    }
+   ]
+  },
+  {
+   "name": "RST_ADDR",
+   "section": "param",
+   "impl": null,
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "NMI_ADDR",
+   "section": "param",
+   "impl": null,
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "PMP_GRANULARITY",
+   "section": "param",
+   "impl": "PMP_GRANULARITY",
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "PMP_ENTRY_COUNT",
+   "section": "param",
+   "impl": "PMP_ENTRY_COUNT",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:pmp_entry_count"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 3364,
+     "text": "Up to 64 PMP entries are supported. Implementations may implement zero, 16, or 64 PMP entries; the lowest-numbered PMP entries must be implemented first."
+    }
+   ]
+  },
+  {
+   "name": "misa.MXL",
+   "section": "csr",
+   "impl": [
+    "MISA_WARL",
+    "MISA_CSR_IMPLEMENTED"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:misa_acc",
+    "norm:misa_csr_implemented"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 21,
+     "text": "The `misa` CSR is a *WARL* read-write register"
+    },
+    {
+     "file": "machine.adoc",
+     "line": 23,
+     "text": "a value of zero can be returned to indicate the `misa` register has not been implemented"
+    }
+   ]
+  },
+  {
+   "name": "misa.EXTENSIONS",
+   "section": "csr",
+   "impl": [
+    "MISA_WARL",
+    "MISA_EXTENSIONS_WARL",
+    "MISA_CSR_IMPLEMENTED",
+    "MISA_EXTENSIONS_WRITABLE_BITS",
+    "MUTABLE_MISA_V"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:misa_acc",
+    "norm:misa_extensions_warl_op",
+    "norm:misa_csr_implemented",
+    "norm:misa_extensions_warl_op",
+    "norm:mutable_misa_v_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 21,
+     "text": "The `misa` CSR is a *WARL* read-write register"
+    },
+    {
+     "file": "machine.adoc",
+     "line": 71,
+     "text": "The Extensions field is a *WARL* field that can contain writable bits where the implementation allows the supported ISA to be modified."
+    }
+   ]
+  },
+  {
+   "name": "mstatus.MPP",
+   "section": "csr",
+   "impl": "MSTATUS_XPP_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_xpp_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 478,
+     "text": "__x__PP fields are *WARL* fields that can hold only privilege mode _x_ and any implemented privilege mode lower than _x_."
+    }
+   ]
+  },
+  {
+   "name": "mstatus.SPP",
+   "section": "csr",
+   "impl": "MSTATUS_XPP_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_xpp_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 478,
+     "text": "__x__PP fields are *WARL* fields that can hold only privilege mode _x_ and any implemented privilege mode lower than _x_."
+    }
+   ]
+  },
+  {
+   "name": "mstatus.MDT",
+   "section": "csr",
+   "impl": "MSTATUS_MDT_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_mdt_sz_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 507,
+     "text": "The M-mode-disable-trap (`MDT`) bit is a WARL field introduced by the Smdbltrp extension."
+    }
+   ]
+  },
+  {
+   "name": "mstatus.SXL",
+   "section": "csr",
+   "impl": [
+    "MSTATUS_SXL_WARL",
+    "MSTATUS_SXL_RDONLY_MXLEN64"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_sxl_rdonly_mxlen64"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 579,
+     "text": "an implementation may make SXL be a read-only field whose value always ensures that SXLEN=MXLEN."
+    }
+   ]
+  },
+  {
+   "name": "mstatus.UXL",
+   "section": "csr",
+   "impl": "MSTATUS_UXL_WARL",
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "mstatus.MBE",
+   "section": "csr",
+   "impl": [
+    "MSTATUS_MBE_WARL",
+    "MSTATUSH_MBE_WARL"
+   ],
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "mstatus.SBE",
+   "section": "csr",
+   "impl": [
+    "MSTATUS_SBE_WARL",
+    "MSTATUSH_SBE_WARL"
+   ],
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "mstatus.UBE",
+   "section": "csr",
+   "impl": [
+    "MSTATUS_UBE_WARL",
+    "MSTATUSH_UBE_WARL"
+   ],
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "mstatus.TVM",
+   "section": "csr",
+   "impl": "MSTATUS_TVM_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_tvm_warl_op"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 771,
+     "text": "The TVM (Trap Virtual Memory) bit is a *WARL* field that supports intercepting supervisor virtual-memory management operations. When TVM=1, attempts to read or write the `satp` CSR or execute an SFENCE.VMA or SINVAL.VMA instruction while ex"
+    }
+   ]
+  },
+  {
+   "name": "mstatus.TW",
+   "section": "csr",
+   "impl": "MSTATUS_TW_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_tw_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 790,
+     "text": "The TW (Timeout Wait) bit is a *WARL* field that supports intercepting the WFI instruction (see <<wfi>>)."
+    }
+   ]
+  },
+  {
+   "name": "mstatus.TSR",
+   "section": "csr",
+   "impl": "MSTATUS_TSR_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_tsr_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 814,
+     "text": "The TSR (Trap SRET) bit is a *WARL* field that supports intercepting the supervisor exception return instruction, SRET."
+    }
+   ]
+  },
+  {
+   "name": "mstatus.FS",
+   "section": "csr",
+   "impl": [
+    "MSTATUS_FS_WARL",
+    "MSTATUS_FS_RDONLY0_S_NO_F"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_fs_rdonly0_s-no-f"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 894,
+     "text": "If S-mode is implemented but the F extension is not, FS may optionally be read-only zero."
+    }
+   ]
+  },
+  {
+   "name": "mstatus.VS",
+   "section": "csr",
+   "impl": [
+    "MSTATUS_VS_WARL",
+    "MSTATUS_VS_RDONLY0_S_NO_V"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_vs_rdonly0_s-no-v"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 911,
+     "text": "If S-mode is implemented but the `v` registers are not, VS may optionally be read-only zero."
+    }
+   ]
+  },
+  {
+   "name": "mtvec.MODE",
+   "section": "csr",
+   "impl": "MTVEC_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mtvec_sz_warl_acc"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1209,
+     "text": "The `mtvec` register is an MXLEN-bit *WARL* read/write register that holds trap vector configuration, consisting of a vector base address (BASE) and a vector mode (MODE)."
+    }
+   ]
+  },
+  {
+   "name": "mtvec.BASE",
+   "section": "csr",
+   "impl": [
+    "MTVEC_WARL",
+    "MTVEC_BASE_ALIGN_FUNC_MODE"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mtvec_sz_warl_acc",
+    "norm:mtvec_base_align_func_mode"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1209,
+     "text": "The `mtvec` register is an MXLEN-bit *WARL* read/write register that holds trap vector configuration, consisting of a vector base address (BASE) and a vector mode (MODE)."
+    },
+    {
+     "file": "machine.adoc",
+     "line": 1223,
+     "text": "the MODE setting may impose additional alignment constraints on the value in the BASE field."
+    }
+   ]
+  },
+  {
+   "name": "mip",
+   "section": "csr",
+   "impl": [
+    "MIP_WARL",
+    "MIP_BITS_WR_OR_RDONLY"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mip_bits_wr_or_rdonly"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1413,
+     "text": "Each individual bit in register `mip` may be writable or may be read-only."
+    }
+   ]
+  },
+  {
+   "name": "mie",
+   "section": "csr",
+   "impl": "MIE_WARL",
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "medeleg",
+   "section": "csr",
+   "impl": "MEDELEG_WARL",
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "mideleg",
+   "section": "csr",
+   "impl": [
+    "MIDELEG_WARL",
+    "MIDELEG_RD1_LOWER_LEVEL"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mideleg_rd1_lower_level"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1323,
+     "text": "may do so for lower-level interrupts"
+    }
+   ]
+  },
+  {
+   "name": "mhpmcounter",
+   "section": "csr",
+   "impl": [
+    "MHPMCOUNTER_WARL",
+    "MHPMEVENT_N_RDONLY0"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mhpmcounter_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1591,
+     "text": "The `mhpmcounters` are *WARL* registers"
+    }
+   ]
+  },
+  {
+   "name": "mhpmevent",
+   "section": "csr",
+   "impl": [
+    "MHPMEVENT_WARL",
+    "MHPMEVENT_N_RDONLY0"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mhpmevent_sz_warl_op"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1580,
+     "text": "The event selector CSRs, `mhpmevent3`-`mhpmevent31`, are 64-bit *WARL* registers that control which event causes the corresponding counter to increment."
+    }
+   ]
+  },
+  {
+   "name": "mcounteren",
+   "section": "csr",
+   "impl": [
+    "MCOUNTEREN_FLDS_WARL",
+    "MCOUNTEREN_CY_RDONLY0",
+    "MCOUNTEREN_TM_RDONLY0",
+    "MCOUNTEREN_IR_RDONLY0",
+    "MCOUNTEREN_HPM_N_RDONLY0"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mcounteren_flds_mandatory_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1656,
+     "text": "In harts with U-mode, the `mcounteren` must be implemented, but all fields are *WARL*"
+    }
+   ]
+  },
+  {
+   "name": "mcountinhibit",
+   "section": "csr",
+   "impl": "MCOUNTINHIBIT_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mcountinhibit_sz_warl_op1"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1669,
+     "text": "The counter-inhibit register `mcountinhibit` is a 32-bit *WARL* register that controls which of the hardware performance-monitoring counters increment."
+    }
+   ]
+  },
+  {
+   "name": "mepc",
+   "section": "csr",
+   "impl": "MEPC_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mepc_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1737,
+     "text": "`mepc` is a *WARL* register"
+    }
+   ]
+  },
+  {
+   "name": "mcause.EXCCODE",
+   "section": "csr",
+   "impl": "MCAUSE_EXCCODE_WLRL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mcause_exccode_wlrl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 1774,
+     "text": "The Exception Code is a *WLRL* field, so is only guaranteed to hold supported exception codes."
+    }
+   ]
+  },
+  {
+   "name": "mtval",
+   "section": "csr",
+   "impl": [
+    "MTVAL_WARL",
+    "MTVAL_RDONLY0"
+   ],
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mtval_warl",
+    "norm:mtval_rdonly0"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2127,
+     "text": "If `mtval` is not read-only zero, it is a *WARL* register"
+    },
+    {
+     "file": "machine.adoc",
+     "line": 2042,
+     "text": "If the hardware platform specifies that no exceptions set `mtval` to a nonzero value, then `mtval` is read-only zero."
+    }
+   ]
+  },
+  {
+   "name": "menvcfg.CBIE",
+   "section": "csr",
+   "impl": "MENVCFG_CBIE_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:menvcfg_cbie_warl_op"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2288,
+     "text": "The Zicbom extension adds the `CBIE` (Cache Block Invalidate instruction Enable) WARL field to `menvcfg` to control execution of the cache block invalidate instruction (`CBO.INVAL`) in modes less privileged than M. When `CBIE` is set to `00"
+    }
+   ]
+  },
+  {
+   "name": "menvcfg.PMM",
+   "section": "csr",
+   "impl": "MENVCFG_PMM_WARL",
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "mseccfg.RLB",
+   "section": "csr",
+   "impl": "MSECCFG_RLB_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mseccfg_rlb_op_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2421,
+     "text": "When `mseccfg.RLB` (Rule Locking Bypass) a WARL field that provides a mechanism to temporarily modify *Locked* PMP rules. When `mseccfg.RLB` is 1, locked PMP rules may be removed or modified and locked PMP rules may be edited. When `mseccfg"
+    }
+   ]
+  },
+  {
+   "name": "mseccfg.MMWP",
+   "section": "csr",
+   "impl": "MSECCFG_MMWP_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mseccfg_mmwp_op_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2442,
+     "text": "The `mseccfg.MMWP` (Machine-Mode Allowlist Policy) is a WARL field. This field changes the default PMP policy for Machine mode when accessing memory regions that don't have a matching PMP rule. This is a sticky bit, meaning that once set it"
+    }
+   ]
+  },
+  {
+   "name": "mseccfg.MML",
+   "section": "csr",
+   "impl": "MSECCFG_MML_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mseccfg_mml_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2450,
+     "text": "The `mseccfg.MML` (Machine Mode Lockdown) is a WARL field."
+    }
+   ]
+  },
+  {
+   "name": "mseccfg.PMM",
+   "section": "csr",
+   "impl": "MSECCFG_PMM_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mseccfg_pmm_enc"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 2511,
+     "text": "[%header, cols=\"25%,75%\", options=\"header\"] .Legal values of `PMM` WARL field |=== |Value|Description |00|Pointer masking is disabled (PMLEN = 0) |01|Reserved |10|Pointer masking is enabled with PMLEN = XLEN - 57 (PMLEN = 7 on RV64) |11|Poi"
+    }
+   ]
+  },
+  {
+   "name": "pmpcfgN.pmpMcfg",
+   "section": "csr",
+   "impl": "PMPCFG_WARL",
+   "file": "machine.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "pmpaddrN",
+   "section": "csr",
+   "impl": "PMPADDR_WARL",
+   "file": "machine.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:pmp_addr_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "machine.adoc",
+     "line": 3401,
+     "text": "Not all physical address bits may be implemented, and so the `pmpaddr` registers are *WARL*."
+    }
+   ]
+  },
+  {
+   "name": "mnepc",
+   "section": "csr",
+   "impl": "MNEPC_WARL",
+   "file": "rnmi.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mnepc_warl"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "rnmi.adoc",
+     "line": 62,
+     "text": "`mnepc` is a *WARL* register that must be able to hold all valid virtual addresses."
+    }
+   ]
+  },
+  {
+   "name": "mncause",
+   "section": "csr",
+   "impl": "MNCAUSE_WARL",
+   "file": "rnmi.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "mnstatus",
+   "section": "csr",
+   "impl": "MNSTATUS_WARL",
+   "file": "rnmi.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "MISALIGNED_LDST_HW_SUPPORT",
+   "section": "param",
+   "impl": "MISALIGNED_LDST_HW_SUPPORT",
+   "file": "rv32.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "MISALIGNED_LDST_EXC_TYPE",
+   "section": "param",
+   "impl": "MISALIGNED_LDST_EXC_TYPE",
+   "file": "rv32.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "CTRDATA_CC_SUPPORTED",
+   "section": "param",
+   "impl": "CTRDATA_CC_SUPPORTED",
+   "file": "smctr.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:ctrdata_cc_supported_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "smctr.adoc",
+     "line": 636,
+     "text": "The `ctrdata` register may optionally include a count of CPU cycles elapsed since the prior CTR record. The elapsed cycle count value is represented by the CC field, which has a 12-bit mantissa component (Cycle Count Mantissa, or CCM) and a"
+    }
+   ]
+  },
+  {
+   "name": "CTR_CCOUNTER_IMPL",
+   "section": "param",
+   "impl": "CTR_CCOUNTER_IMPL",
+   "file": "smctr.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "SCTRDEPTH_DEPTH",
+   "section": "param",
+   "impl": "SCTRDEPTH_DEPTH",
+   "file": "smctr.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:sctrdepth-depth_op0",
+    "norm:sctrdepth-depth_op1",
+    "norm:sctrdepth-depth_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "smctr.adoc",
+     "line": 199,
+     "text": "WARL field that selects the depth of the CTR buffer."
+    },
+    {
+     "file": "smctr.adoc",
+     "line": 213,
+     "text": "The depth of the CTR buffer dictates the number of entries to which the hardware records transfers. For a depth of N, the hardware records transfers to entries 0..N-1. All <<_entry_registers, Entry Registers>> read as '0' and are read-only "
+    }
+   ]
+  },
+  {
+   "name": "sctrdepth.DEPTH",
+   "section": "csr",
+   "impl": "SCTRDEPTH_DEPTH_WARL",
+   "file": "smctr.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "sctrstatus.WRPTR",
+   "section": "csr",
+   "impl": "SCTRSTATUS_WRPTR_WARL",
+   "file": "smctr.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:sctrstatus-wrptr"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "smctr.adoc",
+     "line": 250,
+     "text": "WARL field that indicates the physical CTR buffer entry to be written next. It is incremented after new transfers are recorded (see <<Behavior>>), though there are exceptions when `__x__ctrctl`.RASEMU=1, see <<RAS (Return Address Stack) Emu"
+    }
+   ]
+  },
+  {
+   "name": "ctrsource",
+   "section": "csr",
+   "impl": "CTRSOURCE_WARL",
+   "file": "smctr.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:Ssctr_ctrsource_sz_acc_op"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "smctr.adoc",
+     "line": 296,
+     "text": "`ctrsource` is an MXLEN-bit WARL register that must be able to hold all valid virtual or physical addresses that can serve as a `pc`. It need not be able to hold any invalid addresses; implementations may convert an invalid address into a v"
+    }
+   ]
+  },
+  {
+   "name": "ctrtarget",
+   "section": "csr",
+   "impl": "CTRTARGET_WARL",
+   "file": "smctr.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:ctrtarget_sz_acc"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "smctr.adoc",
+     "line": 324,
+     "text": "`ctrtarget` is an MXLEN-bit WARL register that must be able to hold all valid virtual or physical addresses that can serve as a `pc`. It need not be able to hold any invalid addresses; implementations may convert an invalid address into a v"
+    }
+   ]
+  },
+  {
+   "name": "mstateen0/mstateen1/mstateen2/mstateen3",
+   "section": "csr",
+   "impl": "STATEEN_WARL_ACCESS",
+   "file": "smstateen.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:stateen_warl_access"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "smstateen.adoc",
+     "line": 133,
+     "text": "Each standard-defined bit of a `stateen` CSR is WARL and may be read-only zero or one, subject to the following conditions."
+    }
+   ]
+  },
+  {
+   "name": "sstateen0/sstateen1/sstateen2/sstateen3",
+   "section": "csr",
+   "impl": "STATEEN_WARL_ACCESS",
+   "file": "smstateen.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:stateen_warl_access"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "smstateen.adoc",
+     "line": 133,
+     "text": "Each standard-defined bit of a `stateen` CSR is WARL and may be read-only zero or one, subject to the following conditions."
+    }
+   ]
+  },
+  {
+   "name": "hstateen0/hstateen1/hstateen2/hstateen3",
+   "section": "csr",
+   "impl": "STATEEN_WARL_ACCESS",
+   "file": "smstateen.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:stateen_warl_access"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "smstateen.adoc",
+     "line": 133,
+     "text": "Each standard-defined bit of a `stateen` CSR is WARL and may be read-only zero or one, subject to the following conditions."
+    }
+   ]
+  },
+  {
+   "name": "HINT_SXLEN",
+   "section": "param",
+   "impl": "HINT_SXLEN",
+   "file": "supervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:hint_sxlen_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "supervisor.adoc",
+     "line": 159,
+     "text": "Some HINT instructions are encoded as integer computational instructions that overwrite their destination register with its current value, e.g., `c.addi x8, 0`. When such a HINT is executed with XLEN < SXLEN and bits SXLEN..XLEN of the dest"
+    }
+   ]
+  },
+  {
+   "name": "SEI_INTR_IMPL",
+   "section": "param",
+   "impl": "SEI_INTR_IMPL",
+   "file": "supervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "STI_INTR_IMPL",
+   "section": "param",
+   "impl": "STI_INTR_IMPL",
+   "file": "supervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "SSI_INTR_IMPL",
+   "section": "param",
+   "impl": "SSI_INTR_IMPL",
+   "file": "supervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "LCOFI_INTR_IMPL",
+   "section": "param",
+   "impl": "LCOFI_INTR_IMPL",
+   "file": "supervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "ASIDLEN",
+   "section": "param",
+   "impl": "ASIDLEN",
+   "file": "supervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "SATP_MODE_ROZ_SFENCE_ILLEGAL",
+   "section": "param",
+   "impl": "SATP_MODE_ROZ_SFENCE_ILLEGAL",
+   "file": "supervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:satp-mode_roz_sfence_illegal_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "supervisor.adoc",
+     "line": 1425,
+     "text": "For implementations that make `satp`.MODE read-only zero (always Bare), attempts to execute an SFENCE.VMA instruction might raise an illegal-instruction exception."
+    }
+   ]
+  },
+  {
+   "name": "sstatus.UXL",
+   "section": "csr",
+   "impl": "SSTATUS_UXL_WARL",
+   "file": "supervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:sstatus-uxl_sz"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "supervisor.adoc",
+     "line": 142,
+     "text": "When SXLEN=32, the UXL field does not exist, and UXLEN=32. When SXLEN=64, it is a *WARL* field that encodes the current value of UXLEN. In particular, an implementation may make UXL be a read-only field whose value always ensures that UXLEN"
+    }
+   ]
+  },
+  {
+   "name": "sstatus.UBE",
+   "section": "csr",
+   "impl": "SSTATUS_UBE_WARL",
+   "file": "supervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:sstatus-ube"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "supervisor.adoc",
+     "line": 224,
+     "text": "The UBE bit is a *WARL* field that controls the endianness of explicit memory accesses made from U-mode, which may differ from the endianness of memory accesses in S-mode. An implementation may make UBE be a read-only field that always spec"
+    }
+   ]
+  },
+  {
+   "name": "sstatus.SDT",
+   "section": "csr",
+   "impl": "SSTATUS_SDT_WARL",
+   "file": "supervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:sstatus-sdt"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "supervisor.adoc",
+     "line": 260,
+     "text": "The S-mode-disable-trap (`SDT`) bit is a WARL field introduced by the Ssdbltrp extension to address double trap (See <<machine-double-trap>>) at privilege modes lower than M."
+    }
+   ]
+  },
+  {
+   "name": "stvec.MODE",
+   "section": "csr",
+   "impl": "STVEC_MODE_WARL",
+   "file": "supervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "stvec.BASE",
+   "section": "csr",
+   "impl": "STVEC_BASE_WARL",
+   "file": "supervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "sip",
+   "section": "csr",
+   "impl": "SIP_WARL",
+   "file": "supervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "sie",
+   "section": "csr",
+   "impl": "SIE_WARL",
+   "file": "supervisor.yaml",
+   "resolved": false,
+   "tags": [],
+   "hits": [],
+   "note": "no spec text reachable -- cannot apply text-based rules"
+  },
+  {
+   "name": "scounteren",
+   "section": "csr",
+   "impl": "SCOUNTEREN_WARL",
+   "file": "supervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:scounteren_acc"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "supervisor.adoc",
+     "line": 517,
+     "text": "`scounteren` must be implemented. However, any of the bits may be read-only zero, indicating reads to the corresponding counter will cause an exception when executing in U-mode. Hence, they are effectively *WARL* fields."
+    }
+   ]
+  },
+  {
+   "name": "sepc",
+   "section": "csr",
+   "impl": "SEPC_ACC_INVALID_WARL",
+   "file": "supervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:sepc_acc_invalid_addr"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "supervisor.adoc",
+     "line": 558,
+     "text": "`sepc` is a *WARL* register that must be able to hold all valid virtual addresses. It need not be capable of holding all possible invalid addresses. Prior to writing `sepc`, implementations may convert an invalid address into some other inv"
+    }
+   ]
+  },
+  {
+   "name": "scause.EXCEPTION_CODE",
+   "section": "csr",
+   "impl": "SCAUSE_EXCEPTION_CODE_ACC",
+   "file": "supervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:scause-exception_code_acc"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "supervisor.adoc",
+     "line": 589,
+     "text": "The Exception Code is a *WLRL* field."
+    }
+   ]
+  },
+  {
+   "name": "stval",
+   "section": "csr",
+   "impl": "STVAL_WARL",
+   "file": "supervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:stval_acc"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "supervisor.adoc",
+     "line": 774,
+     "text": "`stval` is a *WARL* register that must be able to hold all valid virtual addresses and the value 0. It need not be capable of holding all possible invalid addresses. Prior to writing `stval`, implementations may convert an invalid address i"
+    }
+   ]
+  },
+  {
+   "name": "senvcfg.CBIE",
+   "section": "csr",
+   "impl": "SENVCFG_CBIE_WARL",
+   "file": "supervisor.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:senvcfg-cbie"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "supervisor.adoc",
+     "line": 909,
+     "text": "The Zicbom extension adds the `CBIE` (Cache Block Invalidate instruction Enable) WARL field to `senvcfg` to control execution of the `CBO.INVAL` instruction in U-mode. The encoding `10b` is reserved. When the Zicbom extension is not impleme"
+    }
+   ]
+  },
+  {
+   "name": "ELEN",
+   "section": "param",
+   "impl": "ELEN",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:elen_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 22,
+     "text": "The maximum size in bits of a vector element that any operation can produce or consume, _ELEN_ {ge} 8, which must be a power of 2."
+    }
+   ]
+  },
+  {
+   "name": "VLEN",
+   "section": "param",
+   "impl": "VLEN",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vlen_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 24,
+     "text": "The number of bits in a single vector register, _VLEN_ {ge} ELEN, which must be a power of 2, and must be no greater than 2^16^."
+    }
+   ]
+  },
+  {
+   "name": "MSTATUS_VS_HW_DIRTY_UPDATE",
+   "section": "param",
+   "impl": "HW_MSTATUS_VS_DIRTY_UPDATE",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:hw_mstatus_vs_dirty_update_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 133,
+     "text": "Implementations may also change `mstatus.VS` or `vsstatus.VS` from Initial or Clean to Dirty at any time, even when there is no change in vector state."
+    }
+   ]
+  },
+  {
+   "name": "VSETVL_WITH_NEW_RATIO_SETS_VILL",
+   "section": "param",
+   "impl": "RESERVED_VILL_SET",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:reserved_vill_set_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 1279,
+     "text": "Implementations may set `vill` in either case."
+    }
+   ]
+  },
+  {
+   "name": "VSETVL_WITH_VILL_1_STAY_1",
+   "section": "param",
+   "impl": "RESERVED_VILL_SET",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:reserved_vill_set_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 1279,
+     "text": "Implementations may set `vill` in either case."
+    }
+   ]
+  },
+  {
+   "name": "MSTATUS_VS_EXISTS",
+   "section": "param",
+   "impl": "MSTATUS_VS_EXISTS",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:mstatus_vs_exists_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 110,
+     "text": "Analogous to the way in which the floating-point unit is handled, the `mstatus.VS` field may exist even if `misa.V` is clear."
+    }
+   ]
+  },
+  {
+   "name": "VSSTATUS_VS_EXISTS",
+   "section": "param",
+   "impl": "VSSTATUS_VS_EXISTS",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vsstatus_vs_exists_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 144,
+     "text": "For implementations with a writable `misa.V` field, the `vsstatus.VS` field may exist even if `misa.V` is clear."
+    }
+   ]
+  },
+  {
+   "name": "VECTOR_LS_VSTART",
+   "section": "param",
+   "impl": "VECTOR_LS_VSTART",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vector_ls_vstart_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 1379,
+     "text": "All vector loads and stores may generate and accept a non-zero `vstart` value."
+    }
+   ]
+  },
+  {
+   "name": "VECTOR_LS_CONSTANT_STRIDE_X0",
+   "section": "param",
+   "impl": "VECTOR_LS_CONSTANT_STRIDE_X0",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vector_ls_constant-stride_x0"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 1678,
+     "text": "When `rs2`=`x0`, then an implementation is allowed, but not required, to perform fewer memory operations than the number of active elements, and may perform different numbers of memory operations across different dynamic executions of the s"
+    }
+   ]
+  },
+  {
+   "name": "VECTOR_LS_OVERWRITE_PAST_TRAP",
+   "section": "param",
+   "impl": "VECTOR_LS_OVERWRITE_PAST_TRAP",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vector_ls_overwrite_past_trap_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 1754,
+     "text": "Load instructions may overwrite active destination vector register group elements past the element index at which the trap is reported."
+    }
+   ]
+  },
+  {
+   "name": "VECTOR_FF_PAST_TRAP",
+   "section": "param",
+   "impl": "VECTOR_FF_PAST_TRAP",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vector_ff_past_trap_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 1756,
+     "text": "Similarly, fault-only-first load instructions may update active destination elements past the element that causes trimming of the vector length (but not past the original vector length). The values of these spurious updates do not have to c"
+    }
+   ]
+  },
+  {
+   "name": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+   "section": "param",
+   "impl": "VECTOR_LS_SEG_PARTIAL_ACCESS",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vector_ls_seg_partial_access_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 1872,
+     "text": "If a trap occurs during access to a segment, it is implementation-defined whether a subset of the faulting segment's accesses are performed before the trap is taken."
+    }
+   ]
+  },
+  {
+   "name": "VECTOR_FF_SEG_SUBSET_EXC_ON_ZEROTH",
+   "section": "param",
+   "impl": "VECTOR_FF_SEG_PARTIAL_ACCESS",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vector_ff_seg_partial_access_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 1936,
+     "text": "In both cases, it is implementation-defined whether a subset of the segment is loaded."
+    }
+   ]
+  },
+  {
+   "name": "VECTOR_FF_SEG_SUBSET_EXC_PAST_ZEROTH",
+   "section": "param",
+   "impl": "VECTOR_FF_SEG_PARTIAL_ACCESS",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vector_ff_seg_partial_access_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 1936,
+     "text": "In both cases, it is implementation-defined whether a subset of the segment is loaded."
+    }
+   ]
+  },
+  {
+   "name": "VECTOR_LS_SEG_FF_OVERLOAD",
+   "section": "param",
+   "impl": "VECTOR_LS_SEG_FF_OVERLOAD",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vector_ls_seg_ff_overload_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 1940,
+     "text": "These instructions may overwrite destination vector register group elements past the point at which a trap is reported or past the point at which vector length is trimmed."
+    }
+   ]
+  },
+  {
+   "name": "VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION",
+   "section": "param",
+   "impl": "VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vector_ls_wholereg_missaligned_exception_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 2111,
+     "text": "Implementations are allowed to raise a misaligned address exception on whole register loads and stores if the base address is not naturally aligned to the larger of the size of the encoded EEW in bytes (EEW/8) or the implementation's smalle"
+    }
+   ]
+  },
+  {
+   "name": "VECTOR_LS_MISSALIGNED_EXCEPTION",
+   "section": "param",
+   "impl": "VECTOR_LS_MISSALIGNED_EXCEPTION",
+   "file": "v-st-ext.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:vector_ls_missaligned_exception_param"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "v-st-ext.adoc",
+     "line": 2182,
+     "text": "If an element accessed by a vector memory instruction is not naturally aligned to the size of the element, either the element is transferred successfully or an address-misaligned exception is raised on that element."
+    }
+   ]
+  },
+  {
+   "name": "INTERRUPTS_ALLOWED_IN_PUSHPOP",
+   "section": "param",
+   "impl": "INTERRUPTS_ALLOWED_IN_PUSHPOP",
+   "file": "zc.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:interrupts_allowed_in_pushpop_param"
+   ],
+   "hits": [
+    {
+     "rule": "1",
+     "why": "tagged text sits in a NOTE/TIP/WARNING block"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "zc.adoc",
+     "line": 1185,
+     "text": "NOTE: It is implementation defined whether interrupts can also be taken during the sequence execution."
+    }
+   ]
+  },
+  {
+   "name": "jvt.BASE",
+   "section": "csr",
+   "impl": "JVT_WARL",
+   "file": "zc.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:jvt_reg"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "zc.adoc",
+     "line": 2399,
+     "text": "The _jvt_ register is an XLEN-bit *WARL* read/write register that holds the jump table configuration, consisting of the jump table base address (BASE) and the jump table mode (MODE)."
+    }
+   ]
+  },
+  {
+   "name": "jvt.MODE",
+   "section": "csr",
+   "impl": "JVT_MODE_WARL",
+   "file": "zc.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:jvt_mode_acc"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "zc.adoc",
+     "line": 2417,
+     "text": "_jvt.mode_ is a *WARL* field, so can only be programmed to modes which are implemented."
+    }
+   ]
+  },
+  {
+   "name": "NTL_TRAP_BEHAVIOR",
+   "section": "param",
+   "impl": "NTL_TRAP_BEHAVIOR",
+   "file": "zihintntl.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:NTL-trap_behavior"
+   ],
+   "hits": [
+    {
+     "rule": "S1",
+     "why": "no optionality language, no WARL/WLRL and no declared value or width in the tagged text"
+    }
+   ],
+   "evidence": [
+    {
+     "file": "zihintntl.adoc",
+     "line": 162,
+     "text": "In the event that a trap is taken on the target instruction, implementations are discouraged from applying the NTL to the first instruction in the trap handler. Instead, implementations are recommended to ignore the HINT in this case."
+    }
+   ]
+  },
+  {
+   "name": "ZILSD_ALIGN8_ATOMIC",
+   "section": "param",
+   "impl": "ZILSD_ALIGN8_ATOMIC",
+   "file": "zilsd.yaml",
+   "resolved": true,
+   "tags": [
+    "norm:Zilsd_align8_atomic"
+   ],
+   "hits": [],
+   "evidence": [
+    {
+     "file": "zilsd.adoc",
+     "line": 38,
+     "text": "Even if naturally aligned, the memory access might not be performed atomically."
+    }
+   ]
+  }
+ ]
+}

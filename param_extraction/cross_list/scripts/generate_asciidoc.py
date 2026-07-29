@@ -427,6 +427,165 @@ ADJ = json.loads(
      / "param_extraction/cross_list/data/james_vs_udb_adjudication.json"
      ).read_text()
 )
+AUDIT = {
+    r["name"]: r
+    for r in json.loads(
+        (Path(__file__).resolve().parents[3]
+         / "param_extraction/cross_list/data/james_criteria_audit.json"
+         ).read_text()
+    )["rows"]
+}
+
+RULE_TEXT = {
+    "S1": "no inclusion signal -- no optionality language, no WARL/WLRL and "
+          "no declared value or width in the tagged text",
+    "1": "rule 1 -- the tagged text sits in a NOTE/TIP/WARNING block",
+    "2": "rule 2 -- a fixed requirement (must/shall/always) with no optionality",
+    "3": "rule 3 -- a reserved/hardwired/WPRI statement of fact",
+    "6": "rule 6 -- no testable units, or 'misconfigured'",
+    "8": "rule 8 -- introduction or overview section",
+    "14": "rule 14 -- legal values stated as identical to another register's, "
+          "so possibly derived rather than an independent choice",
+}
+
+
+def write_criteria_audit(james):
+    """The three-stage view: before criteria, effect of criteria, after."""
+    V = ADJ["verdicts"]
+    flagged = {n for n, r in AUDIT.items() if r.get("hits")}
+    checkable = [n for n, r in AUDIT.items() if r.get("resolved")]
+    news = [n for n, v in V.items() if v["verdict"] == "new_candidate"]
+    news_flagged = [n for n in news if n in flagged]
+    news_unverifiable = [n for n in news
+                         if not AUDIT.get(n, {}).get("resolved")]
+
+    L = ["== Applying our inclusion criteria to his list", "",
+         "Everything above compares the two lists *as they stand*. But they were",
+         "not built to the same standard. Our list was filtered through",
+         "`param_extraction/INCLUSION_CRITERIA.md` at every stage; his was never",
+         "held to that ruleset, because he was not working to it. Comparing raw",
+         "counts therefore compares a filtered list against an unfiltered one.",
+         "",
+         "This section applies the mechanically checkable rules to his entries so",
+         "both lists can be judged on the same footing.",
+         "",
+         "IMPORTANT: A rule hit is *not* a defect in his work. It means the entry",
+         "would need review under our criteria, which until the mentor rules on it",
+         "is a definition difference and nothing more. Several of these are cases",
+         "where our rule may be the thing that is wrong.",
+         "",
+         "=== How the check was done", "",
+         "His entries carry no excerpt, only an `impl-def` pointing at a normative",
+         "rule, so the spec text had to be recovered first:",
+         "",
+         "  impl-def -> normative rule -> tag -> anchor text in the .adoc",
+         "",
+         "Rules 4, 10, 11, 12, 13 and 15 need judgement or UDB context and are not",
+         "decided mechanically; rule 11 (duplicates) is already covered by the UDB",
+         "segmentation above.",
+         "",
+         "Two allowances are built in, both from our own ruleset, without which",
+         "the check reports far more hits than are real:",
+         "",
+         "* a *WARL* or *WLRL* field satisfies the inclusion signal on its own,",
+         "  per the mentor's standing rule that WARL is automatically a parameter;",
+         "* a declared value, width, size or ID counts even with no modal word,",
+         "  per rule 5a. Without this, `MXLEN` itself would be flagged.",
+         "",
+         "=== Stage 1 -- before applying the criteria", "",
+         '[cols="70,30",options="header"]', "|===", "| Measure | Count",
+         f"| His entries | {len(james)}",
+         f"| ...of which already in UDB | "
+         f"{sum(1 for v in V.values() if v['verdict'] == 'in_udb')}",
+         f"| ...overlapping UDB, not one-to-one | "
+         f"{sum(1 for v in V.values() if v['verdict'] == 'in_udb_partial')}",
+         f"| ...*candidate new parameters* | {len(news)}",
+         "|===", "",
+         "=== Stage 2 -- what the criteria change", "",
+         '[cols="70,30",options="header"]', "|===", "| Measure | Count",
+         f"| His entries | {len(james)}",
+         f"| Spec text recoverable, so checkable | {len(checkable)}",
+         f"| *Not* recoverable -- unresolved tag, no check possible | "
+         f"{len(james) - len(checkable)}",
+         f"| Flagged by at least one rule | {len(flagged)}",
+         "|===", "",
+         f"Only {len(flagged)} of the {len(checkable)} checkable entries are",
+         "flagged. That is the headline result of this section: *his list is",
+         "largely consistent with our criteria even though it was not built to",
+         "them*. Two independent methods, one tag-driven and one prose-driven,",
+         "converge on nearly the same standard.",
+         "",
+         "The flagged entries, each verified by reading the spec text:",
+         "",
+         '[cols="26,14,60",options="header"]', "|===",
+         "| His entry | Rule | Why"]
+    for n in sorted(flagged):
+        r = AUDIT[n]
+        ev = r["evidence"][0]
+        rules = ", ".join(h["rule"] for h in r["hits"])
+        why = "; ".join(RULE_TEXT.get(h["rule"], h["rule"]) for h in r["hits"])
+        L.append(f"| `{esc(n)}` +\n[.small]#{ev['file']}:{ev['line']}# "
+                 f"| {rules} | {esc(why)}")
+    L += ["|===", "",
+          "=== Stage 3 -- the comparison after applying the criteria", "",
+          '[cols="70,30",options="header"]', "|===", "| Measure | Count",
+          f"| His candidate new parameters, before | {len(news)}",
+          f"| ...flagged by our criteria | {len(news_flagged)}",
+          f"| *Surviving our criteria* | {len(news) - len(news_flagged)}",
+          f"| ...of those, unverifiable (no reachable spec text) | "
+          f"{len(news_unverifiable)}",
+          "|===", "",
+          "So his genuinely new, criteria-passing contribution is about",
+          f"*{len(news) - len(news_flagged)} parameters*, against our",
+          "38. Both numbers carry caveats pointing in opposite directions: ours",
+          "are expert-reviewed but were mined from prose and are known to be",
+          f"non-exhaustive; his are unreviewed, and {len(news_unverifiable)} of",
+          "them cannot be checked against spec text at all until the unresolved",
+          "tags are settled.",
+          "",
+          "The nine flagged new candidates, and why each matters:",
+          ""]
+    for n in sorted(news_flagged):
+        rules = ", ".join(h["rule"] for h in AUDIT[n]["hits"])
+        L.append(f"* `{n}` (rule {rules}) -- {esc(V[n]['reason'])[:150]}")
+    L += ["",
+          "Two are worth singling out:",
+          "",
+          "* `INTERRUPTS_ALLOWED_IN_PUSHPOP` is tagged as literally",
+          "  `NOTE: It is implementation defined whether interrupts can also be",
+          "  taken during the sequence execution.` Our pipeline found this and",
+          "  held it back under rule 1. The audit independently confirms that",
+          "  call -- and it is the clearest case where the two lists disagree",
+          "  because of a rule, not because of what either of us saw.",
+          "* `vsepc`, `vscause` and `vstval` are each spec'd as holding \"the same",
+          "  set of values that `sepc` / `scause` / `stval` can hold\". Under rule",
+          "  14 that is derived rather than an independent choice. Whether a",
+          "  register that tracks another still deserves its own parameter is a",
+          "  real question for the mentor, not something to settle here.",
+          "",
+          "=== Where our rule may be the problem, not his entry", "",
+          "Three of the flags point at our ruleset rather than at his list:",
+          "",
+          "* Rule 1 excludes NOTE blocks outright. But",
+          "  `INTERRUPTS_ALLOWED_IN_PUSHPOP` and `MCAUSE_RST_ALIAS_OK` are both",
+          "  tagged `[#norm:...]` *inside* a NOTE. The manual's own authors",
+          "  marked that text as normative. A blanket NOTE exclusion may be too",
+          "  strong when the text carries a normative tag.",
+          "* `MTVEC_RDONLY`, `MTIME_TICK_PERIOD` and `PMA_MM_IFETCH` are flagged",
+          "  under rule 2 because the *tagged sentence* is a fixed requirement --",
+          "  for example `MTVEC_RDONLY` points at \"The `mtvec` register must",
+          "  always be implemented\", which says nothing about read-only. The",
+          "  parameter may well be real; the tag is pointing at the wrong",
+          "  sentence. That is a fixable defect in his source pointer, and it is",
+          "  worth telling him.",
+          "* Rule 6 catches `MSTATUS_TW_TIME_LIMIT`, the WFI bounded time limit.",
+          "  Our own `INCLUSION_CRITERIA` names \"bounded time limit\" as its",
+          "  example of an untestable quantity, so on our rules this is correctly",
+          "  excluded -- but he independently judged it a parameter, which is a",
+          "  second vote for revisiting that rule.",
+          ""]
+    return L
+
 
 VERDICT_ORDER = [
     ("in_udb", "Already in UDB",
@@ -585,7 +744,36 @@ def write_comparison(ours, james, meta):
 
     L = [HDR, "= Parameter List Comparison", ":toc:", ":toclevels: 2", ""]
     L += [
-        "Comparison of our expert-reviewed parameter list against James Ball's.",
+        "Comparison of our parameter list against James Ball's.",
+        "",
+        "== Standing of the two lists -- read before any count",
+        "",
+        "The two lists do not have equal standing, and no count below should be",
+        "read as if they did.",
+        "",
+        '[cols="20,40,40",options="header"]',
+        "|===",
+        "| | Ours | James'",
+        "| Review status | Every entry reviewed individually by Allen Baum and "
+        "Umer | *Not reviewed by Allen or Umer.* He describes it as an initial "
+        "individual effort, explicitly not Parameter SIG consensus",
+        "| Scope | Only parameters believed *missing* from UDB | The whole "
+        "parameter space, including parameters UDB already has",
+        "| Evidence | A verbatim spec excerpt per entry, all located in the "
+        "manual | An `impl-def` pointer to a normative rule; no excerpt",
+        "| Completeness | 38 entries | 179 entries, most `long-name` and many "
+        "`type` fields still `TBD`",
+        "|===",
+        "",
+        "So an entry appearing on his list is a *candidate*, at the same stage "
+        "ours were before review. An entry on ours has cleared expert review. "
+        "When this document says the two lists agree, that means an unreviewed "
+        "candidate coincides with a reviewed one, which is corroboration for "
+        "his entry rather than fresh support for ours.",
+        "",
+        "Judgement calls throughout are flagged rather than asserted, per rule "
+        "15 of `INCLUSION_CRITERIA.md`: a normative rule whose parameter-ness "
+        "needs the design rationale cannot be decided mechanically.",
         "",
         "== Method, and why not by name",
         "",
@@ -689,6 +877,7 @@ def write_comparison(ours, james, meta):
     L += ["|===", ""]
 
     L += write_only_james(only_james)
+    L += write_criteria_audit(james)
 
     # findings that are useful to the manual maintainers.
     # NOTE: scoped over ALL our parameters, not only the unmatched ones. The

@@ -67,7 +67,7 @@
   "INTERRUPTS_ALLOWED_IN_PUSHPOP": {
    "verdict": "new_candidate",
    "udb": [],
-   "reason": "Whether interrupts may be taken during Zcmp push/pop sequences. UDB has no equivalent. Our pipeline saw this and held it back under rule 1 (NOTE block)."
+   "reason": "Whether interrupts may be taken during Zcmp push/pop sequences. UDB has no equivalent. Our pipeline found this and held it back under rule 1, because the sentence sits in a NOTE block. He includes it."
   },
   "LRSC_ALIGNMENT": {
    "verdict": "in_udb",
@@ -160,7 +160,7 @@
   "MSIP_UPDATE_MAX_TIME": {
    "verdict": "out_of_scope",
    "udb": [],
-   "reason": "A maximum time with no architectural units. Excluded by our rule on implementation-defined quantities with no testable units."
+   "reason": "A maximum time with no architectural units. Excluded by rule 6 (implementation-defined with no testable units or enumerable options)."
   },
   "MSTATUS_FS_IMPRECISE": {
    "verdict": "in_udb_partial",
@@ -184,7 +184,7 @@
   "MSTATUS_TW_TIME_LIMIT": {
    "verdict": "out_of_scope",
    "udb": [],
-   "reason": "The WFI 'bounded time limit'. The spec gives no units, so it fails the observable-and-testable master test. This is the exact example our INCLUSION_CRITERIA uses."
+   "reason": "The WFI bounded time limit. Excluded by INCLUSION_CRITERIA rule 6, which names \"bounded time limit\" as its literal example of an implementation-defined quantity with no testable units."
   },
   "MSTATUS_UBE_ROCOPY": {
    "verdict": "new_candidate",
@@ -220,7 +220,7 @@
   "MTIME_TICK_PERIOD": {
    "verdict": "out_of_scope",
    "udb": [],
-   "reason": "Platform timing. Jordan records platform.clock_frequency and instructions_per_tick as having no UDB parameter."
+   "reason": "Platform timing. Excluded by rule 4 (NON_ISA, outside ISA scope); Jordan records platform.clock_frequency and instructions_per_tick as having no UDB parameter either."
   },
   "MTVAL2_TRAPVAL": {
    "verdict": "in_udb_partial",
@@ -276,7 +276,7 @@
   "NMI_ADDR": {
    "verdict": "out_of_scope",
    "udb": [],
-   "reason": "NMI vector address. Excluded as platform integration rather than ISA, not on testability grounds -- it is observable. Scope question for the mentor."
+   "reason": "NMI vector address. Excluded by rule 4 (NON_ISA, platform rather than ISA), not on testability grounds -- it is observable. Scope question for the mentor."
   },
   "NMI_MCAUSE_VAL": {
    "verdict": "new_candidate",
@@ -325,7 +325,7 @@
   "RST_ADDR": {
    "verdict": "out_of_scope",
    "udb": [],
-   "reason": "Reset vector address. Excluded as platform integration rather than ISA, not on testability grounds -- it is observable. Scope question for the mentor."
+   "reason": "Reset vector address. Excluded by rule 4 (NON_ISA, platform rather than ISA), not on testability grounds -- it is observable. Scope question for the mentor."
   },
   "SATP_MODE_ROZ_SFENCE_ILLEGAL": {
    "verdict": "in_udb",
