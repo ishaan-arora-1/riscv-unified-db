@@ -182,7 +182,7 @@ UDB already defines this parameter, sometimes under a different name. Our list e
 | `VMIDLEN` | `VMID_WIDTH` | Same quantity, hgatp.VMID width.
 | `VSXLEN` | `VSXLEN` | Exact name match.
 | `hcounteren` | `HCOUNTENABLE_EN` | csr_references match on hcounteren.
-| `hgainp.MODE` | `GSTAGE_MODE_BARE` | hgatp.MODE (his reg-name is a typo). UDB also carries SV*X4_TRANSLATION for the other modes.
+| `hgainp.MODE` | `GSTAGE_MODE_BARE`, `SV32X4_TRANSLATION`, `SV39X4_TRANSLATION`, `SV48X4_TRANSLATION`, `SV57X4_TRANSLATION` | hgatp.MODE (his reg-name is a typo for hgatp). UDB splits this MODE field into GSTAGE_MODE_BARE plus one boolean per SvNNx4 translation mode.
 | `hstatus.VSBE` | `VS_MODE_ENDIANNESS` | csr_references match on hstatus.VSBE.
 | `vsstatus.UXL` | `VUXLEN` | csr_references match on vsstatus.UXL.
 | `vstvec.MODE` | `VSTVEC_MODE_DIRECT`, `VSTVEC_MODE_VECTORED` | UDB splits the MODE field into one boolean per legal mode.
@@ -277,15 +277,15 @@ The substance of his contribution. These are candidate new parameters on the sam
 [cols="22,20,58",options="header"]
 |===
 | James' entry | Domain | Basis
-| `hedeleg` | TBD | Delegatable-bit mask of hedeleg. UDB has no delegatable-bits parameter for any deleg register; Jordan records the same gap for medeleg/mideleg against Sail.
-| `hgeie` | TBD | Writable-bit mask of hgeie. UDB has no hgeie parameter.
-| `hideleg` | TBD | Delegatable-bit mask of hideleg. Same gap as hedeleg.
-| `hie` | TBD | Writable-bit mask of hie. UDB has no hie parameter.
-| `hvip` | TBD | Writable-bit mask of hvip. UDB models mip writability but not hvip.
+| `hedeleg` | TBD | Delegatable-bit mask of hedeleg. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register.
+| `hgeie` | TBD | Writable-bit mask of hgeie. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register.
+| `hideleg` | TBD | Delegatable-bit mask of hideleg. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register.
+| `hie` | TBD | Writable-bit mask of hie. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register.
+| `hvip` | TBD | Writable-bit mask of hvip. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register.
 | `vscause` | TBD | WLRL legal exception codes of vscause. UDB has no cause-code legal-value parameter.
 | `vsepc` | TBD | WARL behaviour of vsepc. UDB has no vsepc parameter; our SEPC_INVALID_ADDR_BEHAVIOR is the sepc sibling.
-| `vsie` | TBD | Writable-bit mask of vsie. UDB has no vsie parameter.
-| `vsip` | TBD | Writable-bit mask of vsip. UDB has no vsip parameter.
+| `vsie` | TBD | Writable-bit mask of vsie. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register.
+| `vsip` | TBD | Writable-bit mask of vsip. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register.
 | `vstval` | TBD | Implemented-bit width of vstval. UDB has MTVAL_WIDTH and STVAL_WIDTH but no VSTVAL_WIDTH.
 | `miselect` | TBD | Supported value range of miselect. UDB has no iselect parameter; our SISELECT_WIDTH and VSISELECT_WIDTH are the s/vs siblings.
 | `CRITICAL_ERROR` | {ResetHart, ResetPlatform, Other} | Critical-error signalling behaviour. UDB has no equivalent.
@@ -307,7 +307,7 @@ The substance of his contribution. These are candidate new parameters on the sam
 | `WFI_RESUME_REASON` | {true, false} | What may cause WFI to resume. UDB has no WFI resume parameter.
 | `mcause.EXCCODE` | TBD (legal enum) | WLRL legal exception codes of mcause. UDB has no cause-code legal-value parameter.
 | `mepc` | per bit: constant mask | WARL behaviour of mepc. UDB has no mepc parameter; our SEPC_INVALID_ADDR_BEHAVIOR is the sepc sibling.
-| `mie` | per bit: constant mask | Writable-bit mask of mie. UDB has MIP-side coverage only; our MIP_WRITABLE_BITS is the mip sibling.
+| `mie` | per bit: constant mask | Writable-bit mask of mie. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register.
 | `mseccfg.MML` | per bit: constant mask | WARL behaviour of mseccfg.MML. UDB has no mseccfg field parameters.
 | `mseccfg.MMWP` | per bit: constant mask | WARL behaviour of mseccfg.MMWP. UDB has no mseccfg field parameters.
 | `mseccfg.RLB` | per bit: constant mask | WARL behaviour of mseccfg.RLB. UDB has no mseccfg field parameters.
@@ -321,7 +321,7 @@ The substance of his contribution. These are candidate new parameters on the sam
 | `ctrsource` | TBD | WARL behaviour of ctrsource. UDB has MCTRCTL_* field parameters but nothing for the entry registers.
 | `sctrstatus.WRPTR` | TBD | WARL behaviour of sctrstatus.WRPTR. UDB has no sctrstatus parameter.
 | `scause.EXCEPTION_CODE` | TBD | WLRL legal exception codes of scause. UDB has no cause-code legal-value parameter.
-| `sie` | TBD | Writable-bit mask of sie. UDB has no sie parameter; our SIP_BITS_ACCESS is the sip sibling.
+| `sie` | TBD | Writable-bit mask of sie. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register.
 | `sstatus.SDT` | TBD | WARL behaviour of sstatus.SDT (Ssdbltrp). UDB has no SDT parameter.
 | `stvec.BASE` | TBD | BASE alignment of stvec. Jordan records explicitly that UDB has no STVEC base-alignment parameter while Sail does.
 | `MSTATUS_VS_EXISTS` | {true, false} | Whether mstatus.VS exists when misa.V is clear. UDB has the VS-mode sibling VSSTATUS_VS_EXISTS but not the M-mode one.
@@ -341,8 +341,8 @@ Platform integration or quantities with no architectural units. These fail our o
 | `MSIP_UPDATE_MAX_TIME` | TBD | A maximum time with no architectural units. Excluded by our rule on implementation-defined quantities with no testable units.
 | `MSTATUS_TW_TIME_LIMIT` | TBD | The WFI 'bounded time limit'. The spec gives no units, so it fails the observable-and-testable master test. This is the exact example our INCLUSION_CRITERIA uses.
 | `MTIME_TICK_PERIOD` | TBD | Platform timing. Jordan records platform.clock_frequency and instructions_per_tick as having no UDB parameter.
-| `NMI_ADDR` | TBD | NMI vector address. Platform integration rather than an ISA parameter.
-| `RST_ADDR` | TBD | Reset vector address. Platform integration rather than an ISA parameter.
+| `NMI_ADDR` | TBD | NMI vector address. Excluded as platform integration rather than ISA, not on testability grounds -- it is observable. Scope question for the mentor.
+| `RST_ADDR` | TBD | Reset vector address. Excluded as platform integration rather than ISA, not on testability grounds -- it is observable. Scope question for the mentor.
 |===
 
 === Duplicated within his own list (1)
@@ -362,8 +362,16 @@ most of the list, and each is a category neither UDB nor our own
 pipeline covers:
 
 * *Interrupt and delegation bit masks* -- `hedeleg`, `hideleg`, `hie`,
-  `hvip`, `hgeie`, `vsie`, `vsip`, `mie`, `sie`. UDB models the `mip`
-  side only, and our list has the `mip`/`sip` pair. Nobody has the rest.
+  `hvip`, `hgeie`, `vsie`, `vsip`, `mie`, `sie`. Verified against UDB
+  by name and by `csr_references`: UDB has *no* parameter touching any
+  interrupt-pending, interrupt-enable or delegation register -- not
+  `mip`, not `sip`, none of them. The only near neighbour is
+  `NUM_EXTERNAL_GUEST_INTERRUPTS`, which is a count. Our list adds five
+  here (`MIP_WRITABLE_BITS`, `SIP_BITS_ACCESS`, `HIP_BIT_WRITABLE`,
+  `DELEGATABLE_EXCEPTIONS`, `STANDARD_INTERRUPT_SUPPORT`) and his adds
+  nine, so between them the two candidate lists fill a family UDB is
+  missing entirely. This is the strongest joint result in the
+  comparison.
 * *Trap CSR WARL behaviour* -- `mepc`, `vsepc`, `mcause`, `scause`,
   `vscause`, `mncause`, `mnstatus`, `vstval`. Our list has the `sepc`
   sibling; UDB has widths for `mtval`/`stval` only.
@@ -440,17 +448,30 @@ account of the difference between the lists.
 
 * our `MSECCFG_SEED_BITS_RW` (scalar-crypto.adoc:3772) -- normative text carrying no anchor
 
-=== Two defects noticed in James' files while verifying
+=== Defects noticed in James' files while verifying
 
-Both found while confirming the *only on our list* section, and both
-worth passing back to him.
+All found while checking his entries one by one, and all worth
+passing back to him.
 
 * `hypervisor.yaml:106` declares `reg-name: hgainp`, but its own
   `impl-def` is `HGATP_MODE_WARL`. `hgainp` is not a RISC-V CSR;
   this is a typo for `hgatp`.
+* `machine.yaml` names a parameter `MIPMPID` whose `impl-def` is
+  `IMP_ID`. The CSR is `mimpid`, so this looks like a typo.
+* `v-st-ext.yaml` spells two parameters `..._MISSALIGNED_...`
+  (`VECTOR_LS_MISSALIGNED_EXCEPTION`,
+  `VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION`) with a doubled S.
 * `smctr.yaml` covers `ctrsource` and `ctrtarget` as WARL registers
   but has no entry for `ctrdata`, even though the spec makes every
   field within `ctrdata` optional and read-only 0 when unimplemented.
+* `SCTRDEPTH_DEPTH` appears as a `parameter_definitions` entry and
+  `sctrdepth.DEPTH` again under `csr_definitions` -- the same field
+  recorded twice.
+
+One asymmetry in UDB is worth raising alongside these: UDB defines
+`MSTATUS_TVM_IMPLEMENTED` but has nothing for `mstatus.TSR` or
+`mstatus.TW`, which are the same shape of choice. James has all three.
+If TVM is a parameter then TSR and TW should be too.
 
 
 === 44 of James' entries reference an unresolved tag

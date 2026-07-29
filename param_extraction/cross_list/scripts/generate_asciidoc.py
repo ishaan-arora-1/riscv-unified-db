@@ -451,7 +451,6 @@ VERDICT_ORDER = [
 
 
 def write_only_james(only_james):
-    by_name = {r["name"]: r for r in only_james}
     V = ADJ["verdicts"]
     base = ADJ["udb_baseline"]
 
@@ -508,15 +507,22 @@ def write_only_james(only_james):
                          f"| {esc(v['reason'])}")
         L += ["|===", ""]
 
-    news = [r for r in only_james if V[r["name"]]["verdict"] == "new_candidate"]
     L += ["=== What the new candidates cluster into", "",
           "Grouping them shows they are not scattered. Four families account for",
           "most of the list, and each is a category neither UDB nor our own",
           "pipeline covers:",
           "",
           "* *Interrupt and delegation bit masks* -- `hedeleg`, `hideleg`, `hie`,",
-          "  `hvip`, `hgeie`, `vsie`, `vsip`, `mie`, `sie`. UDB models the `mip`",
-          "  side only, and our list has the `mip`/`sip` pair. Nobody has the rest.",
+          "  `hvip`, `hgeie`, `vsie`, `vsip`, `mie`, `sie`. Verified against UDB",
+          "  by name and by `csr_references`: UDB has *no* parameter touching any",
+          "  interrupt-pending, interrupt-enable or delegation register -- not",
+          "  `mip`, not `sip`, none of them. The only near neighbour is",
+          "  `NUM_EXTERNAL_GUEST_INTERRUPTS`, which is a count. Our list adds five",
+          "  here (`MIP_WRITABLE_BITS`, `SIP_BITS_ACCESS`, `HIP_BIT_WRITABLE`,",
+          "  `DELEGATABLE_EXCEPTIONS`, `STANDARD_INTERRUPT_SUPPORT`) and his adds",
+          "  nine, so between them the two candidate lists fill a family UDB is",
+          "  missing entirely. This is the strongest joint result in the",
+          "  comparison.",
           "* *Trap CSR WARL behaviour* -- `mepc`, `vsepc`, `mcause`, `scause`,",
           "  `vscause`, `mncause`, `mnstatus`, `vstval`. Our list has the `sepc`",
           "  sibling; UDB has widths for `mtval`/`stval` only.",
@@ -735,16 +741,29 @@ def write_comparison(ours, james, meta):
         L.append(f"* our `{r['name']}` ({r['file']}:{r['line']}) -- "
                  "normative text carrying no anchor")
 
-    L += ["", "=== Two defects noticed in James' files while verifying", "",
-          "Both found while confirming the *only on our list* section, and both",
-          "worth passing back to him.",
+    L += ["", "=== Defects noticed in James' files while verifying", "",
+          "All found while checking his entries one by one, and all worth",
+          "passing back to him.",
           "",
           "* `hypervisor.yaml:106` declares `reg-name: hgainp`, but its own",
           "  `impl-def` is `HGATP_MODE_WARL`. `hgainp` is not a RISC-V CSR;",
           "  this is a typo for `hgatp`.",
+          "* `machine.yaml` names a parameter `MIPMPID` whose `impl-def` is",
+          "  `IMP_ID`. The CSR is `mimpid`, so this looks like a typo.",
+          "* `v-st-ext.yaml` spells two parameters `..._MISSALIGNED_...`",
+          "  (`VECTOR_LS_MISSALIGNED_EXCEPTION`,",
+          "  `VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION`) with a doubled S.",
           "* `smctr.yaml` covers `ctrsource` and `ctrtarget` as WARL registers",
           "  but has no entry for `ctrdata`, even though the spec makes every",
           "  field within `ctrdata` optional and read-only 0 when unimplemented.",
+          "* `SCTRDEPTH_DEPTH` appears as a `parameter_definitions` entry and",
+          "  `sctrdepth.DEPTH` again under `csr_definitions` -- the same field",
+          "  recorded twice.",
+          "",
+          "One asymmetry in UDB is worth raising alongside these: UDB defines",
+          "`MSTATUS_TVM_IMPLEMENTED` but has nothing for `mstatus.TSR` or",
+          "`mstatus.TW`, which are the same shape of choice. James has all three.",
+          "If TVM is a parameter then TSR and TW should be too.",
           ""]
 
     L += ["", f"=== {len(unres)} of James' entries reference an unresolved tag", "",

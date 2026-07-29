@@ -276,7 +276,7 @@
   "NMI_ADDR": {
    "verdict": "out_of_scope",
    "udb": [],
-   "reason": "NMI vector address. Platform integration rather than an ISA parameter."
+   "reason": "NMI vector address. Excluded as platform integration rather than ISA, not on testability grounds -- it is observable. Scope question for the mentor."
   },
   "NMI_MCAUSE_VAL": {
    "verdict": "new_candidate",
@@ -325,7 +325,7 @@
   "RST_ADDR": {
    "verdict": "out_of_scope",
    "udb": [],
-   "reason": "Reset vector address. Platform integration rather than an ISA parameter."
+   "reason": "Reset vector address. Excluded as platform integration rather than ISA, not on testability grounds -- it is observable. Scope question for the mentor."
   },
   "SATP_MODE_ROZ_SFENCE_ILLEGAL": {
    "verdict": "in_udb",
@@ -496,7 +496,7 @@
   "hedeleg": {
    "verdict": "new_candidate",
    "udb": [],
-   "reason": "Delegatable-bit mask of hedeleg. UDB has no delegatable-bits parameter for any deleg register; Jordan records the same gap for medeleg/mideleg against Sail."
+   "reason": "Delegatable-bit mask of hedeleg. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register."
   },
   "henvcfg.CBIE": {
    "verdict": "in_udb_partial",
@@ -508,24 +508,28 @@
   "hgainp.MODE": {
    "verdict": "in_udb",
    "udb": [
-    "GSTAGE_MODE_BARE"
+    "GSTAGE_MODE_BARE",
+    "SV32X4_TRANSLATION",
+    "SV39X4_TRANSLATION",
+    "SV48X4_TRANSLATION",
+    "SV57X4_TRANSLATION"
    ],
-   "reason": "hgatp.MODE (his reg-name is a typo). UDB also carries SV*X4_TRANSLATION for the other modes."
+   "reason": "hgatp.MODE (his reg-name is a typo for hgatp). UDB splits this MODE field into GSTAGE_MODE_BARE plus one boolean per SvNNx4 translation mode."
   },
   "hgeie": {
    "verdict": "new_candidate",
    "udb": [],
-   "reason": "Writable-bit mask of hgeie. UDB has no hgeie parameter."
+   "reason": "Writable-bit mask of hgeie. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register."
   },
   "hideleg": {
    "verdict": "new_candidate",
    "udb": [],
-   "reason": "Delegatable-bit mask of hideleg. Same gap as hedeleg."
+   "reason": "Delegatable-bit mask of hideleg. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register."
   },
   "hie": {
    "verdict": "new_candidate",
    "udb": [],
-   "reason": "Writable-bit mask of hie. UDB has no hie parameter."
+   "reason": "Writable-bit mask of hie. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register."
   },
   "hstateen0/hstateen1/hstateen2/hstateen3": {
    "verdict": "in_udb",
@@ -565,7 +569,7 @@
   "hvip": {
    "verdict": "new_candidate",
    "udb": [],
-   "reason": "Writable-bit mask of hvip. UDB models mip writability but not hvip."
+   "reason": "Writable-bit mask of hvip. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register."
   },
   "jvt.BASE": {
    "verdict": "in_udb",
@@ -638,7 +642,7 @@
   "mie": {
    "verdict": "new_candidate",
    "udb": [],
-   "reason": "Writable-bit mask of mie. UDB has MIP-side coverage only; our MIP_WRITABLE_BITS is the mip sibling."
+   "reason": "Writable-bit mask of mie. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register."
   },
   "misa.EXTENSIONS": {
    "verdict": "in_udb",
@@ -854,7 +858,7 @@
   "sie": {
    "verdict": "new_candidate",
    "udb": [],
-   "reason": "Writable-bit mask of sie. UDB has no sie parameter; our SIP_BITS_ACCESS is the sip sibling."
+   "reason": "Writable-bit mask of sie. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register."
   },
   "sstateen0/sstateen1/sstateen2/sstateen3": {
    "verdict": "in_udb_partial",
@@ -911,12 +915,12 @@
   "vsie": {
    "verdict": "new_candidate",
    "udb": [],
-   "reason": "Writable-bit mask of vsie. UDB has no vsie parameter."
+   "reason": "Writable-bit mask of vsie. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register."
   },
   "vsip": {
    "verdict": "new_candidate",
    "udb": [],
-   "reason": "Writable-bit mask of vsip. UDB has no vsip parameter."
+   "reason": "Writable-bit mask of vsip. Verified: UDB has no parameter touching any interrupt-pending, interrupt-enable or delegation register."
   },
   "vsstatus.UXL": {
    "verdict": "in_udb",
