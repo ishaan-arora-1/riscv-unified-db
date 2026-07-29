@@ -2,8 +2,8 @@
  "source": "confirmed_parameters_v2.xlsx",
  "input_rows": 44,
  "canonical_count": 38,
- "confirmed": 36,
- "flagged": 2,
+ "confirmed": 37,
+ "flagged": 1,
  "merged_pairs": [
   {
    "discarded": "HINT_SXLEN_BEHAVIOR",
@@ -303,8 +303,8 @@
    "excerpt": "Bit 63 of each `mstateen` CSR may be read-only zero only if the hypervisor extension is not implemented and the matching supervisor-level `sstateen` CSR is all read-only zeros.",
    "mentor_verdict": "why new ?(seems to have a tag- not in UDB?), per bit conditional parameter (sets mask[x]==0 and value[x]==0; true only if (sstateen_mask=0 &stateen_val==0 & exists[H_esxtension))",
    "review_batch": "V5",
-   "status": "flagged",
-   "flag": "Mentor asked whether this is genuinely new. Verified: it IS new. The spec tag exists ([#norm:mstateen-bit-63_roz]) but UDB has only six MSTATEEN_*_TYPE params (ENVCFG/IMSIC/AIA/CONTEXT/CSRIND/JVT) and none for bit 63."
+   "status": "confirmed",
+   "resolved_note": "The mentor asked whether this is genuinely new ('seems to have a tag -- not in UDB?'). Answered: it is new. The spec tag does exist ([#norm:mstateen-bit-63_roz], smstateen.adoc:175), but UDB defines only six MSTATEEN_*_TYPE parameters (ENVCFG/IMSIC/AIA/CONTEXT/CSRIND/JVT) and none for bit 63. Tagged in the spec does not mean present in UDB."
   },
   {
    "parameter_name": "MTVAL2_LEGAL_VALUES",

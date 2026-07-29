@@ -8,9 +8,9 @@
 Design decisions worth knowing before reading the code:
 
 * The comparison joins on the **normative tag**, not on parameter name. Both
-  sides invented their own names; only 3 of our 38 collide with James' names,
-  while 19 share a normative tag. Name equality is reported as corroborating
-  evidence, never as the join.
+  sides invented their own names; exactly one of our 38 matches a name of his,
+  against 26 found by tag and concept. Name equality is reported as
+  corroborating evidence, never as the join.
 
 * James' ``csr_definitions`` are treated as parameters. The mentor's rule is
   "IF it is WARL, it is automatically a parameter", and that section is a
@@ -327,6 +327,7 @@ def load_ours(by_tag, rules):
             "status": ("expert-confirmed (Allen Baum + Umer)"
                        if r["status"] == "confirmed" else "flagged, needs ruling"),
             "flag": r.get("flag"),
+            "resolved_note": r.get("resolved_note"),
         })
     return out, doc
 
@@ -360,18 +361,24 @@ def write_lists(ours, james, meta):
         "already has; he describes it as an initial individual effort, not SIG",
         "consensus. Counts are therefore not comparable head-to-head.",
         "",
-        "A Domain of `TBD` means the source has not yet fixed the legal-value set.",
-        "It is left blank rather than guessed.",
+        "A Domain of `TBD` means that source has not yet fixed the legal-value",
+        "set; it is recorded as TBD rather than guessed. Every entry in List A",
+        "now carries a real domain. On List B many remain TBD, which is his",
+        "own placeholder, passed through unchanged.",
         "",
     ]
 
     L += ["== List A -- our pipeline (expert-reviewed)", ""]
     L += [
         f"{meta['input_rows']} reviewed rows reduce to *{meta['canonical_count']}*",
-        f"distinct parameters ({meta['confirmed']} confirmed, {meta['flagged']} flagged):",
-        f"{len(meta['merged_pairs'])} rows were the same spec sentence recorded twice",
-        f"under two names, and {len(meta['dropped'])} were already defined in UDB.",
-        "See <<corrections>>.",
+        f"distinct parameters ({meta['confirmed']} confirmed, "
+        f"{meta['flagged']} flagged).",
+        "",
+        "Five pairs of rows turned out to carry byte-identical excerpts, and each",
+        "of those sentences occurs exactly once in the manual, so each pair is one",
+        f"parameter named twice. {len(meta['merged_pairs'])} pairs were merged; the",
+        f"fifth pair is the {len(meta['dropped'])} rows dropped below, which were",
+        "also already defined in UDB. See <<corrections>>.",
         "",
         '[cols="26,24,26,24",options="header"]',
         "|===",
@@ -418,6 +425,13 @@ def write_lists(ours, james, meta):
     for r in ours:
         if r.get("flag"):
             L.append(f"* `{r['name']}` -- {r['flag']}")
+    resolved = [r for r in ours if r.get("resolved_note")]
+    if resolved:
+        L += ["", "=== Questions raised in review that are now answered", "",
+              "Kept as confirmed. Recording the answer so the question is not",
+              "asked again.", ""]
+        for r in resolved:
+            L.append(f"* `{r['name']}` -- {r['resolved_note']}")
     L.append("")
     return "\n".join(L)
 
@@ -547,7 +561,7 @@ def write_criteria_audit(james):
           ""]
     for n in sorted(news_flagged):
         rules = ", ".join(h["rule"] for h in AUDIT[n]["hits"])
-        L.append(f"* `{n}` (rule {rules}) -- {esc(V[n]['reason'])[:150]}")
+        L.append(f"* `{n}` (rule {rules}) -- {esc(V[n]['reason'])}")
     L += ["",
           "Two are worth singling out:",
           "",
@@ -778,10 +792,13 @@ def write_comparison(ours, james, meta):
         "== Method, and why not by name",
         "",
         "Both lists invented their own parameter names, so name equality is not a",
-        "usable join. Measured: only *3* of our 38 names collide with James',",
-        "against *19* that share a normative tag. A name-based comparison would",
-        "report the two efforts as ~97% disjoint, which is an artefact of naming,",
-        "not a real finding.",
+        "usable join. Measured against his 179 entries, exactly *one* of our 38",
+        "names matches his (`MCYCLE_SHARED`). Allowing a lenient match that strips",
+        "our `_PARAM` / `_ACCESS` style suffixes raises it only to *five*",
+        "(`SSTATUS_UBE_ACCESS`, `SSTATUS_UXL_ACCESS`, `VSSTATUS_UBE_PARAM`,",
+        "`VTW_VIRTINSTR_PARAM`). Against that, tag and concept matching finds",
+        "*26*. A name-based comparison would report the two efforts as almost",
+        "entirely disjoint, which is an artefact of naming, not a real finding.",
         "",
         "The primary join is therefore the *normative tag* in the ISA manual:",
         "",
@@ -946,8 +963,12 @@ def write_comparison(ours, james, meta):
           "  but has no entry for `ctrdata`, even though the spec makes every",
           "  field within `ctrdata` optional and read-only 0 when unimplemented.",
           "* `SCTRDEPTH_DEPTH` appears as a `parameter_definitions` entry and",
-          "  `sctrdepth.DEPTH` again under `csr_definitions` -- the same field",
-          "  recorded twice.",
+          "  `sctrdepth.DEPTH` again under `csr_definitions`. The two carry",
+          "  different `impl-def`s (`SCTRDEPTH_DEPTH` vs `SCTRDEPTH_DEPTH_WARL`),",
+          "  so this may be deliberate -- the configured value in one section and",
+          "  the field's WARL behaviour in the other. Worth confirming that the",
+          "  split is intended rather than an accident, since it is the only",
+          "  place in his files where one field appears in both sections.",
           "",
           "One asymmetry in UDB is worth raising alongside these: UDB defines",
           "`MSTATUS_TVM_IMPLEMENTED` but has nothing for `mstatus.TSR` or",
@@ -955,8 +976,11 @@ def write_comparison(ours, james, meta):
           "If TVM is a parameter then TSR and TW should be too.",
           ""]
 
-    L += ["", f"=== {len(unres)} of James' entries reference an unresolved tag", "",
-          "These `impl-def` names have no matching normative rule in the pinned",
+    n_names = len({i for r in unres for i in r["impl_defs"]})
+    L += ["", f"=== {len(unres)} of James' entries reference an unresolved tag",
+          "",
+          f"{len(unres)} entries between them cite {n_names} distinct `impl-def`",
+          "names that have no matching normative rule in the pinned",
           f"manual ({MANUAL_SHA[:8]}, 2026-02-15). His definitions are about seven",
           "weeks newer, so some may already exist upstream and others are likely",
           "tags he is proposing. Worth confirming with him rather than assuming.",

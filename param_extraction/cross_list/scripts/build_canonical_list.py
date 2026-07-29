@@ -55,16 +55,24 @@ DROPS = {
     "MCTRCTL_RASEMU_IMPLEMENTED.",
 }
 
+# Genuinely open -- the entry is kept but its status is unresolved.
 FLAGS = {
     "ZALASR_MISALIGNED_ATOMICITY_GRANULE": "Overlaps existing UDB "
     "MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE. The Zalasr sentence points at the "
     "misaligned-atomicity-granule PMA rather than defining it, which reads "
     "like the 'clarification referencing a parameter defined elsewhere' "
     "exclusion. Needs a ruling.",
-    "MSTATEEN_BIT63_TYPE": "Mentor asked whether this is genuinely new. "
-    "Verified: it IS new. The spec tag exists "
-    "([#norm:mstateen-bit-63_roz]) but UDB has only six MSTATEEN_*_TYPE "
-    "params (ENVCFG/IMSIC/AIA/CONTEXT/CSRIND/JVT) and none for bit 63.",
+}
+
+# A question that was asked and has since been ANSWERED. These stay confirmed;
+# marking them "needs a ruling" would overstate the uncertainty.
+RESOLVED = {
+    "MSTATEEN_BIT63_TYPE": "The mentor asked whether this is genuinely new "
+    "('seems to have a tag -- not in UDB?'). Answered: it is new. The spec "
+    "tag does exist ([#norm:mstateen-bit-63_roz], smstateen.adoc:175), but "
+    "UDB defines only six MSTATEEN_*_TYPE parameters "
+    "(ENVCFG/IMSIC/AIA/CONTEXT/CSRIND/JVT) and none for bit 63. Tagged in "
+    "the spec does not mean present in UDB.",
 }
 
 
@@ -187,6 +195,8 @@ def main() -> int:
             rec["merged_verdict"] = squash(twin["mentor_verdict"])
         if name in FLAGS:
             rec["flag"] = FLAGS[name]
+        if name in RESOLVED:
+            rec["resolved_note"] = RESOLVED[name]
         out.append(rec)
 
     out.sort(key=lambda r: r["parameter_name"])

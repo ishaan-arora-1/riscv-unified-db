@@ -36,10 +36,13 @@ Judgement calls throughout are flagged rather than asserted, per rule 15 of `INC
 == Method, and why not by name
 
 Both lists invented their own parameter names, so name equality is not a
-usable join. Measured: only *3* of our 38 names collide with James',
-against *19* that share a normative tag. A name-based comparison would
-report the two efforts as ~97% disjoint, which is an artefact of naming,
-not a real finding.
+usable join. Measured against his 179 entries, exactly *one* of our 38
+names matches his (`MCYCLE_SHARED`). Allowing a lenient match that strips
+our `_PARAM` / `_ACCESS` style suffixes raises it only to *five*
+(`SSTATUS_UBE_ACCESS`, `SSTATUS_UXL_ACCESS`, `VSSTATUS_UBE_PARAM`,
+`VTW_VIRTINSTR_PARAM`). Against that, tag and concept matching finds
+*26*. A name-based comparison would report the two efforts as almost
+entirely disjoint, which is an artefact of naming, not a real finding.
 
 The primary join is therefore the *normative tag* in the ISA manual:
 
@@ -522,7 +525,7 @@ tags are settled.
 The nine flagged new candidates, and why each matters:
 
 * `CRITICAL_ERROR` (rule S1, 1) -- Critical-error signalling behaviour. UDB has no equivalent.
-* `INTERRUPTS_ALLOWED_IN_PUSHPOP` (rule 1) -- Whether interrupts may be taken during Zcmp push/pop sequences. UDB has no equivalent. Our pipeline found this and held it back under rule 1, because 
+* `INTERRUPTS_ALLOWED_IN_PUSHPOP` (rule 1) -- Whether interrupts may be taken during Zcmp push/pop sequences. UDB has no equivalent. Our pipeline found this and held it back under rule 1, because the sentence sits in a NOTE block. He includes it.
 * `MCAUSE_RST_ALIAS_OK` (rule 1) -- Whether the mcause reset value may alias a defined cause. UDB models no CSR reset values.
 * `NTL_TRAP_BEHAVIOR` (rule S1) -- Trap behaviour for NTL hints. UDB has TRAP_ON_RESERVED_INSTRUCTION but nothing NTL-specific.
 * `PMA_CACHE_MM_ALL_ATOMICS` (rule 1) -- Whether cacheable main memory supports all atomics. Same PMA gap.
@@ -644,8 +647,12 @@ passing back to him.
   but has no entry for `ctrdata`, even though the spec makes every
   field within `ctrdata` optional and read-only 0 when unimplemented.
 * `SCTRDEPTH_DEPTH` appears as a `parameter_definitions` entry and
-  `sctrdepth.DEPTH` again under `csr_definitions` -- the same field
-  recorded twice.
+  `sctrdepth.DEPTH` again under `csr_definitions`. The two carry
+  different `impl-def`s (`SCTRDEPTH_DEPTH` vs `SCTRDEPTH_DEPTH_WARL`),
+  so this may be deliberate -- the configured value in one section and
+  the field's WARL behaviour in the other. Worth confirming that the
+  split is intended rather than an accident, since it is the only
+  place in his files where one field appears in both sections.
 
 One asymmetry in UDB is worth raising alongside these: UDB defines
 `MSTATUS_TVM_IMPLEMENTED` but has nothing for `mstatus.TSR` or
@@ -655,7 +662,8 @@ If TVM is a parameter then TSR and TW should be too.
 
 === 44 of James' entries reference an unresolved tag
 
-These `impl-def` names have no matching normative rule in the pinned
+44 entries between them cite 43 distinct `impl-def`
+names that have no matching normative rule in the pinned
 manual (7fc198f1, 2026-02-15). His definitions are about seven
 weeks newer, so some may already exist upstream and others are likely
 tags he is proposing. Worth confirming with him rather than assuming.

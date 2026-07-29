@@ -26,16 +26,21 @@ the parameter space from normative-rule tags and includes parameters UDB
 already has; he describes it as an initial individual effort, not SIG
 consensus. Counts are therefore not comparable head-to-head.
 
-A Domain of `TBD` means the source has not yet fixed the legal-value set.
-It is left blank rather than guessed.
+A Domain of `TBD` means that source has not yet fixed the legal-value
+set; it is recorded as TBD rather than guessed. Every entry in List A
+now carries a real domain. On List B many remain TBD, which is his
+own placeholder, passed through unchanged.
 
 == List A -- our pipeline (expert-reviewed)
 
 44 reviewed rows reduce to *38*
-distinct parameters (36 confirmed, 2 flagged):
-4 rows were the same spec sentence recorded twice
-under two names, and 2 were already defined in UDB.
-See <<corrections>>.
+distinct parameters (37 confirmed, 1 flagged).
+
+Five pairs of rows turned out to carry byte-identical excerpts, and each
+of those sentences occurs exactly once in the manual, so each pair is one
+parameter named twice. 4 pairs were merged; the
+fifth pair is the 2 rows dropped below, which were
+also already defined in UDB. See <<corrections>>.
 
 [cols="26,24,26,24",options="header"]
 |===
@@ -77,7 +82,7 @@ rnmi.adoc:64 | expert-confirmed (Allen Baum + Umer)
 | `MSECCFG_SEED_BITS_RW` | {read-write, read-only-0} | `(untagged)` +
 scalar-crypto.adoc:3772 | expert-confirmed (Allen Baum + Umer)
 | `MSTATEEN_BIT63_TYPE` | {read-write, read-only-0} | `norm:mstateen-bit-63_roz` +
-smstateen.adoc:175 | flagged, needs ruling
+smstateen.adoc:175 | expert-confirmed (Allen Baum + Umer)
 | `MTVAL2_LEGAL_VALUES` | {0} plus an implementation-chosen subset of 2-bit-shifted guest physical addresses | `norm:mtval2_val` +
 hypervisor.adoc:1843 | expert-confirmed (Allen Baum + Umer)
 | `PMA_IDEMPOTENT_IMPLICIT_READ_SIZE` | power-of-2 bytes, not exceeding the smallest supported page size | `norm:pma_idp_implicit_sz` +
@@ -375,5 +380,11 @@ is one parameter named twice, not the m/s/vs replication pattern.
 
 === Flagged (kept, needs a ruling)
 
-* `MSTATEEN_BIT63_TYPE` -- Mentor asked whether this is genuinely new. Verified: it IS new. The spec tag exists ([#norm:mstateen-bit-63_roz]) but UDB has only six MSTATEEN_*_TYPE params (ENVCFG/IMSIC/AIA/CONTEXT/CSRIND/JVT) and none for bit 63.
 * `ZALASR_MISALIGNED_ATOMICITY_GRANULE` -- Overlaps existing UDB MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE. The Zalasr sentence points at the misaligned-atomicity-granule PMA rather than defining it, which reads like the 'clarification referencing a parameter defined elsewhere' exclusion. Needs a ruling.
+
+=== Questions raised in review that are now answered
+
+Kept as confirmed. Recording the answer so the question is not
+asked again.
+
+* `MSTATEEN_BIT63_TYPE` -- The mentor asked whether this is genuinely new ('seems to have a tag -- not in UDB?'). Answered: it is new. The spec tag does exist ([#norm:mstateen-bit-63_roz], smstateen.adoc:175), but UDB defines only six MSTATEEN_*_TYPE parameters (ENVCFG/IMSIC/AIA/CONTEXT/CSRIND/JVT) and none for bit 63. Tagged in the spec does not mean present in UDB.
