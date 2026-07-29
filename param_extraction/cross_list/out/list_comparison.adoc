@@ -25,13 +25,11 @@ read as if they did.
 [cols="20,40,40",options="header"]
 |===
 | | Ours | James'
-| Review status | Every entry reviewed individually by Allen Baum and Umer | *Not reviewed by Allen or Umer.* He describes it as an initial individual effort, explicitly not Parameter SIG consensus
+| Review status | Every entry reviewed individually by Allen Baum and Umer | *Not reviewed by Allen or Umer.* described as an initial individual effort, explicitly not Parameter SIG consensus
 | Scope | Only parameters believed *missing* from UDB | The whole parameter space, including parameters UDB already has
 | Evidence | A verbatim spec excerpt per entry, all located in the manual | An `impl-def` pointer to a normative rule; no excerpt
 | Completeness | 38 entries | 179 entries, most `long-name` and many `type` fields still `TBD`
 |===
-
-So an entry appearing on his list is a *candidate*, at the same stage ours were before review. An entry on ours has cleared expert review. When this document says the two lists agree, that means an unreviewed candidate coincides with a reviewed one, which is corroboration for his entry rather than fresh support for ours.
 
 Judgement calls throughout are flagged rather than asserted, per rule 15 of `INCLUSION_CRITERIA.md`: a normative rule whose parameter-ness needs the design rationale cannot be decided mechanically.
 
