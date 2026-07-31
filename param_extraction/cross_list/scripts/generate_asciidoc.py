@@ -14,7 +14,7 @@ Design decisions worth knowing before reading the code:
 
 * James' ``csr_definitions`` are treated as parameters. The mentor's rule is
   "IF it is WARL, it is automatically a parameter", and that section is a
-  catalogue of WARL fields; 11 of the 19 tag matches come from it and every one
+  catalogue of WARL fields; most of the tag matches come from it and every one
   lands on a mentor-confirmed row of ours. Granularity (field-level vs
   register-level) is carried as a column instead of being flattened away.
 
@@ -43,7 +43,7 @@ OUTDIR = BASE / "out"
 
 JAMES_SHA = "213450b8671a513ed94cd62fc87a836f8a839a10"
 LAST_ONLY_JAMES: list = []
-MANUAL_SHA = "7fc198f13ad89e9608e9404be1c7a8119c14c13b"
+MANUAL_SHA = "310a111489a0bad6e60ef4cbfba574417c6f825f"
 
 
 def nz(s):
@@ -66,7 +66,13 @@ def load_rules():
                 continue
             raw = e.get("tags") or ([e["tag"]] if e.get("tag") else [])
             tags = [t["name"] if isinstance(t, dict) else t for t in raw]
-            rules[nz(name)] = {"name": name, "kind": e.get("kind"), "tags": tags}
+            rules[nz(name)] = {
+                "name": name,
+                "kind": e.get("kind"),
+                "impl_def": bool(e.get("impl-def-behavior")),
+                "category": e.get("impl-def-category"),
+                "tags": tags,
+            }
             for t in tags:
                 by_tag.setdefault(t, []).append(name)
     return rules, by_tag
@@ -102,7 +108,7 @@ EXPLICIT_DOMAINS = {
 
 
 # ------------------------------------------------------- adjudication ------
-# The tag join alone is not sufficient. 44 of James' entries carry an
+# The tag join alone is not sufficient. Some of James' entries carry an
 # ``impl-def`` that does not resolve against the pinned manual, and his
 # ``csr_definitions`` are authored per register, so wherever he covers a
 # concept through an unresolved name the tag join wrongly reports it as ours
@@ -112,37 +118,43 @@ EXPLICIT_DOMAINS = {
 MANUAL_MATCHES = {
     "CTR_CCE_WIDTH": (
         ["CTR_CCOUNTER_IMPL"], "Exact",
-        "Same 0..4 exponent-bit choice in CCE. Missed only because his "
-        "impl-def is `CTR_CCOUNTER_IMPL` while the rule is named "
-        "`ccounter_impl`.",
+        "Same 0..4 exponent-bit choice in CCE.",
     ),
     "DELEGATABLE_EXCEPTIONS": (
         ["medeleg", "mideleg"], "Partial (1-to-2)",
         "He records the delegatable-bit mask once per register "
-        "(`MEDELEG_WARL`, `MIDELEG_WARL`, both unresolved); ours is the "
-        "single statement covering both.",
+        "(`MEDELEG_WARL`, `MIDELEG_WARL`); ours is the single statement "
+        "covering both.",
     ),
     "HIP_BIT_WRITABLE": (
         ["hip"], "Partial (register-level)",
-        "His `hip` entry is a register-level WARL umbrella (`HIP_WARL`, "
-        "unresolved); ours is the per-bit rule conditioned on `sie` bit i "
-        "being read-only zero.",
+        "His `hip` entry is a register-level WARL umbrella (`HIP_WARL`); "
+        "ours is the per-bit rule conditioned on `sie` bit i being "
+        "read-only zero.",
     ),
     "MNEPC_INVALID_ADDRESS_CONVERSION": (
         ["mnepc"], "Partial (register-level)",
-        "His `mnepc` entry is register-level WARL (`MNEPC_WARL`, "
-        "unresolved); ours is specifically the invalid-address conversion.",
+        "His `mnepc` entry is register-level WARL (`MNEPC_WARL`); ours is "
+        "specifically the invalid-address conversion.",
     ),
     "SIP_BITS_ACCESS": (
         ["sip"], "Partial (register-level)",
-        "His `sip` entry is register-level WARL (`SIP_WARL`, unresolved); "
-        "ours is the per-bit writable-or-read-only rule.",
+        "His `sip` entry is register-level WARL (`SIP_WARL`); ours is the "
+        "per-bit writable-or-read-only rule.",
     ),
     "STANDARD_INTERRUPT_SUPPORT": (
         ["SEI_INTR_IMPL", "STI_INTR_IMPL", "SSI_INTR_IMPL", "LCOFI_INTR_IMPL"],
         "Partial (1-to-4)",
         "He enumerates one parameter per standard interrupt type; ours is "
         "the single umbrella sentence naming all four.",
+    ),
+    "MCYCLE_SHARED": (
+        ["MCYCLE_SHARED"], "Partial (adjacent aspect)",
+        "The manual states mcycle sharing as two rules: "
+        "`norm:mcycle_shared` (writes to `mcycle` become visible to the "
+        "sharing harts) and `norm:mcountinhibit_cy_shared` (the "
+        "`mcountinhibit.CY` field is shared too). Ours is the second, his "
+        "cites the first. Same mechanism, different aspect of it.",
     ),
     "XRET_CLEARS_LR_RESERVATION": (
         ["MRET_CLR_LR_RESV", "SRET_CLR_LR_RESV"], "Partial (1-to-2)",
@@ -319,6 +331,7 @@ def load_ours(by_tag, rules):
             "tags": [anchor] if anchor else [],
             "rules": hits,
             "rule_kinds": sorted({rules[nz(h)]["kind"] or "(none)" for h in hits}),
+            "impl_def_marked": any(rules[nz(h)]["impl_def"] for h in hits),
             "line": r["line_number_resolved"],
             "excerpt": r["excerpt"],
             "class": r["class"],
@@ -342,7 +355,7 @@ HDR = f"""//
 //
 // Pinned sources:
 //   James' param_defs : {JAMES_SHA} (2026-04-03)
-//   ISA manual        : {MANUAL_SHA} (2026-02-15)
+//   ISA manual        : {MANUAL_SHA} (2026-07-29)
 //
 """
 
@@ -498,11 +511,18 @@ def write_criteria_audit(james):
          "decided mechanically; rule 11 (duplicates) is already covered by the UDB",
          "segmentation above.",
          "",
-         "Two allowances are built in, both from our own ruleset, without which",
-         "the check reports far more hits than are real:",
+         "Three allowances are built in, without which the check reports far",
+         "more hits than are real:",
          "",
-         "* a *WARL* or *WLRL* field satisfies the inclusion signal on its own,",
-         "  per the mentor's standing rule that WARL is automatically a parameter;",
+         "* a rule the manual itself marks `impl-def-behavior: true` satisfies",
+         "  the inclusion signal. That is the manual's own machine-readable",
+         "  assertion that the rule describes an implementation choice, and it",
+         "  is a better signal than pattern-matching prose -- many such rules",
+         "  tag a register's bytefield *diagram* rather than a sentence, so",
+         "  there is no optionality wording to find. 171 rules carry it, 64 of",
+         "  them categorised `WARL` and 4 `WLRL`;",
+         "* a *WARL* or *WLRL* field satisfies it on its own, per the mentor's",
+         "  standing rule that WARL is automatically a parameter;",
          "* a declared value, width, size or ID counts even with no modal word,",
          "  per rule 5a. Without this, `MXLEN` itself would be flagged.",
          "",
@@ -585,13 +605,14 @@ def write_criteria_audit(james):
           "  tagged `[#norm:...]` *inside* a NOTE. The manual's own authors",
           "  marked that text as normative. A blanket NOTE exclusion may be too",
           "  strong when the text carries a normative tag.",
-          "* `MTVEC_RDONLY`, `MTIME_TICK_PERIOD` and `PMA_MM_IFETCH` are flagged",
-          "  under rule 2 because the *tagged sentence* is a fixed requirement --",
-          "  for example `MTVEC_RDONLY` points at \"The `mtvec` register must",
-          "  always be implemented\", which says nothing about read-only. The",
-          "  parameter may well be real; the tag is pointing at the wrong",
-          "  sentence. That is a fixable defect in his source pointer, and it is",
-          "  worth telling him.",
+          "* Several of his entries point at a tag whose sentence does not",
+          "  describe the parameter. `MTVEC_RDONLY` cites \"The `mtvec` register",
+          "  must always be implemented\", which says nothing about read-only;",
+          "  `LRSC_ALIGNMENT` cites the natural-alignment requirement rather than",
+          "  the choice of which exception is raised; `PMA_MM_IFETCH` cites",
+          "  \"Main memory regions always support read and write\". The manual",
+          "  marks all three `impl-def-behavior`, so they are not flagged as rule",
+          "  violations, but the pointer is still wrong and worth telling him.",
           "* Rule 6 catches `MSTATUS_TW_TIME_LIMIT`, the WFI bounded time limit.",
           "  Our own `INCLUSION_CRITERIA` names \"bounded time limit\" as its",
           "  example of an untestable quantity, so on our rules this is correctly",
@@ -627,6 +648,7 @@ def write_only_james(only_james):
     V = ADJ["verdicts"]
     base = ADJ["udb_baseline"]
 
+    unclassified = [r for r in only_james if r["name"] not in V]
     L = ["== Only on James' list", "",
          f"{len(only_james)} entries. Reporting that as a single number would be",
          "misleading, because it mixes parameters UDB already has (our list",
@@ -652,12 +674,14 @@ def write_only_james(only_james):
          "",
          '[cols="60,40",options="header"]', "|===", "| Segment | Count"]
     for key, title, _ in VERDICT_ORDER:
-        n = sum(1 for r in only_james if V[r["name"]]["verdict"] == key)
+        n = sum(1 for r in only_james
+                if V.get(r["name"], {}).get("verdict") == key)
         L.append(f"| {title} | {n}")
     L += ["|===", ""]
 
     for key, title, blurb in VERDICT_ORDER:
-        rows = [r for r in only_james if V[r["name"]]["verdict"] == key]
+        rows = [r for r in only_james
+                if V.get(r["name"], {}).get("verdict") == key]
         if not rows:
             continue
         L += [f"=== {title} ({len(rows)})", "", blurb, ""]
@@ -679,6 +703,13 @@ def write_only_james(only_james):
                 L.append(f"| `{esc(r['name'])}` | {esc(r['domain'])} "
                          f"| {esc(v['reason'])}")
         L += ["|===", ""]
+
+    if unclassified:
+        L += [f"=== Not yet adjudicated ({len(unclassified)})", "",
+              "These appear only on his list but have no verdict recorded, so "
+              "they are counted nowhere above. Adjudicate before publishing.", ""]
+        L += [f"* `{esc(r['name'])}`" for r in unclassified]
+        L += [""]
 
     L += ["=== What the new candidates cluster into", "",
           "Grouping them shows they are not scattered. Four families account for",
@@ -800,15 +831,17 @@ def write_comparison(ours, james, meta):
         "* James' -- `impl-def` -> normative rule -> its tag(s)",
         "",
         "Coverage of that chain: 37 of our 38 sit in a norm anchor and 35 reach a",
-        "rule entry; 135 of James' 179 entries resolve to a tag. Name equality is",
+        "rule entry; 156 of James' 179 entries resolve to a tag. Name equality is",
         "reported below as corroboration where it happens, never as the join.",
         "",
-        "IMPORTANT: The tag join alone is *not* sufficient, and an earlier draft of",
-        "this document was wrong because of it. 44 of James' entries carry an",
-        "`impl-def` that does not resolve against the pinned manual, and his",
+        "IMPORTANT: The tag join alone is *not* sufficient. 23 of James' entries",
+        "carry an `impl-def` with no matching normative rule, and his",
         "`csr_definitions` are authored per register, so wherever he covers a",
-        "concept through an unresolved name a tag-only join reports it as ours",
-        "alone.",
+        "concept through one of those a tag-only join reports it as ours alone.",
+        "The manual also states some rules at a finer grain than our excerpts --",
+        "`mcycle` sharing is two rules where our entry is one sentence. Every",
+        "parameter the tag join left unmatched was therefore checked against his",
+        "full file set by register, field and concept.",
         "",
         "Relationship vocabulary follows Jordan's `sail_udb_config_mapping.md`:",
         "*Exact* (one-to-one), *Partial* (concepts overlap but not one-to-one --",
@@ -876,10 +909,10 @@ def write_comparison(ours, james, meta):
             why = "no anchor"
         elif not r["rules"]:
             why = "anchor, no rule entry"
-        elif "parameter" not in r["rule_kinds"]:
-            why = "rule not marked `kind: parameter`"
+        elif not r["impl_def_marked"]:
+            why = "rule not marked `impl-def-behavior`"
         else:
-            why = "rule marked `kind: parameter`"
+            why = "rule marked `impl-def-behavior`"
         adj = ADJACENT.get(r["name"], "Nothing adjacent in his files.")
         L.append(f"| `{esc(r['name'])}` | {esc(r['domain'])} | {why} "
                  f"| {esc(adj)}")
@@ -892,8 +925,7 @@ def write_comparison(ours, james, meta):
     # NOTE: scoped over ALL our parameters, not only the unmatched ones. The
     # missing-kind claim is about the manual's metadata and is independent of
     # whether James happens to have the parameter.
-    nokind = [r for r in ours if r["rules"]
-              and "parameter" not in r["rule_kinds"]]
+    nokind = [r for r in ours if r["rules"] and not r["impl_def_marked"]]
     norule = [r for r in ours if r["tags"] and not r["rules"]]
     untag = [r for r in ours if not r["tags"]]
     unres = [r for r in james if not r["tags"]]
@@ -907,10 +939,11 @@ def write_comparison(ours, james, meta):
           "",
           f"=== {len(nokind)} rules that are parameters but are not marked as such",
           "",
-          "Each carries a normative tag and has a rule entry in",
-          "`normative_rule_defs/`, but the rule is not marked `kind: parameter`.",
-          "Each was individually confirmed as a real parameter by Allen Baum and",
-          "Umer, so the marking is missing. One-line fix per rule.",
+          "The manual marks a rule as describing an implementation choice with",
+          "`impl-def-behavior: true`, optionally categorised `WARL` or `WLRL`.",
+          "Each rule below carries a normative tag and has an entry in",
+          "`normative_rule_defs/`, but no such marking, while Allen Baum and Umer",
+          "individually confirmed each as a real parameter. One-line fix per rule.",
           ""]
     for r in nokind:
         also = " (James has this too)" if r["name"] in matched_names else ""
@@ -920,13 +953,12 @@ def write_comparison(ours, james, meta):
     n_have = sum(1 for r in nokind if r["name"] in matched_names)
     L += ["", "[[why-not-causal]]",
           "==== Why this is not the reason the lists differ", "",
-          "An earlier draft of this document claimed the missing `kind: parameter`",
-          "marking explained why James' list lacks these. The data does not",
-          f"support that: he has {n_have} of the {len(nokind)} anyway. His method is",
-          "not purely a selection on that marking -- he also hand-authors",
-          "`csr_definitions` per register, which routes around it. The metadata",
-          "gap is real and worth fixing on its own merits; it is not a causal",
-          "account of the difference between the lists.",
+          "It would be tempting to read the missing marking as the reason James'",
+          f"list lacks these. The data does not support that: he has {n_have} of the",
+          f"{len(nokind)} anyway. His method is not purely a selection on that",
+          "marking -- he also authors `csr_definitions` per register, which routes",
+          "around it. The metadata gap is real and worth fixing on its own merits;",
+          "it is not a causal account of the difference between the lists.",
           ""]
 
     L += ["", f"=== {len(norule)} anchors with no normative rule entry", ""]
@@ -972,13 +1004,12 @@ def write_comparison(ours, james, meta):
     L += ["", f"=== {len(unres)} of James' entries reference an unresolved tag",
           "",
           f"{len(unres)} entries between them cite {n_names} distinct `impl-def`",
-          "names that have no matching normative rule in the pinned",
-          f"manual ({MANUAL_SHA[:8]}, 2026-02-15). His definitions are about seven",
-          "weeks newer, so some may already exist upstream and others are likely",
-          "tags he is proposing. Worth confirming with him rather than assuming.",
+          "names with no matching normative rule in the manual. These are most",
+          "likely rules he is proposing be added, but that is worth confirming",
+          "with him rather than assuming.",
           "",
-          "This is not only a documentation gap. It is what made a tag-only join",
-          "unsafe: seven of the matches above are invisible to the tag join purely",
+          "This is not only a documentation gap. It is part of why a tag-only join",
+          "is unsafe: several of the matches above are invisible to it purely",
           "because the counterpart entry resolves through one of these names.",
           ""]
     seen = set()

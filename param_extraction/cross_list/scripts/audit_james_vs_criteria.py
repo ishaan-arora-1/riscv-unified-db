@@ -36,6 +36,8 @@ from pathlib import Path
 
 import yaml
 
+IDB: dict = {}
+
 REPO = Path(__file__).resolve().parents[3]
 BASE = REPO / "param_extraction/cross_list"
 SRC = REPO / "ext/riscv-isa-manual/src"
@@ -87,6 +89,25 @@ BLOCK = re.compile(r"^\[(NOTE|TIP|WARNING|IMPORTANT|CAUTION)\]", re.I)
 INTRO = re.compile(r"introduction|overview|preface|rationale", re.I)
 
 
+def adoc_files(src: Path):
+    """Every chapter .adoc under src/, for both manual layouts.
+
+    Before 2026-03 the chapters were flat in src/*.adoc. They then moved to
+    src/priv/, src/unpriv/ and src/profiles/. The Antora tree under modules/
+    is a byte-identical duplicate of src/ and is excluded so nothing is
+    counted or matched twice.
+    """
+    return sorted(p for p in src.rglob("*.adoc") if "modules" not in p.parts)
+
+
+def find_adoc(src: Path, basename: str):
+    """Locate a chapter by bare file name in either layout."""
+    for p in adoc_files(src):
+        if p.name == basename:
+            return p
+    return None
+
+
 def nz(s):
     return re.sub(r"[^A-Z0-9]", "", (s or "").upper())
 
@@ -94,7 +115,7 @@ def nz(s):
 def build_tag_index():
     """tag -> {file, line, text, in_block, section}"""
     idx = {}
-    for p in sorted(SRC.glob("*.adoc")):
+    for p in adoc_files(SRC):
         lines = p.read_text().split("\n")
         # track NOTE-block spans (delimited by ==== after a [NOTE])
         in_block, block_depth = [False] * len(lines), False
@@ -144,6 +165,17 @@ def build_tag_index():
 
 
 def load_rules():
+    """name -> tags. Also returns which rules the manual itself marks as
+    implementation-defined behaviour.
+
+    The 2026-07 manual replaced ``kind: parameter`` with a richer marking:
+    ``impl-def-behavior: true`` plus an ``impl-def-category`` of WARL/WLRL.
+    That is the manual's own machine-readable assertion that the rule
+    describes an implementation choice, and it is a far better inclusion
+    signal than pattern-matching the prose -- especially because many of
+    these rules tag a register's bytefield *diagram* rather than a sentence,
+    so there is no optionality wording to find.
+    """
     rules = {}
     for p in sorted(NRD.glob("*.yaml")):
         doc = yaml.safe_load(p.read_text()) or {}
@@ -151,6 +183,7 @@ def load_rules():
             if not e.get("name"):
                 continue
             raw = e.get("tags") or ([e["tag"]] if e.get("tag") else [])
+            IDB[nz(e["name"])] = bool(e.get("impl-def-behavior"))
             rules[nz(e["name"])] = [
                 t["name"] if isinstance(t, dict) else t for t in raw]
     return rules
@@ -196,7 +229,8 @@ def main() -> int:
         blob = " ".join(t["text"] for t in texts)
         # a WARL/WLRL field, or a declared value/width/ID, satisfies the
         # inclusion signal without a modal word
-        signal = bool(CHOICE.search(blob) or WARL.search(blob)
+        marked = any(IDB.get(nz(i)) for i in impl)
+        signal = bool(marked or CHOICE.search(blob) or WARL.search(blob)
                       or DECLARED.search(blob))
         hits = []
         if not signal:

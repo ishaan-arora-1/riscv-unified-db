@@ -76,12 +76,109 @@ RESOLVED = {
 }
 
 
+def adoc_files(src: Path):
+    """Every chapter .adoc under src/, for both manual layouts.
+
+    Before 2026-03 the chapters were flat in src/*.adoc. They then moved to
+    src/priv/, src/unpriv/ and src/profiles/. The Antora tree under modules/
+    is a byte-identical duplicate of src/ and is excluded so nothing is
+    counted or matched twice.
+    """
+    return sorted(p for p in src.rglob("*.adoc") if "modules" not in p.parts)
+
+
+def find_adoc(src: Path, basename: str):
+    """Locate a chapter by bare file name in either layout."""
+    for p in adoc_files(src):
+        if p.name == basename:
+            return p
+    return None
+
+
+def probes(excerpt: str, name: str = ""):
+    """Search phrases for an excerpt, longest first.
+
+    A short prefix is not always unique. The machine-mode TW rule and the
+    hypervisor VTW rule both begin "An implementation may have WFI always
+    raise", so a seven-word probe collapses them onto one anchor. Trying the
+    longest prefix first and only shortening on failure keeps distinct
+    sentences distinct while still tolerating light rewording.
+    """
+    if name in REWORDED:
+        return [demarkup(REWORDED[name])]
+    words = demarkup(excerpt).split()
+    lens = [n for n in (len(words), 25, 18, 12, 7) if n <= len(words)]
+    seen, out = set(), []
+    for n in lens:
+        p = " ".join(words[:n])
+        if p not in seen:
+            seen.add(p)
+            out.append(p)
+    return out
+
+
+def find_by_excerpt(src: Path, excerpt: str, hint: str = "", name: str = ""):
+    """Locate the chapter that actually contains this excerpt.
+
+    File names are not stable across manual revisions -- the 2026-07 rework
+    split counters.adoc into zihpm/zicntr, renamed rnmi.adoc to smrnmi.adoc,
+    scalar-crypto.adoc to zk.adoc and indirect-csr.adoc to smcsrind.adoc, and
+    moved everything under src/priv and src/unpriv. The excerpt is the stable
+    identity, so search on that and fall back to the recorded name only to
+    break ties.
+    """
+    for probe in probes(excerpt, name):
+        hits = [p for p in adoc_files(src) if probe in flatten(p)[0]]
+        if not hits:
+            continue
+        for p in hits:                  # prefer the recorded file if still valid
+            if p.name == hint:
+                return p
+        return hits[0]
+    return None
+
+
 def squash(s: str) -> str:
     return " ".join((s or "").split())
 
 
+# Excerpts the 2026-07 manual reworded, so the recorded text no longer occurs
+# verbatim. Each maps to a distinctive phrase that IS present in the new text,
+# checked by hand. Kept explicit rather than fuzzy-matched so a wrong match
+# cannot creep in silently.
+REWORDED = {
+    # "the A extension" became "the Zalrsc extension" -- LR/SC was split out
+    # of A. Substantive spec change; the parameter itself is unchanged.
+    "XRET_CLEARS_LR_RESERVATION":
+        "clear any outstanding LR address reservation but is not required to",
+    # "[s,u]seed" became "csr::[sseed] and csr::[useed]"
+    "MSECCFG_SEED_BITS_RW":
+        "is a read-only constant value",
+}
+
+# Any AsciiDoc cross-reference macro: csr:, ext:, insn:, and whatever else the
+# manual adds later. Matching the shape rather than a fixed list means a new
+# macro cannot silently break excerpt lookup the way insn: did.
+XREF_MACRO = re.compile(r"\b[a-z][a-z0-9]*:([A-Za-z0-9_]*)\[([^\]\n]*)\]")
+
+
 def demarkup(s: str) -> str:
-    return squash(re.sub(r"[`#*_]", "", s or ""))
+    """Normalise AsciiDoc markup so text matches across manual revisions.
+
+    The 2026-07 manual introduced cross-reference macros, so the same
+    sentence is now written differently:
+        `mcycle`           -> csr:mcycle[]
+        `mcountinhibit.CY` -> csr:mcountinhibit[cy]
+        `WFI`              -> insn:wfi[]
+        `[s,u]seed`        -> csr::[sseed] and csr::[useed]
+    Unfolding these to bare names, and comparing case-insensitively, lets an
+    excerpt captured against the old manual still be found in the new one.
+    """
+    s = s or ""
+    s = XREF_MACRO.sub(
+        lambda m: m.group(1) + ("." + m.group(2) if m.group(2) else ""), s)
+    s = re.sub(r"[`#*_]", "", s)
+    return squash(s).lower()
 
 
 def load_anchors(path: Path):
@@ -124,12 +221,17 @@ def flatten(path: Path):
     return " ".join(flat), offsets
 
 
-def locate(path: Path, excerpt: str):
+def locate(path: Path, excerpt: str, name: str = ""):
     """Re-resolve (line_number, enclosing_norm_anchor) for an excerpt."""
-    probe = " ".join(demarkup(excerpt).split()[:7])
     flat, offsets = flatten(path)
+    probe, idx = None, -1
+    for cand in probes(excerpt, name):
+        if cand in flat:
+            probe, idx = cand, flat.find(cand)
+            break
+    if probe is None:
+        return None, None
     line = None
-    idx = flat.find(probe)
     if idx >= 0:
         # map the match offset back to the line that contains it
         lo, hi = 0, len(offsets) - 1
@@ -140,10 +242,19 @@ def locate(path: Path, excerpt: str):
             else:
                 hi = mid - 1
         line = lo + 1
+    # The anchor span is often SHORTER than the recorded excerpt -- the
+    # siselect rule tags only "The siselect register will support the value
+    # range 0..0xFFF at a minimum." while our excerpt runs on past the closing
+    # delimiter. So walk the probe ladder again here rather than reusing the
+    # long probe that matched the file body.
     anchor = None
-    for name, span in load_anchors(path):
-        if probe in span:
-            anchor = name
+    spans = load_anchors(path)
+    for cand in probes(excerpt, name):
+        for anchor_name, span in spans:
+            if cand in span:
+                anchor = anchor_name
+                break
+        if anchor:
             break
     return line, anchor
 
@@ -173,8 +284,11 @@ def main() -> int:
             merged.append({"discarded": name, "merged_into": alias_of[name]})
             continue
 
-        path = SRC / r["adoc_file"]
-        line, anchor = locate(path, r["excerpt"])
+        path = find_by_excerpt(SRC, r["excerpt"], r["adoc_file"], name)
+        if path is None:
+            print(f"  !! excerpt not found anywhere: {name}", file=sys.stderr)
+            continue
+        line, anchor = locate(path, r["excerpt"], name)
 
         rec = {
             "parameter_name": name,
@@ -182,6 +296,8 @@ def main() -> int:
             "class": r["class"],
             "value_type": r["value_type"],
             "adoc_file": r["adoc_file"],
+            "adoc_path_now": str(path.relative_to(SRC)),
+            "reworded_in_new_manual": name in REWORDED,
             "line_number_sheet": int(r["line_number"]),
             "line_number_resolved": line,
             "norm_anchor": anchor,
