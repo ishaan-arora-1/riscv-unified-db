@@ -33,6 +33,29 @@ The task from the mentor was two AsciiDoc deliverables:
 Both exist and are current. A third piece of the original ask, a Sail-style
 naming hierarchy, is **not done** — see §9.
 
+A third deliverable was added later:
+
+3. `out/master_list.csv` + `out/master_list.xlsx` (+ `out/master_list.adoc` for
+   reading) — the **master list**: one row per distinct parameter concept
+   across both lists, with the UDB name where one partially overlaps, both
+   sides' names and domains, and an empty `confidence` column for reviewers to
+   fill in. The xlsx is the circulating copy: frozen header, filters, the
+   confidence column highlighted, and a `how_to_use` sheet.
+
+   **29 columns.** Every field of James' schema is carried verbatim as its own
+   `james_*` column — `long-name`, `description`, `type`, `width`, `range`,
+   `array`, `note`, `func-of-field-name`, `reg-name`, `field-name`, chapter,
+   section, granularity — rather than folded into a derived value.
+   `james_domain` is the single normalised column, kept only so there is a
+   like-for-like comparison against `ishaan_domain`. A cell containing ` | `
+   means the row cites more than one of his entries.
+
+**126 rows** = 30 on both lists + 8 only ours + 88 only his. The 56 entries of
+his that UDB already defines outright are excluded; the 30 that only *partially*
+overlap a UDB parameter are kept, because a granularity or aspect mismatch is
+not coverage. Defects landing on an excluded row are listed separately in the
+`.adoc` rather than dropped.
+
 ---
 
 ## 2. The inputs
@@ -77,10 +100,15 @@ uv run --python 3.13 --with pyyaml  python scripts/generate_asciidoc.py
 uv run --python 3.13 --with pyyaml  python scripts/segment_james_vs_udb.py
 uv run --python 3.13 --with pyyaml  python scripts/audit_james_vs_criteria.py
 uv run --python 3.13 --with pyyaml  python scripts/generate_asciidoc.py   # again
+uv run --python 3.13 --with pyyaml --with openpyxl python scripts/generate_master_list.py
 ```
 
 `generate_asciidoc.py` runs twice because it emits `data/only_james.json`,
 which `segment_james_vs_udb.py` consumes, and then renders the segmentation.
+
+`generate_master_list.py` runs last and **imports `generate_asciidoc.py` as a
+module** to reuse its loaders and its match tables, so the master list cannot
+drift from the comparison document. Change a match there, not here.
 
 Always `uvx ruff@0.15.1 check scripts/` before committing. Keep SPDX
 `.license` sidecars on new data files.
@@ -293,6 +321,7 @@ each can be challenged individually:
 | `MANUAL_MATCHES`, `ARGUABLE_MATCHES`, `TYPE_CONFLICTS`, `ADJACENT`, `EXPLICIT_DOMAINS` | `scripts/generate_asciidoc.py` | cross-list adjudication and domains |
 | all 144 verdicts with reasons | `data/james_vs_udb_adjudication.json` | his entries vs UDB |
 | per-entry rule hits with spec text | `data/james_criteria_audit.json` | his entries vs our criteria |
+| `CONCEPTS`, `JAMES_CONCEPTS`, `DEFECTS` | `scripts/generate_master_list.py` | the master list's row labels and known defects |
 
 The segmentation verdicts are a **proposed** classification, labelled as such
 in the document. They have not been through mentor review.

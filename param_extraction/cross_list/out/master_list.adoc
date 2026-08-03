@@ -1,0 +1,207 @@
+//
+// SPDX-FileCopyrightText: 2026 Contributors to the RISCV UnifiedDB
+// SPDX-License-Identifier: BSD-3-Clause-Clear
+//
+// GENERATED FILE -- do not edit by hand.
+// Regenerate: uv run --python 3.13 --with pyyaml python \
+//   param_extraction/cross_list/scripts/generate_master_list.py
+//
+// Pinned sources:
+//   James' param_defs : 213450b8671a513ed94cd62fc87a836f8a839a10 (2026-04-03)
+//   ISA manual        : 310a111489a0bad6e60ef4cbfba574417c6f825f (2026-07-29)
+//
+
+= Master Parameter List
+:toc:
+:toclevels: 2
+
+One row per distinct parameter concept, unioned across James Ball's
+list and ours. Entries UDB already defines outright are excluded;
+56 of his entries were dropped on that basis.
+
+Entries that only *partially* overlap a UDB parameter are kept, with
+the overlap recorded in the UDB column. A partial overlap is a
+granularity or aspect mismatch, not coverage.
+
+*126 rows*: 30 on both lists, 8 only ours, 88 only his.
+
+NOTE: The `confidence` column is intentionally empty. It is for
+reviewers to fill in, on the scale `high | medium | low`, recording
+how strongly they believe the row is a real, certifiable parameter.
+Ratings from Allen, Umer and James are all welcome in the same
+column; put initials alongside the value if more than one person
+rates a row.
+
+CAUTION: The two lists do not have equal standing. Every row of ours
+was reviewed individually by Allen Baum and Umer; his are an initial
+individual effort, explicitly not Parameter SIG consensus. The
+`review_status` column carries this per row.
+
+The table below shows the comparison columns only. The full row is
+in `master_list.csv` and `master_list.xlsx` alongside this file,
+which additionally carry **every field of James' schema verbatim**
+-- `long-name`, `description`, `type`, `width`, `range`, `array`,
+`note`, `func-of-field-name`, chapter, section and granularity --
+as their own `james_*` columns rather than folded into a derived
+value. `james_domain` is the one normalised column, kept for the
+like-for-like comparison against `ishaan_domain`.
+
+A cell containing ` | ` means the row cites more than one of his
+entries, because some of our parameters are umbrellas over several
+of his.
+
+[cols="6,20,8,14,12,16,14,10,12",options="header"]
+|===
+| ID | Concept | Lists | UDB param | James' name | James' domain | Our name | Our domain | Confidence
+| P001 | How many exponent bits (0..4) are implemented in CCE | both | -- | CTR_CCOUNTER_IMPL | [0..4] | CTR_CCE_WIDTH | integer [0..4] exponent bits | 
+| P002 | Whether ctrdata includes a cycle count since the prior CTR record | both | -- | CTRDATA_CC_SUPPORTED | {true, false} | CTR_CYCLE_COUNTING_SUPPORTED | {true, false} | 
+| P003 | Which medeleg/mideleg bits are delegatable (writable vs read-only 0) | both | -- | medeleg, mideleg | per bit: constant mask | DELEGATABLE_EXCEPTIONS | per bit: {true, false} | 
+| P004 | Whether a HINT with XLEN < SXLEN overwrites dest-register bits SXLEN..XLEN | both | -- | HINT_SXLEN | {AlwaysUnchanged, AlwaysOverwritten, Other} | HINT_SXLEN_DEST_REG_BEHAVIOR | {true, false} | 
+| P005 | Whether a HINT with XLEN < MXLEN overwrites dest-register bits MXLEN..XLEN | both | -- | XLEN_REDUCTION_HINT_OP | {true, false} | HINT_XLEN_REDUCTION_BEHAVIOR | {true, false} | 
+| P006 | Whether hip bit i is writable when sie bit i is read-only zero | both | -- | hip | TBD | HIP_BIT_WRITABLE | per bit: {read-write, read-only-0} | 
+| P007 | Whether accessing an unimplemented counter traps or returns a constant | both | -- | HPM_READ_BEHAVIOR | {AlwaysValue, AlwaysIllegalInstExc, Other} | HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR | {raise illegal-instruction exception, return a constant value} | 
+| P008 | Which 2-bit-shifted guest physical addresses htval can hold | both | -- | htval | TBD | HTVAL_LEGAL_VALUES | {0} plus an implementation-chosen subset of 2-bit-shifted guest physical addresses | 
+| P009 | Whether mcycle (and mcountinhibit.CY) is shared between harts on a core | both | -- | MCYCLE_SHARED | {true, false} | MCYCLE_SHARED | {true, false} | 
+| P010 | Whether menvcfg.FIOM is read-only zero when S-mode is absent or satp.MODE is read-only zero | both | -- | MENVCFG_FIOM_RDONLY0_OK | {true, false} | MENVCFG_FIOM_READONLY | {read-write, read-only-0} | 
+| P011 | Which mip bits are writable vs read-only | both | -- | mip | per bit: constant mask | MIP_WRITABLE_BITS | per bit: {read-write, read-only-0} | 
+| P012 | Whether an invalid address is converted before being written to mnepc | both | -- | mnepc | TBD | MNEPC_INVALID_ADDRESS_CONVERSION | {true, false} | 
+| P013 | Which 2-bit-shifted guest physical addresses mtval2 can hold | both | -- | mtval2 | TBD | MTVAL2_LEGAL_VALUES | {0} plus an implementation-chosen subset of 2-bit-shifted guest physical addresses | 
+| P014 | The size of the naturally aligned power-of-2 region for idempotent implicit reads | both | -- | PMA_IDP_IMPLICIT_SZ | {true, false} | PMA_IDEMPOTENT_IMPLICIT_READ_SIZE | power-of-2 bytes, not exceeding the smallest supported page size | 
+| P015 | Which physical address bits are implemented in pmpaddr | both | -- | pmpaddrN | per bit: constant mask | PMPADDR_WARL_MASK | per bit: {true, false} | 
+| P016 | Which sctrdepth DEPTH values are supported | both | -- | SCTRDEPTH_DEPTH | [0..4] | SCTRDEPTH_SUPPORTED_VALUES | non-empty subset of {0,1,2,3,4} = {16,32,64,128,256} entries | 
+| P017 | Which invalid addresses sepc can hold, and whether writes are converted | both | -- | sepc | TBD | SEPC_INVALID_ADDR_BEHAVIOR | {true, false} | 
+| P018 | Which sip bits are writable vs read-only | both | -- | sip | TBD | SIP_BITS_ACCESS | per bit: {read-write, read-only-0} | 
+| P019 | Whether sstatus.UBE is read-only, mirroring S-mode endianness | both | -- | sstatus.UBE | TBD | SSTATUS_UBE_ACCESS | {read-write, read-only-0} | 
+| P020 | Whether sstatus.UXL is read-only, forcing UXLEN=SXLEN | both | -- | sstatus.UXL | TBD | SSTATUS_UXL_ACCESS | {read-write, read-only-0} | 
+| P021 | Which standard interrupt types (SEI/STI/SSI/LCOFI) are implemented, else pending/enable bits read-only 0 | both | -- | SEI_INTR_IMPL, STI_INTR_IMPL, SSI_INTR_IMPL, LCOFI_INTR_IMPL | {true, false} | STANDARD_INTERRUPT_SUPPORT | per bit: {read-write, read-only-0} | 
+| P022 | Whether vsstatus.UBE is a read-only copy of hstatus.VSBE | both | -- | VSSTATUS_UBE | {true, false} | VSSTATUS_UBE_PARAM | {read-write, read-only-0} | 
+| P023 | Whether hstatus.VSXL is read-only, forcing VSXLEN=HSXLEN | both | -- | hstatus.VSXL | per bit: constant mask | VSXL_RO_PARAM | {read-write, read-only-0} | 
+| P024 | Whether WFI always raises a virtual-instruction exception in VS-mode when VTW=1 | both | -- | VTW_VIRTINSTR | {true, false} | VTW_VIRTINSTR_PARAM | {true, false} | 
+| P025 | Whether WFI always raises an illegal-instruction exception below M-mode when TW=1 | both | -- | MSTATUS_TW_ALWAYS_ILLEGAL | {true, false} | WFI_TW_ALWAYS_ILLEGAL | {true, false} | 
+| P026 | Whether xRET clears an outstanding LR reservation | both | -- | MRET_CLR_LR_RESV, SRET_CLR_LR_RESV | {true, false} | XRET_CLEARS_LR_RESERVATION | {true, false} | 
+| P027 | Whether ctrtarget.MISP is implemented, else read-only 0 | both (arguable) | -- | ctrtarget | TBD | CTRTARGET_MISP_IMPLEMENTED | {read-write, read-only-0} | 
+| P028 | Whether a misconfigured HPM counter returns a constant value | both (arguable) | -- | HPM_READ_BEHAVIOR | {AlwaysValue, AlwaysIllegalInstExc, Other} | HPM_MISCONFIGURED_BEHAVIOR | {true, false} | 
+| P029 | Whether mstateen bit 63 is read-only zero (conditional on H absent and sstateen all read-only zero) | both (arguable) | -- | mstateen0/mstateen1/mstateen2/mstateen3 | per bit: constant mask | MSTATEEN_BIT63_TYPE | {read-write, read-only-0} | 
+| P030 | Whether the misaligned atomicity granule PMA relaxes the Zalasr alignment requirement | both (arguable) | MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE | PMA_MAG_OP_LDST, PMA_MAG_EXC | {true, false} | ZALASR_MISALIGNED_ATOMICITY_GRANULE | {true, false} | 
+| P031 | Which CSRs, if any, the platform defines as strongly ordered | ishaan | -- | -- | -- | CSR_STRONGLY_ORDERED | subset of the implemented CSRs (possibly empty) | 
+| P032 | Which fields of ctrdata are implemented, else read-only 0 | ishaan | -- | -- | -- | CTR_CTRDATA_TYPE_IMPLEMENTED | {read-write, read-only-0} | 
+| P033 | Whether hgatp.PPN[1:0] are read-only zero | ishaan | -- | -- | -- | HGATP_PPN_LOWER_BITS_RO | {read-write, read-only-0} | 
+| P034 | Whether mseccfg [s,u]seed are writable or a read-only constant 0 | ishaan | -- | -- | -- | MSECCFG_SEED_BITS_RW | {read-write, read-only-0} | 
+| P035 | Whether senvcfg.FIOM is read-only zero when satp.MODE is read-only zero | ishaan | -- | -- | -- | SENVCFG_FIOM_ACCESS | {read-write, read-only-0} | 
+| P036 | The supported value range of siselect (0..0xFFF minimum) | ishaan | -- | -- | -- | SISELECT_WIDTH | supported range 0..N, N >= 0xFFF | 
+| P037 | Whether an implicit state update blocked by a stateen CSR raises an illegal-instruction exception | ishaan | -- | -- | -- | STATEEN_IMPLICIT_UPDATE_EXCEPTION | {true, false} | 
+| P038 | The supported value range of vsiselect (0..0xFFF minimum) | ishaan | -- | -- | -- | VSISELECT_WIDTH | supported range 0..N, N >= 0xFFF | 
+| P039 | When a critical error is detected, what does the implementation do? | james | -- | CRITICAL_ERROR | {ResetHart, ResetPlatform, Other} | -- | -- | 
+| P040 | HS-mode XLEN. | james | SXLEN | HSXLEN | {32, 64} | -- | -- | 
+| P041 | Can interrupts be taken during the execution of a push/pop instruction? | james | -- | INTERRUPTS_ALLOWED_IN_PUSHPOP | {true, false} | -- | -- | 
+| P042 | Whether the mcause reset value may alias a defined cause. | james | -- | MCAUSE_RST_ALIAS_OK | {true, false} | -- | -- | 
+| P043 | Reset value of mcause. | james | -- | MCAUSE_RST_VAL | TBD | -- | -- | 
+| P044 | `mepc` can hold all valid virtual addresses but not necessarily | james | -- | MEPC_INV_ADDR_CONV | {NoInvAddrConv, Other} | -- | -- | 
+| P045 | mhartid value. | james | -- | MHARTID | TBD | -- | -- | 
+| P046 | Type of exception raised by a misaligned integer/float load/store instruction when an implementation | james | MISALIGNED_LDST_EXCEPTION_PRIORITY | MISALIGNED_LDST_EXC_TYPE | {AlwaysMisalignedExc, AlwaysAccessFaultExc, AccessFaultExcDontEmulate, Other} | -- | -- | 
+| P047 | Reset value of mseccfg MML/MMWP/RLB. | james | -- | MSECCFG_MML_MMWP_RLB_RST | {true, false} | -- | -- | 
+| P048 | Reset value of the seed bits. | james | -- | MSECCFG_USEED_SSEED_RST | {true, false} | -- | -- | 
+| P049 | Maximum time in cycles for a store to memory-mapped register `msip` to be reflected in `mip.MSIP`. | james | -- | MSIP_UPDATE_MAX_TIME | TBD | -- | -- | 
+| P050 | Whether mstatus.FS goes Dirty only on real FP state change, or dirtiness is not tracked at all | james | HW_MSTATUS_FS_DIRTY_UPDATE | MSTATUS_FS_IMPRECISE | {PreciseDirty, Other} | -- | -- | 
+| P051 | When an instruction explicitly or implicitly writes a floating-point register or the fcsr | james | HW_MSTATUS_FS_DIRTY_UPDATE | MSTATUS_FS_NO_CHANGE_DIRTY | {true, false} | -- | -- | 
+| P052 | Does implementation make `mstatus.SBE` a read-only copy of `mstatus.MBE`? | james | -- | MSTATUS_SBE_ROCOPY | {true, false} | -- | -- | 
+| P053 | If `mstatus.TW`=1 and WFI is executed in any less-privileged mode than M-mode | james | -- | MSTATUS_TW_TIME_LIMIT | TBD | -- | -- | 
+| P054 | Does implementation make `mstatus.UBE` a read-only copy of `mstatus.MBE` or `mstatus.SBE`? | james | -- | MSTATUS_UBE_ROCOPY | {ROCopyOfMBE, ROCopyOfSBE, Other} | -- | -- | 
+| P055 | Does the `mstatus.VS` field exist even if the `misa.V` bit is hardwired to 0? | james | -- | MSTATUS_VS_EXISTS | {true, false} | -- | -- | 
+| P056 | When an instruction that writes a vector register or vector CSR | james | HW_MSTATUS_VS_DIRTY_UPDATE | MSTATUS_VS_NO_CHANGE_DIRTY | {true, false} | -- | -- | 
+| P057 | Whether a software write of Initial or Clean to mstatus.VS is forced to Dirty | james | HW_MSTATUS_VS_DIRTY_UPDATE | MSTATUS_VS_SW_DIRTY_UPDATE | {DirtyWhenInitOrClean, Other} | -- | -- | 
+| P058 | Platform timing. | james | -- | MTIME_TICK_PERIOD | TBD | -- | -- | 
+| P059 | What mtval2 is written with on a guest page fault (zero vs the guest physical address) | james | REPORT_GPA_IN_TVAL_ON_INSTRUCTION_GUEST_PAGE_FAULT, REPORT_GPA_IN_TVAL_ON_LOAD_GUEST_PAGE_FAULT, REPORT_GPA_IN_TVAL_ON_STORE_AMO_GUEST_PAGE_FAULT | MTVAL2_TRAPVAL | {WrZero, WrGuestPA, Other} | -- | -- | 
+| P060 | `mtval` can hold all valid virtual addresses but not necessarily | james | -- | MTVAL_INV_ADDR_CONV | {NoInvAddrConv, Other} | -- | -- | 
+| P061 | Specifies on a per-exception code basis whether `mtval` holds an | james | REPORT_VA_IN_MTVAL_ON_BREAKPOINT, REPORT_ENCODING_IN_MTVAL_ON_ILLEGAL_INSTRUCTION, REPORT_VA_IN_MTVAL_ON_LOAD_PAGE_FAULT | MTVAL_PER_EXC_BEHAVIOR | {Informative, Zero, Other} | -- | -- | 
+| P062 | Base address of the non-maskable interrupt vector. | james | -- | NMI_ADDR | TBD | -- | -- | 
+| P063 | mcause value on NMI. | james | -- | NMI_MCAUSE_VAL | {true, false} | -- | -- | 
+| P064 | Does the implementation ignore the NTL hint when the target instruction causes a trap? | james | -- | NTL_TRAP_BEHAVIOR | {true, false} | -- | -- | 
+| P065 | Whether cacheable main memory supports all atomics. | james | -- | PMA_CACHE_MM_ALL_ATOMICS | {true, false} | -- | -- | 
+| P066 | Whether main-memory regions support instruction fetch. | james | -- | PMA_MM_IFETCH | {true, false} | -- | -- | 
+| P067 | Whether memory-ordering PMAs are dynamically configurable. | james | -- | PMA_MO_DYN | {true, false} | -- | -- | 
+| P068 | Reset value of pmpcfg A and L fields. | james | -- | PMP_A_L_RST | {true, false} | -- | -- | 
+| P069 | Base address of the reset vector. | james | -- | RST_ADDR | TBD | -- | -- | 
+| P070 | Do fault-only-first vector load instructions update active destination elements past the element that causes | james | VECTOR_FF_UPDATE_PAST_TRIM | VECTOR_FF_PAST_TRAP | {Always, Never, Other} | -- | -- | 
+| P071 | When an exception is detected partway through accessing the zeroth segment of a fault-only-first segment load | james | VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD | VECTOR_FF_SEG_SUBSET_EXC_ON_ZEROTH | {Always, Never, Other} | -- | -- | 
+| P072 | When an exception is detected partway through accessing past the zeroth segment of a fault-only-first segment load | james | VECTOR_FF_SEG_EXCEPTION_PARTIAL_LOAD | VECTOR_FF_SEG_SUBSET_EXC_PAST_ZEROTH | {Always, Never, Other} | -- | -- | 
+| P073 | Do vector load/store constant stride instructions with `rs2` = `x0` perform fewer memory operations | james | -- | VECTOR_LS_CONSTANT_STRIDE_X0 | {Always, Never, Other} | -- | -- | 
+| P074 | Does a vector load instruction overwrite the faulting element and subsequent elements when | james | LEGAL_VSTART | VECTOR_LS_VSTART | {Always, Never, Other} | -- | -- | 
+| P075 | Will `vsetvl`/`vsetvli` instructions executed with a new SEW/LMUL ratio that changes VLMAX set `vcsr.VILL` to 1? | james | VILL_SET_ON_RESERVED_VTYPE | VSETVL_WITH_NEW_RATIO_SETS_VILL | {Always, Never, Other} | -- | -- | 
+| P076 | Will `vsetvl`/`vsetvli` instructions executed when `vcsr.VILL` bit is already 1 keep it set to 1? | james | RESERVED_VSET_X0X0_VILL_SET, VILL_SET_ON_RESERVED_VTYPE | VSETVL_WITH_VILL_1_STAY_1 | {Always, Never, Other} | -- | -- | 
+| P077 | Whether WFI is available in U-mode. | james | -- | WFI_OPT_U_MODE | {true, false} | -- | -- | 
+| P078 | What may cause WFI to resume. | james | -- | WFI_RESUME_REASON | {true, false} | -- | -- | 
+| P079 | Does the implementation perform the 8-byte memory access atomically? | james | -- | ZILSD_ALIGN8_ATOMIC | {true, false} | -- | -- | 
+| P080 | WARL behaviour of ctrsource. | james | -- | ctrsource | TBD | -- | -- | 
+| P081 | Delegatable-bit mask of hedeleg. | james | -- | hedeleg | TBD | -- | -- | 
+| P082 | Legal values / access behaviour of `henvcfg.CBIE` | james | FORCE_UPGRADE_CBO_INVAL_TO_FLUSH | henvcfg.CBIE | TBD | -- | -- | 
+| P083 | Writable-bit mask of hgeie. | james | -- | hgeie | TBD | -- | -- | 
+| P084 | Delegatable-bit mask of hideleg. | james | -- | hideleg | TBD | -- | -- | 
+| P085 | Writable-bit mask of hie. | james | -- | hie | TBD | -- | -- | 
+| P086 | VGEIN's legal range is bounded by GEILEN, which UDB models as a count rather than a field constraint. | james | NUM_EXTERNAL_GUEST_INTERRUPTS | hstatus.VGEIN | TBD | -- | -- | 
+| P087 | Legal values / access behaviour of `htinst` (whole register) | james | TINST_VALUE_ON_BREAKPOINT, TINST_VALUE_ON_LOAD_PAGE_FAULT, TINST_VALUE_ON_VIRTUAL_INSTRUCTION | htinst | TBD | -- | -- | 
+| P088 | Writable-bit mask of hvip. | james | -- | hvip | TBD | -- | -- | 
+| P089 | Legal values / access behaviour of `jvt.MODE` | james | JVT_READ_ONLY | jvt.MODE | TBD (legal enum) | -- | -- | 
+| P090 | WLRL legal exception codes of mcause. | james | -- | mcause.EXCCODE | TBD (legal enum) | -- | -- | 
+| P091 | If list of legal write values is empty, then this field is read-only zero. | james | FORCE_UPGRADE_CBO_INVAL_TO_FLUSH | menvcfg.CBIE | TBD (legal enum) | -- | -- | 
+| P092 | If list of legal write values is empty, then this field is read-only zero. | james | PMLEN | menvcfg.PMM | TBD (legal enum) | -- | -- | 
+| P093 | WARL behaviour of mepc. | james | -- | mepc | per bit: constant mask | -- | -- | 
+| P094 | Legal values / access behaviour of `mhpmcounter` (whole register) | james | HPM_COUNTER_EN | mhpmcounter | per bit: constant mask | -- | -- | 
+| P095 | Legal values / access behaviour of `mhpmevent` (whole register) | james | HPM_EVENTS | mhpmevent | per bit: constant mask | -- | -- | 
+| P096 | Writable-bit mask of mie. | james | -- | mie | per bit: constant mask | -- | -- | 
+| P097 | Supported value range of miselect. | james | -- | miselect | TBD | -- | -- | 
+| P098 | WARL behaviour of mncause (RNMI). | james | -- | mncause | TBD | -- | -- | 
+| P099 | WARL behaviour of mnstatus (RNMI). | james | -- | mnstatus | TBD | -- | -- | 
+| P100 | WARL behaviour of mseccfg.MML. | james | -- | mseccfg.MML | per bit: constant mask | -- | -- | 
+| P101 | WARL behaviour of mseccfg.MMWP. | james | -- | mseccfg.MMWP | per bit: constant mask | -- | -- | 
+| P102 | If list of legal write values is empty, then this field is read-only zero. | james | PMLEN | mseccfg.PMM | TBD (legal enum) | -- | -- | 
+| P103 | WARL behaviour of mseccfg.RLB. | james | -- | mseccfg.RLB | per bit: constant mask | -- | -- | 
+| P104 | WARL behaviour of mstatus.MDT (Smdbltrp). | james | -- | mstatus.MDT | per bit: constant mask | -- | -- | 
+| P105 | Legal values of mstatus.MPP. | james | -- | mstatus.MPP | TBD (legal enum) | -- | -- | 
+| P106 | Legal values of mstatus.SPP. | james | -- | mstatus.SPP | TBD (legal enum) | -- | -- | 
+| P107 | WARL behaviour of mstatus.TSR. | james | -- | mstatus.TSR | per bit: constant mask | -- | -- | 
+| P108 | WARL behaviour of mstatus.TW. | james | -- | mstatus.TW | per bit: constant mask | -- | -- | 
+| P109 | Legal values / access behaviour of `mtinst` (whole register) | james | TINST_VALUE_ON_BREAKPOINT, TINST_VALUE_ON_LOAD_PAGE_FAULT, TINST_VALUE_ON_VIRTUAL_INSTRUCTION | mtinst | TBD | -- | -- | 
+| P110 | Legal values / access behaviour of `mtvec.BASE` | james | MTVEC_BASE_ALIGNMENT_DIRECT, MTVEC_BASE_ALIGNMENT_VECTORED | mtvec.BASE | per bit: constant mask | -- | -- | 
+| P111 | There are up to 64 PMP entries (M=0 to 63) each with an 8-bit WARL field. | james | PMP_TOR_SUPPORTED, PMP_NA4_SUPPORTED, PMP_NAPOT_SUPPORTED | pmpcfgN.pmpMcfg | TBD | -- | -- | 
+| P112 | WLRL legal exception codes of scause. | james | -- | scause.EXCEPTION_CODE | TBD | -- | -- | 
+| P113 | Legal values / access behaviour of `sctrdepth.DEPTH` | james | -- | sctrdepth.DEPTH | TBD | -- | -- | 
+| P114 | WARL behaviour of sctrstatus.WRPTR. | james | -- | sctrstatus.WRPTR | TBD | -- | -- | 
+| P115 | Legal values / access behaviour of `senvcfg.CBIE` | james | FORCE_UPGRADE_CBO_INVAL_TO_FLUSH | senvcfg.CBIE | TBD | -- | -- | 
+| P116 | Writable-bit mask of sie. | james | -- | sie | TBD | -- | -- | 
+| P117 | Legal values / access behaviour of `sstateen0/sstateen1/sstateen2/sstateen3` (whole register) | james | SSTATEEN_JVT_TYPE | sstateen0/sstateen1/sstateen2/sstateen3 | per bit: constant mask | -- | -- | 
+| P118 | WARL behaviour of sstatus.SDT (Ssdbltrp). | james | -- | sstatus.SDT | TBD | -- | -- | 
+| P119 | BASE alignment of stvec. | james | -- | stvec.BASE | TBD | -- | -- | 
+| P120 | Legal values / access behaviour of `vsatp.MODE` | james | VSSTAGE_MODE_BARE, SV39_VSMODE_TRANSLATION, SV48_VSMODE_TRANSLATION, IGNORE_INVALID_VSATP_MODE_WRITES_WHEN_V_EQ_ZERO | vsatp.MODE | TBD | -- | -- | 
+| P121 | WLRL legal exception codes of vscause. | james | -- | vscause | TBD | -- | -- | 
+| P122 | WARL behaviour of vsepc. | james | -- | vsepc | TBD | -- | -- | 
+| P123 | Writable-bit mask of vsie. | james | -- | vsie | TBD | -- | -- | 
+| P124 | Writable-bit mask of vsip. | james | -- | vsip | TBD | -- | -- | 
+| P125 | Implemented-bit width of vstval. | james | -- | vstval | TBD | -- | -- | 
+| P126 | Legal values / access behaviour of `vstvec.BASE` | james | VSTVEC_MODE_DIRECT, VSTVEC_MODE_VECTORED | vstvec.BASE | TBD | -- | -- | 
+|===
+
+== Rows carrying a defect or an open question
+
+107 of 126 rows carry a note. Sources, criteria flags and defects are in the CSV; the substantive ones are reproduced here.
+
+* `MSIP_UPDATE_MAX_TIME` (P049) -- OUT OF SCOPE under our criteria: platform integration or no architectural units. Kept for the mentor to rule on.  UDB check: A maximum time with no architectural units. Excluded by rule 6 (implementation-defined with no testable units or enumerable options).
+* `MSTATUS_TW_TIME_LIMIT` (P053) -- OUT OF SCOPE under our criteria: platform integration or no architectural units. Kept for the mentor to rule on.  UDB check: The WFI bounded time limit. Excluded by INCLUSION_CRITERIA rule 6, which names "bounded time limit" as its literal example of an implementation-defined quantity with no testable units.  Flagged by our INCLUSION_CRITERIA rule 6 on `MSTATUS_TW_TIME_LIMIT`: no testable units / 'misconfigured'.
+* `MTIME_TICK_PERIOD` (P058) -- OUT OF SCOPE under our criteria: platform integration or no architectural units. Kept for the mentor to rule on.  UDB check: Excluded by rule 4 (NON_ISA, outside ISA scope); Jordan records platform.clock_frequency and instructions_per_tick as having no UDB parameter either.
+* `NMI_ADDR` (P062) -- OUT OF SCOPE under our criteria: platform integration or no architectural units. Kept for the mentor to rule on.  UDB check: NMI vector address. Excluded by rule 4 (NON_ISA, platform rather than ISA), not on testability grounds -- it is observable. Scope question for the mentor.  His `NMI_ADDR` cites impl-def ? with no matching normative rule in the pinned manual, so its spec text could not be checked.
+* `PMA_MM_IFETCH` (P066) -- UDB check: UDB has PMA_GRANULARITY only; Jordan records UDB as having no per-region PMA attributes.  DEFECT (his file): cites a tag whose sentence does not describe the parameter -- 'Main memory regions always support read and write' says nothing about instruction fetch.
+* `RST_ADDR` (P069) -- OUT OF SCOPE under our criteria: platform integration or no architectural units. Kept for the mentor to rule on.  UDB check: Reset vector address. Excluded by rule 4 (NON_ISA, platform rather than ISA), not on testability grounds -- it is observable. Scope question for the mentor.  His `RST_ADDR` cites impl-def ? with no matching normative rule in the pinned manual, so its spec text could not be checked.
+* `VECTOR_LS_VSTART` (P074) -- UDB check: UDB enumerates legal vstart values; his is the load/store-specific rule.  DEFECT (his file): named for vstart, but the description asks the overwrite-past-trap question, which duplicates his own VECTOR_LS_OVERWRITE_PAST_TRAP. Mapped to UDB LEGAL_VSTART on the name; by description it would map to UDB VECTOR_LOAD_PAST_TRAP. Needs his clarification before the row can be settled.
+* `sctrdepth.DEPTH` (P113) -- Duplicated within his own list.  UDB check: Duplicates his own SCTRDEPTH_DEPTH parameter_definition (same field, recorded once in each section). That parameter already matches our SCTRDEPTH_SUPPORTED_VALUES.  DEFECT (his file): the same field is recorded in both sections (SCTRDEPTH_DEPTH under parameter_definitions, sctrdepth.DEPTH under csr_definitions). The two carry different impl-defs so the split may be deliberate; worth confirming with him.
+* `vstvec.BASE` (P126) -- UDB check: UDB has no vstvec BASE-alignment parameter; Jordan records the same gap for stvec.  OPEN (our bookkeeping): classified as a partial overlap citing VSTVEC_MODE_DIRECT/VECTORED, but those are MODE parameters and the stated reason is that UDB has no vstvec BASE-alignment parameter. Its sibling stvec.BASE is classified as having no UDB counterpart. Reads like it should be no-counterpart too; left unchanged pending review.  His `vstvec.BASE` cites impl-def VSTVEC_BASE_WARL with no matching normative rule in the pinned manual, so its spec text could not be checked.
+
+== Defects on entries this list excludes
+
+These sit on entries of his that UDB already defines, so they
+have no row above. Recorded here so excluding the row does not
+lose the defect -- each is still worth passing back to him.
+
+* `MIPMPID` -- DEFECT (his file): machine.yaml names the parameter MIPMPID but its impl-def is IMP_ID and the CSR is `mimpid`. Typo.
+* `VECTOR_LS_MISSALIGNED_EXCEPTION` -- DEFECT (his file): spelled MISSALIGNED with a doubled S.
+* `VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION` -- DEFECT (his file): spelled MISSALIGNED with a doubled S.
+* `hgainp.MODE` -- DEFECT (his file): hypervisor.yaml:106 declares reg-name `hgainp`, but its own impl-def is HGATP_MODE_WARL. `hgainp` is not a RISC-V CSR; typo for `hgatp`.
