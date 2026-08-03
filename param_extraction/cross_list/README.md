@@ -35,26 +35,34 @@ naming hierarchy, is **not done** — see §9.
 
 ---
 
-## 2. Can an agent access both lists on its own?
+## 2. The inputs
 
-**Yes. Everything is vendored; nothing external is required.**
+Everything is vendored in the repo, so nothing has to be fetched to read or
+rerun the comparison. The upstream sources are listed so a newer revision can
+be pulled deliberately.
 
-| Input | Path | Notes |
+| Input | Path in repo | Upstream |
 |---|---|---|
 | Our list (raw) | `data/confirmed_parameters_v2.xlsx` | the mentor-reviewed workbook, 44 rows |
-| Our list (built) | `data/ours_canonical.json` | 38 canonical params, generated from the xlsx |
-| James' list | `data/james_param_defs/*.yaml` | 15 files vendored from his repo, Apache-2.0, attributed |
-| UDB baseline | `../data/ground_truth.json` | 223 params with `csr_references` |
+| Our list (built) | `data/ours_canonical.json` | generated from the xlsx, 38 params |
+| James' list | `data/james_param_defs/*.yaml` | https://github.com/james-ball-qualcomm/riscv-arch-test/tree/prep-for-crd-generators/docs/crd/param_defs |
+| UDB baseline | `../data/ground_truth.json` | 223 params, with `csr_references` |
 | UDB baseline (2nd) | `data/sail_udb_config_mapping.md` | Jordan's Sail↔UDB map, names 228 UDB params |
-| ISA manual | `ext/riscv-isa-manual` submodule | run `git submodule update --init ext/riscv-isa-manual` |
+| ISA manual | `ext/riscv-isa-manual` submodule | `git submodule update --init ext/riscv-isa-manual` |
 | Ruleset | `../INCLUSION_CRITERIA.md` | rules 0–15 |
 
-The only thing a fresh clone needs is the submodule init. Every script reads
-from the repo; none reads from `~/Downloads` or a scratch directory.
+Other references, not needed to run anything but cited in discussion:
 
-Pinned revisions are recorded in `data/SOURCES.md`. All three inputs move
-independently, so a comparison is only meaningful against a stated revision of
-each.
+- James' schema and Python tooling —
+  https://github.com/riscv/docs-resources/blob/main/tools/README.md
+- Sail parameter declarations (the naming pattern under discussion) —
+  https://github.com/riscv/sail-riscv/blob/master/model/core/platform_config.sail
+- Sail config template the hierarchy is substituted from —
+  https://github.com/riscv/sail-riscv/blob/master/config/config.json.in
+
+Pinned revisions are in `data/SOURCES.md`. All three lists move independently,
+so a comparison is only meaningful against a stated revision of each — James'
+files last changed 2026-04-03, the manual is pinned at 2026-07-29.
 
 ---
 
