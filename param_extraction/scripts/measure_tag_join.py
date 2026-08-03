@@ -21,7 +21,7 @@ from pathlib import Path
 
 import yaml
 
-REPO = Path(__file__).resolve().parents[3]
+REPO = Path(__file__).resolve().parents[2]
 NRD = REPO / "ext/riscv-isa-manual/normative_rule_defs"
 OURS = REPO / "param_extraction/cross_list/data/ours_canonical.json"
 JDIR = REPO / "param_extraction/cross_list/data/james_param_defs"

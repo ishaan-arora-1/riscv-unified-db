@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
 """
 Validation script for Phase 2 deliverables.
 
@@ -100,9 +102,9 @@ def validate_examples() -> None:
 
     classes_covered = set()
     for ex in pos:
-        check("input_excerpt" in ex, f"Positive example has input_excerpt")
-        check("input_file" in ex, f"Positive example has input_file")
-        check("expected_output" in ex, f"Positive example has expected_output")
+        check("input_excerpt" in ex, "Positive example has input_excerpt")
+        check("input_file" in ex, "Positive example has input_file")
+        check("expected_output" in ex, "Positive example has expected_output")
 
         out = ex.get("expected_output", {})
         for field in REQUIRED_OUTPUT_FIELDS:
@@ -212,12 +214,15 @@ def validate_assembler() -> None:
     print("\n4. Validating run_prompt.py assembly")
     print("-" * 40)
 
-    from run_prompt import (
+    # chunk_spec_file and estimate_tokens are imported but not called: this
+    # function validates that run_prompt still exposes its public surface, so
+    # the import itself is the assertion. Do not let a linter remove them.
+    from run_prompt import (  # noqa: F401
         assemble_prompt,
         chunk_spec_file,
         estimate_tokens,
-        load_system_prompt,
         load_examples,
+        load_system_prompt,
         load_udb_param_names,
     )
 
@@ -316,7 +321,7 @@ def validate_chunking() -> None:
         f"Last chunk ends at last line ({chunks[-1][1]['end_line']} == {total_lines})",
     )
 
-    for chunk_text, meta in chunks:
+    for _chunk_text, meta in chunks:
         check(
             meta["total_chunks"] == len(chunks),
             f"Chunk {meta['chunk_index']} total_chunks is correct",

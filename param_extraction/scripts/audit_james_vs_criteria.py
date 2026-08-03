@@ -38,7 +38,7 @@ import yaml
 
 IDB: dict = {}
 
-REPO = Path(__file__).resolve().parents[3]
+REPO = Path(__file__).resolve().parents[2]
 BASE = REPO / "param_extraction/cross_list"
 SRC = REPO / "ext/riscv-isa-manual/src"
 NRD = REPO / "ext/riscv-isa-manual/normative_rule_defs"

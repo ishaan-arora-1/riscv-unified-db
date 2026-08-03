@@ -5,7 +5,7 @@ Every non-mechanical decision needed to express our 38 parameters in James
 Ball's ``param-defs-schema.json`` format, held in one reviewable table.
 
 Kept out of the generator deliberately, following the convention set in
-``cross_list/scripts/``: judgement lives in a table that a reviewer can argue
+``scripts/``: judgement lives in a table that a reviewer can argue
 with line by line, never buried in code.
 
 Two things are decided here and nowhere else:

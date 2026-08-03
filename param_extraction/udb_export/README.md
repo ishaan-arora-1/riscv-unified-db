@@ -22,7 +22,7 @@ Why, in one line: his chain already solves the two hard mechanical steps
 domain into JSON Schema), and it is the format he proposed as the shared one,
 so authoring into it is the merge path rather than a third parallel track.
 
-The alternative — extending our own `scripts/generate_param_yamls.py` — is
+The alternative — extending our own `../scripts/generate_param_yamls.py` — is
 faster and depends on nobody, but becomes throwaway the moment the SIG adopts
 his format.
 
@@ -34,9 +34,9 @@ his format.
 ext/riscv-isa-manual/normative_rule_defs/*.yaml
         │
         ├── (real) docs-resources create_normative_rules.py ─┐
-        └── (local) scripts/make_norm_rules_json.py ─────────┤
+        └── (local) ../scripts/make_norm_rules_json.py ─────────┤
                                                              ▼
-        scripts/build_param_defs.py ──► param_defs/*.yaml    │
+        ../scripts/build_param_defs.py ──► param_defs/*.yaml    │
                                               │              │
                                               ▼              ▼
                               docs-resources create_params.py
@@ -47,7 +47,7 @@ ext/riscv-isa-manual/normative_rule_defs/*.yaml
                                               ▼   build/udb_params/*.yaml
 ```
 
-Only the two `scripts/` entries are ours. Everything else is his, run unmodified.
+Only the two `../scripts/` entries are ours. Everything else is his, run unmodified.
 
 `make_norm_rules_json.py` stands in for `create_normative_rules.py`, which also
 wants tag JSON from the manual's asciidoctor build. That build is not needed to
@@ -66,8 +66,8 @@ Needs `riscv/docs-resources` checked out somewhere (`$DR` below); the
 
 ```bash
 cd param_extraction/udb_export
-uv run --python 3.13 --with pyyaml python scripts/make_norm_rules_json.py
-uv run --python 3.13 --with pyyaml python scripts/build_param_defs.py
+uv run --python 3.13 --with pyyaml python ../scripts/make_norm_rules_json.py
+uv run --python 3.13 --with pyyaml python ../scripts/build_param_defs.py
 uv run --python 3.13 --with pyyaml --with jsonschema python $DR/tools/create_params.py \
     -n build/norm-rules.json $(for f in param_defs/*.yaml; do echo -n "-d $f "; done) \
     --output build/params.json
@@ -78,12 +78,12 @@ uv run --python 3.13 --with pyyaml python $DR/tools/export_params_to_udb.py \
 Validate the authored files against his schema:
 
 ```bash
-uv run --python 3.13 --with pyyaml --with jsonschema python scripts/build_param_defs.py \
+uv run --python 3.13 --with pyyaml --with jsonschema python ../scripts/build_param_defs.py \
     --validate --schema-dir $DR/schemas
 ```
 
-`uvx ruff@0.15.1 check scripts/` before committing. `param_defs/` is generated —
-edit `scripts/authoring_table.py`, never the YAML.
+`uvx ruff@0.15.1 check ../scripts/` before committing. `param_defs/` is generated —
+edit `../scripts/authoring_table.py`, never the YAML.
 
 ---
 
@@ -129,7 +129,7 @@ asked for in his email. Deferred deliberately; not started.
 
 ## 6. Where judgement lives
 
-`scripts/authoring_table.py` holds every non-mechanical decision, one row per
+`../scripts/authoring_table.py` holds every non-mechanical decision, one row per
 parameter, so each can be challenged individually:
 
 - **`long_name`** — written by us. Nothing to copy: 86 of James' 93 are the

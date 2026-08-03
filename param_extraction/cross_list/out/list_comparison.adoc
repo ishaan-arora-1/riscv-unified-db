@@ -4,7 +4,7 @@
 //
 // GENERATED FILE -- do not edit by hand.
 // Regenerate: uv run --python 3.13 --with pyyaml python \
-//   param_extraction/cross_list/scripts/generate_asciidoc.py
+//   param_extraction/scripts/generate_asciidoc.py
 //
 // Pinned sources:
 //   James' param_defs : 213450b8671a513ed94cd62fc87a836f8a839a10 (2026-04-03)

@@ -91,9 +91,12 @@ files last changed 2026-04-03, the manual is pinned at 2026-07-29.
 
 ## 3. Running it
 
+The scripts live in `param_extraction/scripts/`, shared with the other
+workstreams; see that directory's `README.md` for the full inventory.
+
 ```bash
 git submodule update --init ext/riscv-isa-manual
-cd param_extraction/cross_list
+cd param_extraction
 
 uv run --python 3.13 --with openpyxl python scripts/build_canonical_list.py
 uv run --python 3.13 --with pyyaml  python scripts/generate_asciidoc.py
@@ -114,7 +117,7 @@ Always `uvx ruff@0.15.1 check scripts/` before committing. Keep SPDX
 `.license` sidecars on new data files.
 
 **The `.adoc` files are generated. Do not hand-edit them** — the next run
-wipes the change. Edit `scripts/generate_asciidoc.py` instead. (This has
+wipes the change. Edit `../scripts/generate_asciidoc.py` instead. (This has
 already happened once; the edits were recovered and ported.)
 
 Verify a render with:
@@ -317,11 +320,11 @@ each can be challenged individually:
 
 | Table | File | What it holds |
 |---|---|---|
-| `MERGES`, `DROPS`, `FLAGS`, `RESOLVED`, `REWORDED` | `scripts/build_canonical_list.py` | the 44 → 38 corrections |
-| `MANUAL_MATCHES`, `ARGUABLE_MATCHES`, `TYPE_CONFLICTS`, `ADJACENT`, `EXPLICIT_DOMAINS` | `scripts/generate_asciidoc.py` | cross-list adjudication and domains |
+| `MERGES`, `DROPS`, `FLAGS`, `RESOLVED`, `REWORDED` | `../scripts/build_canonical_list.py` | the 44 → 38 corrections |
+| `MANUAL_MATCHES`, `ARGUABLE_MATCHES`, `TYPE_CONFLICTS`, `ADJACENT`, `EXPLICIT_DOMAINS` | `../scripts/generate_asciidoc.py` | cross-list adjudication and domains |
 | all 144 verdicts with reasons | `data/james_vs_udb_adjudication.json` | his entries vs UDB |
 | per-entry rule hits with spec text | `data/james_criteria_audit.json` | his entries vs our criteria |
-| `CONCEPTS`, `JAMES_CONCEPTS`, `DEFECTS` | `scripts/generate_master_list.py` | the master list's row labels and known defects |
+| `CONCEPTS`, `JAMES_CONCEPTS`, `DEFECTS` | `../scripts/generate_master_list.py` | the master list's row labels and known defects |
 
 The segmentation verdicts are a **proposed** classification, labelled as such
 in the document. They have not been through mentor review.

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
 """
 Phase 1, Step 1: Export all UDB parameters to structured JSON.
 

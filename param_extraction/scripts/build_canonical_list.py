@@ -30,7 +30,7 @@ from pathlib import Path
 
 import openpyxl
 
-REPO = Path(__file__).resolve().parents[3]
+REPO = Path(__file__).resolve().parents[2]
 SRC = REPO / "ext/riscv-isa-manual/src"
 # The mentor-reviewed workbook is vendored so the pipeline runs from a clean
 # clone. The Downloads copy is only a fallback for whoever has the original.

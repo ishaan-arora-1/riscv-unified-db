@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
 """
 Phase 1, Final: Generate a comprehensive human-readable report and CSV
 from the ground truth and spec mapping data.
@@ -13,10 +15,10 @@ Reads:
   - data/spec_mappings.json
 """
 
-import json
 import csv
-from pathlib import Path
+import json
 from collections import defaultdict
+from pathlib import Path
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 

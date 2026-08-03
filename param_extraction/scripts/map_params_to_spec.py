@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Contributors to the RISCV UnifiedDB <https://github.com/riscv/riscv-unified-db>
+# SPDX-License-Identifier: BSD-3-Clause-Clear
 """
 Phase 1, Step 2: Map UDB parameters to their source locations in the RISC-V spec.
 
@@ -13,8 +15,8 @@ Output: data/spec_mappings.json
 
 import json
 import re
-from pathlib import Path
 from collections import defaultdict
+from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SPEC_DIR = REPO_ROOT / "ext" / "riscv-isa-manual" / "src"
@@ -70,9 +72,7 @@ def build_search_terms(param):
     """
     name = param["name"]
     desc = param.get("description", "")
-    long_name = param.get("long_name", "")
     csr_refs = param.get("csr_references", [])
-    defined_by = param.get("defined_by", {})
     value_type = param.get("value_type", {})
 
     terms = []
@@ -272,7 +272,7 @@ def find_spec_locations(param, spec_files):
     # Convert to list, filter low-score noise, sort by score descending
     results = []
     MAX_SCORE = 50
-    for key, entry in candidates.items():
+    for entry in candidates.values():
         if entry["score"] >= 3:
             entry["score"] = min(entry["score"], MAX_SCORE)
             entry["reasons"] = list(set(entry["reasons"]))
@@ -381,7 +381,7 @@ def main():
 
     print(f"\nWritten mappings to {out_path}")
     print(f"\n{'='*60}")
-    print(f"SPEC MAPPING SUMMARY")
+    print("SPEC MAPPING SUMMARY")
     print(f"{'='*60}")
     print(f"Total parameters:          {len(params)}")
     print(f"With any match (score>=3): {params_with_matches} ({params_with_matches*100//len(params)}%)")
@@ -389,7 +389,7 @@ def main():
     print(f"No matches found:          {len(params) - params_with_matches}")
 
     # Show a few examples of strong matches
-    print(f"\n--- Sample strong matches ---")
+    print("\n--- Sample strong matches ---")
     shown = 0
     for m in mappings:
         if m["best_score"] >= 7 and shown < 5:

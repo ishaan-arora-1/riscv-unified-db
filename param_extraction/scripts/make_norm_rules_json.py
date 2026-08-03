@@ -37,8 +37,9 @@ from pathlib import Path
 import yaml
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-WORK_DIR = SCRIPT_DIR.parent
-REPO_ROOT = WORK_DIR.parent.parent
+PROJECT_DIR = SCRIPT_DIR.parent
+WORK_DIR = PROJECT_DIR / "udb_export"
+REPO_ROOT = PROJECT_DIR.parent
 NORM_RULE_DEFS = REPO_ROOT / "ext" / "riscv-isa-manual" / "normative_rule_defs"
 
 # Carried through to the output; anything else in the YAML is for the manual's

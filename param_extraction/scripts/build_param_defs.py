@@ -53,8 +53,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from authoring_table import AUTHORING, CHAPTER_FILES
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-WORK_DIR = SCRIPT_DIR.parent
-PROJECT_DIR = WORK_DIR.parent
+PROJECT_DIR = SCRIPT_DIR.parent
+WORK_DIR = PROJECT_DIR / "udb_export"
 REPO_ROOT = PROJECT_DIR.parent
 
 CANONICAL = PROJECT_DIR / "cross_list" / "data" / "ours_canonical.json"

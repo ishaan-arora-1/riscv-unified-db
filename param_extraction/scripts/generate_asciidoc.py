@@ -34,7 +34,7 @@ from pathlib import Path
 
 import yaml
 
-REPO = Path(__file__).resolve().parents[3]
+REPO = Path(__file__).resolve().parents[2]
 BASE = REPO / "param_extraction/cross_list"
 OURS = BASE / "data/ours_canonical.json"
 JDIR = BASE / "data/james_param_defs"
@@ -351,7 +351,7 @@ HDR = f"""//
 //
 // GENERATED FILE -- do not edit by hand.
 // Regenerate: uv run --python 3.13 --with pyyaml python \\
-//   param_extraction/cross_list/scripts/generate_asciidoc.py
+//   param_extraction/scripts/generate_asciidoc.py
 //
 // Pinned sources:
 //   James' param_defs : {JAMES_SHA} (2026-04-03)
@@ -450,14 +450,14 @@ def write_lists(ours, james, meta):
 
 
 ADJ = json.loads(
-    (Path(__file__).resolve().parents[3]
+    (Path(__file__).resolve().parents[2]
      / "param_extraction/cross_list/data/james_vs_udb_adjudication.json"
      ).read_text()
 )
 AUDIT = {
     r["name"]: r
     for r in json.loads(
-        (Path(__file__).resolve().parents[3]
+        (Path(__file__).resolve().parents[2]
          / "param_extraction/cross_list/data/james_criteria_audit.json"
          ).read_text()
     )["rows"]

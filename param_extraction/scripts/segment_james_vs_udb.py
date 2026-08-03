@@ -33,7 +33,7 @@ from pathlib import Path
 
 import yaml
 
-REPO = Path(__file__).resolve().parents[3]
+REPO = Path(__file__).resolve().parents[2]
 BASE = REPO / "param_extraction/cross_list"
 GT = REPO / "param_extraction/data/ground_truth.json"
 JDIR = BASE / "data/james_param_defs"
