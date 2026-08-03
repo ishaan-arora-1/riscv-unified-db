@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=../../docs-resources/schemas/param-defs-schema.json
+
+$schema: ../../docs-resources/schemas/param-defs-schema.json#
+chapter_name: Indirect CSR
+parameter_definitions:
+- name: SISELECT_WIDTH
+  long-name: Largest value `siselect` supports
+  range:
+  - 4095
+  - 65535
+  description: 'The `siselect` register will support the value range 0..0xFFF at a minimum.
+    A future extension may define a value range outside of this minimum range. Only if such
+    an extension is implemented will `siselect` be required to support larger values.
+
+
+    Source: priv/smcsrind.adoc:148 (norm:siselect_min_range)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: 'Domain shape is an approximation: The spec fixes only a lower bound (0..0xFFF must
+    be supported) and leaves the maximum open. 0xFFFF is our chosen upper bound because his
+    schema requires a closed range.'
+- name: VSISELECT_WIDTH
+  long-name: Largest value `vsiselect` supports
+  range:
+  - 4095
+  - 65535
+  description: 'The `vsiselect` register will support the value range 0..0xFFF at a minimum.
+    A future extension may define a value range outside of this minimum range. Only if such
+    an extension is implemented will `vsiselect` be required to support larger values.
+
+
+    Source: priv/smcsrind.adoc:239 (norm:vsiselect_min_range)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: 'Domain shape is an approximation: Same bounded-range approximation as SISELECT_WIDTH.'

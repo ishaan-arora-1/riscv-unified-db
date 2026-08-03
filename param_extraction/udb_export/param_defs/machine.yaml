@@ -1,0 +1,150 @@
+# yaml-language-server: $schema=../../docs-resources/schemas/param-defs-schema.json
+
+$schema: ../../docs-resources/schemas/param-defs-schema.json#
+chapter_name: Machine Mode
+parameter_definitions:
+- name: DELEGATABLE_EXCEPTIONS
+  long-name: Trap causes that may be delegated
+  impl-defs:
+  - MEDELEG_WARL
+  - MIDELEG_WARL
+  type: boolean
+  array: &id001
+  - 0
+  - 63
+  description: 'An implementation can choose to subset the delegatable traps, with the supported
+    delegatable bits found by writing one to every bit location, then reading back the value
+    in `medeleg` or `mideleg` to see which bit positions hold a one.
+
+
+    Source: priv/machine.adoc:1262 (norm:medeleg_mideleg_warl)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Each bit is read-write or read-only zero; read-only one is not legal.
+- name: HINT_XLEN_REDUCTION_BEHAVIOR
+  long-name: A HINT overwrites destination register bits above XLEN
+  impl-def: XLEN_REDUCTION_HINT_OP
+  type: boolean
+  description: 'When such a HINT is executed with XLEN < MXLEN and bits MXLEN..XLEN of the
+    destination register not all equal to bit XLEN-1, it is implementation-defined whether
+    bits MXLEN..XLEN of the destination register are unchanged or are overwritten with copies
+    of bit XLEN-1.
+
+
+    Source: priv/machine.adoc:573 (norm:xlen_reduction_hint_op1)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: A HINT may change state not visible to the privilege mode executing it, so this is
+    a real choice rather than a contradiction of HINT semantics.
+- name: MCYCLE_SHARED
+  long-name: '`mcycle` is shared between harts on the same core'
+  type: boolean
+  description: 'The `mcycle` CSR may be shared between harts on the same core, in which case
+    the `mcountinhibit.CY` field is also shared between those harts, and so writes to `mcountinhibit.CY`
+    will be visible to those harts.
+
+
+    Source: priv/machine.adoc:1633 (norm:mcountinhibit_cy_shared)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Observable as a write to `mcountinhibit`.CY becoming visible to sibling harts; testing
+    it needs a multi-hart harness.
+- name: MENVCFG_FIOM_READONLY
+  long-name: '`menvcfg`.FIOM is read-only zero'
+  impl-def: MENVCFG_FIOM_RDONLY0_OK
+  type: boolean
+  description: 'If S-mode is not supported, or if `satp`.MODE is read-only zero (always Bare),
+    the implementation may make FIOM read-only zero.
+
+
+    Source: priv/machine.adoc:2150 (norm:menvcfg_fiom_rdonly0_ok)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+- name: MIP_WRITABLE_BITS
+  long-name: Writable bits of `mip`
+  impl-def: MIP_BITS_WR_OR_RDONLY
+  type: boolean
+  array: *id001
+  description: 'Each individual bit in register `mip` may be writable or may be read-only.
+
+
+    Source: priv/machine.adoc:1365 (norm:mip_bits_wr_or_rdonly)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Each bit is read-write or read-only zero; read-only one is not legal.
+- name: PMA_IDEMPOTENT_IMPLICIT_READ_SIZE
+  long-name: Size of a naturally aligned idempotent implicit-read region, log2 bytes
+  impl-def: PMA_IDP_IMPLICIT_SZ
+  range:
+  - 0
+  - 12
+  description: 'The size of these naturally aligned power-of-2 regions is implementation-defined,
+    but, for systems with page-based virtual memory, must not exceed the smallest supported
+    page size.
+
+
+    Source: priv/machine.adoc:3294 (norm:pma_idp_implicit_sz)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: 'Domain shape is an approximation: Held as a log2 exponent, following the Sail `_exp`
+    convention, because his schema has no power-of-2 type. Upper bound 12 (4 KiB) is the smallest
+    supported page size the spec caps it at.'
+- name: PMPADDR_WARL_MASK
+  long-name: Implemented address bits of `pmpaddr`
+  impl-def: PMPADDR_WARL
+  type: boolean
+  array: *id001
+  description: 'Not all physical address bits may be implemented, and so the `pmpaddr` registers
+    are WARL.
+
+
+    Source: priv/machine.adoc:3377 (norm:pmp_addr_warl)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: The implemented bit count is conditional on privilege mode and on xSATP.mode (virtual
+    versus physical address).
+- name: WFI_TW_ALWAYS_ILLEGAL
+  long-name: WFI always raises an illegal-instruction exception when `mstatus`.TW is set
+  impl-def: MSTATUS_TW_ALWAYS_ILLEGAL
+  type: boolean
+  description: 'An implementation may have WFI always raise an illegal-instruction exception
+    in modes less privileged than M when TW=1, even if there are pending globally-disabled
+    interrupts when the instruction is executed.
+
+
+    Source: priv/machine.adoc:758 (norm:mstatus_tw_always_illegal)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+- name: XRET_CLEARS_LR_RESERVATION
+  long-name: An `x`RET instruction clears an outstanding LR reservation
+  impl-defs:
+  - MRET_CLR_LR_RESV
+  - SRET_CLR_LR_RESV
+  type: boolean
+  description: 'If the A extension is supported, the __x__RET instruction is allowed to clear
+    any outstanding LR address reservation but is not required to.
+
+
+    Source: priv/machine.adoc:2665 (norm:xret_clr_lr_resv)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Permitted but not required, so an implementation may be non-deterministic here; tests
+    should not rely on it.

@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=../../docs-resources/schemas/param-defs-schema.json
+
+$schema: ../../docs-resources/schemas/param-defs-schema.json#
+chapter_name: Smrnmi Extension
+parameter_definitions:
+- name: MNEPC_INVALID_ADDRESS_CONVERSION
+  long-name: '`mnepc` converts an invalid address before writing'
+  type: boolean
+  description: 'Prior to writing `mnepc`, implementations may convert an invalid address into
+    some other invalid address that `mnepc` is capable of holding.
+
+
+    Source: priv/smrnmi.adoc:64 (norm:mnepc_invalid_convert)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Depends on the definition of an invalid address, and implies fewer than the full width
+    of address bits are implemented.

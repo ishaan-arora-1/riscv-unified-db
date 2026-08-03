@@ -1,0 +1,82 @@
+# yaml-language-server: $schema=../../docs-resources/schemas/param-defs-schema.json
+
+$schema: ../../docs-resources/schemas/param-defs-schema.json#
+chapter_name: SmCtr (Ctrl Xfer Records)
+parameter_definitions:
+- name: CTRTARGET_MISP_IMPLEMENTED
+  long-name: '`ctrtarget`.MISP is implemented'
+  type: boolean
+  description: 'The optional MISP bit is set by the hardware when the recorded transfer is
+    an instruction whose target or taken/not-taken direction was mispredicted by the branch
+    predictor. MISP is read-only 0 when not implemented.
+
+
+    Source: priv/smctr.adoc:319 (norm:ctrtarget_misp)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: When unimplemented the bit is read-only zero; when implemented it is a read-only copy
+    of an internal mispredict state bit.
+- name: CTR_CCE_WIDTH
+  long-name: Exponent bits implemented in `ctrdata`.CCE
+  impl-def: CTR_CCOUNTER_IMPL
+  range:
+  - 0
+  - 4
+  description: 'An implementation that supports cycle counting must implement CCV and all
+    CCM bits, but may implement 0..4 exponent bits in CCE.
+
+
+    Source: priv/smctr.adoc:654 (norm:ctr_ccounter_impl)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+- name: CTR_CTRDATA_TYPE_IMPLEMENTED
+  long-name: '`ctrdata` optional fields are implemented'
+  type: boolean
+  description: 'The `ctrdata` register contains metadata for the recorded transfer. This register
+    must be implemented, though all fields within it are optional. Unimplemented fields are
+    read-only 0.
+
+
+    Source: priv/smctr.adoc:339 (norm:ctrdata_sz_acc)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: The register itself must be implemented; every field within it is optional and read-only
+    zero when unimplemented.
+- name: CTR_CYCLE_COUNTING_SUPPORTED
+  long-name: '`ctrdata` includes a count of CPU cycles'
+  impl-def: CTRDATA_CC_SUPPORTED
+  type: boolean
+  description: 'The `ctrdata` register may optionally include a count of CPU cycles elapsed
+    since the prior CTR record.
+
+
+    Source: priv/smctr.adoc:636 (norm:ctrdata_cc_supported)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+- name: SCTRDEPTH_SUPPORTED_VALUES
+  long-name: '`sctrdepth`.DEPTH encodings supported'
+  impl-def: SCTRDEPTH_DEPTH
+  type: boolean
+  array:
+  - 0
+  - 4
+  description: 'It is implementation-specific which DEPTH value(s) are supported.
+
+
+    Source: priv/smctr.adoc:215 (norm:sctrdepth_depth)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: 'Domain shape is an approximation: A per-encoding supported mask over DEPTH values
+    0..4 (16/32/64/128/256 entries). The spec states a subset is supported; his schema cannot
+    express a variable-length subset. Note James models the *configured* value as range [0,4],
+    which is the adjacent but different question.'

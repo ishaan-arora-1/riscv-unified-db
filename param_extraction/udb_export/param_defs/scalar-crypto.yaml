@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=../../docs-resources/schemas/param-defs-schema.json
+
+$schema: ../../docs-resources/schemas/param-defs-schema.json#
+chapter_name: Scalar Crypto
+parameter_definitions:
+- name: MSECCFG_SEED_BITS_RW
+  long-name: '`mseccfg`.[s,u]seed are read-write'
+  type: boolean
+  description: 'Implementations may implement `mseccfg` such that `[s,u]seed` is a read-only
+    constant value `0`.
+
+
+    Source: unpriv/zk.adoc:3794 (untagged)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Read-write or read-only zero; read-only one is not legal.

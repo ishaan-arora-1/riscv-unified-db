@@ -1,0 +1,114 @@
+# yaml-language-server: $schema=../../docs-resources/schemas/param-defs-schema.json
+
+$schema: ../../docs-resources/schemas/param-defs-schema.json#
+chapter_name: Supervisor Mode
+parameter_definitions:
+- name: HINT_SXLEN_DEST_REG_BEHAVIOR
+  long-name: A HINT overwrites destination register bits above SXLEN
+  impl-def: HINT_SXLEN
+  type: boolean
+  description: 'When such a HINT is executed with XLEN < SXLEN and bits SXLEN..XLEN of the
+    destination register not all equal to bit XLEN-1, it is implementation-defined whether
+    bits SXLEN..XLEN of the destination register are unchanged or are overwritten with copies
+    of bit XLEN-1.
+
+
+    Source: priv/supervisor.adoc:163 (norm:hint_sxlen)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+- name: SENVCFG_FIOM_ACCESS
+  long-name: '`senvcfg`.FIOM is read-only zero'
+  type: boolean
+  description: 'If `satp`.MODE is read-only zero (always Bare), the implementation may make
+    FIOM read-only zero.
+
+
+    Source: priv/supervisor.adoc:841 (norm:senvcfg_fiom_acc)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Conditional on privilege mode.
+- name: SEPC_INVALID_ADDR_BEHAVIOR
+  long-name: '`sepc` converts an invalid address before writing'
+  impl-def: SEPC_ACC_INVALID_WARL
+  type: boolean
+  description: '`sepc` is a *WARL* register that must be able to hold all valid virtual addresses.
+    It need not be capable of holding all possible invalid addresses. Prior to writing `sepc`,
+    implementations may convert an invalid address into some other invalid address that `sepc`
+    is capable of holding.
+
+
+    Source: priv/supervisor.adoc:560 (norm:sepc_acc_invalid_addr)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Software-write and hardware-write behaviour may differ for this multi-bit address
+    field.
+- name: SIP_BITS_ACCESS
+  long-name: Writable bits of `sip`
+  type: boolean
+  array: &id001
+  - 0
+  - 63
+  description: 'Each individual bit in register `sip` may be writable or may be read-only.
+
+
+    Source: priv/supervisor.adoc:401 (norm:sip_acc)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Each bit is read-write or read-only; read-only zero and read-only one are both seen.
+- name: SSTATUS_UBE_ACCESS
+  long-name: '`sstatus`.UBE is read-only'
+  impl-def: SSTATUS_UBE_WARL
+  type: boolean
+  description: 'An implementation may make UBE be a read-only field that always specifies
+    the same endianness as for S-mode.
+
+
+    Source: priv/supervisor.adoc:227 (norm:sstatus_ube)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+- name: SSTATUS_UXL_ACCESS
+  long-name: '`sstatus`.UXL is read-only'
+  impl-def: SSTATUS_UXL_WARL
+  type: boolean
+  description: 'When SXLEN=64, it is a *WARL* field that encodes the current value of UXLEN.
+    In particular, an implementation may make UXL be a read-only field whose value always
+    ensures that UXLEN=SXLEN.
+
+
+    Source: priv/supervisor.adoc:143 (norm:sstatus_uxl_sz)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+- name: STANDARD_INTERRUPT_SUPPORT
+  long-name: Standard supervisor interrupts implemented
+  impl-defs:
+  - SEI_INTR_IMPL
+  - STI_INTR_IMPL
+  - SSI_INTR_IMPL
+  - LCOFI_INTR_IMPL
+  type: boolean
+  array: *id001
+  description: 'Each standard interrupt type (SEI, STI, SSI, or LCOFI) may not be implemented,
+    in which case the corresponding interrupt-pending and interrupt-enable bits are read-only
+    zeros.
+
+
+    Source: priv/supervisor.adoc:465 (norm:std_super_intr_impl)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: 'Domain shape is an approximation: Modelled as a per-interrupt-cause mask. James instead
+    splits this into four named booleans (SEI/STI/SSI/LCOFI), which is the same information
+    at a different granularity. Worth settling on one before merging.'

@@ -1,0 +1,109 @@
+# yaml-language-server: $schema=../../docs-resources/schemas/param-defs-schema.json
+
+$schema: ../../docs-resources/schemas/param-defs-schema.json#
+chapter_name: H Extension
+parameter_definitions:
+- name: HGATP_PPN_LOWER_BITS_RO
+  long-name: '`hgatp`.PPN[1:0] are read-only zero'
+  type: boolean
+  description: 'An implementation that supports only the defined paged virtual-memory schemes
+    and/or Bare may make PPN[1:0] read-only zero.
+
+
+    Source: priv/hypervisor.adoc:1083 (norm:hgatp_ppn_op)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Applies only to implementations supporting solely the defined paged virtual-memory
+    schemes and/or Bare.
+- name: HIP_BIT_WRITABLE
+  long-name: Writable bits of `hip`
+  type: boolean
+  array: &id001
+  - 0
+  - 63
+  description: 'If bit _i_ of `sie` is read-only zero, the same bit in register `hip` may
+    be writable or may be read-only.
+
+
+    Source: priv/hypervisor.adoc:533 (norm:hip_acc)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Bit i is a free choice only where the corresponding `sie` bit is read-only zero.
+- name: HTVAL_LEGAL_VALUES
+  long-name: Guest physical addresses `htval` is able to hold
+  impl-def: HTVAL_WARL
+  type: boolean
+  array: *id001
+  description: '`htval` is a *WARL* register that must be able to hold zero and may be capable
+    of holding only an arbitrary subset of other 2-bit-shifted guest physical addresses, if
+    any.
+
+
+    Source: priv/hypervisor.adoc:957 (norm:htval_val)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: 'Domain shape is an approximation: The spec says `htval` may hold an arbitrary subset
+    of 2-bit-shifted guest physical addresses. A per-bit implemented mask is the closest his
+    schema allows and is testable, but a subset of addresses is not strictly a bit mask.'
+- name: MTVAL2_LEGAL_VALUES
+  long-name: Guest physical addresses `mtval2` is able to hold
+  impl-def: MTVAL2_WARL
+  type: boolean
+  array: *id001
+  description: '`mtval2` is a *WARL* register that must be able to hold zero and may be capable
+    of holding only an arbitrary subset of other 2-bit-shifted guest physical addresses, if
+    any.
+
+
+    Source: priv/hypervisor.adoc:1848 (norm:mtval2_val)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: 'Domain shape is an approximation: Same approximation as HTVAL_LEGAL_VALUES; identical
+    spec wording.'
+- name: VSSTATUS_UBE_PARAM
+  long-name: '`vsstatus`.UBE is a read-only copy of another endianness bit'
+  impl-def: VSSTATUS_UBE
+  type: boolean
+  description: 'An implementation may make field UBE be a read-only copy of `hstatus`.VSBE.
+
+
+    Source: priv/hypervisor.adoc:1224 (norm:vsstatus_ube)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+- name: VSXL_RO_PARAM
+  long-name: '`hstatus`.VSXL is read-only'
+  impl-def: VSXL_RO
+  type: boolean
+  description: 'In particular, an implementation may make VSXL be a read-only field whose
+    value always ensures that VSXLEN=HSXLEN.
+
+
+    Source: priv/hypervisor.adoc:227 (norm:vsxl_ro)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+- name: VTW_VIRTINSTR_PARAM
+  long-name: WFI always raises a virtual-instruction exception when `hstatus`.VTW is set
+  impl-def: VTW_VIRTINSTR
+  type: boolean
+  description: 'An implementation may have WFI always raise a virtual-instruction exception
+    in VS-mode when VTW=1 (and `mstatus`.TW=0), even if there are pending globally-disabled
+    interrupts when the instruction is executed.
+
+
+    Source: priv/hypervisor.adoc:245 (norm:vtw_virtinstr)
+
+    Confirmed by Allen Baum and Umer.
+
+    '

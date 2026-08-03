@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=../../docs-resources/schemas/param-defs-schema.json
+
+$schema: ../../docs-resources/schemas/param-defs-schema.json#
+chapter_name: State Enable Extension
+parameter_definitions:
+- name: MSTATEEN_BIT63_TYPE
+  long-name: '`mstateen` bit 63 (SE0) is read-only zero'
+  type: boolean
+  description: 'Bit 63 of each `mstateen` CSR may be read-only zero only if the hypervisor
+    extension is not implemented and the matching supervisor-level `sstateen` CSR is all read-only
+    zeros.
+
+
+    Source: priv/smstateen.adoc:178 (norm:mstateen_bit_63_roz)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Permitted only when the hypervisor extension is not implemented and the matching `sstateen`
+    CSR is all read-only zeros.
+- name: STATEEN_IMPLICIT_UPDATE_EXCEPTION
+  long-name: An implicit state update raises an exception when disabled by `stateen`
+  type: boolean
+  description: 'When a `stateen` CSR prevents access to state for a privilege mode, attempting
+    to execute in that privilege mode an instruction that _implicitly_ updates the state without
+    reading it may or may not raise an illegal-instruction or virtual-instruction exception.
+
+
+    Source: priv/smstateen.adoc:101 (norm:stateen_implicit_state_update)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Whether a trap is taken; which kind of trap is defined elsewhere.

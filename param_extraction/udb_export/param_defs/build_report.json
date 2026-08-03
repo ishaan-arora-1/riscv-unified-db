@@ -1,0 +1,355 @@
+[
+ {
+  "name": "CSR_STRONGLY_ORDERED",
+  "chapter": "zicsr.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": true,
+  "anchor": "norm:csr_strongly_ordered"
+ },
+ {
+  "name": "CTRTARGET_MISP_IMPLEMENTED",
+  "chapter": "smctr.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": "norm:ctrtarget_misp"
+ },
+ {
+  "name": "CTR_CCE_WIDTH",
+  "chapter": "smctr.yaml",
+  "impl_defs": [
+   "CTR_CCOUNTER_IMPL"
+  ],
+  "extension": "Smctr",
+  "approx": false,
+  "anchor": "norm:ctr_ccounter_impl"
+ },
+ {
+  "name": "CTR_CTRDATA_TYPE_IMPLEMENTED",
+  "chapter": "smctr.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": "norm:ctrdata_sz_acc"
+ },
+ {
+  "name": "CTR_CYCLE_COUNTING_SUPPORTED",
+  "chapter": "smctr.yaml",
+  "impl_defs": [
+   "CTRDATA_CC_SUPPORTED"
+  ],
+  "extension": "Smctr",
+  "approx": false,
+  "anchor": "norm:ctrdata_cc_supported"
+ },
+ {
+  "name": "DELEGATABLE_EXCEPTIONS",
+  "chapter": "machine.yaml",
+  "impl_defs": [
+   "MEDELEG_WARL",
+   "MIDELEG_WARL"
+  ],
+  "extension": "Sm",
+  "approx": false,
+  "anchor": "norm:medeleg_mideleg_warl"
+ },
+ {
+  "name": "HGATP_PPN_LOWER_BITS_RO",
+  "chapter": "hypervisor.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": "norm:hgatp_ppn_op"
+ },
+ {
+  "name": "HINT_SXLEN_DEST_REG_BEHAVIOR",
+  "chapter": "supervisor.yaml",
+  "impl_defs": [
+   "HINT_SXLEN"
+  ],
+  "extension": "S",
+  "approx": false,
+  "anchor": "norm:hint_sxlen"
+ },
+ {
+  "name": "HINT_XLEN_REDUCTION_BEHAVIOR",
+  "chapter": "machine.yaml",
+  "impl_defs": [
+   "XLEN_REDUCTION_HINT_OP"
+  ],
+  "extension": "Sm",
+  "approx": false,
+  "anchor": "norm:xlen_reduction_hint_op1"
+ },
+ {
+  "name": "HIP_BIT_WRITABLE",
+  "chapter": "hypervisor.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": "norm:hip_acc"
+ },
+ {
+  "name": "HPM_MISCONFIGURED_BEHAVIOR",
+  "chapter": "counters.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": "norm:hpm_misconfigured_event_behavior"
+ },
+ {
+  "name": "HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR",
+  "chapter": "counters.yaml",
+  "impl_defs": [
+   "HPM_UNIMPLEMENTED_COUNTER_ACCESS"
+  ],
+  "extension": "Zihpm",
+  "approx": false,
+  "anchor": "norm:hpm_unimplemented_counter_access"
+ },
+ {
+  "name": "HTVAL_LEGAL_VALUES",
+  "chapter": "hypervisor.yaml",
+  "impl_defs": [
+   "HTVAL_WARL"
+  ],
+  "extension": "H",
+  "approx": true,
+  "anchor": "norm:htval_val"
+ },
+ {
+  "name": "MCYCLE_SHARED",
+  "chapter": "machine.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": "norm:mcountinhibit_cy_shared"
+ },
+ {
+  "name": "MENVCFG_FIOM_READONLY",
+  "chapter": "machine.yaml",
+  "impl_defs": [
+   "MENVCFG_FIOM_RDONLY0_OK"
+  ],
+  "extension": "Sm",
+  "approx": false,
+  "anchor": "norm:menvcfg_fiom_rdonly0_ok"
+ },
+ {
+  "name": "MIP_WRITABLE_BITS",
+  "chapter": "machine.yaml",
+  "impl_defs": [
+   "MIP_BITS_WR_OR_RDONLY"
+  ],
+  "extension": "Sm",
+  "approx": false,
+  "anchor": "norm:mip_bits_wr_or_rdonly"
+ },
+ {
+  "name": "MNEPC_INVALID_ADDRESS_CONVERSION",
+  "chapter": "rnmi.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": "norm:mnepc_invalid_convert"
+ },
+ {
+  "name": "MSECCFG_SEED_BITS_RW",
+  "chapter": "scalar-crypto.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": null
+ },
+ {
+  "name": "MSTATEEN_BIT63_TYPE",
+  "chapter": "smstateen.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": "norm:mstateen_bit_63_roz"
+ },
+ {
+  "name": "MTVAL2_LEGAL_VALUES",
+  "chapter": "hypervisor.yaml",
+  "impl_defs": [
+   "MTVAL2_WARL"
+  ],
+  "extension": "H",
+  "approx": true,
+  "anchor": "norm:mtval2_val"
+ },
+ {
+  "name": "PMA_IDEMPOTENT_IMPLICIT_READ_SIZE",
+  "chapter": "machine.yaml",
+  "impl_defs": [
+   "PMA_IDP_IMPLICIT_SZ"
+  ],
+  "extension": "Sm",
+  "approx": true,
+  "anchor": "norm:pma_idp_implicit_sz"
+ },
+ {
+  "name": "PMPADDR_WARL_MASK",
+  "chapter": "machine.yaml",
+  "impl_defs": [
+   "PMPADDR_WARL"
+  ],
+  "extension": "Sm",
+  "approx": false,
+  "anchor": "norm:pmp_addr_warl"
+ },
+ {
+  "name": "SCTRDEPTH_SUPPORTED_VALUES",
+  "chapter": "smctr.yaml",
+  "impl_defs": [
+   "SCTRDEPTH_DEPTH"
+  ],
+  "extension": "Smctr",
+  "approx": true,
+  "anchor": "norm:sctrdepth_depth"
+ },
+ {
+  "name": "SENVCFG_FIOM_ACCESS",
+  "chapter": "supervisor.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": "norm:senvcfg_fiom_acc"
+ },
+ {
+  "name": "SEPC_INVALID_ADDR_BEHAVIOR",
+  "chapter": "supervisor.yaml",
+  "impl_defs": [
+   "SEPC_ACC_INVALID_WARL"
+  ],
+  "extension": "S",
+  "approx": false,
+  "anchor": "norm:sepc_acc_invalid_addr"
+ },
+ {
+  "name": "SIP_BITS_ACCESS",
+  "chapter": "supervisor.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": "norm:sip_acc"
+ },
+ {
+  "name": "SISELECT_WIDTH",
+  "chapter": "indirect-csr.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": true,
+  "anchor": "norm:siselect_min_range"
+ },
+ {
+  "name": "SSTATUS_UBE_ACCESS",
+  "chapter": "supervisor.yaml",
+  "impl_defs": [
+   "SSTATUS_UBE_WARL"
+  ],
+  "extension": "S",
+  "approx": false,
+  "anchor": "norm:sstatus_ube"
+ },
+ {
+  "name": "SSTATUS_UXL_ACCESS",
+  "chapter": "supervisor.yaml",
+  "impl_defs": [
+   "SSTATUS_UXL_WARL"
+  ],
+  "extension": "S",
+  "approx": false,
+  "anchor": "norm:sstatus_uxl_sz"
+ },
+ {
+  "name": "STANDARD_INTERRUPT_SUPPORT",
+  "chapter": "supervisor.yaml",
+  "impl_defs": [
+   "SEI_INTR_IMPL",
+   "STI_INTR_IMPL",
+   "SSI_INTR_IMPL",
+   "LCOFI_INTR_IMPL"
+  ],
+  "extension": "S",
+  "approx": true,
+  "anchor": "norm:std_super_intr_impl"
+ },
+ {
+  "name": "STATEEN_IMPLICIT_UPDATE_EXCEPTION",
+  "chapter": "smstateen.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": "norm:stateen_implicit_state_update"
+ },
+ {
+  "name": "VSISELECT_WIDTH",
+  "chapter": "indirect-csr.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": true,
+  "anchor": "norm:vsiselect_min_range"
+ },
+ {
+  "name": "VSSTATUS_UBE_PARAM",
+  "chapter": "hypervisor.yaml",
+  "impl_defs": [
+   "VSSTATUS_UBE"
+  ],
+  "extension": "H",
+  "approx": false,
+  "anchor": "norm:vsstatus_ube"
+ },
+ {
+  "name": "VSXL_RO_PARAM",
+  "chapter": "hypervisor.yaml",
+  "impl_defs": [
+   "VSXL_RO"
+  ],
+  "extension": "H",
+  "approx": false,
+  "anchor": "norm:vsxl_ro"
+ },
+ {
+  "name": "VTW_VIRTINSTR_PARAM",
+  "chapter": "hypervisor.yaml",
+  "impl_defs": [
+   "VTW_VIRTINSTR"
+  ],
+  "extension": "H",
+  "approx": false,
+  "anchor": "norm:vtw_virtinstr"
+ },
+ {
+  "name": "WFI_TW_ALWAYS_ILLEGAL",
+  "chapter": "machine.yaml",
+  "impl_defs": [
+   "MSTATUS_TW_ALWAYS_ILLEGAL"
+  ],
+  "extension": "Sm",
+  "approx": false,
+  "anchor": "norm:mstatus_tw_always_illegal"
+ },
+ {
+  "name": "XRET_CLEARS_LR_RESERVATION",
+  "chapter": "machine.yaml",
+  "impl_defs": [
+   "MRET_CLR_LR_RESV",
+   "SRET_CLR_LR_RESV"
+  ],
+  "extension": "Sm",
+  "approx": false,
+  "anchor": "norm:xret_clr_lr_resv"
+ },
+ {
+  "name": "ZALASR_MISALIGNED_ATOMICITY_GRANULE",
+  "chapter": "zalasr.yaml",
+  "impl_defs": [],
+  "extension": null,
+  "approx": false,
+  "anchor": "norm:zalasr_misaligned_pma_relax"
+ }
+]

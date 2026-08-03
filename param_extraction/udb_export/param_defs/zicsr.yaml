@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=../../docs-resources/schemas/param-defs-schema.json
+
+$schema: ../../docs-resources/schemas/param-defs-schema.json#
+chapter_name: Zicsr Extension
+parameter_definitions:
+- name: CSR_STRONGLY_ORDERED
+  long-name: CSRs whose accesses are strongly ordered
+  type: boolean
+  array:
+  - 0
+  - 4095
+  description: 'The hardware platform may define that accesses to certain CSRs are strongly
+    ordered, as defined by the Memory-Ordering PMAs section in Volume II of this manual.
+
+
+    Source: unpriv/zicsr.adoc:244 (norm:csr_strongly_ordered)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: 'Domain shape is an approximation: A per-CSR-address boolean over the full 12-bit
+    CSR address space. The spec says a platform may designate certain CSRs; his schema cannot
+    express a variable-length subset. 4096 entries is faithful but verbose.'

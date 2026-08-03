@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=../../docs-resources/schemas/param-defs-schema.json
+
+$schema: ../../docs-resources/schemas/param-defs-schema.json#
+chapter_name: Zalasr Extension
+parameter_definitions:
+- name: ZALASR_MISALIGNED_ATOMICITY_GRANULE
+  long-name: Zalasr relaxes the misaligned atomicity granule requirement
+  type: boolean
+  description: 'The misaligned atomicity granule PMA, defined in Volume II of this manual,
+    optionally relaxes this alignment requirement.
+
+
+    Source: unpriv/zalasr.adoc:27 (norm:zalasr_misaligned_pma_relax)
+
+    Flagged, awaiting a ruling.
+
+    '
+  note: Overlaps UDB's existing MISALIGNED_MAX_ATOMICITY_GRANULE_SIZE; flagged for a ruling
+    in cross_list/out/list_comparison.adoc.

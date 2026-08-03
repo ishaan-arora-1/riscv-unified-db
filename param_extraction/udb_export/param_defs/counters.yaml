@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=../../docs-resources/schemas/param-defs-schema.json
+
+$schema: ../../docs-resources/schemas/param-defs-schema.json#
+chapter_name: Counters
+parameter_definitions:
+- name: HPM_MISCONFIGURED_BEHAVIOR
+  long-name: Misconfigured HPM event returns a constant value
+  type: boolean
+  description: 'If the configuration used to select the events counted by a counter is misconfigured,
+    the counter may return a constant value.
+
+
+    Source: unpriv/zihpm.adoc:26 (norm:hpm_misconfigured_event_behavior)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
+  note: Only observable when Ssstrict is implemented; otherwise unspecified.
+- name: HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR
+  long-name: Behavior when an unimplemented HPM counter is read
+  impl-def: HPM_UNIMPLEMENTED_COUNTER_ACCESS
+  type:
+  - AlwaysValue
+  - AlwaysIllegalInstExc
+  - Other
+  description: 'Accessing an unimplemented counter may cause an illegal-instruction exception
+    or may return a constant value.
+
+
+    Source: unpriv/zihpm.adoc:24 (norm:hpm_unimplemented_counter_access)
+
+    Confirmed by Allen Baum and Umer.
+
+    '
