@@ -24,10 +24,7 @@ import yaml
 REPO = Path(__file__).resolve().parents[3]
 NRD = REPO / "ext/riscv-isa-manual/normative_rule_defs"
 OURS = REPO / "param_extraction/cross_list/data/ours_canonical.json"
-JAMES = Path(
-    "/private/tmp/claude-501/-Users-ashish-lfx-riscv-unified-db/"
-    "c9469cd6-0086-4537-af44-4c6ac9e12f2f/scratchpad/james/inventory.json"
-)
+JDIR = REPO / "param_extraction/cross_list/data/james_param_defs"
 OUT = REPO / "param_extraction/cross_list/data/tag_join_report.json"
 
 
@@ -51,7 +48,7 @@ def load_rules():
             rules[nz(name)] = {
                 "name": name,
                 "file": p.name,
-                "kind": e.get("kind"),
+                "impl_def": bool(e.get("impl-def-behavior")),
                 "tags": tags,
             }
             for t in tags:
@@ -59,10 +56,28 @@ def load_rules():
     return rules, by_tag
 
 
+def load_james():
+    """His entries, read straight from the vendored param_defs."""
+    params, csrs = [], []
+    for p in sorted(JDIR.glob("*.yaml")):
+        doc = yaml.safe_load(p.read_text()) or {}
+        for e in doc.get("parameter_definitions") or []:
+            params.append({"name": e.get("name"),
+                           "impl": e.get("impl-def") or e.get("impl-defs")})
+        for e in doc.get("csr_definitions") or []:
+            reg = e.get("reg-name") or e.get("reg-names")
+            reg = reg if isinstance(reg, str) else "/".join(reg)
+            fld = e.get("field-name")
+            csrs.append({"name": f"{reg}.{fld}" if fld else reg,
+                         "reg": reg, "field": fld,
+                         "impl": e.get("impl-def") or e.get("impl-defs")})
+    return {"params": params, "csrs": csrs}
+
+
 def main() -> int:
     rules, by_tag = load_rules()
     ours = json.loads(OURS.read_text())["parameters"]
-    james = json.loads(JAMES.read_text())
+    james = load_james()
 
     print(f"normative rules            : {len(rules)}")
     print(f"distinct tags referenced   : {len(by_tag)}")
@@ -77,21 +92,21 @@ def main() -> int:
                 "parameter_name": r["parameter_name"],
                 "anchor": anchor,
                 "rules": hits,
-                "rule_kinds": sorted(
-                    {rules[nz(h)]["kind"] or "(none)" for h in hits}
+                "impl_def_marked": any(
+                    rules[nz(h)]["impl_def"] for h in hits
                 ),
             }
         )
     o_anchor = sum(1 for r in ours_rows if r["anchor"])
     o_rule = sum(1 for r in ours_rows if r["rules"])
-    o_kindparam = sum(1 for r in ours_rows if "parameter" in r["rule_kinds"])
+    o_marked = sum(1 for r in ours_rows if r["impl_def_marked"])
 
     print()
     print("OUR SIDE")
     print(f"  params                   : {len(ours_rows)}")
     print(f"  with a norm anchor       : {o_anchor}")
     print(f"  anchor -> a rule entry   : {o_rule}")
-    print(f"  ...rule is kind:parameter: {o_kindparam}")
+    print(f"  ...marked impl-def-behavior: {o_marked}")
 
     # --- James' side: impl-def -> rule -> tags ---------------------------
     j_rows = []
@@ -166,8 +181,8 @@ def main() -> int:
         if r["anchor"] and not r["rules"]:
             print(f"    {r['parameter_name']:38} {r['anchor']}")
     print()
-    print("rule kinds behind our anchors:",
-          Counter(k for r in ours_rows for k in r["rule_kinds"]))
+    print("impl-def-behavior behind our anchors:",
+          Counter(r["impl_def_marked"] for r in ours_rows))
     return 0
 
 

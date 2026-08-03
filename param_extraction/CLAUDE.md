@@ -82,6 +82,13 @@ else-read-only-zero), `SW_RULE`.
 - Model: `claude-sonnet-4-20250514` is **dead (EOL)** — use `MODEL_ID=claude-sonnet-4-6`.
 - Run scripts with `uv run` (`--with anthropic`/`--with openpyxl` as needed).
 
+## Cross-list comparison (James Ball's list, UDB, and ours)
+A separate workstream lives in `cross_list/`. **Read `cross_list/README.md`
+before touching it** — it covers the inputs (all vendored, nothing external),
+how to run the pipeline, the current numbers, and a list of traps that have
+each already caused a real error. The two AsciiDoc deliverables in
+`cross_list/out/` are generated; edit the generator, never the `.adoc`.
+
 ## Current state
 Latest sheet: `data/params_for_review.csv`/`.xlsx` (14 V4 candidates + 24 mentor-
 confirmed). Confirmed-but-deduplicated list and concrete per-param details

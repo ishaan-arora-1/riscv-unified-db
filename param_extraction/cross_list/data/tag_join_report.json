@@ -6,9 +6,7 @@
    "rules": [
     "zicsr_strongly_ordered"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "CTRTARGET_MISP_IMPLEMENTED",
@@ -16,19 +14,15 @@
    "rules": [
     "ctrtarget_misp"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "CTR_CCE_WIDTH",
-   "anchor": "norm:ccounter_impl",
+   "anchor": "norm:ctr_ccounter_impl",
    "rules": [
-    "ccounter"
+    "CTR_CCOUNTER_IMPL"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "CTR_CTRDATA_TYPE_IMPLEMENTED",
@@ -36,55 +30,45 @@
    "rules": [
     "ctrdata_sz_acc"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "CTR_CYCLE_COUNTING_SUPPORTED",
-   "anchor": "norm:ctrdata_cc_supported_param",
+   "anchor": "norm:ctrdata_cc_supported",
    "rules": [
-    "ctrdata_cc_supported"
+    "CTRDATA_CC_SUPPORTED"
    ],
-   "rule_kinds": [
-    "parameter"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "DELEGATABLE_EXCEPTIONS",
    "anchor": "norm:medeleg_mideleg_warl",
    "rules": [],
-   "rule_kinds": []
+   "impl_def_marked": false
   },
   {
    "parameter_name": "HGATP_PPN_LOWER_BITS_RO",
-   "anchor": "norm:hgatp-ppn_op",
+   "anchor": "norm:hgatp_ppn_op",
    "rules": [
-    "hgatp-ppn_op"
+    "hgatp_ppn_op"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "HINT_SXLEN_DEST_REG_BEHAVIOR",
-   "anchor": "norm:hint_sxlen_param",
+   "anchor": "norm:hint_sxlen",
    "rules": [
-    "hint_sxlen"
+    "HINT_SXLEN"
    ],
-   "rule_kinds": [
-    "parameter"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "HINT_XLEN_REDUCTION_BEHAVIOR",
    "anchor": "norm:xlen_reduction_hint_op1",
    "rules": [
-    "xlen_reduction_hint_op"
+    "XLEN_REDUCTION_HINT_OP"
    ],
-   "rule_kinds": [
-    "parameter"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "HIP_BIT_WRITABLE",
@@ -92,9 +76,7 @@
    "rules": [
     "hip_acc"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "HPM_MISCONFIGURED_BEHAVIOR",
@@ -102,60 +84,48 @@
    "rules": [
     "hpm_misconfigured_event_behavior"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "HPM_UNIMPLEMENTED_ACCESS_BEHAVIOR",
    "anchor": "norm:hpm_unimplemented_counter_access",
    "rules": [
-    "hpm_unimplemented_counter_access"
+    "HPM_UNIMPLEMENTED_COUNTER_ACCESS"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "HTVAL_LEGAL_VALUES",
    "anchor": "norm:htval_val",
    "rules": [
     "htval_val",
-    "htval_warl"
+    "HTVAL_WARL"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "MCYCLE_SHARED",
-   "anchor": "norm:mcycle_shared",
+   "anchor": "norm:mcountinhibit_cy_shared",
    "rules": [
-    "mcycle_shared"
+    "mcountinhibit_cy_shared"
    ],
-   "rule_kinds": [
-    "parameter"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "MENVCFG_FIOM_READONLY",
    "anchor": "norm:menvcfg_fiom_rdonly0_ok",
    "rules": [
-    "menvcfg_fiom_rdonly0_ok"
+    "MENVCFG_FIOM_RDONLY0_OK"
    ],
-   "rule_kinds": [
-    "parameter"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "MIP_WRITABLE_BITS",
    "anchor": "norm:mip_bits_wr_or_rdonly",
    "rules": [
-    "mip_bits_wr_or_rdonly"
+    "MIP_BITS_WR_OR_RDONLY"
    ],
-   "rule_kinds": [
-    "parameter"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "MNEPC_INVALID_ADDRESS_CONVERSION",
@@ -163,89 +133,73 @@
    "rules": [
     "mnepc_invalid_convert"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "MSECCFG_SEED_BITS_RW",
    "anchor": null,
    "rules": [],
-   "rule_kinds": []
+   "impl_def_marked": false
   },
   {
    "parameter_name": "MSTATEEN_BIT63_TYPE",
-   "anchor": "norm:mstateen-bit-63_roz",
+   "anchor": "norm:mstateen_bit_63_roz",
    "rules": [
-    "mstateen-bit-63_roz"
+    "mstateen_bit_63_roz"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "MTVAL2_LEGAL_VALUES",
    "anchor": "norm:mtval2_val",
    "rules": [
     "mtval2_val",
-    "mtval2_warl"
+    "MTVAL2_WARL"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "PMA_IDEMPOTENT_IMPLICIT_READ_SIZE",
    "anchor": "norm:pma_idp_implicit_sz",
    "rules": [
-    "pma_idp_implicit_sz"
+    "PMA_IDP_IMPLICIT_SZ"
    ],
-   "rule_kinds": [
-    "parameter"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "PMPADDR_WARL_MASK",
    "anchor": "norm:pmp_addr_warl",
    "rules": [
-    "pmp_addr_warl"
+    "PMPADDR_WARL"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "SCTRDEPTH_SUPPORTED_VALUES",
-   "anchor": "norm:sctrdepth-depth_param",
+   "anchor": "norm:sctrdepth_depth",
    "rules": [
     "CTR_DEPTH",
     "sctrdepth",
-    "sctrdepth-depth"
+    "SCTRDEPTH_DEPTH"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "SENVCFG_FIOM_ACCESS",
-   "anchor": "norm:senvcfg-fiom_acc",
+   "anchor": "norm:senvcfg_fiom_acc",
    "rules": [
-    "senvcfg-fiom_acc"
+    "senvcfg_fiom_acc"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "SEPC_INVALID_ADDR_BEHAVIOR",
    "anchor": "norm:sepc_acc_invalid_addr",
    "rules": [
     "sepc_acc_invalid_addr",
-    "sepc_acc_invalid_warl"
+    "SEPC_ACC_INVALID_WARL"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "SIP_BITS_ACCESS",
@@ -253,9 +207,7 @@
    "rules": [
     "sip_acc"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "SISELECT_WIDTH",
@@ -263,50 +215,38 @@
    "rules": [
     "siselect_min_range"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "SSTATUS_UBE_ACCESS",
-   "anchor": "norm:sstatus-ube",
+   "anchor": "norm:sstatus_ube",
    "rules": [
-    "sstatus-ube_warl"
+    "SSTATUS_UBE_WARL"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "SSTATUS_UXL_ACCESS",
-   "anchor": "norm:sstatus-uxl_sz",
+   "anchor": "norm:sstatus_uxl_sz",
    "rules": [
-    "sstatus-uxl_sz",
-    "sstatus-uxl_warl"
+    "sstatus_uxl_sz",
+    "SSTATUS_UXL_WARL"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "STANDARD_INTERRUPT_SUPPORT",
-   "anchor": "norm:sip_sie_unimpl",
-   "rules": [
-    "sip_unimpl_warl"
-   ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "anchor": "norm:std_super_intr_impl",
+   "rules": [],
+   "impl_def_marked": false
   },
   {
    "parameter_name": "STATEEN_IMPLICIT_UPDATE_EXCEPTION",
-   "anchor": "norm:smstateen_implicit_state_update",
+   "anchor": "norm:stateen_implicit_state_update",
    "rules": [
-    "smstateen_implicit_state_update"
+    "stateen_implicit_state_update"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "VSISELECT_WIDTH",
@@ -314,55 +254,45 @@
    "rules": [
     "vsiselect_min_range"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   },
   {
    "parameter_name": "VSSTATUS_UBE_PARAM",
-   "anchor": "norm:vsstatus-ube_param",
+   "anchor": "norm:vsstatus_ube",
    "rules": [
-    "vsstatus-ube"
+    "VSSTATUS_UBE"
    ],
-   "rule_kinds": [
-    "parameter"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "VSXL_RO_PARAM",
-   "anchor": "norm:vsxl_ro_param",
+   "anchor": "norm:vsxl_ro",
    "rules": [
-    "vsxl_ro"
+    "VSXL_RO"
    ],
-   "rule_kinds": [
-    "parameter"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "VTW_VIRTINSTR_PARAM",
-   "anchor": "norm:vtw_virtinstr_param",
+   "anchor": "norm:vtw_virtinstr",
    "rules": [
-    "vtw_virtinstr"
+    "VTW_VIRTINSTR"
    ],
-   "rule_kinds": [
-    "parameter"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "WFI_TW_ALWAYS_ILLEGAL",
    "anchor": "norm:mstatus_tw_always_illegal",
    "rules": [
-    "mstatus_tw_always_illegal"
+    "MSTATUS_TW_ALWAYS_ILLEGAL"
    ],
-   "rule_kinds": [
-    "parameter"
-   ]
+   "impl_def_marked": true
   },
   {
    "parameter_name": "XRET_CLEARS_LR_RESERVATION",
    "anchor": "norm:xret_clr_lr_resv",
    "rules": [],
-   "rule_kinds": []
+   "impl_def_marked": false
   },
   {
    "parameter_name": "ZALASR_MISALIGNED_ATOMICITY_GRANULE",
@@ -370,9 +300,7 @@
    "rules": [
     "zalasr_misaligned_pma_relax"
    ],
-   "rule_kinds": [
-    "(none)"
-   ]
+   "impl_def_marked": false
   }
  ],
  "james": [
@@ -402,7 +330,9 @@
    "impl": [
     "CACHE_BLOCK_SIZE"
    ],
-   "tags": []
+   "tags": [
+    "norm:cache_block_size"
+   ]
   },
   {
    "name": "HPM_READ_BEHAVIOR",
@@ -422,7 +352,9 @@
    "impl": [
     "EE_IMPL_FLEX"
    ],
-   "tags": []
+   "tags": [
+    "norm:ee_impl_flex"
+   ]
   },
   {
    "name": "HSXLEN",
@@ -431,7 +363,7 @@
     "HSXLEN"
    ],
    "tags": [
-    "norm:hsxlen_param"
+    "norm:hsxlen"
    ]
   },
   {
@@ -441,7 +373,7 @@
     "VSXLEN"
    ],
    "tags": [
-    "norm:vsxlen_param"
+    "norm:vsxlen"
    ]
   },
   {
@@ -451,7 +383,7 @@
     "VTW_VIRTINSTR"
    ],
    "tags": [
-    "norm:vtw_virtinstr_param"
+    "norm:vtw_virtinstr"
    ]
   },
   {
@@ -461,7 +393,7 @@
     "GEILEN"
    ],
    "tags": [
-    "norm:geilen_param"
+    "norm:geilen"
    ]
   },
   {
@@ -471,7 +403,7 @@
     "HTVAL_TRAPVAL"
    ],
    "tags": [
-    "norm:htval_trapval_param"
+    "norm:htval_trapval"
    ]
   },
   {
@@ -481,7 +413,7 @@
     "HGATP_VMID"
    ],
    "tags": [
-    "norm:hgatp-vmid_param"
+    "norm:hgatp_vmid"
    ]
   },
   {
@@ -491,7 +423,7 @@
     "VSSTATUS_UBE"
    ],
    "tags": [
-    "norm:vsstatus-ube_param"
+    "norm:vsstatus_ube"
    ]
   },
   {
@@ -501,7 +433,7 @@
     "MTVAL2_TRAPVAL"
    ],
    "tags": [
-    "norm:mtval2_trapval_param"
+    "norm:mtval2_trapval"
    ]
   },
   {
@@ -695,7 +627,9 @@
    "impl": [
     "MCAUSE_EXCCODE_MISALIGNED_VS_FAULT_PRI"
    ],
-   "tags": []
+   "tags": [
+    "norm:mcause_exccode_pri2"
+   ]
   },
   {
    "name": "MTVAL_PER_EXC_BEHAVIOR",
@@ -723,7 +657,9 @@
    "impl": [
     "MCONFIGPTR_VAL"
    ],
-   "tags": []
+   "tags": [
+    "norm:mconfigptr_val"
+   ]
   },
   {
    "name": "MENVCFG_FIOM_RDONLY0_OK",
@@ -768,7 +704,7 @@
     "WFI_OPT_U_MODE"
    ],
    "tags": [
-    "norm:wfi_opt_U-mode"
+    "norm:wfi_opt_U_mode"
    ]
   },
   {
@@ -902,7 +838,7 @@
     "CRITICAL_ERROR"
    ],
    "tags": [
-    "norm:critical-error"
+    "norm:critical_error"
    ]
   },
   {
@@ -957,7 +893,9 @@
    "impl": [
     "PMP_GRANULARITY"
    ],
-   "tags": []
+   "tags": [
+    "norm:pmp_granularity"
+   ]
   },
   {
    "name": "PMP_ENTRY_COUNT",
@@ -975,7 +913,9 @@
    "impl": [
     "MISALIGNED_LDST_HW_SUPPORT"
    ],
-   "tags": []
+   "tags": [
+    "norm:misaligned_ldst_hw_support"
+   ]
   },
   {
    "name": "MISALIGNED_LDST_EXC_TYPE",
@@ -983,7 +923,9 @@
    "impl": [
     "MISALIGNED_LDST_EXC_TYPE"
    ],
-   "tags": []
+   "tags": [
+    "norm:misaligned_ldst_exc_type"
+   ]
   },
   {
    "name": "CTRDATA_CC_SUPPORTED",
@@ -992,7 +934,7 @@
     "CTRDATA_CC_SUPPORTED"
    ],
    "tags": [
-    "norm:ctrdata_cc_supported_param"
+    "norm:ctrdata_cc_supported"
    ]
   },
   {
@@ -1001,7 +943,9 @@
    "impl": [
     "CTR_CCOUNTER_IMPL"
    ],
-   "tags": []
+   "tags": [
+    "norm:ctr_ccounter_impl"
+   ]
   },
   {
    "name": "SCTRDEPTH_DEPTH",
@@ -1010,9 +954,9 @@
     "SCTRDEPTH_DEPTH"
    ],
    "tags": [
-    "norm:sctrdepth-depth_op0",
-    "norm:sctrdepth-depth_op1",
-    "norm:sctrdepth-depth_param"
+    "norm:sctrdepth_depth",
+    "norm:sctrdepth_depth_op0",
+    "norm:sctrdepth_depth_op1"
    ]
   },
   {
@@ -1022,7 +966,7 @@
     "HINT_SXLEN"
    ],
    "tags": [
-    "norm:hint_sxlen_param"
+    "norm:hint_sxlen"
    ]
   },
   {
@@ -1063,7 +1007,9 @@
    "impl": [
     "ASIDLEN"
    ],
-   "tags": []
+   "tags": [
+    "norm:asidlen"
+   ]
   },
   {
    "name": "SATP_MODE_ROZ_SFENCE_ILLEGAL",
@@ -1072,7 +1018,7 @@
     "SATP_MODE_ROZ_SFENCE_ILLEGAL"
    ],
    "tags": [
-    "norm:satp-mode_roz_sfence_illegal_param"
+    "norm:satp_mode_roz_sfence_illegal"
    ]
   },
   {
@@ -1082,7 +1028,7 @@
     "ELEN"
    ],
    "tags": [
-    "norm:elen_param"
+    "norm:elen"
    ]
   },
   {
@@ -1092,7 +1038,7 @@
     "VLEN"
    ],
    "tags": [
-    "norm:vlen_param"
+    "norm:vlen"
    ]
   },
   {
@@ -1102,7 +1048,7 @@
     "HW_MSTATUS_VS_DIRTY_UPDATE"
    ],
    "tags": [
-    "norm:hw_mstatus_vs_dirty_update_param"
+    "norm:hw_mstatus_vs_dirty_update"
    ]
   },
   {
@@ -1112,7 +1058,8 @@
     "RESERVED_VILL_SET"
    ],
    "tags": [
-    "norm:reserved_vill_set_param"
+    "norm:reserved_vill_set",
+    "norm:vtype_vset_rsv"
    ]
   },
   {
@@ -1122,7 +1069,8 @@
     "RESERVED_VILL_SET"
    ],
    "tags": [
-    "norm:reserved_vill_set_param"
+    "norm:reserved_vill_set",
+    "norm:vtype_vset_rsv"
    ]
   },
   {
@@ -1132,7 +1080,7 @@
     "MSTATUS_VS_EXISTS"
    ],
    "tags": [
-    "norm:mstatus_vs_exists_param"
+    "norm:mstatus_vs_exists"
    ]
   },
   {
@@ -1142,7 +1090,7 @@
     "VSSTATUS_VS_EXISTS"
    ],
    "tags": [
-    "norm:vsstatus_vs_exists_param"
+    "norm:vsstatus_vs_exists"
    ]
   },
   {
@@ -1152,7 +1100,7 @@
     "VECTOR_LS_VSTART"
    ],
    "tags": [
-    "norm:vector_ls_vstart_param"
+    "norm:vector_ls_vstart"
    ]
   },
   {
@@ -1162,7 +1110,7 @@
     "VECTOR_LS_CONSTANT_STRIDE_X0"
    ],
    "tags": [
-    "norm:vector_ls_constant-stride_x0"
+    "norm:vector_ls_constant_stride_x0"
    ]
   },
   {
@@ -1172,7 +1120,7 @@
     "VECTOR_LS_OVERWRITE_PAST_TRAP"
    ],
    "tags": [
-    "norm:vector_ls_overwrite_past_trap_param"
+    "norm:vector_ls_overwrite_past_trap"
    ]
   },
   {
@@ -1182,7 +1130,7 @@
     "VECTOR_FF_PAST_TRAP"
    ],
    "tags": [
-    "norm:vector_ff_past_trap_param"
+    "norm:vector_ff_past_trap"
    ]
   },
   {
@@ -1192,7 +1140,7 @@
     "VECTOR_LS_SEG_PARTIAL_ACCESS"
    ],
    "tags": [
-    "norm:vector_ls_seg_partial_access_param"
+    "norm:vector_ls_seg_partial_access"
    ]
   },
   {
@@ -1202,7 +1150,8 @@
     "VECTOR_FF_SEG_PARTIAL_ACCESS"
    ],
    "tags": [
-    "norm:vector_ff_seg_partial_access_param"
+    "norm:vector_ff_seg_partial_access",
+    "norm:vector_ls__seg_ff_unit-stride_op"
    ]
   },
   {
@@ -1212,7 +1161,8 @@
     "VECTOR_FF_SEG_PARTIAL_ACCESS"
    ],
    "tags": [
-    "norm:vector_ff_seg_partial_access_param"
+    "norm:vector_ff_seg_partial_access",
+    "norm:vector_ls__seg_ff_unit-stride_op"
    ]
   },
   {
@@ -1222,7 +1172,7 @@
     "VECTOR_LS_SEG_FF_OVERLOAD"
    ],
    "tags": [
-    "norm:vector_ls_seg_ff_overload_param"
+    "norm:vector_ls_seg_ff_overload"
    ]
   },
   {
@@ -1231,9 +1181,7 @@
    "impl": [
     "VECTOR_LS_WHOLEREG_MISSALIGNED_EXCEPTION"
    ],
-   "tags": [
-    "norm:vector_ls_wholereg_missaligned_exception_param"
-   ]
+   "tags": []
   },
   {
    "name": "VECTOR_LS_MISSALIGNED_EXCEPTION",
@@ -1241,9 +1189,7 @@
    "impl": [
     "VECTOR_LS_MISSALIGNED_EXCEPTION"
    ],
-   "tags": [
-    "norm:vector_ls_missaligned_exception_param"
-   ]
+   "tags": []
   },
   {
    "name": "INTERRUPTS_ALLOWED_IN_PUSHPOP",
@@ -1252,7 +1198,7 @@
     "INTERRUPTS_ALLOWED_IN_PUSHPOP"
    ],
    "tags": [
-    "norm:interrupts_allowed_in_pushpop_param"
+    "norm:interrupts_allowed_in_pushpop"
    ]
   },
   {
@@ -1262,7 +1208,7 @@
     "NTL_TRAP_BEHAVIOR"
    ],
    "tags": [
-    "norm:NTL-trap_behavior"
+    "norm:NTL_trap_behavior"
    ]
   },
   {
@@ -1277,87 +1223,99 @@
   },
   {
    "name": "hstatus.VSXL",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "HSTATUS_VSXL_64_WARL",
     "VSXL_RO"
    ],
    "tags": [
-    "norm:hstatus-vsxl_64",
-    "norm:vsxl_ro_param"
+    "norm:hstatus_vsxl_64",
+    "norm:vsxl_ro"
    ]
   },
   {
    "name": "hstatus.VGEIN",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "HSTATUS_VGEIN_WLRL"
    ],
    "tags": [
-    "norm:hstatus-vgein_op"
+    "norm:hstatus_vgein_op"
    ]
   },
   {
    "name": "hstatus.VSBE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "HSTATUS_VSBE_WARL"
    ],
    "tags": [
-    "norm:hstatus-vsbe_op"
+    "norm:hstatus_vsbe_op"
    ]
   },
   {
-   "name": "hedeleg.None",
-   "kind": "csr",
+   "name": "hedeleg",
+   "kind": "param",
    "impl": [
     "HEDELEG_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:hedeleg_img"
+   ]
   },
   {
-   "name": "hideleg.None",
-   "kind": "csr",
+   "name": "hideleg",
+   "kind": "param",
    "impl": [
     "HIDELEG_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:hideleg_img"
+   ]
   },
   {
-   "name": "hvip.None",
-   "kind": "csr",
+   "name": "hvip",
+   "kind": "param",
    "impl": [
     "HVIP_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:hvip_img"
+   ]
   },
   {
-   "name": "hip.None",
-   "kind": "csr",
+   "name": "hip",
+   "kind": "param",
    "impl": [
     "HIP_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:hip_img"
+   ]
   },
   {
-   "name": "hie.None",
-   "kind": "csr",
+   "name": "hie",
+   "kind": "param",
    "impl": [
     "HIE_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:hie_img"
+   ]
   },
   {
-   "name": "hgeie.None",
-   "kind": "csr",
+   "name": "hgeie",
+   "kind": "param",
    "impl": [
     "HGEIE_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:hgeie_img"
+   ]
   },
   {
-   "name": "hcounteren.None",
-   "kind": "csr",
+   "name": "hcounteren",
+   "kind": "param",
    "impl": [
     "HCOUNTEREN_WARL"
    ],
@@ -1366,8 +1324,8 @@
    ]
   },
   {
-   "name": "htval.None",
-   "kind": "csr",
+   "name": "htval",
+   "kind": "param",
    "impl": [
     "HTVAL_WARL"
    ],
@@ -1376,8 +1334,8 @@
    ]
   },
   {
-   "name": "htinst.None",
-   "kind": "csr",
+   "name": "htinst",
+   "kind": "param",
    "impl": [
     "HTINST_WARL"
    ],
@@ -1387,43 +1345,47 @@
   },
   {
    "name": "hgainp.MODE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "HGATP_MODE_WARL"
    ],
    "tags": [
-    "norm:hgatp-mode_warl"
+    "norm:hgatp_mode_warl"
    ]
   },
   {
    "name": "vsstatus.UXL",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "VSSTATUS_UXL_WARL"
    ],
    "tags": [
-    "norm:vsstatus-uxl_op"
+    "norm:vsstatus_uxl_op"
    ]
   },
   {
-   "name": "vsip.None",
-   "kind": "csr",
+   "name": "vsip",
+   "kind": "param",
    "impl": [
     "VSIP_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:vsip_img"
+   ]
   },
   {
-   "name": "vsie.None",
-   "kind": "csr",
+   "name": "vsie",
+   "kind": "param",
    "impl": [
     "VSIE_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:vsie_img"
+   ]
   },
   {
    "name": "vstvec.MODE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "VSTVEC_MODE_WARL"
    ],
@@ -1431,15 +1393,15 @@
   },
   {
    "name": "vstvec.BASE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "VSTVEC_BASE_WARL"
    ],
    "tags": []
   },
   {
-   "name": "vsepc.None",
-   "kind": "csr",
+   "name": "vsepc",
+   "kind": "param",
    "impl": [
     "VSEPC_WARL"
    ],
@@ -1448,8 +1410,8 @@
    ]
   },
   {
-   "name": "vscause.None",
-   "kind": "csr",
+   "name": "vscause",
+   "kind": "param",
    "impl": [
     "VSCAUSE_WLRL"
    ],
@@ -1458,8 +1420,8 @@
    ]
   },
   {
-   "name": "vstval.None",
-   "kind": "csr",
+   "name": "vstval",
+   "kind": "param",
    "impl": [
     "VSTVAL_WARL"
    ],
@@ -1469,7 +1431,7 @@
   },
   {
    "name": "vsatp.MODE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "VSATP_MODE_UNSUPPORTED_V0_WARL"
    ],
@@ -1478,8 +1440,8 @@
    ]
   },
   {
-   "name": "mtval2.None",
-   "kind": "csr",
+   "name": "mtval2",
+   "kind": "param",
    "impl": [
     "MTVAL2_WARL"
    ],
@@ -1488,8 +1450,8 @@
    ]
   },
   {
-   "name": "mtinst.None",
-   "kind": "csr",
+   "name": "mtinst",
+   "kind": "param",
    "impl": [
     "MTINST_WARL"
    ],
@@ -1499,17 +1461,17 @@
   },
   {
    "name": "henvcfg.CBIE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "HENVCFG_CBIE_WARL"
    ],
    "tags": [
-    "norm:henvcfg-cbie"
+    "norm:henvcfg_cbie"
    ]
   },
   {
-   "name": "miselect.None",
-   "kind": "csr",
+   "name": "miselect",
+   "kind": "param",
    "impl": [
     "MISELECT_WARL"
    ],
@@ -1519,7 +1481,7 @@
   },
   {
    "name": "misa.MXL",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MISA_WARL",
     "MISA_CSR_IMPLEMENTED"
@@ -1531,7 +1493,7 @@
   },
   {
    "name": "misa.EXTENSIONS",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MISA_WARL",
     "MISA_EXTENSIONS_WARL",
@@ -1543,12 +1505,12 @@
     "norm:misa_acc",
     "norm:misa_csr_implemented",
     "norm:misa_extensions_warl_op",
-    "norm:mutable_misa_v_param"
+    "norm:mutable_misa_v"
    ]
   },
   {
    "name": "mstatus.MPP",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_XPP_WARL"
    ],
@@ -1558,7 +1520,7 @@
   },
   {
    "name": "mstatus.SPP",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_XPP_WARL"
    ],
@@ -1568,7 +1530,7 @@
   },
   {
    "name": "mstatus.MDT",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_MDT_WARL"
    ],
@@ -1578,7 +1540,7 @@
   },
   {
    "name": "mstatus.SXL",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_SXL_WARL",
     "MSTATUS_SXL_RDONLY_MXLEN64"
@@ -1589,7 +1551,7 @@
   },
   {
    "name": "mstatus.UXL",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_UXL_WARL"
    ],
@@ -1597,7 +1559,7 @@
   },
   {
    "name": "mstatus.MBE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_MBE_WARL",
     "MSTATUSH_MBE_WARL"
@@ -1606,7 +1568,7 @@
   },
   {
    "name": "mstatus.SBE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_SBE_WARL",
     "MSTATUSH_SBE_WARL"
@@ -1615,7 +1577,7 @@
   },
   {
    "name": "mstatus.UBE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_UBE_WARL",
     "MSTATUSH_UBE_WARL"
@@ -1624,7 +1586,7 @@
   },
   {
    "name": "mstatus.TVM",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_TVM_WARL"
    ],
@@ -1634,7 +1596,7 @@
   },
   {
    "name": "mstatus.TW",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_TW_WARL"
    ],
@@ -1644,7 +1606,7 @@
   },
   {
    "name": "mstatus.TSR",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_TSR_WARL"
    ],
@@ -1654,29 +1616,29 @@
   },
   {
    "name": "mstatus.FS",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_FS_WARL",
     "MSTATUS_FS_RDONLY0_S_NO_F"
    ],
    "tags": [
-    "norm:mstatus_fs_rdonly0_s-no-f"
+    "norm:mstatus_fs_rdonly0_s_no_f"
    ]
   },
   {
    "name": "mstatus.VS",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSTATUS_VS_WARL",
     "MSTATUS_VS_RDONLY0_S_NO_V"
    ],
    "tags": [
-    "norm:mstatus_vs_rdonly0_s-no-v"
+    "norm:mstatus_vs_rdonly0_s_no_v"
    ]
   },
   {
    "name": "mtvec.MODE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MTVEC_WARL"
    ],
@@ -1686,7 +1648,7 @@
   },
   {
    "name": "mtvec.BASE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MTVEC_WARL",
     "MTVEC_BASE_ALIGN_FUNC_MODE"
@@ -1697,35 +1659,38 @@
    ]
   },
   {
-   "name": "mip.None",
-   "kind": "csr",
+   "name": "mip",
+   "kind": "param",
    "impl": [
     "MIP_WARL",
     "MIP_BITS_WR_OR_RDONLY"
    ],
    "tags": [
-    "norm:mip_bits_wr_or_rdonly"
+    "norm:mip_bits_wr_or_rdonly",
+    "norm:mip_enc_img"
    ]
   },
   {
-   "name": "mie.None",
-   "kind": "csr",
+   "name": "mie",
+   "kind": "param",
    "impl": [
     "MIE_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:mie_enc_img"
+   ]
   },
   {
-   "name": "medeleg.None",
-   "kind": "csr",
+   "name": "medeleg",
+   "kind": "param",
    "impl": [
     "MEDELEG_WARL"
    ],
    "tags": []
   },
   {
-   "name": "mideleg.None",
-   "kind": "csr",
+   "name": "mideleg",
+   "kind": "param",
    "impl": [
     "MIDELEG_WARL",
     "MIDELEG_RD1_LOWER_LEVEL"
@@ -1735,30 +1700,32 @@
    ]
   },
   {
-   "name": "mhpmcounter.None",
-   "kind": "csr",
+   "name": "mhpmcounter",
+   "kind": "param",
    "impl": [
     "MHPMCOUNTER_WARL",
     "MHPMEVENT_N_RDONLY0"
    ],
    "tags": [
+    "norm:mhpmcounter_mhpmevent_rdonly0",
     "norm:mhpmcounter_warl"
    ]
   },
   {
-   "name": "mhpmevent.None",
-   "kind": "csr",
+   "name": "mhpmevent",
+   "kind": "param",
    "impl": [
     "MHPMEVENT_WARL",
     "MHPMEVENT_N_RDONLY0"
    ],
    "tags": [
+    "norm:mhpmcounter_mhpmevent_rdonly0",
     "norm:mhpmevent_sz_warl_op"
    ]
   },
   {
-   "name": "mcounteren.None",
-   "kind": "csr",
+   "name": "mcounteren",
+   "kind": "param",
    "impl": [
     "MCOUNTEREN_FLDS_WARL",
     "MCOUNTEREN_CY_RDONLY0",
@@ -1771,8 +1738,8 @@
    ]
   },
   {
-   "name": "mcountinhibit.None",
-   "kind": "csr",
+   "name": "mcountinhibit",
+   "kind": "param",
    "impl": [
     "MCOUNTINHIBIT_WARL"
    ],
@@ -1781,8 +1748,8 @@
    ]
   },
   {
-   "name": "mepc.None",
-   "kind": "csr",
+   "name": "mepc",
+   "kind": "param",
    "impl": [
     "MEPC_WARL"
    ],
@@ -1792,7 +1759,7 @@
   },
   {
    "name": "mcause.EXCCODE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MCAUSE_EXCCODE_WLRL"
    ],
@@ -1801,8 +1768,8 @@
    ]
   },
   {
-   "name": "mtval.None",
-   "kind": "csr",
+   "name": "mtval",
+   "kind": "param",
    "impl": [
     "MTVAL_WARL",
     "MTVAL_RDONLY0"
@@ -1814,7 +1781,7 @@
   },
   {
    "name": "menvcfg.CBIE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MENVCFG_CBIE_WARL"
    ],
@@ -1824,15 +1791,17 @@
   },
   {
    "name": "menvcfg.PMM",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MENVCFG_PMM_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:menvcfg_pmm_enc"
+   ]
   },
   {
    "name": "mseccfg.RLB",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSECCFG_RLB_WARL"
    ],
@@ -1842,7 +1811,7 @@
   },
   {
    "name": "mseccfg.MMWP",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSECCFG_MMWP_WARL"
    ],
@@ -1852,7 +1821,7 @@
   },
   {
    "name": "mseccfg.MML",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSECCFG_MML_WARL"
    ],
@@ -1862,7 +1831,7 @@
   },
   {
    "name": "mseccfg.PMM",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "MSECCFG_PMM_WARL"
    ],
@@ -1872,15 +1841,18 @@
   },
   {
    "name": "pmpcfgN.pmpMcfg",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "PMPCFG_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:pmp_csrs_warl_access",
+    "norm:pmp_rwx_warl"
+   ]
   },
   {
-   "name": "pmpaddrN.None",
-   "kind": "csr",
+   "name": "pmpaddrN",
+   "kind": "param",
    "impl": [
     "PMPADDR_WARL"
    ],
@@ -1889,8 +1861,8 @@
    ]
   },
   {
-   "name": "mnepc.None",
-   "kind": "csr",
+   "name": "mnepc",
+   "kind": "param",
    "impl": [
     "MNEPC_WARL"
    ],
@@ -1899,42 +1871,48 @@
    ]
   },
   {
-   "name": "mncause.None",
-   "kind": "csr",
+   "name": "mncause",
+   "kind": "param",
    "impl": [
     "MNCAUSE_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:mncause_img"
+   ]
   },
   {
-   "name": "mnstatus.None",
-   "kind": "csr",
+   "name": "mnstatus",
+   "kind": "param",
    "impl": [
     "MNSTATUS_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:mnstatus_img"
+   ]
   },
   {
    "name": "sctrdepth.DEPTH",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "SCTRDEPTH_DEPTH_WARL"
    ],
-   "tags": []
+   "tags": [
+    "norm:sctrdepth_depth_op0"
+   ]
   },
   {
    "name": "sctrstatus.WRPTR",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "SCTRSTATUS_WRPTR_WARL"
    ],
    "tags": [
-    "norm:sctrstatus-wrptr"
+    "norm:sctrstatus_wrptr"
    ]
   },
   {
-   "name": "ctrsource.None",
-   "kind": "csr",
+   "name": "ctrsource",
+   "kind": "param",
    "impl": [
     "CTRSOURCE_WARL"
    ],
@@ -1943,8 +1921,8 @@
    ]
   },
   {
-   "name": "ctrtarget.None",
-   "kind": "csr",
+   "name": "ctrtarget",
+   "kind": "param",
    "impl": [
     "CTRTARGET_WARL"
    ],
@@ -1953,8 +1931,8 @@
    ]
   },
   {
-   "name": "['mstateen0', 'mstateen1', 'mstateen2', 'mstateen3'].None",
-   "kind": "csr",
+   "name": "mstateen0/mstateen1/mstateen2/mstateen3",
+   "kind": "param",
    "impl": [
     "STATEEN_WARL_ACCESS"
    ],
@@ -1963,8 +1941,8 @@
    ]
   },
   {
-   "name": "['sstateen0', 'sstateen1', 'sstateen2', 'sstateen3'].None",
-   "kind": "csr",
+   "name": "sstateen0/sstateen1/sstateen2/sstateen3",
+   "kind": "param",
    "impl": [
     "STATEEN_WARL_ACCESS"
    ],
@@ -1973,8 +1951,8 @@
    ]
   },
   {
-   "name": "['hstateen0', 'hstateen1', 'hstateen2', 'hstateen3'].None",
-   "kind": "csr",
+   "name": "hstateen0/hstateen1/hstateen2/hstateen3",
+   "kind": "param",
    "impl": [
     "STATEEN_WARL_ACCESS"
    ],
@@ -1984,37 +1962,37 @@
   },
   {
    "name": "sstatus.UXL",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "SSTATUS_UXL_WARL"
    ],
    "tags": [
-    "norm:sstatus-uxl_sz"
+    "norm:sstatus_uxl_sz"
    ]
   },
   {
    "name": "sstatus.UBE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "SSTATUS_UBE_WARL"
    ],
    "tags": [
-    "norm:sstatus-ube"
+    "norm:sstatus_ube"
    ]
   },
   {
    "name": "sstatus.SDT",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "SSTATUS_SDT_WARL"
    ],
    "tags": [
-    "norm:sstatus-sdt"
+    "norm:sstatus_sdt"
    ]
   },
   {
    "name": "stvec.MODE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "STVEC_MODE_WARL"
    ],
@@ -2022,31 +2000,31 @@
   },
   {
    "name": "stvec.BASE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "STVEC_BASE_WARL"
    ],
    "tags": []
   },
   {
-   "name": "sip.None",
-   "kind": "csr",
+   "name": "sip",
+   "kind": "param",
    "impl": [
     "SIP_WARL"
    ],
    "tags": []
   },
   {
-   "name": "sie.None",
-   "kind": "csr",
+   "name": "sie",
+   "kind": "param",
    "impl": [
     "SIE_WARL"
    ],
    "tags": []
   },
   {
-   "name": "scounteren.None",
-   "kind": "csr",
+   "name": "scounteren",
+   "kind": "param",
    "impl": [
     "SCOUNTEREN_WARL"
    ],
@@ -2055,8 +2033,8 @@
    ]
   },
   {
-   "name": "sepc.None",
-   "kind": "csr",
+   "name": "sepc",
+   "kind": "param",
    "impl": [
     "SEPC_ACC_INVALID_WARL"
    ],
@@ -2066,17 +2044,17 @@
   },
   {
    "name": "scause.EXCEPTION_CODE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "SCAUSE_EXCEPTION_CODE_ACC"
    ],
    "tags": [
-    "norm:scause-exception_code_acc"
+    "norm:scause_exception_code_acc"
    ]
   },
   {
-   "name": "stval.None",
-   "kind": "csr",
+   "name": "stval",
+   "kind": "param",
    "impl": [
     "STVAL_WARL"
    ],
@@ -2086,17 +2064,17 @@
   },
   {
    "name": "senvcfg.CBIE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "SENVCFG_CBIE_WARL"
    ],
    "tags": [
-    "norm:senvcfg-cbie"
+    "norm:senvcfg_cbie"
    ]
   },
   {
    "name": "jvt.BASE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "JVT_WARL"
    ],
@@ -2106,7 +2084,7 @@
   },
   {
    "name": "jvt.MODE",
-   "kind": "csr",
+   "kind": "param",
    "impl": [
     "JVT_MODE_WARL"
    ],
@@ -2117,15 +2095,22 @@
  ],
  "joined": [
   {
+   "ours": "CTR_CCE_WIDTH",
+   "anchor": "norm:ctr_ccounter_impl",
+   "james": [
+    "CTR_CCOUNTER_IMPL"
+   ]
+  },
+  {
    "ours": "CTR_CYCLE_COUNTING_SUPPORTED",
-   "anchor": "norm:ctrdata_cc_supported_param",
+   "anchor": "norm:ctrdata_cc_supported",
    "james": [
     "CTRDATA_CC_SUPPORTED"
    ]
   },
   {
    "ours": "HINT_SXLEN_DEST_REG_BEHAVIOR",
-   "anchor": "norm:hint_sxlen_param",
+   "anchor": "norm:hint_sxlen",
    "james": [
     "HINT_SXLEN"
    ]
@@ -2148,14 +2133,7 @@
    "ours": "HTVAL_LEGAL_VALUES",
    "anchor": "norm:htval_val",
    "james": [
-    "htval.None"
-   ]
-  },
-  {
-   "ours": "MCYCLE_SHARED",
-   "anchor": "norm:mcycle_shared",
-   "james": [
-    "MCYCLE_SHARED"
+    "htval"
    ]
   },
   {
@@ -2169,14 +2147,14 @@
    "ours": "MIP_WRITABLE_BITS",
    "anchor": "norm:mip_bits_wr_or_rdonly",
    "james": [
-    "mip.None"
+    "mip"
    ]
   },
   {
    "ours": "MTVAL2_LEGAL_VALUES",
    "anchor": "norm:mtval2_val",
    "james": [
-    "mtval2.None"
+    "mtval2"
    ]
   },
   {
@@ -2190,12 +2168,12 @@
    "ours": "PMPADDR_WARL_MASK",
    "anchor": "norm:pmp_addr_warl",
    "james": [
-    "pmpaddrN.None"
+    "pmpaddrN"
    ]
   },
   {
    "ours": "SCTRDEPTH_SUPPORTED_VALUES",
-   "anchor": "norm:sctrdepth-depth_param",
+   "anchor": "norm:sctrdepth_depth",
    "james": [
     "SCTRDEPTH_DEPTH"
    ]
@@ -2204,40 +2182,40 @@
    "ours": "SEPC_INVALID_ADDR_BEHAVIOR",
    "anchor": "norm:sepc_acc_invalid_addr",
    "james": [
-    "sepc.None"
+    "sepc"
    ]
   },
   {
    "ours": "SSTATUS_UBE_ACCESS",
-   "anchor": "norm:sstatus-ube",
+   "anchor": "norm:sstatus_ube",
    "james": [
     "sstatus.UBE"
    ]
   },
   {
    "ours": "SSTATUS_UXL_ACCESS",
-   "anchor": "norm:sstatus-uxl_sz",
+   "anchor": "norm:sstatus_uxl_sz",
    "james": [
     "sstatus.UXL"
    ]
   },
   {
    "ours": "VSSTATUS_UBE_PARAM",
-   "anchor": "norm:vsstatus-ube_param",
+   "anchor": "norm:vsstatus_ube",
    "james": [
     "VSSTATUS_UBE"
    ]
   },
   {
    "ours": "VSXL_RO_PARAM",
-   "anchor": "norm:vsxl_ro_param",
+   "anchor": "norm:vsxl_ro",
    "james": [
     "hstatus.VSXL"
    ]
   },
   {
    "ours": "VTW_VIRTINSTR_PARAM",
-   "anchor": "norm:vtw_virtinstr_param",
+   "anchor": "norm:vtw_virtinstr",
    "james": [
     "VTW_VIRTINSTR"
    ]
@@ -2262,11 +2240,6 @@
    "james": []
   },
   {
-   "ours": "CTR_CCE_WIDTH",
-   "anchor": "norm:ccounter_impl",
-   "james": []
-  },
-  {
    "ours": "CTR_CTRDATA_TYPE_IMPLEMENTED",
    "anchor": "norm:ctrdata_sz_acc",
    "james": []
@@ -2278,7 +2251,7 @@
   },
   {
    "ours": "HGATP_PPN_LOWER_BITS_RO",
-   "anchor": "norm:hgatp-ppn_op",
+   "anchor": "norm:hgatp_ppn_op",
    "james": []
   },
   {
@@ -2289,6 +2262,11 @@
   {
    "ours": "HPM_MISCONFIGURED_BEHAVIOR",
    "anchor": "norm:hpm_misconfigured_event_behavior",
+   "james": []
+  },
+  {
+   "ours": "MCYCLE_SHARED",
+   "anchor": "norm:mcountinhibit_cy_shared",
    "james": []
   },
   {
@@ -2303,12 +2281,12 @@
   },
   {
    "ours": "MSTATEEN_BIT63_TYPE",
-   "anchor": "norm:mstateen-bit-63_roz",
+   "anchor": "norm:mstateen_bit_63_roz",
    "james": []
   },
   {
    "ours": "SENVCFG_FIOM_ACCESS",
-   "anchor": "norm:senvcfg-fiom_acc",
+   "anchor": "norm:senvcfg_fiom_acc",
    "james": []
   },
   {
@@ -2323,12 +2301,12 @@
   },
   {
    "ours": "STANDARD_INTERRUPT_SUPPORT",
-   "anchor": "norm:sip_sie_unimpl",
+   "anchor": "norm:std_super_intr_impl",
    "james": []
   },
   {
    "ours": "STATEEN_IMPLICIT_UPDATE_EXCEPTION",
-   "anchor": "norm:smstateen_implicit_state_update",
+   "anchor": "norm:stateen_implicit_state_update",
    "james": []
   },
   {
@@ -2350,9 +2328,9 @@
  "stats": {
   "ours_total": 38,
   "ours_with_anchor": 37,
-  "ours_anchor_to_rule": 35,
+  "ours_anchor_to_rule": 34,
   "james_total": 179,
-  "james_tag_resolved": 135,
+  "james_tag_resolved": 156,
   "joined": 19
  }
 }

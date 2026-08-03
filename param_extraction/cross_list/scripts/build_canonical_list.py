@@ -32,7 +32,11 @@ import openpyxl
 
 REPO = Path(__file__).resolve().parents[3]
 SRC = REPO / "ext/riscv-isa-manual/src"
-XLSX = Path("/Users/ashish/Downloads/confirmed_parameters_v2.xlsx")
+# The mentor-reviewed workbook is vendored so the pipeline runs from a clean
+# clone. The Downloads copy is only a fallback for whoever has the original.
+XLSX = REPO / "param_extraction/cross_list/data/confirmed_parameters_v2.xlsx"
+if not XLSX.exists():  # pragma: no cover
+    XLSX = Path("/Users/ashish/Downloads/confirmed_parameters_v2.xlsx")
 OUT = REPO / "param_extraction/cross_list/data/ours_canonical.json"
 
 # --- decision table -------------------------------------------------------
