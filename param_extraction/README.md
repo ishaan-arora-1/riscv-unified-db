@@ -110,11 +110,15 @@ uv run python param_extraction/scripts/structured_fields.py build   # -> data/st
 Reads each chunk, extracts candidate parameters. Pilot on `machine.adoc` first,
 then the full run, then merge. `INCLUDE_STRUCTURED_FIELDS=1` enables the Phase-3.3
 checklist; the rate/token env vars speed the run up on a high-tier account.
-```bash
-COMMON="PROMPT_VERSION=v3 INCLUDE_STRUCTURED_FIELDS=1 RATE_LIMIT_TPM=200000 MAX_OUTPUT_TOKENS=16384"
+Keep the env vars **inline** (below). The `COMMON="..."` + `env $COMMON`
+shorthand works in bash but **breaks in zsh**, the macOS default shell: zsh does
+not word-split unquoted variables, so the whole string becomes the value of
+`PROMPT_VERSION` and the run dies with
+`FileNotFoundError: System prompt not found: .../prompts/v3 INCLUDE_STRUCTURED_FIELDS=1 ...`.
 
-env $COMMON uv run --with anthropic python param_extraction/scripts/extract.py pilot --model claude
-env $COMMON uv run --with anthropic python param_extraction/scripts/extract.py run   --model claude
+```bash
+PROMPT_VERSION=v3 INCLUDE_STRUCTURED_FIELDS=1 RATE_LIMIT_TPM=200000 MAX_OUTPUT_TOKENS=16384 uv run --with anthropic python param_extraction/scripts/extract.py pilot --model claude
+PROMPT_VERSION=v3 INCLUDE_STRUCTURED_FIELDS=1 RATE_LIMIT_TPM=200000 MAX_OUTPUT_TOKENS=16384 uv run --with anthropic python param_extraction/scripts/extract.py run   --model claude
 PROMPT_VERSION=v3 uv run python param_extraction/scripts/extract.py merge --model claude
 ```
 Cost/time for the full run: ~$4, ~20 min. Results in `results/v3/claude-sonnet-4/`.

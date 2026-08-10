@@ -128,8 +128,7 @@ rule-tension params to the mentor.
 
 ```bash
 set -a && . /path/to/keys.env && set +a
-COMMON="PROMPT_VERSION=v5 INCLUDE_STRUCTURED_FIELDS=1 MODEL_ID=claude-sonnet-4-6 MAX_OUTPUT_TOKENS=16384 RATE_LIMIT_TPM=200000"
-env $COMMON uv run --with anthropic python param_extraction/scripts/extract.py run --model claude --force
+PROMPT_VERSION=v5 INCLUDE_STRUCTURED_FIELDS=1 MODEL_ID=claude-sonnet-4-6 MAX_OUTPUT_TOKENS=16384 RATE_LIMIT_TPM=200000 uv run --with anthropic python param_extraction/scripts/extract.py run --model claude --force
 PROMPT_VERSION=v5 uv run python param_extraction/scripts/extract.py merge   --model claude
 PROMPT_VERSION=v5 uv run python param_extraction/scripts/analyze.py all
 ```

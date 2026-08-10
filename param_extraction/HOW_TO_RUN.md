@@ -30,19 +30,35 @@ prompt are already committed. Go straight to the run.
 
 ## Run
 
+Run these from the **repository root**, one after the other:
+
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
+```
 
-COMMON="PROMPT_VERSION=v5 INCLUDE_STRUCTURED_FIELDS=1 MODEL_ID=claude-sonnet-4-6 MAX_OUTPUT_TOKENS=16384 RATE_LIMIT_TPM=200000"
+```bash
+PROMPT_VERSION=v5 INCLUDE_STRUCTURED_FIELDS=1 MODEL_ID=claude-sonnet-4-6 MAX_OUTPUT_TOKENS=16384 RATE_LIMIT_TPM=200000 uv run --with anthropic python param_extraction/scripts/extract.py run --model claude --force
+```
 
-env $COMMON uv run --with anthropic python param_extraction/scripts/extract.py run --model claude --force
+```bash
 PROMPT_VERSION=v5 uv run python param_extraction/scripts/extract.py merge --model claude
+```
+
+```bash
 PROMPT_VERSION=v5 uv run python param_extraction/scripts/analyze.py all
 ```
 
 Extract → merge → analyze. The last step prints recall and classification accuracy.
 
-Run it in the background; most output is buffered until it finishes.
+Run the first one in the background; most output is buffered until it finishes.
+
+> **Do not** shorten this by putting the env vars in a variable
+> (`COMMON="PROMPT_VERSION=v5 ..."` then `env $COMMON ...`). That works in bash
+> but **silently breaks in zsh** — the macOS default shell — because zsh does not
+> word-split unquoted variables, so the whole string becomes the value of
+> `PROMPT_VERSION`. You get a confusing
+> `FileNotFoundError: System prompt not found: .../prompts/v5 INCLUDE_STRUCTURED_FIELDS=1 MODEL_ID=...`.
+> Keep the variables inline as above; it is correct in both shells.
 
 ## Gotchas
 
@@ -78,7 +94,7 @@ two runs are identical.
 Target a single spec file instead of paying for a full run:
 
 ```bash
-env $COMMON uv run --with anthropic python param_extraction/scripts/extract.py run --model claude --source machine.adoc --force
+PROMPT_VERSION=v5 INCLUDE_STRUCTURED_FIELDS=1 MODEL_ID=claude-sonnet-4-6 MAX_OUTPUT_TOKENS=16384 RATE_LIMIT_TPM=200000 uv run --with anthropic python param_extraction/scripts/extract.py run --model claude --source machine.adoc --force
 ```
 
 ---

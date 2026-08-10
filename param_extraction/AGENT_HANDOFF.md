@@ -117,12 +117,16 @@ must return `parameters[]` (each with `excerpt`, `line_number`,
 
 ```bash
 set -a && . /Users/ashish/.lfx_v3.env && set +a
-COMMON="PROMPT_VERSION=v5 INCLUDE_STRUCTURED_FIELDS=1 MODEL_ID=claude-sonnet-4-6 MAX_OUTPUT_TOKENS=16384 RATE_LIMIT_TPM=200000"
-
-env $COMMON uv run --with anthropic python param_extraction/scripts/extract.py run --model claude --force
+PROMPT_VERSION=v5 INCLUDE_STRUCTURED_FIELDS=1 MODEL_ID=claude-sonnet-4-6 MAX_OUTPUT_TOKENS=16384 RATE_LIMIT_TPM=200000 uv run --with anthropic python param_extraction/scripts/extract.py run --model claude --force
 PROMPT_VERSION=v5 uv run python param_extraction/scripts/extract.py merge --model claude
 PROMPT_VERSION=v5 uv run python param_extraction/scripts/analyze.py all
 ```
+
+> ⚠️ Keep the env vars **inline** as above. The `COMMON="..."` + `env $COMMON`
+> shorthand used elsewhere in the older docs works in bash but **breaks in zsh**
+> (the macOS default): zsh does not word-split unquoted variables, so the entire
+> string becomes `PROMPT_VERSION` and you get
+> `FileNotFoundError: System prompt not found: .../prompts/v5 INCLUDE_STRUCTURED_FIELDS=1 ...`.
 
 - A full run is ~60 calls, ~1.2M input tokens, **~22 minutes**. Run it in the background.
 - `--force` is required to re-extract; without it, chunks with existing results are skipped.
